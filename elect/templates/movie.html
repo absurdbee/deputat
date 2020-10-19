@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ object.title }} | {{ object.category.name }}{% endblock %}
+{% block meta %}
+<meta property="og:title" content="{{ object.title }}" />
+<meta property="og:image" content="http://aleksandra.top{{ object.image.url }}" />
+{% endblock %}
+{% block content %}
+
+	<div class="shadow-title parallax-top-shadow">видео</div>
+
+		<div class="section padding-bottom-big z-bigger over-hide">
+			<div class="container z-bigger" style="margin-top:120px">
+				<div class="row page-title px-xl-2">
+					<div class="col-lg-8">
+						<div class="section drop-shadow rounded">
+							<h4 style="margin-top:20px;margin-bottom:20px">{{ object.title }}</h4>
+							<div class="post-box background-dark over-hide">
+
+              {% if object.link  %}
+                <iframe class="youtube" rel=0 showinfo=0 src="https://www.youtube.com/embed/{{ object.link }}?rel=0&autoplay=1&showinfo=0" allow='autoplay' frameborder="0" allowfullscreen></iframe>
+								{% endif %}
+							<div class="padding-in">
+									<p class="mt-4">{{ object.content|safe }}</p>
+									<div class="separator-wrap pt-4 pb-4">
+										 <span class="separator"><span class="separator-line dashed"></span></span>
+									</div>
+
+									{% include 'info.html' %}
+								</div>
+							</div>
+						</div>
+
+            {% include 'comments.html' %}
+
+					</div>
+					{% include 'sidebar.html' %}
+				</div>
+			</div>
+		</div>
+
+{% endblock %}

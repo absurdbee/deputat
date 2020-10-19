@@ -1,0 +1,79 @@
+{% load liked_user %}
+
+<span class="d-none d-sm-block" data-pk="{{ object.id }}">
+    <span class="posted">
+        <span class="fa fa-clock-o"></span>
+        <span style="font-size:18px;">{{ object.get_created }}</span>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;
+
+    <span class="like
+                 {% if request.user.is_authenticated %}b_like hover-target {% else %}need_auth_toast{% endif %}
+                 {% if object.likes|user_in:user %} text-success{% endif %}">
+        <span class="fa fa-thumbs-o-up"></span>
+        <span class="likes_count">{{ object.likes_count }}</span>
+    </span>
+    &nbsp;&nbsp;
+    <span class="dislike
+                 {% if request.user.is_authenticated %}b_dislike hover-target {% else %}need_auth_toast{% endif %}
+                 {% if object.dislikes|user_in:user %} text-danger{% endif %}">
+        <span class="fa fa-thumbs-o-down"></span>
+        <span class="dislikes_count">{{ object.dislikes_count }}</span>
+    </span>
+
+    &nbsp;&nbsp;
+    <span class="views">
+        <span class="fa fa-eye"></span>
+        <span>{{ object.count }}</span>
+    </span>
+    <span style="font-size:16px;float:right">Поделиться:&nbsp;&nbsp;
+
+  <a style="font-size:16px" href="http://vk.com/share.php?url=http://aleksandra.top{{ object.get_absolute_url }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" rel="nofollow">
+    <i class="fa fa-vk hover-target"></i>
+  </a>
+  &nbsp;
+  <a style="font-size:16px" href="https://www.facebook.com/sharer/sharer.php?u=http://aleksandra.top{{ object.get_absolute_url }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" rel="nofollow">
+    <i class="fa fa-facebook hover-target"></i>
+  </a>
+  &nbsp;
+  <a style="font-size:16px" href="https://twitter.com/share?url=http://aleksandra.top{{ object.get_absolute_url }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" rel="nofollow">
+    <i class="fa fa-twitter hover-target"></i>
+  </a>
+ </span>
+</span>
+<span class="d-sm-none d-block" data-pk="{{ object.id }}">
+    <span class="posted">
+        <span class="fa fa-clock-o"></span>
+        <span style="font-size:18px;">{{ object.get_created }}</span>
+    </span>
+
+    <br><br>
+    {% load liked_user %}
+    <span class="like
+                 {% if request.user.is_authenticated %}b_like hover-target {% else %}need_auth_toast{% endif %}
+                 {% if object.likes|user_in:user %} text-success{% endif %}">
+        <span class="fa fa-thumbs-o-up"></span>
+        <span data-count="like">{{ object.likes_count }}</span>
+    </span>
+    &nbsp;&nbsp;
+    <span class="dislike
+                 {% if request.user.is_authenticated %}b_dislike hover-target {% else %}need_auth_toast{% endif %}
+                 {% if object.likes|user_in:user %} text-danger{% endif %}">
+        <span class="fa fa-thumbs-o-down"></span>
+        <span data-count="dislike">{{ object.dislikes_count }}</span>
+    </span>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="views">
+        <span class="fa fa-eye"></span>
+        <span>{{ object.count }}</span>
+    </span>
+    <br><br>
+    <p style="font-size:16px">Поделиться:&nbsp;&nbsp;
+
+  <a style="font-size:16px" href="http://vk.com/share.php?url=http://aleksandra.top{{ object.get_absolute_url }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" rel="nofollow"><i class="fa fa-vk"></i></a>&nbsp;
+  <a style="font-size:16px" href="https://www.facebook.com/sharer/sharer.php?u=http://aleksandra.top{{ object.get_absolute_url }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" rel="nofollow"><i class="fa fa-facebook"></i></a>&nbsp;
+  <a style="font-size:16px" href="https://twitter.com/share?url=http://aleksandra.top{{ object.get_absolute_url }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" rel="nofollow"><i class="fa fa-twitter"></i></a>&nbsp;
+ </p>
+</span>

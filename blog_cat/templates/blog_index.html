@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }} | Статьи категории{% endblock %}
+{% block content %}
+
+<div class="shadow-title parallax-top-shadow">Статьи</div>
+
+		<div class="section padding-page-top padding-bottom over-hide z-bigger">
+			<div class="container z-bigger">
+				<div class="row page-title px-xl-2">
+					<div class="col-12 parallax-fade-top">
+						<h1>{{ category.name }}</h1>
+					</div>
+					<div class="offset-1 col-11 parallax-fade-top mt-2 mt-sm-3">
+						<p>Статьи категории</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section padding-bottom-big over-hide z-bigger">
+			<div class="container">
+				<div class="row px-5 px-xl-2">
+					<div class="col-12">
+            {% if object_list %}
+						<ul class="case-study-wrapper vertical-blog">
+              {% for object in object_list %}
+							<li class="case-study-name mb-5">
+								<a href="{% url 'blog_detail' pk=object.pk %}" class="hover-target animsition-link">
+									<h4 class="mb-3">{{ object.title }}</h4>
+								</a>
+								<div class="row">
+									<div class="col-lg-6">
+										<p class="pl-0 pl-md-5 mb-4">{{ object.description|safe }}</p>
+										<p class="lead pl-0 pl-md-5 mb-0"><em>{{ object.get_created }}</em></p>
+										<a href="{% url 'blog_detail' pk=object.pk %}" class="hover-target animsition-link"><div class="go-to-post"></div></a>
+									</div>
+								</div>
+							</li>
+              {% endfor %}
+						</ul>
+            {% else %}
+            <h3 style="text-align:center">Статей пока нет :-)</h3>
+            {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+    {% if object_list %}
+		<ul class="case-study-images">
+      {% for object in object_list %}
+			<li>
+        {% if object.image %}
+				<div class="img-hero-background blog-back-image" style="background-image: url('{{ object.image.url }}');"></div>
+        {% endif %}
+			</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+		{% include 'desctop_footer.html' %}
+
+{% endblock %}

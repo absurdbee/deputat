@@ -1,0 +1,68 @@
+{% load liked_user %}
+
+<span data-pk="{{ comment.pk }}">
+  <a href="{% url 'user' pk=comment.commenter.pk %}" class="hover-target">
+  {% if comment.commenter.avatar %}
+    <img src="{{ comment.commenter.avatar.url }}" alt="user_avatar" />
+  {% else %}
+    <img src="/static/images/user.png" alt="user" />
+  {% endif %}
+  </a>
+  <h6>
+    <span class="comment-author">
+      <a href="{% url 'user' pk=comment.commenter.pk %}" class="hover-target commenter" style="color:white">
+        {{ comment.commenter }}
+      </a>
+    </span>
+    <small>{{ comment.get_created }}</small>
+  </h6>
+  <p class="mt-2">{{ comment.text }}</p>
+  <span class="like
+              {% if request.user.is_authenticated %}like2 hover-target{% else %}need_auth_toast{% endif %}
+              {% if comment.likes.all|user_in:user %} text-success{% endif %}">
+      <span class="fa fa-thumbs-o-up"></span>
+      <span class="likes_count">{{ comment.likes_count }}</span>
+  </span>
+  &nbsp;&nbsp;
+  <span class="dislike
+               {% if request.user.is_authenticated %}dislike2 hover-target{% else %}need_auth_toast{% endif %}
+               {% if comment.dislikes.all|user_in:user %} text-danger{% endif %}">
+      <span class="fa fa-thumbs-o-down"></span>
+      <span class="dislikes_count">{{ comment.dislikes_count }}</span>
+  </span>
+  &nbsp;&nbsp;
+  {% if request.user.is_authenticated %}
+  <span style="cursor:pointer" class="ml-0 mr-1 mt-3 mb-1 hover-target reply_form_open">ответить</span>
+  {% endif %}
+
+  <div style="display:none">
+      <form class="ajax-form">
+          {% csrf_token %}
+          <input type="hidden" name="post_comment" value="{{ comment.pk }}">
+          <div class="row no-gutters" style="margin-top: 20px;">
+              <div class="col">
+                  <div class="input-group input-group-sm">
+                      <input name="text" class="text-comment">
+                      <button class="btn-long mt-4 hover-target reply_comment" type="button">Комментировать</button>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+
+  <span style="cursor:pointer;display: flex;" class="show_replies content-color-primary">
+      {% if comment.count_replies %}
+      ---- {{ comment.count_replies_ru }} ----
+      {% endif %}
+  </span>
+
+  <span class="stream_reply_comments">
+      {% for reply in comment.get_replies %}
+        {% include 'reply.html' %}
+      {% endfor %}
+  </span>
+</span>
+
+<div class="separator-wrap pt-4 pb-4">
+  <span class="separator"><span class="separator-line dashed"></span></span>
+</div>

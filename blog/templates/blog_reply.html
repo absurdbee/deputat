@@ -1,0 +1,53 @@
+{% load liked_user %}
+
+<span data-pk="{{ reply.pk }}" style="display: block;margin-top:15px;margin-left: 5%;">
+  <a href="{% url 'user' pk=comment.commenter.pk %}" class="hover-target">
+  {% if reply.commenter.avatar %}
+    <img src="{{ reply.commenter.avatar.url }}" alt="user_avatar" />
+  {% else %}
+    <img src="/static/images/user.png" alt="user" />
+  {% endif %}
+  </a>
+  <h6>
+    <span class="comment-author">
+      <a href="{% url 'user' pk=comment.commenter.pk %}" class="hover-target commenter" style="color:white">
+      {{ reply.commenter }}
+      </a>
+    </span>
+    <small>{{ reply.get_created }}</small>
+  </h6>
+  <p class="mt-2">{{ reply.text }}</p>
+  <span class="like
+               {% if request.user.is_authenticated %}blog_like2 hover-target{% else %}need_auth_toast{% endif %}
+               {% if reply.likes|user_in:user %} text-success{% endif %}">
+      <span class="fa fa-thumbs-o-up"></span>
+      <span class="likes_count">{{ reply.likes_count }}</span>
+  </span>
+  &nbsp;&nbsp;
+  <span class="dislike
+               {% if request.user.is_authenticated %}blog_dislike2 hover-target{% else %}need_auth_toast{% endif %}
+               {% if reply.dislikes|user_in:user %} text-danger{% endif %}">
+      <span class="fa fa-thumbs-o-down"></span>
+      <span class="dislikes_count">{{ reply.dislikes_count }}</span>
+  </span>
+  &nbsp;&nbsp;
+  {% if request.user.is_authenticated %}
+  <span style="cursor:pointer" class="ml-0 mr-1 mt-3 mb-1 hover-target reply_form_open">ответить</span>
+  {% endif %}
+
+  <div style="display:none;margin-left:-50px;">
+      <form class="ajax-form">
+          {% csrf_token %}
+          <input type="hidden" name="post_comment" value="{{ comment.pk }}">
+
+          <div class="row no-gutters" style="margin-top: 15px;">
+              <div class="col">
+                  <div class="input-group input-group-sm" style="width: 105%;">
+                      <input name="text" class="text-comment">
+                      <button class="btn-long mt-4 hover-target blog_reply_parent_comment" type="button">Комментировать</button>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+</span>

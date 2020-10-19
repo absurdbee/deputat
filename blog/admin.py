@@ -25,7 +25,7 @@ class BlogCommentAdmin(admin.ModelAdmin):
             model = BlogComment
 
 class ElectNewAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description', 'created', 'elec', 'category']
+    list_display = ['title', 'description', 'created', 'elect', 'category']
     list_filter = ['created', 'category']
     search_fields = ['title', 'description', 'created']
     exclude = ('count',)

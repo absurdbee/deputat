@@ -3,9 +3,9 @@ from elect.models import Elect, LinkElect
 
 
 class ElectAdmin(admin.ModelAdmin):
-    list_display = ['name', 'created']
-    list_filter = ['created',]
-    search_fields = ['name', 'created']
+    list_display = ['name', ]
+    list_filter = ['name',]
+    search_fields = ['name',]
     class Meta:
             model = Elect
 

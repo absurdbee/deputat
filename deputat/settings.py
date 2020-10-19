@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'blog_cat',
     'blog',
     'elect',
-    'list',
+    'lists',
     'search',
     'users',
     'about',

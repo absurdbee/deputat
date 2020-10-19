@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Blog, BlogComment
+from blog.models import Blog, BlogComment, ElectNew
 
 
 class BlogAdmin(admin.ModelAdmin):

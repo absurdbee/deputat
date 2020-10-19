@@ -11,7 +11,7 @@ from django.db.models import Q
 class Elect(models.Model):
     image = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to="movies/%Y/%m/%d/", processors=[ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
-    list = models.ManyToManyField('lists.List', blank=True, related_name='list', verbose_name="Список чиновников")
+    list = models.ManyToManyField('lists.ElectList', blank=True, related_name='list', verbose_name="Список чиновников")
     name = models.CharField(max_length=255, verbose_name="ФИО")
 
     class Meta:

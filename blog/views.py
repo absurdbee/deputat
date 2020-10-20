@@ -107,12 +107,11 @@ class BlogLikeCreate(View):
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(parent=blog, user=request.user, vote=BlogVotes.LIKE)
             result = True
-        likes = blog.likes_count()
+        likes, dislikes = blog.likes_count(), blog.dislikes_count()
         if likes != 0:
             like_count = likes
         else:
             like_count = ""
-        dislikes = blog.dislikes_count()
         if dislikes != 0:
             dislike_count = dislikes
         else:

@@ -7,162 +7,84 @@
               <input type="text" id="site-search" placeholder="Что будем искать?"><span class="search-close"><i class="fe-icon-x"></i></span>
             </form>
             <ul class="navbar-nav d-none d-lg-block">
-              <li class="nav-item mega-dropdown-toggle active">
-                <a class="nav-link" href="">Главная</a>
-                <div class="dropdown-menu mega-dropdown">
-                  <div class="d-flex">
-                    <div class="column">
-                      <div class="widget widget-custom-menu">
-                        <ul>
-                          <li class="dropdown-header font-weight-medium text-warning border-warning text-uppercase pl-0">
-                            <i class="fe-icon-briefcase"></i>&nbsp;&nbsp;Portfolio
-                          </li>
-                          <li class="active"><a href="">Digital Agency</a></li>
-                          <li><a class="disabled-link" href="#">Architectural Agency<span class="badge badge-secondary">Soon</span></a></li>
-                          <li><a href="">Freelancer's Portfolio</a></li>
-                          <li><a href="">Photographer's Portfolio</a></li>
-                          <li class="dropdown-header font-weight-medium text-success border-top-0 border-success text-uppercase pt-4 pl-0">
-                            <i class="fe-icon-shopping-bag"></i>&nbsp;&nbsp;E-Commerce
-                          </li>
-                          <li><a href="">Online Shop v.1</a></li>
-                          <li><a href="">Online Shop v.2</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="widget widget-custom-menu">
-                        <ul>
-                          <li class="dropdown-header font-weight-medium text-info border-info text-uppercase pl-0">
-                            <i class="fe-icon-edit"></i>&nbsp;&nbsp;Blog
-                          </li>
-                          <li><a href="">Corporate Blog</a></li>
-                          <li><a href="">Personal Blog</a></li>
-                          <li class="dropdown-header font-weight-medium text-accent border-top-0 border-accent text-uppercase pt-4 pl-0">
-                            <i class="fe-icon-home"></i>&nbsp;&nbsp;Landing Pages
-                          </li>
-                          <li><a href="">Mobile App Showcase</a></li>
-                          <li><a href="">Web App Showcase (SAAS)</a></li>
-                          <li><a class="disabled-link" href="#">Product Promo Page<span class="badge badge-secondary">Soon</span></a></li>
-                          <li><a href="">Conference Landing</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="widget widget-custom-menu">
-                        <ul>
-                          <li class="dropdown-header font-weight-medium text-danger border-danger text-uppercase pl-0">
-                            <i class="fe-icon-dollar-sign"></i>&nbsp;&nbsp;Business
-                          </li>
-                          <li><a href="">Corporate Website<span class="badge badge-danger">
-                            <span class="text-white">New</span></span></a>
-                          </li>
-                          <li>
-                            <a href="">Digital Marketing &amp; SEO</a>
-                          </li>
-                          <li><a href="">Venture Capital Investments</a></li>
-                          <li><a class="disabled-link" href="#">Startup Homepage
-                            <span class="badge badge-secondary">Soon</span></a>
-                          </li>
-                          <li class="dropdown-header font-weight-medium border-top-0 text-uppercase pt-4 pl-0" style="color: #8a5ed5; border-color: #8a5ed5;">
-                            <i class="fe-icon-menu"></i>&nbsp;&nbsp;Directory &amp; Listings
-                          </li>
-                          <li><a class="disabled-link" href="#">Real Estate Listing<span class="badge badge-secondary">Soon</span></a></li>
-                          <li><a class="disabled-link" href="#">Jobs Board<span class="badge badge-secondary">Soon</span></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="nav-item dropdown-toggle"><a class="nav-link" href="">Portfolio</a>
+              <li class="nav-item"><a class="nav-link" href="{% url 'main' %}">Главная</a></li>
+              <li class="nav-item dropdown-toggle">
+                <a class="nav-link" href="">Чиновники</a>
                 <ul class="dropdown-menu">
-                  <li class="dropdown-item has-children"><a href="">Style 1 Grid</a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item"><a href="">Style 1 Boxed Layout</a></li>
-                      <li class="dropdown-item"><a href="">Style 1 Full Width Layout</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item has-children"><a href="">Style 2 Grid</a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item"><a href="">Style 2 Boxed Layout</a></li>
-                      <li class="dropdown-item"><a href="">Style 2 Full Width Layout</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item"><a href="">List View</a></li>
-                  <li class="dropdown-item has-children"><a href="">Single Project</a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item"><a href="">Side Gallery Grid</a></li>
-                      <li class="dropdown-item"><a href="">Side Gallery List</a></li>
-                      <li class="dropdown-item"><a href="">Wide Slider</a></li>
-                      <li class="dropdown-item"><a href="">Wide Gallery</a></li>
-                    </ul>
-                  </li>
+                  <li class="dropdown-item"><a href="">Доска 1</a></li>
+                  <li class="dropdown-item"><a href="">Доска 2</a></li>
+                  <li class="dropdown-item"><a href="">Доска 3</a></li>
+                  <li class="dropdown-item"><a href="">По регионам</a></li>
+                  <li class="dropdown-item"><a href="">Выборы 1</a></li>
+                  <li class="dropdown-item"><a href="">Выборы 2</a></li>
                 </ul>
               </li>
-              <!-- Blog-->
-              <li class="nav-item mega-dropdown-toggle"><a class="nav-link" href="">Blog</a>
+
+              <li class="nav-item mega-dropdown-toggle"><a class="nav-link" href="">События</a>
                 <div class="dropdown-menu mega-dropdown">
                   <div class="d-flex">
                     <div class="column">
                       <div class="widget widget-custom-menu">
-                        <h4 class="widget-title">Blog Layouts</h4>
+                        <h4 class="widget-title">Совет Федерации</h4>
                         <ul>
-                          <li><a href="">Grid Right Sidebar</a></li>
-                          <li><a href="">Grid Left Sidebar</a></li>
-                          <li><a href="">Grid No Sidebar</a></li>
+                          <li><a href="">Событие 1</a></li>
+                          <li><a href="">Событие 2</a></li>
+                          <li><a href="">Событие 3</a></li>
+                          <li><a href="">Событие 4</a></li>
+                          <li><a href="">Событие 5</a></li>
+                          <li><a href="">Событие 6</a></li>
                         </ul>
                       </div>
                     </div>
                     <div class="column">
                       <div class="widget widget-custom-menu">
-                        <h4 class="widget-title">Single Post Formats</h4>
+                        <h4 class="widget-title">Государственная Дума</h4>
                         <ul>
-                          <li><a href="">Post Gallery</a></li>
-                          <li><a href="">Post Image Carousel</a></li>
-                          <li><a href="">Post Video</a></li>
-                          <li><a href="">Post Audio</a></li>
-                          <li><a href="">Post Quotation</a></li>
-                          <li><a href="">Post Link</a></li>
+                          <li><a href="">Событие 1</a></li>
+                          <li><a href="">Событие 2</a></li>
+                          <li><a href="">Событие 3</a></li>
+                          <li><a href="">Событие 4</a></li>
+                          <li><a href="">Событие 5</a></li>
+                          <li><a href="">Событие 6</a></li>
                         </ul>
                       </div>
                     </div>
                     <div class="column" style="width: 280px;">
                       <div class="widget widget-featured-posts">
-                        <h4 class="widget-title"> Recent posts</h4>
+                        <h4 class="widget-title"> Новости</h4>
                         <a class="featured-post" href="">
                           <div class="featured-post-thumb">
-                            <img src="img/widgets/blog/01.jpg" alt="Post Thumbnail"/>
+                            <img src="/static/images/test_new.jpg" alt="Post Thumbnail"/>
                           </div>
                           <div class="featured-post-info">
                             <div class="featured-post-meta">
-                              <span class="text-primary opacity-70"><i class="fe-icon-clock"></i>22/04/2018</span>
+                              <span class="text-primary opacity-70"><i class="fe-icon-clock"></i>22/11/2020</span>
                               <span class="ml-3"><i class="fe-icon-message-square"></i>21</span>
                             </div>
-                            <div class="featured-post-title">Getting to another level of design and functionality.</div>
+                            <div class="featured-post-title">Заголовок.</div>
                           </div>
                         </a>
                         <a class="featured-post" href="">
                           <div class="featured-post-thumb">
-                            <img src="img/widgets/blog/02.jpg" alt="Post Thumbnail"/>
+                            <img src="/static/images/test_new.jpg" alt="Post Thumbnail"/>
                           </div>
                           <div class="featured-post-info">
                             <div class="featured-post-meta">
-                              <span class="text-primary opacity-70"><i class="fe-icon-clock"></i>30/05/2018</span>
+                              <span class="text-primary opacity-70"><i class="fe-icon-clock"></i>22/11/2020</span>
                               <span class="ml-3"><i class="fe-icon-message-square"></i>17</span>
                             </div>
-                            <div class="featured-post-title">Cherry 5 WordPress Framework Sneaky Peaks.</div>
+                            <div class="featured-post-title">Заголовок.</div>
                           </div>
                         </a>
                         <a class="featured-post" href="">
-                          <div class="featured-post-thumb"><img src="img/widgets/blog/03.jpg" alt="Post Thumbnail"/>
+                          <div class="featured-post-thumb"><img src="/static/images/test_new.jpg" alt="Post Thumbnail"/>
                           </div>
                           <div class="featured-post-info">
                             <div class="featured-post-meta">
-                              <span class="text-primary opacity-70"><i class="fe-icon-clock"></i>11/06/2018</span>
+                              <span class="text-primary opacity-70"><i class="fe-icon-clock"></i>22/11/2020</span>
                               <span class="ml-3"><i class="fe-icon-message-square"></i>8</span>
                             </div>
-                            <div class="featured-post-title">Multiple skins &amp; easy demo data import.</div>
+                            <div class="featured-post-title">Заголовок.</div>
                           </div>
                         </a>
                       </div>
@@ -170,111 +92,8 @@
                   </div>
                 </div>
               </li>
-
-              <li class="nav-item mega-dropdown-toggle"><a class="nav-link" href="">Shop</a>
-                <div class="dropdown-menu mega-dropdown">
-                  <div class="d-flex">
-                    <div class="column">
-                      <div class="widget widget-custom-menu">
-                        <h4 class="widget-title">Shop Layouts</h4>
-                        <ul>
-                          <li><a href="">Boxed Left Sidebar</a></li>
-                          <li><a href="">Boxed Right Sidebar</a></li>
-                          <li><a href="">Boxed Filters Top</a></li>
-                          <li><a href="">Boxed No Sidebar</a></li>
-                          <li><a href="">Full Width Left Sidebar</a></li>
-                          <li><a href="">Full Width Right Sidebar</a></li>
-                          <li><a href="">Full Width Filters Top</a></li>
-                          <li><a href="">Full Width No Sidebar</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="column">
-                      <div class="widget widget-custom-menu">
-                        <h4 class="widget-title">Shop Pages</h4>
-                        <ul>
-                          <li><a href="">Shop Categories</a></li>
-                          <li><a href="">Product Page</a></li>
-                          <li><a href="">Cart</a></li>
-                          <li><a href="">Checkout - Address</a></li>
-                          <li><a href="">Checkout - Shipping</a></li>
-                          <li><a href="">Checkout - Payment</a></li>
-                          <li><a href="">Checkout - Review</a></li>
-                          <li><a href="">Checkout - Complete</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="column p-0 mr-0 ml-3" style="width: 320px;">
-                      <a class="d-block" href="">
-                        <img src="img/shop/mega-menu.jpg" alt="Samsung Galaxy S9"/>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <!-- Account-->
-              <li class="nav-item dropdown-toggle">
-                <a class="nav-link" href="">Account</a>
-                <ul class="dropdown-menu">
-                  <li class="dropdown-item"><a href="">Login / Register</a></li>
-                  <li class="dropdown-item"><a href="">Password Recovery</a></li>
-                  <li class="dropdown-item"><a href="">Orders List</a></li>
-                  <li class="dropdown-item"><a href="">Profile Settings</a></li>
-                  <li class="dropdown-item"><a href="">Contact / Shipping Address</a></li>
-                  <li class="dropdown-item"><a href="">Wishlist</a></li>
-                  <li class="dropdown-item"><a href="">My Tickets</a></li>
-                  <li class="dropdown-item"><a href="">Single Ticket</a></li>
-                </ul>
-              </li>
-              <!-- Pages-->
-              <li class="nav-item dropdown-toggle">
-                <a class="nav-link" href="#">Pages</a>
-                <ul class="dropdown-menu">
-                  <li class="dropdown-item has-children"><a href="">About Us</a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item"><a href="">About Us v.1</a></li>
-                      <li class="dropdown-item"><a href="">About Us v.2</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item has-children">
-                    <a href="">Contacts</a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item"><a href="">Contacts v.1</a></li>
-                      <li class="dropdown-item"><a href="">Contacts v.2</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item has-children">
-                    <a href="">Help Center</a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item"><a href="">Help Topics</a></li>
-                      <li class="dropdown-item"><a href="">Single Topic</a></li>
-                      <li class="dropdown-item"><a href="">Submit a Request</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item has-children">
-                    <a href="">Services</a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item"><a href="">Services Landing</a></li>
-                      <li class="dropdown-item"><a href="">Single Service Page</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item"><a href="">Pricing</a></li>
-                  <li class="dropdown-item"><a href="">Product Comparison</a></li>
-                  <li class="dropdown-item"><a href="">Order Tracking</a></li>
-                  <li class="dropdown-item"><a href="">Search Results</a></li>
-                  <li class="dropdown-item has-children"><a href="">Coming Soon</a>
-                    <ul class="dropdown-menu">
-                      <li class="dropdown-item"><a href="">Coming Soon Light</a></li>
-                      <li class="dropdown-item"><a href="">Coming Soon Dark</a></li>
-                    </ul>
-                  </li>
-                  <li class="dropdown-item"><a href="">404 Not Found</a></li>
-                  <li class="dropdown-item">
-                    <a class="text-accent" href=""><i class="d-inline-block fe-icon-file-text align-middle mr-1"></i>Documentation</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="">Components</a></li>
+              <li class="nav-item"><a class="nav-link" href="">О проекте</a></li>
+              <li class="nav-item"><a class="nav-link" href="">Контакты</a></li>
             </ul>
             <div>
               <ul class="navbar-buttons d-inline-block align-middle">

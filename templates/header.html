@@ -108,7 +108,11 @@
                   <a href="#" data-toggle="search"><i class="fe-icon-search"></i></a>
                 </li>
               </ul>
-              <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'auth' %}">Войти</a>
+              {% if request.user.is_authenticated %}
+                <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'profile' %}">Профиль</a>
+              {% else %}
+                <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'auth' %}">Войти</a>
+              {% endif %}
             </div>
           </div>
         </div>

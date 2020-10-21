@@ -29,6 +29,18 @@ class UserView(TemplateView, CategoryListMixin):
 		context["user"] = self.user
 		return context
 
+class ProfileView(TemplateView, CategoryListMixin):
+	template_name = "profile.html"
+
+	def get(self,request,*args,**kwargs):
+		self.user = request.user
+		return super(ProfileView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(ProfileView,self).get_context_data(**kwargs)
+		context["user"] = self.user
+		return context
+
 
 class UserSettings(TemplateView):
 	template_name = "user_settings.html"

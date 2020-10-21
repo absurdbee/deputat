@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Вход | Регистрация{% endblock %}
+{% block content %}
+
+<div class="page-title d-flex" aria-label="Page title" style="background-image: url(img/page-title/shop-pattern.jpg);">
+  <div class="container text-left align-self-center">
+    <h1 class="page-title-heading">Вход | Регистрация</h1>
+  </div>
+</div>
+
+<div class="container mb-3">
+      <div class="row">
+        <div class="col-md-6 pb-5">
+          <form id="login_form" action="{% url 'rest_login' %}" class="wizard">
+            {% csrf_token %}
+            <div class="wizard-body pt-2">
+              <div class="d-sm-flex justify-content-between pb-2">
+                <a class="btn btn-secondary btn-sm btn-block my-2 mr-3" href="#">
+                  <i class="socicon-facebook"></i>
+                  &nbsp;Войти
+                </a>
+                <a class="btn btn-secondary btn-sm btn-block my-2 mr-3" href="#">
+                  <i class="socicon-twitter"></i>&nbsp;Войти
+                </a>
+                <a class="btn btn-secondary btn-sm btn-block my-2 mr-3" href="#">
+                  <i class="socicon-vk"></i>&nbsp;Войти
+                </a>
+              </div>
+              <hr>
+              <h3 class="h5 pt-4 pb-2">или заполните форму</h3>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fe-icon-mail"></i></span>
+                </div>
+                <input class="form-control" type="email" name="email" id="email" placeholder="Email" required="">
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fe-icon-lock"></i></span>
+                </div>
+                <input class="form-control" type="password" name="password" id="password" placeholder="Пароль" required="">
+              </div>
+              <div class="d-flex flex-wrap justify-content-between">
+                <div class="custom-control custom-checkbox">
+                  <a class="navi-link" href="">Не могу войти</a>
+                </div>
+                <a class="navi-link" href="l">Забыли пароль?</a>
+              </div>
+            </div>
+            <div class="wizard-footer text-right">
+              <button id="logg" class="btn btn-primary" type="button">Войти</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6 pb-5">
+          <h3 class="h4 pb-1">Нет аккаунта?</h3>
+          <p>Регистрация занимает меньше минуты. Она нужна для контроля гражданской активности на сайте.</p>
+
+          <form class="wizard" id="signup" action="{% url 'rest_register' %}">
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fe-icon-mail"></i></span>
+              </div>
+              <input class="form-control" type="email" placeholder="Email" required="">
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fe-icon-lock"></i></span>
+              </div>
+              <input class="form-control" type="password" placeholder="Пароль" required="">
+            </div>
+            <div class="input-group form-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fe-icon-lock"></i></span>
+              </div>
+              <input class="form-control" type="password" placeholder="Повторите пароль" required="">
+            </div>
+            <div class="text-right">
+              <button class="btn btn-primary" id="register_ajax" type="button">Регистрация</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -6,6 +6,17 @@ from users.forms import UserForm
 from django.shortcuts import redirect
 
 
+class AuthView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		if request.user.is_authenticated:
+			self.template_name = "my_profile.html"
+		else:
+			self.template_name = "auth.html"
+		return super(AuthView,self).get(request,*args,**kwargs)
+
+
 class UserView(TemplateView, CategoryListMixin):
 	template_name = "user.html"
 

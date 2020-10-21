@@ -10,6 +10,7 @@
 
 		<link rel="stylesheet" media="screen" href="{% static 'styles/vendor.min.css' %}">
     <link rel="stylesheet" media="screen" href="{% static 'styles/theme.min.css' %}">
+		<link rel="stylesheet" media="screen" href="{% static 'styles/style.css' %}">
 		<script src="{% static 'scripts/modernizr.min.js' %}" type="text/javascript"></script>
 </head>
 
@@ -25,7 +26,8 @@
 
 		<div class="site-backdrop"></div>
 
-	<script src="{% static 'scripts/vendor.min.js' %}" type="text/javascript"></script>
-	<script src="{% static 'scripts/theme.min.js' %}" type="text/javascript"></script>
+	<script defer src="{% static 'scripts/vendor.min.js' %}" type="text/javascript"></script>
+	<script defer src="{% static 'scripts/theme.min.js' %}" type="text/javascript"></script>
+	<script defer src="{% static 'scripts/main.js' %}" type="text/javascript"></script>
 </body>
 </html>

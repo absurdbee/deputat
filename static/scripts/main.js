@@ -27,7 +27,7 @@ on('body', 'click', '#logg', function() {
   else if (!document.body.querySelector("#password").value){
     document.body.querySelector("#password").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль!")}
-  if (document.body.querySelector("#username").value){document.body.querySelector("#username").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (document.body.querySelector("#email").value){document.body.querySelector("#username").style.border = "rgba(0, 0, 0, 0.2)";}
   if (document.body.querySelector("#password").value){document.body.querySelector("#password").style.border = "rgba(0, 0, 0, 0.2)";}
 
   form_data = new FormData(document.querySelector("#login_form"));

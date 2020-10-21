@@ -15,47 +15,46 @@
               <li class="nav-item dropdown-toggle">
                 <a class="nav-link" href="">Чиновники</a>
                 <ul class="dropdown-menu">
-                  <li class="dropdown-item"><a href="">Доска 1</a></li>
-                  <li class="dropdown-item"><a href="">Доска 2</a></li>
-                  <li class="dropdown-item"><a href="">Доска 3</a></li>
-                  <li class="dropdown-item"><a href="">По регионам</a></li>
-                  <li class="dropdown-item"><a href="">Выборы 1</a></li>
-                  <li class="dropdown-item"><a href="">Выборы 2</a></li>
+                  {% for object in elect_list %}
+                  <li class="dropdown-item">
+                    <a href="{% url 'elect_index' slug=object.slug %}">{{ object.name }}</a>
+                  </li>
+                  {% endfor %}
                 </ul>
               </li>
 
-              <li class="nav-item mega-dropdown-toggle"><a class="nav-link" href="">События</a>
+              <li class="nav-item mega-dropdown-toggle"><a class="nav-link" href="">Новости</a>
                 <div class="dropdown-menu mega-dropdown">
                   <div class="d-flex">
                     <div class="column">
                       <div class="widget widget-custom-menu">
-                        <h4 class="widget-title">Совет Федерации</h4>
+                        <h4 class="widget-title">Публичные выступления</h4>
                         <ul>
-                          <li><a href="">Событие 1</a></li>
-                          <li><a href="">Событие 2</a></li>
-                          <li><a href="">Событие 3</a></li>
-                          <li><a href="">Событие 4</a></li>
-                          <li><a href="">Событие 5</a></li>
-                          <li><a href="">Событие 6</a></li>
+                          <li><a href="">Новость 1</a></li>
+                          <li><a href="">Новость 2</a></li>
+                          <li><a href="">Новость 3</a></li>
+                          <li><a href="">Новость 4</a></li>
+                          <li><a href="">Новость 5</a></li>
+                          <li><a href="">Новость 6</a></li>
                         </ul>
                       </div>
                     </div>
                     <div class="column">
                       <div class="widget widget-custom-menu">
-                        <h4 class="widget-title">Государственная Дума</h4>
+                        <h4 class="widget-title">Работа с избирателями</h4>
                         <ul>
-                          <li><a href="">Событие 1</a></li>
-                          <li><a href="">Событие 2</a></li>
-                          <li><a href="">Событие 3</a></li>
-                          <li><a href="">Событие 4</a></li>
-                          <li><a href="">Событие 5</a></li>
-                          <li><a href="">Событие 6</a></li>
+                          <li><a href="">Новость 1</a></li>
+                          <li><a href="">Новость 2</a></li>
+                          <li><a href="">Новость 3</a></li>
+                          <li><a href="">Новость 4</a></li>
+                          <li><a href="">Новость 5</a></li>
+                          <li><a href="">Новость 6</a></li>
                         </ul>
                       </div>
                     </div>
                     <div class="column" style="width: 280px;">
                       <div class="widget widget-featured-posts">
-                        <h4 class="widget-title"> Новости</h4>
+                        <h4 class="widget-title">Популярные новости</h4>
                         <a class="featured-post" href="">
                           <div class="featured-post-thumb">
                             <img src="/static/images/test_new.jpg" alt="Post Thumbnail"/>

@@ -35,4 +35,3 @@ class ElectNewAdmin(admin.ModelAdmin):
 
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(BlogComment, BlogCommentAdmin)
-admin.site.register(ElectNew, ElectNewAdmin)

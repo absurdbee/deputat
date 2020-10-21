@@ -25,5 +25,4 @@ class BlogCategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ElectList, ElectListAdmin)
-admin.site.register(ElectNewsCategory, ElectNewsCategoryAdmin)
 admin.site.register(BlogCategory, BlogCategoryAdmin)

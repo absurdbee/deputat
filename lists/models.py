@@ -21,7 +21,7 @@ class ElectList(models.Model):
 	class Meta:
 		ordering = ["order", "name"]
 		verbose_name = "Список депутатов"
-		verbose_name_plural = "Списоки депутатов"
+		verbose_name_plural = "Списки депутатов"
 
 	def __str__(self):
 		return self.name
@@ -51,7 +51,7 @@ class ElectNewsCategory(models.Model):
 	class Meta:
 		ordering = ["order", "name"]
 		verbose_name = "Список депутатов"
-		verbose_name_plural = "Списоки депутатов"
+		verbose_name_plural = "Списки депутатов"
 
 
 class BlogCategory(models.Model):

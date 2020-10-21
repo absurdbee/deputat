@@ -1,6 +1,6 @@
 from django.views.generic.base import ContextMixin
 from django.conf import settings
-from lists.models import import ElectList, BlogCategory
+from lists.models import ElectList, BlogCategory
 
 
 class CategoryListMixin(ContextMixin):

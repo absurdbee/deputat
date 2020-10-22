@@ -25,5 +25,9 @@ class ElectsList(ListView, CategoryListMixin):
 		context["list"] = self.list
 		return context
 
-class ElectListsView(TemplateView, CategoryListMixin):
+class ElectListsView(ListView, CategoryListMixin):
     template_name = "elect_list/all_list.html"
+
+	def get_queryset(self):
+		lists = ElectList.objects.only("pk")
+		return lists

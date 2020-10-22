@@ -13,7 +13,7 @@
             <ul class="navbar-nav d-none d-lg-block">
               <li class="nav-item"><a class="nav-link" href="{% url 'main' %}">Главная</a></li>
               <li class="nav-item dropdown-toggle">
-                <a class="nav-link" href="">Чиновники</a>
+                <a class="nav-link" href="{% url 'elect_list' %}">Чиновники</a>
                 <ul class="dropdown-menu">
                   {% for object in federal_elect_list %}
                   <li class="dropdown-item">

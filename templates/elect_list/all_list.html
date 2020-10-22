@@ -10,8 +10,8 @@
         </small>
       </h2>
       <div class="row pt-4">
-        {% if object_list %}
-        {% for object in object_list %}
+        {% if lists %}
+        {% for object in lists %}
         <div class="col-lg-4 col-sm-6 mb-30">
           <a class="d-block bg-right-center bg-no-repeat bg-white border box-shadow p-5 text-decoration-none" href="{% url 'elect_index' slug=object.slug %}">
             <h3 class="h5">{{ object.name }}</h3>

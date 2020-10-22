@@ -6,7 +6,7 @@ from elect.models import Elect
 
 
 class ElectsList(ListView, CategoryListMixin):
-	template_name = "elect_index.html"
+	template_name = "elect_list/list.html"
 	paginate_by = 20
 
 	def get(self,request,*args,**kwargs):
@@ -26,4 +26,4 @@ class ElectsList(ListView, CategoryListMixin):
 		return context
 
 class ElectListsView(TemplateView, CategoryListMixin):
-    template_name = "elect_list.html"
+    template_name = "elect_list/all_list.html"

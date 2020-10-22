@@ -5,25 +5,25 @@ from lists.models import ElectList
 from elect.models import Elect
 
 
-class ElectLists(ListView, CategoryListMixin):
+class ElectList(ListView, CategoryListMixin):
 	template_name = "elect_index.html"
 	paginate_by = 20
 
 	def get(self,request,*args,**kwargs):
 		if self.kwargs["slug"] == None:
-			self.cat = ElectList.objects.first()
+			self.list = ElectList.objects.first()
 		else:
-			self.cat = ElectList.objects.get(slug=self.kwargs["slug"])
-		return super(ElectLists,self).get(request,*args,**kwargs)
+			self.list = ElectList.objects.get(slug=self.kwargs["slug"])
+		return super(ElectList,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
 		elects = Elect.objects.filter(category=self.cat)
 		return elects
 
 	def get_context_data(self,**kwargs):
-		context = super(ElectLists,self).get_context_data(**kwargs)
-		context["category"] = self.cat
+		context = super(ElectList,self).get_context_data(**kwargs)
+		context["list"] = self.list
 		return context
 
-class ElectListView(TemplateView, CategoryListMixin):
+class ElectListsView(TemplateView, CategoryListMixin):
     template_name = "elect_list.html"

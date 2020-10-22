@@ -11,9 +11,10 @@ from django.db.models import Q
 
 
 class ElectList(models.Model):
-	name = models.CharField(max_length=100,verbose_name="Список депутатов")
-	slug = models.CharField(max_length=100,verbose_name="Англ. название для списка")
-	order = models.PositiveSmallIntegerField(default=0,verbose_name="Порядковый номер")
+	name = models.CharField(max_length=100, verbose_name="Список депутатов")
+	slug = models.CharField(max_length=100, verbose_name="Англ. название для списка")
+	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
+	is_reginal = models.BooleanField(default=True, verbose_name="Региональный список")
 
 	def __str__(self):
 		return self.name
@@ -43,7 +44,7 @@ class ElectList(models.Model):
 class ElectNewsCategory(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Название категории новостей о депутате")
 	slug = models.CharField(max_length=100, verbose_name="Англ. название для категории")
-	order = models.PositiveSmallIntegerField(default=0,verbose_name="Порядковый номер")
+	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 
 	def __str__(self):
 		return self.name

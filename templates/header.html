@@ -15,7 +15,7 @@
               <li class="nav-item dropdown-toggle">
                 <a class="nav-link" href="">Чиновники</a>
                 <ul class="dropdown-menu">
-                  {% for object in elect_list %}
+                  {% for object in federal_elect_list %}
                   <li class="dropdown-item">
                     <a href="{% url 'elect_index' slug=object.slug %}">{{ object.name }}</a>
                   </li>

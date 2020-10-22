@@ -17,7 +17,7 @@ class ElectsList(ListView, CategoryListMixin):
 		return super(ElectsList,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
-		elects = Elect.objects.filter(category=self.cat)
+		elects = Elect.objects.filter(list=self.list)
 		return elects
 
 	def get_context_data(self,**kwargs):

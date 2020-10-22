@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from lists.views import ElectLists, ElectListView
+from lists.views import *
 
 
 urlpatterns = [

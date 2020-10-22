@@ -3,6 +3,6 @@ from lists.views import ElectLists, ElectListView
 
 
 urlpatterns = [
-    url(r'^elect_list/$', ElectListsView.as_view(), name='elect_list'),
-    url(r'^(?P<slug>[\w\-]+)/$', ElectList.as_view(), name='elect_index'),
+    url(r'^elect_list/$', ElectListView.as_view(), name='elect_list'),
+    url(r'^(?P<slug>[\w\-]+)/$', ElectsList.as_view(), name='elect_index'),
 ]

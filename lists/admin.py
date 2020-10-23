@@ -37,7 +37,7 @@ class FractionAdmin(admin.ModelAdmin):
     class Meta:
         model = Fraction
 
-admin.site.register(ElectList, ElectListAdmin)
+admin.site.register(AuthorityList, AuthorityListAdmin)
 admin.site.register(BlogCategory, BlogCategoryAdmin)
 admin.site.register(Region, RegionAdmin)
 admin.site.register(Fraction, FractionAdmin)

@@ -25,6 +25,20 @@ class AuthorityList(ListView, CategoryListMixin):
 		context["list"] = self.list
 		return context
 
+
+class FractionList(ListView, CategoryListMixin):
+	template_name = "elect_list/fraction_list.html"
+	paginate_by = 20
+
+	def get_queryset(self):
+		elects = Elect.objects.filter(fraction__slug=self.kwargs["slug"])
+		return elects
+
+	def get_context_data(self,**kwargs):
+		context = super(FractionList,self).get_context_data(**kwargs)
+		context["list"] = self.list
+		return context
+
 class ElectListsView(TemplateView, CategoryListMixin):
 	template_name = "elect_list/all_list.html"
 

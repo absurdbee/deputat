@@ -23,6 +23,7 @@ class Blog(models.Model):
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     content = RichTextUploadingField(config_name='default',external_plugin_resources=[('youtube','/static/ckeditor_plugins/youtube/youtube/','plugin.js',)],)
     category = models.ManyToManyField('lists.BlogCategory', related_name="blog_categories", blank=True, verbose_name="Категория новостей проекта")
+    elects = models.ManyToManyField('elect.Elect', blank=True, related_name='elect', verbose_name="Чиновник")
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")

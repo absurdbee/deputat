@@ -44,5 +44,5 @@ class ElectListsView(TemplateView, CategoryListMixin):
 
 	def get_context_data(self,**kwargs):
 		context = super(ElectListsView,self).get_context_data(**kwargs)
-		context["lists"] = ElectList.objects.only("pk")
+		context["lists"] = AuthorityList.objects.only("pk")
 		return context

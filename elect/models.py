@@ -27,7 +27,7 @@ class Elect(models.Model):
     name = models.CharField(max_length=255, verbose_name="ФИО")
     image = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
-    list = models.ManyToManyField('lists.ElectList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
+    list = models.ManyToManyField('lists.AuthorityList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
     region = models.ManyToManyField('lists.REgion', blank=True, related_name='elect_region', verbose_name="Регион, за которым закреплен депутат")
     birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     authorization = models.DateField(blank=True, null=True, verbose_name='Дата наделения полномочиями')

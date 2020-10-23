@@ -30,16 +30,16 @@ class AuthorityList(models.Model):
 		return self.name
 
 	def is_list_not_empty(self):
-		return ElectList.objects.filter(category_id=self.pk).exists()
+		return AuthorityList.objects.filter(category_id=self.pk).exists()
 
 	def get_elects(self):
 		query = Q(list_id=self.pk)
-		list = ElectList.objects.filter(query)
+		list = AuthorityList.objects.filter(query)
 		return list
 
 	def get_elects_10(self):
 		query = Q(list_id=self.pk)
-		list = ElectList.objects.filter(query)[:10]
+		list = AuthorityList.objects.filter(query)[:10]
 		return list
 
 

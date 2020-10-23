@@ -244,7 +244,7 @@ $('path').hover(function(e){
   }
 
   if($(this).attr('flag')) {
-    var flag = "http://sandbox.alexti-dev.ru/mapping/" + $(this).attr('flag') ;
+    var flag = $(this).attr('flag') ;
     $(' <img class="flag" src="" alt="">').appendTo('.indicator');
     $('.indicator').find('img').attr('src',flag )
    // $('<img src='+ flag+ ' >').appendTo('.indicator');

@@ -366,7 +366,7 @@ $('path').each(function() {
 
     if (regId == idAarr2[j][0]) {
       name = idAarr2[j][1];
-      flag =  idAarr2[j][2]; 
+      flag =  idAarr2[j][2];
 
       $(this).attr('name', name);
       $(this).attr('flag', flag);
@@ -406,7 +406,7 @@ $('.reg').hover(function(e) {
 
   idHover = '#' + id;
 
-  $(idHover).css('fill','#f6e72d');
+  $(idHover).css('fill','#AC32E4');
  // $('path').not(this).css('fill','rgba(0,0,0,0.5)');
  // $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
 

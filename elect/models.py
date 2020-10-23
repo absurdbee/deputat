@@ -9,21 +9,6 @@ from django.db.models import Q
 
 
 class Elect(models.Model):
-    FRACTION_NULL = 'FN'
-    FRACTION_EDINAYA_RUSSIYA = 'FER'
-    FRACTION_SPRAVEDLIVAYA_RUSSIYA = 'FSR'
-    FRACTION_KPRF = 'FK'
-    FRACTION_LDPR = 'FL'
-    NON_FRACTION = 'NF'
-    FRACTION = (
-        (FRACTION_NULL, 'Не депутат, не имеет фракции'),
-        (FRACTION_EDINAYA_RUSSIYA, 'Единая Россия'),
-        (FRACTION_SPRAVEDLIVAYA_RUSSIYA, 'Справедливая Россия'),
-        (FRACTION_KPRF, 'КПРФ'),
-        (FRACTION_LDPR, 'ЛДПР'),
-        (NON_FRACTION, 'Депутат не входит во фракции'),
-    )
-
     name = models.CharField(max_length=255, verbose_name="ФИО")
     image = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
@@ -34,7 +19,6 @@ class Elect(models.Model):
     term_of_office = models.DateField(blank=True, null=True, verbose_name='Срок окончания полномочий')
     election_information = models.CharField(max_length=100, blank=True, verbose_name="Сведения об избрании")
     fraction = models.ForeignKey('lists.Fraction', null=True, on_delete=models.SET_NULL, blank=True, verbose_name="Фракции")
-
 
     class Meta:
         verbose_name = "Чиновник"

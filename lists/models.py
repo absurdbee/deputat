@@ -8,10 +8,11 @@ from django.db.models import Q
 	2. категории новостей о депутатах
 	3. Категории блога
 	4. Регионы России (для закрепления за ними депутатов)
+	5. Фракции (для депутатов гос. думы)
 """
 
 
-class ElectList(models.Model):
+class AuthorityList(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Список депутатов")
 	slug = models.CharField(max_length=100, verbose_name="Англ. название для списка")
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
@@ -96,6 +97,24 @@ class Region(models.Model):
 		ordering = ["order", "name"]
 		verbose_name = "Регион"
 		verbose_name_plural = "Регионы"
+
+	def __str__(self):
+		return self.name
+
+
+class Fraction(models.Model):
+	name = models.CharField(max_length=100, verbose_name="Название фракции")
+	slug = models.CharField(blank=True, max_length=100, verbose_name="Для ссылки английское название")
+	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
+
+	def __str__(self):
+		return self.name
+
+
+	class Meta:
+		ordering = ["order", "name"]
+		verbose_name = "Фракция"
+		verbose_name_plural = "Фракции"
 
 	def __str__(self):
 		return self.name

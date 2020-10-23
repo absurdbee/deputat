@@ -29,11 +29,11 @@ class Elect(models.Model):
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     list = models.ManyToManyField('lists.ElectList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
     region = models.ManyToManyField('lists.REgion', blank=True, related_name='elect_region', verbose_name="Регион, за которым закреплен депутат")
-    fraction = models.CharField(blank=False, null=False, choices=FRACTION, default=FRACTION_NULL, max_length=4, verbose_name="Фракция депутата")
     birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     authorization = models.DateField(blank=True, null=True, verbose_name='Дата наделения полномочиями')
     term_of_office = models.DateField(blank=True, null=True, verbose_name='Срок окончания полномочий')
     election_information = models.CharField(max_length=100, blank=True, verbose_name="Сведения об избрании")
+    fraction = models.ForeignKey('lists.Fraction', on_delete=models.SET_NULL, blank=True, verbose_name="Фракции")
 
 
     class Meta:

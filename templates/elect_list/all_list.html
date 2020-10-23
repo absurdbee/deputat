@@ -13,7 +13,7 @@
         {% if lists %}
         {% for object in lists %}
         <div class="col-lg-4 col-sm-6 mb-30">
-          <a class="d-block bg-right-center bg-no-repeat bg-white border box-shadow p-5 text-decoration-none" href="{% url 'elect_index' slug=object.slug %}">
+          <a class="d-block bg-right-center bg-no-repeat bg-white border box-shadow p-5 text-decoration-none" href="{% url 'authority_index' slug=object.slug %}">
             <h3 class="h5">{{ object.name }}</h3>
           </a>
         </div>

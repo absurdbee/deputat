@@ -415,3 +415,8 @@ $('.reg').hover(function(e) {
   $('.indicator').hide();
   $('path').css('fill','rgba(0,0,0,0.2)');
 });
+
+
+on('body', 'click', '.ru_mow', function() {
+  console.log("Moskow detected!")
+})

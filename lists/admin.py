@@ -1,13 +1,13 @@
 from django.contrib import admin
-from lists.models import ElectList, ElectNewsCategory, BlogCategory, Region, Fraction
+from lists.models import AuthorityList, ElectNewsCategory, BlogCategory, Region, Fraction
 
 
-class ElectListAdmin(admin.ModelAdmin):
+class AuthorityListAdmin(admin.ModelAdmin):
     list_display = ['name','slug','order']
     list_filter = ['name']
     search_fields = ('name',)
     class Meta:
-        model = ElectList
+        model = AuthorityList
 
 class ElectNewsCategoryAdmin(admin.ModelAdmin):
     list_display = ['name','slug','order']

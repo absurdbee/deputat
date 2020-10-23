@@ -33,7 +33,7 @@ class Elect(models.Model):
     authorization = models.DateField(blank=True, null=True, verbose_name='Дата наделения полномочиями')
     term_of_office = models.DateField(blank=True, null=True, verbose_name='Срок окончания полномочий')
     election_information = models.CharField(max_length=100, blank=True, verbose_name="Сведения об избрании")
-    fraction = models.ForeignKey('lists.Fraction', on_delete=models.SET_NULL, blank=True, verbose_name="Фракции")
+    fraction = models.ForeignKey('lists.Fraction', null=True, on_delete=models.SET_NULL, blank=True, verbose_name="Фракции")
 
 
     class Meta:

@@ -7,6 +7,7 @@ from django.db.models import Q
 	1. Списки депутатов,
 	2. категории новостей о депутатах
 	3. Категории блога
+	4. Регионы России (для закрепления за ними депутатов)
 """
 
 
@@ -79,3 +80,22 @@ class BlogCategory(models.Model):
 	def get_articles(self):
 		list = self.blog_categories.filter(category=self)
 		return list
+
+
+class Region(models.Model):
+	name = models.CharField(max_length=100, verbose_name="Название региона")
+	slug = models.CharField(blank=True, max_length=100, verbose_name="Для ссылки английское название")
+	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
+	svg = models.CharField(max_length=1000, blank=True, verbose_name="SVG")
+
+	def __str__(self):
+		return self.name
+
+
+	class Meta:
+		ordering = ["order", "name"]
+		verbose_name = "Регион"
+		verbose_name_plural = "Регионы"
+
+	def __str__(self):
+		return self.name

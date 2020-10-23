@@ -257,7 +257,7 @@ $('path').hover(function(e){
   //script.src = 'http://api.geonames.org/countryInfoJSON?country='+info[id]+'&username=pixeltest&style=full&callback=update';
   document.body.appendChild(script);
 
-  $(this).css('fill','#f6e72d');
+  $(this).css('fill','#AC32E4');
   $('path').not(this).css('fill','rgba(0,0,0,0.5)');
   $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
 },function(){

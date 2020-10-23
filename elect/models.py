@@ -8,6 +8,32 @@ from imagekit.models import ProcessedImageField
 from django.db.models import Q
 
 
+class LinkElect(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Текст ссылки")
+    elect = models.ForeignKey(Elect, on_delete=models.CASCADE, blank=True, verbose_name="Чиновник")
+    link = models.URLField(max_length=255, verbose_name="Ссылки")
+
+    class Meta:
+        verbose_name = "Ссылка для чиновника"
+        verbose_name_plural = "Ссылки"
+
+    def __str__(self):
+        return self.title
+
+
+class EducationElect(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Название")
+    elect = models.ForeignKey(Elect, on_delete=models.CASCADE, blank=True, verbose_name="Чиновник")
+    year = models.PositiveSmallIntegerField(default=0, verbose_name="Год")
+
+    class Meta:
+        verbose_name = "Ссылка для чиновника"
+        verbose_name_plural = "Ссылки"
+
+    def __str__(self):
+        return self.title
+
+        
 class Elect(models.Model):
     FRACTION_NULL = 'FN'
     FRACTION_EDINAYA_RUSSIYA = 'FER'
@@ -48,29 +74,3 @@ class Elect(models.Model):
     def get_elects(self):
         elects = Elect.objects.filter(list=self.list)
         return elects
-
-
-class LinkElect(models.Model):
-    title = models.CharField(max_length=255, verbose_name="Текст ссылки")
-    elect = models.ForeignKey(Elect, on_delete=models.CASCADE, blank=True, verbose_name="Чиновник")
-    link = models.URLField(max_length=255, verbose_name="Ссылки")
-
-    class Meta:
-        verbose_name = "Ссылка для чиновника"
-        verbose_name_plural = "Ссылки"
-
-    def __str__(self):
-        return self.title
-
-
-class EducationElect(models.Model):
-    title = models.CharField(max_length=255, verbose_name="Название")
-    elect = models.ForeignKey(Elect, on_delete=models.CASCADE, blank=True, verbose_name="Чиновник")
-    year = models.PositiveSmallIntegerField(default=0, verbose_name="Год")
-
-    class Meta:
-        verbose_name = "Ссылка для чиновника"
-        verbose_name_plural = "Ссылки"
-
-    def __str__(self):
-        return self.title

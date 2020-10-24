@@ -233,7 +233,6 @@ function comment_abort_delete(_this, _link){
 
 
 $('path').hover(function(e){
-
   $('path').css('fill','#fff');
   $('.indicator').html('');
   var id = $(this).attr('id').toUpperCase();
@@ -252,18 +251,16 @@ $('path').hover(function(e){
 
  $('.change').remove();
 
- var script = document.createElement('script');
- // script.classList.add('change');
-  //script.src = 'http://api.geonames.org/countryInfoJSON?country='+info[id]+'&username=pixeltest&style=full&callback=update';
-  document.body.appendChild(script);
 
   $(this).css('fill','#FFFFFF');
   $('path').not(this).css('fill','rgba(0,0,0,0.5)');
   $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
-},function(){
+},
+
+function(){
   $('.indicator').html('');
   $('.indicator').hide();
-  $('path').css('fill','rgba(0,0,0,0.2)');
+  $('path').css('fill','rgba(0,0,0,0.4)');
 });
 
 var idAarr = ["RU-MOW", "RU-SPE", "RU-NEN", "RU-YAR", "RU-CHE", "RU-ULY", "RU-TYU", "RU-TUL", "RU-SVE", "RU-RYA", "RU-ORL", "RU-OMS", "RU-NGR", "RU-LIP", "RU-KRS", "RU-KGN", "RU-KGD", "RU-IVA", "RU-BRY", "RU-AST", "RU-KHA", "RU-CE", "RU-UD", "RU-SE", "RU-MO", "RU-KR", "RU-KL", "RU-IN", "RU-AL", "RU-BA", "RU-AD", "RU-CR", "RU-SEV", "RU-KO", "RU-KIR", "RU-PNZ", "RU-TAM", "RU-MUR", "RU-LEN", "RU-VLG", "RU-KOS", "RU-PSK", "RU-ARK", "RU-YAN", "RU-CHU", "RU-YEV", "RU-TY", "RU-SAK", "RU-AMU", "RU-BU", "RU-KK", "RU-KEM", "RU-NVS", "RU-ALT", "RU-DA", "RU-STA", "RU-KB", "RU-KC", "RU-KDA", "RU-ROS", "RU-SAM", "RU-TA", "RU-ME", "RU-CU", "RU-NIZ", "RU-VLA", "RU-MOS", "RU-KLU", "RU-BEL", "RU-ZAB", "RU-PRI", "RU-KAM", "RU-MAG", "RU-SA", "RU-KYA", "RU-ORE", "RU-SAR", "RU-VGG", "RU-VOR", "RU-SMO", "RU-TVE", "RU-PER", "RU-KHM", "RU-TOM", "RU-IRK"];
@@ -373,42 +370,20 @@ $('path').each(function() {
     }
   }
 
-
   var regIdDiv = '<div class="reg" >'+ '[' + '<span>'+  regId +'</span>' + ']' +' '+ name +'</div>'
   $(regIdDiv).appendTo('.regs');
-
-
-// var idArrMin = [regId, '_'];
-// idAarr2.push(idArrMin);
-
 })
 
-// for (var j = 0; j < idAarr2.length; j++) {
-//   if (regId == idAarr2[j][0]) {
-//     name = cyr2latChars[j][1];
-
-//   }
-// }
-
-
 function naming() {
-
 }
 
-
-//revertFill();
-
-
 $('.reg').hover(function(e) {
-
 
   var id = $(this).find('span').text();
 
   idHover = '#' + id;
 
   $(idHover).css('fill','#AC32E4');
- // $('path').not(this).css('fill','rgba(0,0,0,0.5)');
- // $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
 
 },function(){
   $('.indicator').html('');
@@ -417,6 +392,7 @@ $('.reg').hover(function(e) {
 });
 
 
-on('body', 'click', '.ru_mow', function() {
-  console.log("Moskow detected!")
+on('body', 'click', '.map_selector', function() {
+  region = this.getAttribute("data-slug");
+  console.log(region + " detected!")
 })

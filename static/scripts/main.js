@@ -346,12 +346,6 @@ var idAarr2 = new Array(
   ["RU-TUL",  "Тульская область"]
   );
 
-function(){
-  $('.indicator').html('');
-  $('.indicator').hide();
-  $('path').css('fill','rgba(0,0,0,0.2)');
-});
-
 
 on('body', 'click', '.map_selector', function() {
   region = this.getAttribute("data-slug");

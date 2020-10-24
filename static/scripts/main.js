@@ -242,13 +242,6 @@ $('path').hover(function(e){
     $('<div>' + name +'</div>').appendTo('.indicator');
   }
 
-  if($(this).attr('flag')) {
-    var flag = $(this).attr('flag') ;
-    $(' <img class="flag" src="" alt="">').appendTo('.indicator');
-    $('.indicator').find('img').attr('src',flag )
-   // $('<img src='+ flag+ ' >').appendTo('.indicator');
- }
-
  $('.change').remove();
 
 
@@ -265,15 +258,15 @@ function(){
 
 var idAarr = ["RU-MOW", "RU-SPE", "RU-NEN", "RU-YAR", "RU-CHE", "RU-ULY", "RU-TYU", "RU-TUL", "RU-SVE", "RU-RYA", "RU-ORL", "RU-OMS", "RU-NGR", "RU-LIP", "RU-KRS", "RU-KGN", "RU-KGD", "RU-IVA", "RU-BRY", "RU-AST", "RU-KHA", "RU-CE", "RU-UD", "RU-SE", "RU-MO", "RU-KR", "RU-KL", "RU-IN", "RU-AL", "RU-BA", "RU-AD", "RU-CR", "RU-SEV", "RU-KO", "RU-KIR", "RU-PNZ", "RU-TAM", "RU-MUR", "RU-LEN", "RU-VLG", "RU-KOS", "RU-PSK", "RU-ARK", "RU-YAN", "RU-CHU", "RU-YEV", "RU-TY", "RU-SAK", "RU-AMU", "RU-BU", "RU-KK", "RU-KEM", "RU-NVS", "RU-ALT", "RU-DA", "RU-STA", "RU-KB", "RU-KC", "RU-KDA", "RU-ROS", "RU-SAM", "RU-TA", "RU-ME", "RU-CU", "RU-NIZ", "RU-VLA", "RU-MOS", "RU-KLU", "RU-BEL", "RU-ZAB", "RU-PRI", "RU-KAM", "RU-MAG", "RU-SA", "RU-KYA", "RU-ORE", "RU-SAR", "RU-VGG", "RU-VOR", "RU-SMO", "RU-TVE", "RU-PER", "RU-KHM", "RU-TOM", "RU-IRK"];
 var idAarr2 = new Array(
-  ["RU-MOW",  "Москва", "/static/images/flag.png"],
-  ["RU-CHE", "Челябинская область", "/static/images/flag.png" ],
+  ["RU-MOW",  "Москва"],
+  ["RU-CHE", "Челябинская область"],
   ["RU-ORL",  "Орловская область"],
-  ["RU-OMS",  "Омская область", "/static/images/flag.png"],
-  ["RU-LIP",  "Липецкая область", "/static/images/flag.png"],
-  ["RU-KRS",  "Курская область", "/static/images/flag.png"],
-  ["RU-RYA",  "Рязанская область", "/static/images/flag.png"],
-  ["RU-BRY",  "Брянская область", "/static/images/flag.png"],
-  ["RU-KIR",  "Кировская область", "/static/images/flag.png"],
+  ["RU-OMS",  "Омская область"],
+  ["RU-LIP",  "Липецкая область"],
+  ["RU-KRS",  "Курская область"],
+  ["RU-RYA",  "Рязанская область"],
+  ["RU-BRY",  "Брянская область"],
+  ["RU-KIR",  "Кировская область"],
   ["RU-ARK",  "Архангельская область", ""],
   ["RU-MUR",  "Мурманская область", ""],
   ["RU-SPE",  "Санкт-Петербург", ""],
@@ -350,42 +343,10 @@ var idAarr2 = new Array(
   ["RU-IRK",  "Иркутская область", ""],
   ["RU-NEN",  "Ненецскй АО", ""],
   ["RU-STA",  "Ставропольский край", ""],
-  ["RU-TUL",  "Тульская область", "/static/images/flag.png"]
-
+  ["RU-TUL",  "Тульская область"]
   );
 
-$('path').each(function() {
-
-  var regId = $(this).attr('id');
-  var flag = '';
-  var name = '';
-  for (var j = 0; j < idAarr2.length; j++) {
-
-    if (regId == idAarr2[j][0]) {
-      name = idAarr2[j][1];
-      flag =  idAarr2[j][2];
-
-      $(this).attr('name', name);
-      $(this).attr('flag', flag);
-    }
-  }
-
-  var regIdDiv = '<div class="reg" >'+ '[' + '<span>'+  regId +'</span>' + ']' +' '+ name +'</div>'
-  $(regIdDiv).appendTo('.regs');
-})
-
-function naming() {
-}
-
-$('.reg').hover(function(e) {
-
-  var id = $(this).find('span').text();
-
-  idHover = '#' + id;
-
-  $(idHover).css('fill','#AC32E4');
-
-},function(){
+function(){
   $('.indicator').html('');
   $('.indicator').hide();
   $('path').css('fill','rgba(0,0,0,0.2)');

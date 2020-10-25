@@ -246,3 +246,24 @@ on('body', 'click', '.map_selector', function() {
   region = this.getAttribute("data-slug");
   console.log(region + " detected!")
 })
+
+
+on('body', 'change', '#select_regions', function() {
+  var val = this.value;
+  block = this.nextElementSibling;
+  if (val == '') {
+    block.innerHTML = "";
+  } else {
+    var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+    link.open( 'GET', "/lists/region/" + val + "/", true );
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function () {
+      if ( link.readyState == 4 ) {
+          if ( link.status == 200 ) {
+              block.innerHTML = link.responseText;
+          }
+      }
+  };
+  link.send( null );
+  };
+});

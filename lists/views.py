@@ -57,7 +57,7 @@ class ElectListsView(TemplateView, CategoryListMixin):
 class RegionElectView(TemplateView, CategoryListMixin):
 	""" Чиновники (госдумы, совфеда и т.д.) выбранного региона """
 
-	template_name = "elect_list/authority_list.html"
+	template_name = "elect_list/region_list.html"
 
 	def get(self,request,*args,**kwargs):
 		self.region = Region.objects.get(slug=self.kwargs["slug"])

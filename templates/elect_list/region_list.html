@@ -1,0 +1,32 @@
+{% if object_list %}
+{% for object in object_list %}
+<div class="col-12">
+  <div class="team-card-style-4 d-sm-table w-100">
+    <div class="team-thumb d-sm-table-cell align-middle">
+      <a href="{% url 'elect_detail' pk=object.pk %}">
+        <img src="{{ object.image.url }}" alt="img">
+      </a>
+    </div>
+    <div class="d-sm-table-cell align-middle pl-sm-4 text-center text-sm-left">
+      <span class="team-position">{{ list.name }}</span>
+      <a href="{% url 'elect_detail' pk=object.pk %}">
+        <h4 class="team-name">{{ object.name }}</h4>
+      </a>
+      {% for link in object.linkelect.all %}
+        <a class="team-contact-link" href="{{ link.link }}" target="_blank" rel="nofollow">{{ link.title }}</a>
+      {% endfor %}
+      <div class="team-social-bar-wrap">
+        <div class="team-social-bar mx-auto mx-sm-0">
+          <a>Рейтинг 1</a>
+          <a>Рейтинг 2</a>
+          <a>Рейтинг 3</a>
+          <a>Рейтинг 4</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+  В регионе "{{ region.name }}" почему-то нет закрепленных за ним чиновников.
+{% endif %}

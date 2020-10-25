@@ -11,8 +11,15 @@
 {% endblock %}
 {% block content %}
 
-  {% include 'main/events.html' %}
+{% include 'main/events.html' %}
 
-  {% include 'main/map.html' %}
+<div class="row">
+  <div class="col-md-9">
+    {% include 'main/map.html' %}
+  </div>
+  <div class="col-md-3">
+    {% include 'main/regions_dropdown.html' %}
+  </div>
+</div>
 
 {% endblock %}

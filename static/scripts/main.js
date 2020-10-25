@@ -236,7 +236,7 @@ $('path').hover(function(e){
   svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
     if (svg_list[i].style.fill != "green"){
-    svg_list[i].style.fill = "rgba(0,0,0,0.3)";
+    svg_list[i].style.fill = "rgba(0,0,0,0.2)";
   }
   }
   if (this.style.fill != "green"){
@@ -246,11 +246,10 @@ $('path').hover(function(e){
 },
 
 function(){
-  //$('path').css('fill','rgba(0,0,0,0.2)');
   svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
     if (svg_list[i].style.fill != "green"){
-    svg_list[i].style.fill = "rgba(0,0,0,0.3)";
+    svg_list[i].style.fill = "rgba(0,0,0,0.2)";
   }
   }
 });
@@ -262,7 +261,7 @@ on('body', 'click', '.map_selector', function() {
   map = this.parentElement;
   svg_list = map.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
-    svg_list[i].style.fill = "rgba(0,0,0,0.2)";
+    svg_list[i].style.fill = "rgba(0,0,0,0.15)";
   };
   this.style.fill = "green";
   col_md_3 = this.parentElement.parentElement.nextElementSibling;

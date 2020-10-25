@@ -53,6 +53,10 @@ $('.sel__box__options').click(function() {
 
   if (slug == '') {
     block.innerHTML = "";
+    svg_list = map.querySelectorAll("path");
+    for (var i = 0; i < svg_list.length; i++) {
+      svg_list[i].style.fill = "rgba(0,0,0,0.15)";
+    }
   } else {
     var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
     link.open( 'GET', "/list/region/" + slug + "/", true );
@@ -63,7 +67,7 @@ $('.sel__box__options').click(function() {
               block.innerHTML = link.responseText;
               svg_list = map.querySelectorAll("path");
               for (var i = 0; i < svg_list.length; i++) {
-                svg_list[i].style.fill = "rgba(0,0,0,0.2)";
+                svg_list[i].style.fill = "rgba(0,0,0,0.15)";
               }
               svg = map.querySelector('[data-slug=' + '"' + slug + '"' + ']');
               svg.style.fill = "green";

@@ -1,23 +1,8 @@
 <style>
 /* ===== Select Box ===== */
 .sel {
-  font-size: 1rem;
-  display: inline-block;
-  margin: 3em 2em;
-  width: 350px;
-  background-color: transparent;
   position: relative;
   cursor: pointer;
-}
-
-.sel::before {
-  position: absolute;
-  content: '\f063';
-  font-family: 'FontAwesome';
-  font-size: 2em;
-  color: #FFF;
-  right: 20px;
-  top: calc(50% - 0.5em);
 }
 
 .sel.active::before {
@@ -137,10 +122,10 @@
 }
 </style>
 
-
+<p>или из списка</p>
 <div class="sel sel--black-panther">
   <select name="select-profession" id="select-profession">
-    <option value="" disabled>Profession</option>
+    <option value="" disabled>Выберите регион</option>
     <option value="hacker">Hacker</option>
     <option value="gamer">Gamer</option>
     <option value="developer">Developer</option>

@@ -239,7 +239,9 @@ $('path').hover(function(e){
     svg_list[i].style.fill = "rgba(0,0,0,0.3)";
   }
   }
+  if (this.style.fill != "green"){
   this.style.fill = "#FFFFFF";
+}
 
 },
 

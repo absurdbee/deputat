@@ -62,7 +62,7 @@ $('.sel__box__options').click(function() {
           if ( link.status == 200 ) {
               block.innerHTML = link.responseText;
               svg = map.querySelector('[data-slug=' + '"' + slug + '"' + ']');
-              svg.setAttribute("fill", 'green')
+              svg.style.fill = "green";
           }
       }
   };

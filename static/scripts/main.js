@@ -233,22 +233,12 @@ function comment_abort_delete(_this, _link){
 
 
 $('path').hover(function(e){
-  $('path').css('fill','#fff');
-  $('.indicator').html('');
-  var name = $(this).attr('name');
-  $('<div>' + name +'</div>').appendTo('.indicator');
-
- $('.change').remove();
-
 
   $(this).css('fill','#FFFFFF');
   $('path').not(this).css('fill','rgba(0,0,0,0.5)');
-  $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
 },
 
 function(){
-  $('.indicator').html('');
-  $('.indicator').hide();
   $('path').css('fill','rgba(0,0,0,0.4)');
 });
 

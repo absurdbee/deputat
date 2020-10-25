@@ -39,6 +39,8 @@ $('.sel__box__options').click(function() {
   var index = $(this).index();
   var slug = $(this).val();
 
+  console.log(slug)
+
   $(this).siblings('.sel__box__options').removeClass('selected');
   $(this).addClass('selected');
 

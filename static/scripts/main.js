@@ -256,6 +256,25 @@ function(){
 });
 
 on('body', 'click', '.map_selector', function() {
-  region = this.getAttribute("data-slug");
-  console.log(region + " detected!")
+  slug = this.getAttribute("data-slug");
+  console.log(slug + " detected!");
+  map = this.parentElement;
+  svg_list = map.querySelectorAll("path");
+  for (var i = 0; i < svg_list.length; i++) {
+    svg_list[i].style.fill = "rgba(0,0,0,0.2)";
+  };
+  this.style.fill = "green";
+  block = this.parentElement.parentElement.nextElementSibling.querySelector("#elect_for_regions_loader");
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/list/region/" + slug + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+            block.innerHTML = link.responseText;
+        }
+    }
+};
+link.send( null );
 })

@@ -243,10 +243,6 @@ $('path').hover(function(e){
 
 },
 
-function(){
-  $('path').css('fill','rgba(0,0,0,0.2)');
-});
-
 on('body', 'click', '.map_selector', function() {
   region = this.getAttribute("data-slug");
   console.log(region + " detected!")

@@ -22,7 +22,8 @@ $('.sel').each(function() {
 
     $current.children('div').append($('<span>', {
       class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-      text: $(this).text()
+      text: $(this).text(),
+      slug: $(this).val()
     }));
   });
 });
@@ -36,10 +37,6 @@ $('.sel').click(function() {
 $('.sel__box__options').click(function() {
   var txt = $(this).text();
   var index = $(this).index();
-  var slug = $(this).value;
-  console.log(txt);
-  console.log(index);
-  console.log(slug);
 
   $(this).siblings('.sel__box__options').removeClass('selected');
   $(this).addClass('selected');

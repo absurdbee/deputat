@@ -244,7 +244,13 @@ $('path').hover(function(e){
 },
 
 function(){
-  $('path').css('fill','rgba(0,0,0,0.2)');
+  //$('path').css('fill','rgba(0,0,0,0.2)');
+  svg_list = this.parentElement.querySelectorAll("path");
+  for (var i = 0; i < svg_list.length; i++) {
+    if (svg_list[i].style.fill != "green"){
+    svg_list[i].style.fill = "rgba(0,0,0,0.3)";
+  }
+  }
 });
 
 on('body', 'click', '.map_selector', function() {

@@ -233,8 +233,8 @@ function comment_abort_delete(_this, _link){
 
 
 $('path').hover(function(e){
+  e.style.fill = "#FFFFFF";
 
-  $(this).css('fill','#FFFFFF');
   $('path').not(this).css('fill','rgba(0,0,0,0.3)');
 },
 

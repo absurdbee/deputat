@@ -235,11 +235,11 @@ function comment_abort_delete(_this, _link){
 $('path').hover(function(e){
 
   $(this).css('fill','#FFFFFF');
-  $('path').not(this).css('fill','rgba(0,0,0,0.5)');
+  $('path').not(this).css('fill','rgba(0,0,0,0.3)');
 },
 
 function(){
-  $('path').css('fill','rgba(0,0,0,0.4)');
+  $('path').css('fill','rgba(0,0,0,0.2)');
 });
 
 on('body', 'click', '.map_selector', function() {

@@ -267,7 +267,7 @@ on('body', 'click', '.map_selector', function() {
   this.style.fill = "green";
   col_md_3 = this.parentElement.parentElement.nextElementSibling;
   block = col_md_3.querySelector("#elect_for_regions_loader");
-  col_md_3.querySelector("#sel__placeholder").innerHTML = text;
+  col_md_3.querySelector(".sel__placeholder").innerHTML = text;
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/list/region/" + slug + "/", true );

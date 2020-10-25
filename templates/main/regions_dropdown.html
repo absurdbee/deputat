@@ -118,10 +118,8 @@
 <div class="sel sel--black-panther">
   <select name="select-profession" id="select-profession">
     <option value="" disabled>Выберите регион</option>
-    <option value="hacker">Hacker</option>
-    <option value="gamer">Gamer</option>
-    <option value="developer">Developer</option>
-    <option value="programmer">Programmer</option>
-    <option value="designer">Designer</option>
+    {% for object in regions %}
+      <option value="{{ object.slug }}">{{ object.name }}</option>
+    {% endfor %}
   </select>
 </div>

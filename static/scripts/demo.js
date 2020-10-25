@@ -49,6 +49,7 @@ $('.sel__box__options').click(function() {
   $currentSel.children('select').prop('selectedIndex', index + 1);
 
   block = this.parentElement.parentElement.nextElementSibling;
+  map = this.parentElement.parentElement.parentElement.previousElementSibling;
 
   if (slug == '') {
     block.innerHTML = "";
@@ -60,6 +61,8 @@ $('.sel__box__options').click(function() {
       if ( link.readyState == 4 ) {
           if ( link.status == 200 ) {
               block.innerHTML = link.responseText;
+              svg = map.querySelector("[data-slug =" + slug + "]");
+              svg.setAttribute("fill", 'green')
           }
       }
   };

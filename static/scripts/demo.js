@@ -51,13 +51,6 @@ $('.sel__box__options').click(function() {
   block = this.parentElement.parentElement.nextElementSibling;
   map = this.parentElement.parentElement.parentElement.previousElementSibling;
 
-  if (slug == '') {
-    block.innerHTML = "";
-    svg_list = map.querySelectorAll("path");
-    for (var i = 0; i < svg_list.length; i++) {
-      svg_list[i].style.fill = "rgba(0,0,0,0.15)";
-    }
-  } else {
     var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
     link.open( 'GET', "/list/region/" + slug + "/", true );
     link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -75,5 +68,4 @@ $('.sel__box__options').click(function() {
       }
   };
   link.send( null );
-  };
 });

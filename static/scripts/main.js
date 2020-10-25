@@ -233,9 +233,14 @@ function comment_abort_delete(_this, _link){
 
 
 $('path').hover(function(e){
-  e.style.fill = "#FFFFFF";
+  svg_list = this.parentElement.querySelectorAll("path");
+  for (var i = 0; i < svg_list.length; i++) {
+    if (svg_list[i].style.fill != "green"){
+    svg_list[i].style.fill = "rgba(0,0,0,0.3)";
+  }
+  }
+  this.style.fill = "#FFFFFF";
 
-  $('path').not(this).css('fill','rgba(0,0,0,0.3)');
 },
 
 function(){

@@ -61,7 +61,7 @@ $('.sel__box__options').click(function() {
       if ( link.readyState == 4 ) {
           if ( link.status == 200 ) {
               block.innerHTML = link.responseText;
-              svg = map.querySelector("[data-slug =" + slug + "]");
+              svg = map.querySelector('[data-slug=' + '"' + slug + '"' + ']');
               svg.setAttribute("fill", 'green')
           }
       }

@@ -241,7 +241,7 @@ $('path').hover(function(e){
   }
   this.style.fill = "#FFFFFF";
 
-},
+})
 
 on('body', 'click', '.map_selector', function() {
   region = this.getAttribute("data-slug");

@@ -257,6 +257,7 @@ function(){
 
 on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");
+  text = this.querySelector("title").innerHTML;
   console.log(slug + " detected!");
   map = this.parentElement;
   svg_list = map.querySelectorAll("path");
@@ -264,7 +265,9 @@ on('body', 'click', '.map_selector', function() {
     svg_list[i].style.fill = "rgba(0,0,0,0.2)";
   };
   this.style.fill = "green";
-  block = this.parentElement.parentElement.nextElementSibling.querySelector("#elect_for_regions_loader");
+  col_md_3 = this.parentElement.parentElement.nextElementSibling;
+  block = col_md_3.querySelector("#elect_for_regions_loader");
+  col_md_3.querySelector("#sel__placeholder").innerHTML = text;
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/list/region/" + slug + "/", true );
@@ -273,6 +276,7 @@ on('body', 'click', '.map_selector', function() {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
             block.innerHTML = link.responseText;
+
         }
     }
 };

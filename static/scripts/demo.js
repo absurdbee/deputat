@@ -61,6 +61,10 @@ $('.sel__box__options').click(function() {
       if ( link.readyState == 4 ) {
           if ( link.status == 200 ) {
               block.innerHTML = link.responseText;
+              svg_list = map.querySelectorAll("path");
+              for (var i = 0; i < svg_list.length; i++) {
+                svg_list[i].style.fill = "rgba(0,0,0,0.2)";
+              }
               svg = map.querySelector('[data-slug=' + '"' + slug + '"' + ']');
               svg.style.fill = "green";
           }

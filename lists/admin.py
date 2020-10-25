@@ -4,35 +4,30 @@ from lists.models import AuthorityList, ElectNewsCategory, BlogCategory, Region,
 
 class AuthorityListAdmin(admin.ModelAdmin):
     list_display = ['name','slug','order']
-    list_filter = ['name']
     search_fields = ('name',)
     class Meta:
         model = AuthorityList
 
 class ElectNewsCategoryAdmin(admin.ModelAdmin):
     list_display = ['name','slug','order']
-    list_filter = ['name']
     search_fields = ('name',)
     class Meta:
         model = ElectNewsCategory
 
 class BlogCategoryAdmin(admin.ModelAdmin):
     list_display = ['name','slug','order']
-    list_filter = ['name']
     search_fields = ('name',)
     class Meta:
         model = BlogCategory
 
 class RegionAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'order']
-    list_filter = ['name']
     search_fields = ('name',)
     class Meta:
         model = Region
 
 class FractionAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'order']
-    list_filter = ['name']
     search_fields = ('name',)
     class Meta:
         model = Fraction

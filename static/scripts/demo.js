@@ -3,6 +3,7 @@ $('.sel').each(function() {
   $(this).children('select').css('display', 'none');
 
   var $current = $(this);
+  console.log($current);
 
   $(this).find('option').each(function(i) {
     if (i == 0) {
@@ -36,6 +37,7 @@ $('.sel').click(function() {
 $('.sel__box__options').click(function() {
   var txt = $(this).text();
   var index = $(this).index();
+  var slug = $(this).attr("");
 
   $(this).siblings('.sel__box__options').removeClass('selected');
   $(this).addClass('selected');

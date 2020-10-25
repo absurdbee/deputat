@@ -37,7 +37,7 @@ $('.sel').click(function() {
 $('.sel__box__options').click(function() {
   var txt = $(this).text();
   var index = $(this).index();
-  var slug = $(this).val();
+  var slug = $(this).attr("slug");
 
   console.log(slug)
 

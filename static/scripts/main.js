@@ -250,7 +250,7 @@ on('body', 'click', '.map_selector', function() {
 
 on('body', 'change', '#select_regions', function() {
   var val = this.value;
-  block = this.nextElementSibling;
+  block = this.parentElement.nextElementSibling;
   if (val == '') {
     block.innerHTML = "";
   } else {

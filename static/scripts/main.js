@@ -257,7 +257,6 @@ function(){
 
 on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");
-  //text = this.getAttribute("data-name");
   text = this.querySelector("title").innerHTML;
   console.log(slug + " detected!");
   map = this.parentElement;

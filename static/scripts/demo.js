@@ -1,4 +1,4 @@
-/* ===== Logic for creating fake Select Boxes ===== */
+
 $('.sel').each(function() {
   $(this).children('select').css('display', 'none');
 

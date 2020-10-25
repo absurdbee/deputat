@@ -37,6 +37,7 @@ $('.sel').click(function() {
 $('.sel__box__options').click(function() {
   var txt = $(this).text();
   var index = $(this).index();
+  var slug = $(this).val();
 
   $(this).siblings('.sel__box__options').removeClass('selected');
   $(this).addClass('selected');
@@ -44,4 +45,22 @@ $('.sel__box__options').click(function() {
   var $currentSel = $(this).closest('.sel');
   $currentSel.children('.sel__placeholder').text(txt);
   $currentSel.children('select').prop('selectedIndex', index + 1);
+
+  block = this.parentElement.parentElement.nextElementSibling;
+
+  if (slug == '') {
+    block.innerHTML = "";
+  } else {
+    var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+    link.open( 'GET', "/list/region/" + slug + "/", true );
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function () {
+      if ( link.readyState == 4 ) {
+          if ( link.status == 200 ) {
+              block.innerHTML = link.responseText;
+          }
+      }
+  };
+  link.send( null );
+  };
 });

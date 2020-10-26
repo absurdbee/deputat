@@ -1,7 +1,7 @@
 {% if region.get_all_elects %}
 {% for object in region.get_all_elects %}
 <div class="col-12">
-  <div class="team-card-style-4 d-sm-table w-100" style="margin:0;">
+  <div class="team-card-style-4 d-sm-table w-100" style="padding: 0;">
     <div class="team-thumb d-sm-table-cell align-middle">
       <a href="{% url 'elect_detail' pk=object.pk %}">
         <img src="{{ object.image.url }}" alt="img">

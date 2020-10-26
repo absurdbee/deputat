@@ -9,8 +9,8 @@
     </div>
     <div class="d-sm-table-cell pl-sm-4 text-center text-sm-left">
       <span class="team-position">{{ list.name }}</span>
+      <span class="team-position">{{ object.get_first_list }}</span>
       <a href="{% url 'elect_detail' pk=object.pk %}">
-        <span class="team-position">{{ object.get_first_list }}</span>
         <p class="team-name" style="color: #404040;">{{ object.name }}</p>
       </a>
       {% for link in object.linkelect.all %}

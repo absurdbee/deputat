@@ -28,7 +28,7 @@ class Elect(models.Model):
         return self.name
 
     def get_first_list(self):
-        return self.region.all()[0]
+        return self.list.all()[0]
 
 
 

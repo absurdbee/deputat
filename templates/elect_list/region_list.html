@@ -10,7 +10,7 @@
     <div class="d-sm-table-cell align-middle pl-sm-4 text-center text-sm-left">
       <span class="team-position">{{ list.name }}</span>
       <a href="{% url 'elect_detail' pk=object.pk %}">
-        <h6 class="team-name">{{ object.name }}</h6>
+        <p class="team-name" style="color: #404040;">{{ object.name }}</p>
       </a>
       {% for link in object.linkelect.all %}
         <a class="team-contact-link" href="{{ link.link }}" target="_blank" rel="nofollow">{{ link.title }}</a>

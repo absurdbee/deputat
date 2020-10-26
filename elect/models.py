@@ -13,7 +13,7 @@ class Elect(models.Model):
     image = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     list = models.ManyToManyField('lists.AuthorityList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
-    region = models.ManyToManyField('lists.REgion', blank=True, related_name='elect_region', verbose_name="Регион, за которым закреплен депутат")
+    region = models.ManyToManyField('lists.Region', blank=True, related_name='elect_region', verbose_name="Регион, за которым закреплен депутат")
     birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     authorization = models.DateField(blank=True, null=True, verbose_name='Дата наделения полномочиями')
     term_of_office = models.DateField(blank=True, null=True, verbose_name='Срок окончания полномочий')

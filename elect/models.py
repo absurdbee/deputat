@@ -27,9 +27,9 @@ class Elect(models.Model):
     def __str__(self):
         return self.name
 
-    def get_elects(self):
-        elects = Elect.objects.filter(list=self.list)
-        return elects
+    def get_first_list(self):
+		return self.region.all()[0]
+
 
 
 class LinkElect(models.Model):

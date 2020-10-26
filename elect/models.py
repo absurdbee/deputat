@@ -25,7 +25,7 @@ class Elect(models.Model):
         verbose_name_plural = "Чиновники"
 
     def __str__(self):
-        return self.title
+        return self.name
 
     def get_elects(self):
         elects = Elect.objects.filter(list=self.list)

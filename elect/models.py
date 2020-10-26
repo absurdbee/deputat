@@ -51,8 +51,8 @@ class EducationElect(models.Model):
     year = models.PositiveSmallIntegerField(default=0, verbose_name="Год")
 
     class Meta:
-        verbose_name = "Ссылка для чиновника"
-        verbose_name_plural = "Ссылки"
+        verbose_name = "Образование чиновника"
+        verbose_name_plural = "Образование"
 
     def __str__(self):
         return self.title

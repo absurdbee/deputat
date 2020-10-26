@@ -1,13 +1,13 @@
 {% if region.get_all_elects %}
 {% for object in region.get_all_elects %}
 <div class="col-12">
-  <div class="team-card-style-4 d-sm-table w-100" style="padding: 0;">
+  <div class="team-card-style-4 d-sm-table w-100" style="padding: 0;margin-top:15px">
     <div class="team-thumb d-sm-table-cell align-middle">
       <a href="{% url 'elect_detail' pk=object.pk %}">
         <img src="{{ object.image.url }}" alt="img">
       </a>
     </div>
-    <div class="d-sm-table-cell align-middle pl-sm-4 text-center text-sm-left">
+    <div class="d-sm-table-cell pl-sm-4 text-center text-sm-left">
       <span class="team-position">{{ list.name }}</span>
       <a href="{% url 'elect_detail' pk=object.pk %}">
         <p class="team-name" style="color: #404040;">{{ object.name }}</p>
@@ -18,7 +18,7 @@
       <div class="team-social-bar-wrap">
         <div class="team-social-bar mx-auto mx-sm-0">
           <a>Рейтинг 1</a><br>
-          <a>Рейтинг 2</a><br>
+          <a>Рейтинг 2</a>
           <a>Рейтинг 3</a><br>
           <a>Рейтинг 4</a>
         </div>

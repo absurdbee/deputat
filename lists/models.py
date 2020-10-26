@@ -101,6 +101,9 @@ class Region(models.Model):
 	def __str__(self):
 		return self.name
 
+	def get_all_elects(self):
+		return self.elect_region.all()
+
 
 class Fraction(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Название фракции")

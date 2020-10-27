@@ -4,7 +4,7 @@ from elect.models import Elect
 
 
 class ElectDetailView(TemplateView, CategoryListMixin):
-	template_name = "movie.html"
+	template_name = "elect/elect.html"
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])

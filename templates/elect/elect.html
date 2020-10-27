@@ -5,14 +5,21 @@
 <section class="bg-dark bg-center bg-no-repeat" style="height: 260px;"></section>
 <div class="container" style="margin-top: -160px;">
       <div class="bg-white box-shadow pt-4 pb-5 px-3 px-sm-4">
-        <figure class="figure d-block rounded-circle my-3 p-2 mx-auto" style="width: 180px;"><img class="d-block w-100 rounded-circle" src="img/homepages/photographer-portfolio/avatar.jpg" alt="James Smith"></figure>
+        <figure class="figure d-block rounded-circle my-3 p-2 mx-auto" style="width: 180px;">
+          <img class="d-block w-100 rounded-circle" src="{{ object.image.url }}" alt="James Smith">
+        </figure>
         <div class="text-center">
           <p class="text-xl text-muted font-weight-medium mb-2">{{ object.get_first_list }}</p>
           <h1 class="h3 block-title">{{ object.name }}</h1>
           <ul class="text-lg list-inline py-3">
             <li class="mx-2 font-weight-medium align-middle">
               <i class="d-inline-block fe-icon-map-pin align-middle text-muted"></i>
-              &nbsp;{{ object.get_regions }}
+              &nbsp;
+              {% for region in object.get_regions %}
+                <a href="{% url 'region_detail' order=object.order %}">
+                  {{ region.name }}
+                </a>
+              {% endfor %}
             </li>
           </ul>
           <span class="d-inline-block align-middle text-muted font-weight-medium mb-3">0 подписчиков</span>

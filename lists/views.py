@@ -67,3 +67,16 @@ class RegionElectView(TemplateView, CategoryListMixin):
 		context = super(RegionElectView,self).get_context_data(**kwargs)
 		context["region"] = self.region
 		return context
+
+
+class RegionDetailView(TemplateView, CategoryListMixin):
+	template_name = "lists/region.html"
+
+	def get(self,request,*args,**kwargs):
+		self.region = Region.objects.get(pk=self.kwargs["pk"])
+		return super(RegionDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(RegionDetailView,self).get_context_data(**kwargs)
+		context["region"] = self.region
+		return context

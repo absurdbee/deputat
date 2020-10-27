@@ -32,10 +32,13 @@
               <div class="card-body">
                 <h4 class="card-title">Информация</h4>
                 <p class="card-text">
-                  Дата рождения: {{ object.birthday }}
-                  Дата вступления в полномочия: {{ object.authorization }}
-                  Фракция: {{ object.fraction }}
-                  Сведения об избрании: {{ object.election_information }}
+                  <ul class="list-group">
+                    <li class="list-group-item">Дата рождения: {{ object.birthday }}</li>
+                    <li class="list-group-item">Дата вступления в полномочия: {{ object.authorization }}</li>
+                    <li class="list-group-item">Фракция: {{ object.fraction }}</li>
+                    <li class="list-group-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item disabled">Сведения об избрании: {{ object.election_information }}</li>
+                  </ul>
                 </p>
               </div>
             </div>
@@ -45,8 +48,18 @@
               <div class="card-body">
                 <h4 class="card-title">О депутате</h4>
                 <p class="card-text">
-                  Образование: {% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}
-                  Ссылки: {% for edu in object.linlelect_set.all %}{{ edu.title }}: {{ edu.link }}<br>{% endfor %}
+                  <ul class="list-group">
+                    {% if object.educationelect %}
+                    <li class="list-group-item">Образование:<br>
+                      {% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}
+                    </li>
+                    {% endif %}
+                    {% if object.educationelect %}
+                    <li class="list-group-item">Ссылки:<br>
+                      {% for edu in object.linlelect_set.all %}{{ edu.title }}: {{ edu.link }}<br>{% endfor %}
+                    </li>
+                    {% endif %}
+                  </ul>
                 </p>
               </div>
             </div>
@@ -56,7 +69,9 @@
               <div class="card-body">
                 <h4 class="card-title">Рейтинг</h4>
                 <p class="card-text">
-                  
+                  <ul class="list-group">
+                    <li class="list-group-item">Народный рейтинг: </li>
+                  </ul>
                 </p>
               </div>
             </div>

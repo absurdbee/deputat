@@ -16,8 +16,8 @@
               <i class="d-inline-block fe-icon-map-pin align-middle text-muted"></i>
               &nbsp;
               {% for region in object.get_regions %}
-                <a href="{% url 'region_detail' order=region.order %}" style="color: #404040;">
-                  &nbsp;{{ region.name }}{% if not forloop.last %}, {% endif %}&nbsp;
+                <a href="{% url 'region_detail' order=region.order %}" style="color: #404040;text-decorations:none">
+                 {{ region.name }}{% if not forloop.last %}, {% endif %}
                 </a>
               {% endfor %}
             </li>

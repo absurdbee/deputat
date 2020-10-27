@@ -5,6 +5,7 @@ from django.contrib.postgres.indexes import BrinIndex
 from django.utils import timezone
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
+from lists.models import Region
 from django.db.models import Q
 
 

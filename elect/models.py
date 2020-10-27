@@ -40,7 +40,7 @@ class Elect(models.Model):
             return regions
 
     def get_news(self):
-        return self.elects.all()
+        return self.elect_news.all() 
 
 
 

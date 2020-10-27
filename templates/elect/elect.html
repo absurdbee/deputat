@@ -16,7 +16,7 @@
               <i class="d-inline-block fe-icon-map-pin align-middle text-muted"></i>
               &nbsp;
               {% for region in object.get_regions %}
-                <a href="{% url 'region_detail' order=object.order %}">
+                <a href="{% url 'region_detail' order=region.order %}">
                   {{ region.name }}
                 </a>
               {% endfor %}

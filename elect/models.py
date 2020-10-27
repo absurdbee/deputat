@@ -30,6 +30,14 @@ class Elect(models.Model):
     def get_first_list(self):
         return self.list.all()[0]
 
+    def get_regions(self):
+        regions = self.region.all()
+        all_regions = Region.objects.get(slug="all_regions")
+        if all_regions in regions:
+            return all_regions
+        else:
+            return regions
+
 
 
 class LinkElect(models.Model):

@@ -104,7 +104,7 @@ class Region(models.Model):
 	def get_all_elects(self):
 		from elect.models import Elect
 		query = Q(Q(region=self) | Q(region__slug="all_regions"))
-		return Elect.objects.filter(query)
+		return Elect.objects.filter(query) 
 
 
 class Fraction(models.Model):

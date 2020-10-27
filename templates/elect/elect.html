@@ -53,7 +53,7 @@
                       {% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}
                     </li>
                     {% endif %}
-                    {% if object.educationelect_set.all %}
+                    {% if object.linlelect_set.all %}
                     <li class="list-group-item">Ссылки:<br>
                       {% for edu in object.linlelect_set.all %}{{ edu.title }}: {{ edu.link }}<br>{% endfor %}
                     </li>

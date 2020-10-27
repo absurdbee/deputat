@@ -70,7 +70,7 @@ class RegionElectView(TemplateView, CategoryListMixin):
 
 
 class RegionDetailView(TemplateView, CategoryListMixin):
-	template_name = "lists/region.html"
+	template_name = "elect_list/region.html"
 
 	def get(self,request,*args,**kwargs):
 		self.region = Region.objects.get(order=self.kwargs["order"])

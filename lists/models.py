@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from elect.models import Elect
 
 
 """
@@ -102,7 +103,8 @@ class Region(models.Model):
 		return self.name
 
 	def get_all_elects(self):
-		return self.elect_region.all()
+		query = Q(Q(region=self) | Q(region__name="all_regions"))
+		return Elect.objects.filter(query)
 
 
 class Fraction(models.Model):

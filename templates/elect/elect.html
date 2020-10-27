@@ -36,8 +36,7 @@
                     <li class="list-group-item">Дата рождения: {{ object.birthday }}</li>
                     <li class="list-group-item">Дата вступления в полномочия: {{ object.authorization }}</li>
                     <li class="list-group-item">Фракция: {{ object.fraction }}</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item disabled">Сведения об избрании: {{ object.election_information }}</li>
+                    <li class="list-group-item">Сведения об избрании: {{ object.election_information }}</li>
                   </ul>
                 </p>
               </div>
@@ -49,12 +48,12 @@
                 <h4 class="card-title">О депутате</h4>
                 <p class="card-text">
                   <ul class="list-group">
-                    {% if object.educationelect %}
+                    {% if object.educationelect_set.all %}
                     <li class="list-group-item">Образование:<br>
                       {% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}
                     </li>
                     {% endif %}
-                    {% if object.educationelect %}
+                    {% if object.educationelect_set.all %}
                     <li class="list-group-item">Ссылки:<br>
                       {% for edu in object.linlelect_set.all %}{{ edu.title }}: {{ edu.link }}<br>{% endfor %}
                     </li>

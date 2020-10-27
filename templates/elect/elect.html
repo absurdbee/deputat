@@ -33,33 +33,36 @@
         <small>Высказывания, работа с избирателями, предвыборная деятельность</small>
       </h2>
       <div class="row pt-4">
+        {% if object.get_news %}
+        {% for object in object.get_news %}
         <div class="col-md-4" style="">
           <div class="card blog-card mb-2">
-            <a class="post-thumb" href="">
-              <img src="/static/images/test_new.jpg" alt="Post Thumbnail">
+            {% if object.image %}
+            <a class="post-thumb" href="{% url 'blog_detail' pk=object.pk %}">
+              <img src="{{ object.image.url }}" alt="img">
             </a>
+            {% endif %}
             <div class="card-body">
               <h5 class="post-title">
-                <a href="">The Real Truth About Space</a>
+                <a href="{% url 'blog_detail' pk=object.pk %}">{{ object.title }}</a>
               </h5>
-              <p class="text-muted">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque...</p>
-              <a class="tag-link" href="#">Space</a>
-              <a class="tag-link" href="#">Technology</a>
+              <p class="text-muted">{{ object.description }}</p>
+              <a class="tag-link" href="#">Тег 1</a>
+              <a class="tag-link" href="#">Тег 2</a>
             </div>
             <div class="card-footer">
-              <a class="post-author" href="">
-                <div class="post-author-avatar">
-                  <img src="/static/images/test_new.jpg" alt="Post Author">
-                </div>
-                <div class="post-author-name">Sara Palson</div>
-              </a>
               <div class="post-meta">
                 <a href=""><i class="fe-icon-message-square"></i>21</a>
-                <span><i class="fe-icon-clock"></i>Sep 03, 2018</span>
+                <span><i class="fe-icon-clock"></i>20 сентября 2020</span>
               </div>
             </div>
           </div>
         </div>
+        {% endfor %}
+
+        {% else %}
+          У чиновника пока нет новостей
+        {% endif %}
       </div>
     </section>
 {% endblock %}

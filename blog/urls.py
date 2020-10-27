@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
-    url(r'^(?P<pk>\d+)/$',BlogDetailView.as_view(), name="blog_detail"),
+    url(r'^(?P<pk>\d+)/$', BlogDetailView.as_view(), name="blog_detail"),
 
     url(r'^like/(?P<pk>\d+)/$',login_required(BlogLikeCreate.as_view())),
     url(r'^dislike/(?P<pk>\d+)/$',login_required(BlogDislikeCreate.as_view())),

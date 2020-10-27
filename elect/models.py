@@ -39,6 +39,9 @@ class Elect(models.Model):
         else:
             return regions
 
+    def get_news(self):
+        return self.elects.all()
+
 
 
 class LinkElect(models.Model):

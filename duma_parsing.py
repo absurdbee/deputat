@@ -36,9 +36,8 @@ def get_page_data(html):
     image = soup.find('img', class_='person__image person__image--mobile')
 
     content__s = soup.find('div', class_='content--s')
-    text = content__s.find('div', class_='text')
-    birthday = text.text
-    authorization = text.find('p').text
+    birthday = content__s.find_all('p')[0].text
+    authorization = content__s.find_all('p')[1].text
 
     list = AuthorityList.objects.get(slug="state_duma")
     region_list = soup.find('div', class_='person__description__col').text

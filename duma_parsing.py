@@ -30,6 +30,8 @@ def get_name(url):
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     name = soup.find('h1', class_='article__title--person')
+    if not name:
+        name = soup.find('h2', class_='person__title person__title--l')
     _name = str(name)
     fraction = soup.find('a', class_='person__description__link').text
     description = soup.find('div', class_='article__lead article__lead--person').text

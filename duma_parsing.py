@@ -47,8 +47,8 @@ def get_page_data(html):
     authorization = content__s.find_all('p')[1].text
 
     definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
-    dd = definitions_list_1.find('dd')
-    election_information = dd.find_all('p')[0].text + definitions_list_1.find('dt').text
+    dd_1 = definitions_list_1.find('dd')
+    election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
 
     definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
     edu_count = 0
@@ -59,8 +59,6 @@ def get_page_data(html):
         dd__dt = edu_dd[edu_count].text + ": " + edu_dt[edu_count].text
         edu_list += [dd__dt, ]
         edu_count += 1
-
-    election_information = dd.find_all('p')[0].text + definitions_list_1.find('dt').text
 
     list = AuthorityList.objects.get(slug="state_duma")
     region_list = soup.find_all('div', class_='person__description__col')[3].text

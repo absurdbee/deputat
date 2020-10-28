@@ -35,7 +35,8 @@ def get_page_data(html):
     description = soup.find('div', class_='article__lead article__lead--person').text
     image = soup.find('img', class_='person__image person__image--mobile')
 
-    text = soup.find('div', class_='content--s text')
+    content__s = soup.find('div', class_='content--s')
+    text = content__s.find('div', class_='text')
     birthday = text.text
     authorization = text.find('p').text
 

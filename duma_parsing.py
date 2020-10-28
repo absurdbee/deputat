@@ -35,6 +35,8 @@ def get_page_data(html):
     _name = str(name)
     fraction = soup.find('a', class_='person__description__link').text
     description = soup.find('div', class_='article__lead article__lead--person').text
+    if not description:
+        description = soup.find('div', class_='page__lead').text
     image = soup.find('img', class_='person__image person__image--mobile')
 
     content__s = soup.find('div', class_='content--s')

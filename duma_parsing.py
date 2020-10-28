@@ -9,11 +9,11 @@ def get_html(url):
 def get_page_data(html):
     soup = BeautifulSoup(html)
     try:
-        name = text_before_word(soup.find('div', class_='article__title article__title--person').text)
+        name = text_before_word(soup.find('div', class_='article__title').text)
     except:
         name = ''
     try:
-        fraction = text_before_word(soup.find('div', class_='link link--underline person__description__link').text)
+        fraction = text_before_word(soup.find('div', class_='person__description__link').text)
     except:
         fraction = ''
     data = {'name': name,

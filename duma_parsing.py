@@ -46,7 +46,7 @@ def get_page_data(html):
             'fraction': fraction,
             'image': 'http://duma.gov.ru' + image['src'] + '\n',
             'description': description + '\n',
-            'list': list + '\n',
+            'list': list,
             'region_list': region_list + '\n',
             'birthday': birthday + '\n',
             'authorization': authorization.replace('\n', ' ').strip().replace('                                  ', '') + '\n'}

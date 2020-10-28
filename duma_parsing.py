@@ -7,7 +7,7 @@ def get_html(url):
     return r.text
 
 def get_page_data(html):
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, 'lxml')
     try:
         name = soup.find('div', class_='article__title')
     except:

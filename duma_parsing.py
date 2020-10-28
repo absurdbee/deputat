@@ -29,8 +29,8 @@ def get_name(url):
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
-    name = soup.find('h1', class_='article__title--person')
-    _name = str(name)
+    __name = soup.find('h1', class_='article__title--person')
+    _name = str(__name)
     fraction = soup.find('a', class_='person__description__link').text
     description = soup.find('div', class_='article__lead article__lead--person').text
     image = soup.find('img', class_='person__image person__image--mobile')

@@ -9,14 +9,15 @@ def get_html(url):
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     try:
-        name = soup.find('h1', class_='article__title article__title--person').replace("<br>", " ").text()
+        name = soup.find('h1', class_='article__title article__title--person')
+        _name = name.replace("<br/>", " ")
     except:
-        name = ''
+        _name = ''
     try:
         fraction = soup.find('a', class_='person__description__link')
     except:
         fraction = ''
-    data = {'name': name,
+    data = {'name': _name,
             'fraction': fraction}
     return data
 

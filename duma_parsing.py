@@ -52,7 +52,7 @@ def get_page_data(html):
             'list': list,
             'region_list': region_list,
             'birthday': birthday,
-            'election_information': election_information,
+            'election_information': election_information.replace('\n', ' ').strip().replace('                ', ''),
             'authorization': authorization.replace('\n', ' ').strip().replace('                                  ', '')}
     return data
 

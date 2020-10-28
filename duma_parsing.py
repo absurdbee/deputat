@@ -13,10 +13,10 @@ def get_page_data(html):
     _name = str(name)
 
     try:
-        fraction = soup.find('a', class_='person__description__link')
+        fraction = soup.find('a', class_='person__description__link').text
     except:
         fraction = ''
-    data = {'name': _name.replace("<br/>", " "),
+    data = {'name': _name.replace("<h1 class='article__title article__title--person'>", "").replace("<br/>", " ").replace("<h1/>", ""),
             'fraction': fraction}
     return data
 

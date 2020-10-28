@@ -29,8 +29,8 @@ def get_name(url):
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
-    __name = soup.find('h1', class_='article__title--person')
-    _name = str(__name)
+    name = soup.find('h1', class_='article__title--person')
+    #_name = str(name)
     fraction = soup.find('a', class_='person__description__link').text
     description = soup.find('div', class_='article__lead article__lead--person').text
     image = soup.find('img', class_='person__image person__image--mobile')
@@ -43,7 +43,8 @@ def get_page_data(html):
     list = AuthorityList.objects.get(slug="state_duma")
     region_list = soup.find('div', class_='person__description__col').text
 
-    data = {'name': name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', ''),
+    data = {#'name': name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', ''),
+            'name': name,
             'fraction': fraction,
             'image': 'http://duma.gov.ru' + image['src'],
             'description': description,

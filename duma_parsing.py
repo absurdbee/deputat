@@ -11,7 +11,7 @@ def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     name = soup.find('h1', class_='article__title article__title--person')
     _name = str(name)
-    _name.replace("<br/>", " ")
+    _name.replace("<br/>", " ").text
     try:
         fraction = soup.find('a', class_='person__description__link')
     except:

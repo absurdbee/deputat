@@ -55,7 +55,7 @@ def get_page_data(html):
     edu_list = []
     edu_dd = definitions_list_2.find_all('dd')
     for dd in edu_dd:
-        dd__dt = edu_dd.find('dd')[edu_count].text + edu_dd.find('dt')[edu_count].text
+        dd__dt = edu_dd.find_all('dd')[edu_count].text + edu_dd.find_all('dt')[edu_count].text
         edu_list += [dd__dt, ]
         edu_count += 1
 

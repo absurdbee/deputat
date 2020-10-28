@@ -9,9 +9,7 @@ def get_html(url):
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     try:
-        name = soup.find('h1', class_='article__title article__title--person')
-        name.replace("<br>", " ")
-        name.text()
+        name = soup.find('h1', class_='article__title article__title--person').replace("<br>", " ").text()
     except:
         name = ''
     try:

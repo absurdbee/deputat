@@ -39,17 +39,21 @@ def get_page_data(html):
     birthday = content__s.find_all('p')[0].text
     authorization = content__s.find_all('p')[1].text
 
+    definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
+    election_information = definitions_list_1.find('dd').text + definitions_list_1.find('dt').text
+
     list = AuthorityList.objects.get(slug="state_duma")
     region_list = soup.find_all('div', class_='person__description__col')[3].text
 
     data = {'name': _name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', ''),
             'fraction': fraction,
-            'image': 'http://duma.gov.ru' + image['src'] + '\n',
-            'description': description + '\n',
+            'image': 'http://duma.gov.ru' + image['src'],
+            'description': description,
             'list': list,
-            'region_list': region_list + '\n',
-            'birthday': birthday + '\n',
-            'authorization': authorization.replace('\n', ' ').strip().replace('                                  ', '') + '\n'}
+            'region_list': region_list,
+            'birthday': birthday,
+            'election_information': election_information,
+            'authorization': authorization.replace('\n', ' ').strip().replace('                                  ', '')}
     return data
 
 

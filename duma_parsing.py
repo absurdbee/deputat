@@ -25,7 +25,7 @@ def main():
     url = 'http://duma.gov.ru/duma/persons/99112808/'
     html = get_html(url)
     data = get_page_data(html)
-    #return data
+    print data
 
 if __name__ == '__main__':
     main()

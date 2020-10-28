@@ -51,9 +51,9 @@ def get_page_data(html):
             'description': description,
             'list': list,
             'region_list': region_list,
-            'birthday': birthday,
-            'election_information': election_information.replace('\n', ' ').strip().replace('                ', ''),
-            'authorization': authorization.replace('\n', ' ').strip().replace('                                  ', '')}
+            'birthday': birthday.replace('Дата рождения: ', ''),
+            'election_information': election_information.replace('\n', ' ').strip().replace('                   ', ':'),
+            'authorization': authorization.replace('\n', ' ').strip().replace('Дата вступления в полномочия:                                  ', '')}
     return data
 
 

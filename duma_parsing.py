@@ -50,7 +50,7 @@ def get_page_data(html):
             'list': list,
             'region_list': region_list,
             'birthday': birthday,
-            'authorization': authorization.replace('\n', ' ').strip()}
+            'authorization': authorization.replace('\n', ' ').strip().replace('                             ', '')}
     return data
 
 

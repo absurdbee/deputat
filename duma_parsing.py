@@ -10,7 +10,7 @@ def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     try:
         name = soup.find('h1', class_='article__title article__title--person')
-        _name = name
+        _name = name.replace("<br/>","")
     except:
         _name = ''
     try:

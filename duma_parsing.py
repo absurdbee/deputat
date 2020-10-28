@@ -43,14 +43,14 @@ def get_page_data(html):
     region_list = soup.find_all('div', class_='person__description__col')[3].text
 
     data = {#'name': name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', ''),
-            'name': name,
+            'name': name + '\n',
             'fraction': fraction,
-            'image': 'http://duma.gov.ru' + image['src'],
-            'description': description,
-            'list': list,
-            'region_list': region_list,
-            'birthday': birthday,
-            'authorization': authorization.replace('\n', ' ').strip().replace('                                  ', '')}
+            'image': 'http://duma.gov.ru' + image['src'] + '\n',
+            'description': description + '\n',
+            'list': list + '\n',
+            'region_list': region_list + '\n',
+            'birthday': birthday + '\n',
+            'authorization': authorization.replace('\n', ' ').strip().replace('                                  ', '') + '\n'}
     return data
 
 

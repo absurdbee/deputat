@@ -40,7 +40,7 @@ def get_page_data(html):
     authorization = content__s.find_all('p')[1].text
 
     list = AuthorityList.objects.get(slug="state_duma")
-    region_list = soup.find_all('div', class_='person__description__col')[2].text
+    region_list = soup.find_all('div', class_='person__description__col')[3].text
 
     data = {#'name': name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', ''),
             'name': name,

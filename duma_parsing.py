@@ -1,23 +1,30 @@
+import os
+import re
 import requests
 from bs4 import BeautifulSoup
-import re
 
 
 def get_html(url):
     r = requests.get(url)
     return r.text
 
+def get_file(url):
+    r = requests.get(url, stream=True)
+    return r
+
+def get_name(url):
+    name = url.split('/')[-1]
+    return name
+
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     name = soup.find('h1', class_='article__title article__title--person')
     _name = str(name)
-
-    try:
-        fraction = soup.find('a', class_='person__description__link').text
-    except:
-        fraction = ''
+    fraction = soup.find('a', class_='person__description__link').text
+    image = soup.find('img', class_='person__image person__image--mobile').src
     data = {'name': _name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', ''),
-            'fraction': fraction}
+            'fraction': fraction,
+            'image': image}
     return data
 
 

@@ -8,7 +8,7 @@ def get_html(url):
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
-    name = soup.find('h1', class_='article__title article__title--person').replace("<br/>", " ")
+    name = soup.find('h1', class_='article__title article__title--person').replace("<br>", " ")
     _name = name
     try:
         fraction = soup.find('a', class_='person__description__link')

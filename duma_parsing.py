@@ -40,7 +40,8 @@ def get_page_data(html):
     authorization = content__s.find_all('p')[1].text
 
     definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
-    election_information = definitions_list_1.find('dd').text + definitions_list_1.find('dt').text
+    dd = definitions_list_1.find('dd')
+    election_information = dd.find_all('p')[0].text + definitions_list_1.find('dt').text
 
     list = AuthorityList.objects.get(slug="state_duma")
     region_list = soup.find_all('div', class_='person__description__col')[3].text
@@ -58,7 +59,7 @@ def get_page_data(html):
 
 
 def main():
-    url = 'http://duma.gov.ru/duma/persons/99112789/'
+    url = 'http://duma.gov.ru/duma/persons/99100829/'
     html = get_html(url)
     data = get_page_data(html)
     print(data)

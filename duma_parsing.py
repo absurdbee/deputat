@@ -1,7 +1,17 @@
-import os
+# -*- coding: utf-8 -*-
+from locale import *
+import sys,os
 import re
 import requests
 from bs4 import BeautifulSoup
+
+project_dir = '../deputat/deputat/'
+
+sys.path.append(project_dir)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+import django
+django.setup()
+
 from lists.models import AuthorityList
 
 

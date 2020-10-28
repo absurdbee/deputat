@@ -50,6 +50,16 @@ def get_page_data(html):
     dd = definitions_list_1.find('dd')
     election_information = dd.find_all('p')[0].text + definitions_list_1.find('dt').text
 
+    definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
+    edu_count = 0
+    edu_list = []
+    edu_dd = definitions_list_2.find_all('dd')
+    for dd in edu_dd:
+        edu_list += [edu_dd.find('dd')[edu_count].text + edu_dd.find('dt')[edu_count].text, ]
+        edu_count += 1
+
+    election_information = dd.find_all('p')[0].text + definitions_list_1.find('dt').text
+
     list = AuthorityList.objects.get(slug="state_duma")
     region_list = soup.find_all('div', class_='person__description__col')[3].text
 
@@ -58,6 +68,7 @@ def get_page_data(html):
             'image': 'http://duma.gov.ru' + image['src'],
             'description': description,
             'list': list,
+            'educations_list': edu_list,
             'region_list': region_list,
             'birthday': birthday.replace('Дата рождения: ', ''),
             'election_information': election_information.replace('\n', '').strip().replace('                   ', ':'),

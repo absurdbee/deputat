@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from locale import *
+#from locale import *
 import sys,os
 import re
 import requests

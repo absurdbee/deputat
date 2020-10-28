@@ -24,7 +24,7 @@ def get_page_data(html):
     image = soup.find('img', class_='person__image person__image--mobile')
     data = {'name': _name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', ''),
             'fraction': fraction,
-            'image': image['src']}
+            'image': 'http://duma.gov.ru' + image['src']}
     return data
 
 

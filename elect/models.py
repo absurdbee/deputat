@@ -15,9 +15,9 @@ class Elect(models.Model):
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     list = models.ManyToManyField('lists.AuthorityList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
     region = models.ManyToManyField('lists.Region', blank=True, related_name='elect_region', verbose_name="Регион, за которым закреплен депутат")
-    birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
-    authorization = models.DateField(blank=True, null=True, verbose_name='Дата наделения полномочиями')
-    term_of_office = models.DateField(blank=True, null=True, verbose_name='Срок окончания полномочий')
+    birthday = models.CharField(max_length=100, null=True, verbose_name='Дата рождения')
+    authorization = models.CharField(max_length=100, null=True, verbose_name='Дата наделения полномочиями')
+    term_of_office = models.CharField(max_length=100, null=True, verbose_name='Срок окончания полномочий')
     election_information = models.CharField(max_length=100, blank=True, verbose_name="Сведения об избрании")
     fraction = models.ForeignKey('lists.Fraction', null=True, on_delete=models.SET_NULL, blank=True, verbose_name="Фракции")
 
@@ -40,7 +40,7 @@ class Elect(models.Model):
             return regions
 
     def get_news(self):
-        return self.elect_news.all() 
+        return self.elect_news.all()
 
 
 

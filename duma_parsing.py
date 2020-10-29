@@ -81,6 +81,7 @@ def save_image(name, file_object):
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
 
+    # name
     name = soup.find('h1', class_='article__title--person')
     if name:
         _name = str(name)
@@ -90,6 +91,28 @@ def get_page_data(html):
         _name = str(name)
         _name = _name.replace('\n', '').replace('<h2 class="person__title person__title--l"><span itemprop="name">', '').replace('<br/>', ' ').replace('</span></h2>', '').replace('</h2>', '')
 
+    #description
+    description = soup.find('div', class_='article__lead article__lead--person')
+    if not description:
+        description = soup.find('div', class_='page__lead')
+    description = description.text
+
+    #image
+    image = soup.find('img', class_='person__image person__image--mobile')
+    if not image:
+        image = soup.find('img', class_='person__image person__image--l')
+
+    #birthday, authorization
+    content__s = soup.find('div', class_='content--s')
+    birthday = content__s.find_all('p')[0].text
+    authorization = content__s.find_all('p')[1].text
+
+    #election_information
+    definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
+    dd_1 = definitions_list_1.find('dd')
+    election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
+
+    #fraction
     fraction = soup.find('a', class_='person__description__link').text
     if fraction == "«ЕДИНАЯ РОССИЯ»":
         current_fraction = Fraction.objects.get(slug="edinaya_russia")
@@ -102,55 +125,39 @@ def get_page_data(html):
     elif fraction == "Депутаты, не входящие во фракции":
         current_fraction = Fraction.objects.get(slug="no_fraction")
 
-    description = soup.find('div', class_='article__lead article__lead--person')
-    if not description:
-        description = soup.find('div', class_='page__lead')
-    description = description.text
+    new_elect = Elect.objects.create(
+                                    name=name,
+                                    description=description,
+                                    image=save_image(get_name(image['src']), get_file(image['src'])),
+                                    birthday=birthday,
+                                    authorization=authorization,
+                                    election_information=election_information,
+                                    fraction=fraction
+                                    )
+    list = AuthorityList.objects.get(slug="state_duma")
+    list.list.add(new_elect)
 
-    image = soup.find('img', class_='person__image person__image--mobile')
-    if not image:
-        image = soup.find('img', class_='person__image person__image--l')
-    #save_image(get_name(image['src']), get_file(image['src']))
+    region_list = soup.find_all('div', class_='person__description__col')[3].text
+    regions_query = region_list.split(",")
+    for region_name in regions_query:
+        region = Region.objects.get(name=region_name)
+        region.region.add(new_elect)
 
-    content__s = soup.find('div', class_='content--s')
-    birthday = content__s.find_all('p')[0].text
-    authorization = content__s.find_all('p')[1].text
 
-    definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
-    dd_1 = definitions_list_1.find('dd')
-    election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
-
+    #EducationElect
     definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
     edu_count = 0
-    edu_list = []
     edu_dd = definitions_list_2.find_all('dd')
     edu_dt = definitions_list_2.find_all('dt')
     for dd in edu_dd:
-        dd__dt = edu_dd[edu_count].text + ": " + edu_dt[edu_count].text
-        edu_list += [dd__dt, ]
+        EducationElect.objects.create(elect=new_elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
         edu_count += 1
-
-    list = AuthorityList.objects.get(slug="state_duma")
-    region_list = soup.find_all('div', class_='person__description__col')[3].text
-
-    data = {'name': _name,
-            'fraction': current_fraction,
-            'image': 'http://duma.gov.ru' + image['src'],
-            'description': description,
-            'list': list,
-            'educations_list': edu_list,
-            'region_list': region_list,
-            'birthday': birthday.replace('Дата рождения: ', ''),
-            'election_information': election_information.replace('\n', '').strip().replace('                   ', ':'),
-            'authorization': authorization.replace('\n', '').strip().replace('Дата вступления в полномочия:                                 ', '')}
-    return data
 
 
 def main():
     url = 'http://duma.gov.ru/duma/persons/99100829/'
     html = get_html(url)
     data = get_page_data(html)
-    print(data)
 
 if __name__ == '__main__':
     main()

@@ -106,11 +106,13 @@ def get_page_data(html):
     content__s = soup.find('div', class_='content--s')
     birthday = content__s.find_all('p')[0].text
     authorization = content__s.find_all('p')[1].text
+    authorization = authorization.replace('\n', '').strip().replace('Дата вступления в полномочия:                                 ', '')
 
     #election_information
     definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
     dd_1 = definitions_list_1.find('dd')
     election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
+    election_information = election_information.replace('\n', '').strip().replace('                   ', ':')
 
     #fraction
     fraction = soup.find('a', class_='person__description__link').text
@@ -130,8 +132,8 @@ def get_page_data(html):
                                     description=description,
                                     image=save_image(get_name(image['src']), get_file(image['src'])),
                                     birthday=birthday.replace('Дата рождения: ', ''),
-                                    authorization=authorization.replace('\n', '').strip().replace('Дата вступления в полномочия:                                 ', ''),
-                                    election_information=election_information.replace('\n', '').strip().replace('                   ', ':')
+                                    authorization=authorization,
+                                    election_information=election_information
                                     #fraction=current_fraction
                                     )
     if current_fraction:

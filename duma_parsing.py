@@ -170,6 +170,7 @@ def main():
     url = 'http://duma.gov.ru/duma/persons/99111836/'
     html = get_html(url)
     data = get_page_data(html)
+    print(data)
 
 if __name__ == '__main__':
     main()

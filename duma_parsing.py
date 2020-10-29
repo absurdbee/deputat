@@ -101,6 +101,7 @@ def get_page_data(html):
     image = soup.find('img', class_='person__image person__image--mobile')
     if not image:
         image = soup.find('img', class_='person__image person__image--l')
+    elect_image = save_image(get_name(image['src']), get_file(image['src']))
 
     #birthday, authorization
     content__s = soup.find('div', class_='content--s')
@@ -135,7 +136,7 @@ def get_page_data(html):
     new_elect = Elect.objects.create(
                                     name=name,
                                     description=description,
-                                    image=save_image(get_name(image['src']), get_file(image['src']))
+                                    image=elect_image)
                                     #birthday=birthday,
                                     #authorization=authorization
                                     #election_information=election_information

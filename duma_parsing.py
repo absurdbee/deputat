@@ -138,7 +138,7 @@ def get_page_data(html):
     list = AuthorityList.objects.get(slug="state_duma")
     #list.list.add(new_elect)
 
-    region_list = soup.find_all('div', class_='person__description__col')[3].text
+    region_list = soup.find_all('div', class_='person__description__col')[3].text.strip()
 
     data = {'name': _name,
             'fraction': fraction.replace("\xa0", " "),

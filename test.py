@@ -75,7 +75,7 @@ def get_page_data(html):
             'description': description,
             'list': list,
             'educations_list': edu_list,
-            'region_list': region_list,
+            'region_list': region_list.split(","),
             'birthday': birthday.replace('Дата рождения: ', ''),
             'election_information': election_information.replace('\n', '').strip().replace('                   ', ':'),
             'authorization': authorization.replace('\n', '').strip().replace('Дата вступления в полномочия:                                 ', '')}
@@ -83,7 +83,7 @@ def get_page_data(html):
 
 
 def main():
-    url = 'http://duma.gov.ru/duma/persons/99111836/'
+    url = 'http://duma.gov.ru/duma/persons/99100829/'
     html = get_html(url)
     data = get_page_data(html)
     print(data)

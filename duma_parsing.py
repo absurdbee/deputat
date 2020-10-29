@@ -114,11 +114,8 @@ def get_page_data(html):
     definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
     dd_1 = definitions_list_1.find('dd')
 
-    try:
-        election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
-        election_information = election_information.replace('\n', '').strip().replace('                   ', ':')
-    except:
-        election_information = '111'
+    election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
+    election_information = election_information.replace('\n', '').strip().replace('                   ', ':')
 
     #fraction
     fraction = soup.find('a', class_='person__description__link').text
@@ -156,7 +153,7 @@ def get_page_data(html):
         region.region.add(new_elect)
 
 
-    #EducationElect
+    EducationElect
     definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
     edu_count = 0
     edu_dd = definitions_list_2.find_all('dd')
@@ -164,6 +161,8 @@ def get_page_data(html):
     for dd in edu_dd:
         EducationElect.objects.create(elect=new_elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
         edu_count += 1
+
+
 
 
 def main():

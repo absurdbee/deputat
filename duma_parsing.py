@@ -135,10 +135,10 @@ def get_page_data(html):
     new_elect = Elect.objects.create(
                                     name=name,
                                     description=description,
-                                    image=save_image(get_name(image['src']), get_file(image['src'])),
-                                    birthday=birthday,
-                                    authorization=authorization,
-                                    election_information=election_information
+                                    image=save_image(get_name(image['src']), get_file(image['src']))
+                                    #birthday=birthday,
+                                    #authorization=authorization
+                                    #election_information=election_information
                                     #fraction=current_fraction
                                     )
     if current_fraction:

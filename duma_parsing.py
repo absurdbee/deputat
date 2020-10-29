@@ -84,11 +84,11 @@ def get_page_data(html):
     name = soup.find('h1', class_='article__title--person')
     if name:
         _name = str(name)
-        _name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', '')
+        _name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', '').replace('\n', '')
     else:
         name = soup.find('h2', class_='person__title person__title--l')
         _name = str(name)
-        _name.replace('<h2 class="person__title person__title--l">', '').replace('<br/>', ' ').replace('</h2>', '')
+        _name.replace('<h2 class="person__title person__title--l">', '').replace('<br/>', ' ').replace('</h2>', '').replace('</h2>', '').replace('\n', '')
 
     fraction = soup.find('a', class_='person__description__link').text
     if fraction == "«ЕДИНАЯ РОССИЯ»":

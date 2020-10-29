@@ -66,7 +66,7 @@ def get_html(url):
     return r.text
 
 def get_file(url):
-    r = requests.get(url, stream=True)
+    r = requests.get('http://duma.gov.ru' + url, stream=True)
     return r
 
 def get_name(url):

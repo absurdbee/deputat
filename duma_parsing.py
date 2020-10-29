@@ -178,7 +178,7 @@ def main():
     regions_query = data["region_list"].split(",")
     for region_name in regions_query:
         region = Region.objects.get(name=region_name)
-        region.region.add(new_elect)
+        region.elect_region.add(new_elect)
 
 if __name__ == '__main__':
     main()

@@ -124,6 +124,8 @@ def get_page_data(html):
         current_fraction = Fraction.objects.get(slug="ldpr")
     elif fraction == "Депутаты, не входящие во фракции":
         current_fraction = Fraction.objects.get(slug="no_fraction")
+    else:
+        current_fraction = Fraction.objects.get(slug="edinaya_russia")
 
     new_elect = Elect.objects.create(
                                     name=name,

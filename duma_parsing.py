@@ -27,6 +27,11 @@ def get_name(url):
     name = url.split('/')[-1]
     return name
 
+def save_image(name, file_object):
+    with open(name, 'bw') as f:
+        for chunk in file_object.iter_content(8192):
+            f.write(chunk)
+
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     name = soup.find('h1', class_='article__title--person')
@@ -41,6 +46,7 @@ def get_page_data(html):
     image = soup.find('img', class_='person__image person__image--mobile')
     if not image:
         image = soup.find('img', class_='person__image person__image--l')
+    #save_image(get_name(image['src']), get_file(image['src']))
 
     content__s = soup.find('div', class_='content--s')
     birthday = content__s.find_all('p')[0].text

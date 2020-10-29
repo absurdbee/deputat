@@ -105,6 +105,7 @@ def get_page_data(html):
     #birthday, authorization
     content__s = soup.find('div', class_='content--s')
     birthday = content__s.find_all('p')[0].text
+    birthday = birthday.replace('Дата рождения: ', '')
     authorization = content__s.find_all('p')[1].text
     authorization = authorization.replace('\n', '').strip().replace('Дата вступления в полномочия:                                 ', '')
 
@@ -131,7 +132,7 @@ def get_page_data(html):
                                     name=name,
                                     description=description,
                                     image=save_image(get_name(image['src']), get_file(image['src'])),
-                                    birthday=birthday.replace('Дата рождения: ', ''),
+                                    birthday=birthday,
                                     authorization=authorization,
                                     election_information=election_information
                                     #fraction=current_fraction

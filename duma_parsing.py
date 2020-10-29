@@ -152,7 +152,7 @@ def get_page_data(html):
 
 
 def main():
-    url = 'http://duma.gov.ru/duma/persons/99111836/'
+    url = 'http://duma.gov.ru/duma/persons/99100829/'
     html = get_html(url)
     data = get_page_data(html)
     if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':

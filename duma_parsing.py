@@ -142,7 +142,7 @@ def get_page_data(html):
 
     data = {'name': _name,
             'fraction': fraction.replace("\xa0", " "),
-            'elect_image': image['src'],
+            'elect_image': 'http://duma.gov.ru' + image['src'],
             'description': description,
             'region_list': region_list,
             'birthday': birthday,

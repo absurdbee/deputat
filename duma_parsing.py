@@ -117,7 +117,7 @@ def get_page_data(html):
         election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
         election_information = election_information.replace('\n', '').strip().replace('                   ', ':')
     except:
-        election_information = ''
+        election_information = '111'
 
     #fraction
     fraction = soup.find('a', class_='person__description__link').text

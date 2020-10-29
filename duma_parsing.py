@@ -78,6 +78,18 @@ def save_image(name, file_object):
         for chunk in file_object.iter_content(8192):
             f.write(chunk)
 
+
+def get_page_data(html, elect):
+    soup = BeautifulSoup(html, 'lxml')
+
+    definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
+    edu_count = 0
+    edu_dd = definitions_list_2.find_all('dd')
+    edu_dt = definitions_list_2.find_all('dt')
+    for dd in edu_dd:
+        EducationElect.objects.create(elect=elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
+        edu_count += 1
+
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
 
@@ -133,20 +145,10 @@ def get_page_data(html):
     #    region.region.add(new_elect)
 
 
-    EducationElect
-    definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
-    edu_count = 0
-    edu_dd = definitions_list_2.find_all('dd')
-    edu_dt = definitions_list_2.find_all('dt')
-    #for dd in edu_dd:
-    #    EducationElect.objects.create(elect=new_elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
-    #    edu_count += 1
-
     data = {'name': _name,
             'fraction': fraction,
             'elect_image': elect_image,
             'description': description,
-            'educations_list': edu_list,
             'region_list': region_list,
             'birthday': birthday,
             'election_information': election_information,

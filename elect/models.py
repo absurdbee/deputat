@@ -9,6 +9,7 @@ from lists.models import Region
 from django.db.models import Q
 from django.core.files import File
 import os
+import urllib
 
 
 class Elect(models.Model):

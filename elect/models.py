@@ -9,7 +9,7 @@ from lists.models import Region
 from django.db.models import Q
 from django.core.files import File
 import os
-import urllib.request
+from urllib import request
 
 
 class Elect(models.Model):
@@ -50,7 +50,7 @@ class Elect(models.Model):
         result = urllib.request.urlretrieve(image_url)
         self.image.save(
             os.path.basename(image_url),
-            File(open(result[0]))
+            File(open(result[0], 'rb'))
         )
         self.save()
 

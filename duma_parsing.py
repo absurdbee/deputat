@@ -135,8 +135,8 @@ def get_page_data(html):
 
     new_elect = Elect.objects.create(
                                     name=name,
-                                    description=description,
-                                    image=elect_image,
+                                    description=description
+                                    #image=elect_image,
                                     #birthday=birthday,
                                     #authorization=authorization
                                     #election_information=election_information

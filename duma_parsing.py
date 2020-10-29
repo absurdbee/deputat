@@ -139,15 +139,10 @@ def get_page_data(html):
     #list.list.add(new_elect)
 
     region_list = soup.find_all('div', class_='person__description__col')[3].text
-    regions_query = region_list.split(",")
-    #for region_name in regions_query:
-    #    region = Region.objects.get(name=region_name)
-    #    region.region.add(new_elect)
-
 
     data = {'name': _name,
             'fraction': fraction.replace("\xa0", " "),
-            'elect_image': elect_image,
+            'elect_image': image['src'],
             'description': description,
             'region_list': region_list,
             'birthday': birthday,
@@ -170,16 +165,20 @@ def main():
         current_fraction = Fraction.objects.get(slug="ldpr")
     elif data["fraction"] == "Депутаты, не входящие во фракции":
         current_fraction = Fraction.objects.get(slug="no_fraction")
-
+    image = save_image(get_name(data["elect_image"]), get_file(data["elect_image"]))
     new_elect = Elect.objects.create(
                                     name=data["name"],
                                     description=data["description"],
-                                    image=data["elect_image"],
+                                    image=image,
                                     birthday=data["birthday"],
                                     authorization=data["authorization"],
                                     election_information=data["election_information"],
                                     fraction=current_fraction
                                     )
+    regions_query = data["region_list"].split(",")
+    for region_name in regions_query:
+        region = Region.objects.get(name=region_name)
+        region.region.add(new_elect)
 
 if __name__ == '__main__':
     main()

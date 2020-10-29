@@ -7,6 +7,8 @@ from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from lists.models import Region
 from django.db.models import Q
+from django.core.files import File
+import os
 
 
 class Elect(models.Model):
@@ -20,6 +22,7 @@ class Elect(models.Model):
     term_of_office = models.CharField(max_length=100, null=True, verbose_name='Срок окончания полномочий')
     election_information = models.CharField(max_length=100, blank=True, verbose_name="Сведения об избрании")
     fraction = models.ForeignKey('lists.Fraction', null=True, on_delete=models.SET_NULL, blank=True, verbose_name="Фракции")
+    #image_url = models.URLField(blank=True)
 
     class Meta:
         verbose_name = "Чиновник"
@@ -42,6 +45,13 @@ class Elect(models.Model):
     def get_news(self):
         return self.elect_news.all()
 
+    def get_remote_image(image_url):
+        result = urllib.urlretrieve(self.image_url)
+        self.image.save(
+            os.path.basename(self.image_url),
+            File(open(result[0]))
+        )
+        self.save()
 
 
 class LinkElect(models.Model):

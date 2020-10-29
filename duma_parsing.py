@@ -165,11 +165,10 @@ def main():
         current_fraction = Fraction.objects.get(slug="ldpr")
     elif data["fraction"] == "Депутаты, не входящие во фракции":
         current_fraction = Fraction.objects.get(slug="no_fraction")
-    image = save_image(get_name(data["elect_image"]), get_file(data["elect_image"]))
+
     new_elect = Elect.objects.create(
                                     name=data["name"],
                                     description=data["description"],
-                                    image=image,
                                     birthday=data["birthday"],
                                     authorization=data["authorization"],
                                     election_information=data["election_information"],
@@ -179,6 +178,7 @@ def main():
     for region_name in regions_query:
         region = Region.objects.get(name=region_name)
         region.elect_region.add(new_elect)
+    new_elect.get_remote_image(data["elect_image"])
 
 if __name__ == '__main__':
     main()

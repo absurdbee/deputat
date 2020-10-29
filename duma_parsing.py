@@ -120,8 +120,8 @@ def get_page_data(html):
     #fraction
     fraction = soup.find('a', class_='person__description__link').text
 
-    if current_fraction:
-        new_elect.fraction=current_fraction
+    #if current_fraction:
+    #    new_elect.fraction=current_fraction
 
     list = AuthorityList.objects.get(slug="state_duma")
     #list.list.add(new_elect)

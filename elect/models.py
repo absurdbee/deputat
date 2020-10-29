@@ -9,7 +9,7 @@ from lists.models import Region
 from django.db.models import Q
 from django.core.files import File
 import os
-import urllib
+import urllib.request
 
 
 class Elect(models.Model):
@@ -47,7 +47,7 @@ class Elect(models.Model):
         return self.elect_news.all()
 
     def get_remote_image(self, image_url):
-        result = urllib.urlretrieve(self.image_url)
+        result = urllib.request.urlretrieve(self.image_url)
         self.image.save(
             os.path.basename(self.image_url),
             File(open(result[0]))

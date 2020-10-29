@@ -130,14 +130,16 @@ def get_page_data(html):
                                     description=description,
                                     image=save_image(get_name(image['src']), get_file(image['src'])),
                                     birthday=birthday,
-                                    authorization=authorization,
-                                    election_information=election_information
+                                    authorization=authorization
+                                    #election_information=election_information
                                     #fraction=current_fraction
                                     )
     if current_fraction:
         new_elect.fraction=current_fraction
-        new_elect.save()
-        
+    if election_information:
+        new_elect.election_information=election_information
+    new_elect.save()
+
     list = AuthorityList.objects.get(slug="state_duma")
     list.list.add(new_elect)
 

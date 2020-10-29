@@ -75,7 +75,7 @@ def get_page_data(html):
             'description': description,
             'list': list,
             'educations_list': edu_list,
-            'region_list': region_list.split(","),
+            'region_list': region_list.replace(", ", ",").split(","),
             'birthday': birthday.replace('Дата рождения: ', ''),
             'election_information': election_information.replace('\n', '').strip().replace('                   ', ':'),
             'authorization': authorization.replace('\n', '').strip().replace('Дата вступления в полномочия:                                 ', '')}

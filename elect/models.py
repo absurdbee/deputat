@@ -47,9 +47,9 @@ class Elect(models.Model):
         return self.elect_news.all()
 
     def get_remote_image(self, image_url):
-        result = urllib.request.urlretrieve(self.image_url)
+        result = urllib.request.urlretrieve(image_url)
         self.image.save(
-            os.path.basename(self.image_url),
+            os.path.basename(image_url),
             File(open(result[0]))
         )
         self.save()

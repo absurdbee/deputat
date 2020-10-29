@@ -7,9 +7,6 @@ from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from lists.models import Region
 from django.db.models import Q
-from django.core.files import File
-import os
-from urllib import request
 
 
 class Elect(models.Model):
@@ -47,7 +44,11 @@ class Elect(models.Model):
         return self.elect_news.all()
 
     def get_remote_image(self, image_url):
-        result = urllib.request.urlretrieve(image_url)
+        import os
+        from django.core.files import File
+        from urllib import request
+
+        result = request.urlretrieve(image_url)
         self.image.save(
             os.path.basename(image_url),
             File(open(result[0], 'rb'))

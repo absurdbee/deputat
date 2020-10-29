@@ -132,7 +132,7 @@ def get_page_data(html):
                                     birthday=birthday,
                                     authorization=authorization,
                                     election_information=election_information,
-                                    fraction=fraction
+                                    fraction=current_fraction
                                     )
     list = AuthorityList.objects.get(slug="state_duma")
     list.list.add(new_elect)

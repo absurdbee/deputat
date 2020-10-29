@@ -119,38 +119,18 @@ def get_page_data(html):
 
     #fraction
     fraction = soup.find('a', class_='person__description__link').text
-    if fraction == '«ЕДИНАЯ РОССИЯ»':
-        current_fraction = Fraction.objects.get(slug="edinaya_russia")
-    elif fraction == "СПРАВЕДЛИВАЯ РОССИЯ":
-        current_fraction = Fraction.objects.get(slug="spravedlivaya_russia")
-    elif fraction == "КПРФ":
-        current_fraction = Fraction.objects.get(slug="kprf")
-    elif fraction == "ЛДПР":
-        current_fraction = Fraction.objects.get(slug="ldpr")
-    elif fraction == "Депутаты, не входящие во фракции":
-        current_fraction = Fraction.objects.get(slug="no_fraction")
 
-    new_elect = Elect.objects.create(
-                                    name=name,
-                                    description=description
-                                    #image=elect_image,
-                                    #birthday=birthday,
-                                    #authorization=authorization
-                                    #election_information=election_information
-                                    #fraction=current_fraction
-                                    )
     if current_fraction:
         new_elect.fraction=current_fraction
-    new_elect.save()
 
     list = AuthorityList.objects.get(slug="state_duma")
-    list.list.add(new_elect)
+    #list.list.add(new_elect)
 
     region_list = soup.find_all('div', class_='person__description__col')[3].text
     regions_query = region_list.split(",")
-    for region_name in regions_query:
-        region = Region.objects.get(name=region_name)
-        region.region.add(new_elect)
+    #for region_name in regions_query:
+    #    region = Region.objects.get(name=region_name)
+    #    region.region.add(new_elect)
 
 
     EducationElect
@@ -158,18 +138,46 @@ def get_page_data(html):
     edu_count = 0
     edu_dd = definitions_list_2.find_all('dd')
     edu_dt = definitions_list_2.find_all('dt')
-    for dd in edu_dd:
-        EducationElect.objects.create(elect=new_elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
-        edu_count += 1
+    #for dd in edu_dd:
+    #    EducationElect.objects.create(elect=new_elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
+    #    edu_count += 1
 
-
+    data = {'name': _name,
+            'fraction': fraction,
+            'elect_image': elect_image,
+            'description': description,
+            'educations_list': edu_list,
+            'region_list': region_list,
+            'birthday': birthday,
+            'election_information': election_information,
+            'authorization': authorization}
+    return data
 
 
 def main():
     url = 'http://duma.gov.ru/duma/persons/99111836/'
     html = get_html(url)
     data = get_page_data(html)
-    print(data)
+    if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':
+        current_fraction = Fraction.objects.get(slug="edinaya_russia")
+    elif data["fraction"] == "СПРАВЕДЛИВАЯ РОССИЯ":
+        current_fraction = Fraction.objects.get(slug="spravedlivaya_russia")
+    elif data["fraction"] == "КПРФ":
+        current_fraction = Fraction.objects.get(slug="kprf")
+    elif data["fraction"] == "ЛДПР":
+        current_fraction = Fraction.objects.get(slug="ldpr")
+    elif data["fraction"] == "Депутаты, не входящие во фракции":
+        current_fraction = Fraction.objects.get(slug="no_fraction")
+
+    new_elect = Elect.objects.create(
+                                    name=data["name"],
+                                    description=data["description"],
+                                    image=data["elect_image"],
+                                    birthday=data["birthday"],
+                                    authorization=data["authorization"],
+                                    election_information=data["election_information"],
+                                    fraction=current_fraction
+                                    )
 
 if __name__ == '__main__':
     main()

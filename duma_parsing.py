@@ -138,13 +138,13 @@ def get_page_data(html):
     list = AuthorityList.objects.get(slug="state_duma")
     #list.list.add(new_elect)
 
-    region_list = soup.find_all('div', class_='person__description__col')[3].text.strip()
+    region_list = soup.find_all('div', class_='person__description__col')[3].text
 
     data = {'name': _name,
             'fraction': fraction.replace("\xa0", " "),
             'elect_image': 'http://duma.gov.ru' + image['src'],
             'description': description,
-            'region_list': region_list,
+            'region_list': region_list.replace(", ", ""),
             'birthday': birthday,
             'election_information': election_information,
             'authorization': authorization}

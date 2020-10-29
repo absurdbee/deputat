@@ -114,7 +114,7 @@ def get_page_data(html):
 
     #fraction
     fraction = soup.find('a', class_='person__description__link').text
-    if fraction == '"ЕДИНАЯ РОССИЯ"':
+    if fraction == '«ЕДИНАЯ РОССИЯ»':
         current_fraction = Fraction.objects.get(slug="edinaya_russia")
     elif fraction == "СПРАВЕДЛИВАЯ РОССИЯ":
         current_fraction = Fraction.objects.get(slug="spravedlivaya_russia")

@@ -124,8 +124,6 @@ def get_page_data(html):
         current_fraction = Fraction.objects.get(slug="ldpr")
     elif fraction == "Депутаты, не входящие во фракции":
         current_fraction = Fraction.objects.get(slug="no_fraction")
-    else:
-        current_fraction = Fraction.objects.get(slug="edinaya_russia")
 
     new_elect = Elect.objects.create(
                                     name=name,
@@ -133,9 +131,13 @@ def get_page_data(html):
                                     image=save_image(get_name(image['src']), get_file(image['src'])),
                                     birthday=birthday,
                                     authorization=authorization,
-                                    election_information=election_information,
-                                    fraction=current_fraction
+                                    election_information=election_information
+                                    #fraction=current_fraction
                                     )
+    if current_fraction:
+        new_elect.fraction=current_fraction
+        new_elect.save()
+        
     list = AuthorityList.objects.get(slug="state_duma")
     list.list.add(new_elect)
 

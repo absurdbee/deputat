@@ -146,7 +146,7 @@ def get_page_data(html):
 
 
     data = {'name': _name,
-            'fraction': fraction,
+            'fraction': fraction.replace("\xa0", " "),
             'elect_image': elect_image,
             'description': description,
             'region_list': region_list,

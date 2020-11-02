@@ -170,8 +170,11 @@ def main():
             if regions_query:
                 regions_query = data["region_list"].split(",")
                 for region_name in regions_query:
-                    region = Region.objects.get(name=region_name)
-                    region.elect_region.add(new_elect)
+                    try:
+                        region = Region.objects.get(name=region_name)
+                        region.elect_region.add(new_elect)
+                    except:
+                        pass
             new_elect.get_remote_image(data["elect_image"])
             list = AuthorityList.objects.get(slug="state_duma")
             list.elect_list.add(new_elect)

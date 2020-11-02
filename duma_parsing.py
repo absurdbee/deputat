@@ -146,38 +146,32 @@ def get_page_data(html):
 
 
 def main():
-    url = 'http://duma.gov.ru/duma/persons/99111836/'
-    html = get_html(url)
-    data = get_page_data(html)
-    if not Elect.objects.filter(name=data["name"]).exists():
-        if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':
-            current_fraction = Fraction.objects.get(slug="edinaya_russia")
-        elif data["fraction"] == "СПРАВЕДЛИВАЯ РОССИЯ":
-            current_fraction = Fraction.objects.get(slug="spravedlivaya_russia")
-        elif data["fraction"] == "КПРФ":
-            current_fraction = Fraction.objects.get(slug="kprf")
-        elif data["fraction"] == "ЛДПР":
-            current_fraction = Fraction.objects.get(slug="ldpr")
-        elif data["fraction"] == "Депутаты, не входящие во фракции":
-            current_fraction = Fraction.objects.get(slug="no_fraction")
+    for id in id_list:
+        url = 'http://duma.gov.ru/duma/persons/' + id + "/"
+        html = get_html(url)
+        data = get_page_data(html)
+        if not Elect.objects.filter(name=data["name"]).exists():
+            if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':
+                current_fraction = Fraction.objects.get(slug="edinaya_russia")
+            elif data["fraction"] == "СПРАВЕДЛИВАЯ РОССИЯ":
+                current_fraction = Fraction.objects.get(slug="spravedlivaya_russia")
+            elif data["fraction"] == "КПРФ":
+                current_fraction = Fraction.objects.get(slug="kprf")
+            elif data["fraction"] == "ЛДПР":
+                current_fraction = Fraction.objects.get(slug="ldpr")
+            elif data["fraction"] == "Депутаты, не входящие во фракции":
+                current_fraction = Fraction.objects.get(slug="no_fraction")
 
-        new_elect = Elect.objects.create(
-                                    name=data["name"],
-                                    description=data["description"],
-                                    birthday=data["birthday"],
-                                    authorization=data["authorization"],
-                                    election_information=data["election_information"],
-                                    fraction=current_fraction
-                                    )
-        regions_query = data["region_list"].split(",")
-        for region_name in regions_query:
-            if region_name != "Все регионы Российской Федерации":
-                region = Region.objects.get(name=region_name)
-                region.elect_region.add(new_elect)
-        new_elect.get_remote_image(data["elect_image"])
-        list = AuthorityList.objects.get(slug="state_duma")
-        list.elect_list.add(new_elect)
-        get_educations_for_elect(html, new_elect)
+            new_elect = Elect.objects.create(name=data["name"], description=data["description"], birthday=data["birthday"], authorization=data["authorization"], election_information=data["election_information"], fraction=current_fraction)
+            regions_query = data["region_list"].split(",")
+            for region_name in regions_query:
+                if region_name != "Все регионы Российской Федерации":
+                    region = Region.objects.get(name=region_name)
+                    region.elect_region.add(new_elect)
+            new_elect.get_remote_image(data["elect_image"])
+            list = AuthorityList.objects.get(slug="state_duma")
+            list.elect_list.add(new_elect)
+            get_educations_for_elect(html, new_elect)
 
 if __name__ == '__main__':
     main()

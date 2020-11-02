@@ -232,7 +232,7 @@ function comment_abort_delete(_this, _link){
 
 
 
-$('path').hover(function(e){
+$('#russia_map path').hover(function(e){
   svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
     if (svg_list[i].style.fill != "green"){

@@ -132,7 +132,10 @@ def get_page_data(html):
     person__description = soup.find('div', class_='person__description__grid')
     fraction = person__description.find('a', class_='person__description__link').text
 
-    region_list = soup.find_all('div', class_='person__description__col')[3].text
+    try:
+        region_list = soup.find_all('div', class_='person__description__col')[3].text
+    except:
+        region_list = []
 
     data = {'name': _name,
             'fraction': fraction.replace("\xa0", " "),

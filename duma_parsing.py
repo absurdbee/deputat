@@ -81,14 +81,16 @@ def save_image(name, file_object):
 
 def get_educations_for_elect(html, elect):
     soup = BeautifulSoup(html, 'lxml')
-
-    definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
-    edu_count = 0
-    edu_dd = definitions_list_2.find_all('dd')
-    edu_dt = definitions_list_2.find_all('dt')
-    for dd in edu_dd:
-        EducationElect.objects.create(elect=elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
-        edu_count += 1
+    try:
+        definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
+        edu_count = 0
+        edu_dd = definitions_list_2.find_all('dd')
+        edu_dt = definitions_list_2.find_all('dt')
+        for dd in edu_dd:
+            EducationElect.objects.create(elect=elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
+            edu_count += 1
+    except:
+        pass
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')

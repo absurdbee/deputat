@@ -166,9 +166,10 @@ def main():
                 current_fraction = Fraction.objects.get(slug="no_fraction")
 
             new_elect = Elect.objects.create(name=data["name"], description=data["description"], birthday=data["birthday"], authorization=data["authorization"], election_information=data["election_information"], fraction=current_fraction)
-            regions_query = data["region_list"].split(",")
-            for region_name in regions_query:
-                if region_name != "Все регионы Российской Федерации":
+            regions_query = data["region_list"]
+            if regions_query:
+                regions_query = data["region_list"].split(",")
+                for region_name in regions_query:
                     region = Region.objects.get(name=region_name)
                     region.elect_region.add(new_elect)
             new_elect.get_remote_image(data["elect_image"])

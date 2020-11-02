@@ -7,7 +7,7 @@
       <div class="row pt-4">
         {% if object_list %}
         {% for object in object_list %}
-        <div class="col-12 mb-30">
+        <div class="col-md-6 col-sm-12 mb-30">
           <div class="team-card-style-4 d-sm-table w-100">
             <div class="team-thumb d-sm-table-cell align-middle">
               <a href="{% url 'elect_detail' pk=object.pk %}">

@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="row pt-4">
-        <div class="col-md-4" style="">
+        <div class="col-12" style="">
           <div class="card border border-dark">
               <div class="card-body">
                 <h4 class="card-title">Информация</h4>
@@ -37,17 +37,6 @@
                     <li class="list-group-item">Дата вступления в полномочия: {{ object.authorization }}</li>
                     <li class="list-group-item">Фракция: {{ object.fraction }}</li>
                     <li class="list-group-item">Сведения об избрании: {{ object.election_information }}</li>
-                  </ul>
-                </p>
-              </div>
-            </div>
-        </div>
-        <div class="col-md-4" style="">
-          <div class="card border border-dark">
-              <div class="card-body">
-                <h4 class="card-title">О депутате</h4>
-                <p class="card-text">
-                  <ul class="list-group">
                     {% if object.educationelect_set.all %}
                     <li class="list-group-item">Образование:<br>
                       {% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}
@@ -63,7 +52,7 @@
               </div>
             </div>
         </div>
-        <div class="col-md-4" style="">
+        <div class="col-12" style="">
           <div class="card border border-dark">
               <div class="card-body">
                 <h4 class="card-title">Рейтинг</h4>

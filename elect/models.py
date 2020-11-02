@@ -72,7 +72,7 @@ class LinkElect(models.Model):
 class EducationElect(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
     elect = models.ForeignKey(Elect, on_delete=models.CASCADE, blank=True, verbose_name="Чиновник")
-    year = models.PositiveSmallIntegerField(default=0, verbose_name="Год")
+    year = models.CharField(max_length=10, verbose_name="Год")
 
     class Meta:
         verbose_name = "Образование чиновника"

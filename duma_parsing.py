@@ -146,7 +146,7 @@ def get_page_data(html):
 
 
 def main():
-    url = 'http://duma.gov.ru/duma/persons/99104023/'
+    url = 'http://duma.gov.ru/duma/persons/99100142/'
     html = get_html(url)
     data = get_page_data(html)
     if not Elect.objects.filter(name=data["name"]).exists():

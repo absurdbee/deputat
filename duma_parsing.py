@@ -133,7 +133,7 @@ def get_page_data(html):
     fraction = person__description.find('a', class_='person__description__link').text
 
     try:
-        region_list = soup.find_all('div', class_='person__description__col')[3].text
+        region_list = soup.find_all('div', class_='person__description__col')[3].text.replace(", ", ",")
     except:
         region_list = []
 
@@ -141,7 +141,7 @@ def get_page_data(html):
             'fraction': fraction.replace("\xa0", " "),
             'elect_image': 'http://duma.gov.ru' + image['src'],
             'description': description,
-            'region_list': region_list.replace(", ", ","),
+            'region_list': region_list,
             'birthday': birthday,
             'election_information': election_information,
             'authorization': authorization}

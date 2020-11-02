@@ -14,7 +14,7 @@ class ElectAdmin(admin.ModelAdmin):
         EducationElectInline,
     ]
     list_display = ['name', ]
-    list_filter = ['region',]
+    list_filter = ['list',]
     search_fields = ['name',]
     class Meta:
             model = Elect

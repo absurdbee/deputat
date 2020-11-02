@@ -21,3 +21,4 @@ class ElectAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Elect, ElectAdmin)
+admin.site.register(EducationElect)

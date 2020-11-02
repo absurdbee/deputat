@@ -38,7 +38,9 @@ def get_page_data(html):
     if not name:
         name = soup.find('h2', class_='person__title person__title--l')
     _name = str(name)
-    fraction = soup.find('a', class_='person__description__link').text
+    person__description = soup.find('div', class_='person__description__grid')
+    fraction = person__description.find('a', class_='person__description__link').text
+    
     description = soup.find('div', class_='article__lead article__lead--person')
     if not description:
         description = soup.find('div', class_='page__lead')

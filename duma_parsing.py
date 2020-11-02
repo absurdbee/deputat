@@ -129,7 +129,8 @@ def get_page_data(html):
     election_information = election_information.replace('\n', '').strip().replace('                   ', ':')
 
     #fraction
-    fraction = soup.find('a', class_='person__description__link').text
+    person__description = soup.find('div', class_='person__description__grid')
+    fraction = person__description.find('a', class_='person__description__link').text
 
     region_list = soup.find_all('div', class_='person__description__col')[3].text
 

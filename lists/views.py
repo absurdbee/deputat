@@ -73,7 +73,7 @@ class RegionDetailView(TemplateView, CategoryListMixin):
 	template_name = "elect_list/region.html"
 
 	def get(self,request,*args,**kwargs):
-		self.region = Region.objects.get(order=self.kwargs["order"])
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
 		return super(RegionDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

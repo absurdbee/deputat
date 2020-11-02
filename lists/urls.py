@@ -9,5 +9,5 @@ urlpatterns = [
     url(r'^fraction/(?P<slug>[\w\-]+)/$', FractionList.as_view(), name='fraction_index'),
     url(r'^region/(?P<slug>[\w\-]+)/$', RegionElectView.as_view(), name='region_index'),
 
-    url(r'^area/(?P<order>\d+)/$', RegionDetailView.as_view(), name='region_detail'),
+    url(r'^area/(?P<slug>[\w\-]+)/$', RegionDetailView.as_view(), name='region_detail'),
 ]

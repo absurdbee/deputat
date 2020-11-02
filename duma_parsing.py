@@ -79,7 +79,7 @@ def save_image(name, file_object):
             f.write(chunk)
 
 
-def get_page_data(html, elect):
+def get_educations_for_elect(html, elect):
     soup = BeautifulSoup(html, 'lxml')
 
     definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
@@ -125,18 +125,11 @@ def get_page_data(html):
     #election_information
     definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
     dd_1 = definitions_list_1.find('dd')
-
     election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
     election_information = election_information.replace('\n', '').strip().replace('                   ', ':')
 
     #fraction
     fraction = soup.find('a', class_='person__description__link').text
-
-    #if current_fraction:
-    #    new_elect.fraction=current_fraction
-
-    list = AuthorityList.objects.get(slug="state_duma")
-    #list.list.add(new_elect)
 
     region_list = soup.find_all('div', class_='person__description__col')[3].text
 
@@ -179,6 +172,9 @@ def main():
         region = Region.objects.get(name=region_name)
         region.elect_region.add(new_elect)
     new_elect.get_remote_image(data["elect_image"])
+    list = AuthorityList.objects.get(slug="state_duma")
+    list.elect_list.add(new_elect)
+    get_educations_for_elect(html, new_elect)
 
 if __name__ == '__main__':
     main()

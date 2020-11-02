@@ -40,7 +40,7 @@ def get_page_data(html):
     _name = str(name)
     person__description = soup.find('div', class_='person__description__grid')
     fraction = person__description.find('a', class_='person__description__link').text
-    
+
     description = soup.find('div', class_='article__lead article__lead--person')
     if not description:
         description = soup.find('div', class_='page__lead')
@@ -85,7 +85,7 @@ def get_page_data(html):
 
 
 def main():
-    url = 'http://duma.gov.ru/duma/persons/99104023/'
+    url = 'http://duma.gov.ru/duma/persons/1055902/'
     html = get_html(url)
     data = get_page_data(html)
     print(data)

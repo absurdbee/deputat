@@ -237,10 +237,7 @@
 .pointer {
   cursor:pointer
 }
-svg{
-  width:100%;
-  margin-top: 2%;
-}
+
 path{transition:all .5s;fill:#DAD8D6;stroke:rgba(0,0,0,0.5);}
 .indicator{
   position:absolute;

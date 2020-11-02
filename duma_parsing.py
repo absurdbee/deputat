@@ -172,6 +172,7 @@ def main():
             list = AuthorityList.objects.get(slug="state_duma")
             list.elect_list.add(new_elect)
             get_educations_for_elect(html, new_elect)
+            print(data["name"])
 
 if __name__ == '__main__':
     main()

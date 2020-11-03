@@ -82,8 +82,8 @@ def get_page_data(html):
 
 def main():
     html = get_html("http://council.gov.ru/structure/members/")
-    get_links(html)
-    print(blocks)
+    lists = get_links(html)
+    print(lists)
 
 if __name__ == '__main__':
     main()

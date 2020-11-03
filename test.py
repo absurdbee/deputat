@@ -20,7 +20,7 @@ def get_html(url):
     return r.text
 
 def get_links(url):
-    soup = BeautifulSoup(html, 'lxml')
+    soup = BeautifulSoup(url, 'lxml')
     list = []
     blocks = soup.find_all('a', class_='group__persons__item group__persons__item_with_photo')
     for item in blocks:

@@ -22,7 +22,8 @@ def get_html(url):
 def get_links(url):
     soup = BeautifulSoup(url, 'lxml')
     list = []
-    blocks = soup.find_all('a', class_='group__persons__item group__persons__item_with_photo')
+    container = soup.find('div', class_='content__in content__in_bottom')
+    blocks = container.find_all('a', class_='group__persons__item group__persons__item_with_photo')
     for item in blocks:
         list += [item['href'], ]
     return list

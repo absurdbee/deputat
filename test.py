@@ -55,7 +55,7 @@ def get_page_data(html):
         edu_item = edu_p[edu_count].text
         edu_list += [edu_item, ]
         edu_count += 1
-    region = soup.find_all('a', class_='region_name_link').text
+    region = soup.find('a', class_='region_name_link').text
 
     data = {'name': name.text,
             'image': 'http://council.gov.ru' + image['src'],

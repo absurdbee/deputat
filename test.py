@@ -44,7 +44,7 @@ def get_page_data(html):
     person_info = soup.find('div', class_='person_info_private')
     birthday = person_info.find_all('p')[0].text
     authorization = person_info.find_all('p')[1].text
-    term_of_office = person_info.find_all('p')[1].text
+    term_of_office = person_info.find_all('p')[2].text
 
     person_biography = soup.find('div', class_='person__biography')
     edu_container = person_biography.find_all('div', class_='biography_block')[0]
@@ -63,7 +63,7 @@ def get_page_data(html):
             'educations_list': edu_list,
             'region': region,
             'birthday': birthday.replace('Дата рождения: ', ''),
-            'authorization': authorization.replace('\n', '').strip().replace('Дата наделения полномочиями: ', ''),
+            'authorization': authorization.replace('\n', '').strip().replace('Дата наделения полномочиями:                        ', ''),
             'term_of_office': term_of_office.replace('\n', '').strip(),}
     return data
 

@@ -43,8 +43,8 @@ def get_page_data(html):
 
     person_info = soup.find('div', class_='person_info_private')
     birthday = person_info.find_all('p')[0].text
-    authorization = person_info_.find_all('p')[1].text
-    term_of_office = person_info_.find_all('p')[1].text
+    authorization = person_info.find_all('p')[1].text
+    term_of_office = person_info.find_all('p')[1].text
 
     person_biography = soup.find('div', class_='person__biography')
     edu_container = person_biography.find_all('div', class_='biography_block')[0]

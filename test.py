@@ -22,11 +22,11 @@ def get_html(url):
 def get_links(url):
     soup = BeautifulSoup(url, 'lxml')
     list = []
-    container = soup.find('div', class_='content__in content__in_bottom')
+    container = soup.find('div', class_='main__content_wrapper')
     blocks = container.find_all('a', class_='group__persons__item group__persons__item_with_photo')
     for item in blocks:
         list += [1,]
-    return container
+    return list
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')

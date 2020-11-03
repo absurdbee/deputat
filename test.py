@@ -31,10 +31,10 @@ def get_links(url):
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
+
     name = soup.find('h2', class_='senators_title')
 
     person__description = soup.find('div', class_='person__description__grid')
-    fraction = person__description.find('a', class_='person__description__link').text
 
     description = soup.find('div', class_='person__additional_top').text
 
@@ -58,7 +58,7 @@ def get_page_data(html):
     region = soup.find_all('a', class_='region_name_link').text
 
     data = {'name': name.text,
-            'image': 'http://duma.gov.ru' + image['src'],
+            'image': 'http://council.gov.ru' + image['src'],
             'description': description,
             'educations_list': edu_list,
             'region': region,

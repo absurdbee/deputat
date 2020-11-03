@@ -25,65 +25,55 @@ def get_links(url):
     container = soup.find('div', class_='main__content_wrapper')
     blocks = container.find_all('a', class_='group__persons__item group__persons__item_with_photo')
     for item in blocks:
-        list += [item['href'], ]
+        list += ['http://council.gov.ru' + item['href'], ]
     return list
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
-    name = soup.find('h1', class_='article__title--person')
-    if not name:
-        name = soup.find('h2', class_='person__title person__title--l')
-    _name = str(name)
+    name = soup.find('h2', class_='senators_title')
+
     person__description = soup.find('div', class_='person__description__grid')
     fraction = person__description.find('a', class_='person__description__link').text
 
-    description = soup.find('div', class_='article__lead article__lead--person')
-    if not description:
-        description = soup.find('div', class_='page__lead')
-    description = description.text
-    image = soup.find('img', class_='person__image person__image--mobile')
-    if not image:
-        image = soup.find('img', class_='person__image person__image--l')
-    #save_image(get_name(image['src']), get_file(image['src']))
+    description = soup.find('div', class_='person__additional_top').text
 
-    content__s = soup.find('div', class_='content--s')
-    birthday = content__s.find_all('p')[0].text
-    authorization = content__s.find_all('p')[1].text
+    img_container = soup.find('div', class_='content__in')
+    image = img_container.find('img', class_='person_img')
 
-    definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
-    dd_1 = definitions_list_1.find('dd')
-    election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
+    person_info_ = soup.find('div', class_='person_info_private ')
+    birthday = person_info_.find_all('p')[0].text
+    authorization = person_info_.find_all('p')[1].text
+    term_of_office = person_info_.find_all('p')[1].text
 
-    definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
+    person_biography = soup.find('div', class_='person__biography')
+    edu_container = person_biography.find_all('div', class_='biography_block')[0]
+    edu_p = person_biography.find_all('p')
     edu_count = 0
     edu_list = []
-    edu_dd = definitions_list_2.find_all('dd')
-    edu_dt = definitions_list_2.find_all('dt')
-    for dd in edu_dd:
-        dd__dt = edu_dd[edu_count].text + ": " + edu_dt[edu_count].text
-        edu_list += [dd__dt, ]
+    for p in edu_p:
+        edu_item = edu_p[edu_count].text
+        edu_list += [edu_item, ]
         edu_count += 1
+    region = soup.find_all('a', class_='region_name_link').text
 
-    list = AuthorityList.objects.get(slug="state_duma")
-    region_list = soup.find_all('div', class_='person__description__col')[3].text
-
-    data = {'name': _name.replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', ''),
-            'fraction': fraction,
+    data = {'name': name.text,
             'image': 'http://duma.gov.ru' + image['src'],
             'description': description,
-            'list': list,
             'educations_list': edu_list,
-            'region_list': region_list.replace(", ", ",").split(","),
+            'region': region,
             'birthday': birthday.replace('Дата рождения: ', ''),
-            'election_information': election_information.replace('\n', '').strip().replace('                   ', ':'),
-            'authorization': authorization.replace('\n', '').strip().replace('Дата вступления в полномочия:                                 ', '')}
+            'authorization': authorization.replace('\n', '').strip().replace('Дата наделения полномочиями: ', ''),
+            'term_of_office': term_of_office.replace('\n', '').strip(),}
     return data
 
 
 def main():
     html = get_html("http://council.gov.ru/structure/members/")
     lists = get_links(html)
-    print(lists)
+    for url in lists:
+        _html = get_html(url)
+        data = get_page_data(_html)
+        print(data)
 
 if __name__ == '__main__':
     main()

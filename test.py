@@ -64,7 +64,7 @@ def get_page_data(html):
             'region': region,
             'birthday': birthday.replace('Дата рождения: ', ''),
             'authorization': authorization.replace('\n', '').strip().replace('Дата наделения полномочиями:                        ', ''),
-            'term_of_office': term_of_office.replace('\n', '').strip(),}
+            'term_of_office': term_of_office.replace('\n', '').strip().replace('Срок окончания полномочий                        *:                        ', ''),}
     return data
 
 

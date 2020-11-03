@@ -58,8 +58,8 @@ def get_page_data(html):
     region = soup.find('a', class_='region_name_link').text
 
     data = {'name': name.text,
-            'image': 'http://council.gov.ru' + image['src'],
-            'description': description,
+            'image': image['src'],
+            'description': description.strip().replace('\n', ''),
             'educations_list': edu_list,
             'region': region,
             'birthday': birthday.replace('Дата рождения: ', ''),

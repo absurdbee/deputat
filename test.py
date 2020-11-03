@@ -25,7 +25,7 @@ def get_links(url):
     container = soup.find('div', class_='content__in content__in_bottom')
     blocks = container.find_all('a', class_='group__persons__item group__persons__item_with_photo')
     for item in blocks:
-        list += [item.text]
+        list += [1,]
     return blocks
 
 def get_page_data(html):

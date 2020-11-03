@@ -19,18 +19,13 @@ def get_html(url):
     r = requests.get(url)
     return r.text
 
-def get_file(url):
-    r = requests.get(url, stream=True)
-    return r
-
-def get_name(url):
-    name = url.split('/')[-1]
-    return name
-
-def save_image(name, file_object):
-    with open(name, 'bw') as f:
-        for chunk in file_object.iter_content(8192):
-            f.write(chunk)
+def get_links(url):
+    soup = BeautifulSoup(html, 'lxml')
+    list = []
+    blocks = soup.find_all('a', class_='group__persons__item group__persons__item_with_photo')
+    for item in blocks:
+        list += [image['href'], ]
+    return list
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
@@ -85,10 +80,8 @@ def get_page_data(html):
 
 
 def main():
-    url = 'http://duma.gov.ru/duma/persons/99104023/'
-    html = get_html(url)
-    data = get_page_data(html)
-    print(data)
+    get_links("http://council.gov.ru/structure/members/")
+    print(list)
 
 if __name__ == '__main__':
     main()

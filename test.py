@@ -41,8 +41,8 @@ def get_page_data(html):
     img_container = soup.find('div', class_='content__in')
     image = img_container.find('img', class_='person_img')
 
-    person_info_ = soup.find('div', class_='person_info_private ')
-    birthday = person_info_.find_all('p')[0].text
+    person_info = soup.find('div', class_='person_info_private')
+    birthday = person_info.find_all('p')[0].text
     authorization = person_info_.find_all('p')[1].text
     term_of_office = person_info_.find_all('p')[1].text
 

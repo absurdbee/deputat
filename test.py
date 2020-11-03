@@ -39,7 +39,7 @@ def get_page_data(html):
     description = soup.find('div', class_='person__additional_top').text
 
     img_container = soup.find('div', class_='content__in')
-    image = img_container.find('img', class_='person_img')
+    image = soup.find('img', class_='person_img')
 
     person_info = soup.find('div', class_='person_info_private')
     birthday = person_info.find_all('p')[0].text

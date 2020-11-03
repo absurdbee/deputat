@@ -26,7 +26,7 @@ def get_links(url):
     blocks = container.find_all('a', class_='group__persons__item group__persons__item_with_photo')
     for item in blocks:
         list += [1,]
-    return blocks
+    return list
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')

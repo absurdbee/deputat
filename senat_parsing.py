@@ -80,6 +80,7 @@ def main():
                                                 authorization=data["authorization"],
                                                 term_of_office=data["term_of_office"]
                                             )
+            region = Region.objects.get(name=data["region"])
             region.elect_region.add(new_elect)
 
             new_elect.get_remote_image(data["image"])

@@ -13,109 +13,81 @@ django.setup()
 from lists.models import *
 from elect.models import *
 
+test_id = ['http://council.gov.ru/structure/persons/1317/', ]
 
 def get_html(url):
     r = requests.get(url)
     return r.text
 
-def get_file(url):
-    r = requests.get(url, stream=True)
-    return r
-
-
-def get_educations_for_elect(html, elect):
-    soup = BeautifulSoup(html, 'lxml')
-    try:
-        definitions_list_2 = soup.find('dl', class_='definitions-list definitions-list--capitalize')
-        edu_count = 0
-        edu_dd = definitions_list_2.find_all('dd')
-        edu_dt = definitions_list_2.find_all('dt')
-        for dd in edu_dd:
-            EducationElect.objects.create(elect=elect, title=edu_dd[edu_count].text, year=edu_dt[edu_count].text)
-            edu_count += 1
-    except:
-        pass
+def get_links(url):
+    soup = BeautifulSoup(url, 'lxml')
+    list = []
+    container = soup.find('div', class_='main__content_wrapper')
+    blocks = container.find_all('a', class_='group__persons__item group__persons__item_with_photo')
+    for item in blocks:
+        list += ['http://council.gov.ru' + item['href'], ]
+    return list
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
 
-    # name
-    name = soup.find('h1', class_='article__title--person')
-    if name:
-        _name = str(name)
-        _name = _name.replace('\n', '').replace('<h1 class="article__title article__title--person">', '').replace('<br/>', ' ').replace('</h1>', '')
-    else:
-        name = soup.find('h2', class_='person__title person__title--l')
-        _name = str(name)
-        _name = _name.replace('\n', '').replace('<h2 class="person__title person__title--l"><span itemprop="name">', '').replace('<br/>', ' ').replace('</span></h2>', '').replace('</h2>', '')
+    name = soup.find('h2', class_='senators_title')
 
-    #description
-    description = soup.find('div', class_='article__lead article__lead--person')
-    if not description:
-        description = soup.find('div', class_='page__lead')
-    description = description.text
-
-    #image
-    image = soup.find('img', class_='person__image person__image--mobile')
-    if not image:
-        image = soup.find('img', class_='person__image person__image--l')
-    elect_image = save_image(get_name(image['src']), get_file(image['src']))
-
-    #birthday, authorization
-    content__s = soup.find('div', class_='content--s')
-    birthday = content__s.find_all('p')[0].text
-    birthday = birthday.replace('Дата рождения: ', '')
-    authorization = content__s.find_all('p')[1].text
-    authorization = authorization.replace('\n', '').strip().replace('Дата вступления в полномочия:                                 ', '')
-
-    #election_information
-    definitions_list_1 = soup.find_all('dl', class_='definitions-list')[0]
-    dd_1 = definitions_list_1.find('dd')
-    election_information = dd_1.find_all('p')[0].text + definitions_list_1.find('dt').text
-    election_information = election_information.replace('\n', '').strip().replace('                   ', ':')
-
-    #fraction
     person__description = soup.find('div', class_='person__description__grid')
-    fraction = person__description.find('a', class_='person__description__link').text
 
-    try:
-        region_list = soup.find_all('div', class_='person__description__col')[3].text.replace(", ", ",")
-    except:
-        region_list = []
+    description = soup.find('div', class_='person__additional_top').text
 
-    data = {'name': _name,
-            'fraction': fraction.replace("\xa0", " "),
-            'elect_image': 'http://duma.gov.ru' + image['src'],
-            'description': description,
-            'region_list': region_list,
-            'birthday': birthday,
-            'election_information': election_information,
-            'authorization': authorization}
+    img_container = soup.find('div', class_='content__in')
+    image = soup.find('img', class_='person_img')
+
+    person_info = soup.find('div', class_='person_info_private')
+    birthday = person_info.find_all('p')[0].text
+    authorization = person_info.find_all('p')[1].text
+    term_of_office = person_info.find_all('p')[2].text
+
+    person_biography = soup.find('div', class_='person__biography')
+    edu_container = person_biography.find_all('div', class_='biography_block')[0]
+    edu_p = edu_container.find_all('p')
+    edu_count = 0
+    edu_list = []
+    for p in edu_p:
+        edu_item = edu_p[edu_count].text
+        edu_list += [edu_item, ]
+        edu_count += 1
+    region = soup.find('a', class_='region_name_link').text
+
+    data = {'name': name.text,
+            'image': image['src'],
+            'description': description.strip().replace('\n', ''),
+            'educations_list': edu_list,
+            'region': region,
+            'birthday': birthday.replace('Дата рождения: ', ''),
+            'authorization': authorization.replace('\n', '').strip().replace('Дата наделения полномочиями:                        ', ''),
+            'term_of_office': term_of_office.replace('\n', '').strip().replace('Срок окончания полномочий                        *:                        ', ''),
+            'educations_list': edu_list,}
     return data
 
 
 def main():
-
-    for id in id_list:
-        url = 'http://duma.gov.ru/duma/persons/' + id + "/"
+    for url in test_id:
         html = get_html(url)
         data = get_page_data(html)
         if not Elect.objects.filter(name=data["name"]).exists():
+            new_elect = Elect.objects.create(
+                                                name=data["name"],
+                                                description=data["description"],
+                                                birthday=data["birthday"],
+                                                authorization=data["authorization"],
+                                                election_information=data["election_information"],
+                                                term_of_office=data["term_of_office"])
+            region.elect_region.add(new_elect)
 
-            new_elect = Elect.objects.create(name=data["name"], description=data["description"], birthday=data["birthday"], authorization=data["authorization"], election_information=data["election_information"], fraction=current_fraction)
-            regions_query = data["region_list"]
-            if regions_query:
-                regions_query = data["region_list"].split(",")
-                for region_name in regions_query:
-                    try:
-                        region = Region.objects.get(name=region_name)
-                        region.elect_region.add(new_elect)
-                    except:
-                        pass
-            new_elect.get_remote_image(data["elect_image"])
-            list = AuthorityList.objects.get(slug="state_duma")
+            new_elect.get_remote_image(data["image"])
+            list = AuthorityList.objects.get(slug="senat")
             list.elect_list.add(new_elect)
-            get_educations_for_elect(html, new_elect)
+
+            for edu_item in data["educations_list"]:
+                EducationElect.objects.create(elect=new_elect, title=edu_item.text[:6], year=edu_dt[edu_count].text[5:])
             print(data["name"])
 
 if __name__ == '__main__':

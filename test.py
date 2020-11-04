@@ -48,7 +48,7 @@ def get_page_data(html):
 
     person_biography = soup.find('div', class_='person__biography')
     edu_container = person_biography.find_all('div', class_='biography_block')[0]
-    edu_p = person_biography.find_all('p')
+    edu_p = edu_container.find_all('p')
     edu_count = 0
     edu_list = []
     for p in edu_p:

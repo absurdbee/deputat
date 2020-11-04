@@ -14,7 +14,7 @@ django.setup()
 
 from lists.models import AuthorityList
 
-test_id = ['http://council.gov.ru/structure/persons/1286/', ]
+test_id = ['http://council.gov.ru/structure/persons/1341/', ]
 
 def get_html(url):
     r = requests.get(url)

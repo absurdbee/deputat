@@ -84,12 +84,12 @@ def main():
             region.elect_region.add(new_elect)
 
             new_elect.get_remote_image(data["image"])
-            
+
             list = AuthorityList.objects.get(slug="senat")
             list.elect_list.add(new_elect)
 
             for edu_item in data["educations_list"]:
-                EducationElect.objects.create(elect=new_elect, title=edu_item.text[:6], year=edu_dt[edu_count].text[5:])
+                EducationElect.objects.create(elect=new_elect, title=edu_item[:6], year=edu_dt[5:])
             print(data["name"])
 
 if __name__ == '__main__':

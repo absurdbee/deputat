@@ -69,7 +69,9 @@ def get_page_data(html):
 
 
 def main():
-    for url in test_id:
+    html = get_html("http://council.gov.ru/structure/members/")
+    lists = get_links(html)
+    for url in lists:
         html = get_html(url)
         data = get_page_data(html)
         if not Elect.objects.filter(name=data["name"]).exists():

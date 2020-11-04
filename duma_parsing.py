@@ -177,7 +177,7 @@ def main():
             list = AuthorityList.objects.get(slug="state_duma")
             list.elect_list.add(new_elect)
             get_educations_for_elect(html, new_elect)
-            print(lists)
+            print(data["name"])
 
 def test():
     html = get_html("http://duma.gov.ru/duma/deputies/")

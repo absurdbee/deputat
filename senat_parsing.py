@@ -14,7 +14,7 @@ from lists.models import *
 from elect.models import *
 
 test_id = ['http://council.gov.ru/structure/persons/1317/', ]
-sity_names = ['Москва', 'Санкт-Петербург', 'Севастополь', ]
+sity_names = ['г.Москва', 'г.Санкт-Петербург', 'г.Севастополь', ]
 
 def get_html(url):
     r = requests.get(url)
@@ -85,7 +85,7 @@ def main():
                                             )
             data_region = data["region"]
             if data_region in sity_names:
-                data_region = "г." + data_region
+                data_region = data_region[1:]
             region = Region.objects.get(name=data_region)
             region.elect_region.add(new_elect)
 

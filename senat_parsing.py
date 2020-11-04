@@ -14,6 +14,7 @@ from lists.models import *
 from elect.models import *
 
 test_id = ['http://council.gov.ru/structure/persons/1317/', ]
+sity_names = ['Москва', 'Санкт-Петербург', 'Севастополь', ]
 
 def get_html(url):
     r = requests.get(url)
@@ -82,7 +83,10 @@ def main():
                                                 authorization=data["authorization"],
                                                 term_of_office=data["term_of_office"]
                                             )
-            region = Region.objects.get(name=data["region"])
+            data_region = data["region"]
+            if data_region in sity_names:
+                data_region = "г." + data_region
+            region = Region.objects.get(name=data_region)
             region.elect_region.add(new_elect)
 
             new_elect.get_remote_image(data["image"])

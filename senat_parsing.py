@@ -89,7 +89,7 @@ def main():
             list.elect_list.add(new_elect)
 
             for edu_item in data["educations_list"]:
-                EducationElect.objects.create(elect=new_elect, title=edu_item[:6], year=edu_dt[5:])
+                EducationElect.objects.create(elect=new_elect, title=edu_item[:6], year=edu_item[5:])
             print(data["name"])
 
 if __name__ == '__main__':

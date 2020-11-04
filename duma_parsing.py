@@ -69,7 +69,7 @@ def get_links(url):
     soup = BeautifulSoup(url, 'lxml')
     list = []
     container = soup.find('ul', class_='list-persons list-persons--deputy grid grid--three-columns mobile-no-padding')
-    blocks = container.find_all('a')
+    blocks = container.find_all('a', class_='person__image-wrapper person__image-wrapper--s')
     for item in blocks:
         list += ['http://duma.gov.ru' + item['href'], ]
     return list

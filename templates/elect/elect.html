@@ -34,8 +34,15 @@
                   <ul class="list-group">
                     <li class="list-group-item">Дата рождения: {{ object.birthday }}</li>
                     <li class="list-group-item">Дата вступления в полномочия: {{ object.authorization }}</li>
-                    <li class="list-group-item">Фракция: {{ object.fraction }}</li>
-                    <li class="list-group-item">Сведения об избрании: {{ object.election_information }}</li>
+                    {% if object.term_of_office %}
+                      <li class="list-group-item">Дата окончания полномочия: {{ object.authorization }}</li>
+                    {% endif %}
+                    {% if object.fraction %}
+                      <li class="list-group-item">Фракция: {{ object.fraction }}</li>
+                    {% endif %}
+                    {% if object.election_information %}
+                      <li class="list-group-item">Сведения об избрании: {{ object.election_information }}</li>
+                    {% endif %}
                     {% if object.educationelect_set.all %}
                     <li class="list-group-item">Образование:<br>
                       {% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}

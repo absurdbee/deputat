@@ -78,8 +78,8 @@ def main():
                                                 description=data["description"],
                                                 birthday=data["birthday"],
                                                 authorization=data["authorization"],
-                                                election_information=data["election_information"],
-                                                term_of_office=data["term_of_office"])
+                                                term_of_office=data["term_of_office"]
+                                            )
             region.elect_region.add(new_elect)
 
             new_elect.get_remote_image(data["image"])

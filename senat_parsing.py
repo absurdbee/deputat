@@ -83,7 +83,7 @@ def main():
                                                 authorization=data["authorization"],
                                                 term_of_office=data["term_of_office"]
                                             )
-            data_region = data["region"]
+            data_region = data["region"].replace("\xa0", ' ')
             if data_region in sity_names:
                 data_region = data_region.replace('г.', '')
             elif data_region == "Ханты-Мансийский автономный округ — Югра":

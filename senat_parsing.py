@@ -84,6 +84,7 @@ def main():
             region.elect_region.add(new_elect)
 
             new_elect.get_remote_image(data["image"])
+            
             list = AuthorityList.objects.get(slug="senat")
             list.elect_list.add(new_elect)
 

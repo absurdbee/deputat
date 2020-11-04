@@ -65,18 +65,14 @@ def get_html(url):
     r = requests.get(url)
     return r.text
 
-def get_file(url):
-    r = requests.get('http://duma.gov.ru' + url, stream=True)
-    return r
-
-def get_name(url):
-    name = url.split('/')[-1]
-    return name
-
-def save_image(name, file_object):
-    with open(name, 'bw') as f:
-        for chunk in file_object.iter_content(8192):
-            f.write(chunk)
+def get_links(url):
+    soup = BeautifulSoup(url, 'lxml')
+    list = []
+    container = soup.find('div', class_='list-persons list-persons--deputy grid grid--three-columns mobile-no-padding')
+    blocks = container.find_all('a')
+    for item in blocks:
+        list += ['http://duma.gov.ru' + item['href'], ]
+    return list
 
 
 def get_educations_for_elect(html, elect):
@@ -151,37 +147,38 @@ def get_page_data(html):
 
 
 def main():
-    for id in id_list:
-        url = 'http://duma.gov.ru/duma/persons/' + id + "/"
+    html = get_html("http://duma.gov.ru/duma/deputies/")
+    lists = get_links(html)
+    for url in lists:
         html = get_html(url)
         data = get_page_data(html)
         if not Elect.objects.filter(name=data["name"]).exists():
-            if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':
-                current_fraction = Fraction.objects.get(slug="edinaya_russia")
-            elif data["fraction"] == "СПРАВЕДЛИВАЯ РОССИЯ":
-                current_fraction = Fraction.objects.get(slug="spravedlivaya_russia")
-            elif data["fraction"] == "КПРФ":
-                current_fraction = Fraction.objects.get(slug="kprf")
-            elif data["fraction"] == "ЛДПР":
-                current_fraction = Fraction.objects.get(slug="ldpr")
-            elif data["fraction"] == "Депутаты, не входящие во фракции":
-                current_fraction = Fraction.objects.get(slug="no_fraction")
+            #if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':
+            #    current_fraction = Fraction.objects.get(slug="edinaya_russia")
+            #elif data["fraction"] == "СПРАВЕДЛИВАЯ РОССИЯ":
+            #    current_fraction = Fraction.objects.get(slug="spravedlivaya_russia")
+            #elif data["fraction"] == "КПРФ":
+            #    current_fraction = Fraction.objects.get(slug="kprf")
+            #elif data["fraction"] == "ЛДПР":
+            #    current_fraction = Fraction.objects.get(slug="ldpr")
+            #elif data["fraction"] == "Депутаты, не входящие во фракции":
+            #    current_fraction = Fraction.objects.get(slug="no_fraction")
 
-            new_elect = Elect.objects.create(name=data["name"], description=data["description"], birthday=data["birthday"], authorization=data["authorization"], election_information=data["election_information"], fraction=current_fraction)
-            regions_query = data["region_list"]
-            if regions_query:
-                regions_query = data["region_list"].split(",")
-                for region_name in regions_query:
-                    try:
-                        region = Region.objects.get(name=region_name)
-                        region.elect_region.add(new_elect)
-                    except:
-                        pass
-            new_elect.get_remote_image(data["elect_image"])
-            list = AuthorityList.objects.get(slug="state_duma")
-            list.elect_list.add(new_elect)
-            get_educations_for_elect(html, new_elect)
-            print(data["name"])
+            #new_elect = Elect.objects.create(name=data["name"], description=data["description"], birthday=data["birthday"], authorization=data["authorization"], election_information=data["election_information"], fraction=current_fraction)
+            #regions_query = data["region_list"]
+            #if regions_query:
+            #    regions_query = data["region_list"].split(",")
+            #    for region_name in regions_query:
+            #        try:
+            #            region = Region.objects.get(name=region_name)
+            #            region.elect_region.add(new_elect)
+            #        except:
+            #            pass
+            #new_elect.get_remote_image(data["elect_image"])
+            #list = AuthorityList.objects.get(slug="state_duma")
+            #list.elect_list.add(new_elect)
+            #get_educations_for_elect(html, new_elect)
+            print(lists)
 
 if __name__ == '__main__':
     main()

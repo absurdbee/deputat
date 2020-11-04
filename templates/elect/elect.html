@@ -22,7 +22,7 @@
               {% endfor %}
             </li>
           </ul>
-          <span class="d-inline-block align-middle text-muted font-weight-medium mb-3">0 подписчиков</span>
+          <a class="btn btn-gradient btn-sm mx-3 mb-3" href="#"><i class="fe-icon-plus"></i>&nbsp;Предложить новость</a>
           <a class="btn btn-gradient btn-sm mx-3 mb-3" href="#"><i class="fe-icon-user-plus"></i>&nbsp;Подписаться</a>
         </div>
       </div>
@@ -35,7 +35,7 @@
                     <li class="list-group-item">Дата рождения: {{ object.birthday }}</li>
                     <li class="list-group-item">Дата вступления в полномочия: {{ object.authorization }}</li>
                     {% if object.term_of_office %}
-                      <li class="list-group-item">Дата окончания полномочия: {{ object.authorization }}</li>
+                      <li class="list-group-item">Дата окончания полномочия: {{ object.term_of_office }}</li>
                     {% endif %}
                     {% if object.fraction %}
                       <li class="list-group-item">Фракция: {{ object.fraction }}</li>

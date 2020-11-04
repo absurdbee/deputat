@@ -36,7 +36,11 @@ def get_page_data(html):
 
     person__description = soup.find('div', class_='person__description__grid')
 
-    description = soup.find('div', class_='person__additional_top').text
+    description = soup.find('div', class_='person__additional_top')
+    if description:
+        description = description.text
+    else:
+        description = ""
 
     img_container = soup.find('div', class_='content__in')
     image = soup.find('img', class_='person_img')

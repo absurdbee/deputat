@@ -86,6 +86,12 @@ def main():
             data_region = data["region"]
             if data_region in sity_names:
                 data_region = data_region[1:]
+            elif data_region == "Ханты-Мансийский автономный округ — Югра":
+                data_region = "Ханты-Мансийский автономный округ - Югра (Тюменская область)"
+            elif data_region == "Удмуртская Республика":
+                data_region = "Удмуртская Республика (Удмуртия)"
+            elif data_region == "Чувашская Республика":
+                data_region = "Чувашская Республика - Чувашия"
             region = Region.objects.get(name=data_region)
             region.elect_region.add(new_elect)
 

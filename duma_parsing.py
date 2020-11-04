@@ -187,6 +187,7 @@ def test():
         #_html = get_html(url)
         #data = get_page_data(_html)
         print(url)
+    print(lists.length)
 
 if __name__ == '__main__':
     test()

@@ -34,7 +34,7 @@ class ElectNewAdmin(admin.ModelAdmin):
         PhotoElectNewInline,
         DocElectNewInline,
     ]
-    list_display = ['title', 'description', 'created', 'elect', 'category']
+    list_display = ['title', 'description', 'created', 'category']
     list_filter = ['created', 'category']
     search_fields = ['title', 'description', 'created']
     exclude = ('count',)

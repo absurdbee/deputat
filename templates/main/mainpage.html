@@ -1,25 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Главная страница{% endblock %}
 {% block meta %}
-<meta property="og:title" content="Александра Машкова-Благих" />
-<meta property="og:image" content="http://aleksandra.top/static/images/aleksandra_vk.jpg" />
-<meta property="og:url" content="http://aleksandra.top/" />
+<meta property="og:title" content="" />
+<meta property="og:image" content="" />
+<meta property="og:url" content="" />
 <meta property="og:image:width" content="470" />
 <meta property="og:image:height" content="246" />
-<meta property="og:site_name" content="Александра Машкова-Благих" />
-<meta property="og:description" content="Общественный деятель" />
+<meta property="og:site_name" content="" />
+<meta property="og:description" content="" />
 {% endblock %}
 {% block content %}
 
+{% include 'main/elect_console.html' %}
+
 {% include 'main/events.html' %}
 
-<div class="row" style="margin-right: 0px; margin-left: 0px;">
-  <div class="col-md-8">
-    {% include 'main/map.html' %}
-  </div>
-  <div class="col-md-4">
-    {% include 'main/regions_dropdown.html' %}
-  </div>
-</div>
+
 
 {% endblock %}

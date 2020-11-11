@@ -4,7 +4,7 @@ from blog.models import Blog, BlogComment, ElectNew
 
 class BlogAdmin(admin.ModelAdmin):
     list_display = ['title', 'description', 'created']
-    list_filter = ['created', 'category']
+    list_filter = ['created']
     search_fields = ['title', 'description', 'created']
     exclude = ('count',)
 

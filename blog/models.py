@@ -12,17 +12,17 @@ from ckeditor_uploader.fields import RichTextUploadingField
 """
     Группируем все таблицы новостей здесь:
     1. Новости всего проекта и [комменты, реакции] к ним,
-    2. Новости о депутатах - их высказывания, выборы, работа с избирателями
+    2. Лента депутата - его высказывания, выборы, работа с избирателями
 """
 
 
 class Blog(models.Model):
+
     title = models.CharField(max_length=255, verbose_name="Название")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="blog/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     content = RichTextUploadingField(config_name='default',external_plugin_resources=[('youtube','/static/ckeditor_plugins/youtube/youtube/','plugin.js',)],)
-    category = models.ManyToManyField('lists.BlogCategory', related_name="blog_categories", blank=True, verbose_name="Категория новостей проекта")
     elects = models.ManyToManyField('elect.Elect', blank=True, related_name='elect_news', verbose_name="Чиновник")
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
@@ -183,17 +183,22 @@ class BlogCommentVotes(models.Model):
 
 
 class ElectNew(models.Model):
+    STATUSES = (
+        (STATUS_DRAFT, 'Черновик'),
+        (STATUS_PROCESSING, 'Обработка'),
+        (STATUS_PUBLISHED, 'Опубликована'),
+    )
     title = models.CharField(max_length=255, verbose_name="Название")
-    image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="blog/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
-    content = RichTextUploadingField(config_name='default',external_plugin_resources=[('youtube','/static/ckeditor_plugins/youtube/youtube/','plugin.js',)],)
-    elect = models.ForeignKey('elect.Elect', on_delete=models.CASCADE, related_name="new_elect", blank=True, verbose_name="О ком эта новость")
-    category = models.ForeignKey('elect.Elect', on_delete=models.CASCADE, related_name="new_category", blank=True, verbose_name="Категория")
+    elect = models.ForeignKey('elect.Elect', on_delete=models.CASCADE, related_name="new_elect", blank=True, verbose_name="Чиновник")
+    category = models.ManyToManyField('lists.BlogCategory', related_name="elect_cat", blank=True, verbose_name="Категория записи чиновника")
+    status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")
 
     class Meta:
-        verbose_name = "Новость проекта"
-        verbose_name_plural = "Новости проекта"
+        verbose_name = "Запись о чиновнике"
+        verbose_name_plural = "Лента чиновника"
         indexes = (BrinIndex(fields=['created']),)
         ordering = ["-created"]
 

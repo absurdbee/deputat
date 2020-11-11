@@ -7,8 +7,15 @@ from rest_framework.exceptions import PermissionDenied
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from users.helpers import upload_to_user_directory
+from django.contrib.postgres.indexes import BrinIndex
 
 
+"""
+    Группируем все таблицы пользователя здесь:
+    1. Сам пользователь,
+    2. Документ пользователя для прикрепления к предлагаемым новостям
+    2. Фото пользователя для прикрепления к предлагаемым новостям
+"""
 class User(AbstractUser):
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     avatar = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to="users/%Y/%m/%d/", processors=[ResizeToFit(width=500, height=500)], verbose_name="Аватар")

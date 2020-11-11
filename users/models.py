@@ -4,7 +4,8 @@ from django.db.models import Q
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from users.helpers import upload_to_user_directory
-from blog.models import ElectNew, SubscribeElect, ElectVotes
+from blog.models import ElectNew, ElectVotes
+from elect.models import SubscribeElect
 
 
 """

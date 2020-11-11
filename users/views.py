@@ -29,8 +29,8 @@ class UserNewsView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		draft_news = self.user.get_news()
-        return comments
+		user_news = self.user.get_news()
+        return user_news
 
 
 class SubscribeElectsView(ListView, CategoryListMixin):

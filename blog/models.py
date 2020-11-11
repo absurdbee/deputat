@@ -183,6 +183,9 @@ class BlogCommentVotes(models.Model):
 
 
 class ElectNew(models.Model):
+    STATUS_DRAFT = 'D'
+    STATUS_PROCESSING = 'PG'
+    STATUS_PUBLISHED = 'P'
     STATUSES = (
         (STATUS_DRAFT, 'Черновик'),
         (STATUS_PROCESSING, 'Обработка'),
@@ -204,3 +207,37 @@ class ElectNew(models.Model):
 
     def __str__(self):
         return self.title
+
+    def likes(self):
+        likes = ElectVotes.objects.filter(parent_id=self.pk, vote__gt=0)
+        return likes
+
+    def dislikes(self):
+        dislikes = ElectVotes.objects.filter(parent_id=self.pk, vote__lt=0)
+        return dislikes
+
+    def likes_count(self):
+        likes = ElectVotes.objects.filter(parent=self, vote__gt=0).values("pk")
+        count = likes.count()
+        if count:
+            return count
+        else:
+            return ''
+
+    def dislikes_count(self):
+        dislikes = ElectVotes.objects.filter(parent=self, vote__lt=0).values("pk")
+        count = dislikes.count()
+        if count:
+            return count
+        else:
+            return ''
+
+
+class ElectVotes(models.Model):
+    LIKE = 1
+    DISLIKE = -1
+    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
+
+    vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
+    parent = models.ForeignKey(ElectNew, on_delete=models.CASCADE)

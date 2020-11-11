@@ -4,7 +4,7 @@
 
 <div class="page-title d-flex" aria-label="Page title">
   <div class="container text-left align-self-center">
-    <h1 class="page-title-heading">Мой новости</h1>
+    <h1 class="page-title-heading">Мои новости</h1>
   </div>
 </div>
 
@@ -17,54 +17,28 @@
         </div>
         <!-- Profile Settings-->
         <div class="col-lg-8 pb-5">
-          <form class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="account-fn">First Name</label>
-                <input class="form-control" type="text" id="account-fn" value="Daniel" required="">
+          <div class="row">
+            {% for object in object_list %}
+          <div class="col-xl-6 col-sm-6 mb-30 pb-2">
+            <div class="card blog-card">
+              <div class="card-body">
+                <h5 class="post-title"><a href="#">{{ object.title }}</a></h5>
+                <p class="text-muted">{{ object.description }}</p>
+
+                {% with names=object.tags.names %}
+                  {% for name in names %}
+                    <a href="{% url 'all_elect_news' %}?tag={{ name|urlencode }}" class="tag-link">{{ name }}</a>
+                  {% endfor %}
+                {% endwith %}
+                {% include 'generic/meta.html' %}
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="account-ln">Last Name</label>
-                <input class="form-control" type="text" id="account-ln" value="Adams" required="">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="account-email">E-mail Address</label>
-                <input class="form-control" type="email" id="account-email" value="daniel.adams@example.com" disabled="">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="account-phone">Phone Number</label>
-                <input class="form-control" type="text" id="account-phone" value="+7 (805) 348 95 72" required="">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="account-pass">New Password</label>
-                <input class="form-control" type="password" id="account-pass">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="account-confirm-pass">Confirm Password</label>
-                <input class="form-control" type="password" id="account-confirm-pass">
-              </div>
-            </div>
-            <div class="col-12">
-              <hr class="mt-2 mb-3">
-              <div class="d-flex flex-wrap justify-content-between align-items-center">
-                <div class="custom-control custom-checkbox d-block">
-                  <input class="custom-control-input" type="checkbox" id="subscribe_me" checked="">
-                  <label class="custom-control-label" for="subscribe_me">Subscribe me to Newsletter</label>
-                </div>
-                <button class="btn btn-primary" type="button" data-toast="" data-toast-position="topRight" data-toast-type="success" data-toast-icon="fe-icon-check-circle" data-toast-title="Success!" data-toast-message="Your profile updated successfuly.">Update Profile</button>
-              </div>
-            </div>
-          </form>
+          </div>
+          {% empty %}
+            У Вас пока нет предложенных новостей о чиновниках. Если У Вас есть чем поделиться с общественностью - Вы можете
+            <a class="create_elect_new pointer">предложить новость</a>
+          {% endfor %}
+          </div>
         </div>
       </div>
     </div>

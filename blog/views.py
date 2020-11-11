@@ -25,6 +25,15 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 		return context
 
 
+class AllElectNewsView(ListView, CategoryListMixin):
+	template_name = "blog/elect_news.html"
+	paginate_by = 12
+
+	def get_queryset(self):
+		elect_news = ElectNew.objects.only("pk")
+		return elect_news
+
+
 class BlogCommentList(ListView):
     template_name = "blog_comments.html"
     paginate_by = 15

@@ -31,8 +31,8 @@ class DocElectNewInline(admin.TabularInline):
 
 class ElectNewAdmin(admin.ModelAdmin):
     inlines = [
-        ElectPhoto,
-        ElectDoc,
+        PhotoElectNewInline,
+        DocElectNewInline,
     ]
     list_display = ['title', 'description', 'created', 'elect', 'category']
     list_filter = ['created', 'category']

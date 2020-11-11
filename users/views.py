@@ -30,7 +30,7 @@ class UserNewsView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		user_news = self.user.get_news()
-        return user_news
+		return user_news
 
 
 class SubscribeElectsView(ListView, CategoryListMixin):

@@ -198,6 +198,7 @@ class ElectNew(models.Model):
     category = models.ManyToManyField('lists.BlogCategory', related_name="elect_cat", blank=True, verbose_name="Категория записи чиновника")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
 
     class Meta:
         verbose_name = "Запись о чиновнике"

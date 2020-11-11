@@ -60,7 +60,7 @@ class User(AbstractUser):
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_like_news_count(self):
-        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("parent_id")
+        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("parent_id").count()
         return count
 
     def get_dislike_news(self):
@@ -69,5 +69,5 @@ class User(AbstractUser):
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_dislike_news_count(self):
-        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("parent_id")
+        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("parent_id").count()
         return count

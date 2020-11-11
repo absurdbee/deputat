@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.postgres.indexes import BrinIndex
 from django.utils import timezone
-from pilkit.processors import ResizeToFill, ResizeToFit
+from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from django.db.models import Q
 from ckeditor_uploader.fields import RichTextUploadingField

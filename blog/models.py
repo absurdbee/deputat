@@ -18,7 +18,6 @@ from users.helpers import upload_to_user_directory
 
 
 class Blog(models.Model):
-
     title = models.CharField(max_length=255, verbose_name="Название")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="blog/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")

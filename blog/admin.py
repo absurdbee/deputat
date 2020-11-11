@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Blog, BlogComment, ElectNew
+from blog.models import *
 
 
 class BlogAdmin(admin.ModelAdmin):
@@ -24,7 +24,16 @@ class BlogCommentAdmin(admin.ModelAdmin):
     class Meta:
             model = BlogComment
 
+class PhotoElectNewInline(admin.TabularInline):
+    model = ElectPhoto
+class DocElectNewInline(admin.TabularInline):
+    model = ElectDoc
+
 class ElectNewAdmin(admin.ModelAdmin):
+    inlines = [
+        ElectPhoto,
+        ElectDoc,
+    ]
     list_display = ['title', 'description', 'created', 'elect', 'category']
     list_filter = ['created', 'category']
     search_fields = ['title', 'description', 'created']
@@ -35,3 +44,4 @@ class ElectNewAdmin(admin.ModelAdmin):
 
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(BlogComment, BlogCommentAdmin)
+admin.site.register(ElectNew, ElectNewAdmin)

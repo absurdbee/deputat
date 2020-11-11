@@ -9,6 +9,13 @@ from lists.models import Region
 from django.db.models import Q
 
 
+"""
+    Группируем все таблицы чиновников здесь:
+    1. Таблица чиновника,
+    2. Таблица ссылки чиновника, много ссылок к одному чиновнику
+    3. Таблица образования чиновника, много дипломов к одному чиновнику
+    3. Таблица подписки пользователя на чиновника
+"""
 class Elect(models.Model):
     name = models.CharField(max_length=255, verbose_name="ФИО")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
@@ -80,3 +87,20 @@ class EducationElect(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class SubscribeElect(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_subscribe', verbose_name="Пользователь")
+    elect = models.ForeignKey(Elect, on_delete=models.CASCADE, related_name='elect_subscribe', verbose_name="Чиновник")
+
+    @classmethod
+    def create_elect_subscribe(cls, user_id, elect_id):
+        return cls.objects.create(user_id=user_id, elect_id=elect_id)
+
+    @classmethod
+    def is_elect_subscribe(cls, elect_id, user_id):
+        return cls.objects.filter(Q(elect_id=elect_id, user_id=user_id)).exists()
+
+    class Meta:
+        unique_together = ('elect', 'user',)
+        indexes = [models.Index(fields=['elect', 'user']),]

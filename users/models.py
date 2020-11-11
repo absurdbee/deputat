@@ -1,13 +1,10 @@
 from django.utils import timezone
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.conf import settings
 from django.db.models import Q
-from rest_framework.exceptions import PermissionDenied
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from users.helpers import upload_to_user_directory
-from django.contrib.postgres.indexes import BrinIndex
+from blog.models import ElectNew, SubscribeElect, ElectVotes
 
 
 """
@@ -16,7 +13,7 @@ from django.contrib.postgres.indexes import BrinIndex
 """
 class User(AbstractUser):
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
-    avatar = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to="users/%Y/%m/%d/", processors=[ResizeToFit(width=500, height=500)], verbose_name="Аватар")
+    avatar = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=500, height=500)], verbose_name="Аватар")
 
     class Meta:
         verbose_name = 'пользователь'
@@ -38,3 +35,37 @@ class User(AbstractUser):
             return True
         else:
             return False
+
+    def get_news(self):
+        user_news = ElectNew.objects.filter(creator_id=self.pk)
+        return user_news
+
+    def get_news_count(self):
+        count = ElectNew.objects.filter(creator_id=self.pk).values("pk").count()
+        return count
+
+    def get_elect_subscribers(self):
+        elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk)
+        return elect_subscribers
+
+    def get_elect_subscribers_count(self):
+        count = SubscribeElect.objects.filter(user_id=self.pk).values("pk").count()
+        return count
+
+    def get_like_news(self):
+        likes = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("parent_id")
+        news_ids = [new['parent_id'] for new in likes]
+        return ElectNew.objects.filter(id__in=news_ids)
+
+    def get_like_news_count(self):
+        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("parent_id")
+        return count
+
+    def get_dislike_news(self):
+        dislikes = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("parent_id")
+        news_ids = [new['parent_id'] for new in dislikes]
+        return ElectNew.objects.filter(id__in=news_ids)
+
+    def get_dislike_news_count(self):
+        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("parent_id")
+        return count

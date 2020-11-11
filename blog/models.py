@@ -208,6 +208,12 @@ class ElectNew(models.Model):
     def __str__(self):
         return self.title
 
+    def is_draft(self):
+        return self.status == ElectNew.STATUS_DRAFT
+
+    def is_published(self):
+        return self.status == ElectNew.STATUS_PUBLISHED
+
     def likes(self):
         likes = ElectVotes.objects.filter(parent_id=self.pk, vote__gt=0)
         return likes

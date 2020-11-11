@@ -3,7 +3,8 @@ from users.views import *
 
 
 urlpatterns = [
-    url(r'^(?P<pk>\d+)/$', UserView.as_view(), name='user'),
-    url(r'^profile/$', ProfileView.as_view(), name='profile'),
-    url(r'^settings/(?P<pk>\d+)/$', UserSettings.as_view(), name='user_settings'),
+    url(r'^user_news/$', UserNewsView.as_view(), name='user_news'),
+    url(r'^subscribe_elects/$', SubscribeElectsView.as_view(), name='subscribe_elects'),
+    url(r'^like_news/$', LikeNewsView.as_view(), name='like_news'),
+    url(r'^dislike_news/$', DislikeNewsView.as_view(), name='dislike_news'),
 ]

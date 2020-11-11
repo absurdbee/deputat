@@ -108,7 +108,7 @@
                 </li>
               </ul>
               {% if request.user.is_authenticated %}
-                <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'profile' %}">Профиль</a>
+                <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'user_news' %}">Профиль</a>
               {% else %}
                 <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'auth' %}">Войти</a>
               {% endif %}

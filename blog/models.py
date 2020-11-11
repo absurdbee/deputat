@@ -7,12 +7,13 @@ from pilkit.processors import ResizeToFill, ResizeToFit
 from imagekit.models import ProcessedImageField
 from django.db.models import Q
 from ckeditor_uploader.fields import RichTextUploadingField
+from users.helpers import upload_to_user_directory
 
 
 """
     Группируем все таблицы новостей здесь:
     1. Новости всего проекта и [комменты, реакции] к ним,
-    2. Лента депутата - его высказывания, выборы, работа с избирателями
+    2. Лента депутата - его высказывания, выборы, работа с избирателями и [документы, фото] к событиям ленты
 """
 
 
@@ -241,3 +242,36 @@ class ElectVotes(models.Model):
     vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     parent = models.ForeignKey(ElectNew, on_delete=models.CASCADE)
+
+
+class ElectDoc(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Название")
+    file = models.FileField(upload_to=upload_to_user_directory, verbose_name="Документ")
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
+    post = models.ForeignKey("blog.ElectNew", on_delete=models.CASCADE, blank=True)
+
+    class Meta:
+        ordering = ["-created"]
+        verbose_name = "Документ"
+        verbose_name_plural = "Документы"
+        indexes = (BrinIndex(fields=['created']),)
+
+    def get_mime_type(self):
+        import magic
+        mime = magic.from_file(self.file.path, mime=True)
+        return mime
+
+
+class ElectPhoto(models.Model):
+    file = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
+    preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
+    post = models.ForeignKey('blog.ElectNew', on_delete=models.CASCADE, blank=True)
+
+    class Meta:
+        indexes = (BrinIndex(fields=['created']),)
+        verbose_name = 'Фото'
+        verbose_name_plural = 'Фото'
+        ordering = ["-created"]

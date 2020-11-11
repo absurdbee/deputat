@@ -248,7 +248,7 @@ class ElectDoc(models.Model):
     file = models.FileField(upload_to=upload_to_user_directory, verbose_name="Документ")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
-    post = models.ForeignKey("blog.ElectNew", on_delete=models.CASCADE, blank=True)
+    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True)
 
     class Meta:
         ordering = ["-created"]
@@ -267,7 +267,7 @@ class ElectPhoto(models.Model):
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
-    post = models.ForeignKey('blog.ElectNew', on_delete=models.CASCADE, blank=True)
+    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True)
 
     class Meta:
         indexes = (BrinIndex(fields=['created']),)

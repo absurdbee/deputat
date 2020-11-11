@@ -48,7 +48,7 @@ class SubscribeElectsView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		elect_subscribers = self.user.get_elect_subscribers()
-        return elect_subscribers
+		return elect_subscribers
 
 
 class LikeNewsView(ListView, CategoryListMixin):
@@ -66,7 +66,7 @@ class LikeNewsView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		like_news = self.user.get_like_news()
-        return like_news
+		return like_news
 
 
 class DislikeNewsView(ListView, CategoryListMixin):
@@ -84,4 +84,4 @@ class DislikeNewsView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		dislike_news = self.user.get_dislike_news()
-        return dislike_news
+		return dislike_news

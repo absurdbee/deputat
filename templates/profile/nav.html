@@ -1,8 +1,8 @@
 <nav class="list-group list-group-flush">
-  <a class="list-group-item" href="">
+  <a class="list-group-item" href="{% url 'user_news' %}">
     <div class="d-flex justify-content-between align-items-center">
       <div>
-        <div class="d-inline-block font-weight-medium text-uppercase">Новости</div>
+        <div class="d-inline-block font-weight-medium text-uppercase">Мои новости</div>
       </div>
       <span class="badge badge-secondary">{{ user.get_news_count }}</span>
     </div>
@@ -10,7 +10,7 @@
   <a class="list-group-item" href="{% url 'subscribe_elects' %}">
     <div class="d-flex justify-content-between align-items-center">
       <div>
-        <div class="d-inline-block font-weight-medium text-uppercase">Подписки</div>
+        <div class="d-inline-block font-weight-medium text-uppercase">Мои подписки</div>
       </div>
       <span class="badge badge-secondary">{{ user.get_elect_subscribers_count }}</span>
     </div>
@@ -18,7 +18,7 @@
   <a class="list-group-item" href="{% url 'like_news' %}">
     <div class="d-flex justify-content-between align-items-center">
       <div>
-        <div class="d-inline-block font-weight-medium text-uppercase">Понравилось</div>
+        <div class="d-inline-block font-weight-medium text-uppercase">Мне понравилось</div>
       </div>
       <span class="badge badge-secondary">{{ user.get_like_news_count }}</span>
     </div>
@@ -26,7 +26,7 @@
   <a class="list-group-item" href="{% url 'dislike_news' %}">
     <div class="d-flex justify-content-between align-items-center">
       <div>
-        <div class="d-inline-block font-weight-medium text-uppercase">Не понравилось</div>
+        <div class="d-inline-block font-weight-medium text-uppercase">Мне не понравилось</div>
       </div>
       <span class="badge badge-secondary">{{ user.get_dislike_news_count }}</span>
     </div>

@@ -2,6 +2,7 @@ from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from elect.models import Elect
 from blog.models import ElectNew
+from django.views.generic import ListView
 
 
 class ElectDetailView(TemplateView, CategoryListMixin):

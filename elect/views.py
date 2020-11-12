@@ -50,10 +50,14 @@ class ElectNewDetailView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
-		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-			ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=0)
+		if request.user.is_authenticated:
+			current_pk = request.user.pk
 		else:
-			ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=1)
+			current_pk = 0
+		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+			ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=0)
+		else:
+			ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=1)
 		return super(ElectNewDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

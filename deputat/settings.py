@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'contacts',
     'terms',
     'policy',
+    'stst',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

@@ -83,6 +83,10 @@ class Blog(models.Model):
         from django.contrib.humanize.templatetags.humanize import naturaltime
         return naturaltime(self.created)
 
+    def visits_count(self):
+        from stst.models import BlogNumbers
+        return BlogNumbers.objects.filter(new=self.pk).values('pk').count()
+
 
 class BlogComment(models.Model):
     parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, related_name='blog_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
@@ -237,6 +241,14 @@ class ElectNew(models.Model):
             return count
         else:
             return ''
+
+    def get_created(self):
+        from django.contrib.humanize.templatetags.humanize import naturaltime
+        return naturaltime(self.created)
+
+    def visits_count(self):
+        from stst.models import ElectNewNumbers
+        return ElectNewNumbers.objects.filter(new=self.pk).values('pk').count()
 
 
 class ElectVotes(models.Model):

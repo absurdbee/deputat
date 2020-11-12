@@ -62,6 +62,10 @@ class Elect(models.Model):
         )
         self.save()
 
+    def visits_count(self):
+        from stst.models import ElectNumbers
+        return ElectNumbers.objects.filter(elect=self.pk).values('pk').count()
+
 
 class LinkElect(models.Model):
     title = models.CharField(max_length=255, verbose_name="Текст ссылки")

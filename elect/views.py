@@ -13,10 +13,14 @@ class ElectDetailView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
-		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-			ElectNumbers.objects.create(user=request.user.pk, elect=self.elect.pk, platform=0)
+		if request.user.is_authenticated:
+			current_pk = request.user.pk
 		else:
-			ElectNumbers.objects.create(user=request.user.pk, elect=self.elect.pk, platform=1)
+			current_pk = 0
+		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+			ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=0)
+		else:
+			ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=1)
 		return super(ElectDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

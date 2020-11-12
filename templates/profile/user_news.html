@@ -35,8 +35,15 @@
             </div>
           </div>
           {% empty %}
-            У Вас пока нет предложенных новостей о чиновниках. Если У Вас есть чем поделиться с общественностью - Вы можете
-            <a class="create_elect_new pointer">предложить новость</a>
+          <div class="card border text-center" style="border-color: #4db6ac !important;">
+              <div class="card-body">
+                <h3 class="card-title">Ваших новостей нет</h3>
+                <p class="card-text text-sm">
+                  У Вас пока нет предложенных новостей о чиновниках.
+                  Если У Вас есть чем поделиться с общественностью - Вы можете предложить новость</p>
+                <a class="btn btn-secondary create_elect_new btn-sm pointer">Предложить новость</a>
+              </div>
+            </div>
           {% endfor %}
           </div>
         </div>

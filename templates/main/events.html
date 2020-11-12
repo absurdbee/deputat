@@ -37,7 +37,7 @@
             <div class="widget widget-featured-posts">
               <h4 class="widget-title">Последние события</h4>
 
-              {% for object in last_blog_news %}
+              {% for object in last_elect_news %}
               <a class="featured-post" href="{% url 'elect_new_detail' pk=object.pk %}">
                 {% if object.image %}
                 <div class="featured-post-thumb">

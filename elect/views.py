@@ -14,9 +14,9 @@ class ElectDetailView(TemplateView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
 		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-			ElectNumbers.objects.create(visitor=request.user.pk, elect=self.elect.pk, platform=0)
+			ElectNumbers.objects.create(user=request.user.pk, elect=self.elect.pk, platform=0)
 		else:
-			ElectNumbers.objects.create(visitor=request.user.pk, elect=self.elect.pk, platform=1)
+			ElectNumbers.objects.create(user=request.user.pk, elect=self.elect.pk, platform=1)
 		return super(ElectDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -51,9 +51,9 @@ class ElectNewDetailView(TemplateView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
 		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-			ElectNewNumbers.objects.create(visitor=request.user.pk, new=self.new.pk, platform=0)
+			ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=0)
 		else:
-			ElectNewNumbers.objects.create(visitor=request.user.pk, new=self.new.pk, platform=1)
+			ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=1)
 		return super(ElectNewDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

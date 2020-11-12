@@ -19,9 +19,9 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
 		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-			BlogNumbers.objects.create(visitor=request.user.pk, blog=self.blog.pk, platform=0)
+			BlogNumbers.objects.create(user=request.user.pk, blog=self.blog.pk, platform=0)
 		else:
-			BlogNumbers.objects.create(visitor=request.user.pk, blog=self.blog.pk, platform=1)
+			BlogNumbers.objects.create(user=request.user.pk, blog=self.blog.pk, platform=1)
 		return super(BlogDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

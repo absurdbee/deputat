@@ -4,7 +4,7 @@ from django.contrib.postgres.indexes import BrinIndex
 
 
 class ElectNumbers(models.Model):
-    visitor = models.PositiveIntegerField(default=0, verbose_name="Кто заходит")
+    user = models.PositiveIntegerField(default=0, verbose_name="Кто заходит")
     elect = models.PositiveIntegerField(default=0, verbose_name="К какому чиновнику заходит")
     platform = models.PositiveIntegerField(default=0, verbose_name="0 Комп, 1 Телефон")
     created = models.DateField(auto_now_add=True, auto_now=False, verbose_name="Создано")

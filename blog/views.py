@@ -1,8 +1,11 @@
+import re
 import json
+MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from blog.models import *
 from blog.forms import BlogCommentForm
+from stst.models import BlogNumbers
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.views import View
@@ -15,8 +18,10 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
-		self.blog.count += 1
-		self.blog.save(update_fields=["count"])
+		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+			BlogNumbers.objects.create(visitor=request.user.pk, blog=self.blog.pk, platform=0)
+		else:
+			BlogNumbers.objects.create(visitor=request.user.pk, blog=self.blog.pk, platform=1)
 		return super(BlogDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

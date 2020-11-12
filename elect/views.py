@@ -1,3 +1,6 @@
+import re
+MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+from stst.models import ElectNumbers, ElectNewNumbers
 from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from elect.models import Elect
@@ -10,6 +13,10 @@ class ElectDetailView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+			ElectNumbers.objects.create(visitor=request.user.pk, elect=self.elect.pk, platform=0)
+		else:
+			ElectNumbers.objects.create(visitor=request.user.pk, elect=self.elect.pk, platform=1)
 		return super(ElectDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -43,6 +50,10 @@ class ElectNewDetailView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
+		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+			ElectNewNumbers.objects.create(visitor=request.user.pk, new=self.new.pk, platform=0)
+		else:
+			ElectNewNumbers.objects.create(visitor=request.user.pk, new=self.new.pk, platform=1)
 		return super(ElectNewDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

@@ -3,39 +3,55 @@
         <div class="row">
           <div class="col-lg-5 col-md-7 order-md-2 pb-5">
             <h4 class="widget-title">Новости проекта</h4>
+            {% for object in last_blog_news %}
             <div class="mb-30">
               <div class="card blog-card mb-2">
-                <a class="post-thumb" href="">
-                  <img src="/static/images/test_new.jpg" alt="Post Thumbnail">
-                </a>
+                {% if object.image %}
+                  <a class="post-thumb" href="{% url 'blog_detail' pk=object.pk %}">
+                    <img src="{{ object.image.url }}" alt="img">
+                  </a>
+                {% endif %}
                 <div class="card-body">
                   <h5 class="post-title">
-                    <a href="">Новость 1</a>
+                    <a href="{% url 'blog_detail' pk=object.pk %}">{{ object.title }}</a>
                   </h5>
-                  <p class="text-muted">Краткое описание новости...</p>
-                  <a class="tag-link" href="#">Тег</a>
-                  <a class="tag-link" href="#">Тег</a>
+                  <p class="text-muted">{{ object.description }}</p>
+
+                  {% with names=object.tags.names %}
+                    {% for name in names %}
+                      <a href="{% url 'proect_news' %}?tag={{ name|urlencode }}" class="tag-link">{{ name }}</a>
+                    {% endfor %}
+                  {% endwith %}
 
                   {% include 'generic/blog_meta.html' %}
 
                 </div>
               </div>
             </div>
+            {% empty %}
+            Новостей проекта пока нет...
+            {% endfor %}
           </div>
 
           <div class="col-lg-4 col-md-5 order-md-1">
             <div class="widget widget-featured-posts">
               <h4 class="widget-title">Последние события</h4>
 
-              <a class="featured-post" href="">
+              {% for object in last_blog_news %}
+              <a class="featured-post" href="{% url 'elect_new_detail' pk=object.pk %}">
+                {% if object.image %}
                 <div class="featured-post-thumb">
-                  <img src="/static/images/test_new.jpg" alt="Post Thumbnail">
+                  <img src="{{ object.image.url }}" alt="Post Thumbnail">
                 </div>
+                {% endif %}
                 <div class="featured-post-info">
                   {% include 'generic/blog_meta.html' %}
-                  <div class="featured-post-title">Заголовок события</div>
+                  <div class="featured-post-title">{{ object.title }}</div>
                 </div>
               </a>
+              {% empty %}
+                Событий пока нет...
+              {% endfor %}
 
             </div>
           </div>
@@ -47,7 +63,7 @@
                 <div class="bg-white py-4 px-3 text-center">
                   <i class="d-block fe-icon-info lead text-primary mb-3 mt-2"></i>
                   <h5 class="h6 block-title mb-4">Есть что рассказать? Смело присылайте материал</h5>
-                  <a class="btn btn-gradient btn-sm mb-3" href="#">Я готов!</a>
+                  <a class="btn btn-gradient btn-sm mb-3 create_elect_new pointer">Я готов!</a>
                 </div>
               </div>
             </div>

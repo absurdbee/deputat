@@ -34,6 +34,15 @@ class AllElectNewsView(ListView, CategoryListMixin):
 		return elect_news
 
 
+class ProectNewsView(ListView, CategoryListMixin):
+	template_name = "blog/blog_news.html"
+	paginate_by = 12
+
+	def get_queryset(self):
+		blog_news = Blog.objects.only("pk")
+		return blog_news
+
+
 class BlogCommentList(ListView):
     template_name = "blog_comments.html"
     paginate_by = 15

@@ -18,6 +18,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
 		return context
 
 
+
 class ElectNewsView(ListView, CategoryListMixin):
 	template_name = "elect/news.html"
 	paginate_by = 12
@@ -28,9 +29,23 @@ class ElectNewsView(ListView, CategoryListMixin):
 
 	def get_context_data(self,**kwargs):
 		context = super(ElectNewsView,self).get_context_data(**kwargs)
+		context["object"] = self.object
 		context["elect"] = self.elect
 		return context
 
 	def get_queryset(self):
-		blog = Blog.objects.filter(category=self.cat)
+		blog = ElectNew.objects.filter(elect=self.elect)
 		return blog
+
+
+class ElectNewDetailView(TemplateView, CategoryListMixin):
+	template_name = "elect/elect_new.html"
+
+	def get(self,request,*args,**kwargs):
+		self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
+		return super(ElectNewDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(ElectNewDetailView,self).get_context_data(**kwargs)
+		context["object"] = self.new
+		return context

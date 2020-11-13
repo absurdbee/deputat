@@ -1,4 +1,4 @@
-from elect.models import ElectNew
+from blog.models import ElectNew
 from django import forms
 
 

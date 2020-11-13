@@ -14,6 +14,7 @@ class ElectSubscribe(View):
         elect = Elect.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and not SubscribeElect.is_elect_subscribe(elect.pk, request.user.pk):
             SubscribeElect.create_elect_subscribe(request.user.pk, elect.pk)
+            return HttpResponse()
         else:
             raise Http404
 

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Депутаты | {{ object.name }}{% endblock %}
+{% load liked_user %}
 {% block content %}
 
 <section class="bg-dark bg-center bg-no-repeat" style="height: 260px;"></section>
@@ -23,7 +24,11 @@
             </li>
           </ul>
           <a class="btn btn-gradient btn-sm mx-3 mb-3" href="#"><i class="fe-icon-plus"></i>&nbsp;Предложить новость</a>
-          <a class="btn btn-gradient btn-sm mx-3 mb-3" href="#"><i class="fe-icon-user-plus"></i>&nbsp;Подписаться на чиновника</a>
+          {% if object|is_elect_subscribe:request.user %}
+            <a class="btn btn-gradient btn-sm mx-3 mb-3 delete_elect_subscribe pointer"><i class="fe-icon-user"></i>&nbsp;Отписаться от чиновника</a>
+          {% else %}
+            <a class="btn btn-gradient btn-sm mx-3 mb-3 create_elect_subscribe pointer"><i class="fe-icon-user-plus"></i>&nbsp;Подписаться на чиновника</a>
+          {% endif %}
         </div>
       </div>
         <div class="col-12" style="">

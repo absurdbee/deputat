@@ -1,5 +1,5 @@
 from django.contrib import admin
-from elect.models import Elect, LinkElect, EducationElect
+from elect.models import *
 
 
 class LinkElectInline(admin.TabularInline):
@@ -21,3 +21,4 @@ class ElectAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Elect, ElectAdmin)
+admin.site.register(SubscribeElect)

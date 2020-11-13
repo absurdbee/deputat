@@ -44,16 +44,4 @@
         {% endif %}
       </div>
     </section>
-
-<script>
-  var infinite = new Waypoint.Infinite({
-  element: $('.authority_container')[0],
-  onBeforePageLoad: function () {
-    $('.load').show();
-  },
-  onAfterPageLoad: function ($items) {
-  $('.load').hide();
-  }
-});
-</script>
 {% endblock %}

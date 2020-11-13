@@ -4,6 +4,7 @@ from django.views import View
 from django.http import HttpResponse, HttpResponseBadRequest
 from elect.forms import ElectNewForm
 from users.models import User
+from blog.models import ElectNew
 from django.http import Http404
 from django.shortcuts import render
 

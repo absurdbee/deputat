@@ -4,10 +4,10 @@
 
 <section class="container pt-4 pt-sm-5 pb-4">
       <h2 class="h3 pt-2 text-center text-sm-left">{{ region.name }}</h2>
-      <div class="row pt-4">
+      <div class="row pt-4 pag_container">
         {% if region.get_all_elects %}
         {% for object in region.get_all_elects %}
-        <div class="col-md-6 col-sm-12 mb-30">
+        <div class="col-md-6 col-sm-12 mb-30 infinite-item">
           <div class="team-card-style-4 d-sm-table w-100">
             <div class="team-thumb d-sm-table-cell align-middle">
               <a href="{% url 'elect_detail' pk=object.pk %}">
@@ -39,6 +39,11 @@
         В регионе "{{ region.name }}" почему-то нет закрепленных за ним чиновников.
         {% endif %}
 
+        <div class="load text-center">
+          {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
+          {% endif %}
+        </div>
       </div>
 </section>
 {% endblock %}

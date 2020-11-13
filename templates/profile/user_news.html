@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-lg-8 pb-5">
-          <div class="row">
+          <div class="row pag_container">
             {% for object in object_list %}
               <div class="col-xl-6 col-sm-6 mb-30 pb-2">
                 <div class="card blog-card">
@@ -48,6 +48,12 @@
               </div>
             </div>
           {% endfor %}
+          
+          <div class="load text-center">
+            {% if page_obj.has_next %}
+              <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
+            {% endif %}
+          </div>
           </div>
         </div>
       </div>

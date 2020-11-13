@@ -6410,55 +6410,6 @@ a.close.disabled {
     pointer-events: none
 }
 
-.toast {
-    max-width: 350px;
-    overflow: hidden;
-    font-size: .875rem;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #e7e7e7;
-    -webkit-box-shadow: 0 1.375rem 2.25rem -0.75rem rgba(64, 64, 64, 0.13);
-    box-shadow: 0 1.375rem 2.25rem -0.75rem rgba(64, 64, 64, 0.13);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    opacity: 0
-}
-
-.toast:not(:last-child) {
-    margin-bottom: .75rem
-}
-
-.toast.showing {
-    opacity: 1
-}
-
-.toast.show {
-    display: block;
-    opacity: 1
-}
-
-.toast.hide {
-    display: none
-}
-
-.toast-header {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    padding: .375rem .75rem;
-    color: #6c757d;
-    background-color: rgba(255, 255, 255, 0.85);
-    background-clip: padding-box;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05)
-}
-
-.toast-body {
-    padding: .75rem
-}
-
 .modal-open {
     overflow: hidden
 }

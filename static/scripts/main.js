@@ -307,7 +307,7 @@ on('body', 'click', '.create_elect_subscribe', function() {
           _this.innerHTML = "<i class='fe-icon-user'></i>&nbsp;Отписаться от чиновника";
           _this.classList.add("delete_elect_subscribe");
           _this.classList.remove("create_elect_subscribe");
-          toast_success("Подписка оформлена! Все подписки - в профиле.")
+          toast_info("Подписка оформлена! Все подписки - в профиле.")
         }
     }
 };
@@ -325,7 +325,7 @@ on('body', 'click', '.delete_elect_subscribe', function() {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
           _this.innerHTML = "<i class='fe-icon-user-plus'></i>&nbsp;Подписаться от чиновника";
-          toast_success("Подписка отменена!");
+          toast_info("Подписка отменена!");
           _this.classList.remove("delete_elect_subscribe");
           _this.classList.add("create_elect_subscribe")
         }

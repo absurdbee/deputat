@@ -281,3 +281,14 @@ on('body', 'click', '.map_selector', function() {
 };
 link.send( null );
 })
+
+
+var authority_infinite = new Waypoint.Infinite({
+element: $('.authority_container')[0],
+onBeforePageLoad: function () {
+  $('.load').show();
+},
+onAfterPageLoad: function ($items) {
+$('.load').hide();
+}
+});

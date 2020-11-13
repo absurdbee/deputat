@@ -204,3 +204,40 @@ onAfterPageLoad: function ($items) {
 $('.load').hide();
 }
 });
+
+
+on('body', 'click', '.create_elect_subscribe', function() {
+  _this = this;
+  pk = _this.getAttribute("data-pk");
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/blog/progs/subscribe/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          _this.innerHTML = " Отписаться от чиновника";
+          toast_success("Подписка оформлена! Все подписки - в профиле.")
+        }
+    }
+};
+link.send( null );
+})
+
+on('body', 'click', '.delete_elect_subscribe', function() {
+  _this = this;
+  pk = _this.getAttribute("data-pk");
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/blog/progs/unsubscribe/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          _this.innerHTML = " Подписаться от чиновника";
+          toast_success("Подписка отменена!")
+        }
+    }
+};
+link.send( null );
+})

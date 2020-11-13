@@ -2,9 +2,9 @@
 {% block title %}Депутаты | {{ list.name }}{% endblock %}
 {% block content %}
 
-<section class="container pt-4 pt-sm-5 pb-4 authority_container">
+<section class="container pt-4 pt-sm-5 pb-4">
       <h2 class="h3 pt-2 text-center text-sm-left">{{ list.name }}</h2>
-      <div class="row pt-4">
+      <div class="row pt-4 authority_container">
         {% if object_list %}
         {% for object in object_list %}
         <div class="col-md-6 col-sm-12 mb-30 infinite-item">
@@ -37,7 +37,7 @@
         {% else %}
           В списке почему-то никого нет.
         {% endif %}
-        
+
         <div class="load text-center">
           {% if page_obj.has_next %}
             <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>

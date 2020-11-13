@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from blog.views import *
 from django.contrib.auth.decorators import login_required
 
@@ -18,4 +18,6 @@ urlpatterns = [
     url(r'^delete_comment/(?P<pk>\d+)/$', login_required(BlogCommentDelete.as_view())),
     url(r'^abort_delete_comment/(?P<pk>\d+)/$', login_required(BlogCommentAbortDelete.as_view())),
     url(r'^comment/(?P<pk>\d+)/$', BlogCommentList.as_view()),
+
+    url(r'^progs/', include('blog.url.progs')),
 ]

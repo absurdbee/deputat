@@ -47,8 +47,9 @@ class User(AbstractUser):
         return count
 
     def get_elect_subscribers(self):
-        elect_subscribers = Elect.objects.filter(user_subscribe_id=self.pk) 
-        return elect_subscribers
+        elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk).values("elect_id")
+        elect_ids = [elect['parent_id'] for elect in elect_subscribers]
+        return Elect.objects.filter(id__in=elect_ids)
 
     def get_elect_subscribers_count(self):
         count = SubscribeElect.objects.filter(user_id=self.pk).values("pk").count()

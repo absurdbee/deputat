@@ -347,10 +347,10 @@ on('body', 'click', '.remove_elect_subscribe_in_profile', function() {
         if ( link.status == 200 ) {
           parent.style.display = "none";
           div = document.createElement("div");
-          div.classList.add("elect_subscribe_in_profile", "col-12", "pointer");
+          div.classList.add("elect_subscribe_in_profile", "card", "border", "border-primary", "pointer");
           div.setAttribute("data-pk", pk);
           name = parent.querySelector(".cart-item-product-title").innerHTML;
-          div.innerHTML = '<span class="elect_name">' + name + "</span> удален из подписок. Отменить";
+          div.innerHTML = '<h6 class="elect_name card-title">' + name + "</h6> удален из подписок. Отменить";
           parent.parentElement.insertBefore(div, parent);
           toast_info(name + " удален из подписок!");
         }

@@ -92,9 +92,12 @@
     </div>
 
     <section class="container py-5 mb-3">
-      <h2 class="h3 block-title text-center mt-3">Новости чиновника
-        <small>Высказывания, работа с избирателями, предвыборная деятельность</small>
-      </h2>
+      <h2 class="h3 block-title text-center mt-3">Новости чиновника</h2>
+      <ul class="nav nav-pills nav-justified">
+            <li class="nav-item"><a class="nav-link active" href="#">Высказывания</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Работа с избирателями</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Предвыборная деятельность</a></li>
+      </ul>
       <div class="row pt-4">
         {% if object.get_news %}
         {% for object in object.get_news %}

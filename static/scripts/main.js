@@ -394,9 +394,9 @@ on('body', 'click', '.select_elect_news_category', function() {
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
-          links = _this.parentElement.parentElement.querySelectorAll(".nav-link");
+          links = _this.parentElement.parentElement.querySelectorAll(".select_elect_news_category");
           console.log(links);
-          for (var i = 0; i < links; i++){
+          for (var i = 0; i < links.length; i++){
             links[i].classList.remove("active");
           }
           elem = link.responseText;

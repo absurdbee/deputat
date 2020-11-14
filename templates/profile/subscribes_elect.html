@@ -22,16 +22,25 @@
             <div class="cart-item d-md-flex justify-content-between">
               <span class="remove-item remove_elect_subscribe_in_profile"><i class="fe-icon-x"></i></span>
               <div class="px-3 my-3">
-                <a class="cart-item-product" href="{% url 'elect_detail' pk=object.pk %}">
+
                   <div class="cart-item-product-thumb">
-                    <img src="{{ object.image.url }}" alt="img">
+                    <a href="{% url 'elect_detail' pk=object.pk %}">
+                      <img src="{{ object.image.url }}" alt="img">
+                    </a>
                   </div>
                   <div class="cart-item-product-info">
-                    <h4 class="cart-item-product-title">{{ object.name }}</h4>
+                    <a href="{% url 'elect_detail' pk=object.pk %}">
+                      <h4 class="cart-item-product-title">{{ object.name }}</h4>
+                    </a>
                     <div class="text-lg text-body font-weight-medium pb-1">Рейтинги</div>
-                    <span>Орган власти: <span class="text-success font-weight-medium">{{ object.get_first_list }}</span></span>
+                    <span>Орган власти:
+                      <a href="{% url 'authority_index' slug=get_first_list.slug %}">
+                        <span class="text-success font-weight-medium">
+                          {{ object.get_first_list }}
+                        </span>
+                      </a>
+                    </span>
                   </div>
-                </a>
               </div>
         </div>
 

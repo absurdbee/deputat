@@ -345,7 +345,7 @@ on('body', 'click', '.remove_elect_subscribe_in_profile', function() {
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
-          parent.style.display = "none";
+          parent.style.display = "none !important";
           div = document.createElement("div");
           div.classList.add("elect_subscribe_in_profile", "col-12", "pointer");
           div.setAttribute("data-pk", pk);

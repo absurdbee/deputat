@@ -386,6 +386,7 @@ on('body', 'click', '.select_elect_news_category', function() {
   if (_this.classList.contains("active")){
     return
   }
+  elect_news_container = document.body.querySelector(".elect_news_container");
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', url, true );
@@ -401,7 +402,8 @@ on('body', 'click', '.select_elect_news_category', function() {
           response = document.createElement("span");
           response.innerHTML = elem;
           _this.classList.add("active");
-          document.body.querySelector(".elect_news_container").insertAdjacentHTML('afterBegin', response.innerHTML);
+          elect_news_container.innerHTML = "";
+          elect_news_container.insertAdjacentHTML('afterBegin', response.innerHTML);
         }
     }
 };

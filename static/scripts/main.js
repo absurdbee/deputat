@@ -346,8 +346,7 @@ on('body', 'click', '.remove_elect_subscribe_in_profile', function() {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
           parent.style.display = "none";
-          div = document.createElement("div");
-          div.classList.add("elect_subscribe_in_profile", "cart-item, "justify-content-between", "p-4", "border", "border-primary", "pointer");
+          div = "<div class='elect_subscribe_in_profile cart-item justify-content-between p-4 border border-primary pointer'></div>";
           div.setAttribute("data-pk", pk);
           name = parent.querySelector(".cart-item-product-title").innerHTML;
           div.innerHTML = '<h6 class="elect_name card-title">' + name + "</h6> удален из подписок. Отменить";

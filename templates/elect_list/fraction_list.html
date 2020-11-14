@@ -39,7 +39,7 @@
         Во фракции "{{ fraction.name }}" почему-то нет закрепленных за ней чиновников.
         {% endif %}
 
-        <div class="load text-center">
+        <div class="col-md-12 load text-center">
           {% if page_obj.has_next %}
             <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
           {% endif %}

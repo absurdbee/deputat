@@ -48,8 +48,8 @@
               </div>
             </div>
           {% endfor %}
-          
-          <div class="load text-center">
+
+          <div class="load text-center col-md-12">
             {% if page_obj.has_next %}
               <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
             {% endif %}

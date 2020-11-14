@@ -19,7 +19,7 @@
         <div class="col-lg-8 pb-5">
           <div class="row pag_container">
             {% for object in object_list %}
-            <div class="cart-item d-md-flex justify-content-between">
+            <div class="cart-item justify-content-between">
               <span class="remove-item remove_elect_subscribe_in_profile" data-pk="{{ object.pk }}"><i class="fe-icon-x"></i></span>
             <div class="px-3 my-3">
               <a class="cart-item-product" href="{% url 'elect_detail' pk=object.pk %}">

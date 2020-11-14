@@ -8,6 +8,16 @@ from blog.models import ElectNew
 from django.views.generic import ListView
 
 
+"""
+    Группируем все представления депутата здесь:
+    1. Страница отдельного депутата,
+    2. Список всех новостей депутата
+	3. Список новостей о высказываниях депутата
+	4. Список новостей о работа с избирателями депутата
+	5. Список новостей о предвыборная деятельности депутата
+	6. Страница отдельной новости депутата
+"""
+
 class ElectDetailView(TemplateView, CategoryListMixin):
 	template_name = "elect/elect.html"
 
@@ -30,23 +40,73 @@ class ElectDetailView(TemplateView, CategoryListMixin):
 
 
 
-class ElectNewsView(ListView, CategoryListMixin):
-	template_name = "elect/news.html"
+class AllElectNewsView(ListView, CategoryListMixin):
+	template_name = "elect/all_news.html"
 	paginate_by = 12
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
-		return super(ElectNewsView,self).get(request,*args,**kwargs)
+		return super(AllElectNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		context = super(ElectNewsView,self).get_context_data(**kwargs)
-		context["object"] = self.object
+		context = super(AllElectNewsView,self).get_context_data(**kwargs)
 		context["elect"] = self.elect
 		return context
 
 	def get_queryset(self):
-		blog = ElectNew.objects.filter(elect=self.elect)
-		return blog
+		news = ElectNew.objects.filter(elect=self.elect)
+		return news
+
+class StatementsElectNewsView(ListView, CategoryListMixin):
+	template_name = "elect/statements_news.html"
+	paginate_by = 12
+
+	def get(self,request,*args,**kwargs):
+		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+		return super(StatementsElectNewsView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(StatementsElectNewsView,self).get_context_data(**kwargs)
+		context["elect"] = self.elect
+		return context
+
+	def get_queryset(self):
+		news = ElectNew.objects.filter(elect=self.elect, category__slug="statements")
+		return news
+
+class WorkWithVotersElectNewsView(ListView, CategoryListMixin):
+	template_name = "elect/work_with_voters.html"
+	paginate_by = 12
+
+	def get(self,request,*args,**kwargs):
+		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+		return super(WorkWithVotersElectNewsView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(WorkWithVotersElectNewsView,self).get_context_data(**kwargs)
+		context["elect"] = self.elect
+		return context
+
+	def get_queryset(self):
+		news = ElectNew.objects.filter(elect=self.elect, category__slug="work_with_voters")
+		return news
+
+class PreElectionElectNewsView(ListView, CategoryListMixin):
+	template_name = "elect/pre_election_activities.html"
+	paginate_by = 12
+
+	def get(self,request,*args,**kwargs):
+		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+		return super(PreElectionElectNewsView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(PreElectionElectNewsView,self).get_context_data(**kwargs)
+		context["elect"] = self.elect
+		return context
+
+	def get_queryset(self):
+		news = ElectNew.objects.filter(elect=self.elect, category__slug="pre_election_activities")
+		return news
 
 
 class ElectNewDetailView(TemplateView, CategoryListMixin):

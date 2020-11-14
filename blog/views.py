@@ -34,7 +34,7 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 		return context
 
 
-class AllElectNewsView(ListView, CategoryListMixin):
+class AllElectsNewsView(ListView, CategoryListMixin):
 	template_name = "blog/elect_news.html"
 	paginate_by = 12
 

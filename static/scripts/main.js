@@ -299,7 +299,7 @@ on('body', 'click', '.create_elect_subscribe', function() {
   pk = _this.getAttribute("data-pk");
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/blog/progs/subscribe/" + pk + "/", true );
+  link.open( 'GET', "/elect/progs/subscribe/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
@@ -319,7 +319,7 @@ on('body', 'click', '.delete_elect_subscribe', function() {
   pk = _this.getAttribute("data-pk");
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/blog/progs/unsubscribe/" + pk + "/", true );
+  link.open( 'GET', "/elect/progs/unsubscribe/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
@@ -328,6 +328,52 @@ on('body', 'click', '.delete_elect_subscribe', function() {
           toast_info("Подписка отменена!");
           _this.classList.remove("delete_elect_subscribe");
           _this.classList.add("create_elect_subscribe")
+        }
+    }
+};
+link.send( null );
+})
+
+on('body', 'click', '.remove_elect_subscribe_in_profile', function() {
+  _this = this;
+  pk = _this.getAttribute("data-pk");
+  parent = _this.parentElement;
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/elect/progs/unsubscribe/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          parent.style.display = "none";
+          div = document.createElement("div");
+          div.classList.add("elect_subscribe_in_profile", "col-12", "pointer");
+          div.setAttribute("data-pk", pk);
+          name = parent.querySelector(".cart-item-product-title").innerHTML;
+          div.innerHTML = '<span class="elect_name">' + name + "</span> удален из подписок. Отменить";
+          parent.parentElement.insertBefore(div, parent);
+          toast_info(name + " удален из подписок!");
+        }
+    }
+};
+link.send( null );
+})
+
+on('body', 'click', '.elect_subscribe_in_profile', function() {
+  _this = this;
+  pk = _this.getAttribute("data-pk");
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/elect/progs/subscribe/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          elect =  _this.nextElementSibling;
+          elect.style.display = "flex";
+          name = _this.querySelector(".elect_name").innerHTML;
+          _this.remove();
+          toast_info(name + " возвращен в подписки!");
         }
     }
 };

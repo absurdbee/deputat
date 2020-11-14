@@ -6,7 +6,7 @@ from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from users.helpers import upload_to_user_directory
 from blog.models import ElectNew, ElectVotes
-from elect.models import SubscribeElect
+from elect.models import Elect, SubscribeElect
 
 
 """
@@ -47,7 +47,7 @@ class User(AbstractUser):
         return count
 
     def get_elect_subscribers(self):
-        elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk)
+        elect_subscribers = Elect.objects.filter(user_subscribe_id=self.pk) 
         return elect_subscribers
 
     def get_elect_subscribers_count(self):

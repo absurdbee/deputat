@@ -94,10 +94,10 @@
     <section class="container py-5 mb-3">
       <h2 class="h3 block-title text-center mt-3">Новости чиновника</h2>
       <ul class="nav nav-pills nav-justified">
-        <li class="nav-item"><a class="nav-link pointer active all_elect_news">Все новости</a></li>
-        <li class="nav-item"><a class="nav-link pointer statements_elect_news">Высказывания</a></li>
-        <li class="nav-item"><a class="nav-link pointer work_with_voters_elect_news">Работа с избирателями</a></li>
-        <li class="nav-item"><a class="nav-link pointer pre_election_activities_elect_news">Предвыборная деятельность</a></li>
+        <li class="nav-item pointer all_elect_news active"><a class="nav-link">Все новости</a></li>
+        <li class="nav-item pointer statements_elect_news"><a class="nav-link">Высказывания</a></li>
+        <li class="nav-item pointer work_with_voters_elect_news"><a class="nav-link">Работа с избирателями</a></li>
+        <li class="nav-item pointer pre_election_activities_elect_news"><a class="nav-link">Предвыборная деятельность</a></li>
       </ul>
       <div class="row pt-4 elect_news_container">
         {% if object.get_news %}

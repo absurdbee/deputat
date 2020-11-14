@@ -393,7 +393,7 @@ on('body', 'click', '.select_elect_news_category', function() {
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
-          links = parentElement.parentElement.querySelectorAll(".nav-link")
+          links = _this.parentElement.parentElement.querySelectorAll(".nav-link")
           for (var i = 0; i < links; i++){
             links[i].classList.remove("active");
           }

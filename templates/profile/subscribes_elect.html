@@ -34,7 +34,7 @@
                     </a>
                     <div class="text-lg text-body font-weight-medium pb-1">Рейтинги</div>
                     <span>Орган власти:
-                      <a href="{% url 'authority_index' slug=get_first_list.slug %}">
+                      <a href="{% url 'authority_index' slug=object.get_first_list.slug %}">
                         <span class="text-success font-weight-medium">
                           {{ object.get_first_list }}
                         </span>

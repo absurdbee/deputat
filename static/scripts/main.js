@@ -380,7 +380,7 @@ on('body', 'click', '.elect_subscribe_in_profile', function() {
 link.send( null );
 })
 
-on('body', 'click', '.elect_subscribe_in_profile', function() {
+on('body', 'click', '.select_elect_news_category', function() {
   _this = this;
   url = _this.getAttribute("data-href");
   if (_this.classList.contains("active")){

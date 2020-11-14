@@ -4,7 +4,7 @@
 {% block content %}
 
 <section class="bg-dark bg-center bg-no-repeat" style="height: 260px;"></section>
-<div class="container" style="margin-top: -160px;">
+<div class="container pk_saver" style="margin-top: -160px;" data-pk="{{ object.pk }}">
       <div class="bg-white box-shadow pt-4 pb-5 px-3 px-sm-4">
         <figure class="figure d-block rounded-circle my-3 p-2 mx-auto" style="width: 180px;">
           <img class="d-block w-100 rounded-circle" src="{{ object.image.url }}" alt="James Smith">
@@ -94,10 +94,10 @@
     <section class="container py-5 mb-3">
       <h2 class="h3 block-title text-center mt-3">Новости чиновника</h2>
       <ul class="nav nav-pills nav-justified">
-        <li class="nav-item"><a class="nav-link all_elect_news active pointer">Все новости</a></li>
-        <li class="nav-item"><a class="nav-link statements_elect_news pointer">Высказывания</a></li>
-        <li class="nav-item"><a class="nav-link work_with_voters_elect_news pointer">Работа с избирателями</a></li>
-        <li class="nav-item"><a class="nav-link pre_election_activities_elect_news pointer">Предвыборная деятельность</a></li>
+        <li class="nav-item"><a class="nav-link all_elect_news active pointer" data-href="elect/{{ object.pk }}/all_news/">Все новости</a></li>
+        <li class="nav-item"><a class="nav-link statements_elect_news pointer" data-href="elect/{{ object.pk }}/statements_elect_news/">Высказывания</a></li>
+        <li class="nav-item"><a class="nav-link work_with_voters_elect_news pointer" data-href="elect/{{ object.pk }}/work_with_voters_elect_news/">Работа с избирателями</a></li>
+        <li class="nav-item"><a class="nav-link pre_election_activities_elect_news pointer" data-href="elect/{{ object.pk }}/pre_election_activities_elect_news/">Предвыборная деятельность</a></li>
       </ul>
       <div class="row pt-4 elect_news_container">
         {% if object.get_news %}

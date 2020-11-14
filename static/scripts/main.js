@@ -379,3 +379,31 @@ on('body', 'click', '.elect_subscribe_in_profile', function() {
 };
 link.send( null );
 })
+
+on('body', 'click', '.elect_subscribe_in_profile', function() {
+  _this = this;
+  url = _this.getAttribute("data-href");
+  if (_this.classList.contains("active")){
+    return
+  }
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', url, true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          links = parentElement.parentElement.querySelectorAll(".nav-link")
+          for (var i = 0; i < links; i++){
+            links[i].classList.remove("active");
+          }
+          elem = link.responseText;
+          response = document.createElement("span");
+          response.innerHTML = elem;
+          _this.classList.add("active");
+          document.body.querySelector(".elect_news_container").insertAdjacentHTML('afterBegin', response.innerHTML);
+        }
+    }
+};
+link.send( null );
+})

@@ -19,30 +19,22 @@
         <div class="col-lg-8 pb-5">
           <div class="row pag_container">
             {% for object in object_list %}
-            <div class="cart-item d-md-flex justify-content-between">
-              <span class="remove-item remove_elect_subscribe_in_profile"><i class="fe-icon-x"></i></span>
-              <div class="px-3 my-3">
-
-                  <div class="cart-item-product-thumb">
-                    <a href="{% url 'elect_detail' pk=object.pk %}">
-                      <img src="{{ object.image.url }}" alt="img">
-                    </a>
-                  </div>
-                  <div class="cart-item-product-info">
-                    <a href="{% url 'elect_detail' pk=object.pk %}">
-                      <h4 class="cart-item-product-title">{{ object.name }}</h4>
-                    </a>
-                    <div class="text-lg text-body font-weight-medium pb-1">Рейтинги</div>
-                    <span>Орган власти:
-                      <a href="{% url 'authority_index' slug=object.get_first_list.slug %}">
-                        <span class="text-success font-weight-medium">
-                          {{ object.get_first_list }}
-                        </span>
-                      </a>
-                    </span>
-                  </div>
-              </div>
-        </div>
+            <div class="cart-item d-md-flex justify-content-between"><span class="remove-item remove_elect_subscribe_in_profile"><i class="fe-icon-x"></i></span>
+            <div class="px-3 my-3">
+              <a class="cart-item-product" href="{% url 'elect_detail' pk=object.pk %}">
+                <div class="cart-item-product-thumb">
+                  {% if object.image %}
+                  <img src="{{ object.image.url }}" alt="img">
+                  {% endif %}
+                </div>
+                <div class="cart-item-product-info">
+                  <h4 class="cart-item-product-title">{{ object.name }}</h4>
+                  <div class="text-lg text-body font-weight-medium pb-1">Рейтинги</div>
+                  <span>Availability: <span class="text-success font-weight-medium">{{ object.get_first_list }}</span></span>
+                </div>
+              </a>
+            </div>
+          </div>
 
           {% empty %}
           <div class="card border text-center" style="border-color: #4db6ac !important;">

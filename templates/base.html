@@ -15,8 +15,9 @@
 </head>
 
 <body class="">
-		{% include "mob_menu.html" %}
+	{% url 'main' as main_url %}
 
+		{% include "mob_menu.html" %}
 		{% include "header.html" %}
 
 		{% block content %}

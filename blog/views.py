@@ -67,16 +67,16 @@ class BlogCommentList(ListView):
     paginate_by = 15
 
     def get(self,request,*args,**kwargs):
-		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
-		return super(BlogCommentList,self).get(request,*args,**kwargs)
-	def get_context_data(self, **kwargs):
-		context = super(BlogCommentList, self).get_context_data(**kwargs)
-		context['parent'] = self.blog
-		return context
+	    self.blog = Blog.objects.get(pk=self.kwargs["pk"])
+	    return super(BlogCommentList,self).get(request,*args,**kwargs)
+    def get_context_data(self, **kwargs):
+	    context = super(BlogCommentList, self).get_context_data(**kwargs)
+	    context['parent'] = self.blog
+	    return context
 
-	def get_queryset(self):
-		comments = self.blog.get_comments()
-		return comments
+    def get_queryset(self):
+	    comments = self.blog.get_comments()
+	    return comments
 
 
 class BlogCommentCreate(View):

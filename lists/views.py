@@ -9,7 +9,7 @@ from common.utils import get_small_template, get_full_template
 class AuthorityListView(ListView, CategoryListMixin):
 	""" Чиновники выбранного списка: госдумы, совфеда и т.д. """
 
-	template_name = "elect_list/authority_list.html"
+	template_name = None
 	paginate_by = 20
 
 	def get(self,request,*args,**kwargs):
@@ -37,7 +37,7 @@ class FractionList(ListView, CategoryListMixin):
 	paginate_by = 20
 
 	def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("elect_list/fraction_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("elect_list/fraction_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(FractionList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -55,7 +55,7 @@ class ElectListsView(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("elect_list/all_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("elect_list/all_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(ElectListsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

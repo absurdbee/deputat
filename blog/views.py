@@ -41,7 +41,7 @@ class AllElectsNewsView(ListView, CategoryListMixin):
 	paginate_by = 12
 
 	def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("blog/elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("blog/elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(AllElectsNewsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
@@ -54,7 +54,7 @@ class ProectNewsView(ListView, CategoryListMixin):
 	paginate_by = 12
 
 	def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("blog/blog_news.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("blog/blog_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(ProectNewsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
@@ -66,18 +66,18 @@ class BlogCommentList(ListView):
     template_name = "blog_comments.html"
     paginate_by = 15
 
-    def get(self,request,*args,**kwargs):
-        self.blog = Blog.objects.get(pk=self.kwargs["pk"])
-        return super(BlogCommentList,self).get(request,*args,**kwargs)
+	def get(self,request,*args,**kwargs):
+		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
+		return super(BlogCommentList,self).get(request,*args,**kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super(BlogCommentList, self).get_context_data(**kwargs)
-        context['parent'] = self.blog
-        return context
+	def get_context_data(self, **kwargs):
+		context = super(BlogCommentList, self).get_context_data(**kwargs)
+		context['parent'] = self.blog
+		return context
 
-    def get_queryset(self):
-        comments = self.blog.get_comments()
-        return comments
+	def get_queryset(self):
+		comments = self.blog.get_comments()
+		return comments
 
 
 class BlogCommentCreate(View):

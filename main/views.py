@@ -14,7 +14,7 @@ class MainPageView(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("main/mainpage.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("main/mainpage.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainPageView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -29,7 +29,7 @@ class MainPhoneSend(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("main/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("main/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainPhoneSend,self).get(request,*args,**kwargs)
 
 

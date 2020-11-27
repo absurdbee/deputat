@@ -8,4 +8,4 @@ class PolicyView(TemplateView, CategoryListMixin):
 
     def get(self,request,*args,**kwargs):
         self.template_name = get_small_template("policy/policy.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(PolicyView,self).get(request,*args,**kwargs)
+        return super(PolicyView,self).get(request,*args,**kwargs)

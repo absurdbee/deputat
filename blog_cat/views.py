@@ -11,7 +11,7 @@ class BlogListView(ListView, CategoryListMixin):
 	paginate_by = 20
 
 	def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("blog/blog_index.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("blog/blog_index.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(BlogListView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):

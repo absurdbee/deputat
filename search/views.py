@@ -8,4 +8,4 @@ class SearchView(TemplateView, CategoryListMixin):
 
     def get(self,request,*args,**kwargs):
         self.template_name = get_small_template("search/search.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(SearchView,self).get(request,*args,**kwargs)
+        return super(SearchView,self).get(request,*args,**kwargs)

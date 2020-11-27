@@ -66,7 +66,7 @@ class BlogCommentList(ListView):
     template_name = "blog_comments.html"
     paginate_by = 15
 
-	def get(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
 		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
 		return super(BlogCommentList,self).get(request,*args,**kwargs)
 	def get_context_data(self, **kwargs):

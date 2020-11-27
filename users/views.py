@@ -11,7 +11,7 @@ class AuthView(TemplateView, CategoryListMixin):
 		if request.user.is_authenticated:
 			self.template_name = "profile/draft_news.html"
 		else:
-			self.template_name = "auth.html"
+			self.template_name = "account/auth.html"
 		return super(AuthView,self).get(request,*args,**kwargs)
 
 

@@ -76,62 +76,62 @@ class StatementsElectNewsView(ListView, CategoryListMixin):
     def get_queryset(self):
         news = ElectNew.objects.filter(elect=self.elect, category__slug="statements")
         return news
-        
+
 
 class WorkWithVotersElectNewsView(ListView, CategoryListMixin):
-	template_name = None
-	paginate_by = 12
+    template_name = None
+    paginate_by = 12
 
-	def get(self,request,*args,**kwargs):
-		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+    def get(self,request,*args,**kwargs):
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         self.template_name = get_small_template("elect/work_with_voters.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(WorkWithVotersElectNewsView,self).get(request,*args,**kwargs)
+        return super(WorkWithVotersElectNewsView,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(WorkWithVotersElectNewsView,self).get_context_data(**kwargs)
-		context["elect"] = self.elect
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(WorkWithVotersElectNewsView,self).get_context_data(**kwargs)
+        context["elect"] = self.elect
+        return context
 
-	def get_queryset(self):
-		news = ElectNew.objects.filter(elect=self.elect, category__slug="work_with_voters")
-		return news
+    def get_queryset(self):
+        news = ElectNew.objects.filter(elect=self.elect, category__slug="work_with_voters")
+        return news
 
 class PreElectionElectNewsView(ListView, CategoryListMixin):
-	template_name = None
-	paginate_by = 12
+    template_name = None
+    paginate_by = 12
 
-	def get(self,request,*args,**kwargs):
-		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+    def get(self,request,*args,**kwargs):
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         self.template_name = get_small_template("elect/pre_election_activities.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(PreElectionElectNewsView,self).get(request,*args,**kwargs)
+        return super(PreElectionElectNewsView,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(PreElectionElectNewsView,self).get_context_data(**kwargs)
-		context["elect"] = self.elect
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(PreElectionElectNewsView,self).get_context_data(**kwargs)
+        context["elect"] = self.elect
+        return context
 
-	def get_queryset(self):
-		news = ElectNew.objects.filter(elect=self.elect, category__slug="pre_election_activities")
-		return news
+    def get_queryset(self):
+        news = ElectNew.objects.filter(elect=self.elect, category__slug="pre_election_activities")
+        return news
 
 
 class ElectNewDetailView(TemplateView, CategoryListMixin):
-	template_name = None
+    template_name = None
 
-	def get(self,request,*args,**kwargs):
-		self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
-		if request.user.is_authenticated:
-			current_pk = request.user.pk
-		else:
-			current_pk = 0
-		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-			ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=0)
-		else:
-			ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=1)
+    def get(self,request,*args,**kwargs):
+        self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_authenticated:
+            current_pk = request.user.pk
+        else:
+            current_pk = 0
+        if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+            ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=0)
+        else:
+            ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=1)
         self.template_name = get_full_template("elect/elect_new.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(ElectNewDetailView,self).get(request,*args,**kwargs)
+        return super(ElectNewDetailView,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context=super(ElectNewDetailView,self).get_context_data(**kwargs)
-		context["object"] = self.new
-		return context
+    def get_context_data(self,**kwargs):
+        context=super(ElectNewDetailView,self).get_context_data(**kwargs)
+        context["object"] = self.new
+        return context

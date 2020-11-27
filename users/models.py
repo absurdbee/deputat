@@ -28,7 +28,7 @@ class User(AbstractUser):
     )
 
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
-    phone = models.CharField(max_length=17, verbose_name='Телефон')
+    phone = models.CharField(max_length=17, blank=True, null=True, verbose_name='Телефон')
     perm = models.CharField(max_length=5, choices=PERM, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
     #USERNAME_FIELD = 'phone'
 

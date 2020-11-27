@@ -11,8 +11,8 @@
               <input type="text" id="site-search" placeholder="Что будем искать?"><span class="search-close"><i class="fe-icon-x"></i></span>
             </form>
             <ul class="navbar-nav d-none d-lg-block">
-              <li class="nav-item">
-                <a class="nav-link {% if main_url == current_url %}active{% endif %}" href="{{ main_url }}">Главная</a>
+              <li class="nav-item {% if main_url == current_url %}active{% endif %}">
+                <a class="nav-link" href="{{ main_url }}">Главная</a>
               </li>
               <li class="nav-item dropdown-toggle">
                 <a class="nav-link" href="{% url 'elect_list' %}">Чиновники</a>

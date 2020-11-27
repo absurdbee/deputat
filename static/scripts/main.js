@@ -412,3 +412,78 @@ on('body', 'click', '.select_elect_news_category', function() {
 };
 link.send( null );
 })
+
+function load_chart() {
+    try {
+        var ctx = document.getElementById('canvas');
+        var dates = ctx.getAttribute('dates').split(",");
+        var data_1 = ctx.getAttribute('data_views').split(",");
+        var data_2 = ctx.getAttribute('data_likes').split(",");
+        var data_3 = ctx.getAttribute('data_dislikes').split(",");
+        var label_1 = ctx.getAttribute('label_views');
+        var label_2 = ctx.getAttribute('label_likes');
+        var label_3 = ctx.getAttribute('label_dislikes');
+        var config = {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: label_1,
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: data_1,
+                    fill: false,
+                }, {
+                    label: label_2,
+                    fill: false,
+                    backgroundColor: 'rgb(54, 162, 235)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    data: data_2,
+                }, {
+                    label: label_3,
+                    fill: false,
+                    backgroundColor: 'rgb(54, 162, 235)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    data: data_3,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: ''
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: ''
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: ''
+                        }
+                    }]
+                }
+            }
+        };
+        ctx.getContext('2d');
+        window.myLine = new Chart(ctx, config)
+    } catch {
+        return
+    }
+}
+load_chart()

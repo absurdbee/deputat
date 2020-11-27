@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
 from blog.models import ElectNew, ElectVotes
 from elect.models import Elect, SubscribeElect
+from common.utils import try_except
 
 
 """
@@ -86,3 +87,12 @@ class User(AbstractUser):
     def get_dislike_news_count(self):
         count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("parent_id").count()
         return count
+
+    def is_deleted(self):
+        return try_except(self.perm == User.DELETED)
+    def is_manager(self):
+        return try_except(self.perm == User.MANAGER)
+    def is_supermanager(self):
+        return try_except(self.perm == User.SUPERMANAGER)
+    def is_no_phone_verified(self):
+        return try_except(self.perm == User.PHONE_NO_VERIFIED)

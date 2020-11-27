@@ -1,5 +1,8 @@
 import json, requests
 from users.model.profile import IPUser, UserLocation
+import re
+MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+from django.shortcuts import render
 
 
 def try_except(value):
@@ -26,7 +29,7 @@ def get_location(request, user):
     IPUser.objects.create(user=user, ip=ip)
     response = requests.get(url= "http://api.sypexgeo.net/c9Hu3/json/" + ip)
     data = response.json()
-    loc = UserLocation.objects.create(user=user) 
+    loc = UserLocation.objects.create(user=user)
     sity = data['city']
     region = data['region']
     country = data['country']
@@ -40,3 +43,10 @@ def get_location(request, user):
     loc.country_en = country['name_en']
     loc.phone = country['phone']
     loc.save()
+
+
+def render_for_platform(request, template, data):
+    if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+        return render(request, template + template, data)
+    else:
+        return render(request, template + template, data)

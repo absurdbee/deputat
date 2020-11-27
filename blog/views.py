@@ -69,7 +69,6 @@ class BlogCommentList(ListView):
 	def get(self,request,*args,**kwargs):
 		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
 		return super(BlogCommentList,self).get(request,*args,**kwargs)
-
 	def get_context_data(self, **kwargs):
 		context = super(BlogCommentList, self).get_context_data(**kwargs)
 		context['parent'] = self.blog

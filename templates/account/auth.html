@@ -14,31 +14,18 @@
           <form id="login_form" action="{% url 'rest_login' %}" class="wizard">
             {% csrf_token %}
             <div class="wizard-body pt-2">
-              <div class="d-sm-flex justify-content-between pb-2">
-                <a class="btn btn-secondary btn-sm btn-block my-2 mr-3" href="#">
-                  <i class="socicon-facebook"></i>
-                  &nbsp;Войти
-                </a>
-                <a class="btn btn-secondary btn-sm btn-block my-2 mr-3" href="#">
-                  <i class="socicon-twitter"></i>&nbsp;Войти
-                </a>
-                <a class="btn btn-secondary btn-sm btn-block my-2 mr-3" href="#">
-                  <i class="socicon-vk"></i>&nbsp;Войти
-                </a>
-              </div>
-              <hr>
-              <h3 class="h5 pt-4 pb-2">или заполните форму</h3>
+              <h6 class="h4 pb-1">Вход</h6>
               <div class="input-group form-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fe-icon-mail"></i></span>
+                  <span class="input-group-text"><i class="fe-icon-phone"></i></span>
                 </div>
-                <input class="form-control" type="email" name="email" id="email" placeholder="Email" required="">
+                <input type="text" name="username" class="form-control form-control-lg l_username" placeholder="Телефон">
               </div>
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fe-icon-lock"></i></span>
                 </div>
-                <input class="form-control" type="password" name="password" id="password" placeholder="Пароль" required="">
+                <input class="form-control l_password" type="password" name="password" placeholder="Пароль">
               </div>
               <div class="d-flex flex-wrap justify-content-between">
                 <div class="custom-control custom-checkbox">
@@ -53,27 +40,19 @@
           </form>
         </div>
         <div class="col-md-6 pb-5">
-          <h3 class="h4 pb-1">Нет аккаунта?</h3>
-          <p>Регистрация занимает меньше минуты. Она нужна для контроля гражданской активности на сайте.</p>
-
+          <h3 class="h4 pb-1">Регистрация</h3>
           <form class="wizard" id="signup" action="{% url 'rest_register' %}">
             <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fe-icon-mail"></i></span>
-              </div>
-              <input class="form-control" type="email" placeholder="Email" required="">
+              <input type="text" name="first_name" class="form-control first_name" placeholder="Имя">
             </div>
             <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fe-icon-lock"></i></span>
-              </div>
-              <input class="form-control" type="password" placeholder="Пароль" required="">
+              <input type="text" name="last_name" class="form-control last_name" placeholder="Фамилия">
             </div>
             <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fe-icon-lock"></i></span>
-              </div>
-              <input class="form-control" type="password" placeholder="Повторите пароль" required="">
+              <input type="password" name="password1" class="form-control password1" placeholder="Пароль">
+            </div>
+            <div class="input-group form-group">
+              <input type="password" name="password2" class="form-control password2" placeholder="Пароль">
             </div>
             <div class="text-right">
               <button class="btn btn-primary" id="register_ajax" type="button">Регистрация</button>

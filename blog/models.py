@@ -26,7 +26,7 @@ class Blog(models.Model):
     elects = models.ManyToManyField('elect.Elect', blank=True, related_name='elect_news', verbose_name="Чиновник")
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
 
     class Meta:
         verbose_name = "Новость проекта"

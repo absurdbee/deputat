@@ -2,9 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
-from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
-from imagekit.models import ProcessedImageField
-from users.helpers import upload_to_user_directory
 from blog.models import ElectNew, ElectVotes
 from elect.models import Elect, SubscribeElect
 
@@ -14,8 +11,25 @@ from elect.models import Elect, SubscribeElect
     1. Сам пользователь
 """
 class User(AbstractUser):
+    DELETED = 'DE'
+    BLOCKED = 'BL'
+    PHONE_NO_VERIFIED = 'PV'
+    STANDART = 'ST'
+    MANAGER = 'MA'
+    SUPERMANAGER = 'SM'
+    PERM = (
+        (DELETED, 'Удален'),
+        (BLOCKED, 'Заблокирован'),
+        (PHONE_NO_VERIFIED, 'Телефон не подтвержден'),
+        (STANDART, 'Обычные права'),
+        (MANAGER, 'Менеджер'),
+        (SUPERMANAGER, 'Суперменеджер'),
+    )
+
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
-    avatar = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=500, height=500)], verbose_name="Аватар")
+    phone = models.CharField(max_length=17, verbose_name='Телефон')
+    perm = models.CharField(max_length=5, choices=PERM, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
+    #USERNAME_FIELD = 'phone'
 
     class Meta:
         verbose_name = 'пользователь'

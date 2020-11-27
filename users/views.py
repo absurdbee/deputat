@@ -2,6 +2,7 @@ from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from users.models import User
 from django.views.generic import ListView
+from common.utils import get_small_template
 
 
 class AuthView(TemplateView, CategoryListMixin):
@@ -16,11 +17,12 @@ class AuthView(TemplateView, CategoryListMixin):
 
 
 class UserNewsView(ListView, CategoryListMixin):
-	template_name = "profile/user_news.html"
+	template_name = None
 	paginate_by = 15
 
 	def get(self,request,*args,**kwargs):
 		self.user = request.user
+		self.template_name = get_small_template("profile/user_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -34,11 +36,12 @@ class UserNewsView(ListView, CategoryListMixin):
 
 
 class SubscribeElectsView(ListView, CategoryListMixin):
-	template_name = "profile/subscribes_elect.html"
+	template_name = None
 	paginate_by = 15
 
 	def get(self,request,*args,**kwargs):
 		self.user = request.user
+		self.template_name = get_small_template("profile/subscribes_elect.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(SubscribeElectsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -52,11 +55,12 @@ class SubscribeElectsView(ListView, CategoryListMixin):
 
 
 class LikeNewsView(ListView, CategoryListMixin):
-	template_name = "profile/like_news.html"
+	template_name = None
 	paginate_by = 15
 
 	def get(self,request,*args,**kwargs):
 		self.user = request.user
+		self.template_name = get_small_template("profile/like_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(LikeNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -70,11 +74,12 @@ class LikeNewsView(ListView, CategoryListMixin):
 
 
 class DislikeNewsView(ListView, CategoryListMixin):
-	template_name = "profile/dislike_news.html"
+	template_name = None
 	paginate_by = 15
 
 	def get(self,request,*args,**kwargs):
 		self.user = request.user
+		self.template_name = get_small_template("profile/dislike_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(DislikeNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

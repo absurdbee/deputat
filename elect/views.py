@@ -6,6 +6,7 @@ from generic.mixins import CategoryListMixin
 from elect.models import Elect
 from blog.models import ElectNew
 from django.views.generic import ListView
+from common.utils import get_small_template, get_full_template
 
 
 """
@@ -19,7 +20,7 @@ from django.views.generic import ListView
 """
 
 class ElectDetailView(TemplateView, CategoryListMixin):
-	template_name = "elect/elect.html"
+	template_name = None
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
@@ -31,6 +32,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
 			ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=0)
 		else:
 			ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=1)
+        self.template_name = get_full_template("elect/elect.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(ElectDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -41,11 +43,12 @@ class ElectDetailView(TemplateView, CategoryListMixin):
 
 
 class AllElectNewsView(ListView, CategoryListMixin):
-	template_name = "elect/all_news.html"
+	template_name = None
 	paginate_by = 12
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_small_template("elect/all_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(AllElectNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -58,11 +61,12 @@ class AllElectNewsView(ListView, CategoryListMixin):
 		return news
 
 class StatementsElectNewsView(ListView, CategoryListMixin):
-	template_name = "elect/statements_news.html"
+	template_name = None
 	paginate_by = 12
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_small_template("elect/statements_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(StatementsElectNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -75,11 +79,12 @@ class StatementsElectNewsView(ListView, CategoryListMixin):
 		return news
 
 class WorkWithVotersElectNewsView(ListView, CategoryListMixin):
-	template_name = "elect/work_with_voters.html"
+	template_name = None
 	paginate_by = 12
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_small_template("elect/work_with_voters.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(WorkWithVotersElectNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -92,11 +97,12 @@ class WorkWithVotersElectNewsView(ListView, CategoryListMixin):
 		return news
 
 class PreElectionElectNewsView(ListView, CategoryListMixin):
-	template_name = "elect/pre_election_activities.html"
+	template_name = None
 	paginate_by = 12
 
 	def get(self,request,*args,**kwargs):
 		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_small_template("elect/pre_election_activities.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(PreElectionElectNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -110,7 +116,7 @@ class PreElectionElectNewsView(ListView, CategoryListMixin):
 
 
 class ElectNewDetailView(TemplateView, CategoryListMixin):
-	template_name = "elect/elect_new.html"
+	template_name = None
 
 	def get(self,request,*args,**kwargs):
 		self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
@@ -122,6 +128,7 @@ class ElectNewDetailView(TemplateView, CategoryListMixin):
 			ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=0)
 		else:
 			ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=1)
+        self.template_name = get_full_template("elect/elect_new.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(ElectNewDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

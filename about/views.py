@@ -5,10 +5,15 @@ from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views import View
+from common.utils import get_small_template
 
 
 class AboutView(TemplateView, CategoryListMixin):
-    template_name = "about.html"
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("about/about.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(AboutView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context=super(AboutView,self).get_context_data(**kwargs)

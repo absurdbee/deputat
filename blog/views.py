@@ -11,10 +11,11 @@ from django.shortcuts import render
 from django.views import View
 from django.http import Http404
 from django.views.generic import ListView
+from common.utils import get_small_template, get_full_template
 
 
 class BlogDetailView(TemplateView, CategoryListMixin):
-	template_name = "blog.html"
+	template_name = None
 
 	def get(self,request,*args,**kwargs):
 		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
@@ -26,6 +27,7 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 			BlogNumbers.objects.create(user=current_pk, blog=self.blog.pk, platform=0)
 		else:
 			BlogNumbers.objects.create(user=current_pk, blog=self.blog.pk, platform=1)
+		self.template_name = get_full_template("blog/blog.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(BlogDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -35,8 +37,12 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 
 
 class AllElectsNewsView(ListView, CategoryListMixin):
-	template_name = "blog/elect_news.html"
+	template_name = None
 	paginate_by = 12
+
+	def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("blog/elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(AllElectsNewsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
 		elect_news = ElectNew.objects.only("pk")
@@ -46,6 +52,10 @@ class AllElectsNewsView(ListView, CategoryListMixin):
 class ProectNewsView(ListView, CategoryListMixin):
 	template_name = "blog/blog_news.html"
 	paginate_by = 12
+
+	def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("blog/blog_news.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(ProectNewsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
 		blog_news = Blog.objects.only("pk")

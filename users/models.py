@@ -90,6 +90,8 @@ class User(AbstractUser):
 
     def is_deleted(self):
         return try_except(self.perm == User.DELETED)
+    def is_blocked(self):
+        return try_except(self.perm == User.BLOCKED)
     def is_manager(self):
         return try_except(self.perm == User.MANAGER)
     def is_supermanager(self):

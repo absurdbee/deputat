@@ -47,6 +47,46 @@ def get_location(request, user):
 
 def render_for_platform(request, template, data):
     if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-        return render(request, template + template, data)
+        return render(request, template, data)
     else:
-        return render(request, template + template, data)
+        return render(request, template, data)
+
+
+def get_full_template(template, request_user, user_agent):
+    if request_user.is_authenticated:
+        if request_user.is_no_phone_verified():
+            template_name = "generic/phone_verification.html"
+        elif request_user.is_suspended():
+            template_name = "generic/you_suspended.html"
+        elif request_user.is_blocked():
+            template_name = "generic/you_global_block.html"
+        elif request_user.is_manager():
+            template_name = template
+        else:
+            template_name = template
+    elif request_user.is_anonymous:
+        template_name = template
+    if MOBILE_AGENT_RE.match(user_agent):
+        template_name = template_name
+    else:
+        template_name = template_name
+    return template_name
+
+
+def get_small_template(template, request_user, user_agent):
+    if request_user.is_authenticated:
+        if request_user.is_no_phone_verified():
+            template_name = "generic/phone_verification.html"
+        elif request_user.is_suspended():
+            template_name = "generic/you_suspended.html"
+        elif request_user.is_blocked():
+            template_name = "generic/you_global_block.html"
+        else:
+            template_name = template
+    elif request_user.is_anonymous:
+        template_name = template
+    if MOBILE_AGENT_RE.match(user_agent):
+        template_name = template_name
+    else:
+        template_name = template_name
+    return template_name

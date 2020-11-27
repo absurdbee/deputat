@@ -7,11 +7,15 @@ from users.models import User
 from django.views import View
 from django.http import Http404
 import json, requests
-from common.utils import render_for_platform
+from common.utils import render_for_platform, get_small_template
 
 
 class MainPageView(TemplateView, CategoryListMixin):
-	template_name="main/mainpage.html"
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("main/mainpage.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MainPageView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(MainPageView,self).get_context_data(**kwargs)
@@ -22,7 +26,11 @@ class MainPageView(TemplateView, CategoryListMixin):
 
 
 class MainPhoneSend(TemplateView):
-	template_name = "main/phone_verification.html"
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("main/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MainPhoneSend,self).get(request,*args,**kwargs)
 
 
 class PhoneVerify(View):

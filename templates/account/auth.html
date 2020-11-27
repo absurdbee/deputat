@@ -15,6 +15,7 @@
             {% csrf_token %}
             <div class="wizard-body pt-2">
               <h6 class="h4 pb-1">Вход</h6>
+              <div class="form-group login_response"></div>
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fe-icon-phone"></i></span>
@@ -41,6 +42,7 @@
         </div>
         <div class="col-md-6 pb-5">
           <h3 class="h4 pb-1">Регистрация</h3>
+          <div class="form-group signup_response"></div>
           <form class="wizard" id="signup" action="{% url 'rest_register' %}">
             <div class="input-group form-group">
               <input type="text" name="first_name" class="form-control first_name" placeholder="Имя">
@@ -52,7 +54,7 @@
               <input type="password" name="password1" class="form-control password1" placeholder="Пароль">
             </div>
             <div class="input-group form-group">
-              <input type="password" name="password2" class="form-control password2" placeholder="Пароль">
+              <input type="password" name="password2" class="form-control password2" placeholder="Повторите пароль">
             </div>
             <div class="text-right">
               <button class="btn btn-primary" id="register_ajax" type="button">Регистрация</button>

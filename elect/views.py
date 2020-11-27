@@ -20,26 +20,25 @@ from common.utils import get_small_template, get_full_template
 """
 
 class ElectDetailView(TemplateView, CategoryListMixin):
-	template_name = None
+    template_name = None
 
-	def get(self,request,*args,**kwargs):
-		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
-		if request.user.is_authenticated:
-			current_pk = request.user.pk
-		else:
-			current_pk = 0
-		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-			ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=0)
-		else:
-			ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=1)
+    def get(self,request,*args,**kwargs):
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_authenticated:
+            current_pk = request.user.pk
+        else:
+            current_pk = 0
+        if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+            ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=0)
+        else:
+            ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=1)
         self.template_name = get_full_template("elect/elect.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(ElectDetailView,self).get(request,*args,**kwargs)
+        return super(ElectDetailView,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context=super(ElectDetailView,self).get_context_data(**kwargs)
-		context["object"] = self.elect
-		return context
-
+    def get_context_data(self,**kwargs):
+        context=super(ElectDetailView,self).get_context_data(**kwargs)
+        context["object"] = self.elect
+        return context
 
 
 class AllElectNewsView(ListView, CategoryListMixin):

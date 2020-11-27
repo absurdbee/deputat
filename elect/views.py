@@ -42,40 +42,41 @@ class ElectDetailView(TemplateView, CategoryListMixin):
 
 
 class AllElectNewsView(ListView, CategoryListMixin):
-	template_name = None
-	paginate_by = 12
+    template_name = None
+    paginate_by = 12
 
-	def get(self,request,*args,**kwargs):
-		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+    def get(self,request,*args,**kwargs):
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         self.template_name = get_small_template("elect/all_news.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(AllElectNewsView,self).get(request,*args,**kwargs)
+        return super(AllElectNewsView,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(AllElectNewsView,self).get_context_data(**kwargs)
-		context["elect"] = self.elect
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(AllElectNewsView,self).get_context_data(**kwargs)
+        context["elect"] = self.elect
+        return context
 
-	def get_queryset(self):
-		news = ElectNew.objects.filter(elect=self.elect)
-		return news
+    def get_queryset(self):
+        news = ElectNew.objects.filter(elect=self.elect)
+        return news
 
 class StatementsElectNewsView(ListView, CategoryListMixin):
-	template_name = None
-	paginate_by = 12
+    template_name = None
+    paginate_by = 12
 
-	def get(self,request,*args,**kwargs):
-		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+    def get(self,request,*args,**kwargs):
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         self.template_name = get_small_template("elect/statements_news.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(StatementsElectNewsView,self).get(request,*args,**kwargs)
+        return super(StatementsElectNewsView,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(StatementsElectNewsView,self).get_context_data(**kwargs)
-		context["elect"] = self.elect
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(StatementsElectNewsView,self).get_context_data(**kwargs)
+        context["elect"] = self.elect
+        return context
 
-	def get_queryset(self):
-		news = ElectNew.objects.filter(elect=self.elect, category__slug="statements")
-		return news
+    def get_queryset(self):
+        news = ElectNew.objects.filter(elect=self.elect, category__slug="statements")
+        return news
+        
 
 class WorkWithVotersElectNewsView(ListView, CategoryListMixin):
 	template_name = None

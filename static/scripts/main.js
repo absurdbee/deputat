@@ -89,12 +89,15 @@ function toast_warning(text){
 function on(elSelector,eventName,selector,fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while(el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};
 
 on('body', 'click', '#register_ajax', function() {
-  if (!document.body.querySelector(".r_username").value){
-    document.body.querySelector(".r_username").style.border = "1px #FF0000 solid";
-    toast_error("Введите почту или придумайте логин!");
+  if (!document.body.querySelector(".first_name").value){
+    document.body.querySelector(".first_name").style.border = "1px #FF0000 solid";
+    toast_error("Введите Ваше имя!");
+  } else if (!document.body.querySelector(".last_name").value){
+    document.body.querySelector(".last_name").style.border = "1px #FF0000 solid";
+    toast_error("Введите Вашу фамилию!");
   } else if (!document.body.querySelector("#password1").value){
     document.body.querySelector("#password1").style.border = "1px #FF0000 solid";
-    toast_error("Пароль - обязательное поле!")
+    toast_error("Придумайте пароль!")
   } else if (!document.body.querySelector("#password2").value){
     document.body.querySelector("#password2").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль еще раз!")
@@ -112,7 +115,7 @@ on('body', 'click', '#register_ajax', function() {
 on('body', 'click', '#logg', function() {
   if (!document.body.querySelector(".l_username").value){
     document.body.querySelector(".l_username").style.border = "1px #FF0000 solid";
-    toast_error("Введите почту или логин!")}
+    toast_error("Введите телефон!")}
   else if (!document.body.querySelector("#password").value){
     document.body.querySelector("#password").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль!")}
@@ -126,7 +129,7 @@ on('body', 'click', '#logg', function() {
   if ( link.readyState == 4 && link.status == 200 ) {
     if (window.location.href == "89072373637.рус/auth/"){window.location.href = "/users/user_news/";}
     else {window.location.href=window.location.href}
-    }};
+  } else {document.body.querySelector(".login_response").innerHTML = link.responseText} };
   link.send(form_data);
 });
 

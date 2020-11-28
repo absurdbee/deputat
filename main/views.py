@@ -78,7 +78,7 @@ class PhoneSend(View):
                     response = render_for_platform(request,'generic/response/phone.html',{'response_text':data})
                     return response
                 except:
-                    response = requests.get(url="https://api.ucaller.ru/v1.0/initCall?service_id=12203&key=GhfrKn0XKAmA1oVnyEzOnMI5uBnFN4ck&phone=" + phone)
+                    response = requests.get(url="https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone)
                     data = response.json()
                     PhoneCodes.objects.create(phone=phone, code=data['code'])
                     data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Последние 4 цифры" и нажать "Подтвердить"'

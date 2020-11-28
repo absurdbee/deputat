@@ -56,8 +56,6 @@ def get_full_template(template, request_user, user_agent):
     if request_user.is_authenticated:
         if request_user.is_no_phone_verified():
             template_name = "generic/phone_verification.html"
-        elif request_user.is_suspended():
-            template_name = "generic/you_suspended.html"
         elif request_user.is_blocked():
             template_name = "generic/you_global_block.html"
         elif request_user.is_manager():
@@ -77,8 +75,6 @@ def get_small_template(template, request_user, user_agent):
     if request_user.is_authenticated:
         if request_user.is_no_phone_verified():
             template_name = "generic/phone_verification.html"
-        elif request_user.is_suspended():
-            template_name = "generic/you_suspended.html"
         elif request_user.is_blocked():
             template_name = "generic/you_global_block.html"
         else:

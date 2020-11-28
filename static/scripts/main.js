@@ -109,7 +109,7 @@ on('body', 'click', '#register_ajax', function() {
   if ( reg_link.readyState == 4 && reg_link.status == 201 ) {
     if (window.location.href == "89072373637.рус/auth/"){window.location.href = "/profile/user_news/";}
     else {window.location.href=window.location.href}
-    }};
+    }else {document.body.querySelector(".signup_response").innerHTML = link.responseText}};
   reg_link.send(form_data);
 })
 on('body', 'click', '#logg', function() {

@@ -95,11 +95,11 @@ on('body', 'click', '#register_ajax', function() {
   } else if (!document.body.querySelector(".last_name").value){
     document.body.querySelector(".last_name").style.border = "1px #FF0000 solid";
     toast_error("Введите Вашу фамилию!");
-  } else if (!document.body.querySelector("#password1").value){
-    document.body.querySelector("#password1").style.border = "1px #FF0000 solid";
+  } else if (!document.body.querySelector(".password1").value){
+    document.body.querySelector(".password1").style.border = "1px #FF0000 solid";
     toast_error("Придумайте пароль!")
-  } else if (!document.body.querySelector("#password2").value){
-    document.body.querySelector("#password2").style.border = "1px #FF0000 solid";
+  } else if (!document.body.querySelector(".password2").value){
+    document.body.querySelector(".password2").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль еще раз!")
   }
   form_data = new FormData(document.querySelector("#signup"));

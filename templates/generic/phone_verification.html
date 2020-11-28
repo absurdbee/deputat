@@ -14,18 +14,6 @@
 </head>
 
 <body class="">
-
-  <div class="offcanvas-container is-triggered offcanvas-container-reverse" id="mobile-menu">
-    <span class="offcanvas-close"><i class="fe-icon-x"></i></span>
-        <div class="px-4 pb-4">
-          <h6>Меню</h6>
-          <div class="d-flex justify-content-between pt-2">
-            <a class="btn btn-primary btn-sm btn-block" href="{% url 'logout' %}">
-              <i class="fe-icon-user"></i>&nbsp;Выйти
-            </a>
-          </div>
-        </div>
-      </div>
       <header class="navbar-wrapper ">
             <div class="container">
               <div class="d-table-cell align-middle pr-md-3">
@@ -34,18 +22,13 @@
                 </a>
               </div>
               <div class="d-table-cell align-middle w-100 pl-md-3">
-                <div class="navbar justify-content-end justify-content-lg-between">
+                <div class="navbar">
                   <div>
                     <ul class="navbar-buttons d-inline-block align-middle">
                       <li class="d-block d-lg-none">
                         <a href="#mobile-menu" data-toggle="offcanvas"><i class="fe-icon-menu"></i></a>
                       </li>
-                    </ul>
-                    {% if request.user.is_authenticated %}
-                      <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'user_news' %}">Профиль</a>
-                    {% else %}
-                      <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'logout' %}">Выйти</a>
-                    {% endif %}
+                      <a class="btn btn-gradient ml-3 d-xl-inline-block" href="{% url 'logout' %}">Выйти</a>
                   </div>
                 </div>
               </div>
@@ -58,7 +41,9 @@
             <div class="col-md-2"></div>
             <div class="col-md-7">
                 <h1 class="font-weight-light mb-3 mt-4 text-center">{{ request.user.get_full_name }}!</h1>
-                <p  class="text-center">Для усиление информационной безопасности Вам нужно подтвердить с помощью телефона свой профиль, и в будущем использовать номер телефона в качестве логина к профилю соцсети трезвый.рус</p>
+                <p  class="text-center">Для усиление информационной безопасности Вам нужно подтвердить с помощью телефона свой профиль,
+                  и в будущем использовать номер телефона в качестве логина к профилю этого сайта
+                </p>
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-4" style="display: inline-flex;margin-top: 12px;margin-bottom: 12px;">
@@ -80,8 +65,6 @@
               </div>
               <div class="col-md-2"></div>
         </span>
-
-<div class="site-backdrop"></div>
 
 <script defer src="{% static 'scripts/vendor.min.js' %}" type="text/javascript"></script>
 <script defer src="{% static 'scripts/theme.min.js' %}" type="text/javascript"></script>

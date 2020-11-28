@@ -191,9 +191,9 @@ class ElectNew(models.Model):
     STATUS_PROCESSING = 'PG'
     STATUS_PUBLISHED = 'P'
     STATUSES = (
-        (STATUS_DRAFT, 'Черновик'),
+        (STATUS_DRAFT, 'На рассмотрении'),
         (STATUS_PROCESSING, 'Обработка'),
-        (STATUS_PUBLISHED, 'Опубликована'),
+        (STATUS_PUBLISHED, 'Опубликовано'),
     )
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")

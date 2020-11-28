@@ -19,10 +19,10 @@
         <div class="col-lg-8 pb-5">
           <div class="row pag_container">
             {% for object in object_list %}
-            <a class="list-group-item flex-column align-items-start" href="#">
+            <a class="list-group-item flex-column align-items-start" href="{% url 'elect_new_detail' pk=object.pk %}">
                 <div class="d-flex flex-wrap w-100 justify-content-between">
                   <h6>{{ object.title }}</h6>
-                  <small class="d-block text-muted text-sm mb-2">{{ object.get_created }}</small>
+                  <small class="d-block text-muted text-sm mb-2">{{ object.get_created }} - {{ object.get_status_display }}</small>
                 </div>
                 <p class="text-md text-body">{{ object.description }}</p>
                 <small class="text-muted text-sm">

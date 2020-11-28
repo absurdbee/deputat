@@ -1,6 +1,57 @@
-{% extends "base.html" %}
-{% block title %}Подтверждение телефона{% endblock %}
-{% block content %}
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js">
+<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta property="og:type" content="website" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Подтверждение телефона</title>
+
+		<link rel="stylesheet" media="screen" href="{% static 'styles/vendor.min.css' %}">
+    <link rel="stylesheet" media="screen" href="{% static 'styles/theme.min.css' %}">
+		<link rel="stylesheet" media="screen" href="{% static 'styles/style.css' %}">
+		<script src="{% static 'scripts/modernizr.min.js' %}" type="text/javascript"></script>
+</head>
+
+<body class="">
+
+  <div class="offcanvas-container is-triggered offcanvas-container-reverse" id="mobile-menu">
+    <span class="offcanvas-close"><i class="fe-icon-x"></i></span>
+        <div class="px-4 pb-4">
+          <h6>Меню</h6>
+          <div class="d-flex justify-content-between pt-2">
+            <a class="btn btn-primary btn-sm btn-block" href="{% url 'logout' %}">
+              <i class="fe-icon-user"></i>&nbsp;Выйти
+            </a>
+          </div>
+        </div>
+      </div>
+      <header class="navbar-wrapper ">
+            <div class="container">
+              <div class="d-table-cell align-middle pr-md-3">
+                <a class="navbar-brand mr-1" style="font-size: 20px;">
+                  Депутат
+                </a>
+              </div>
+              <div class="d-table-cell align-middle w-100 pl-md-3">
+                <div class="navbar justify-content-end justify-content-lg-between">
+                  <div>
+                    <ul class="navbar-buttons d-inline-block align-middle">
+                      <li class="d-block d-lg-none">
+                        <a href="#mobile-menu" data-toggle="offcanvas"><i class="fe-icon-menu"></i></a>
+                      </li>
+                    </ul>
+                    {% if request.user.is_authenticated %}
+                      <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'user_news' %}">Профиль</a>
+                    {% else %}
+                      <a class="btn btn-gradient ml-3 d-none d-xl-inline-block" href="{% url 'logout' %}">Выйти</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+
 
         <span class="main-container col-xs-12 col-md-12 text-hide-xs jambotron-fluid" style="display:flex !important;flex-wrap: wrap;padding-right:0px;padding-left:0px;">
             <div class="col-md-1"></div>
@@ -30,56 +81,66 @@
               <div class="col-md-2"></div>
         </span>
 
-    <script type="text/javascript">
-    function on(elSelector, eventName, selector, fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while (el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};
+<div class="site-backdrop"></div>
 
-            function phone_check() {
-                if (document.getElementById('phone').value.length > 9)
-                    document.getElementById("phone_send").removeAttribute('disabled');
-                else
+<script defer src="{% static 'scripts/vendor.min.js' %}" type="text/javascript"></script>
+<script defer src="{% static 'scripts/theme.min.js' %}" type="text/javascript"></script>
+<script defer src="{% static 'scripts/jquery.waypoints.min.js' %}" type="text/javascript"></script>
+<script defer src="{% static 'scripts/infinite.min.js' %}" type="text/javascript"></script>
+<script defer src="{% static 'scripts/Chart.min.js' %}" type="text/javascript"></script>
+<script defer src="{% static 'scripts/main.js' %}" type="text/javascript"></script>
+<script defer src="{% static 'scripts/demo.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">
+function on(elSelector, eventName, selector, fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while (el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};
+
+        function phone_check() {
+            if (document.getElementById('phone').value.length > 9)
+                document.getElementById("phone_send").removeAttribute('disabled');
+            else
+                document.getElementById("phone_send").setAttribute("disabled", "true");
+        }
+
+        function code_check() {
+            if (document.getElementById('code').value.length === 4)
+                document.getElementById("code_send").removeAttribute('disabled');
+            else
+                document.getElementById("code_send").setAttribute("disabled", "true");
+        }
+
+        document.getElementById("phone_send").addEventListener("click", (e) => {
+            var phone = document.getElementById('phone').value;
+            var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            request.open('GET', "/main/phone_send/" + phone + "/", true);
+            request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    var div = document.getElementById('jsondata');
+                    div.innerHTML = request.responseText;
+                    document.getElementById("phone").setAttribute("disabled", "true");
                     document.getElementById("phone_send").setAttribute("disabled", "true");
-            }
-
-            function code_check() {
-                if (document.getElementById('code').value.length === 4)
-                    document.getElementById("code_send").removeAttribute('disabled');
-                else
-                    document.getElementById("code_send").setAttribute("disabled", "true");
-            }
-
-            document.getElementById("phone_send").addEventListener("click", (e) => {
-                var phone = document.getElementById('phone').value;
-                var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-                request.open('GET', "/main/phone_send/" + phone + "/", true);
-                request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                request.onreadystatechange = function() {
-                    if (request.readyState == 4 && request.status == 200) {
-                        var div = document.getElementById('jsondata');
-                        div.innerHTML = request.responseText;
-                        document.getElementById("phone").setAttribute("disabled", "true");
-                        document.getElementById("phone_send").setAttribute("disabled", "true");
+                }
+            };
+            request.send(null);
+        });
+        on('#ajax', 'click', '#code_send', function() {
+            var phone = document.getElementById('phone').value;
+            var code = document.getElementById('code').value;
+            var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            request.open('GET', "/main/phone_verify/" + phone + "/" + code + "/", true);
+            request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    var div = document.getElementById('jsondata2');
+                    div.innerHTML = request.responseText;
+                    console.log(request.responseText);
+                    if (request.responseText.indexOf("ok") != -1) {
+                        window.location.href = "/users/user_news/";
                     }
-                };
-                request.send(null);
-            });
-            on('#ajax', 'click', '#code_send', function() {
-                var phone = document.getElementById('phone').value;
-                var code = document.getElementById('code').value;
-                var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-                request.open('GET', "/main/phone_verify/" + phone + "/" + code + "/", true);
-                request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                request.onreadystatechange = function() {
-                    if (request.readyState == 4 && request.status == 200) {
-                        var div = document.getElementById('jsondata2');
-                        div.innerHTML = request.responseText;
-                        console.log(request.responseText);
-                        if (request.responseText.indexOf("ok") != -1) {
-                            window.location.href = "/users/user_news/";
-                        }
-                    }
-                };
-                request.send(null)
-            });
-          </script>
-
-{% endblock %}
+                }
+            };
+            request.send(null)
+        });
+      </script>
+</body>
+</html>

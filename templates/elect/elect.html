@@ -105,13 +105,13 @@
         <div class="col-md-4" style="">
           <div class="card blog-card mb-2">
             {% if object.image %}
-            <a class="post-thumb" href="{% url 'blog_detail' pk=object.pk %}">
+            <a class="post-thumb" href="{% url 'elect_new_detail' pk=object.pk %}">
               <img src="{{ object.image.url }}" alt="img">
             </a>
             {% endif %}
             <div class="card-body">
               <h5 class="post-title">
-                <a href="{% url 'blog_detail' pk=object.pk %}">{{ object.title }}</a>
+                <a href="{% url 'elect_new_detail' pk=object.pk %}">{{ object.title }}</a>
               </h5>
               <p class="text-muted">{{ object.description }}</p>
 

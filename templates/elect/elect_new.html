@@ -7,14 +7,6 @@
       <div class="row">
         <div class="col-lg-9">
           <div class="d-flex justify-content-between align-items-center pb-3">
-            <div>
-              <a class="post-author" href="{% url 'elect_detail' pk=object.elect.pk %}">
-                <div class="post-author-avatar">
-                  <img src="{{ object.elect.image.url }}" alt="img">
-                </div>
-                <div class="post-author-name">{{ object.elect.name }}</div>
-              </a>
-            </div>
             <div class="post-meta">
               <span class="text-sm"><i class="fe-icon-clock"></i>{{ object.get_created }}</span>
             </div>
@@ -71,17 +63,20 @@
               <div class="widget widget-categories">
                 <div class="team-card-style-3 mx-auto">
                   <div class="team-thumb">
-                    <img src="{{ object.elect.image.url }}" alt="img">
+                    <a href="{% url 'elect_detail' pk=object.pk %}">
+                      <img src="{{ object.elect.image.url }}" alt="img">
+                    </a>
                   </div>
-                  <span class="team-position">{{ object.elect.name }}</span>
-                  <h4 class="team-name">{{ object.elect.name }}</h4>
+                  <span class="team-position">{{ object.elect.get_first_list }}</span>
+                  <a href="{% url 'elect_detail' pk=object.pk %}">
+                    <h4 class="team-name">{{ object.elect.name }}</h4>
+                  </a>
                 </div>
               </div>
               {% if object.elect.get_last_news %}
               <div class="widget widget-featured-posts">
                 <h4 class="widget-title">Еще о депутате</h4>
                 {% for new in object.elect.get_last_news %}
-                {% if new.pk != object.pk %}
                 <a class="featured-post" href="{% url 'elect_new_detail' pk=new.pk %}">
                   <div class="featured-post-info">
                     <div class="featured-post-meta">
@@ -108,7 +103,6 @@
                     <div class="featured-post-title">{{ new.description }}</div>
                   </div>
                 </a>
-                {% endif %}
                 {% endfor %}
               </div>
               {% endif %}

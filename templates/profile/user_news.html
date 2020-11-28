@@ -19,24 +19,20 @@
         <div class="col-lg-8 pb-5">
           <div class="row pag_container">
             {% for object in object_list %}
-              <div class="col-xl-6 col-sm-6 mb-30 pb-2">
-                <div class="card blog-card">
-                  <div class="card-body">
-                    <h5 class="post-title">
-                      <a href="{% url 'elect_new_detail' pk=object.pk %}">{{ object.title }}</a>
-                    </h5>
-                    <p class="text-muted">{{ object.description }}</p>
-
-                    {% with names=object.tags.names %}
-                      {% for name in names %}
-                        <a href="{% url 'all_elect_news' %}?tag={{ name|urlencode }}" class="tag-link">{{ name }}</a>
-                      {% endfor %}
-                    {% endwith %}
-
-                    {% include 'generic/blog_meta.html' %}
-                  </div>
+            <a class="list-group-item flex-column align-items-start" href="#">
+                <div class="d-flex flex-wrap w-100 justify-content-between">
+                  <h6>{{ object.title }}</h6>
+                  <small class="d-block text-muted text-sm mb-2">{{ object.get_created }}</small>
                 </div>
-              </div>
+                <p class="text-md text-body">{{ object.description }}</p>
+                <small class="text-muted text-sm">
+                  {% with names=object.tags.names %}
+                    {% for name in names %}
+                      <a href="{% url 'all_elect_news' %}?tag={{ name|urlencode }}" class="tag-link">{{ name }}</a>
+                    {% endfor %}
+                  {% endwith %}
+                </small>
+            </a>
           {% empty %}
           <div class="card border text-center" style="border-color: #4db6ac !important;">
               <div class="card-body">

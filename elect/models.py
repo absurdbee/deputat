@@ -47,7 +47,7 @@ class Elect(models.Model):
             return regions
 
     def get_news(self):
-        return self.new_elect.filter(status="P")
+        return self.new_elect.filter(status="P") 
 
     def get_last_news(self):
         return self.new_elect.filter(status="P")[:6]

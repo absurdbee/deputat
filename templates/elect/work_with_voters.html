@@ -1,5 +1,5 @@
-{% if object.get_news %}
-{% for object in object.get_news %}
+{% if object_list %}
+{% for object in object_list %}
 <div class="col-md-4" style="">
   <div class="card blog-card mb-2">
     {% if object.image %}
@@ -9,7 +9,7 @@
     {% endif %}
     <div class="card-body">
       <h5 class="post-title">
-        <a href="{% url 'blog_detail' pk=object.pk %}">{{ object.title }}</a>
+        <a href="{% url 'elect_new_detail' pk=object.pk %}">{{ object.title }}</a>
       </h5>
       <p class="text-muted">{{ object.description }}</p>
 

@@ -56,7 +56,7 @@ class AllElectNewsView(ListView, CategoryListMixin):
         return context
 
     def get_queryset(self):
-        news = ElectNew.objects.filter(elect=self.elect)
+        news = ElectNew.objects.filter(elect=self.elect, status=ElectNew.STATUS_PUBLISHED)
         return news
 
 class StatementsElectNewsView(ListView, CategoryListMixin):
@@ -74,7 +74,7 @@ class StatementsElectNewsView(ListView, CategoryListMixin):
         return context
 
     def get_queryset(self):
-        news = ElectNew.objects.filter(elect=self.elect, category__slug="statements")
+        news = ElectNew.objects.filter(elect=self.elect, category__slug="statements", status=ElectNew.STATUS_PUBLISHED)
         return news
 
 
@@ -93,7 +93,7 @@ class WorkWithVotersElectNewsView(ListView, CategoryListMixin):
         return context
 
     def get_queryset(self):
-        news = ElectNew.objects.filter(elect=self.elect, category__slug="work_with_voters")
+        news = ElectNew.objects.filter(elect=self.elect, category__slug="work_with_voters", status=ElectNew.STATUS_PUBLISHED)
         return news
 
 class PreElectionElectNewsView(ListView, CategoryListMixin):
@@ -111,7 +111,7 @@ class PreElectionElectNewsView(ListView, CategoryListMixin):
         return context
 
     def get_queryset(self):
-        news = ElectNew.objects.filter(elect=self.elect, category__slug="pre_election_activities")
+        news = ElectNew.objects.filter(elect=self.elect, category__slug="pre_election_activities", status=ElectNew.STATUS_PUBLISHED)
         return news
 
 

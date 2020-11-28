@@ -47,7 +47,10 @@ class Elect(models.Model):
             return regions
 
     def get_news(self):
-        return self.elect_news.all()
+        return self.elect_news.filter(status="P")
+
+    def get_last_news(self):
+        return self.elect_news.filter(status="P")[:6]
 
     def get_remote_image(self, image_url):
         import os

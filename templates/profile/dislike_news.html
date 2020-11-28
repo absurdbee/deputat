@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Мне не понравилоось{% endblock %}
+{% block content %}
+
+<div class="page-title d-flex" aria-label="Page title">
+  <div class="container text-left align-self-center">
+    <h1 class="page-title-heading">Мне не понравилоось</h1>
+  </div>
+</div>
+
+<div class="container mb-4">
+      <div class="row">
+        <div class="col-lg-4 pb-5">
+          <div class="wizard">
+            {% include 'profile/nav.html' %}
+          </div>
+        </div>
+
+        <div class="col-lg-8 pb-5">
+          <div class="row pag_container">
+            {% for object in object_list %}
+            <a class="list-group-item flex-column align-items-start" href="{% url 'elect_new_detail' pk=object.pk %}">
+                <div class="d-flex flex-wrap w-100 justify-content-between">
+                  <h6>{{ object.title }}</h6>
+                  <small class="d-block text-muted text-sm mb-2">{{ object.get_created }}</small>
+                </div>
+                <p class="text-md text-body">{{ object.description }}</p>
+                <small class="text-muted text-sm">
+                  {% with names=object.tags.names %}
+                    {% for name in names %}
+                      <a href="{% url 'all_elect_news' %}?tag={{ name|urlencode }}" class="tag-link">{{ name }}</a>
+                    {% endfor %}
+                  {% endwith %}
+                </small>
+            </a>
+          {% empty %}
+          <div class="card border text-center" style="border-color: #4db6ac !important;">
+              <div class="card-body">
+                <h3 class="card-title">Пока ничего нет.</h3>
+                <p class="card-text text-sm">
+                  Пока нет новостей, которые Вы не оценили.</p>
+              </div>
+            </div>
+          {% endfor %}
+
+          <div class="load text-center col-md-12">
+            {% if page_obj.has_next %}
+              <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
+            {% endif %}
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

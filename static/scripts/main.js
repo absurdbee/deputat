@@ -540,7 +540,7 @@ on('body', 'click', '.blog_dislike', function() {
   send_dislike(item, "/blog/progs/blog_dislike/" + pk + "/");
 });
 
-on('#ajax', 'click', '.load_elect_stat_year', function() {
+on('body', 'click', '.load_elect_stat_year', function() {
   pk = this.getAttribute('data-pk');
   loader = document.getElementById("window_loader");
   open_fullscreen("/stst/elect_year/" + pk + "/", loader)

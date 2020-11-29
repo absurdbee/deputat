@@ -90,7 +90,7 @@ def get_small_template(template, request_user, user_agent):
 
 
 def get_managers_template(template, request_user, user_agent):
-    if request_user.is_authenticated and request_user.is_manager():
+    if request_user.is_authenticated and (request_user.is_manager() or request_user.is_superuser):
         template_name = template
     else:
         raise PermissionDenied("Permission denied...")

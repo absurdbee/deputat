@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header">
+      <div class="media">
+          <div class="media-body">
+            <h5 class="mt-1">Охват по дням -
+              <a class="ajax underline" href="{% url 'user' pk=user.pk %}">
+                  {{ user.get_full_name }}
+              </a>
+            </h5>
+          </div>
+          <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle mb-2 drop">
+            День
+        </button>
+        <div class="dropdown-menu" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+          <a class="dropdown-item ajax" href="">Месяц</a>
+          <a class="dropdown-item ajax" href="">Неделя</a>
+          <a class="dropdown-item ajax" href="">День</a>
+        </div>
+    </div>
+      </div>
+  </div>
+
+  <div class="card-body px-0 py-0">
+        <canvas id="canvas"
+                data-dates='{% for object in years %} {{ object|date:"Y" }} г.{% if not forloop.last %},{% endif %}{% endfor %}'
+                data-label_1="Все просмотры"
+                data-label_2="Просмотры активных"
+                data-label_3="Кол-во оценивших"
+                data-label_4="Кол-во не оценивших"
+                data-data_1="{% for view in views %}{{ view }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                data-data_2="{% for view in member_views %}{{ view }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                data-data_3="{% for view in likes %}{{ view }}{% if not forloop.last %},{% endif %}{% endfor %}"
+                data-data_4="{% for view in dislikes %}{{ view }}{% if not forloop.last %},{% endif %}{% endfor %}"></canvas>
+                <br>
+
+  </div>
+</div>

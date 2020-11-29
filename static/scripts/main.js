@@ -375,16 +375,32 @@ on('body', 'click', '.select_elect_news_category', function() {
 link.send( null );
 })
 
+function open_fullscreen(link, block) {
+  var link_, elem;
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', link, true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    block.parentElement.style.display = "block";
+    block.innerHTML = elem
+  }};
+  link_.send();
+}
+
 function load_chart() {
     try {
         var ctx = document.getElementById('canvas');
         var dates = ctx.getAttribute('dates').split(",");
         var data_1 = ctx.getAttribute('data_views').split(",");
-        var data_2 = ctx.getAttribute('data_likes').split(",");
-        var data_3 = ctx.getAttribute('data_dislikes').split(",");
+        var data_2 = ctx.getAttribute('data_member_views').split(",");
+        var data_3 = ctx.getAttribute('data_likes').split(",");
+        var data_4 = ctx.getAttribute('data_dislikes').split(",");
         var label_1 = ctx.getAttribute('label_views');
-        var label_2 = ctx.getAttribute('label_likes');
-        var label_3 = ctx.getAttribute('label_dislikes');
+        var label_2 = ctx.getAttribute('label_member_views');
+        var label_3 = ctx.getAttribute('label_likes');
+        var label_4 = ctx.getAttribute('label_dislikes');
         var config = {
             type: 'line',
             data: {
@@ -407,6 +423,12 @@ function load_chart() {
                     backgroundColor: 'rgb(54, 162, 235)',
                     borderColor: 'rgb(54, 162, 235)',
                     data: data_3,
+                }, {
+                    label: label_4,
+                    fill: false,
+                    backgroundColor: 'rgb(54, 162, 235)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    data: data_4,
                 }]
             },
             options: {
@@ -491,6 +513,10 @@ function send_dislike(item, url){
   }};
   link.send( null );
 }
+on('body', 'click', '.window_fullscreen_hide', function() {
+  document.querySelector(".window_fullscreen").style.display = "none";
+  document.getElementById("window_loader").innerHTML=""}
+);
 
 on('body', 'click', '.elect_new_like', function() {
   item = this.parentElement;
@@ -512,4 +538,10 @@ on('body', 'click', '.blog_dislike', function() {
   item = this.parentElement;
   pk = item.getAttribute("data-pk");
   send_dislike(item, "/blog/progs/blog_dislike/" + pk + "/");
+});
+
+on('#ajax', 'click', '.load_elect_stat_year', function() {
+  pk = this.getAttribute('data-pk');
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/stst/elect_year/" + pk + "/", loader)
 });

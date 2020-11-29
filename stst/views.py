@@ -20,8 +20,8 @@ class ElectYearStat(TemplateView):
         for i in self.years:
             members_view = ElectNumbers.objects.filter(created__year=i.year, elect=self.elect.pk).exclude(user=0).distinct("elect").count()
             view = ElectNumbers.objects.filter(created__year=i.year, elect=self.elect.pk).count()
-            like = elect.likes_count_year(i)
-            dislike = elect.dislikes_count_year(i)
+            like = self.elect.likes_count_year(i)
+            dislike = self.elect.dislikes_count_year(i)
             self.members_views += [members_view]
             self.views += [view]
             self.likes += [like]

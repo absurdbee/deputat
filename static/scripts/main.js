@@ -450,7 +450,7 @@ function load_chart() {
 }
 load_chart();
 
-function send_like(_this, item, url){
+function send_like(item, url){
   like = item.querySelector(".like");
   dislike = item.querySelector(".dislike");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -465,13 +465,13 @@ function send_like(_this, item, url){
     dislikes_count = item.querySelector(".dislikes_count");
     likes_count.innerHTML = jsonResponse.like_count;
     dislikes_count.innerHTML = jsonResponse.dislike_count;
-    _this.classList.toggle("text-success");
-    _this.nextElementSibling.classList.remove("text-danger");
+    like.classList.toggle("text-success");
+    dislike.classList.remove("text-danger");
   }};
   link.send( null );
 }
 
-function send_dislike(_this, item, url){
+function send_dislike(item, url){
   like = item.querySelector(".like");
   dislike = item.querySelector(".dislike");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -486,8 +486,8 @@ function send_dislike(_this, item, url){
     dislikes_count = item.querySelector(".dislikes_count");
     likes_count.innerHTML = jsonResponse.like_count;
     dislikes_count.innerHTML = jsonResponse.dislike_count;
-    _this.classList.toggle("text-danger");
-    _this.previousElementSibling.classList.remove("text-success");
+    dislike.classList.toggle("text-danger");
+    like.classList.remove("text-success");
   }};
   link.send( null );
 }
@@ -495,21 +495,21 @@ function send_dislike(_this, item, url){
 on('body', 'click', '.elect_new_like', function() {
   item = this.parentElement;
   pk = item.getAttribute("data-pk");
-  send_like(this, item, "/blog/progs/elect_like/" + pk + "/");
+  send_like(item, "/blog/progs/elect_like/" + pk + "/");
 });
 on('body', 'click', '.elect_new_dislike', function() {
   item = this.parentElement;
   pk = item.getAttribute("data-pk");
-  send_like(this, item, "/blog/progs/elect_dislike/" + pk + "/");
+  send_like(item, "/blog/progs/elect_dislike/" + pk + "/");
 });
 
 on('body', 'click', '.blog_like', function() {
   item = this.parentElement;
   pk = item.getAttribute("data-pk");
-  send_like(this, item, "/blog/progs/blog_like/" + pk + "/");
+  send_like(item, "/blog/progs/blog_like/" + pk + "/");
 });
 on('body', 'click', '.blog_dislike', function() {
   item = this.parentElement;
   pk = item.getAttribute("data-pk");
-  send_like(this, item, "/blog/progs/blog_dislike/" + pk + "/");
+  send_like(item, "/blog/progs/blog_dislike/" + pk + "/");
 });

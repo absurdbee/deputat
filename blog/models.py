@@ -252,13 +252,13 @@ class ElectNew(models.Model):
         return ElectNewNumbers.objects.filter(new=self.pk).values('pk').count()
 
     def is_have_docs(self):
-        if self.electdoc:
+        if self.doc_new:
             return True
         else:
             return False
 
     def is_have_images(self):
-        if self.electphoto:
+        if self.image_new:
             return True
         else:
             return False

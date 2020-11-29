@@ -3,14 +3,14 @@
       <div class="media">
           <div class="media-body">
             <h5 class="mt-1">Охват по дням -
-              <a class="ajax underline" href="{% url 'user' pk=user.pk %}">
-                  {{ user.get_full_name }}
+              <a class="ajax underline" href="{% url 'elect_detail' pk=elect.pk %}">
+                  {{ elect.name }}
               </a>
             </h5>
           </div>
           <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle mb-2 drop">
-            День
+            Год
         </button>
         <div class="dropdown-menu" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
           <a class="dropdown-item ajax" href="">Месяц</a>

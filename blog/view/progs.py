@@ -4,9 +4,96 @@ from django.views import View
 from django.http import HttpResponse, HttpResponseBadRequest
 from blog.forms import ElectNewForm
 from users.models import User
-from blog.models import ElectNew
+from blog.models import ElectNew, ElectVotes, BlogVotes, Blog
 from django.http import Http404
 from django.shortcuts import render
+import json
+
+
+class ElectLikeCreate(View):
+    def get(self, request, **kwargs):
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = ElectVotes.objects.get(parent=new, user=request.user)
+            if likedislike.vote is not ElectVotes.LIKE:
+                likedislike.vote = ElectVotes.LIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except ElectVotes.DoesNotExist:
+            ElectVotes.objects.create(parent=new, user=request.user, vote=ElectVotes.LIKE)
+            result = True
+        likes = new.likes_count()
+        dislikes = new.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(disliks)}),content_type="application/json")
+
+class ElectDislikeCreate(View):
+    def get(self, request, **kwargs):
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = ElectVotes.objects.get(parent=new, user=request.user)
+            if likedislike.vote is not ElectVotes.DISLIKE:
+                likedislike.vote = ElectVotes.DISLIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except ElectVotes.DoesNotExist:
+            ElectVotes.objects.create(parent=new, user=request.user, vote=ElectVotes.DISLIKE)
+            result = True
+        likes = item.likes_count()
+        dislikes = video.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+
+
+class BlogLikeCreate(View):
+    def get(self, request, **kwargs):
+        new = Blog.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = BlogVotes.objects.get(parent=new, user=request.user)
+            if likedislike.vote is not BlogVotes.LIKE:
+                likedislike.vote = BlogVotes.LIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except BlogVotes.DoesNotExist:
+            BlogVotes.objects.create(parent=new, user=request.user, vote=BlogVotes.LIKE)
+            result = True
+        likes = new.likes_count()
+        dislikes = new.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(disliks)}),content_type="application/json")
+
+class BlogDislikeCreate(View):
+    def get(self, request, **kwargs):
+        new = Blog.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = BlogVotes.objects.get(parent=new, user=request.user)
+            if likedislike.vote is not BlogVotes.DISLIKE:
+                likedislike.vote = BlogVotes.DISLIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except BlogVotes.DoesNotExist:
+            BlogVotes.objects.create(parent=new, user=request.user, vote=BlogVotes.DISLIKE)
+            result = True
+        likes = item.likes_count()
+        dislikes = video.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 
 class ElectSubscribe(View):

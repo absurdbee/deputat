@@ -301,7 +301,6 @@ class ElectDoc(models.Model):
 
 class ElectPhoto(models.Model):
     file = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
-    preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
     new = models.ForeignKey(ElectNew, related_name='image_new', on_delete=models.CASCADE, blank=True)

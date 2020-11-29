@@ -159,47 +159,6 @@ function send_comment(form, block, link){
   link_.send(form_comment);
 }
 
-function send_like(item, url){
-  like = item.querySelector(".like");
-  dislike = item.querySelector(".dislike");
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.overrideMimeType("application/json");
-  link.open( 'GET', url, true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    jsonResponse = JSON.parse(link.responseText);
-    likes_count = item.querySelector(".likes_count");
-    dislikes_count = item.querySelector(".dislikes_count");
-    likes_count.innerHTML = jsonResponse.like_count;
-    dislikes_count.innerHTML = jsonResponse.dislike_count;
-    _this.classList.toggle("text-success");
-    _this.nextElementSibling.classList.remove("text-danger");
-  }};
-  link.send( null );
-}
-
-function send_dislike(_this, item, url){
-  like = item.querySelector(".like");
-  dislike = item.querySelector(".dislike");
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.overrideMimeType("application/json");
-  link.open( 'GET', url, true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    jsonResponse = JSON.parse(link.responseText);
-    likes_count = item.querySelector(".likes_count");
-    dislikes_count = item.querySelector(".dislikes_count");
-    likes_count.innerHTML = jsonResponse.like_count;
-    dislikes_count.innerHTML = jsonResponse.dislike_count;
-    _this.classList.toggle("text-danger");
-    _this.previousElementSibling.classList.remove("text-success");
-  }};
-  link.send( null );
-}
 function comment_delete(_this, _link, _class){
   data = _this.parentElement.parentElement;
   comment_pk = data.getAttribute("data-pk");
@@ -490,6 +449,48 @@ function load_chart() {
     }
 }
 load_chart();
+
+function send_like(_this, item, url){
+  like = item.querySelector(".like");
+  dislike = item.querySelector(".dislike");
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.overrideMimeType("application/json");
+  link.open( 'GET', url, true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    jsonResponse = JSON.parse(link.responseText);
+    likes_count = item.querySelector(".likes_count");
+    dislikes_count = item.querySelector(".dislikes_count");
+    likes_count.innerHTML = jsonResponse.like_count;
+    dislikes_count.innerHTML = jsonResponse.dislike_count;
+    _this.classList.toggle("text-success");
+    _this.nextElementSibling.classList.remove("text-danger");
+  }};
+  link.send( null );
+}
+
+function send_dislike(_this, item, url){
+  like = item.querySelector(".like");
+  dislike = item.querySelector(".dislike");
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.overrideMimeType("application/json");
+  link.open( 'GET', url, true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    jsonResponse = JSON.parse(link.responseText);
+    likes_count = item.querySelector(".likes_count");
+    dislikes_count = item.querySelector(".dislikes_count");
+    likes_count.innerHTML = jsonResponse.like_count;
+    dislikes_count.innerHTML = jsonResponse.dislike_count;
+    _this.classList.toggle("text-danger");
+    _this.previousElementSibling.classList.remove("text-success");
+  }};
+  link.send( null );
+}
 
 on('body', 'click', '.elect_new_like', function() {
   item = this.parentElement;

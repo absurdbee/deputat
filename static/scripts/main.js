@@ -390,7 +390,7 @@ function open_fullscreen(link, block) {
 }
 
 function load_chart() {
-    try {
+  //  try { 
         var ctx = document.getElementById('canvas');
         var dates = ctx.getAttribute('dates').split(",");
         var data_1 = ctx.getAttribute('data_views').split(",");
@@ -466,9 +466,7 @@ function load_chart() {
         };
         ctx.getContext('2d');
         window.myLine = new Chart(ctx, config)
-    } catch {
-        return
-    }
+    //} catch {return}
 }
 
 function send_like(item, url){

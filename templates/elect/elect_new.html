@@ -25,6 +25,7 @@
           </p>
 
           {% if object.is_have_images %}
+          <h5 class="pb-3">Фото новости</h5>
           <div class="row pb-1">
             {% for image in object.get_images %}
             <div class="col-md-4 col-sm-6">
@@ -37,6 +38,7 @@
           {% endif %}
 
           {% if object.is_have_docs %}
+          <h5 class="pb-3">Документы новости</h5>
             {% for doc in object.get_docs %}
               <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
             {% endfor %}

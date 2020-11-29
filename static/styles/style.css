@@ -1,3 +1,22 @@
+.window_fullscreen_hide{
+  cursor: pointer;
+  float: right;
+}
+.window_fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  padding: 5%;
+  display: block;
+  overflow: auto;
+}
+@media screen and (min-width: 621px) {
+    .window_fullscreen {left: 20%;width: 60%;padding-left: 5%;padding-right: 5%;}
+}
+
 .cover_fit {
   object-fit: cover;
   max-height: 200px;

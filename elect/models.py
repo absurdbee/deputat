@@ -74,7 +74,7 @@ class Elect(models.Model):
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
 
-    def likes_count_year(self, year):
+    def likes_count_year(self, year): 
         news = self.new_elect.filter(elect_id=self.pk, created__year=year).values("pk")
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()

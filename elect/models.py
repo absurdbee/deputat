@@ -72,7 +72,7 @@ class Elect(models.Model):
     def likes_count(self):
         news = self.new_elect.filter(elect_id=self.pk).values("pk")
         news_ids = [new['pk'] for new in news]
-        count = ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
+        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
 
 
 class LinkElect(models.Model):

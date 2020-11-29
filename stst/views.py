@@ -30,7 +30,6 @@ class ElectYearStat(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(ElectYearStat,self).get_context_data(**kwargs)
-        context["user"] = self.user
         context["years"] = self.years
         context["members_views"] = self.members_views
         context["views"] = self.views

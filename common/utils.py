@@ -3,6 +3,7 @@ from users.model.profile import IPUser, UserLocation
 import re
 MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 from django.shortcuts import render
+from rest_framework.exceptions import PermissionDenied
 
 
 def try_except(value):
@@ -81,6 +82,18 @@ def get_small_template(template, request_user, user_agent):
             template_name = template
     elif request_user.is_anonymous:
         template_name = template
+    if MOBILE_AGENT_RE.match(user_agent):
+        template_name = template_name
+    else:
+        template_name = template_name
+    return template_name
+
+
+def get_managers_template(template, request_user, user_agent):
+    if request_user.is_authenticated and request_user.is_manager():
+        template_name = template
+    else:
+        raise PermissionDenied("Permission denied...")
     if MOBILE_AGENT_RE.match(user_agent):
         template_name = template_name
     else:

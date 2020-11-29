@@ -10,33 +10,33 @@ class StatView(TemplateView):
 
 
 class ElectYearStat(TemplateView):
-	template_name = None
+    template_name = None
 
-	def get(self,request,*args,**kwargs):
-		self.elect = Elect.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_managers_template("stat/elect_year.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.years = ElectNumbers.objects.dates('created', 'year')[0:10]
-		self.members_views, self.views, self.likes, self.dislikes = [], [], [], []
-		for i in self.years:
-			members_view = ElectNumbers.objects.filter(created__year=i.year, elect=self.elect.pk).exclude(user=0).distinct("elect").count()
+    def get(self,request,*args,**kwargs):
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_managers_template("stat/elect_year.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.years = ElectNumbers.objects.dates('created', 'year')[0:10]
+        self.members_views, self.views, self.likes, self.dislikes = [], [], [], []
+        for i in self.years:
+            members_view = ElectNumbers.objects.filter(created__year=i.year, elect=self.elect.pk).exclude(user=0).distinct("elect").count()
             view = ElectNumbers.objects.filter(created__year=i.year, elect=self.elect.pk).count()
             like = elect.likes_count_year(i)
             dislike = elect.dislikes_count_year(i)
-			self.members_views += [members_view]
+            self.members_views += [members_view]
             self.views += [view]
             self.likes += [like]
             self.dislikes += [dislike]
-		return super(ElectYearStat,self).get(request,*args,**kwargs)
+        return super(ElectYearStat,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(ElectYearStat,self).get_context_data(**kwargs)
-		context["user"] = self.user
-		context["years"] = self.years
-		context["members_views"] = self.members_views
+    def get_context_data(self,**kwargs):
+        context = super(ElectYearStat,self).get_context_data(**kwargs)
+        context["user"] = self.user
+        context["years"] = self.years
+        context["members_views"] = self.members_views
         context["views"] = self.views
         context["likes"] = self.likes
         context["dislikes"] = self.dislikes
-		return context
+        return context
 
 
 class UserCoberturaMonth(TemplateView):

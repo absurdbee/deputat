@@ -159,12 +159,12 @@ function send_comment(form, block, link){
   link_.send(form_comment);
 }
 
-function send_like(item, link){
+function send_like(item, url){
   like = item.querySelector(".like");
   dislike = item.querySelector(".dislike");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.overrideMimeType("application/json");
-  link.open( 'GET', link, true );
+  link.open( 'GET', url, true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {
@@ -180,12 +180,12 @@ function send_like(item, link){
   link.send( null );
 }
 
-function send_dislike(item, link){
+function send_dislike(item, url){
   like = item.querySelector(".like");
   dislike = item.querySelector(".dislike");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.overrideMimeType("application/json");
-  link.open( 'GET', link, true );
+  link.open( 'GET', url, true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {

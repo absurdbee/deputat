@@ -31,7 +31,14 @@
           {% endif %}
         </div>
       </div>
-        <div class="col-12" style="">
+        <div class="col-12">
+          {% if request.user.is_superuser %}
+            <a class="btn btn-style-3 btn-success mr-3 mb-3 pointer">День</a>
+            <a class="btn btn-style-3 btn-warning mr-3 mb-3 pointer">Неделя</a>
+            <a class="btn btn-style-3 btn-danger mr-3 mb-3 pointer">Месяц</a>
+            <a class="btn btn-style-3 btn-gradient mr-3 mb-3 pointer load_elect_stat_year">Год</a>
+          {% endif %}
+
           <div class="card border border-dark">
               <div class="card-body">
                 <h4 class="card-title">Информация</h4>

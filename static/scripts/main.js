@@ -541,7 +541,7 @@ on('body', 'click', '.blog_dislike', function() {
 });
 
 on('body', 'click', '.load_elect_stat_year', function() {
-  pk = this.getAttribute('data-pk');
+  this.getAttribute('data-pk') ? pk = this.getAttribute('data-pk') : pk = document.body.querySelector(".pk_saver").getAttribute('data-pk');
   loader = document.getElementById("window_loader");
   open_fullscreen("/stst/elect_year/" + pk + "/", loader)
 });

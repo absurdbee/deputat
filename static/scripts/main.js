@@ -491,12 +491,12 @@ function load_chart() {
 }
 load_chart();
 
-on('body', 'click', '.elict_new_like', function() {
+on('body', 'click', '.elect_new_like', function() {
   item = this.parentElement;
   pk = item.getAttribute("data-pk");
   send_like(item, "/blog/progs/elect_like/" + pk + "/");
 });
-on('body', 'click', '.elict_new_dislike', function() {
+on('body', 'click', '.elect_new_dislike', function() {
   item = this.parentElement;
   pk = item.getAttribute("data-pk");
   send_like(item, "/blog/progs/elect_dislike/" + pk + "/");

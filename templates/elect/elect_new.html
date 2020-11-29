@@ -24,6 +24,24 @@
             {% endwith %}
           </p>
 
+          {% if object.is_have_images %}
+          <div class="row pb-1">
+            {% for image in object.get_images %}
+            <div class="col-md-4 col-sm-6">
+              <a class="gallery-item mb-30" href="{{ image.url }}" data-fancybox="gallery1">
+                <img src="{{ image.url }}" alt="Gallery Image">
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          {% if object.is_have_docs %}
+            {% for image in object.get_docs %}
+              <a href="{{ object.file.url }}" target="_blank" rel="nofollow">{{ object.title }}</a>
+            {% endfor %}
+          {% endif %}
+
           <div class="d-sm-flex justify-content-between align-items-center border-top border-bottom mb-5 py-2">
             <div class="py-2" data-pk="{{ object.pk }}">
               <span class="like elect_new_like {% if object.likes|user_in:user %} text-success{% endif %} btn_default" title="Нравится">

@@ -251,6 +251,24 @@ class ElectNew(models.Model):
         from stst.models import ElectNewNumbers
         return ElectNewNumbers.objects.filter(new=self.pk).values('pk').count()
 
+    def is_have_docs(self):
+        if self.electdoc:
+            return True
+        else:
+            return False
+
+    def is_have_images(self):
+        if self.electphoto:
+            return True
+        else:
+            return False
+
+    def get_docs(self):
+        return self.doc_new.filter(new_id=self.pk)
+
+    def get_images(self):
+        return self.image_new.filter(new_id=self.pk)
+
 
 class ElectVotes(models.Model):
     LIKE = 1
@@ -267,7 +285,7 @@ class ElectDoc(models.Model):
     file = models.FileField(upload_to=upload_to_user_directory, verbose_name="Документ")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
-    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True)
+    new = models.ForeignKey(ElectNew, related_name='doc_new', on_delete=models.CASCADE, blank=True)
 
     class Meta:
         ordering = ["-created"]
@@ -286,7 +304,7 @@ class ElectPhoto(models.Model):
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
-    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True)
+    new = models.ForeignKey(ElectNew, related_name='image_new', on_delete=models.CASCADE, blank=True)
 
     class Meta:
         indexes = (BrinIndex(fields=['created']),)

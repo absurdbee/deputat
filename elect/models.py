@@ -47,7 +47,7 @@ class Elect(models.Model):
             return regions
 
     def get_news(self):
-        return self.new_elect.filter(status="P") 
+        return self.new_elect.filter(status="P")
 
     def get_last_news(self):
         return self.new_elect.filter(status="P")[:6]
@@ -67,6 +67,11 @@ class Elect(models.Model):
     def visits_count(self):
         from stst.models import ElectNumbers
         return ElectNumbers.objects.filter(elect=self.pk).values('pk').count()
+
+    def likes_count(self):
+        news = ElectNew.objects.filter(elect_id=self.pk).values("pk")
+        news_ids = [new['pk'] for new in news]
+        count = ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
 
 
 class LinkElect(models.Model):

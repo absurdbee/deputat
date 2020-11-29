@@ -48,8 +48,8 @@ class ElectDislikeCreate(View):
         except ElectVotes.DoesNotExist:
             ElectVotes.objects.create(parent=new, user=request.user, vote=ElectVotes.DISLIKE)
             result = True
-        likes = item.likes_count()
-        dislikes = video.dislikes_count()
+        likes = new.likes_count()
+        dislikes = new.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 
@@ -91,8 +91,8 @@ class BlogDislikeCreate(View):
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(parent=new, user=request.user, vote=BlogVotes.DISLIKE)
             result = True
-        likes = item.likes_count()
-        dislikes = video.dislikes_count()
+        likes = new.likes_count()
+        dislikes = new.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 

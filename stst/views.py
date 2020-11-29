@@ -35,6 +35,7 @@ class ElectYearStat(TemplateView):
         context["views"] = self.views
         context["likes"] = self.likes
         context["dislikes"] = self.dislikes
+        context["elect"] = self.elect
         return context
 
 

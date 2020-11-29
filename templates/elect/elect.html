@@ -32,7 +32,9 @@
         </div>
       </div>
         <div class="col-12">
+
           {% if request.user.is_superuser %}
+          <h6>Статистика </h6> 
             <a class="btn btn-style-3 btn-success mr-3 mb-3 pointer">День</a>
             <a class="btn btn-style-3 btn-warning mr-3 mb-3 pointer">Неделя</a>
             <a class="btn btn-style-3 btn-danger mr-3 mb-3 pointer">Месяц</a>

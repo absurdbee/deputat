@@ -40,7 +40,7 @@
           {% if object.is_have_docs %}
           <h5 class="pb-3">Документы новости</h5>
             {% for doc in object.get_docs %}
-              <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
+              <a href="{{ doc.file.url }}" target="_blank" rel="nofollow"><h6>{{ doc.title }}</h6></a>
             {% endfor %}
           {% endif %}
 

@@ -162,14 +162,14 @@ function send_comment(form, block, link){
 function send_like(item, link){
   like = item.querySelector(".like");
   dislike = item.querySelector(".dislike");
-  link__ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link__.overrideMimeType("application/json");
-  link__.open( 'GET', link, true );
-  link__.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.overrideMimeType("application/json");
+  link.open( 'GET', link, true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-  link__.onreadystatechange = function () {
-  if ( link__.readyState == 4 && link__.status == 200 ) {
-    jsonResponse = JSON.parse(link__.responseText);
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    jsonResponse = JSON.parse(link.responseText);
     likes_count = item.querySelector(".likes_count");
     dislikes_count = item.querySelector(".dislikes_count");
     likes_count.innerHTML = jsonResponse.like_count;
@@ -177,20 +177,20 @@ function send_like(item, link){
     like.classList.toggle("text-success");
     dislike.classList.remove("text-danger");
   }};
-  link__.send( null );
+  link.send( null );
 }
 
 function send_dislike(item, link){
   like = item.querySelector(".like");
   dislike = item.querySelector(".dislike");
-  link__ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link__.overrideMimeType("application/json");
-  link__.open( 'GET', link, true );
-  link__.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.overrideMimeType("application/json");
+  link.open( 'GET', link, true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-  link__.onreadystatechange = function () {
-  if ( link__.readyState == 4 && link__.status == 200 ) {
-    jsonResponse = JSON.parse(link__.responseText);
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    jsonResponse = JSON.parse(link.responseText);
     likes_count = item.querySelector(".likes_count");
     dislikes_count = item.querySelector(".dislikes_count");
     likes_count.innerHTML = jsonResponse.like_count;
@@ -198,7 +198,7 @@ function send_dislike(item, link){
     dislike.classList.toggle("text-danger");
     like.classList.remove("text-success");
   }};
-  link__.send( null );
+  link.send( null );
 }
 function comment_delete(_this, _link, _class){
   data = _this.parentElement.parentElement;
@@ -489,4 +489,26 @@ function load_chart() {
         return
     }
 }
-load_chart()
+load_chart();
+
+on('#ajax', 'click', '.elict_new_like', function() {
+  item = this.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_like(item, "/blog/progs/elect_like/" + pk + "/");
+});
+on('#ajax', 'click', '.elict_new_dislike', function() {
+  item = this.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_like(item, "/blog/progs/elect_dislike/" + pk + "/");
+});
+
+on('#ajax', 'click', '.blog_like', function() {
+  item = this.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_like(item, "/blog/progs/blog_like/" + pk + "/");
+});
+on('#ajax', 'click', '.blog_dislike', function() {
+  item = this.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_like(item, "/blog/progs/blog_dislike/" + pk + "/");
+});

@@ -29,7 +29,7 @@ class ElectLikeCreate(View):
             result = True
         likes = new.likes_count()
         dislikes = new.dislikes_count()
-        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(disliks)}),content_type="application/json")
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 class ElectDislikeCreate(View):
     def get(self, request, **kwargs):
@@ -72,7 +72,7 @@ class BlogLikeCreate(View):
             result = True
         likes = new.likes_count()
         dislikes = new.dislikes_count()
-        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(disliks)}),content_type="application/json")
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 class BlogDislikeCreate(View):
     def get(self, request, **kwargs):

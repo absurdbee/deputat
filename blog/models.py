@@ -257,7 +257,7 @@ class ElectNew(models.Model):
         else:
             return False
 
-    def is_have_images(self):
+    def is_have_images(self): 
         if self.image_new.filter(new_id=self.pk).exists():
             return True
         else:

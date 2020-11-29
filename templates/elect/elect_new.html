@@ -37,8 +37,8 @@
           {% endif %}
 
           {% if object.is_have_docs %}
-            {% for image in object.get_docs %}
-              <a href="{{ object.file.url }}" target="_blank" rel="nofollow">{{ object.title }}</a>
+            {% for doc in object.get_docs %}
+              <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
             {% endfor %}
           {% endif %}
 

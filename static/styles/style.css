@@ -1,4 +1,9 @@
-
+.cover_fit {
+  object-fit: cover;
+  max-height: 200px;
+  height: 100%;
+  width:100%;
+}
 .sel.active::before {
   transform: rotateX(-180deg);
 }

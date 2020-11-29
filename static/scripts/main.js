@@ -390,8 +390,8 @@ function open_fullscreen(link, block) {
 }
 
 function load_chart() {
-  //  try { 
-        var ctx = document.getElementById('canvas');
+  //  try {
+        var ctx = document.querySelector('#canvas');
         var dates = ctx.getAttribute('dates').split(",");
         var data_1 = ctx.getAttribute('data_views').split(",");
         var data_2 = ctx.getAttribute('data_member_views').split(",");

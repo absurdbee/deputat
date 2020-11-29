@@ -392,7 +392,7 @@ function open_fullscreen(link, block) {
 function load_chart() {
   //  try {
         var ctx = document.querySelector('#canvas');
-        var dates = ctx.getAttribute('dates').split(",");
+        var dates = ctx.getAttribute('data-dates').split(",");
         var data_1 = ctx.getAttribute('data_views').split(",");
         var data_2 = ctx.getAttribute('data_member_views').split(",");
         var data_3 = ctx.getAttribute('data_likes').split(",");

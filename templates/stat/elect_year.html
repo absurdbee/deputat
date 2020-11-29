@@ -23,7 +23,7 @@
 
   <div class="card-body px-0 py-0">
         <canvas id="canvas"
-                dates='{% for object in years %} {{ object|date:"Y" }} г.{% if not forloop.last %},{% endif %}{% endfor %}'
+                data-dates='{% for object in years %} {{ object|date:"Y" }} г.{% if not forloop.last %},{% endif %}{% endfor %}'
                 label_views="Все просмотры"
                 label_member_views="Просмотры активных"
                 label_likes="Кол-во оценивших"

@@ -74,6 +74,11 @@ class Elect(models.Model):
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
 
+    def dislikes_count(self):
+        news = self.new_elect.filter(elect_id=self.pk).values("pk")
+        news_ids = [new['pk'] for new in news]
+        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__lt=0).values("pk").count()
+
 
 class LinkElect(models.Model):
     title = models.CharField(max_length=255, verbose_name="Текст ссылки")

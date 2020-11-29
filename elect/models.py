@@ -7,6 +7,7 @@ from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from lists.models import Region
 from django.db.models import Q
+from blog.models import ElectVotes
 
 
 """

@@ -202,7 +202,7 @@ class ElectNew(models.Model):
     category = models.ForeignKey('lists.BlogCategory', on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория записи чиновника")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")
-    content = RichTextUploadingField(config_name='default',external_plugin_resources=[('youtube','/static/ckeditor_plugins/youtube/youtube/','plugin.js',)],)
+    content = models.TextField(verbose_name="Текс")
 
     class Meta:
         verbose_name = "Запись о чиновнике"
@@ -257,7 +257,7 @@ class ElectNew(models.Model):
         else:
             return False
 
-    def is_have_images(self): 
+    def is_have_images(self):
         if self.image_new.filter(new_id=self.pk).exists():
             return True
         else:

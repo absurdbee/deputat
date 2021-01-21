@@ -390,9 +390,9 @@ function open_fullscreen(link, block) {
 }
 
 function load_chart() {
-  //  try {
+    try {
         var ctx = document.querySelector('#canvas');
-        var dates = ctx.getAttribute('data-dates').split(",");
+        var dates = ctx.getAttribute('dates').split(",");
         var data_1 = ctx.getAttribute('data_views').split(",");
         var data_2 = ctx.getAttribute('data_member_views').split(",");
         var data_3 = ctx.getAttribute('data_likes').split(",");
@@ -466,7 +466,7 @@ function load_chart() {
         };
         ctx.getContext('2d');
         window.myLine = new Chart(ctx, config)
-    //} catch {return}
+    } catch {return}
 }
 
 function send_like(item, url){
@@ -541,5 +541,6 @@ on('body', 'click', '.load_elect_stat_year', function() {
   this.getAttribute('data-pk') ? pk = this.getAttribute('data-pk') : pk = document.body.querySelector(".pk_saver").getAttribute('data-pk');
   loader = document.getElementById("window_loader");
   open_fullscreen("/stat/elect_year/" + pk + "/", loader);
-  load_chart();
 });
+
+load_chart();

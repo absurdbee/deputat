@@ -198,7 +198,7 @@ class ElectNew(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
-    elect = models.ManyToManyField('elect.Elect', on_delete=models.CASCADE, related_name="new_elect", blank=True, verbose_name="Чиновник")
+    elect = models.ManyToManyField('elect.Elect', related_name="new_elect", blank=True, verbose_name="Чиновник")
     category = models.ForeignKey('lists.BlogCategory', on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория записи чиновника")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")

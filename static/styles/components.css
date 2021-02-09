@@ -425,14 +425,6 @@ html .pace .pace-progress {
   }
 }
 
-/*=========================================================================================
-    File Name: sidebar.scss
-    Description: content sidebar specific scss.
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 .sidebar {
   position : relative;
   width : 100%;
@@ -552,14 +544,6 @@ footer.footer-border {
   z-index : 99;
 }
 
-/*=========================================================================================
-    File Name: navigation.scss
-    Description: Common mixin for menus, contain dark and light version scss.
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 .main-menu {
   z-index : 1031;
   position : absolute;
@@ -1340,14 +1324,6 @@ footer.footer-border {
   margin-left : -1.5rem;
 }
 
-/*=========================================================================================
-	File Name: search.scss
-	Description: Search  functionality.
-	----------------------------------------------------------------------------------------
-	Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-	Author: PIXINVENT
-	Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
 .navbar-container a.nav-link-search {
   float : left;
 }

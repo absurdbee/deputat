@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html class="no-js">
+<html class="loading" lang="en" data-textdirection="ltr">
 <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta property="og:type" content="website" />
@@ -8,14 +8,21 @@
 		<title>{% block title %}{% endblock %}</title>
 		{% block meta %}{% endblock %}
 
-		<link rel="stylesheet" media="screen" href="{% static 'styles/vendor.min.css' %}">
-    <link rel="stylesheet" media="screen" href="{% static 'styles/theme.min.css' %}">
-		<link rel="stylesheet" media="screen" href="{% static 'styles/style.css' %}">
-		<script src="{% static 'scripts/modernizr.min.js' %}" type="text/javascript"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/static/styles/vendors.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/styles/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/colors.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/components.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/style.css">
 </head>
 
-<body class="">
-	{% url 'main' as main_url %}
+<body>
 
 		{% include "mob_menu.html" %}
 		{% include "header.html" %}
@@ -24,8 +31,6 @@
 		{% endblock %}
 
 		{% include "footer.html" %}
-
-		<div class="site-backdrop"></div>
 
 		<div class="card mb-3 window_fullscreen border" style="display:none">
 		  <span class="window_fullscreen_hide">
@@ -36,12 +41,11 @@
 		  </span>
 		  <div id="window_loader" style="margin-top:30px;position:relative;"></div>
 		</div>
-	<script defer src="{% static 'scripts/vendor.min.js' %}" type="text/javascript"></script>
-	<script defer src="{% static 'scripts/theme.min.js' %}" type="text/javascript"></script>
-	<script defer src="{% static 'scripts/jquery.waypoints.min.js' %}" type="text/javascript"></script>
-	<script defer src="{% static 'scripts/infinite.min.js' %}" type="text/javascript"></script>
-	<script defer src="{% static 'scripts/Chart.min.js' %}" type="text/javascript"></script>
-	<script defer src="{% static 'scripts/main.js' %}" type="text/javascript"></script>
-	<script defer src="{% static 'scripts/demo.js' %}" type="text/javascript"></script>
+		<div class="sidenav-overlay"></div>
+		<div class="drag-target"></div>
+
+		<script src="/static/scripts/vendors.min.js"></script>
+		<script src="/static/scripts/app-menu.js"></script>
+		<script src="/static/scripts/app.js"></script>
 </body>
 </html>

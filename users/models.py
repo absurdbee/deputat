@@ -5,6 +5,7 @@ from django.db.models import Q
 from blog.models import ElectNew, ElectVotes
 from elect.models import Elect, SubscribeElect
 from common.utils import try_except
+from users.helpers import upload_to_user_directory
 
 
 """
@@ -30,6 +31,8 @@ class User(AbstractUser):
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     phone = models.CharField(max_length=17, blank=True, null=True, verbose_name='Телефон')
     perm = models.CharField(max_length=5, choices=PERM, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
+    b_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
+    s_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
     #USERNAME_FIELD = 'phone'
 
     class Meta:
@@ -98,3 +101,34 @@ class User(AbstractUser):
         return try_except(self.perm == User.SUPERMANAGER)
     def is_no_phone_verified(self):
         return try_except(self.perm == User.PHONE_NO_VERIFIED)
+
+    def create_s_avatar(self, photo_input):
+        from easy_thumbnails.files import get_thumbnailer
+
+        self.s_avatar = photo_input
+        self.save(update_fields=['s_avatar'])
+        new_img = get_thumbnailer(self.s_avatar)['small_avatar'].url.replace('media/', '')
+        self.s_avatar = new_img
+        return self.save(update_fields=['s_avatar'])
+
+    def create_b_avatar(self, photo_input):
+        from easy_thumbnails.files import get_thumbnailer
+
+        self.b_avatar = photo_input
+        self.save(update_fields=['b_avatar'])
+        new_img = get_thumbnailer(self.b_avatar)['avatar'].url.replace('media/', '')
+        self.b_avatar = new_img
+        self.save(update_fields=['b_avatar'])
+        return self.save(update_fields=['b_avatar'])
+
+    def get_b_avatar(self):
+        try:
+            return self.b_avatar.url
+        except:
+            return None
+
+    def get_avatar(self):
+        try:
+            return self.s_avatar.url
+        except:
+            return '/static/images/user.png'

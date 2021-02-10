@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.vk',
     'ckeditor',
     'ckeditor_uploader',
+    'easy_thumbnails',
 
     'blog_cat',
     'blog',
@@ -176,3 +177,12 @@ REST_FRAMEWORK = {
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 #ACCOUNT_USERNAME_REQUIRED = True
+
+THUMBNAIL_DEFAULT_OPTIONS = {"crop":"smart","detail":True}
+
+THUMBNAIL_ALIASES = {
+    "":{
+        "avatar": {"size":(200,250)},
+        "small_avatar": {"size":(100,100)},
+    },
+}

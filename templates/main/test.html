@@ -10,30 +10,7 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Advance Card</h2>
-                            <div class="breadcrumb-wrapper">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="">Card</a>
-                                    </li>
-                                    <li class="breadcrumb-item active">Advance Card
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-                    <div class="form-group breadcrumb-right">
-                        <div class="dropdown">
-                            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="grid"></i></button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a class="dropdown-item" href=""><i class="mr-1" data-feather="check-square"></i><span class="align-middle">Todo</span></a>
-                              <a class="dropdown-item" href=""><i class="mr-1" data-feather="message-square"></i><span class="align-middle">Chat</span></a>
-                              <a class="dropdown-item" href=""><i class="mr-1" data-feather="mail"></i><span class="align-middle">Email</span></a>
-                              <a class="dropdown-item" href=""><i class="mr-1" data-feather="calendar"></i><span class="align-middle">Calendar</span></a>
-                            </div>
+                            <h2 class="content-header-title float-left mb-0">Название</h2>
                         </div>
                     </div>
                 </div>
@@ -51,9 +28,9 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <h1 class="mb-1 text-white">Congratulations John,</h1>
+                                    <h1 class="mb-1 text-white">Название баннера</h1>
                                     <p class="card-text m-auto w-75">
-                                        You have done <strong>57.6%</strong> more sales today. Check your new badge in your profile.
+                                        Описание баннера, приветствие или спецпредложение
                                     </p>
                                 </div>
                             </div>
@@ -62,13 +39,12 @@
                     <div class="col-12 col-md-6 col-lg-5">
                         <div class="card card-congratulation-medal">
                             <div class="card-body">
-                                <h5>Congratulations 🎉 John!</h5>
-                                <p class="card-text font-small-3">You have won gold medal</p>
-                                <h3 class="mb-75 mt-4">
-                                    <a href="javascript:void(0);">$48.9k</a>
-                                </h3>
-                                <button type="button" class="btn btn-primary">View Sales</button>
-                                <img src="/static/images/user.png" class="congratulation-medal" alt="Medal Pic" />
+                                <h5>Вы можете предложить новость о депутатах!</h5>
+                                <p class="card-text font-small-3">
+                                  Их поведение, высказывания, работа с избирателями, предвыборная деятельность,
+                                  поддержание или противодействие известным Вам законам.
+                                </p>
+                                <button type="button" class="btn btn-primary">Предложить новость</button>
                             </div>
                         </div>
                     </div>
@@ -79,21 +55,19 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <div class="card card-developer-meetup">
                             <div class="meetup-img-wrapper rounded-top text-center">
+                              {% if object.image %}
                               <a href="{% url 'elect_new_detail' pk=object.pk %}">
-                                {% if object.image %}
-                                <img src="{{ object.image.url }}" alt="Meeting Pic" height="170" />
-                                {% endif %}
+                                <img src="{{ object.image.url }}" alt="img" height="170" />
                               </a>
+                              {% endif %}
                             </div>
                             <div class="card-body">
                                 <div class="meetup-header d-flex align-items-center">
-                                    <div class="meetup-day">
-                                        <h6 class="mb-0">THU</h6>
-                                        <h3 class="mb-0">24</h3>
-                                    </div>
                                     <div class="my-auto">
+                                      <a href="{% url 'elect_new_detail' pk=object.pk %}">
                                         <h4 class="card-title mb-25">{{ object.title }}</h4>
                                         <p class="card-text mb-0">Событие депутата</p>
+                                      </a>
                                     </div>
                                 </div>
                                 <div class="media">
@@ -103,7 +77,7 @@
                                         </div>
                                     </div>
                                     <div class="media-body">
-                                        <h6 class="mb-0">{{ object.title }}</h6>
+                                        <h6 class="mb-0">{{ object.get_created }}</h6>
                                         <small>Опубликовано</small>
                                     </div>
                                 </div>
@@ -114,7 +88,9 @@
                                          data-placement="bottom"
                                          data-original-title="{{ elect.name }}"
                                          class="avatar pull-up">
+                                         <a href="{% url 'elect_detail' pk=elect.pk %}">
                                         <img src="{{ elect.image.url }}" alt="img" width="33" height="33" />
+                                        </a>
                                     </div>
                                     {% endfor %}
                                 </div>

@@ -29,9 +29,6 @@
             </ul>
         </div>
         <ul class="nav navbar-nav align-items-center ml-auto">
-            <li class="nav-item dropdown dropdown-language"><a class="nav-link dropdown-toggle" id="dropdown-flag" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-flag"><a class="dropdown-item" href="javascript:void(0);" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="javascript:void(0);" data-language="fr"><i class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="javascript:void(0);" data-language="de"><i class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="javascript:void(0);" data-language="pt"><i class="flag-icon flag-icon-pt"></i> Portuguese</a></div>
-            </li>
             <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
             <li class="nav-item nav-search">
               <a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
@@ -47,7 +44,7 @@
               {% if request.user.is_authenticated %}
               <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="user-nav d-sm-flex d-none">
-                  <span class="user-name font-weight-bolder">{{ request.user.get_full_name }}</span>
+                  <span class="user-name font-weight-bolder">{{ request.user.last_name }}</span>
                   <span class="user-status">Онлайн</span>
                 </div>
                 <span class="avatar">
@@ -59,10 +56,10 @@
                 <a class="dropdown-item" href="{% url 'user' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Профиль</a>
                 <a class="dropdown-item" href="{% url 'user_news' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Мои новости</a>
                 <a class="dropdown-item" href="{% url 'subscribe_elects' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Мои подписки</a>
-                <a class="dropdown-item" href="{% url 'like_news' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Мне понравилось</a>
-                <a class="dropdown-item" href="{% url 'dislike_news' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Мне не понравилось</a>
+                <a class="dropdown-item" href="{% url 'like_news' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Одобрил</a>
+                <a class="dropdown-item" href="{% url 'dislike_news' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Не одобрил</a>
                     <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="page-faq.html"><i class="mr-50" data-feather="circle"></i> Вопросы</a>
+                <a class="dropdown-item" href=""><i class="mr-50" data-feather="circle"></i> Вопросы</a>
                 <a class="dropdown-item" href=""><i class="mr-50" data-feather="circle"></i> Выйти</a>
               </div>
               {% else %}
@@ -80,7 +77,7 @@
                 <a class="dropdown-item" href="{% url 'login' %}"><i class="mr-50" data-feather="circle"></i> Войти</a>
                 <a class="dropdown-item" href="{% url 'signup' %}"><i class="mr-50" data-feather="circle"></i> Зарегистрироваться</a>
                     <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="page-faq.html"><i class="mr-50" data-feather="circle"></i> Вопросы</a>
+                <a class="dropdown-item" href=""><i class="mr-50" data-feather="circle"></i> Вопросы</a>
               </div>
               {% endif %}
             </li>

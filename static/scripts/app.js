@@ -34,7 +34,7 @@ window.colors = {
   var $html = $('html');
   var $body = $('body');
   var $textcolor = '#4e5154';
-  var assetPath = '../../../app-assets/';
+  var assetPath = '/static/';
 
   if ($('body').attr('data-framework') === 'laravel') {
     assetPath = $('body').attr('data-asset-path');
@@ -407,56 +407,6 @@ window.colors = {
     }, 100);
   });
 
-  // main menu internationalization
-
-  // init i18n and load language file
-  if ($body.attr('data-framework') === 'laravel') {
-    // change language according to data-language of dropdown item
-    var language = $('html')[0].lang;
-    if (language !== null) {
-      // get the selected flag class
-      var selectedLang = $('.dropdown-language')
-        .find('a[data-language=' + language + ']')
-        .text();
-      var selectedFlag = $('.dropdown-language')
-        .find('a[data-language=' + language + '] .flag-icon')
-        .attr('class');
-      // set the class in button
-      $('#dropdown-flag .selected-language').text(selectedLang);
-      $('#dropdown-flag .flag-icon').removeClass().addClass(selectedFlag);
-    }
-  } else {
-    i18next.use(window.i18nextXHRBackend).init(
-      {
-        debug: false,
-        fallbackLng: 'en',
-        backend: {
-          loadPath: assetPath + 'data/locales/{{lng}}.json'
-        },
-        returnObjects: true
-      },
-      function (err, t) {
-        // resources have been loaded
-        jqueryI18next.init(i18next, $);
-      }
-    );
-
-    // change language according to data-language of dropdown item
-    $('.dropdown-language .dropdown-item').on('click', function () {
-      var $this = $(this);
-      $this.siblings('.selected').removeClass('selected');
-      $this.addClass('selected');
-      var selectedLang = $this.text();
-      var selectedFlag = $this.find('.flag-icon').attr('class');
-      $('#dropdown-flag .selected-language').text(selectedLang);
-      $('#dropdown-flag .flag-icon').removeClass().addClass(selectedFlag);
-      var currentLanguage = $this.data('language');
-      i18next.changeLanguage(currentLanguage, function (err, t) {
-        $('.main-menu, .horizontal-menu-wrapper').localize();
-      });
-    });
-  }
-
   /********************* Bookmark & Search ***********************/
   // This variable is used for mouseenter and mouseleave events of search list
   var $filename = $('.search-input input').data('search'),
@@ -618,14 +568,8 @@ window.colors = {
           a = 0;
 
         // getting json data from file for search results
-        $.getJSON(assetPath + 'data/' + $filename + '.json', function (data) {
+        $.getJSON(assetPath + 'scripts/' + $filename + '.json', function (data) {
           for (var i = 0; i < data.listItems.length; i++) {
-            // if current is bookmark then give class to star icon
-            // for laravel
-            if ($('body').attr('data-framework') === 'laravel') {
-              data.listItems[i].url = assetPath + data.listItems[i].url;
-            }
-
             if (bookmark === true) {
               activeClass = ''; // resetting active bookmark class
               var arrList = $('ul.nav.navbar-nav.bookmark-icons li'),

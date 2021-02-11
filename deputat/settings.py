@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'easy_thumbnails',
-    'taggit',
 
     'blog_cat',
     'blog',

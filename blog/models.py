@@ -272,8 +272,8 @@ class ElectNew(models.Model):
     def get_elects(self):
         return self.elect.all()
 
-    def get_image(self):
-        return self.image_new.filter(new_id=self.pk)[0]
+    def get_image_url(self):
+        return self.image_new.filter(new_id=self.pk)[0].file.url
 
 
 class ElectVotes(models.Model):

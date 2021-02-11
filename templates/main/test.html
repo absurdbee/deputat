@@ -57,7 +57,7 @@
                             <div class="meetup-img-wrapper rounded-top text-center">
                               {% if object.get_image_url %}
                               <a href="{% url 'elect_new_detail' pk=object.pk %}">
-                                <img src="{{ object.get_image_url }}" alt="img" height="170" />
+                                <img src="{{ object.get_image_url }}" alt="img" class="cover_fit" />
                               </a>
                               {% endif %}
                             </div>

@@ -616,3 +616,12 @@ $('.sel__box__options').click(function() {
   };
   link.send( null );
 });
+
+$(window).on('load', function() {
+    if (feather) {
+        feather.replace({
+            width: 14,
+            height: 14
+        });
+    }
+})

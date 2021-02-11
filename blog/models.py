@@ -270,7 +270,10 @@ class ElectNew(models.Model):
         return self.image_new.filter(new_id=self.pk)
 
     def get_elects(self):
-        return self.elect.all() 
+        return self.elect.all()
+
+    def get_image(self):
+        return self.image_new.filter(new_id=self.pk)[0]
 
 
 class ElectVotes(models.Model):

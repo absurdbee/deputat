@@ -49,10 +49,12 @@
                         </div>
                     </div>
                 </div>
+                
+                {% include 'main/elect_console.html' %}
 
                 <div class="row match-height">
                     {% for object in last_elect_news %}
-                    <div class="col-lg-4 col-md-6 col-12">
+                    <div class="col-lg-3 col-md-4 col-12">
                         <div class="card card-developer-meetup">
                             <div class="meetup-img-wrapper rounded-top text-center">
                               {% if object.get_image_url %}
@@ -89,7 +91,7 @@
                                          data-original-title="{{ elect.name }}"
                                          class="avatar pull-up">
                                          <a href="{% url 'elect_detail' pk=elect.pk %}">
-                                        <img src="{{ elect.image.url }}" alt="img" width="33" height="33" />
+                                        <img src="{{ elect.image.url }}" alt="img" width="50" height="50" />
                                         </a>
                                     </div>
                                     {% endfor %}

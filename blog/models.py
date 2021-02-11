@@ -8,6 +8,7 @@ from imagekit.models import ProcessedImageField
 from django.db.models import Q
 from ckeditor_uploader.fields import RichTextUploadingField
 from users.helpers import upload_to_user_directory
+from taggit.managers import TaggableManager
 
 
 """
@@ -27,6 +28,7 @@ class Blog(models.Model):
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
+    tags=TaggableManager(blank=True,verbose_name="Теги")
 
     class Meta:
         verbose_name = "Новость проекта"
@@ -202,7 +204,8 @@ class ElectNew(models.Model):
     category = models.ForeignKey('lists.BlogCategory', on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория записи чиновника")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")
-    content = models.TextField(verbose_name="Текс")
+    content = models.TextField(verbose_name="Текст")
+    tags=TaggableManager(blank=True,verbose_name="Теги")
 
     class Meta:
         verbose_name = "Запись о чиновнике"

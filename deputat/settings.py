@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'easy_thumbnails',
-    'django_taggit',
+    'taggit',
 
     'blog_cat',
     'blog',

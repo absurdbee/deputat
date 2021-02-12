@@ -3,26 +3,41 @@
         <div class="bookmark-wrapper d-flex align-items-center">
             <ul class="nav navbar-nav d-xl-none">
                 <li class="nav-item">
-                  <a class="nav-link menu-toggle" href="javascript:void(0);"><i class="ficon" data-feather="menu"></i></a>
+                  <a class="nav-link menu-toggle" href="javascript:void(0);">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu ficon"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                  </a>
                 </li>
             </ul>
             <ul class="nav navbar-nav bookmark-icons">
                 <li class="nav-item d-none d-lg-block">
-                  <a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Email"><i class="ficon" data-feather="mail"></i></a>
+                  <a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Email">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail ficon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </a>
                 </li>
                 <li class="nav-item d-none d-lg-block">
-                  <a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Chat"><i class="ficon" data-feather="message-square"></i></a>
+                  <a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Chat">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square ficon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  </a>
                 </li>
                 <li class="nav-item d-none d-lg-block">
-                  <a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Calendar"><i class="ficon" data-feather="calendar"></i></a>
+                  <a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Calendar">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar ficon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  </a>
                 </li>
-                <li class="nav-item d-none d-lg-block"><a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Todo"><i class="ficon" data-feather="check-square"></i></a></li>
+                <li class="nav-item d-none d-lg-block">
+                  <a class="nav-link" href="" data-toggle="tooltip" data-placement="top" title="Todo">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square ficon"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                  </a>
+                </li>
             </ul>
             <ul class="nav navbar-nav">
                 <li class="nav-item d-none d-lg-block">
-                  <a class="nav-link bookmark-star"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star ficon text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></a>
+                  <a class="nav-link bookmark-star">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star ficon text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></a>
                     <div class="bookmark-input search-input">
-                        <div class="bookmark-input-icon"><i data-feather="search"></i></div>
+                        <div class="bookmark-input-icon">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search ficon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </div>
                         <input class="form-control input" type="text" placeholder="Bookmark" tabindex="0" data-search="search">
                         <ul class="search-list search-list-bookmark"></ul>
                     </div>
@@ -30,9 +45,15 @@
             </ul>
         </div>
         <ul class="nav navbar-nav align-items-center ml-auto">
-            <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
+            <li class="nav-item d-none d-lg-block">
+              <a class="nav-link nav-link-style">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon ficon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              </a>
+            </li>
             <li class="nav-item nav-search">
-              <a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
+              <a class="nav-link nav-link-search">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search ficon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              </a>
               <div class="search-input">
                   <div class="search-input-icon"><i data-feather="search"></i></div>
                   <input class="form-control input" type="text" placeholder="Что будем искать?" tabindex="-1" data-search="search">
@@ -54,14 +75,35 @@
                 </span>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                <a class="dropdown-item ajax" href="{% url 'user' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Профиль</a>
-                <a class="dropdown-item ajax" href="{% url 'user_news' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Мои новости</a>
-                <a class="dropdown-item ajax" href="{% url 'subscribe_elects' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Мои подписки</a>
-                <a class="dropdown-item ajax" href="{% url 'like_news' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Одобрил</a>
-                <a class="dropdown-item ajax" href="{% url 'dislike_news' pk=request.user.pk %}"><i class="mr-50" data-feather="circle"></i> Не одобрил</a>
-                    <div class="dropdown-divider"></div>
-                <a class="dropdown-item ajax" href=""><i class="mr-50" data-feather="circle"></i> Вопросы</a>
-                <a class="dropdown-item ajax" href=""><i class="mr-50" data-feather="circle"></i> Выйти</a>
+                <a class="dropdown-item ajax" href="{% url 'user' pk=request.user.pk %}">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Профиль
+                </a>
+                <a class="dropdown-item ajax" href="{% url 'user_news' pk=request.user.pk %}">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Мои новости
+                </a>
+                <a class="dropdown-item ajax" href="{% url 'subscribe_elects' pk=request.user.pk %}">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Мои подписки
+                </a>
+                <a class="dropdown-item ajax" href="{% url 'like_news' pk=request.user.pk %}">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Одобрил
+                </a>
+                <a class="dropdown-item ajax" href="{% url 'dislike_news' pk=request.user.pk %}">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Не одобрил
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item ajax" href="">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Вопросы
+                </a>
+                <a class="dropdown-item ajax" href="">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Выйти
+                </a>
               </div>
               {% else %}
               <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -75,10 +117,19 @@
                 </span>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                <a class="dropdown-item ajax" href="{% url 'login' %}"><i class="mr-50" data-feather="circle"></i> Войти</a>
-                <a class="dropdown-item ajax" href="{% url 'signup' %}"><i class="mr-50" data-feather="circle"></i> Зарегистрироваться</a>
-                    <div class="dropdown-divider"></div>
-                <a class="dropdown-item ajax" href=""><i class="mr-50" data-feather="circle"></i> Вопросы</a>
+                <a class="dropdown-item ajax" href="{% url 'login' %}">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Войти
+                </a>
+                <a class="dropdown-item ajax" href="{% url 'signup' %}">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Зарегистрироваться
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item ajax" href="">
+                  <i class="mr-50" data-feather="circle"></i>
+                  Вопросы
+                </a>
               </div>
               {% endif %}
             </li>

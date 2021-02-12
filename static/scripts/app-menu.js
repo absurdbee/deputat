@@ -157,15 +157,15 @@
             break;
         }
       }
-      if (menuType === 'vertical-menu' || menuType === 'vertical-menu-modern') {
-        this.toOverlayMenu(currentBreakpoint.name, menuType);
-      }
+      //if (menuType === 'vertical-menu' || menuType === 'vertical-menu-modern') {
+      //  this.toOverlayMenu(currentBreakpoint.name, menuType);
+      //}
 
-      if ($body.is('.horizontal-layout') && !$body.hasClass('.horizontal-menu-demo')) {
-        this.changeMenu(currentBreakpoint.name);
+    //  if ($body.is('.horizontal-layout') && !$body.hasClass('.horizontal-menu-demo')) {
+    //    this.changeMenu(currentBreakpoint.name);
 
-        $('.menu-toggle').removeClass('is-active');
-      }
+    //    $('.menu-toggle').removeClass('is-active');
+  //    }
       if (currentBreakpoint.name == 'xl') {
         $('body[data-open="hover"] .main-menu-content .dropdown') // Use selector $('body[data-open="hover"] .header-navbar .dropdown') for menu and navbar DD open on hover
           .on('mouseenter', function () {

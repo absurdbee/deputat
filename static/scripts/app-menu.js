@@ -12,7 +12,6 @@
   var menuWrapper_el = $('div[data-menu="menu-wrapper"]').html();
   var menuWrapperClasses = $('div[data-menu="menu-wrapper"]').attr('class');
 
-  // Main menu
   $.app.menu = {
     expanded: null,
     collapsed: null,
@@ -28,8 +27,6 @@
       if ('ontouchstart' in window || (window.DocumentTouch && document instanceof DocumentTouch)) {
         return true;
       }
-      // include the 'heartz' as a way to have a non matching MQ to help terminate the join
-      // https://git.io/vznFH
       var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
       return mq(query);
     },
@@ -62,7 +59,6 @@
             activeElHeight = activeEl.getBoundingClientRect().top + menu.scrollTop;
           }
 
-          // If active element's top position is less than 2/3 (66%) of menu height than do not scroll
           if (activeElHeight > parseInt((menu.clientHeight * 2) / 3)) {
             var start = menu.scrollTop,
               change = activeElHeight - start - parseInt(menu.clientHeight / 2);
@@ -122,6 +118,7 @@
 
     change: function (compactMenu) {
       var currentBreakpoint = Unison.fetch.now(); // Current Breakpoint
+      console.log(currentBreakpoint);
 
       this.reset();
 

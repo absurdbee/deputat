@@ -166,32 +166,32 @@
 
     //    $('.menu-toggle').removeClass('is-active');
   //    }
-      if (currentBreakpoint.name == 'xl') {
-        $('body[data-open="hover"] .main-menu-content .dropdown') // Use selector $('body[data-open="hover"] .header-navbar .dropdown') for menu and navbar DD open on hover
-          .on('mouseenter', function () {
-            if (!$(this).hasClass('show')) {
-              $(this).addClass('show');
-            } else {
-              $(this).removeClass('show');
-            }
-          })
-          .on('mouseleave', function (event) {
-            $(this).removeClass('show');
-          });
-      }
+  //    if (currentBreakpoint.name == 'xl') {
+  //      $('body[data-open="hover"] .main-menu-content .dropdown') // Use selector $('body[data-open="hover"] .header-navbar .dropdown') for menu and navbar DD open on hover
+  //        .on('mouseenter', function () {
+  //          if (!$(this).hasClass('show')) {
+  //            $(this).addClass('show');
+  //          } else {
+  //            $(this).removeClass('show');
+  //          }
+  //        })
+  //        .on('mouseleave', function (event) {
+  //          $(this).removeClass('show');
+  //        });
+  //    }
 
-      if (currentBreakpoint.name == 'sm' || currentBreakpoint.name == 'xs') {
-        $('.header-navbar[data-nav=brand-center]').removeClass('navbar-brand-center');
-      } else {
-        $('.header-navbar[data-nav=brand-center]').addClass('navbar-brand-center');
-      }
-      if (currentBreakpoint.name == 'xl' && menuType == 'horizontal-menu') {
-        $('.main-menu-content').find('li.active').parents('li').addClass('sidebar-group-active active');
-      }
+  //    if (currentBreakpoint.name == 'sm' || currentBreakpoint.name == 'xs') {
+  //      $('.header-navbar[data-nav=brand-center]').removeClass('navbar-brand-center');
+  //    } else {
+  //      $('.header-navbar[data-nav=brand-center]').addClass('navbar-brand-center');
+  //    }
+  //    if (currentBreakpoint.name == 'xl' && menuType == 'horizontal-menu') {
+  //      $('.main-menu-content').find('li.active').parents('li').addClass('sidebar-group-active active');
+  //    }
 
-      if (currentBreakpoint.name !== 'xl' && menuType == 'horizontal-menu') {
-        $('#navbar-type').toggleClass('d-none d-xl-block');
-      }
+  //    if (currentBreakpoint.name !== 'xl' && menuType == 'horizontal-menu') {
+  //      $('#navbar-type').toggleClass('d-none d-xl-block');
+  //    }
 
       $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
         if ($(this).siblings('ul.dropdown-menu').length > 0) {

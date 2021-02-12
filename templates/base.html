@@ -28,11 +28,15 @@
 		{% include "menu.html" %}
 		{% include "search_demo.html" %}
 
-		<div class="app-content content">
-        <div class="content-overlay"></div>
-        <div class="header-navbar-shadow"></div>
-				{% block content %}
-				{% endblock %}
+		<div class="app-content content" id="ajax">
+      <div class="content-overlay"></div>
+      <div class="header-navbar-shadow"></div>
+			<span id="ajax">
+				<span id="reload_block">
+					{% block content %}
+					{% endblock %}
+				</span>
+			</span>
 		</div>
 		{% include "footer.html" %}
 

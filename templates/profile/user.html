@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Предложенные новости{% endblock %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
 {% block content %}
 
+<div class="content-body">
 <section class="app-user-edit">
                     <div class="card">
                         <div class="card-body">
-                            <ul class="nav nav-pills" role="tablist">
+                            <ul class="nav nav-pills">
                                 <li class="nav-item">
                                     <a class="nav-link d-flex align-items-center active">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -41,5 +42,5 @@
                         </div>
                     </div>
                 </section>
-
+</div>
 {% endblock %}

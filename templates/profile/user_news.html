@@ -82,7 +82,7 @@
                               </div>
                               <div class="avatar-group">
                                 {% for elect in object.get_elects %}
-                                  <div data-tooltip="{{ elect.name }}"
+                                  <div tooltip="{{ elect.name }}"
                                        class="avatar pull-up">
                                        <a href="{% url 'elect_detail' pk=elect.pk %}">
                                       <img src="{{ elect.image.url }}" alt="img" width="50" height="50" />

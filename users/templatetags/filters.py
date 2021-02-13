@@ -1,7 +1,6 @@
 from django import template
 import pymorphy2
 from string import ascii_letters
-from elect.models import SubscribeElect
 register=template.Library()
 
 
@@ -27,8 +26,10 @@ def rupluralize(value, arg="единица,единицы,единиц"):
 
 
 @register.filter
-def is_elect_subscribe(user, elect):
-    if SubscribeElect.is_elect_subscribe(elect.pk, user.pk):
+def is_user_subscribe(elect, user_pk):
+    from elect.models import SubscribeElect
+
+    if SubscribeElect.is_elect_subscribe(elect.pk, user_pk):
         return True
     else:
         return False

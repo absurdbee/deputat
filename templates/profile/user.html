@@ -17,31 +17,102 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center">
+                        <a href="{% url 'user_news' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
                             <i data-feather='pen-tool'></i>
                             <span class="d-none d-sm-block">Новости</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                        <a href="{% url 'subscribe_elects' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <polyline points="17 11 19 13 23 9"></polyline>
+                            </svg>
                             <span class="d-none d-sm-block">Подписки</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                        <a href="{% url 'like_news' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up">
+                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
                             <span class="d-none d-sm-block">Оценил</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-down"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                        <a href="{% url 'dislike_news' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-down">
+                                <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+                            </svg>
                             <span class="d-none d-sm-block">Не оценил</span>
                         </a>
                     </li>
                 </ul>
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8 col-md-7">
+                        <div class="card user-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                                        <div class="user-avatar-section">
+                                            <div class="d-flex justify-content-start">
+                                                <img class="img-fluid rounded" src="{{ request.user.get_avatar }}" height="104" width="104" alt="User avatar">
+                                                <div class="d-flex flex-column ml-1">
+                                                    <div class="user-info mb-1">
+                                                        <h4 class="mb-0">{{ request.user.get_full_name }}</h4>
+                                                        <span class="card-text"></span>
+                                                    </div>
+                                                    <div class="d-flex flex-wrap">
+                                                        {% if user.pk == request.user.pk %}
+                                                        <a href="" class="btn btn-primary ajax">Редактировать</a>
+                                                        <a href="" class="btn btn-primary ajax">Изменить пароль</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                                        <div class="user-info-wrapper">
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check mr-1">
+                                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                                    </svg>
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Статус</span>
+                                                </div>
+                                                <p class="card-text mb-0">{{ user.get_online_display|safe }}</p>
+                                            </div>
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star mr-1">
+                                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                                    </svg>
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Регистрация</span>
+                                                </div>
+                                                <p class="card-text mb-0">{{ user.date_joined }}</p>
+                                            </div>
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-flag mr-1">
+                                                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                                                        <line x1="4" y1="22" x2="4" y2="15"></line>
+                                                    </svg>
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Страна</span>
+                                                </div>
+                                                <p class="card-text mb-0">{{ user.get_country }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 col-md-5">
 
+                    </div>
+                </div>
             </div>
         </div>
     </section>

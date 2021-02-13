@@ -13,12 +13,8 @@ from users.helpers import upload_to_user_directory
     1. Сам пользователь
 """
 class User(AbstractUser):
-    DELETED = 'DE'
-    BLOCKED = 'BL'
-    PHONE_NO_VERIFIED = 'PV'
-    STANDART = 'ST'
-    MANAGER = 'MA'
-    SUPERMANAGER = 'SM'
+    DELETED, BLOCKED, PHONE_NO_VERIFIED, STANDART, MANAGER, SUPERMANAGER = 'DE', 'BL', 'PV', 'ST', 'MA', 'SM'
+    MALE, FEMALE, DESCTOP, PHONE = 'Man', 'Fem', 'De', 'Ph'
     PERM = (
         (DELETED, 'Удален'),
         (BLOCKED, 'Заблокирован'),
@@ -27,12 +23,16 @@ class User(AbstractUser):
         (MANAGER, 'Менеджер'),
         (SUPERMANAGER, 'Суперменеджер'),
     )
+    GENDER = ((MALE, 'Мужской'),(FEMALE, 'Женский'),)
+    DEVICE = ((DESCTOP, 'Комп'),(PHONE, 'Телефон'),)
 
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     phone = models.CharField(max_length=17, blank=True, null=True, verbose_name='Телефон')
     perm = models.CharField(max_length=5, choices=PERM, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
     b_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
     s_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
+    gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
+    device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
     #USERNAME_FIELD = 'phone'
 
     class Meta:
@@ -132,3 +132,28 @@ class User(AbstractUser):
             return self.s_avatar.url
         except:
             return '/static/images/user.png'
+
+    def get_last_activity(self):
+        from django.contrib.humanize.templatetags.humanize import naturaltime
+        return naturaltime(self.last_activity)
+
+    def get_country(self):
+        from users.model.profile import UserLocation
+        return UserLocation.objects.filter(user_id=self.pk).last().country_ru
+
+    def get_online_display(self):
+        from datetime import datetime, timedelta
+
+        now = datetime.now()
+        onl = self.last_activity + timedelta(minutes=3)
+        if self.device == User.DESCTOP:
+            device = '&nbsp;<svg style="width: 17px;" class="svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>'
+        else:
+            device = '&nbsp;<svg style="width: 17px;" class="svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>'
+        if now < onl:
+            return '<i>Онлайн</i>' + device
+        else:
+            if self.is_women():
+                return '<i>Была ' + self.get_last_activity() + '</i>' + device
+            else:
+                return '<i>Был ' + self.get_last_activity() + '</i>' + device

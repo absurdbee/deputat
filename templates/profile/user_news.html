@@ -1,58 +1,112 @@
 {% extends "base.html" %}
-{% block title %}Предложенные новости{% endblock %}
+{% block title %}{{ user.get_full_name }} | Новости{% endblock %}
 {% block content %}
 
-<div class="page-title d-flex" aria-label="Page title">
-  <div class="container text-left align-self-center">
-    <h1 class="page-title-heading">Мои новости</h1>
-  </div>
-</div>
-
-<div class="container mb-4">
-      <div class="row">
-        <div class="col-lg-4 pb-5">
-          <div class="wizard">
-            {% include 'profile/nav.html' %}
-          </div>
-        </div>
-
-        <div class="col-lg-8 pb-5">
-          <div class="row pag_container">
-            {% for object in object_list %}
-            <a class="list-group-item flex-column align-items-start" href="{% url 'elect_new_detail' pk=object.pk %}">
-                <div class="d-flex flex-wrap w-100 justify-content-between">
-                  <h6>{{ object.title }}</h6>
-                  <small class="d-block text-muted text-sm mb-2">{{ object.get_created }} ({{ object.get_status_display }})</small>
+<div class="content-body">
+    <section class="app-user-edit">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a href="{% url 'user' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span class="d-none d-sm-block">Профиль</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center active">
+                            <i data-feather='pen-tool'></i>
+                            <span class="d-none d-sm-block">Новости</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'subscribe_elects' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <polyline points="17 11 19 13 23 9"></polyline>
+                            </svg>
+                            <span class="d-none d-sm-block">Подписки</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'like_news' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up">
+                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
+                            <span class="d-none d-sm-block">Оценил</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'dislike_news' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-down">
+                                <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+                            </svg>
+                            <span class="d-none d-sm-block">Не оценил</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="row match-height pag_container">
+                  {% for object in object_list %}
+                  <div class="col-lg-3 col-md-4 col-12">
+                      <div class="card card-developer-meetup">
+                          <div class="meetup-img-wrapper rounded-top text-center">
+                            {% if object.get_image_url %}
+                            <a href="{% url 'elect_new_detail' pk=object.pk %}">
+                              <img src="{{ object.get_image_url }}" alt="img" class="cover_fit" />
+                            </a>
+                            {% endif %}
+                          </div>
+                          <div class="card-body">
+                              <div class="meetup-header d-flex align-items-center">
+                                  <div class="my-auto">
+                                    <a href="{% url 'elect_new_detail' pk=object.pk %}">
+                                      <h4 class="card-title mb-25">{{ object.title }}</h4>
+                                      <p class="card-text mb-0">Событие депутата</p>
+                                    </a>
+                                  </div>
+                              </div>
+                              <div class="media">
+                                  <div class="avatar bg-light-primary rounded mr-1">
+                                      <div class="avatar-content">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar avatar-icon font-medium-3"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                      </div>
+                                  </div>
+                                  <div class="media-body">
+                                      <h6 class="mb-0">{{ object.get_created }}</h6>
+                                      <small>Опубликовано</small>
+                                  </div>
+                              </div>
+                              <div class="avatar-group">
+                                {% for elect in object.get_elects %}
+                                  <div data-toggle="tooltip"
+                                       data-popup="tooltip-custom"
+                                       data-placement="bottom"
+                                       data-original-title="{{ elect.name }}"
+                                       class="avatar pull-up">
+                                       <a href="{% url 'elect_detail' pk=elect.pk %}">
+                                      <img src="{{ elect.image.url }}" alt="img" width="50" height="50" />
+                                      </a>
+                                  </div>
+                                  {% endfor %}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  {% empty %}
+                    Событий пока нет...
+                  {% endfor %}
+                  <div class="load text-center col-md-12">
+                    {% if page_obj.has_next %}
+                      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
+                    {% endif %}
+                  </div>
                 </div>
-                <p class="text-md text-body">{{ object.description }}</p>
-                <small class="text-muted text-sm">
-                  {% with names=object.tags.names %}
-                    {% for name in names %}
-                      <a href="{% url 'all_elect_news' %}?tag={{ name|urlencode }}" class="tag-link">{{ name }}</a>
-                    {% endfor %}
-                  {% endwith %}
-                </small>
-            </a>
-          {% empty %}
-          <div class="card border text-center" style="border-color: #4db6ac !important;">
-              <div class="card-body">
-                <h3 class="card-title">Ваших новостей нет</h3>
-                <p class="card-text text-sm">
-                  У Вас пока нет предложенных новостей о чиновниках.
-                  Если У Вас есть чем поделиться с общественностью - Вы можете предложить новость</p>
-                <a class="btn btn-secondary create_elect_new btn-sm pointer">Предложить новость</a>
-              </div>
             </div>
-          {% endfor %}
-
-          <div class="load text-center col-md-12">
-            {% if page_obj.has_next %}
-              <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
-            {% endif %}
-          </div>
-          </div>
         </div>
-      </div>
-    </div>
-
+    </section>
+</div>
 {% endblock %}

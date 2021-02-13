@@ -298,10 +298,9 @@ on('body', 'click', '.delete_elect_subscribe', function() {
 link.send( null );
 })
 
-on('body', 'click', '.remove_elect_subscribe_in_profile', function() {
+on('body', 'click', '.remove_elect_subscribe', function() {
   _this = this;
-  pk = _this.getAttribute("data-pk");
-  parent = _this.parentElement;
+  pk = _this.getAttribute("data-pk"); name = _this.getAttribute("data-name")
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/elect/progs/unsubscribe/" + pk + "/", true );
@@ -309,13 +308,8 @@ on('body', 'click', '.remove_elect_subscribe_in_profile', function() {
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
-          parent.style.display = "none";
-          div = document.createElement("div");
-          div.setAttribute("data-pk", pk);
-          div.classList.add("elect_subscribe_in_profile", "cart-item", "justify-content-between", "p-4", "border", "border-primary", "pointer")
-          name = parent.querySelector(".cart-item-product-title").innerHTML;
-          div.innerHTML = '<h6 class="elect_name card-title">' + name + "</h6> удален из подписок. Отменить";
-          parent.parentElement.insertBefore(div, parent);
+          _this.classList.add("add_elect_subscribe", "btn-primary"); _this.classList.remove("remove_elect_subscribe");
+          _this.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart align-middle mr-25"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span class="text-truncate">Подписаться</span>'
           toast_info(name + " удален из подписок!");
         }
     }
@@ -323,9 +317,9 @@ on('body', 'click', '.remove_elect_subscribe_in_profile', function() {
 link.send( null );
 })
 
-on('body', 'click', '.elect_subscribe_in_profile', function() {
+on('body', 'click', '.add_elect_subscribe', function() {
   _this = this;
-  pk = _this.getAttribute("data-pk");
+  pk = _this.getAttribute("data-pk"); name = _this.getAttribute("data-name")
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/elect/progs/subscribe/" + pk + "/", true );
@@ -333,10 +327,8 @@ on('body', 'click', '.elect_subscribe_in_profile', function() {
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
-          elect =  _this.nextElementSibling;
-          elect.style.display = "flex";
-          name = _this.querySelector(".elect_name").innerHTML;
-          _this.remove();
+          _this.classList.add("add_elect_subscribe"); _this.classList.remove("remove_elect_subscribe", "btn-primary");
+          _this.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart align-middle mr-25"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span class="text-truncate">Подписаться</span>'
           toast_info(name + " возвращен в подписки!");
         }
     }

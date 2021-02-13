@@ -482,3 +482,9 @@ color: #FFD600;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@media (max-width: 767.98px) {
+.subscribe_card {
+    grid-template-columns: 1fr;
+}
+}

@@ -12,6 +12,7 @@ class UserAdmin(admin.ModelAdmin):
         UserLocationInline,
     ]
     search_fields = ('last_name','first_name')
+    model = User
 
 
 admin.site.register(User)

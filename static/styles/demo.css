@@ -474,3 +474,11 @@ color: #FFD600;
     -ms-flex-pack: center;
     justify-content: center;
 }
+.subscribe_body a {
+  font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

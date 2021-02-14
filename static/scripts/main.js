@@ -251,10 +251,10 @@ on('body', 'click', '.load_elect_stat_year', function() {
 
 load_chart(); get_select()
 
-// Toggling the `.active` state on the `.sel`.
-$('.sel').click(function() {
-  $(this).toggleClass('active');
-});
+
+on('#ajax', 'click', '.sel', function() {
+  this.classList.toggle('active')
+})
 
 // Toggling the `.selected` state on the options.
 $('.sel__box__options').click(function() {

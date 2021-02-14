@@ -8,6 +8,7 @@
     </div>
     <div class="card-body">
         <form class="form form-horizontal" id="edit_user_info_form">
+          {% csrf_token %}
             <div class="row">
                 <div class="col-12">
                     <div class="form-group row">
@@ -48,7 +49,7 @@
                         <span>
                           <input style="display: none;" type="file" name="image" accept="image/*">
                         </span>
-                        <div id="holder_image" ыенду="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;">
+                        <div id="holder_image" style="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;">
                             <h4 style="font-weight:bold;font-size:70px;color:#CECECE">аватар</h4>
                             <p>Нажмите, чтобы добавить</p>
                         </div>

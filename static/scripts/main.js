@@ -249,37 +249,7 @@ on('body', 'click', '.load_elect_stat_year', function() {
   open_fullscreen("/stat/elect_year/" + pk + "/", loader);
 });
 
-load_chart();
-
-
-$('.sel').each(function() {
-  $(this).children('select').css('display', 'none');
-
-  var $current = $(this);
-
-  $(this).find('option').each(function(i) {
-    if (i == 0) {
-      $current.prepend($('<div>', {
-        class: $current.attr('class').replace(/sel/g, 'sel__box')
-      }));
-
-      var placeholder = $(this).text();
-      $current.prepend($('<span>', {
-        class: $current.attr('class').replace(/sel/g, 'sel__placeholder'),
-        text: placeholder,
-        'data-placeholder': placeholder
-      }));
-
-      return;
-    }
-
-    $current.children('div').append($('<span>', {
-      class: $current.attr('class').replace(/sel/g, 'sel__box__options'),
-      text: $(this).text(),
-      slug: $(this).val()
-    }));
-  });
-});
+load_chart(); get_select()
 
 // Toggling the `.active` state on the `.sel`.
 $('.sel').click(function() {
@@ -337,5 +307,6 @@ on('body', 'click', '.ajax', function(event) {
   var url = this.getAttribute('href');
   if (url != window.location.pathname){
     ajax_get_reload(url);
+    get_select()
   } else {toast_info("Вы уже на этой странице")}
 })

@@ -48,11 +48,11 @@ on('body', 'click', '#logg', function() {
 $('#russia_map path').hover(function(e){
   svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
-    if (svg_list[i].style.fill != "green"){
+    if (svg_list[i].style.fill != "#897FF1"){
     svg_list[i].style.fill = "rgba(0,0,0,0.2)";
   }
   }
-  if (this.style.fill != "green"){
+  if (this.style.fill != "#897FF1"){
   this.style.fill = "#FFFFFF";
 }
 
@@ -61,7 +61,7 @@ $('#russia_map path').hover(function(e){
 function(){
   svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
-    if (svg_list[i].style.fill != "green"){
+    if (svg_list[i].style.fill != "#897FF1"){
     svg_list[i].style.fill = "rgba(0,0,0,0.15)";
   }
   }
@@ -76,7 +76,7 @@ on('body', 'click', '.map_selector', function() {
   for (var i = 0; i < svg_list.length; i++) {
     svg_list[i].style.fill = "rgba(0,0,0,0.15)";
   };
-  this.style.fill = "green";
+  this.style.fill = "#897FF1";
   col_md_3 = this.parentElement.parentElement.nextElementSibling;
   block = col_md_3.querySelector("#elect_for_regions_loader");
   col_md_3.querySelector(".sel__placeholder").innerHTML = text;
@@ -285,7 +285,7 @@ on('#ajax', 'click', '.sel__box__options', function() {
                 svg_list[i].style.fill = "rgba(0,0,0,0.15)";
               }
               svg = map.querySelector('[data-slug=' + '"' + slug + '"' + ']');
-              svg.style.fill = "green";
+              svg.style.fill = "#897FF1";
           }
       }
   };

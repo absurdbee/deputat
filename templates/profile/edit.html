@@ -36,7 +36,7 @@
                             <label for="id_email">Email</label>
                         </div>
                         <div class="col-sm-9">
-                            <input type="email" id="id_email" class="form-control" name="email" placeholder="Email">
+                            <input type="email" id="id_email" class="form-control" name="email" value="{{ user.email }}">
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,7 @@
                           <input style="display: none;" type="file" name="image" accept="image/*">
                         </span>
                         <div id="holder_image" style="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;">
-                            <h4 style="font-weight:bold;font-size:70px;color:#CECECE">аватар</h4>
-                            <p>Нажмите, чтобы добавить</p>
+                            <img class="img-fluid rounded" src="{{ request.user.get_avatar }}" alt="User avatar" style="height: 100px;">
                         </div>
                       </div>
                     </div>

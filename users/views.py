@@ -127,7 +127,8 @@ class UserEditView(TemplateView):
 		if request.is_ajax() and self.form.is_valid():
 			self.form.save()
 			photo_input = request.FILES.get('image')
-			request.user.create_s_avatar(photo_input)
-			request.user.create_b_avatar(photo_input)
+			if photo_input:
+				request.user.create_s_avatar(photo_input)
+				request.user.create_b_avatar(photo_input)
 			return HttpResponse()
 		return super(UserEditView,self).post(request,*args,**kwargs)

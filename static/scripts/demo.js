@@ -85,8 +85,8 @@ on('#ajax', 'click', '#edit_user_info_btn', function() {
   send_form_and_toast('/users/edit/', document.body.querySelector("#edit_user_info_form"), "Изменения приняты!")
 });
 
-on('#ajax', 'click', '#edit_password_info_btn', function() {
-  form = document.body.querySelector("#edit_password_info_form")
+on('#ajax', 'click', '#edit_user_password_btn', function() {
+  form = document.body.querySelector("#edit_user_password_form")
   field1 = form.querySelector("#password1"); field2 = form.querySelector("#password2");
   if (!field1.value){
     field1.style.border = "1px #FF0000 solid";

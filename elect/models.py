@@ -119,6 +119,12 @@ class Elect(models.Model):
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(parent_id__in=news_ids, vote__lt=0).values("pk").count()
 
+    def get_avatar(self):
+        try:
+            return self.image.url
+        except:
+            return '/static/images/user.png'
+
 
 class LinkElect(models.Model):
     title = models.CharField(max_length=255, verbose_name="Текст ссылки")

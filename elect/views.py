@@ -32,7 +32,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
             ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=0)
         else:
             ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=1)
-        self.template_name = get_full_template("elect/elect.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_full_template("elect/elect_2.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ElectDetailView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

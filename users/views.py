@@ -110,9 +110,7 @@ class UserEditView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from common.utils import get_my_template
-
-		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_my_template(self.user, "profile/edit.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("profile/edit.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserEditView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -125,8 +123,11 @@ class UserEditView(TemplateView):
 	def post(self,request,*args,**kwargs):
 		from users.forms import UserForm
 
-		self.form = UserForm(request.POST, request.FILES, instance=request.user)
+		self.form = UserForm(request.POST, instance=request.user)
 		if request.is_ajax() and self.form.is_valid():
 			self.form.save()
+			photo_input = request.FILES.get('image')
+			request.user.create_s_avatar(photo_input)
+            request.user.create_b_avatar(photo_input)
 			return HttpResponse()
 		return super(UserEditView,self).post(request,*args,**kwargs)

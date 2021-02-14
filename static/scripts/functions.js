@@ -27,7 +27,7 @@ function get_image_priview(ggg, img) {
                         $img = document.createElement("img");
                         $img.src = e.target.result;
                         $img.class = "thumb-image";
-                        $img.style.width = "100%";
+                        $img.style.height = "100px";
                         ggg.innerHTML = '<a href="#" style="right:15px;top: 0;" class="delete_thumb">Удалить</a>'
                         ggg.append($img)
                     };

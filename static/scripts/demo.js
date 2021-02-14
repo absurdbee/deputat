@@ -1,3 +1,7 @@
+on('#ajax', 'click', '#holder_image', function() {
+  img = this.previousElementSibling.querySelector("input")
+  get_image_priview(this, img);
+});
 
 $('.sel').each(function() {
   $(this).children('select').css('display', 'none');
@@ -68,4 +72,8 @@ $('.sel__box__options').click(function() {
       }
   };
   link.send( null );
+});
+
+on('#ajax', 'click', '#edit_user_info_btn', function() {
+  send_form_and_toast('/users/edit/', document.body.querySelector("#edit_user_info_form"), "Изменения приняты!")
 });

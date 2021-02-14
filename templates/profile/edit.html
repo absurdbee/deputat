@@ -2,6 +2,65 @@
 {% block title %}Изменение профиля{% endblock %}
 {% block content %}
 
-
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Изменение профиля</h4>
+    </div>
+    <div class="card-body">
+        <form class="form form-horizontal" id="edit_user_info_form">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-3 col-form-label">
+                            <label for="id_first_name">Имя</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" name="first_name" id="id_first_name" class="form-control" placeholder="Имя">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-3 col-form-label">
+                            <label for="id_last_name">Фамилия</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" name="last_name" id="id_last_name" class="form-control" placeholder="Фамилия">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-sm-3 col-form-label">
+                            <label for="id_email">Email</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="email" id="id_email" class="form-control" name="email" placeholder="Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                      <div class="col-sm-3 col-form-label">
+                          <label for="id_email">Аватар</label>
+                      </div>
+                      <div class="col-sm-9">
+                        <span>
+                          <input style="display: none;" type="file" name="image" accept="image/*">
+                        </span>
+                        <div id="holder_image" ыенду="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;">
+                            <h4 style="font-weight:bold;font-size:70px;color:#CECECE">аватар</h4>
+                            <p>Нажмите, чтобы добавить</p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-9 offset-sm-3">
+                    <button type="button" class="btn btn-primary mr-1" id="edit_user_info_btn">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 {% endblock %}

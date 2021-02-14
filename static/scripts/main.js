@@ -306,7 +306,6 @@ on('body', 'click', '.ajax', function(event) {
   event.preventDefault();
   var url = this.getAttribute('href');
   if (url != window.location.pathname){
-    ajax_get_reload(url);
-    get_select()
+    ajax_get_reload(url)
   } else {toast_info("Вы уже на этой странице")}
 })

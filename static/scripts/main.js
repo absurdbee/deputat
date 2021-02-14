@@ -44,29 +44,6 @@ on('body', 'click', '#logg', function() {
   link.send(form_data);
 });
 
-
-$('#russia_map path').hover(function(e){
-  svg_list = this.parentElement.querySelectorAll("path");
-  for (var i = 0; i < svg_list.length; i++) {
-    if (svg_list[i].style.fill != "#897FF1"){
-    svg_list[i].style.fill = "rgba(0,0,0,0.2)";
-  }
-  }
-  if (this.style.fill != "#897FF1"){
-  this.style.fill = "#FFFFFF";
-}
-
-},
-
-function(){
-  svg_list = this.parentElement.querySelectorAll("path");
-  for (var i = 0; i < svg_list.length; i++) {
-    if (svg_list[i].style.fill != "#897FF1"){
-    svg_list[i].style.fill = "rgba(0,0,0,0.15)";
-  }
-  }
-});
-
 on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");
   text = this.querySelector("title").innerHTML;

@@ -1,0 +1,564 @@
+{% extends "base.html" %}
+{% block title %}{{ object.name }}{% endblock %}
+{% load filters %}
+{% block content %}
+
+<div class="content-body">
+    <div id="user-profile">
+        <div class="row">
+            <div class="col-12">
+                <div class="card profile-header mb-2">
+                    <img class="card-img-top" src="/static/images/timeline.jpg" alt="User Profile Image">
+                    <div class="position-relative">
+                        <div class="profile-img-container d-flex align-items-center">
+                            <div class="profile-img">
+                                <img src="{{ object.get_avatar }}" class="rounded img-fluid" alt="Card image">
+                            </div>
+                            <div class="profile-title ml-3">
+                                <h2 class="text-white">{{ object.name }}</h2>
+                                <p class="text-white">{{ object.get_first_list }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-header-nav">
+                        <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100">
+                            <button class="btn btn-icon navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-justify font-medium-5"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <div class="profile-tabs d-flex justify-content-between flex-wrap mt-1 mt-md-0">
+                                    <ul class="nav nav-pills mb-0">
+                                        <li class="nav-item">
+                                            <a class="nav-link font-weight-bold active" href="javascript:void(0)">
+                                                <span class="d-none d-md-block">Feed</span>
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss d-block d-md-none"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link font-weight-bold" href="javascript:void(0)">
+                                                <span class="d-none d-md-block">About</span>
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-info d-block d-md-none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link font-weight-bold" href="javascript:void(0)">
+                                                <span class="d-none d-md-block">Photos</span>
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image d-block d-md-none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link font-weight-bold" href="javascript:void(0)">
+                                                <span class="d-none d-md-block">Friends</span>
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users d-block d-md-none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    {% if object|is_user_subscribe:request.user.pk %}
+                                      <button type="button" class="btn btn-light subscribe_btn remove_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
+                                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x align-middle mr-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                          <span>Вы подписаны</span>
+                                      </button>
+                                    {% else %}
+                                      <button type="button" class="btn btn-primary subscribe_btn add_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
+                                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart align-middle mr-25"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                          <span class="text-truncate">Подписаться</span>
+                                      </button>
+                                      {% endif %}
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="profile-info">
+            <div class="row">
+                <div class="col-lg-3 col-12 order-2 order-lg-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="mb-75">Информация</h5>
+                            <p class="card-text">
+                                Tart I love sugar plum I love oat cake. Sweet ⭐️ roll caramels I love jujubes. Topping cake wafer.
+                            </p>
+                            <div class="mt-2">
+                                <h5 class="mb-75">Joined:</h5>
+                                <p class="card-text">November 15, 2015</p>
+                            </div>
+                            <div class="mt-2">
+                                <h5 class="mb-75">Lives:</h5>
+                                <p class="card-text">New York, USA</p>
+                            </div>
+                            <div class="mt-2">
+                                <h5 class="mb-75">Email:</h5>
+                                <p class="card-text">bucketful@fiendhead.org</p>
+                            </div>
+                            <div class="mt-2">
+                                <h5 class="mb-50">Website:</h5>
+                                <p class="card-text mb-0">www.pixinvent.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body profile-suggestion">
+                            <h5 class="mb-2">Suggested Pages</h5>
+
+                            <div class="d-flex justify-content-start align-items-center">
+                                <div class="avatar mr-1">
+                                    <img src="../../../app-assets/images/avatars/6-small.png" alt="avatar img" height="40" width="40">
+                                </div>
+                                <div class="profile-user-info">
+                                    <h6 class="mb-0">Jonathan Lyons</h6>
+                                    <small class="text-muted">Beauty Store</small>
+                                </div>
+                                <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                    </svg></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Twitter Feeds</h5>
+
+                            <div class="profile-twitter-feed mt-1">
+                                <div class="d-flex justify-content-start align-items-center mb-1">
+                                    <div class="avatar mr-1">
+                                        <img src="../../../app-assets/images/avatars/5-small.png" alt="avatar img" height="40" width="40">
+                                    </div>
+                                    <div class="profile-user-info">
+                                        <h6 class="mb-0">Gertrude Stevens</h6>
+                                        <a href="javascript:void(0)">
+                                            <small class="text-muted">@tiana59</small>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
+                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="profile-star ml-auto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="card-text mb-50">I love cookie chupa chups sweet tart apple pie ⭐️ chocolate bar.</p>
+                                <a href="javascript:void(0)">
+                                    <small>#design #fasion</small>
+                                </a>
+                            </div>
+
+                            <div class="profile-twitter-feed mt-2">
+                                <div class="d-flex justify-content-start align-items-center mb-1">
+                                    <div class="avatar mr-1">
+                                        <img src="../../../app-assets/images/avatars/12-small.png" alt="avatar img" height="40" width="40">
+                                    </div>
+                                    <div class="profile-user-info">
+                                        <h6 class="mb-0">Lura Jones</h6>
+                                        <a href="javascript:void(0)">
+                                            <small class="text-muted">@tiana59</small>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
+                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="profile-star ml-auto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3 profile-favorite">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="card-text mb-50">Halvah I love powder jelly I love cheesecake cotton candy. 😍</p>
+                                <a href="javascript:void(0)">
+                                    <small>#vuejs #code #coffeez</small>
+                                </a>
+                            </div>
+
+                            <div class="profile-twitter-feed mt-2">
+                                <div class="d-flex justify-content-start align-items-center mb-1">
+                                    <div class="avatar mr-1">
+                                        <img src="../../../app-assets/images/avatars/1-small.png" alt="avatar img" height="40" width="40">
+                                    </div>
+                                    <div class="profile-user-info">
+                                        <h6 class="mb-0">Norman Gross</h6>
+                                        <a href="javascript:void(0)">
+                                            <small class="text-muted">@tiana59</small>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
+                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="profile-star ml-auto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="card-text mb-50">Candy jelly beans powder brownie biscuit. Jelly marzipan oat cake cake.</p>
+                                <a href="javascript:void(0)">
+                                    <small>#sketch #uiux #figma</small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6 col-12 order-1 order-lg-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-start align-items-center mb-1">
+                                <div class="avatar mr-1">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-18.jpg" alt="avatar img" height="50" width="50">
+                                </div>
+
+                                <div class="profile-user-info">
+                                    <h6 class="mb-0">Leeanna Alvord</h6>
+                                    <small class="text-muted">12 Dec 2018 at 1:16 AM</small>
+                                </div>
+                            </div>
+                            <p class="card-text">
+                                Wonderful Machine· A well-written bio allows viewers to get to know a photographer beyond the work. This
+                                can make the difference when presenting to clients who are looking for the perfect fit.
+                            </p>
+
+                            <img class="img-fluid rounded mb-75" src="../../../app-assets/images/profile/post-media/2.jpg" alt="avatar img">
+
+                            <div class="row d-flex justify-content-start align-items-center flex-wrap pb-50">
+                                <div class="col-sm-6 d-flex justify-content-between justify-content-sm-start mb-2">
+                                    <a href="javascript:void(0)" class="d-flex align-items-center text-muted text-nowrap">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart profile-likes font-medium-3 mr-50">
+                                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                        </svg>
+                                        <span>1.25k</span>
+                                    </a>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-group ml-1">
+                                            <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Trina Lynes" class="avatar pull-up">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="Avatar" height="26" width="26">
+                                            </div>
+                                            <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Lilian Nenez" class="avatar pull-up">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-2.jpg" alt="Avatar" height="26" width="26">
+                                            </div>
+                                            <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Alberto Glotzbach" class="avatar pull-up">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-3.jpg" alt="Avatar" height="26" width="26">
+                                            </div>
+                                            <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="George Nordic" class="avatar pull-up">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26">
+                                            </div>
+                                            <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Vinnie Mostowy" class="avatar pull-up">
+                                                <img src="../../../app-assets/images/portrait/small/avatar-s-4.jpg" alt="Avatar" height="26" width="26">
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)" class="text-muted text-nowrap ml-50">+140 more</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 d-flex justify-content-between justify-content-sm-end align-items-center mb-2">
+                                    <a href="javascript:void(0)" class="text-nowrap">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square text-body font-medium-3 mr-50">
+                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                        </svg>
+                                        <span class="text-muted mr-1">1.25k</span>
+                                    </a>
+
+                                    <a href="javascript:void(0)" class="text-nowrap">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2 text-body font-medium-3 mx-50">
+                                            <circle cx="18" cy="5" r="3"></circle>
+                                            <circle cx="6" cy="12" r="3"></circle>
+                                            <circle cx="18" cy="19" r="3"></circle>
+                                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                                        </svg>
+                                        <span class="text-muted">1.25k</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-1">
+                                <div class="avatar mt-25 mr-75">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="34" width="34">
+                                </div>
+                                <div class="profile-user-info w-100">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="mb-0">Kitty Allanson</h6>
+                                        <a href="javascript:void(0)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart text-body font-medium-3">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                            <span class="align-middle text-muted">34</span>
+                                        </a>
+                                    </div>
+                                    <small>Easy &amp; smart fuzzy search🕵🏻 functionality which enables users to search quickly.</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start mb-1">
+                                <div class="avatar mt-25 mr-75">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="Avatar" height="34" width="34">
+                                </div>
+                                <div class="profile-user-info w-100">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="mb-0">Jackey Potter</h6>
+                                        <a href="javascript:void(0)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart profile-likes font-medium-3">
+                                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                            </svg>
+                                            <span class="align-middle text-muted">61</span>
+                                        </a>
+                                    </div>
+                                    <small>
+                                        Unlimited color🖌 options allows you to set your application color as per your branding 🤪.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <fieldset class="form-label-group mb-75">
+                                <textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
+                                <label for="label-textarea">Add Comment</label>
+                            </fieldset>
+                            <button type="button" class="btn btn-sm btn-primary waves-effect waves-float waves-light">Post Comment</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-12 order-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="mb-0">Latest Photos</h5>
+                            <div class="row">
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-13.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-02.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-03.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-04.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-05.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-06.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-07.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-08.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                                <div class="col-md-4 col-6 profile-latest-img">
+                                    <a href="javascript:void(0)">
+                                        <img src="../../../app-assets/images/profile/user-uploads/user-09.jpg" class="img-fluid rounded" alt="avatar img">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Suggestions</h5>
+                            <div class="d-flex justify-content-start align-items-center mt-2">
+                                <div class="avatar mr-75">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="avatar" height="40" width="40">
+                                </div>
+                                <div class="profile-user-info">
+                                    <h6 class="mb-0">Peter Reed</h6>
+                                    <small class="text-muted">6 Mutual Friends</small>
+                                </div>
+                                <button type="button" class="btn btn-primary btn-icon btn-sm ml-auto waves-effect waves-float waves-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-start align-items-center mt-1">
+                                <div class="avatar mr-75">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="avtar img holder" height="40" width="40">
+                                </div>
+                                <div class="profile-user-info">
+                                    <h6 class="mb-0">Harriett Adkins</h6>
+                                    <small class="text-muted">3 Mutual Friends</small>
+                                </div>
+                                <button type="button" class="btn btn-primary btn-sm btn-icon ml-auto waves-effect waves-float waves-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-start align-items-center mt-1">
+                                <div class="avatar mr-75">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="40" width="40">
+                                </div>
+                                <div class="profile-user-info">
+                                    <h6 class="mb-0">Juan Weaver</h6>
+                                    <small class="text-muted">1 Mutual Friends</small>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-primary btn-icon ml-auto waves-effect waves-float waves-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-start align-items-center mt-1">
+                                <div class="avatar mr-75">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="avatar img" height="40" width="40">
+                                </div>
+                                <div class="profile-user-info">
+                                    <h6 class="mb-0">Claudia Chandler</h6>
+                                    <small class="text-muted">16 Mutual Friends</small>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-primary btn-icon ml-auto waves-effect waves-float waves-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-start align-items-center mt-1">
+                                <div class="avatar mr-75">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="avatar img" height="40" width="40">
+                                </div>
+                                <div class="profile-user-info">
+                                    <h6 class="mb-0">Earl Briggs</h6>
+                                    <small class="text-muted">4 Mutual Friends</small>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-primary btn-icon ml-auto waves-effect waves-float waves-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="d-flex justify-content-start align-items-center mt-1">
+                                <div class="avatar mr-75">
+                                    <img src="../../../app-assets/images/portrait/small/avatar-s-10.jpg" alt="avatar img" height="40" width="40">
+                                </div>
+                                <div class="profile-user-info">
+                                    <h6 class="mb-0">Jonathan Lyons</h6>
+                                    <small class="text-muted">25 Mutual Friends</small>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-primary btn-icon ml-auto waves-effect waves-float waves-light">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="8.5" cy="7" r="4"></circle>
+                                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="mb-1">Polls</h5>
+                            <p class="card-text mb-0">Who is the best actor in Marvel Cinematic Universe?</p>
+
+                            <div class="profile-polls-info mt-2">
+                                <div class="d-flex justify-content-between">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="bestActorPoll1" name="bestActorPoll" class="custom-control-input">
+                                        <label class="custom-control-label" for="bestActorPoll1">RDJ</label>
+                                    </div>
+                                    <div class="text-right">82%</div>
+                                </div>
+                                <div class="progress progress-bar-primary my-50">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="58" aria-valuemin="58" aria-valuemax="100" style="width: 82%"></div>
+                                </div>
+                                <div class="avatar-group my-1">
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Tonia Seabold" class="avatar pull-up">
+                                        <img src="../../../app-assets/images/portrait/small/avatar-s-12.jpg" alt="Avatar" height="26" width="26">
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Carissa Dolle" class="avatar pull-up">
+                                        <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26">
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Kelle Herrick" class="avatar pull-up">
+                                        <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" height="26" width="26">
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Len Bregantini" class="avatar pull-up">
+                                        <img src="../../../app-assets/images/portrait/small/avatar-s-10.jpg" alt="Avatar" height="26" width="26">
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="John Doe" class="avatar pull-up">
+                                        <img src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" alt="Avatar" height="26" width="26">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile-polls-info mt-2">
+                                <div class="d-flex justify-content-between">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="bestActorPoll2" name="bestActorPoll" class="custom-control-input">
+                                        <label class="custom-control-label" for="bestActorPoll2">Chris Hemswort</label>
+                                    </div>
+                                    <div class="text-right">67%</div>
+                                </div>
+                                <div class="progress progress-bar-primary my-50">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="16" aria-valuemin="16" aria-valuemax="100" style="width: 67%"></div>
+                                </div>
+                                <div class="avatar-group mt-1">
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Liliana Pecor" class="avatar pull-up">
+                                        <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" height="26" width="26">
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Kasandra NaleVanko" class="avatar pull-up">
+                                        <img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="Avatar" height="26" width="26">
+                                    </div>
+                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Jonathan Lyons" class="avatar pull-up">
+                                        <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="Avatar" height="26" width="26">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="button" class="btn btn-sm btn-primary block-element border-0 mb-1 waves-effect waves-float waves-light">Load More</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>

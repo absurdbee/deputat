@@ -256,8 +256,7 @@ on('#ajax', 'click', '.sel', function() {
   this.classList.toggle('active')
 })
 
-// Toggling the `.selected` state on the options.
-$('.sel__box__options').click(function() {
+on('#ajax', 'click', '.sel__box__options', function() {
   var txt = $(this).text();
   var index = $(this).index();
   var slug = $(this).attr("slug");

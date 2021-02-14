@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^subscribe_elects/(?P<pk>\d+)/$', SubscribeElectsView.as_view(), name='subscribe_elects'),
     url(r'^like_news/(?P<pk>\d+)/$', LikeNewsView.as_view(), name='like_news'),
     url(r'^dislike_news/(?P<pk>\d+)/$', DislikeNewsView.as_view(), name='dislike_news'),
+    url(r'^edit/$', UserEditView.as_view()),
 ]

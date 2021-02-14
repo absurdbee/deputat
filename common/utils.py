@@ -99,3 +99,14 @@ def get_managers_template(template, request_user, user_agent):
     else:
         template_name = template_name
     return template_name
+
+def get_my_template(user, template, request_user, user_agent):
+    if request_user.is_authenticated and user.pk == request_user.pk:
+        template_name = template
+    else:
+        raise PermissionDenied("Permission denied...")
+    if MOBILE_AGENT_RE.match(user_agent):
+        template_name = template_name
+    else:
+        template_name = template_name
+    return template_name

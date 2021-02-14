@@ -103,3 +103,30 @@ class UserView(TemplateView, CategoryListMixin):
 		context=super(UserView,self).get_context_data(**kwargs)
 		context["user"] = self.user
 		return context
+
+
+class UserEditView(TemplateView):
+	template_name, form = None, None
+
+	def get(self,request,*args,**kwargs):
+		from common.utils import get_my_template
+
+		self.user = User.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_my_template(self.user, "profile/edit.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserEditView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from users.forms import UserForm
+
+		context = super(UserEditView,self).get_context_data(**kwargs)
+		context["form"] = UserForm()
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from users.forms import UserForm
+
+		self.form = UserForm(request.POST, request.FILES, instance=request.user)
+		if request.is_ajax() and self.form.is_valid():
+			self.form.save()
+			return HttpResponse()
+		return super(UserEditView,self).post(request,*args,**kwargs)

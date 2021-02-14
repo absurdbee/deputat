@@ -1,3 +1,5 @@
+#holder_image img {height: auto;width: 100%;}
+
 .window_fullscreen_hide{
   cursor: pointer;
   float: right;

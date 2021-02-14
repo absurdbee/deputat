@@ -6,4 +6,4 @@ from django import forms
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('avatar','first_name', 'last_name')
+        fields = ('avatar','first_name', 'last_name', 'email')

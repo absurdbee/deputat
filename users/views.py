@@ -122,6 +122,7 @@ class UserEditView(TemplateView):
 
 	def post(self,request,*args,**kwargs):
 		from users.forms import UserForm
+		from django.http import HttpResponse
 
 		self.form = UserForm(request.POST, instance=request.user)
 		if request.is_ajax() and self.form.is_valid():

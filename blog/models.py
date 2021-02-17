@@ -203,9 +203,9 @@ class ElectNew(models.Model):
     elect = models.ManyToManyField('elect.Elect', related_name="new_elect", blank=True, verbose_name="Чиновник")
     category = models.ForeignKey('lists.BlogCategory', on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория записи чиновника")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, on_delete=models.SET_NULL, verbose_name="Создатель")
     content = models.TextField(verbose_name="Текст")
-    tags=TaggableManager(blank=True,verbose_name="Теги")
+    tags = TaggableManager(blank=True,verbose_name="Теги")
 
     class Meta:
         verbose_name = "Запись о чиновнике"

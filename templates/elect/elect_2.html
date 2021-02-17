@@ -58,12 +58,12 @@
                                     {% if object|is_user_subscribe:request.user.pk %}
                                       <button type="button" class="btn btn-light subscribe_btn remove_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
                                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x align-middle mr-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                          <span>Вы подписаны</span>
+                                          <span class="d-none d-md-block">Вы подписаны</span>
                                       </button>
                                     {% else %}
                                       <button type="button" class="btn btn-primary subscribe_btn add_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
                                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart align-middle mr-25"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                          <span class="text-truncate">Подписаться</span>
+                                          <span class="d-none d-md-block">Подписаться</span>
                                       </button>
                                       {% endif %}
                                 </div>
@@ -81,133 +81,71 @@
                         <div class="card-body">
                             <h5 class="mb-75">Информация</h5>
                             <p class="card-text">
-                                Tart I love sugar plum I love oat cake. Sweet ⭐️ roll caramels I love jujubes. Topping cake wafer.
+                              {% for region in object.get_regions %}
+                                <a href="{% url 'region_detail' slug=region.slug %}" style="color: #404040;text-decoration:none">
+                                 {{ region.name }}{% if not forloop.last %}, {% endif %}
+                                </a>
+                              {% endfor %}
                             </p>
                             <div class="mt-2">
-                                <h5 class="mb-75">Joined:</h5>
-                                <p class="card-text">November 15, 2015</p>
+                                <h5 class="mb-75">Дата рождения:</h5>
+                                <p class="card-text">{{ object.birthday }}</p>
                             </div>
                             <div class="mt-2">
-                                <h5 class="mb-75">Lives:</h5>
-                                <p class="card-text">New York, USA</p>
+                                <h5 class="mb-75">Дата вступления в полномочия:</h5>
+                                <p class="card-text">{{ object.authorization }}</p>
                             </div>
+                            {% if object.term_of_office %}
                             <div class="mt-2">
-                                <h5 class="mb-75">Email:</h5>
-                                <p class="card-text">bucketful@fiendhead.org</p>
+                                <h5 class="mb-75">Дата окончания полномочия:</h5>
+                                <p class="card-text">{{ object.term_of_office }}</p>
                             </div>
+                            {% endif %}
+
+                            {% if object.fraction %}
                             <div class="mt-2">
-                                <h5 class="mb-50">Website:</h5>
-                                <p class="card-text mb-0">www.pixinvent.com</p>
+                                <h5 class="mb-75">Фракция:</h5>
+                                <p class="card-text">{{ object.fraction }}</p>
                             </div>
+                            {% endif %}
+                            {% if object.election_information %}
+                            <div class="mt-2">
+                                <h5 class="mb-75">Сведения об избрании:</h5>
+                                <p class="card-text">{{ object.election_information }}</p>
+                            </div>
+                            {% endif %}
+                            {% if object.educationelect_set.all %}
+                            <div class="mt-2">
+                                <h5 class="mb-75">Образование:</h5>
+                                <p class="card-text">{% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}</p>
+                            </div>
+                            {% endif %}
+                            {% if object.linlelect_set.all %}
+                            <div class="mt-2">
+                                <h5 class="mb-75">Ссылки:</h5>
+                                <p class="card-text">{% for edu in object.linlelect_set.all %}{{ edu.title }}: {{ edu.link }}<br>{% endfor %}</p>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
-
+                    {% if object.is_have_subscribers %}
                     <div class="card">
                         <div class="card-body profile-suggestion">
-                            <h5 class="mb-2">Suggested Pages</h5>
-
+                            <h5 class="mb-2">Подписчики</h5>
+                            {% for subs in object.get_subscribers %}
                             <div class="d-flex justify-content-start align-items-center">
                                 <div class="avatar mr-1">
-                                    <img src="../../../app-assets/images/avatars/6-small.png" alt="avatar img" height="40" width="40">
+                                    <img src="{{ subs.get_avatar }}" alt="avatar img" style="width:40, height:auto">
                                 </div>
                                 <div class="profile-user-info">
-                                    <h6 class="mb-0">Jonathan Lyons</h6>
-                                    <small class="text-muted">Beauty Store</small>
+                                    <h6 class="mb-0">{{ subs.get_full_name }}</h6>
+                                    <small class="text-muted">{{ subs.get_online_display }}</small>
                                 </div>
-                                <div class="profile-star ml-auto"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3">
-                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                    </svg></div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Twitter Feeds</h5>
-
-                            <div class="profile-twitter-feed mt-1">
-                                <div class="d-flex justify-content-start align-items-center mb-1">
-                                    <div class="avatar mr-1">
-                                        <img src="../../../app-assets/images/avatars/5-small.png" alt="avatar img" height="40" width="40">
-                                    </div>
-                                    <div class="profile-user-info">
-                                        <h6 class="mb-0">Gertrude Stevens</h6>
-                                        <a href="javascript:void(0)">
-                                            <small class="text-muted">@tiana59</small>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
-                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div class="profile-star ml-auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3">
-                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <p class="card-text mb-50">I love cookie chupa chups sweet tart apple pie ⭐️ chocolate bar.</p>
-                                <a href="javascript:void(0)">
-                                    <small>#design #fasion</small>
-                                </a>
-                            </div>
-
-                            <div class="profile-twitter-feed mt-2">
-                                <div class="d-flex justify-content-start align-items-center mb-1">
-                                    <div class="avatar mr-1">
-                                        <img src="../../../app-assets/images/avatars/12-small.png" alt="avatar img" height="40" width="40">
-                                    </div>
-                                    <div class="profile-user-info">
-                                        <h6 class="mb-0">Lura Jones</h6>
-                                        <a href="javascript:void(0)">
-                                            <small class="text-muted">@tiana59</small>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
-                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div class="profile-star ml-auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3 profile-favorite">
-                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <p class="card-text mb-50">Halvah I love powder jelly I love cheesecake cotton candy. 😍</p>
-                                <a href="javascript:void(0)">
-                                    <small>#vuejs #code #coffeez</small>
-                                </a>
-                            </div>
-
-                            <div class="profile-twitter-feed mt-2">
-                                <div class="d-flex justify-content-start align-items-center mb-1">
-                                    <div class="avatar mr-1">
-                                        <img src="../../../app-assets/images/avatars/1-small.png" alt="avatar img" height="40" width="40">
-                                    </div>
-                                    <div class="profile-user-info">
-                                        <h6 class="mb-0">Norman Gross</h6>
-                                        <a href="javascript:void(0)">
-                                            <small class="text-muted">@tiana59</small>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
-                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div class="profile-star ml-auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star font-medium-3">
-                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <p class="card-text mb-50">Candy jelly beans powder brownie biscuit. Jelly marzipan oat cake cake.</p>
-                                <a href="javascript:void(0)">
-                                    <small>#sketch #uiux #figma</small>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
+                    {% endif %}
                 </div>
 
                 <div class="col-lg-6 col-12 order-1 order-lg-2">
@@ -329,237 +267,9 @@
                 </div>
 
                 <div class="col-lg-3 col-12 order-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="mb-0">Latest Photos</h5>
-                            <div class="row">
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-13.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-02.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-03.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-04.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-05.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-06.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-07.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-08.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                                <div class="col-md-4 col-6 profile-latest-img">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../../app-assets/images/profile/user-uploads/user-09.jpg" class="img-fluid rounded" alt="avatar img">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Suggestions</h5>
-                            <div class="d-flex justify-content-start align-items-center mt-2">
-                                <div class="avatar mr-75">
-                                    <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="avatar" height="40" width="40">
-                                </div>
-                                <div class="profile-user-info">
-                                    <h6 class="mb-0">Peter Reed</h6>
-                                    <small class="text-muted">6 Mutual Friends</small>
-                                </div>
-                                <button type="button" class="btn btn-primary btn-icon btn-sm ml-auto waves-effect waves-float waves-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="d-flex justify-content-start align-items-center mt-1">
-                                <div class="avatar mr-75">
-                                    <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="avtar img holder" height="40" width="40">
-                                </div>
-                                <div class="profile-user-info">
-                                    <h6 class="mb-0">Harriett Adkins</h6>
-                                    <small class="text-muted">3 Mutual Friends</small>
-                                </div>
-                                <button type="button" class="btn btn-primary btn-sm btn-icon ml-auto waves-effect waves-float waves-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="d-flex justify-content-start align-items-center mt-1">
-                                <div class="avatar mr-75">
-                                    <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg" alt="avatar" height="40" width="40">
-                                </div>
-                                <div class="profile-user-info">
-                                    <h6 class="mb-0">Juan Weaver</h6>
-                                    <small class="text-muted">1 Mutual Friends</small>
-                                </div>
-                                <button type="button" class="btn btn-sm btn-primary btn-icon ml-auto waves-effect waves-float waves-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="d-flex justify-content-start align-items-center mt-1">
-                                <div class="avatar mr-75">
-                                    <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="avatar img" height="40" width="40">
-                                </div>
-                                <div class="profile-user-info">
-                                    <h6 class="mb-0">Claudia Chandler</h6>
-                                    <small class="text-muted">16 Mutual Friends</small>
-                                </div>
-                                <button type="button" class="btn btn-sm btn-primary btn-icon ml-auto waves-effect waves-float waves-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="d-flex justify-content-start align-items-center mt-1">
-                                <div class="avatar mr-75">
-                                    <img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="avatar img" height="40" width="40">
-                                </div>
-                                <div class="profile-user-info">
-                                    <h6 class="mb-0">Earl Briggs</h6>
-                                    <small class="text-muted">4 Mutual Friends</small>
-                                </div>
-                                <button type="button" class="btn btn-sm btn-primary btn-icon ml-auto waves-effect waves-float waves-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="d-flex justify-content-start align-items-center mt-1">
-                                <div class="avatar mr-75">
-                                    <img src="../../../app-assets/images/portrait/small/avatar-s-10.jpg" alt="avatar img" height="40" width="40">
-                                </div>
-                                <div class="profile-user-info">
-                                    <h6 class="mb-0">Jonathan Lyons</h6>
-                                    <small class="text-muted">25 Mutual Friends</small>
-                                </div>
-                                <button type="button" class="btn btn-sm btn-primary btn-icon ml-auto waves-effect waves-float waves-light">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-                                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="8.5" cy="7" r="4"></circle>
-                                        <line x1="20" y1="8" x2="20" y2="14"></line>
-                                        <line x1="23" y1="11" x2="17" y2="11"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="mb-1">Polls</h5>
-                            <p class="card-text mb-0">Who is the best actor in Marvel Cinematic Universe?</p>
-
-                            <div class="profile-polls-info mt-2">
-                                <div class="d-flex justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="bestActorPoll1" name="bestActorPoll" class="custom-control-input">
-                                        <label class="custom-control-label" for="bestActorPoll1">RDJ</label>
-                                    </div>
-                                    <div class="text-right">82%</div>
-                                </div>
-                                <div class="progress progress-bar-primary my-50">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="58" aria-valuemin="58" aria-valuemax="100" style="width: 82%"></div>
-                                </div>
-                                <div class="avatar-group my-1">
-                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Tonia Seabold" class="avatar pull-up">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-12.jpg" alt="Avatar" height="26" width="26">
-                                    </div>
-                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Carissa Dolle" class="avatar pull-up">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="26" width="26">
-                                    </div>
-                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Kelle Herrick" class="avatar pull-up">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" height="26" width="26">
-                                    </div>
-                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Len Bregantini" class="avatar pull-up">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-10.jpg" alt="Avatar" height="26" width="26">
-                                    </div>
-                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="John Doe" class="avatar pull-up">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" alt="Avatar" height="26" width="26">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="profile-polls-info mt-2">
-                                <div class="d-flex justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="bestActorPoll2" name="bestActorPoll" class="custom-control-input">
-                                        <label class="custom-control-label" for="bestActorPoll2">Chris Hemswort</label>
-                                    </div>
-                                    <div class="text-right">67%</div>
-                                </div>
-                                <div class="progress progress-bar-primary my-50">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="16" aria-valuemin="16" aria-valuemax="100" style="width: 67%"></div>
-                                </div>
-                                <div class="avatar-group mt-1">
-                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Liliana Pecor" class="avatar pull-up">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="Avatar" height="26" width="26">
-                                    </div>
-                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Kasandra NaleVanko" class="avatar pull-up">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="Avatar" height="26" width="26">
-                                    </div>
-                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Jonathan Lyons" class="avatar pull-up">
-                                        <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="Avatar" height="26" width="26">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 text-center">
-                    <button type="button" class="btn btn-sm btn-primary block-element border-0 mb-1 waves-effect waves-float waves-light">Load More</button>
                 </div>
             </div>
         </section>
     </div>
-
 </div>
 {% endblock %}

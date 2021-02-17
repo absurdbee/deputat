@@ -69,6 +69,11 @@ class User(AbstractUser):
         elect_ids = [elect['elect_id'] for elect in elect_subscribers]
         return Elect.objects.filter(id__in=elect_ids)
 
+    def is_have_elect_subscribers(self):
+        elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk).values("elect_id")
+        elect_ids = [elect['elect_id'] for elect in elect_subscribers]
+        return Elect.objects.filter(id__in=elect_ids).exists()
+
     def get_elect_subscribers_count(self):
         count = SubscribeElect.objects.filter(user_id=self.pk).values("pk").count()
         return count

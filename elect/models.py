@@ -99,31 +99,23 @@ class Elect(models.Model):
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(parent_id__in=news_ids, vote__lt=0).values("pk").count()
 
-    def dislikes_count_year(self, year):
-        news = self.new_elect.filter(elect_id=self.pk, created__year=year).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__lt=0).values("pk").count()
-
-    def dislikes_count_month(self, month):
-        news = self.new_elect.filter(elect_id=self.pk, created__month=month).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__lt=0).values("pk").count()
-
-    def dislikes_count_week(self, week):
-        news = self.new_elect.filter(elect_id=self.pk, created__week=week).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__lt=0).values("pk").count()
-
-    def dislikes_count_day(self, day):
-        news = self.new_elect.filter(elect_id=self.pk, created__day=day).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__lt=0).values("pk").count()
-
     def get_avatar(self):
         try:
             return self.image.url
         except:
             return '/static/images/user.png'
+
+    def get_subscribers(self):
+        from users.models import User
+        subscribers = SubscribeElect.objects.filter(elect_id=self.pk).values("user_id")
+        user_ids = [i['user_id'] for i in subscribers]
+        return User.objects.filter(id__in=user_ids)
+
+    def is_have_subscribers(self):
+        from users.models import User
+        subscribers = SubscribeElect.objects.filter(elect_id=self.pk).values("user_id")
+        user_ids = [i['user_id'] for i in subscribers]
+        return User.objects.filter(id__in=user_ids).exists()
 
 
 class LinkElect(models.Model):

@@ -2267,10 +2267,6 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   line-height : 1;
 }
 
-.badge[class*='badge-'] a {
-  color : #FFFFFF;
-}
-
 .badge[class*='badge-'] .dropdown-toggle span, .badge[class*='badge-'] .dropdown-toggle i, .badge[class*='badge-'] .dropdown-toggle svg, .badge[class*='badge-'].dropdown-toggle span, .badge[class*='badge-'].dropdown-toggle i, .badge[class*='badge-'].dropdown-toggle svg {
   vertical-align : text-top;
 }

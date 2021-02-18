@@ -37,8 +37,7 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 
 
 class AllElectsNewsView(ListView, CategoryListMixin):
-	template_name = None
-	paginate_by = 12
+	template_name, tag, paginate_by = None, '', 12
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_small_template("blog/elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
@@ -46,7 +45,14 @@ class AllElectsNewsView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		elect_news = ElectNew.objects.only("pk")
+		if self.tag:
+			elect_news = elect_news.filter(tags__name=self.tag)
 		return elect_news
+
+	def get_context_data(self, **kwargs):
+		context = super(AllElectsNewsView, self).get_context_data(**kwargs)
+		context['tag'] = self.tag
+		return context
 
 
 class ProectNewsView(ListView, CategoryListMixin):

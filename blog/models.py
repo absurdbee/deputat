@@ -40,15 +40,15 @@ class Blog(models.Model):
         return self.title
 
     def likes(self):
-        likes = BlogVotes.objects.filter(parent_id=self.pk, vote__gt=0)
+        likes = BlogVotes.objects.filter(blog_id=self.pk, vote__gt=0)
         return likes
 
     def dislikes(self):
-        dislikes = BlogVotes.objects.filter(parent_id=self.pk, vote__lt=0)
+        dislikes = BlogVotes.objects.filter(blog_id=self.pk, vote__lt=0)
         return dislikes
 
     def likes_count(self):
-        likes = BlogVotes.objects.filter(parent=self, vote__gt=0).values("pk")
+        likes = BlogVotes.objects.filter(blog_id=self.pk, vote__gt=0).values("pk")
         count = likes.count()
         if count:
             return count
@@ -56,7 +56,7 @@ class Blog(models.Model):
             return ''
 
     def dislikes_count(self):
-        dislikes = BlogVotes.objects.filter(parent=self, vote__lt=0).values("pk")
+        dislikes = BlogVotes.objects.filter(blog_id=self.pk, vote__lt=0).values("pk")
         count = dislikes.count()
         if count:
             return count
@@ -64,7 +64,7 @@ class Blog(models.Model):
             return ''
 
     def count_comments(self):
-        parent_comments = BlogComment.objects.filter(blog_comment_id=self.pk)
+        parent_comments = BlogComment.objects.filter(blog_id=self.pk)
         parents_count = parent_comments.count()
         i = 0
         for comment in parent_comments:
@@ -73,8 +73,8 @@ class Blog(models.Model):
         return i
 
     def get_comments(self):
-        comments_query = Q(blog_comment_id=self.pk)
-        comments_query.add(Q(parent_comment__isnull=True), Q.AND)
+        comments_query = Q(blog_id=self.pk)
+        comments_query.add(Q(parent__isnull=True), Q.AND)
         return BlogComment.objects.filter(comments_query)
 
     def get_articles_5(self):
@@ -91,14 +91,14 @@ class Blog(models.Model):
 
 
 class BlogComment(models.Model):
-    parent_comment = models.ForeignKey('self', on_delete=models.CASCADE, related_name='blog_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='blog_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     modified = models.DateTimeField(auto_now_add=True, auto_now=False, db_index=False)
     commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
     text = models.TextField(blank=True)
     is_edited = models.BooleanField(default=False, verbose_name="Изменено")
     is_deleted = models.BooleanField(default=False, verbose_name="Удаено")
-    blog_comment = models.ForeignKey(Blog, on_delete=models.CASCADE, blank=True, null=True)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         indexes = (BrinIndex(fields=['created']), )
@@ -113,30 +113,30 @@ class BlogComment(models.Model):
         return naturaltime(self.created)
 
     def get_replies(self):
-        get_comments = BlogComment.objects.filter(parent_comment=self).all()
+        get_comments = BlogComment.objects.filter(parent=self).all()
         return get_comments
 
     def count_replies(self):
         return self.blog_comment_replies.count()
 
     def likes(self):
-        likes = BlogCommentVotes.objects.filter(item=self, vote__gt=0)
+        likes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0)
         return likes
 
     def likes_count(self):
-        likes = BlogVotes.objects.filter(parent=self, vote__gt=0).values("pk")
+        likes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0).values("pk")
         return likes.count()
 
     def dislikes_count(self):
-        dislikes = BlogVotes.objects.filter(parent=self, vote__lt=0).values("pk")
+        dislikes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0).values("pk")
         return dislikes.count()
 
     def dislikes(self):
-        dislikes = BlogCommentVotes.objects.filter(item=self, vote__lt=0)
+        dislikes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0)
         return dislikes
 
     def likes_count(self):
-        likes = BlogCommentVotes.objects.filter(item=self, vote__gt=0).values("pk")
+        likes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0).values("pk")
         count = likes.count()
         if count:
             return count
@@ -144,7 +144,7 @@ class BlogComment(models.Model):
             return ''
 
     def dislikes_count(self):
-        dislikes = BlogCommentVotes.objects.filter(item=self, vote__lt=0).values("pk")
+        dislikes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0).values("pk")
         count = dislikes.count()
         if count:
             return count
@@ -152,8 +152,8 @@ class BlogComment(models.Model):
             return ''
 
     @classmethod
-    def create_comment(cls, commenter, blog_comment=None, parent_comment=None, text=None, created=None ):
-        comment = BlogComment.objects.create(commenter=commenter, parent_comment=parent_comment, blog_comment=blog_comment, text=text)
+    def create_comment(cls, commenter, blog=None, parent=None, text=None, created=None):
+        comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text)
         comment.save()
         return comment
 
@@ -176,7 +176,7 @@ class BlogVotes(models.Model):
 
     vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    parent = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
 
 class BlogCommentVotes(models.Model):
     LIKE = 1
@@ -185,7 +185,7 @@ class BlogCommentVotes(models.Model):
 
     vote = models.IntegerField(verbose_name="Голос", choices=VOTES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    item = models.ForeignKey(BlogComment, on_delete=models.CASCADE)
+    blog = models.ForeignKey(BlogComment, on_delete=models.CASCADE)
 
 
 class ElectNew(models.Model):
@@ -223,15 +223,15 @@ class ElectNew(models.Model):
         return self.status == ElectNew.STATUS_PUBLISHED
 
     def likes(self):
-        likes = ElectVotes.objects.filter(parent_id=self.pk, vote__gt=0)
+        likes = ElectVotes.objects.filter(new_id=self.pk, vote__gt=0)
         return likes
 
     def dislikes(self):
-        dislikes = ElectVotes.objects.filter(parent_id=self.pk, vote__lt=0)
+        dislikes = ElectVotes.objects.filter(new_id=self.pk, vote__lt=0)
         return dislikes
 
     def likes_count(self):
-        likes = ElectVotes.objects.filter(parent=self, vote__gt=0).values("pk")
+        likes = ElectVotes.objects.filter(new_id=self.pk, vote__gt=0).values("pk")
         count = likes.count()
         if count:
             return count
@@ -239,7 +239,7 @@ class ElectNew(models.Model):
             return ''
 
     def dislikes_count(self):
-        dislikes = ElectVotes.objects.filter(parent=self, vote__lt=0).values("pk")
+        dislikes = ElectVotes.objects.filter(new_id=self.pk, vote__lt=0).values("pk")
         count = dislikes.count()
         if count:
             return count
@@ -278,6 +278,108 @@ class ElectNew(models.Model):
     def get_image_url(self):
         return self.image_new.filter(new_id=self.pk)[0].file.url
 
+    def count_comments(self):
+        comments = ElectNewComment.objects.filter(new_id=self.pk)
+        parents_count = comments.count()
+        i = 0
+        for comment in comments:
+            i = i + comment.count_replies()
+        i = i + parents_count
+        return i
+
+    def get_comments(self):
+        comments_query = Q(new_id=self.pk)
+        comments_query.add(Q(parent__isnull=True), Q.AND)
+        return ElectNewComment.objects.filter(comments_query)
+
+
+class ElectNewComment(models.Model):
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='elect_new_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
+    modified = models.DateTimeField(auto_now_add=True, auto_now=False, db_index=False)
+    commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
+    text = models.TextField(blank=True)
+    is_edited = models.BooleanField(default=False, verbose_name="Изменено")
+    is_deleted = models.BooleanField(default=False, verbose_name="Удаено")
+    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        indexes = (BrinIndex(fields=['created']), )
+        verbose_name = "комментарий к новости депутата"
+        verbose_name_plural = "комментарии к новости депутата"
+
+    def __str__(self):
+        return "{0}/{1}".format(self.commenter.get_full_name(), self.text[:10])
+
+    def get_created(self):
+        from django.contrib.humanize.templatetags.humanize import naturaltime
+        return naturaltime(self.created)
+
+    def get_replies(self):
+        get_comments = ElectNewComment.objects.filter(parent=self).all()
+        return get_comments
+
+    def count_replies(self):
+        return self.elect_new_comment_replies.count()
+
+    def likes(self):
+        likes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0)
+        return likes
+
+    def likes_count(self):
+        likes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0).values("pk")
+        return likes.count()
+
+    def dislikes_count(self):
+        dislikes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0).values("pk")
+        return dislikes.count()
+
+    def dislikes(self):
+        dislikes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0)
+        return dislikes
+
+    def likes_count(self):
+        likes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0).values("pk")
+        count = likes.count()
+        if count:
+            return count
+        else:
+            return ''
+
+    def dislikes_count(self):
+        dislikes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0).values("pk")
+        count = dislikes.count()
+        if count:
+            return count
+        else:
+            return ''
+
+    @classmethod
+    def create_comment(cls, commenter, new=None, parent=None, text=None, created=None ):
+        comment = ElectNewComment.objects.create(commenter=commenter, parent=parent, new=new, text=text)
+        comment.save()
+        return comment
+
+    def count_replies_ru(self):
+        count = self.elect_new_comment_replies.count()
+        a = count % 10
+        b = count % 100
+        if (a == 1) and (b != 11):
+            return str(count) + " ответ"
+        elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
+            return str(count) + " ответа"
+        else:
+            return str(count) + " ответов"
+
+class ElectCommentVotes(models.Model):
+    LIKE = 1
+    DISLIKE = -1
+    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
+
+    vote = models.IntegerField(verbose_name="Голос", choices=VOTES)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
+    comment = models.ForeignKey(ElectNewComment, on_delete=models.CASCADE)
+
 
 class ElectVotes(models.Model):
     LIKE = 1
@@ -286,7 +388,7 @@ class ElectVotes(models.Model):
 
     vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    parent = models.ForeignKey(ElectNew, on_delete=models.CASCADE)
+    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE)
 
 
 class ElectDoc(models.Model):

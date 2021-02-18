@@ -16,7 +16,7 @@ class ElectLikeCreate(View):
         if not request.is_ajax():
             raise Http404
         try:
-            likedislike = ElectVotes.objects.get(parent=new, user=request.user)
+            likedislike = ElectVotes.objects.get(new=new, user=request.user)
             if likedislike.vote is not ElectVotes.LIKE:
                 likedislike.vote = ElectVotes.LIKE
                 likedislike.save(update_fields=['vote'])
@@ -25,7 +25,7 @@ class ElectLikeCreate(View):
                 likedislike.delete()
                 result = False
         except ElectVotes.DoesNotExist:
-            ElectVotes.objects.create(parent=new, user=request.user, vote=ElectVotes.LIKE)
+            ElectVotes.objects.create(new=new, user=request.user, vote=ElectVotes.LIKE)
             result = True
         likes = new.likes_count()
         dislikes = new.dislikes_count()
@@ -37,7 +37,7 @@ class ElectDislikeCreate(View):
         if not request.is_ajax():
             raise Http404
         try:
-            likedislike = ElectVotes.objects.get(parent=new, user=request.user)
+            likedislike = ElectVotes.objects.get(new=new, user=request.user)
             if likedislike.vote is not ElectVotes.DISLIKE:
                 likedislike.vote = ElectVotes.DISLIKE
                 likedislike.save(update_fields=['vote'])
@@ -46,7 +46,7 @@ class ElectDislikeCreate(View):
                 likedislike.delete()
                 result = False
         except ElectVotes.DoesNotExist:
-            ElectVotes.objects.create(parent=new, user=request.user, vote=ElectVotes.DISLIKE)
+            ElectVotes.objects.create(new=new, user=request.user, vote=ElectVotes.DISLIKE)
             result = True
         likes = new.likes_count()
         dislikes = new.dislikes_count()
@@ -55,11 +55,11 @@ class ElectDislikeCreate(View):
 
 class BlogLikeCreate(View):
     def get(self, request, **kwargs):
-        new = Blog.objects.get(pk=self.kwargs["pk"])
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
         try:
-            likedislike = BlogVotes.objects.get(parent=new, user=request.user)
+            likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
             if likedislike.vote is not BlogVotes.LIKE:
                 likedislike.vote = BlogVotes.LIKE
                 likedislike.save(update_fields=['vote'])
@@ -68,19 +68,19 @@ class BlogLikeCreate(View):
                 likedislike.delete()
                 result = False
         except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(parent=new, user=request.user, vote=BlogVotes.LIKE)
+            BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.LIKE)
             result = True
-        likes = new.likes_count()
-        dislikes = new.dislikes_count()
+        likes = blog.likes_count()
+        dislikes = blog.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 class BlogDislikeCreate(View):
     def get(self, request, **kwargs):
-        new = Blog.objects.get(pk=self.kwargs["pk"])
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
         try:
-            likedislike = BlogVotes.objects.get(parent=new, user=request.user)
+            likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
             if likedislike.vote is not BlogVotes.DISLIKE:
                 likedislike.vote = BlogVotes.DISLIKE
                 likedislike.save(update_fields=['vote'])
@@ -89,10 +89,10 @@ class BlogDislikeCreate(View):
                 likedislike.delete()
                 result = False
         except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(parent=new, user=request.user, vote=BlogVotes.DISLIKE)
+            BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.DISLIKE)
             result = True
-        likes = new.likes_count()
-        dislikes = new.dislikes_count()
+        likes = blog.likes_count()
+        dislikes = blog.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 

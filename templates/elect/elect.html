@@ -112,7 +112,7 @@
       <div class="row pt-4 elect_news_container">
         {% if object.get_news %}
         {% for object in object.get_news %}
-        <div class="col-md-4" style="">
+        <div class="col-md-4">
           <div class="card blog-card mb-2">
             {% if object.image %}
             <a class="post-thumb" href="{% url 'elect_new_detail' pk=object.pk %}">
@@ -121,9 +121,13 @@
             {% endif %}
             <div class="card-body">
               {% if object.get_image_url %}
-              <a href="{% url 'elect_new_detail' pk=object.pk %}">
-                <img src="{{ object.get_image_url }}" alt="img" class="cover_fit" />
-              </a>
+                <div class="meetup-img-wrapper rounded-top text-center">
+                  {% if object.get_image_url %}
+                    <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
+                      <img src="{{ object.get_image_url }}" alt="img" class="cover_fit" />
+                    </a>
+                  {% endif %}
+                </div>
               {% endif %}
               <h5 class="post-title">
                 <a href="{% url 'elect_new_detail' pk=object.pk %}">{{ object.title }}</a>

@@ -3,9 +3,11 @@
         <h5 class="mb-75" style="font-weight: bold;">География</h5>
         <p class="card-text">
           {% for region in object.get_regions %}
+          <div class="badge badge-pill badge-light-info mr-50">
             <a href="{% url 'region_detail' slug=region.slug %}">
-              <div class="badge badge-pill badge-light-info mr-50">{{ region.name }}</div>
-            </a>{% if not forloop.last %}, {% endif %}
+            {{ region.name }}
+            </a>
+          </div>{% if not forloop.last %}, {% endif %}
           {% endfor %}
         </p>
         <div class="mt-2">

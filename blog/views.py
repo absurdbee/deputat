@@ -37,17 +37,15 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 
 
 class AllElectsNewsView(ListView, CategoryListMixin):
-	template_name, tag, paginate_by = None, '', 12
+	template_name, paginate_by = None, 12
 
 	def get(self,request,*args,**kwargs):
+		self.tag = Tag.objects.get(name=self.kwargs["name"])
 		self.template_name = get_small_template("blog/elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(AllElectsNewsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
-		if self.tag:
-			return ElectNew.objects.filter(tags__name=self.tag)
-		else:
-			return ElectNew.objects.only("pk")
+		return ElectNew.objects.filter(tags__name=self.tag)
 
 	def get_context_data(self, **kwargs):
 		context = super(AllElectsNewsView, self).get_context_data(**kwargs)

@@ -58,7 +58,9 @@
             </div>
 
             <div class="col-sm-6 d-flex justify-content-between justify-content-sm-end align-items-center mb-2" data-pk="{{ object.pk }}">
+              <span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </span>
                 <span class="mr-1">{{ object.visits_count }}</span>
                 <span class="like elect_new_like {% if object.likes|user_in:user %} text-success{% endif %} btn_default" title="Нравится" style="cursor:pointer">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up">

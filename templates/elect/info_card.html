@@ -4,7 +4,7 @@
         <p class="card-text">
           {% for region in object.get_regions %}
           <div class="badge badge-pill badge-light-info mr-50">
-            <a href="{% url 'region_detail' slug=region.slug %}">
+            <a href="{% url 'region_detail' slug=region.slug %}" style="color: #00CFE8 !important;">
             {{ region.name }}
             </a>
           </div>{% if not forloop.last %}, {% endif %}

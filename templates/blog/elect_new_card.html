@@ -34,7 +34,7 @@
           <span class="mt-2">
             {% with names=object.tags.names %}
               {% for name in names %}
-                <a href="{% url 'all_elect_news' name=name %}" class="ajax">
+                <a href="{% url 'all_elect_news' name=name|urlencode %}" class="ajax">
                   <div class="badge badge-pill badge-light-info mr-50">{{ name }}</div>
                 </a>
               {% endfor %}

@@ -51,6 +51,7 @@
                     {% if object.term_of_office %}
                       <li class="list-group-item">Дата окончания полномочия: {{ object.term_of_office }}</li>
                     {% endif %}
+
                     {% if object.fraction %}
                       <li class="list-group-item">Фракция: {{ object.fraction }}</li>
                     {% endif %}
@@ -119,6 +120,11 @@
             </a>
             {% endif %}
             <div class="card-body">
+              {% if object.get_image_url %}
+              <a href="{% url 'elect_new_detail' pk=object.pk %}">
+                <img src="{{ object.get_image_url }}" alt="img" class="cover_fit" />
+              </a>
+              {% endif %}
               <h5 class="post-title">
                 <a href="{% url 'elect_new_detail' pk=object.pk %}">{{ object.title }}</a>
               </h5>

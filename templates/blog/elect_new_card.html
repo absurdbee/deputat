@@ -10,7 +10,6 @@
             </div>
         </div>
 
-        <p class="card-text">
           {% if object.get_image_url %}
             <div class="meetup-img-wrapper rounded-top text-center">
               {% if object.get_image_url %}
@@ -22,7 +21,9 @@
           {% endif %}
           <span class="mt-2">
             <a class="ajax" href="{% url 'elect_new_detail' pk=object.pk %}">
-              {{ object.description }}
+              <p class="card-text">
+                {{ object.description }}
+              </p>
             </a>
           </span>
           <span class="mt-2">
@@ -34,7 +35,6 @@
               {% endfor %}
             {% endwith %}
           </span>
-        </p>
 
         <div class="row d-flex justify-content-start align-items-center flex-wrap pb-50">
             <div class="col-sm-6 d-flex justify-content-between justify-content-sm-start mb-2">

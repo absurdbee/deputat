@@ -79,21 +79,21 @@ class User(AbstractUser):
         return count
 
     def get_like_news(self):
-        likes = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("parent_id")
-        news_ids = [new['parent_id'] for new in likes]
+        likes = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("new_id")
+        news_ids = [new['new_id'] for new in likes]
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_like_news_count(self):
-        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("parent_id").count()
+        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("new_id").count()
         return count
 
     def get_dislike_news(self):
-        dislikes = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("parent_id")
-        news_ids = [new['parent_id'] for new in dislikes]
+        dislikes = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("new_id")
+        news_ids = [new['new_id'] for new in dislikes]
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_dislike_news_count(self):
-        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("parent_id").count()
+        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("new_id").count()
         return count
 
     def is_deleted(self):

@@ -1,15 +1,13 @@
 <div class="card">
     <div class="card-body">
         <h5 class="mb-75" style="font-weight: bold;">География</h5>
-        <p class="card-text">
           {% for region in object.get_regions %}
-          <div class="badge badge-pill badge-light-info mr-50">
+          <div class="badge badge-pill badge-light-info mr-50" style="font-size:100%">
             <a href="{% url 'region_detail' slug=region.slug %}" style="color: #00CFE8 !important;">
             {{ region.name }}
             </a>
           </div>{% if not forloop.last %}, {% endif %}
           {% endfor %}
-        </p>
         <div class="mt-2">
             <h5 class="mb-75" style="font-weight: bold;">Дата рождения:</h5>
             <p class="card-text">{{ object.birthday }}</p>

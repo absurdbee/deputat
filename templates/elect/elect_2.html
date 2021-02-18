@@ -77,57 +77,8 @@
         <section id="profile-info">
             <div class="row">
                 <div class="col-lg-3 col-12 order-2 order-lg-1">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="mb-75">Информация</h5>
-                            <p class="card-text">
-                              {% for region in object.get_regions %}
-                                <a href="{% url 'region_detail' slug=region.slug %}" style="color: #404040;text-decoration:none">
-                                 {{ region.name }}{% if not forloop.last %}, {% endif %}
-                                </a>
-                              {% endfor %}
-                            </p>
-                            <div class="mt-2">
-                                <h5 class="mb-75">Дата рождения:</h5>
-                                <p class="card-text">{{ object.birthday }}</p>
-                            </div>
-                            <div class="mt-2">
-                                <h5 class="mb-75">Дата вступления в полномочия:</h5>
-                                <p class="card-text">{{ object.authorization }}</p>
-                            </div>
-                            {% if object.term_of_office %}
-                            <div class="mt-2">
-                                <h5 class="mb-75">Дата окончания полномочия:</h5>
-                                <p class="card-text">{{ object.term_of_office }}</p>
-                            </div>
-                            {% endif %}
+                    {% include 'elect/info_card.html' %}
 
-                            {% if object.fraction %}
-                            <div class="mt-2">
-                                <h5 class="mb-75">Фракция:</h5>
-                                <p class="card-text">{{ object.fraction }}</p>
-                            </div>
-                            {% endif %}
-                            {% if object.election_information %}
-                            <div class="mt-2">
-                                <h5 class="mb-75">Сведения об избрании:</h5>
-                                <p class="card-text">{{ object.election_information }}</p>
-                            </div>
-                            {% endif %}
-                            {% if object.educationelect_set.all %}
-                            <div class="mt-2">
-                                <h5 class="mb-75">Образование:</h5>
-                                <p class="card-text">{% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}</p>
-                            </div>
-                            {% endif %}
-                            {% if object.linlelect_set.all %}
-                            <div class="mt-2">
-                                <h5 class="mb-75">Ссылки:</h5>
-                                <p class="card-text">{% for edu in object.linlelect_set.all %}{{ edu.title }}: {{ edu.link }}<br>{% endfor %}</p>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
                     {% if object.is_have_subscribers %}
                     <div class="card">
                         <div class="card-body profile-suggestion">
@@ -175,7 +126,7 @@
                                             <div tooltip="{{ elect.name }}"
                                                  class="avatar pull-up">
                                                  <a href="{% url 'elect_detail' pk=elect.pk %}">
-                                                <img src="{{ elect.image.url }}" alt="img" width="50" height="50" />
+                                                <img src="{{ elect.image.url }}" alt="img" width="30" height="30" />
                                                 </a>
                                             </div>
                                             {% endfor %}
@@ -184,11 +135,11 @@
                                 </div>
 
                                 <div class="col-sm-6 d-flex justify-content-between justify-content-sm-end align-items-center mb-2">
-                                      <i data-feather='thumbs-up'></i>
-                                      <span class="text-muted mr-1">{{ elect.likes_count }}</span>
+                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                  <span class="text-muted mr-1">{{ object.likes_count }}</span>
 
-                                      <i data-feather='thumbs-down'></i>
-                                      <span class="text-muted">{{ elect.dislikes_count }}</span>
+                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-down"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
+                                  <span class="text-muted">{{ object.dislikes_count }}</span>
                                 </div>
                             </div>
                         </div>

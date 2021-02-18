@@ -83,47 +83,6 @@ $('.load').hide();
 }
 });
 
-
-on('body', 'click', '.create_elect_subscribe', function() {
-  _this = this;
-  pk = _this.getAttribute("data-pk");
-
-  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/elect/progs/subscribe/" + pk + "/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-    if ( link.readyState == 4 ) {
-        if ( link.status == 200 ) {
-          _this.innerHTML = "<i class='fe-icon-user'></i>&nbsp;Отписаться от чиновника";
-          _this.classList.add("delete_elect_subscribe");
-          _this.classList.remove("create_elect_subscribe");
-          toast_info("Подписка оформлена! Все подписки - в профиле.")
-        }
-    }
-};
-link.send( null );
-})
-
-on('body', 'click', '.delete_elect_subscribe', function() {
-  _this = this;
-  pk = _this.getAttribute("data-pk");
-
-  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/elect/progs/unsubscribe/" + pk + "/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-    if ( link.readyState == 4 ) {
-        if ( link.status == 200 ) {
-          _this.innerHTML = "<i class='fe-icon-user-plus'></i>&nbsp;Подписаться от чиновника";
-          toast_info("Подписка отменена!");
-          _this.classList.remove("delete_elect_subscribe");
-          _this.classList.add("create_elect_subscribe")
-        }
-    }
-};
-link.send( null );
-})
-
 on('body', 'click', '.remove_elect_subscribe', function() {
   _this = this;
   pk = _this.getAttribute("data-pk"); name = _this.getAttribute("data-name")

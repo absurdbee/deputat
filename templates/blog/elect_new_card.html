@@ -43,8 +43,8 @@
 
         <div class="row d-flex justify-content-start align-items-center flex-wrap pb-50 mt-1">
             <div class="col-sm-6 d-flex justify-content-between justify-content-sm-start mb-2">
-              <a href="{% url 'elect_new_detail' pk=object.pk %}" class="font-weight-bold ajax">Читать</a>
                 <div class="d-flex align-items-center">
+                  <a href="{% url 'elect_new_detail' pk=object.pk %}" class="font-weight-bold ajax">Читать</a>
                     <div class="avatar-group ml-1">
                         {% for elect in object.get_elects %}
                         <div tooltip="{{ elect.name }}" class="avatar pull-up">

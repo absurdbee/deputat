@@ -1,0 +1,67 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-start align-items-center mb-1">
+            <div class="avatar mr-1">
+                <img src="{{ object.creator.get_avatar }}" alt="avatar img" height="50" width="50">
+            </div>
+            <div class="profile-user-info">
+                <h6 class="mb-0">{{ object.creator.get_full_name }}</h6>
+                <small class="text-muted">{{ object.get_created }}</small>
+            </div>
+        </div>
+
+        <p class="card-text">
+          {% if object.get_image_url %}
+            <div class="meetup-img-wrapper rounded-top text-center">
+              {% if object.get_image_url %}
+                <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
+                  <img src="{{ object.get_image_url }}" alt="img" class="cover_fit" />
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+          <span class="mt-2">
+            <a class="ajax" href="{% url 'elect_new_detail' pk=object.pk %}">
+              {{ object.description }}
+            </a>
+          </span>
+          <span class="mt-2">
+            {% with names=object.tags.names %}
+              {% for name in names %}
+                <a href="{% url 'all_elect_news' %}?tag={{ name|urlencode }}" class="ajax">
+                  <div class="badge badge-pill badge-light-info mr-50">{{ name }}</div>
+                </a>
+              {% endfor %}
+            {% endwith %}
+          </span>
+        </p>
+
+        <div class="row d-flex justify-content-start align-items-center flex-wrap pb-50">
+            <div class="col-sm-6 d-flex justify-content-between justify-content-sm-start mb-2">
+                <div class="d-flex align-items-center">
+                    <div class="avatar-group ml-1">
+                        {% for elect in object.get_elects %}
+                        <div tooltip="{{ elect.name }}" class="avatar pull-up">
+                            <a href="{% url 'elect_detail' pk=elect.pk %}">
+                                <img src="{{ elect.image.url }}" alt="img" width="30" height="30" />
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 d-flex justify-content-between justify-content-sm-end align-items-center mb-2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up">
+                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                </svg>
+                <span class="likes_count mr-1">{{ object.likes_count }}</span>
+
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-down">
+                    <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+                </svg>
+                <span class="dislikes_count">{{ object.dislikes_count }}</span>
+            </div>
+        </div>
+    </div>
+</div>

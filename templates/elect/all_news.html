@@ -1,32 +1,11 @@
 {% if object_list %}
+
 {% for object in object_list %}
-<div class="col-md-4" style="">
-  <div class="card blog-card mb-2">
-    {% if object.image %}
-    <a class="post-thumb" href="{% url 'blog_detail' pk=object.pk %}">
-      <img src="{{ object.image.url }}" alt="img">
-    </a>
-    {% endif %}
-    <div class="card-body">
-      <h5 class="post-title">
-        <a href="{% url 'elect_new_detail' pk=object.pk %}">{{ object.title }}</a>
-      </h5>
-      <p class="text-muted">{{ object.description }}</p>
-
-      {% with names=object.tags.names %}
-        {% for name in names %}
-          <a href="{% url 'all_elect_news' %}?tag={{ name|urlencode }}" class="tag-link">{{ name }}</a>
-        {% endfor %}
-      {% endwith %}
-
-    </div>
-
-    {% include 'generic/blog_meta.html' %}
-  </div>
-</div>
+  {% include 'blog/elect_new_card.html' %}
 {% endfor %}
 
 {% else %}
+
 <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
     <div class="card-body">
       <h3 class="card-title">У чиновника пока нет новостей.</h3>

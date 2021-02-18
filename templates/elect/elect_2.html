@@ -24,12 +24,7 @@
                     <div class="profile-header-nav">
                         <nav class="navbar navbar-expand-md navbar-light justify-content-end justify-content-md-between w-100" style="padding: 0.8rem 1rem;">
                             <button class="btn btn-icon navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-justify font-medium-5">
-                                    <line x1="21" y1="10" x2="3" y2="10"></line>
-                                    <line x1="21" y1="6" x2="3" y2="6"></line>
-                                    <line x1="21" y1="14" x2="3" y2="14"></line>
-                                    <line x1="21" y1="18" x2="3" y2="18"></line>
-                                </svg>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-justify font-medium-5"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg>
                             </button>
 
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -102,52 +97,10 @@
                 <div class="col-lg-6 col-12 order-1 order-lg-2 elect_news_container">
                     {% if object.get_news %}
                     {% for object in object.get_news %}
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-start align-items-center mb-1">
-                                <div class="avatar mr-1">
-                                    <img src="{{ object.creator.get_avatar }}" alt="avatar img" height="50" width="50">
-                                </div>
-
-                                <div class="profile-user-info">
-                                    <h6 class="mb-0">{{ object.creator.get_full_name }}</h6>
-                                    <small class="text-muted">{{ object.get_created }}</small>
-                                </div>
-                            </div>
-                            <p class="card-text">{{ object.description }}</p>
-
-                            <div class="row d-flex justify-content-start align-items-center flex-wrap pb-50">
-                                <div class="col-sm-6 d-flex justify-content-between justify-content-sm-start mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar-group ml-1">
-                                            {% for elect in object.get_elects %}
-                                            <div tooltip="{{ elect.name }}" class="avatar pull-up">
-                                                <a href="{% url 'elect_detail' pk=elect.pk %}">
-                                                    <img src="{{ elect.image.url }}" alt="img" width="30" height="30" />
-                                                </a>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6 d-flex justify-content-between justify-content-sm-end align-items-center mb-2">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up">
-                                        <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-                                    </svg>
-                                    <span class="likes_count mr-1">{{ object.likes_count }}</span>
-
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-down">
-                                        <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
-                                    </svg>
-                                    <span class="dislikes_count">{{ object.dislikes_count }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                      {% include 'blog/elect_new_card.html' %}
                     {% endfor %}
                     {% else %}
-                    <h3>Новостей пока нет</h3>
+                      <h3>Новостей пока нет</h3>
                     {% endif %}
                 </div>
 

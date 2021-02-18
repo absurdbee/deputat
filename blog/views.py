@@ -40,6 +40,8 @@ class AllElectsNewsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 12
 
 	def get(self,request,*args,**kwargs):
+		from taggit.models import Tag
+		
 		self.tag = Tag.objects.get(name=self.kwargs["name"])
 		self.template_name = get_small_template("blog/elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(AllElectsNewsView,self).get(request,*args,**kwargs)

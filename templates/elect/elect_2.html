@@ -75,7 +75,7 @@
                     {% if object.is_have_subscribers %}
                     <div class="card">
                         <div class="card-body profile-suggestion">
-                            <h5 class="mb-2" style="font-weight: bold;">Подписчики</h5> 
+                            <h5 class="mb-2" style="font-weight: bold;">Подписчики</h5>
                             {% for subs in object.get_subscribers %}
                             <div class="d-flex justify-content-start align-items-center">
                                 <a class="ajax" href="{% url 'user' pk=subs.pk %}" style="display: flex;">
@@ -100,7 +100,14 @@
                       {% include 'blog/elect_new_card.html' %}
                     {% endfor %}
                     {% else %}
-                      <h3>Новостей пока нет</h3>
+                    <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
+                        <div class="card-body">
+                          <h3 class="card-title">У чиновника пока нет новостей.</h3>
+                          <p class="card-text text-sm">
+                            Если у Вас есть чем поделиться с общественностью об этом чиновнике - Вы можете предложить новость</p>
+                          <a class="btn btn-secondary create_elect_new btn-sm pointer">Предложить новость</a>
+                        </div>
+                      </div>
                     {% endif %}
                 </div>
 

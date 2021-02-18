@@ -78,7 +78,7 @@
                             <h5 class="mb-2">Подписчики</h5>
                             {% for subs in object.get_subscribers %}
                             <div class="d-flex justify-content-start align-items-center">
-                                <a class="dropdown-item ajax" href="{% url 'user' pk=subs.pk %}" style="display: flex;">
+                                <a class="ajax" href="{% url 'user' pk=subs.pk %}" style="display: flex;">
                                     <div class="avatar mr-1">
                                         <img src="{{ subs.get_avatar }}" alt="avatar img" style="width:40px; height:auto">
                                     </div>

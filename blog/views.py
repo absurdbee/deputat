@@ -44,10 +44,10 @@ class AllElectsNewsView(ListView, CategoryListMixin):
 		return super(AllElectsNewsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
-		elect_news = ElectNew.objects.only("pk")
 		if self.tag:
-			elect_news = elect_news.filter(tags__name=self.tag)
-		return elect_news
+			return ElectNew.objects.filter(tags__name=self.tag)
+		else:
+			return ElectNew.objects.only("pk")
 
 	def get_context_data(self, **kwargs):
 		context = super(AllElectsNewsView, self).get_context_data(**kwargs)

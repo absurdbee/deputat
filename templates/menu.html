@@ -26,9 +26,9 @@
                 {% for object in regions %}
                   <li>
                     <a class="d-flex align-items-center ajax" href="{% url 'region_detail' slug=object.slug %}">
-                      <span class="menu-item">{{ object.name }}</span>
+                      {{ object.name }}
                     </a>
-                  </li> 
+                  </li>
                 {% endfor %}
               </ul>
             </li>

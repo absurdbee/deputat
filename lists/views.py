@@ -65,7 +65,7 @@ class ElectListsView(TemplateView, CategoryListMixin):
 
 
 class RegionElectView(TemplateView, CategoryListMixin):
-	""" Чиновники (госдумы, совфеда и т.д.) выбранного региона """
+	""" Список чиновников (госдумы, совфеда и т.д.) выбранного региона """
 
 	template_name = None
 

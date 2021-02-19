@@ -70,34 +70,14 @@ class Elect(models.Model):
         return ElectNumbers.objects.filter(elect=self.pk).values('pk').count()
 
     def likes_count(self):
-        news = self.new_elect.filter(elect_id=self.pk).values("pk")
+        news = self.new_elect.filter(new_id=self.pk).values("pk")
         news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
-
-    def likes_count_year(self, year):
-        news = self.new_elect.filter(elect_id=self.pk, created__year=year).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
-
-    def likes_count_month(self, month):
-        news = self.new_elect.filter(elect_id=self.pk, created__month=month).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
-
-    def likes_count_week(self, week):
-        news = self.new_elect.filter(elect_id=self.pk, created__week=week).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
-
-    def likes_count_day(self, day):
-        news = self.new_elect.filter(elect_id=self.pk, created__day=day).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__gt=0).values("pk").count()
+        return ElectVotes.objects.filter(new_id__in=news_ids, vote__gt=0).values("pk").count()
 
     def dislikes_count(self):
-        news = self.new_elect.filter(elect_id=self.pk).values("pk")
+        news = self.new_elect.filter(new_id=self.pk).values("pk")
         news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(parent_id__in=news_ids, vote__lt=0).values("pk").count()
+        return ElectVotes.objects.filter(new_id__in=news_ids, vote__lt=0).values("pk").count()
 
     def get_avatar(self):
         try:

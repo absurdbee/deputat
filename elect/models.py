@@ -71,13 +71,13 @@ class Elect(models.Model):
 
     def likes_count(self):
         from blog.models import ElectNew
-        news = ElectNew.objects.filter(elect_id=self.pk).values("pk")
+        news = ElectNew.objects.filter(elect=self).values("pk")
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(new_id__in=news_ids, vote__gt=0).values("pk").count()
 
     def dislikes_count(self):
         from blog.models import ElectNew
-        news = ElectNew.objects.filter(elect_id=self.pk).values("pk")
+        news = ElectNew.objects.filter(elect=self).values("pk")
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(new_id__in=news_ids, vote__lt=0).values("pk").count()
 

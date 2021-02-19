@@ -19,7 +19,6 @@ class MainPageView(TemplateView, CategoryListMixin):
 
 	def get_context_data(self,**kwargs):
 		context = super(MainPageView,self).get_context_data(**kwargs)
-		context["regions"] = Region.objects.only("pk")
 		context["last_elect_news"] = ElectNew.objects.filter(status="P")[:10]
 		context["last_blog_news"] = Blog.objects.only("pk")[:10]
 		return context

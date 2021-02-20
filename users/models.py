@@ -49,7 +49,7 @@ class User(AbstractUser):
 
     def get_location(self):
         from users.model.profile import UserLocation
-        return UserLocation.objects.filter(user_id=self.pk).last()
+        return UserLocation.objects.filter(user=self).last()
 
     def is_online(self):
         from datetime import datetime, timedelta

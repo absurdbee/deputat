@@ -16,6 +16,12 @@ class AuthView(TemplateView, CategoryListMixin):
 			self.template_name = "account/auth.html"
 		return super(AuthView,self).get(request,*args,**kwargs)
 
+class MainPhoneSend(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("main/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MainPhoneSend,self).get(request,*args,**kwargs)
 
 class UserNewsView(ListView, CategoryListMixin):
 	template_name = None

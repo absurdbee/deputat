@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^dislike_news/(?P<pk>\d+)/$', DislikeNewsView.as_view(), name='dislike_news'),
     url(r'^edit/$', UserEditView.as_view()),
     url(r'^edit_password/$', UserEditPassword.as_view()),
+    url(r'^phone_verify/$', MainPhoneSend.as_view(), name="phone_send"),
 ]

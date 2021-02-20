@@ -52,7 +52,7 @@ class User(AbstractUser):
 
         if UserLocation.objects.filter(user=self).exists():
             return "100"
-            return UserLocation.objects.filter(user=self).last()
+            #return UserLocation.objects.filter(user=self).last()
         else:
             return "105"
 

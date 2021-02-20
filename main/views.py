@@ -23,15 +23,6 @@ class MainPageView(TemplateView, CategoryListMixin):
 		context["last_blog_news"] = Blog.objects.only("pk")[:10]
 		return context
 
-
-class MainPhoneSend(TemplateView):
-	template_name = None
-
-	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("main/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(MainPhoneSend,self).get(request,*args,**kwargs)
-
-
 class PhoneVerify(View):
     def get(self,request,*args,**kwargs):
         if not request.is_ajax():

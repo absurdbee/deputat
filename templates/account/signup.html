@@ -14,6 +14,7 @@
         <p class="card-text mb-2">Создайте аккаунт, чтобы пользоваться всеми возможностями сайта!</p>
 
         <form id="signup" class="auth-register-form mt-2">
+          {% csrf_token %}
             <div class="form-group">
                 <label for="register-username" class="form-label">Имя</label>
                 <input class="form-control" type="text" name="first_name" id="id_first_name" tabindex="1" autofocus="">

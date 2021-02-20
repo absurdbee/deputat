@@ -47,6 +47,10 @@ class User(AbstractUser):
         from django.contrib.humanize.templatetags.humanize import naturaltime
         return naturaltime(self.last_activity)
 
+    def get_location(self):
+        from users.model.profile import UserLocation
+        return UserLocation.objects.filter(user_id=self.pk).last()
+
     def is_online(self):
         from datetime import datetime, timedelta
 

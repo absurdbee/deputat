@@ -2,4 +2,45 @@
 {% block title %}Вход {% endblock %}
 {% block content %}
 
+<div class="card mb-0">
+    <div class="card-body">
+        <a class="brand-logo ajax" href="{% url 'main' %}">
+            <h2 class="brand-text text-primary ml-1">Депутат</h2>
+        </a>
+
+        <h4 class="card-title mb-1">Добро пожаловать</h4>
+        <p class="card-text mb-2">Войдите в аккаунт, чтобы пользоваться всеми возможностями сайта</p>
+
+        <form id="login_form" class="auth-login-form mt-2">
+            <div class="form-group">
+                <label for="id_username" class="form-label">Телефон</label>
+                <input type="text" name="username" id="id_username" tabindex="1" autofocus="">
+            </div>
+
+            <div class="form-group">
+                <div class="d-flex justify-content-between">
+                    <label for="id_password">Пароль</label>
+                    <a href="">
+                        <small>Забыли пароль?</small>
+                    </a>
+                </div>
+                <div class="input-group input-group-merge form-password-toggle">
+                    <input class="form-control form-control-merge" type="password" name="password" id="id_password" tabindex="2">
+                    <div class="input-group-append">
+                        <span class="input-group-text cursor-pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="logg" class="btn btn-primary btn-block" tabindex="4">Войти</button>
+        </form>
+
+        <p class="text-center mt-2">
+            <span>Не зарегистрированы?</span>
+            <a class="ajax" href="{% url 'signup' %}">
+                <span>Создайте аккаунт</span>
+            </a>
+        </p>
+    </div>
+</div>
+
 {% endblock %}

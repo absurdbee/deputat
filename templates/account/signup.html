@@ -2,5 +2,62 @@
 {% block title %}Регистрация{% endblock %}
 {% block content %}
 
+<div class="card mb-0">
+    <div class="card-body">
+      <a class="brand-logo ajax" href="{% url 'main' %}">
+          <h2 class="brand-text text-primary ml-1">Депутат</h2>
+      </a>
+
+        <h4 class="card-title mb-1">Активность начинается здесь 🚀</h4>
+        <p class="card-text mb-2">Создайте аккаунт, чтобы пользоваться всеми возможностями сайта!</p>
+
+        <form id="signup" class="auth-register-form mt-2">
+            <div class="form-group">
+                <label for="register-username" class="form-label">Имя</label>
+                <input type="text" name="first_name" id="id_first_name" tabindex="1" autofocus="">
+            </div>
+            <div class="form-group">
+                <label for="register-username" class="form-label">Фамилия</label>
+                <input type="text" name="last_name" id="id_last_name" tabindex="1" autofocus="">
+            </div>
+
+            <div class="form-group">
+                <label for="password1" class="form-label">Придумайте пароль</label>
+                <div class="input-group input-group-merge form-password-toggle">
+                    <input class="form-control form-control-merge" type="password" name="password1" id="password1" tabindex="3">
+                    <div class="input-group-append">
+                        <span class="input-group-text cursor-pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password2" class="form-label">Повторите пароль</label>
+                <div class="input-group input-group-merge form-password-toggle">
+                    <input class="form-control form-control-merge" type="password" name="password2" id="password2" tabindex="3">
+                    <div class="input-group-append">
+                        <span class="input-group-text cursor-pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" id="register_" checked onchange="document.getElementById('register_ajax').disabled = !this.checked;" tabindex="4">
+                    <label class="custom-control-label" for="register_">
+                        Я принимаю <a href="{% url 'terms' %}" class="ajax underline">Правила сайта</a>
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" desabled id="register_ajax" tabindex="5">Регистрация</button>
+        </form>
+
+        <p class="text-center mt-2">
+            <span>Уже есть аккаунт?</span>
+            <a href="{% url 'login' %}">
+                <span>Войти</span>
+            </a>
+        </p>
+    </div>
+</div>
 
 {% endblock %}

@@ -2,6 +2,8 @@
 {% block title %}Регистрация{% endblock %}
 {% block content %}
 
+<div class="auth-wrapper auth-v1 px-2">
+  <div class="auth-inner py-2">
 <div class="card mb-0">
     <div class="card-body">
       <a class="brand-logo ajax" href="{% url 'main' %}">
@@ -14,11 +16,11 @@
         <form id="signup" class="auth-register-form mt-2">
             <div class="form-group">
                 <label for="register-username" class="form-label">Имя</label>
-                <input type="text" name="first_name" id="id_first_name" tabindex="1" autofocus="">
+                <input class="form-control" type="text" name="first_name" id="id_first_name" tabindex="1" autofocus="">
             </div>
             <div class="form-group">
                 <label for="register-username" class="form-label">Фамилия</label>
-                <input type="text" name="last_name" id="id_last_name" tabindex="1" autofocus="">
+                <input class="form-control" type="text" name="last_name" id="id_last_name" tabindex="1" autofocus="">
             </div>
 
             <div class="form-group">
@@ -59,5 +61,6 @@
         </p>
     </div>
 </div>
-
+</div>
+</div>
 {% endblock %}

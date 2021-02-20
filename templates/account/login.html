@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% block title %}Вход {% endblock %}
+{% extends "base_auth.html" %}
+{% block title %}Вход{% endblock %}
 {% block content %}
 
 
@@ -7,7 +7,7 @@
   <div class="auth-inner py-2">
 <div class="card mb-0">
     <div class="card-body">
-        <a class="brand-logo ajax" href="{% url 'main' %}">
+        <a class="brand-logo" href="{% url 'main' %}">
             <h2 class="brand-text text-primary ml-1">Депутат</h2>
         </a>
 

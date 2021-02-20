@@ -2,6 +2,7 @@
 {% block title %}Подтверждение аккаунта{% endblock %}
 {% block content %}
 
+{{ request.user.get_location }}
 <div class="auth-wrapper auth-v1 px-2">
     <div class="auth-inner py-2">
         <div class="card mb-0">

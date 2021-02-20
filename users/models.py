@@ -41,7 +41,7 @@ class User(AbstractUser):
         verbose_name_plural = 'пользователи'
 
     def __str__(self):
-        return self.username
+        return self.get_full_name()
 
     def get_joined(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime

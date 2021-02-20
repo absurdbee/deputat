@@ -20,7 +20,7 @@ class MainPhoneSend(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("main/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("generic/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainPhoneSend,self).get(request,*args,**kwargs)
 
 class UserNewsView(ListView, CategoryListMixin):

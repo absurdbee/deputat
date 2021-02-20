@@ -134,6 +134,7 @@ on('body', 'click', '#register_ajax', function() {
 })
 on('body', 'click', '#logg', function() {
   form = document.querySelector("#login_form");
+  user_pk = form.getAttribute("data-pk");
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
     toast_error("Введите телефон!")}
@@ -150,7 +151,7 @@ on('body', 'click', '#logg', function() {
 
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    window.location.href = "/"
+    window.location.href = "/users/" + user_pk + "/"
     }};
   link.send(form_data);
 });
@@ -177,8 +178,10 @@ function phone_check() {
   }
 
   on('#ajax', 'click', '#code_send', function() {
-      var phone = document.getElementById('phone').value;
-      var code = document.getElementById('code').value;
+      form = document.querySelector('#verify_form');
+      user_pk = form.getAttribute("data-pk");
+      var phone = form.querySelector('#phone').value;
+      var code = form.querySelector('#code').value;
       var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
       request.open('GET', "/users/progs/phone_verify/" + phone + "/" + code + "/", true);
       request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -188,7 +191,7 @@ function phone_check() {
               div.innerHTML = request.responseText;
               console.log(request.responseText);
               if (request.responseText.indexOf("ok") != -1) {
-                  window.location.href = "{% url 'user' pk=request.user.pk %}";
+                 window.location.href = "/users/" + user_pk + "/"
               }
           }
       };

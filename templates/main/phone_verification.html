@@ -13,7 +13,7 @@
                 <h4 class="card-title mb-1">Подтверждение телефона 🔒</h4>
                 <p class="card-text mb-2">Введите Ваш номер телефона. Мы Вам пошлем код подтверждения.</p>
 
-                <form class="auth-forgot-password-form mt-2">
+                <form class="auth-forgot-password-form mt-2 verify_form" data-pk="{{ request.user.pk }}">
                     <div class="form-group">
                       <div class="input-group input-group-merge mb-2">
                         <label for="phone" class="form-label">Телефон</label>

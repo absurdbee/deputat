@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from users.views import *
 
 
@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^edit/$', UserEditView.as_view()),
     url(r'^edit_password/$', UserEditPassword.as_view()),
     url(r'^phone_verify/$', MainPhoneSend.as_view(), name="phone_send"),
+
+    url(r'^progs/', include('users.url.progs')),
 ]

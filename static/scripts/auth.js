@@ -183,7 +183,7 @@ function phone_check() {
       var phone = form.querySelector('#phone').value;
       var code = form.querySelector('#code').value;
       var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-      request.open('GET', "/phone_verify/" + phone + "/" + code + "/", true);
+      request.open('GET', "/users/progs/phone_verify/" + phone + "/" + code + "/", true);
       request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
       request.onreadystatechange = function() {
           if (request.readyState == 4 && request.status == 200) {

@@ -13,7 +13,11 @@ class PhoneVerify(View):
             raise Http404
         code = self.kwargs["code"]
         _phone = self.kwargs["phone"]
-        phone = request.user.get_last_location().phone + _phone
+        if request.user.get_location():
+            loc = request.user.get_location()
+        else:
+            loc = UserLocation.objects.filter(user=self).last()
+        phone = loc.phone + _phone
         try:
             obj = PhoneCodes.objects.get(phone=phone)
         except:

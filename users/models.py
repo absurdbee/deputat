@@ -54,10 +54,9 @@ class User(AbstractUser):
         from users.model.profile import UserLocation
 
         if UserLocation.objects.filter(user=self).exists():
-            return "100"
-            #return UserLocation.objects.filter(user=self).last()
+            return UserLocation.objects.filter(user=self).last()
         else:
-            return "105"
+            return False
 
     def is_online(self):
         from datetime import datetime, timedelta

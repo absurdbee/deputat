@@ -5,6 +5,7 @@ from allauth.account.utils import setup_user_email
 from rest_framework import serializers
 from rest_framework.response import Response
 from users.models import User
+from common.utils import get_location
 
 
 class RegisterSerializer(serializers.Serializer):
@@ -43,7 +44,6 @@ class RegisterSerializer(serializers.Serializer):
         user = adapter.new_user(request)
         users_count = User.objects.only("pk").count()
         user.phone = users_count + 156
-        #user.username = "user_" + users_count
         self.cleaned_data = self.get_cleaned_data()
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])

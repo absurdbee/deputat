@@ -34,7 +34,7 @@ class User(AbstractUser):
     gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
     USERNAME_FIELD = 'phone'
-    REQUIRED_FIELDS = []
+    #REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = 'пользователь'

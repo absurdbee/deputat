@@ -25,7 +25,7 @@ class PhoneVerify(View):
             user.save()
             obj.delete()
             data = 'ok'
-            response = render_for_platform(request,'generic/response/phone.html',{'response_text':data})
+            response = render(request,'generic/response/phone.html',{'response_text':data})
             return response
         else:
             data = 'Код подтверждения неверный. Проверьте, пожалуйста, номер, с которого мы Вам звонили. Последние 4 цифры этого номера и есть код подтверждения, который нужно ввести с поле "Код".'

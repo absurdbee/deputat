@@ -178,7 +178,7 @@ function phone_check() {
   }
 
   on('#ajax', 'click', '#code_send', function() {
-      form = document.querySelector('#verify_form');
+      form = document.querySelector('.verify_form');
       user_pk = form.getAttribute("data-pk");
       var phone = form.querySelector('#phone').value;
       var code = form.querySelector('#code').value;

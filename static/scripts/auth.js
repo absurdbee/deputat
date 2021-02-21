@@ -178,10 +178,10 @@ function phone_check() {
   }
 
   on('#ajax', 'click', '#code_send', function() {
-      block = document.querySelector('.block_verify');
-      user_pk = document.querySelector('.verify_form').getAttribute("data-pk");
-      var phone = block.querySelector('#phone').value;
-      var code = block.querySelector('#code').value;
+      form = document.querySelector('.verify_form');
+      user_pk = form.getAttribute("data-pk");
+      var phone = form.querySelector('#phone').value;
+      var code = document.body.querySelector('.block_verify').querySelector('#code').value;
       var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
       request.open('GET', "/users/progs/phone_verify/" + phone + "/" + code + "/", true);
       request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

@@ -55,7 +55,7 @@
                         <div class="card card-developer-meetup">
                             <div class="meetup-img-wrapper rounded-top text-center">
                               {% if object.get_image_url %}
-                              <a href="{% url 'elect_new_detail' pk=object.pk %}">
+                              <a class="ajax" href="{% url 'elect_new_detail' pk=object.pk %}">
                                 <img src="{{ object.get_image_url }}" alt="img" class="cover_fit" />
                               </a>
                               {% endif %}
@@ -63,7 +63,7 @@
                             <div class="card-body">
                                 <div class="meetup-header d-flex align-items-center">
                                     <div class="my-auto">
-                                      <a href="{% url 'elect_new_detail' pk=object.pk %}">
+                                      <a class="ajax" href="{% url 'elect_new_detail' pk=object.pk %}">
                                         <h4 class="card-title mb-25">{{ object.title }}</h4>
                                         <p class="card-text mb-0">Событие депутата</p>
                                       </a>
@@ -83,7 +83,7 @@
                                 <div class="avatar-group">
                                   {% for elect in object.get_elects %}
                                     <div tooltip="{{ elect.name }}"
-                                         class="avatar pull-up">
+                                         class="avatar pull-up ajax">
                                          <a href="{% url 'elect_detail' pk=elect.pk %}">
                                         <img src="{{ elect.image.url }}" alt="img" width="50" height="50" />
                                         </a>

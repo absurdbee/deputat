@@ -19,6 +19,7 @@
         <span class="text-success mb-1">{{ object.get_first_list }}</span>
         <span class="delivery-date" style="margin-top: 1.2rem;margin-bottom: 0.25rem;">Здесь рейтинги...</span>
     </div>
+    {% if request.user.is_authenticated %}
     <div class="item-options subscribe_options text-center">
       {% if object|is_user_subscribe:request.user.pk %}
         <button type="button" class="btn btn-light subscribe_btn remove_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
@@ -32,4 +33,5 @@
         </button>
         {% endif %}
     </div>
+    {% endif %}
 </div>

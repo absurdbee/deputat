@@ -119,6 +119,17 @@ class User(AbstractUser):
     def is_no_phone_verified(self):
         return try_except(self.perm == User.PHONE_NO_VERIFIED)
 
+    def is_man(self):
+        if self.gender == User.MALE:
+            return True
+        else:
+            return False
+    def is_woman(self):
+        if self.gender == User.FEMALE:
+            return True
+        else:
+            return False
+
     def create_s_avatar(self, photo_input):
         from easy_thumbnails.files import get_thumbnailer
 

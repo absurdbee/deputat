@@ -3,7 +3,6 @@ from users.models import User
 from django.http import HttpResponse
 from django.http import Http404
 from common.utils import get_small_template
-from users.model.profile import UserLocation
 
 
 class PhoneVerify(View):
@@ -14,11 +13,6 @@ class PhoneVerify(View):
             raise Http404
         code = self.kwargs["code"]
         _phone = self.kwargs["phone"]
-        if request.user.get_location():
-            loc = request.user.get_location()
-        else:
-            loc = UserLocation.objects.create(user=request.user)
-        phone = loc.phone + str(_phone)
         try:
             obj = PhoneCodes.objects.get(phone=phone)
         except:
@@ -47,13 +41,8 @@ class PhoneSend(View):
         if not request.is_ajax() and not request.user.is_no_phone_verified():
             raise Http404
         else:
-            _phone = self.kwargs["phone"]
-            if request.user.get_location():
-                loc = request.user.get_location()
-            else:
-                loc = UserLocation.objects.create(user=request.user)
-            if len(_phone) > 8:
-                phone = loc.phone + str(_phone)
+            phone = self.kwargs["phone"]
+            if len(phone) > 8:
                 try:
                     user = User.objects.get(phone=phone)
                     data = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в службу поддержки, если этот номер Вы не использовали ранее.'

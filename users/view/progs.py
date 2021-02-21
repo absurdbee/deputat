@@ -3,6 +3,7 @@ from users.models import User
 from django.http import HttpResponse
 from django.http import Http404
 from common.utils import get_small_template
+from users.model.profile import UserLocation
 
 
 class PhoneVerify(View):

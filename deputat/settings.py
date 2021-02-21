@@ -59,6 +59,10 @@ CKEDITOR_CONFIGS = {
        },
     }
 
+REST_AUTH_REGISTER_SERIALIZERS = {
+        'REGISTER_SERIALIZER': 'deputat.serializers.RegisterSerializer',
+}
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',

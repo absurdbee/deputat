@@ -54,7 +54,7 @@ class User(AbstractUser):
         from users.model.profile import UserLocation
 
         if UserLocation.objects.filter(user=self).exists():
-            return UserLocation.objects.filter(user=self).last()
+            return UserLocation.objects.filter(user=self).first()
         else:
             return False
 

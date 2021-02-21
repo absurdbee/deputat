@@ -3,7 +3,7 @@
         <h5 class="mb-75" style="font-weight: bold;">География</h5>
           {% for region in object.get_regions %}
           <div class="badge badge-pill badge-light-info mr-50" style="font-size:100%">
-            <a href="{% url 'region_detail' slug=region.slug %}" style="color: #00CFE8 !important;">
+            <a class="ajax" href="{% url 'region_detail' slug=region.slug %}" style="color: #00CFE8 !important;">
             {{ region.name }}
             </a>
           </div>

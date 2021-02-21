@@ -124,7 +124,7 @@ class User(AbstractUser):
             return True
         else:
             return False
-    def is_woman(self):
+    def is_women(self):
         if self.gender == User.FEMALE:
             return True
         else:

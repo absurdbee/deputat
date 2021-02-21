@@ -17,7 +17,7 @@ class PhoneVerify(View):
             loc = request.user.get_location()
         else:
             loc = UserLocation.objects.create(user=request.user)
-        phone = loc.phone + _phone
+        phone = loc.phone + str(_phone)
         try:
             obj = PhoneCodes.objects.get(phone=phone)
         except:
@@ -52,7 +52,7 @@ class PhoneSend(View):
             else:
                 loc = UserLocation.objects.create(user=request.user)
             if len(_phone) > 8:
-                phone = loc.phone + _phone
+                phone = loc.phone + str(_phone)
                 try:
                     user = User.objects.get(phone=phone)
                     data = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в службу поддержки, если этот номер Вы не использовали ранее.'

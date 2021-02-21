@@ -151,7 +151,7 @@ on('body', 'click', '#logg', function() {
 
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    window.location.href = "/users/" + user_pk + "/"
+    window.location.href = "/"
     }};
   link.send(form_data);
 });

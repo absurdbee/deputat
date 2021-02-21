@@ -16,7 +16,7 @@ class PhoneVerify(View):
         if request.user.get_location():
             loc = request.user.get_location()
         else:
-            loc = UserLocation.objects.filter(user=self).last()
+            loc = UserLocation.objects.create(user=request.user)
         phone = loc.phone + _phone
         try:
             obj = PhoneCodes.objects.get(phone=phone)
@@ -47,8 +47,12 @@ class PhoneSend(View):
             raise Http404
         else:
             _phone = self.kwargs["phone"]
+            if request.user.get_location():
+                loc = request.user.get_location()
+            else:
+                loc = UserLocation.objects.create(user=request.user)
             if len(_phone) > 8:
-                phone = request.user.get_last_location().phone + _phone
+                phone = loc.phone + _phone
                 try:
                     user = User.objects.get(phone=phone)
                     data = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в службу поддержки, если этот номер Вы не использовали ранее.'

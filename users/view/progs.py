@@ -3,6 +3,7 @@ from users.models import User
 from django.http import HttpResponse
 from django.http import Http404
 from common.utils import get_small_template
+from django.shortcuts import render
 
 
 class PhoneVerify(View):
@@ -28,7 +29,7 @@ class PhoneVerify(View):
             return response
         else:
             data = 'Код подтверждения неверный. Проверьте, пожалуйста, номер, с которого мы Вам звонили. Последние 4 цифры этого номера и есть код подтверждения, который нужно ввести с поле "Последние 4 цифры". Если не можете найти номер, нажмите на кнопку "Перезвонить повторно".'
-            response = render_for_platform(request,'generic/response/phone.html',{'response_text':data})
+            response = render(request,'generic/response/phone.html',{'response_text':data})
             return response
 
 
@@ -46,16 +47,16 @@ class PhoneSend(View):
                 try:
                     user = User.objects.get(phone=phone)
                     data = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в службу поддержки, если этот номер Вы не использовали ранее.'
-                    response = render_for_platform(request,'generic/response/phone.html',{'response_text':data})
+                    response = render(request,'generic/response/phone.html',{'response_text':data})
                     return response
                 except:
                     response = requests.get(url="https://api.ucaller.ru/v1.0/initCall?service_id=12203&key=GhfrKn0XKAmA1oVnyEzOnMI5uBnFN4ck&phone=" + phone)
                     data = response.json()
                     PhoneCodes.objects.create(phone=phone, code=data['code'])
                     data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Последние 4 цифры" и нажать "Подтвердить"'
-                    response = render_for_platform(request,'generic/response/code_send.html',{'response_text':data})
+                    response = render(request,'generic/response/code_send.html',{'response_text':data})
                     return response
             else:
                 data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'
-                response = render_for_platform(request,'generic/response/phone.html',{'response_text':data})
+                response = render(request,'generic/response/phone.html',{'response_text':data})
                 return response

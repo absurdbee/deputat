@@ -35,4 +35,4 @@ class IPUser(models.Model):
         index_together = [('id', 'user'),]
 
     def __str__(self):
-        return '{} - {}'.format(self.user.get_full_name(), self.ip_1)
+        return '{} - {}'.format(self.user.get_full_name(), self.ip)

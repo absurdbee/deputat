@@ -8,11 +8,6 @@ urlpatterns = [
     url(r'^news/$', ProectNewsView.as_view(), name="proect_news"),
     url(r'^all_elects_news/(?P<name>[\w\-]+)/$', AllElectsNewsView.as_view(), name="all_elect_news"),
 
-    url(r'^like/(?P<pk>\d+)/$',login_required(BlogLikeCreate.as_view())),
-    url(r'^dislike/(?P<pk>\d+)/$',login_required(BlogDislikeCreate.as_view())),
-    url(r'^comment_like/(?P<comment_pk>\d+)/$',login_required(BlogCommentLikeCreate.as_view())),
-    url(r'^comment_dislike/(?P<comment_pk>\d+)/$',login_required(BlogCommentDislikeCreate.as_view())),
-
     url(r'^post-comment/$', login_required(BlogCommentCreate.as_view())),
     url(r'^reply-comment/$', login_required(BlogReplyCreate.as_view())),
     url(r'^delete_comment/(?P<pk>\d+)/$', login_required(BlogCommentDelete.as_view())),

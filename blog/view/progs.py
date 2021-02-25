@@ -218,7 +218,7 @@ class BlogCommentLikeCreate(View):
         dislikes = comment.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
-class BlogDislikeCreate(View):
+class BlogCommentDislikeCreate(View):
     def get(self, request, **kwargs):
         from common.model.votes import BlogCommentVotes
 

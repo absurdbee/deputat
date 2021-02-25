@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from blog.comments.views import *
+from blog.view.comments import *
 from django.contrib.auth.decorators import login_required
 
 

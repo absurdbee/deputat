@@ -22,15 +22,6 @@ class BlogVotes(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
 
-class ElectNewVotes(models.Model):
-    LIKE = 1
-    DISLIKE = -1
-    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
-
-    vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE)
-
 class ElectNewVotes2(models.Model):
     LIKE = 1
     DISLIKE = -1

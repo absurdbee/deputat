@@ -69,19 +69,19 @@ class Elect(models.Model):
 
     def likes_count(self):
         from blog.models import ElectNew
-        from common.model.votes import ElectVotes
+        from common.model.votes import ElectNewVotes
 
-        news = ElectNew.objects.filter(elect=self).values("pk")
+        news = ElectNewVotes.objects.filter(elect=self).values("pk")
         news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(new_id__in=news_ids, vote__gt=0).values("pk").count()
+        return ElectNewVotes.objects.filter(new_id__in=news_ids, vote__gt=0).values("pk").count()
 
     def dislikes_count(self):
         from blog.models import ElectNew
-        from common.model.votes import ElectVotes
+        from common.model.votes import ElectNewVotes
 
-        news = ElectNew.objects.filter(elect=self).values("pk")
+        news = ElectNewVotes.objects.filter(elect=self).values("pk")
         news_ids = [new['pk'] for new in news]
-        return ElectVotes.objects.filter(new_id__in=news_ids, vote__lt=0).values("pk").count()
+        return ElectNewVotes.objects.filter(new_id__in=news_ids, vote__lt=0).values("pk").count()
 
     def get_avatar(self):
         try:

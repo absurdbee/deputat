@@ -1,6 +1,7 @@
 from django.contrib import admin
 from common.model.other import *
 from common.model.comments import *
+from common.model.votes import *
 
 
 class BlogCommentAdmin(admin.ModelAdmin):

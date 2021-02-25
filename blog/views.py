@@ -126,11 +126,11 @@ class BlogCommentDelete(View):
 class BlogCommentAbortDelete(View):
 	from common.model.comments import BlogComment
 
-    def get(self,request,*args,**kwargs):
-        comment = BlogComment.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and request.user.pk == comment.commenter.pk:
-            comment.is_deleted = False
-            comment.save(update_fields=['is_deleted'])
-            return HttpResponse()
-        else:
-            raise Http404
+	def get(self,request,*args,**kwargs):
+		comment = BlogComment.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax() and request.user.pk == comment.commenter.pk:
+			comment.is_deleted = False
+			comment.save(update_fields=['is_deleted'])
+			return HttpResponse()
+		else:
+			raise Http404

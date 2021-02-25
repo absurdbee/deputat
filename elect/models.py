@@ -73,7 +73,7 @@ class Elect(models.Model):
 
         news = ElectNew.objects.filter(elect=self).values("id")
         news_ids = [new['id'] for new in news]
-        return ElectNewVotes.objects.filter(new_id__in=news_ids, vote__gt=0).values("id").count()
+        return ElectNewVotes.objects.filter(new_id__in=news_ids, vote__gt=0).values("id")
 
     def dislikes_count(self):
         from blog.models import ElectNew

@@ -129,16 +129,16 @@ class ElectNew(models.Model):
         return self.status == ElectNew.STATUS_PUBLISHED
 
     def likes(self):
-        from common.model.votes import ElectNewVotes
-        return ElectNewVotes.objects.filter(new_id=self.pk, vote__gt=0)
+        from common.model.votes import ElectNewVotes2
+        return ElectNewVotes2.objects.filter(new_id=self.pk, vote__gt=0)
 
     def dislikes(self):
-        from common.model.votes import ElectNewVotes
-        return ElectNewVotes.objects.filter(new_id=self.pk, vote__lt=0)
+        from common.model.votes import ElectNewVotes2
+        return ElectNewVotes2.objects.filter(new_id=self.pk, vote__lt=0)
 
     def likes_count(self):
-        from common.model.votes import ElectNewVotes
-        likes = ElectNewVotes.objects.filter(new_id=self.pk, vote__gt=0).values("pk")
+        from common.model.votes import ElectNewVotes2
+        likes = ElectNewVotes2.objects.filter(new_id=self.pk, vote__gt=0).values("pk")
         count = likes.count()
         if count:
             return count
@@ -146,8 +146,8 @@ class ElectNew(models.Model):
             return ''
 
     def dislikes_count(self):
-        from common.model.votes import ElectNewVotes
-        dislikes = ElectNewVotes.objects.filter(new_id=self.pk, vote__lt=0).values("pk")
+        from common.model.votes import ElectNewVotes2
+        dislikes = ElectNewVotes2.objects.filter(new_id=self.pk, vote__lt=0).values("pk")
         count = dislikes.count()
         if count:
             return count

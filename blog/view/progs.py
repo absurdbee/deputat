@@ -124,7 +124,7 @@ class ElectCommentLikeCreate(View):
         dislikes = comment.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
-class ElectNewCommentDislikeCreate(View):
+class ElectCommentDislikeCreate(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectCommentVotes
 

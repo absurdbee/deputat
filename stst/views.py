@@ -2,7 +2,6 @@ from django.views.generic.base import TemplateView
 from stst.models import *
 from common.utils import get_managers_template
 from elect.models import Elect
-from common.model.votes import BlogVotes, ElectVotes
 
 
 class StatView(TemplateView):

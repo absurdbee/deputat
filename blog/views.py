@@ -71,7 +71,7 @@ class BlogCommentList(ListView):
     def get(self,request,*args,**kwargs):
 	    self.blog = Blog.objects.get(pk=self.kwargs["pk"])
 	    return super(BlogCommentList,self).get(request,*args,**kwargs)
-		
+
     def get_context_data(self, **kwargs):
 	    context = super(BlogCommentList, self).get_context_data(**kwargs)
 	    context['parent'] = self.blog
@@ -82,48 +82,46 @@ class BlogCommentList(ListView):
 
 
 class BlogCommentCreate(View):
-    def post(self,request,*args,**kwargs):
+	def post(self,request,*args,**kwargs):
 		from blog.forms import BlogCommentForm
 		from django.shortcuts import render
 
-        form_post = BlogCommentForm(request.POST)
-        blog = Blog.objects.get(pk=request.POST.get('pk'))
-
-        if request.is_ajax() and form_post.is_valid() and blog.comments_enabled:
-            comment = form_post.save(commit=False)
-            new_comment = comment.create_comment(commenter=request.user, parent=None, blog=blog, text=comment.text)
-            return render(request, 'parent.html',{'comment': new_comment})
-        else:
-            return HttpResponseBadRequest()
+		form_post = BlogCommentForm(request.POST)
+		blog = Blog.objects.get(pk=request.POST.get('pk'))
+		if request.is_ajax() and form_post.is_valid() and blog.comments_enabled:
+			comment = form_post.save(commit=False)
+			new_comment = comment.create_comment(commenter=request.user, parent=None, blog=blog, text=comment.text)
+			return render(request, 'parent.html',{'comment': new_comment})
+		else:
+			return HttpResponseBadRequest()
 
 
 class BlogReplyCreate(View):
-    def post(self,request,*args,**kwargs):
+	def post(self,request,*args,**kwargs):
 		from blog.forms import BlogCommentForm
 		from django.shortcuts import render
 		from common.model.comments import BlogComment
 
-        form_post = BlogCommentForm(request.POST)
-        parent = BlogComment.objects.get(pk=request.POST.get('post_comment'))
-
-        if request.is_ajax() and form_post.is_valid():
-            comment = form_post.save(commit=False)
-            new_comment = comment.create_comment(commenter=request.user, parent=parent, blog=None, text=comment.text)
-            return render(request, 'blog_reply.html',{'reply': new_comment, 'comment': parent,})
-        else:
-            return HttpResponseBadRequest()
+		form_post = BlogCommentForm(request.POST)
+		parent = BlogComment.objects.get(pk=request.POST.get('post_comment'))
+		if request.is_ajax() and form_post.is_valid():
+			comment = form_post.save(commit=False)
+			new_comment = comment.create_comment(commenter=request.user, parent=parent, blog=None, text=comment.text)
+			return render(request, 'blog_reply.html',{'reply': new_comment, 'comment': parent,})
+		else:
+			return HttpResponseBadRequest()
 
 class BlogCommentDelete(View):
-    def get(self,request,*args,**kwargs):
+	def get(self,request,*args,**kwargs):
 		from common.model.comments import BlogComment
 
-        comment = BlogComment.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and request.user.pk == comment.commenter.pk:
-            comment.is_deleted = True
-            comment.save(update_fields=['is_deleted'])
-            return HttpResponse()
-        else:
-            raise Http404
+		comment = BlogComment.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax() and request.user.pk == comment.commenter.pk:
+			comment.is_deleted = True
+			comment.save(update_fields=['is_deleted'])
+			return HttpResponse()
+		else:
+			raise Http404
 
 class BlogCommentAbortDelete(View):
 	from common.model.comments import BlogComment

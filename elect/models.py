@@ -1,22 +1,20 @@
 from django.db import models
 from django.conf import settings
-from django.db import models
 from django.contrib.postgres.indexes import BrinIndex
-from django.utils import timezone
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from lists.models import Region
 from django.db.models import Q
-from blog.models import ElectVotes
 
 
 """
-    Группируем все таблицы чиновников здесь:
+    Группируем все таблицы о чиновниках здесь:
     1. Таблица чиновника,
     2. Таблица ссылки чиновника, много ссылок к одному чиновнику
     3. Таблица образования чиновника, много дипломов к одному чиновнику
-    3. Таблица подписки пользователя на чиновника
+    4. Таблица подписки пользователя на чиновника
 """
+
 class Elect(models.Model):
     name = models.CharField(max_length=255, verbose_name="ФИО")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
@@ -71,12 +69,16 @@ class Elect(models.Model):
 
     def likes_count(self):
         from blog.models import ElectNew
+        from common.model.votes import ElectVotes
+
         news = ElectNew.objects.filter(elect=self).values("pk")
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(new_id__in=news_ids, vote__gt=0).values("pk").count()
 
     def dislikes_count(self):
         from blog.models import ElectNew
+        from common.model.votes import ElectVotes
+
         news = ElectNew.objects.filter(elect=self).values("pk")
         news_ids = [new['pk'] for new in news]
         return ElectVotes.objects.filter(new_id__in=news_ids, vote__lt=0).values("pk").count()

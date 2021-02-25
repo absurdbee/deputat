@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from django.db import models
 from django.contrib.postgres.indexes import BrinIndex
 from django.utils import timezone
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
@@ -13,8 +12,8 @@ from taggit.managers import TaggableManager
 
 """
     Группируем все таблицы новостей здесь:
-    1. Новости всего проекта и [комменты, реакции] к ним,
-    2. Лента депутата - его высказывания, выборы, работа с избирателями и [документы, фото] к событиям ленты
+    1. Новости всего проекта,
+    2. Лента депутата - его высказывания, выборы, работа с избирателями
 """
 
 
@@ -28,7 +27,7 @@ class Blog(models.Model):
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
-    tags=TaggableManager(blank=True,verbose_name="Теги")
+    tags = TaggableManager(blank=True,verbose_name="Теги")
 
     class Meta:
         verbose_name = "Новость проекта"
@@ -40,14 +39,15 @@ class Blog(models.Model):
         return self.title
 
     def likes(self):
-        likes = BlogVotes.objects.filter(blog_id=self.pk, vote__gt=0)
-        return likes
+        from common.model.votes import BlogVotes
+        return BlogVotes.objects.filter(blog_id=self.pk, vote__gt=0)
 
     def dislikes(self):
-        dislikes = BlogVotes.objects.filter(blog_id=self.pk, vote__lt=0)
-        return dislikes
+        from common.model.votes import BlogVotes
+        return BlogVotes.objects.filter(blog_id=self.pk, vote__lt=0)
 
     def likes_count(self):
+        from common.model.votes import BlogVotes
         likes = BlogVotes.objects.filter(blog_id=self.pk, vote__gt=0).values("pk")
         count = likes.count()
         if count:
@@ -56,6 +56,7 @@ class Blog(models.Model):
             return ''
 
     def dislikes_count(self):
+        from common.model.votes import BlogVotes
         dislikes = BlogVotes.objects.filter(blog_id=self.pk, vote__lt=0).values("pk")
         count = dislikes.count()
         if count:
@@ -64,6 +65,8 @@ class Blog(models.Model):
             return ''
 
     def count_comments(self):
+        from common.model.comments import BlogComment
+
         parent_comments = BlogComment.objects.filter(blog_id=self.pk)
         parents_count = parent_comments.count()
         i = 0
@@ -73,13 +76,14 @@ class Blog(models.Model):
         return i
 
     def get_comments(self):
+        from common.model.comments import BlogComment
+
         comments_query = Q(blog_id=self.pk)
         comments_query.add(Q(parent__isnull=True), Q.AND)
         return BlogComment.objects.filter(comments_query)
 
     def get_articles_5(self):
-        get_moovie = Blog.objects.filter(category__in=self.category.all())[:5]
-        return get_moovie
+        return Blog.objects.filter(category__in=self.category.all())[:5]
 
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
@@ -88,104 +92,6 @@ class Blog(models.Model):
     def visits_count(self):
         from stst.models import BlogNumbers
         return BlogNumbers.objects.filter(new=self.pk).values('pk').count()
-
-
-class BlogComment(models.Model):
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='blog_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
-    modified = models.DateTimeField(auto_now_add=True, auto_now=False, db_index=False)
-    commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
-    text = models.TextField(blank=True)
-    is_edited = models.BooleanField(default=False, verbose_name="Изменено")
-    is_deleted = models.BooleanField(default=False, verbose_name="Удаено")
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, blank=True, null=True)
-
-    class Meta:
-        indexes = (BrinIndex(fields=['created']), )
-        verbose_name = "комментарий к статье"
-        verbose_name_plural = "комментарии к статье"
-
-    def __str__(self):
-        return "{0}/{1}".format(self.commenter.get_full_name(), self.text[:10])
-
-    def get_created(self):
-        from django.contrib.humanize.templatetags.humanize import naturaltime
-        return naturaltime(self.created)
-
-    def get_replies(self):
-        get_comments = BlogComment.objects.filter(parent=self).all()
-        return get_comments
-
-    def count_replies(self):
-        return self.blog_comment_replies.count()
-
-    def likes(self):
-        likes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0)
-        return likes
-
-    def likes_count(self):
-        likes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0).values("pk")
-        return likes.count()
-
-    def dislikes_count(self):
-        dislikes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0).values("pk")
-        return dislikes.count()
-
-    def dislikes(self):
-        dislikes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0)
-        return dislikes
-
-    def likes_count(self):
-        likes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0).values("pk")
-        count = likes.count()
-        if count:
-            return count
-        else:
-            return ''
-
-    def dislikes_count(self):
-        dislikes = BlogCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0).values("pk")
-        count = dislikes.count()
-        if count:
-            return count
-        else:
-            return ''
-
-    @classmethod
-    def create_comment(cls, commenter, blog=None, parent=None, text=None, created=None):
-        comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text)
-        comment.save()
-        return comment
-
-    def count_replies_ru(self):
-        count = self.blog_comment_replies.count()
-        a = count % 10
-        b = count % 100
-        if (a == 1) and (b != 11):
-            return str(count) + " ответ"
-        elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
-            return str(count) + " ответа"
-        else:
-            return str(count) + " ответов"
-
-
-class BlogVotes(models.Model):
-    LIKE = 1
-    DISLIKE = -1
-    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
-
-    vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-
-class BlogCommentVotes(models.Model):
-    LIKE = 1
-    DISLIKE = -1
-    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
-
-    vote = models.IntegerField(verbose_name="Голос", choices=VOTES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    blog = models.ForeignKey(BlogComment, on_delete=models.CASCADE)
 
 
 class ElectNew(models.Model):
@@ -223,15 +129,16 @@ class ElectNew(models.Model):
         return self.status == ElectNew.STATUS_PUBLISHED
 
     def likes(self):
-        likes = ElectVotes.objects.filter(new_id=self.pk, vote__gt=0)
-        return likes
+        from common.model.votes import ElectNewVotes
+        return ElectNewVotes.objects.filter(new_id=self.pk, vote__gt=0)
 
     def dislikes(self):
-        dislikes = ElectVotes.objects.filter(new_id=self.pk, vote__lt=0)
-        return dislikes
+        from common.model.votes import ElectNewVotes
+        return ElectNewVotes.objects.filter(new_id=self.pk, vote__lt=0)
 
     def likes_count(self):
-        likes = ElectVotes.objects.filter(new_id=self.pk, vote__gt=0).values("pk")
+        from common.model.votes import ElectNewVotes
+        likes = ElectNewVotes.objects.filter(new_id=self.pk, vote__gt=0).values("pk")
         count = likes.count()
         if count:
             return count
@@ -239,7 +146,8 @@ class ElectNew(models.Model):
             return ''
 
     def dislikes_count(self):
-        dislikes = ElectVotes.objects.filter(new_id=self.pk, vote__lt=0).values("pk")
+        from common.model.votes import ElectNewVotes
+        dislikes = ElectNewVotes.objects.filter(new_id=self.pk, vote__lt=0).values("pk")
         count = dislikes.count()
         if count:
             return count
@@ -279,6 +187,8 @@ class ElectNew(models.Model):
         return self.image_new.filter(new_id=self.pk)[0].file.url
 
     def count_comments(self):
+        from common.model.comments import ElectNewComment
+
         comments = ElectNewComment.objects.filter(new_id=self.pk)
         parents_count = comments.count()
         i = 0
@@ -288,107 +198,11 @@ class ElectNew(models.Model):
         return i
 
     def get_comments(self):
+        from common.model.comments import ElectNewComment
+
         comments_query = Q(new_id=self.pk)
         comments_query.add(Q(parent__isnull=True), Q.AND)
         return ElectNewComment.objects.filter(comments_query)
-
-
-class ElectNewComment(models.Model):
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='elect_new_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
-    modified = models.DateTimeField(auto_now_add=True, auto_now=False, db_index=False)
-    commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
-    text = models.TextField(blank=True)
-    is_edited = models.BooleanField(default=False, verbose_name="Изменено")
-    is_deleted = models.BooleanField(default=False, verbose_name="Удаено")
-    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True, null=True)
-
-    class Meta:
-        indexes = (BrinIndex(fields=['created']), )
-        verbose_name = "комментарий к новости депутата"
-        verbose_name_plural = "комментарии к новости депутата"
-
-    def __str__(self):
-        return "{0}/{1}".format(self.commenter.get_full_name(), self.text[:10])
-
-    def get_created(self):
-        from django.contrib.humanize.templatetags.humanize import naturaltime
-        return naturaltime(self.created)
-
-    def get_replies(self):
-        get_comments = ElectNewComment.objects.filter(parent=self).all()
-        return get_comments
-
-    def count_replies(self):
-        return self.elect_new_comment_replies.count()
-
-    def likes(self):
-        likes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0)
-        return likes
-
-    def likes_count(self):
-        likes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0).values("pk")
-        return likes.count()
-
-    def dislikes_count(self):
-        dislikes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0).values("pk")
-        return dislikes.count()
-
-    def dislikes(self):
-        dislikes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0)
-        return dislikes
-
-    def likes_count(self):
-        likes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__gt=0).values("pk")
-        count = likes.count()
-        if count:
-            return count
-        else:
-            return ''
-
-    def dislikes_count(self):
-        dislikes = ElectNewCommentVotes.objects.filter(comment_id=self.pk, vote__lt=0).values("pk")
-        count = dislikes.count()
-        if count:
-            return count
-        else:
-            return ''
-
-    @classmethod
-    def create_comment(cls, commenter, new=None, parent=None, text=None, created=None ):
-        comment = ElectNewComment.objects.create(commenter=commenter, parent=parent, new=new, text=text)
-        comment.save()
-        return comment
-
-    def count_replies_ru(self):
-        count = self.elect_new_comment_replies.count()
-        a = count % 10
-        b = count % 100
-        if (a == 1) and (b != 11):
-            return str(count) + " ответ"
-        elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
-            return str(count) + " ответа"
-        else:
-            return str(count) + " ответов"
-
-class ElectCommentVotes(models.Model):
-    LIKE = 1
-    DISLIKE = -1
-    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
-
-    vote = models.IntegerField(verbose_name="Голос", choices=VOTES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    comment = models.ForeignKey(ElectNewComment, on_delete=models.CASCADE)
-
-
-class ElectVotes(models.Model):
-    LIKE = 1
-    DISLIKE = -1
-    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
-
-    vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    new = models.ForeignKey(ElectNew, on_delete=models.CASCADE)
 
 
 class ElectDoc(models.Model):
@@ -406,8 +220,7 @@ class ElectDoc(models.Model):
 
     def get_mime_type(self):
         import magic
-        mime = magic.from_file(self.file.path, mime=True)
-        return mime
+        return magic.from_file(self.file.path, mime=True)
 
 
 class ElectPhoto(models.Model):

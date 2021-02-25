@@ -1,11 +1,7 @@
-from django.views.generic.base import TemplateView
 from elect.models import Elect, SubscribeElect
 from django.views import View
-from django.http import HttpResponse, HttpResponseBadRequest
-from users.models import User
-from blog.models import ElectNew
+from django.http import HttpResponse
 from django.http import Http404
-from django.shortcuts import render
 
 
 class ElectSubscribe(View):

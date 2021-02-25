@@ -15,6 +15,6 @@ urlpatterns = [
     url(r'^comments/(?P<pk>\d+)/$', BlogCommentList.as_view()),
 
     url(r'^progs/', include('blog.url.progs')),
-    url(r'^votes/', include('votes.url.progs')),
+    url(r'^votes/', include('blog.url.votes')),
     url(r'^comments/', include('blog.url.comments')),
 ]

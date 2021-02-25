@@ -2,8 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
-from blog.models import ElectNew, ElectVotes
-from elect.models import Elect, SubscribeElect
 from common.utils import try_except
 from users.helpers import upload_to_user_directory
 
@@ -12,6 +10,7 @@ from users.helpers import upload_to_user_directory
     Группируем все таблицы пользователя здесь:
     1. Сам пользователь
 """
+
 class User(AbstractUser):
     DELETED, BLOCKED, PHONE_NO_VERIFIED, STANDART, MANAGER, SUPERMANAGER = 'DE', 'BL', 'PV', 'ST', 'MA', 'SM'
     MALE, FEMALE, DESCTOP, PHONE = 'Man', 'Fem', 'De', 'Ph'
@@ -34,7 +33,6 @@ class User(AbstractUser):
     gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
     USERNAME_FIELD = 'phone'
-    #REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = 'пользователь'
@@ -69,44 +67,55 @@ class User(AbstractUser):
             return False
 
     def get_news(self):
-        user_news = ElectNew.objects.filter(creator_id=self.pk)
-        return user_news
+        from blog.models import ElectNew
+        return ElectNew.objects.filter(creator_id=self.pk)
 
     def get_news_count(self):
-        count = ElectNew.objects.filter(creator_id=self.pk).values("pk").count()
-        return count
+        from blog.models import ElectNew
+        return ElectNew.objects.filter(creator_id=self.pk).values("pk").count()
 
     def get_elect_subscribers(self):
+        from elect.models import Elect, SubscribeElect
+
         elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk).values("elect_id")
         elect_ids = [elect['elect_id'] for elect in elect_subscribers]
         return Elect.objects.filter(id__in=elect_ids)
 
     def is_have_elect_subscribers(self):
+        from elect.models import Elect, SubscribeElect
+
         elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk).values("elect_id")
         elect_ids = [elect['elect_id'] for elect in elect_subscribers]
         return Elect.objects.filter(id__in=elect_ids).exists()
 
     def get_elect_subscribers_count(self):
-        count = SubscribeElect.objects.filter(user_id=self.pk).values("pk").count()
-        return count
+        from elect.models import SubscribeElect
+
+        return SubscribeElect.objects.filter(user_id=self.pk).values("pk").count()
 
     def get_like_news(self):
+        from common.model.votes import ElectVotes
+
         likes = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("new_id")
         news_ids = [new['new_id'] for new in likes]
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_like_news_count(self):
-        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("new_id").count()
-        return count
+        from common.model.votes import ElectVotes
+
+        return ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.LIKE).values("new_id").count()
 
     def get_dislike_news(self):
+        from common.model.votes import ElectVotes
+
         dislikes = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("new_id")
         news_ids = [new['new_id'] for new in dislikes]
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_dislike_news_count(self):
-        count = ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("new_id").count()
-        return count
+        from common.model.votes import ElectVotes
+
+        return ElectVotes.objects.filter(user_id=self.pk, vote=ElectVotes.DISLIKE).values("new_id").count()
 
     def is_deleted(self):
         return try_except(self.perm == User.DELETED)
@@ -163,10 +172,12 @@ class User(AbstractUser):
 
     def get_last_activity(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
+
         return naturaltime(self.last_activity)
 
     def get_country(self):
         from users.model.profile import UserLocation
+
         return UserLocation.objects.filter(user_id=self.pk).last().country_ru
 
     def get_online_display(self):

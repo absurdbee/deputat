@@ -2,15 +2,11 @@ from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from django.views.generic import ListView
 from lists.models import *
-from elect.models import Elect
 from common.utils import get_small_template, get_full_template
 
 
 class AuthorityListView(ListView, CategoryListMixin):
-	""" Чиновники выбранного списка: госдумы, совфеда и т.д. """
-
-	template_name = None
-	paginate_by = 20
+	template_name, paginate_by = None, 20
 
 	def get(self,request,*args,**kwargs):
 		if self.kwargs["slug"] == None:
@@ -21,8 +17,7 @@ class AuthorityListView(ListView, CategoryListMixin):
 		return super(AuthorityListView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
-		elects = Elect.objects.filter(list=self.list)
-		return elects
+		return self.list.get_elects()
 
 	def get_context_data(self,**kwargs):
 		context = super(AuthorityListView,self).get_context_data(**kwargs)
@@ -31,10 +26,7 @@ class AuthorityListView(ListView, CategoryListMixin):
 
 
 class FractionList(ListView, CategoryListMixin):
-	""" Чиновники выбранной фракции госдумы """
-
-	template_name = None
-	paginate_by = 20
+	template_name, paginate_by = None, 20
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_small_template("elect_list/fraction_list.html", request.user, request.META['HTTP_USER_AGENT'])
@@ -46,12 +38,10 @@ class FractionList(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		elects = Elect.objects.filter(fraction__slug=self.kwargs["slug"])
-		return elects
+		return self.list.get_elects()
+
 
 class ElectListsView(TemplateView, CategoryListMixin):
-	""" Списки чиновников: госдума, совфед и подобное """
-
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -65,8 +55,6 @@ class ElectListsView(TemplateView, CategoryListMixin):
 
 
 class RegionElectView(TemplateView, CategoryListMixin):
-	""" Список чиновников (госдумы, совфеда и т.д.) выбранного региона """
-
 	template_name = None
 
 	def get(self,request,*args,**kwargs):

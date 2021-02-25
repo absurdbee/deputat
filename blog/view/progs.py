@@ -1,17 +1,16 @@
 from django.views.generic.base import TemplateView
-from elect.models import Elect, SubscribeElect
 from django.views import View
-from django.http import HttpResponse, HttpResponseBadRequest
-from blog.forms import ElectNewForm
-from users.models import User
-from blog.models import ElectNew, ElectVotes, BlogVotes, Blog
+from django.http import HttpResponse
+from blog.models import ElectNew, Blog
+from common.model.comments import ElectNewComment, BlogComment, ElectComment
 from django.http import Http404
-from django.shortcuts import render
 import json
 
 
-class ElectLikeCreate(View):
+class ElectNewLikeCreate(View):
     def get(self, request, **kwargs):
+        from common.model.votes import ElectVotes
+
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
@@ -31,8 +30,10 @@ class ElectLikeCreate(View):
         dislikes = new.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
-class ElectDislikeCreate(View):
+class ElectNewDislikeCreate(View):
     def get(self, request, **kwargs):
+        from common.model.votes import ElectVotes
+
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
@@ -53,13 +54,109 @@ class ElectDislikeCreate(View):
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 
-class BlogLikeCreate(View):
+class ElectNewCommentLikeCreate(View):
     def get(self, request, **kwargs):
-        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        from common.model.votes import ElectNewCommentVotes
+
+        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
         try:
-            likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
+            likedislike = ElectNewCommentVotes.objects.get(comment=comment, user=request.user)
+            if likedislike.vote is not ElectNewCommentVotes.LIKE:
+                likedislike.vote = ElectNewCommentVotes.LIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except ElectNewCommentVotes.DoesNotExist:
+            ElectNewCommentVotes.objects.create(comment=comment, user=request.user, vote=ElectNewCommentVotes.LIKE)
+            result = True
+        likes = comment.likes_count()
+        dislikes = comment.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+
+class ElectNewCommentDislikeCreate(View):
+    def get(self, request, **kwargs):
+        from common.model.votes import ElectNewCommentVotes
+
+        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = ElectNewCommentVotes.objects.get(comment=comment, user=request.user)
+            if likedislike.vote is not ElectNewCommentVotes.DISLIKE:
+                likedislike.vote = ElectNewCommentVotes.DISLIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except ElectNewCommentVotes.DoesNotExist:
+            ElectNewCommentVotes.objects.create(comment=comment, user=request.user, vote=ElectNewCommentVotes.DISLIKE)
+            result = True
+        likes = comment.likes_count()
+        dislikes = comment.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+
+
+class ElectCommentLikeCreate(View):
+    def get(self, request, **kwargs):
+        from common.model.votes import ElectCommentVotes
+
+        comment = ElectComment.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = ElectCommentVotes.objects.get(comment=comment, user=request.user)
+            if likedislike.vote is not ElectCommentVotes.LIKE:
+                likedislike.vote = ElectCommentVotes.LIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except ElectCommentVotes.DoesNotExist:
+            ElectCommentVotes.objects.create(comment=comment, user=request.user, vote=ElectCommentVotes.LIKE)
+            result = True
+        likes = comment.likes_count()
+        dislikes = comment.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+
+class ElectNewCommentDislikeCreate(View):
+    def get(self, request, **kwargs):
+        from common.model.votes import ElectCommentVotes
+
+        comment = ElectComment.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = ElectCommentVotes.objects.get(comment=comment, user=request.user)
+            if likedislike.vote is not ElectCommentVotes.DISLIKE:
+                likedislike.vote = ElectCommentVotes.DISLIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except ElectCommentVotes.DoesNotExist:
+            ElectCommentVotes.objects.create(comment=comment, user=request.user, vote=ElectCommentVotes.DISLIKE)
+            result = True
+        likes = comment.likes_count()
+        dislikes = comment.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+
+
+class BlogLikeCreate(View):
+    def get(self, request, **kwargs):
+        from common.model.votes import BlogVotes
+
+        comment = Blog.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = BlogVotes.objects.get(comment=comment, user=request.user)
             if likedislike.vote is not BlogVotes.LIKE:
                 likedislike.vote = BlogVotes.LIKE
                 likedislike.save(update_fields=['vote'])
@@ -68,19 +165,21 @@ class BlogLikeCreate(View):
                 likedislike.delete()
                 result = False
         except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.LIKE)
+            BlogVotes.objects.create(comment=comment, user=request.user, vote=BlogVotes.LIKE)
             result = True
-        likes = blog.likes_count()
-        dislikes = blog.dislikes_count()
+        likes = comment.likes_count()
+        dislikes = comment.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 class BlogDislikeCreate(View):
     def get(self, request, **kwargs):
-        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        from common.model.votes import BlogVotes
+
+        comment = Blog.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
         try:
-            likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
+            likedislike = BlogVotes.objects.get(comment=comment, user=request.user)
             if likedislike.vote is not BlogVotes.DISLIKE:
                 likedislike.vote = BlogVotes.DISLIKE
                 likedislike.save(update_fields=['vote'])
@@ -89,15 +188,65 @@ class BlogDislikeCreate(View):
                 likedislike.delete()
                 result = False
         except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.DISLIKE)
+            BlogVotes.objects.create(comment=comment, user=request.user, vote=BlogVotes.DISLIKE)
             result = True
-        likes = blog.likes_count()
-        dislikes = blog.dislikes_count()
+        likes = comment.likes_count()
+        dislikes = comment.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+
+
+class BlogCommentLikeCreate(View):
+    def get(self, request, **kwargs):
+        from common.model.votes import BlogCommentVotes
+
+        comment = BlogComment.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = BlogCommentVotes.objects.get(comment=comment, user=request.user)
+            if likedislike.vote is not BlogCommentVotes.LIKE:
+                likedislike.vote = BlogCommentVotes.LIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except BlogCommentVotes.DoesNotExist:
+            BlogCommentVotes.objects.create(comment=comment, user=request.user, vote=BlogCommentVotes.LIKE)
+            result = True
+        likes = comment.likes_count()
+        dislikes = comment.dislikes_count()
+        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+
+class BlogDislikeCreate(View):
+    def get(self, request, **kwargs):
+        from common.model.votes import BlogCommentVotes
+
+        comment = BlogComment.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = BlogCommentVotes.objects.get(comment=comment, user=request.user)
+            if likedislike.vote is not BlogCommentVotes.DISLIKE:
+                likedislike.vote = BlogCommentVotes.DISLIKE
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except BlogCommentVotes.DoesNotExist:
+            BlogCommentVotes.objects.create(comment=comment, user=request.user, vote=BlogCommentVotes.DISLIKE)
+            result = True
+        likes = comment.likes_count()
+        dislikes = comment.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 
 class ElectSubscribe(View):
     def get(self,request,*args,**kwargs):
+        from elect.models import SubscribeElect
+        from elect.models import Elect
+
         elect = Elect.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and not SubscribeElect.is_elect_subscribe(elect.pk, request.user.pk):
             SubscribeElect.create_elect_subscribe(request.user.pk, elect.pk)
@@ -107,6 +256,9 @@ class ElectSubscribe(View):
 
 class ElectUnSubscribe(View):
     def get(self,request,*args,**kwargs):
+        from elect.models import SubscribeElect
+        from elect.models import Elect
+
         elect = Elect.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and SubscribeElect.is_elect_subscribe(elect.pk, request.user.pk):
             subscribe = SubscribeElect.objects.filter(user_id=request.user.pk, elect_id=elect.pk)[0]
@@ -120,15 +272,23 @@ class ElectNewCreate(View):
     template_name = "elect/add_new.html"
 
     def get(self,request,*args,**kwargs):
+        from elect.models import Elect
+
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         return super(ElectNewCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
+        from blog.forms import ElectNewForm
+
         context=super(ElectNewCreate,self).get_context_data(**kwargs)
         context["form"] = ElectNewForm()
         return context
 
     def post(self,request,*args,**kwargs):
+        from blog.forms import ElectNewForm
+        from django.shortcuts import render
+        from elect.models import Elect
+
         self.form_post = ElectNewForm(request.POST)
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
 
@@ -138,4 +298,5 @@ class ElectNewCreate(View):
             post.save()
             return render(request, 'elect/elect_new.html', {'object': new_post})
         else:
+            from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()

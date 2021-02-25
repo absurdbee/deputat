@@ -1,12 +1,9 @@
-import re
-MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
-from stst.models import ElectNumbers, ElectNewNumbers
 from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from elect.models import Elect
 from blog.models import ElectNew
 from django.views.generic import ListView
-from common.utils import get_small_template, get_full_template
+from common.utils import get_small_template
 
 
 """
@@ -23,6 +20,11 @@ class ElectDetailView(TemplateView, CategoryListMixin):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        import re
+        MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+        from stst.models import ElectNumbers
+        from common.utils import get_full_template
+
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         if request.user.is_authenticated:
             current_pk = request.user.pk
@@ -119,6 +121,11 @@ class ElectNewDetailView(TemplateView, CategoryListMixin):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        import re
+        MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+        from stst.models import ElectNewNumbers
+        from common.utils import get_full_template
+
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if request.user.is_authenticated:
             current_pk = request.user.pk

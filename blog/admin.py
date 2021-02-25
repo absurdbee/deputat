@@ -16,14 +16,6 @@ class BlogAdmin(admin.ModelAdmin):
         form.base_fields['creator'].initial = request.user
         return form
 
-class BlogCommentAdmin(admin.ModelAdmin):
-    list_display = ['text','commenter','created']
-    list_filter = ['created']
-    search_fields = ['created','text','commenter']
-
-    class Meta:
-            model = BlogComment
-
 class PhotoElectNewInline(admin.TabularInline):
     model = ElectPhoto
 class DocElectNewInline(admin.TabularInline):

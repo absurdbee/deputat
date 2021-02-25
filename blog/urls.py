@@ -12,7 +12,9 @@ urlpatterns = [
     url(r'^reply-comment/$', login_required(BlogReplyCreate.as_view())),
     url(r'^delete_comment/(?P<pk>\d+)/$', login_required(BlogCommentDelete.as_view())),
     url(r'^abort_delete_comment/(?P<pk>\d+)/$', login_required(BlogCommentAbortDelete.as_view())),
-    url(r'^comment/(?P<pk>\d+)/$', BlogCommentList.as_view()),
+    url(r'^comments/(?P<pk>\d+)/$', BlogCommentList.as_view()),
 
     url(r'^progs/', include('blog.url.progs')),
+    url(r'^votes/', include('votes.url.progs')),
+    url(r'^comments/', include('blog.url.comments')),
 ]

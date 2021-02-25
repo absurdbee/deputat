@@ -71,7 +71,7 @@ class Elect(models.Model):
         from blog.models import ElectNew
         from common.model.votes import ElectNewVotes
 
-        news = ElectNewVotes.objects.filter(elect=self).values("pk")
+        news = ElectNew.objects.filter(elect=self).values("pk")
         news_ids = [new['pk'] for new in news]
         return ElectNewVotes.objects.filter(new_id__in=news_ids, vote__gt=0).values("pk").count()
 
@@ -79,7 +79,7 @@ class Elect(models.Model):
         from blog.models import ElectNew
         from common.model.votes import ElectNewVotes
 
-        news = ElectNewVotes.objects.filter(elect=self).values("pk")
+        news = ElectNew.objects.filter(elect=self).values("pk")
         news_ids = [new['pk'] for new in news]
         return ElectNewVotes.objects.filter(new_id__in=news_ids, vote__lt=0).values("pk").count()
 

@@ -1,5 +1,12 @@
-from blog.models import BlogComment, ElectNew
+from blog.models import ElectNew
+from common.model.comments import BlogComment, ElectNewComment
 from django import forms
+
+
+class ElectNewForm(forms.ModelForm):
+	class Meta:
+		model = ElectNew
+		fields = ['title', 'description', ]
 
 
 class BlogCommentForm(forms.ModelForm):
@@ -8,8 +15,8 @@ class BlogCommentForm(forms.ModelForm):
 		model = BlogComment
 		fields = ['text']
 
-
-class ElectNewForm(forms.ModelForm):
+class ElectNewCommentForm(forms.ModelForm):
+	text = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': ''}))
 	class Meta:
-		model = ElectNew
-		fields = ['title', 'description', ]
+		model = ElectNewComment
+		fields = ['text']

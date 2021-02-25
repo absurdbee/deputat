@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/pre_election_activities_elect_news/$', PreElectionElectNewsView.as_view()),
 
     url(r'^progs/', include('elect.url.progs')),
+    url(r'^comments/', include('elect.url.comments')),
+    url(r'^votes/', include('elect.url.votes')),
 ]

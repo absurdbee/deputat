@@ -101,6 +101,24 @@ class Elect(models.Model):
         user_ids = [i['user_id'] for i in subscribers]
         return User.objects.filter(id__in=user_ids).exists()
 
+    def count_comments(self):
+        from common.model.comments import ElectComment
+
+        parent_comments = ElectComment.objects.filter(blog_id=self.pk)
+        parents_count = parent_comments.count()
+        i = 0
+        for comment in parent_comments:
+            i = i + comment.count_replies()
+        i = i + parents_count
+        return i
+
+    def get_comments(self):
+        from common.model.comments import ElectComment
+
+        comments_query = Q(elect_id=self.pk)
+        comments_query.add(Q(parent__isnull=True), Q.AND)
+        return ElectComment.objects.filter(comments_query)
+
 
 class LinkElect(models.Model):
     title = models.CharField(max_length=255, verbose_name="Текст ссылки")

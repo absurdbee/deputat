@@ -338,7 +338,7 @@ class ElectCommentDoc(models.Model):
 
 class ElectCommentPhoto(models.Model):
     file = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
-    comment = models.ForeignKey(ElectNewComment, related_name='elect_comment_doc', on_delete=models.CASCADE, blank=True)
+    comment = models.ForeignKey(ElectNewComment, related_name='elect_comment_photo', on_delete=models.CASCADE, blank=True)
 
     class Meta:
         verbose_name = 'Фото коммента к отзыву о депутате'

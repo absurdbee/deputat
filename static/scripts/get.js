@@ -49,9 +49,9 @@ function loadScripts( src ) {
     head.appendChild( script );
 }
 
-loadScripts('/static/scripts/general.js');
-loadScripts('/static/scripts/comment_attach.js');
-loadScripts('/static/scripts/preview.js');
+loadScripts('/static/scripts/f/general.js');
+loadScripts('/static/scripts/f/comment_attach.js');
+loadScripts('/static/scripts/f/preview.js');
 
 loadScripts('/static/scripts/app.js');
 loadScripts('/static/scripts/main.js');

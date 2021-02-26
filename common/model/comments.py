@@ -100,7 +100,7 @@ class BlogComment(models.Model):
         return self.blog_comment_doc.filter(comment_id=self.pk).exists()
 
     def is_have_images(self):
-        return self.blog_comment_image.filter(comment_id=self.pk).exists():
+        return self.blog_comment_image.filter(comment_id=self.pk).exists()
 
     def get_docs(self):
         return self.blog_comment_doc.filter(comment_id=self.pk)
@@ -209,7 +209,7 @@ class ElectNewComment(models.Model):
         return self.elect_new_comment_doc.filter(comment_id=self.pk).exists()
 
     def is_have_images(self):
-        return self.elect_new_comment_photo.filter(comment_id=self.pk).exists():
+        return self.elect_new_comment_photo.filter(comment_id=self.pk).exists()
 
     def get_docs(self):
         return self.elect_new_comment_doc.filter(comment_id=self.pk)
@@ -320,7 +320,7 @@ class ElectComment(models.Model):
         return self.elect_comment_doc.filter(comment_id=self.pk).exists()
 
     def is_have_images(self):
-        return self.elect_comment_photo.filter(comment_id=self.pk).exists():
+        return self.elect_comment_photo.filter(comment_id=self.pk).exists()
 
     def get_docs(self):
         return self.elect_comment_doc.filter(comment_id=self.pk)

@@ -1,11 +1,4 @@
-/*=========================================================================================
-  File Name: app.js
-  Description: Template related app JS.
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
-==========================================================================================*/
+
 window.colors = {
   solid: {
     primary: '#7367F0',
@@ -40,7 +33,6 @@ window.colors = {
     assetPath = $('body').attr('data-asset-path');
   }
 
-  // to remove sm control classes from datatables
   if ($.fn.dataTable) {
     $.extend($.fn.dataTable.ext.classes, {
       sFilterInput: 'form-control',
@@ -66,9 +58,8 @@ window.colors = {
 
     $.app.menu.init(compactMenu);
 
-    // Navigation configurations
     var config = {
-      speed: 300 // set speed to expand / collpase menu
+      speed: 300
     };
     if ($.app.nav.initialized === false) {
       $.app.nav.init(config);
@@ -78,93 +69,20 @@ window.colors = {
       $.app.menu.change(compactMenu);
     });
 
-    // Tooltip Initialization
-    $('[data-toggle="tooltip"]').tooltip({
-      container: 'body'
-    });
-
-    // Collapsible Card
-    $('a[data-action="collapse"]').on('click', function (e) {
-      e.preventDefault();
-      $(this).closest('.card').children('.card-content').collapse('toggle');
-      $(this).closest('.card').find('[data-action="collapse"]').toggleClass('rotate');
-    });
-
-    // Cart dropdown touchspin
-    if ($('.touchspin-cart').length > 0) {
-      $('.touchspin-cart').TouchSpin({
-        buttondown_class: 'btn btn-primary',
-        buttonup_class: 'btn btn-primary',
-        buttondown_txt: feather.icons['minus'].toSvg(),
-        buttonup_txt: feather.icons['plus'].toSvg()
-      });
-    }
-
-    // Do not close cart or notification dropdown on click of the items
     $('.dropdown-notification .dropdown-menu, .dropdown-cart .dropdown-menu').on('click', function (e) {
       e.stopPropagation();
     });
 
-    //  Notifications & messages scrollable
     $('.scrollable-container').each(function () {
       var scrollable_container = new PerfectScrollbar($(this)[0], {
         wheelPropagation: false
       });
     });
 
-    // Reload Card
-    $('a[data-action="reload"]').on('click', function () {
-      var block_ele = $(this).closest('.card');
-      var reloadActionOverlay;
-      if ($body.hasClass('dark-layout')) {
-        var reloadActionOverlay = '#10163a';
-      } else {
-        var reloadActionOverlay = '#fff';
-      }
-      // Block Element
-      block_ele.block({
-        message: feather.icons['refresh-cw'].toSvg({ class: 'font-medium-1 spinner text-primary' }),
-        timeout: 2000, //unblock after 2 seconds
-        overlayCSS: {
-          backgroundColor: reloadActionOverlay,
-          cursor: 'wait'
-        },
-        css: {
-          border: 0,
-          padding: 0,
-          backgroundColor: 'none'
-        }
-      });
-    });
-
-    // Close Card
-    $('a[data-action="close"]').on('click', function () {
-      $(this).closest('.card').removeClass().slideUp('fast');
-    });
-
-    $('.card .heading-elements a[data-action="collapse"]').on('click', function () {
-      var $this = $(this),
-        card = $this.closest('.card');
-      var cardHeight;
-
-      if (parseInt(card[0].style.height, 10) > 0) {
-        cardHeight = card.css('height');
-        card.css('height', '').attr('data-height', cardHeight);
-      } else {
-        if (card.data('height')) {
-          cardHeight = card.data('height');
-          card.css('height', cardHeight).attr('data-height', '');
-        }
-      }
-    });
-
-    // Add disabled class to input group when input is disabled
     $('input:disabled, textarea:disabled').closest('.input-group').addClass('disabled');
 
-    // Add sidebar group active class to active menu
     $('.main-menu-content').find('li.active').parents('li').addClass('sidebar-group-active');
 
-    // Add open class to parent list item if subitem is active except compact menu
     var menuType = $body.data('menu');
     if (menuType != 'horizontal-menu' && compactMenu === false) {
       $('.main-menu-content').find('li.active').parents('li').addClass('open');
@@ -172,17 +90,9 @@ window.colors = {
     if (menuType == 'horizontal-menu') {
       $('.main-menu-content').find('li.active').parents('li:not(.nav-item)').addClass('open');
       $('.main-menu-content').find('li.active').closest('li.nav-item').addClass('sidebar-group-active open');
-      // $(".main-menu-content")
-      //   .find("li.active")
-      //   .parents("li")
-      //   .addClass("active");
     }
 
-    //  Dynamic height for the chartjs div for the chart animations to work
-    var chartjsDiv = $('.chartjs'),
-      canvasHeight = chartjsDiv.children('canvas').attr('height'),
-      mainMenu = $('.main-menu');
-    chartjsDiv.css('height', canvasHeight);
+    mainMenu = $('.main-menu');
 
     if ($body.hasClass('boxed-layout')) {
       if ($body.hasClass('vertical-overlay-menu')) {
@@ -197,26 +107,11 @@ window.colors = {
       }
     }
 
-    //Custom File Input
-    $('.custom-file-input').on('change', function (e) {
-      $(this).siblings('.custom-file-label').html(e.target.files[0].name);
-    });
-
-    /* Text Area Counter Set Start */
-
     $('.char-textarea').on('keyup', function (event) {
       checkTextAreaMaxLength(this, event);
-      // to later change text color in dark layout
       $(this).addClass('active');
     });
 
-    /*
-    Checks the MaxLength of the Textarea
-    -----------------------------------------------------
-    @prerequisite:  textBox = textarea dom element
-            e = textarea event
-                    length = Max length of characters
-    */
     function checkTextAreaMaxLength(textBox, e) {
       var maxLength = parseInt($(textBox).data('length')),
         counterValue = $('.textarea-counter-value'),
@@ -230,7 +125,6 @@ window.colors = {
       if (textBox.value.length > maxLength) {
         counterValue.css('background-color', window.colors.solid.danger);
         charTextarea.css('color', window.colors.solid.danger);
-        // to change text color after limit is maxedout out
         charTextarea.addClass('max-limit');
       } else {
         counterValue.css('background-color', window.colors.solid.primary);
@@ -240,11 +134,7 @@ window.colors = {
 
       return true;
     }
-    /*
-    Checks if the keyCode pressed is inside special chars
-    -------------------------------------------------------
-    @prerequisite:  e = e.keyCode object for the key pressed
-    */
+
     function checkSpecialKeys(e) {
       if (e.keyCode != 8 && e.keyCode != 46 && e.keyCode != 37 && e.keyCode != 38 && e.keyCode != 39 && e.keyCode != 40)
         return false;
@@ -265,7 +155,6 @@ window.colors = {
       $('.bookmark-wrapper .bookmark-input').removeClass('show');
     });
 
-    // To show shadow in main menu when menu scrolls
     var container = document.getElementsByClassName('main-menu-content');
     if (container.length > 0) {
       container[0].addEventListener('ps-scroll-y', function () {
@@ -278,21 +167,17 @@ window.colors = {
     }
   });
 
-  // Hide overlay menu on content overlay click on small screens
   $(document).on('click', '.sidenav-overlay', function (e) {
-    // Hide menu
     $.app.menu.hide();
     return false;
   });
 
-  // Execute below code only if we find hammer js for touch swipe feature on small screen
   if (typeof Hammer !== 'undefined') {
     var rtl;
     if ($('html').data('textdirection') == 'rtl') {
       rtl = true;
     }
 
-    // Swipe menu gesture
     var swipeInElement = document.querySelector('.drag-target'),
       swipeInAction = 'panright',
       swipeOutAction = 'panleft';
@@ -313,7 +198,6 @@ window.colors = {
       });
     }
 
-    // menu swipe out gesture
     setTimeout(function () {
       var swipeOutElement = document.querySelector('.main-menu');
       var swipeOutMenu;
@@ -335,7 +219,6 @@ window.colors = {
       }
     }, 300);
 
-    // menu close on overlay tap
     var swipeOutOverlayElement = document.querySelector('.sidenav-overlay');
 
     if ($(swipeOutOverlayElement).length > 0) {
@@ -353,7 +236,6 @@ window.colors = {
   $(document).on('click', '.menu-toggle, .modern-nav-toggle', function (e) {
     e.preventDefault();
 
-    // Toggle menu
     $.app.menu.toggle();
 
     setTimeout(function () {
@@ -369,21 +251,15 @@ window.colors = {
         }
       }, 50);
     }
-
-    // Hides dropdown on click of menu toggle
-    // $('[data-toggle="dropdown"]').dropdown('hide');
-
     return false;
   });
 
-  // Add Children Class
   $('.navigation').find('li').has('ul').addClass('has-sub');
 
   $('.carousel').carousel({
     interval: 2000
   });
 
-  // Update manual scroller when window is resized
   $(window).resize(function () {
     $.app.menu.manualScroller.updateHeight();
   });
@@ -394,7 +270,7 @@ window.colors = {
     var $this = $(this),
       href = $this.attr('href');
     var offset = $(href).offset();
-    var scrollto = offset.top - 80; // minus fixed header height
+    var scrollto = offset.top - 80;
     $('html, body').animate(
       {
         scrollTop: scrollto
@@ -407,8 +283,6 @@ window.colors = {
     }, 100);
   });
 
-  /********************* Bookmark & Search ***********************/
-  // This variable is used for mouseenter and mouseleave events of search list
   var $filename = $('.search-input input').data('search'),
     bookmarkWrapper = $('.bookmark-wrapper'),
     bookmarkStar = $('.bookmark-wrapper .bookmark-star'),
@@ -420,7 +294,7 @@ window.colors = {
     appContent = $('.app-content'),
     bookmarkSearchList = $('.bookmark-input .search-list');
 
-  // Bookmark icon click
+
   bookmarkStar.on('click', function (e) {
     e.stopPropagation();
     bookmarkInput.toggleClass('show');
@@ -470,7 +344,6 @@ window.colors = {
     $('ul.search-list').append($arrList);
   });
 
-  // Navigation Search area Open
   navLinkSearch.on('click', function () {
     var $this = $(this);
     var searchInput = $(this).parent('.nav-search').find('.search-input');
@@ -480,7 +353,6 @@ window.colors = {
     bookmarkInput.removeClass('show');
   });
 
-  // Navigation Search area Close
   $('.search-input-close').on('click', function () {
     var $this = $(this),
       searchInput = $(this).closest('.search-input');
@@ -493,7 +365,6 @@ window.colors = {
     }
   });
 
-  // Filter
   if ($('.search-list-main').length) {
     var searchListMain = new PerfectScrollbar('.search-list-main', {
       wheelPropagation: false
@@ -504,7 +375,6 @@ window.colors = {
       wheelPropagation: false
     });
   }
-  // update Perfect Scrollbar on hover
   $('.search-list-main').mouseenter(function () {
     searchListMain.update();
   });
@@ -525,22 +395,18 @@ window.colors = {
         }
       }
 
-      // Define variables
-      var value = $(this).val().toLowerCase(), //get values of input on keyup
+      var value = $(this).val().toLowerCase(),
         activeClass = '',
         bookmark = false,
-        liList = $('ul.search-list li'); // get all the list items of the search
+        liList = $('ul.search-list li');
       liList.remove();
-      // To check if current is bookmark input
       if ($(this).parent().hasClass('bookmark-input')) {
         bookmark = true;
       }
 
-      // If input value is blank
       if (value != '') {
         appContent.addClass('show-overlay');
 
-        // condition for bookmark and search input click
         if (bookmarkInput.focus()) {
           bookmarkSearchList.addClass('show');
         } else {
@@ -567,14 +433,12 @@ window.colors = {
           $defaultList = '',
           a = 0;
 
-        // getting json data from file for search results
         $.getJSON(assetPath + 'scripts/' + $filename + '.json', function (data) {
           for (var i = 0; i < data.listItems.length; i++) {
             if (bookmark === true) {
               activeClass = ''; // resetting active bookmark class
               var arrList = $('ul.nav.navbar-nav.bookmark-icons li'),
                 $arrList = '';
-              // Loop to check if current seach value match with the bookmarks already there in navbar
               for (var j = 0; j < arrList.length; j++) {
                 if (data.listItems[i].name === arrList[j].firstChild.dataset.originalTitle) {
                   activeClass = ' text-warning';
@@ -586,7 +450,6 @@ window.colors = {
 
               $bookmarkIcon = feather.icons['star'].toSvg({ class: 'bookmark-icon float-right' + activeClass });
             }
-            // Search list item start with entered letters and create list
             if (data.listItems[i].name.toLowerCase().indexOf(value) == 0 && a < 5) {
               if (a === 0) {
                 $activeItemClass = 'current_item';
@@ -614,10 +477,9 @@ window.colors = {
           }
           for (var i = 0; i < data.listItems.length; i++) {
             if (bookmark === true) {
-              activeClass = ''; // resetting active bookmark class
+              activeClass = '';
               var arrList = $('ul.nav.navbar-nav.bookmark-icons li'),
                 $arrList = '';
-              // Loop to check if current search value match with the bookmarks already there in navbar
               for (var j = 0; j < arrList.length; j++) {
                 if (data.listItems[i].name === arrList[j].firstChild.dataset.originalTitle) {
                   activeClass = ' text-warning';
@@ -628,7 +490,6 @@ window.colors = {
 
               $bookmarkIcon = feather.icons['star'].toSvg({ class: 'bookmark-icon float-right' + activeClass });
             }
-            // Search list item not start with letters and create list
             if (
               !(data.listItems[i].name.toLowerCase().indexOf(value) == 0) &&
               data.listItems[i].name.toLowerCase().indexOf(value) > -1 &&
@@ -662,16 +523,10 @@ window.colors = {
           if ($startList == '' && $otherList == '') {
             $otherList = $('.main-search-list-defaultlist-other-list').html();
           }
-          // concatinating startlist, otherlist, defalutlist with pagelist
           $htmlList = $pageList.concat($startList, $otherList, $defaultList);
           $('ul.search-list').html($htmlList);
-          // concatinating otherlist with startlist
           $bookmarkhtmlList = $startList.concat($otherList);
           $('ul.search-list-bookmark').html($bookmarkhtmlList);
-          // Feather Icons
-          // if (feather) {
-          //   featherSVG();
-          // }
         });
       } else {
         if (bookmark === true) {
@@ -707,16 +562,10 @@ window.colors = {
               '</li>';
           }
           $('ul.search-list').append($arrList);
-          // Feather Icons
-          // if (feather) {
-          //   featherSVG();
-          // }
         } else {
-          // if search input blank, hide overlay
           if (appContent.hasClass('show-overlay')) {
             appContent.removeClass('show-overlay');
           }
-          // If filter box is empty
           if (searchList.hasClass('show')) {
             searchList.removeClass('show');
           }
@@ -725,7 +574,6 @@ window.colors = {
     }
   });
 
-  // Add class on hover of the list
   $(document).on('mouseenter', '.search-list li', function (e) {
     $(this).siblings().removeClass('current_item');
     $(this).addClass('current_item');
@@ -745,13 +593,13 @@ window.colors = {
     }
   });
 
-  // Prevent closing bookmark dropdown on input textbox click
+
   $(document).on('click', '.bookmark-input input', function (e) {
     bookmarkInput.addClass('show');
     bookmarkSearchList.addClass('show');
   });
 
-  // Favorite star click
+
   $(document).on('click', '.bookmark-input .search-list .bookmark-icon', function (e) {
     e.stopPropagation();
     if ($(this).hasClass('text-warning')) {
@@ -791,7 +639,7 @@ window.colors = {
     }
   });
 
-  // If we use up key(38) Down key (40) or Enter key(13)
+
   $(window).on('keydown', function (e) {
     var $current = $('.search-list li.current_item'),
       $next,
@@ -813,36 +661,6 @@ window.colors = {
     }
   });
 
-  // Waves Effect
-  Waves.init();
-  Waves.attach(
-    ".btn:not([class*='btn-relief-']):not([class*='btn-gradient-']):not([class*='btn-outline-']):not([class*='btn-flat-'])",
-    ['waves-float', 'waves-light']
-  );
-  Waves.attach("[class*='btn-outline-']");
-  Waves.attach("[class*='btn-flat-']");
-
-  $('.form-password-toggle .input-group-text').on('click', function (e) {
-    e.preventDefault();
-    var $this = $(this),
-      inputGroupText = $this.closest('.form-password-toggle'),
-      formPasswordToggleIcon = $this,
-      formPasswordToggleInput = inputGroupText.find('input');
-
-    if (formPasswordToggleInput.attr('type') === 'text') {
-      formPasswordToggleInput.attr('type', 'password');
-      if (feather) {
-        formPasswordToggleIcon.find('svg').replaceWith(feather.icons['eye'].toSvg({ class: 'font-small-4' }));
-      }
-    } else if (formPasswordToggleInput.attr('type') === 'password') {
-      formPasswordToggleInput.attr('type', 'text');
-      if (feather) {
-        formPasswordToggleIcon.find('svg').replaceWith(feather.icons['eye-off'].toSvg({ class: 'font-small-4' }));
-      }
-    }
-  });
-
-  // on window scroll button show/hide
   $(window).on('scroll', function () {
     if ($(this).scrollTop() > 400) {
       $('.scroll-top').fadeIn();
@@ -850,7 +668,6 @@ window.colors = {
       $('.scroll-top').fadeOut();
     }
 
-    // On Scroll navbar color on horizontal menu
     if ($body.hasClass('navbar-static')) {
       var scroll = $(window).scrollTop();
 
@@ -880,7 +697,6 @@ window.colors = {
     }
   });
 
-  // Click event to scroll to top
   $('.scroll-top').on('click', function () {
     $('html, body').animate({ scrollTop: 0 }, 1000);
   });
@@ -897,7 +713,6 @@ window.colors = {
     return currentLayout;
   }
 
-  // Navbar Dark / Light Layout Toggle Switch
   $('.nav-link-style').on('click', function () {
     var $this = $(this),
       currentLayout = getCurrentLayout(),
@@ -933,7 +748,6 @@ window.colors = {
   });
 })(window, document, jQuery);
 
-// To use feather svg icons with different sizes
 function featherSVG(iconSize) {
   // Feather Icons
   if (iconSize == undefined) {
@@ -941,64 +755,3 @@ function featherSVG(iconSize) {
   }
   return feather.replace({ width: iconSize, height: iconSize });
 }
-
-// jQuery Validation Global Defaults
-if (typeof jQuery.validator === 'function') {
-  jQuery.validator.setDefaults({
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      if (
-        element.parent().hasClass('input-group') ||
-        element.hasClass('select2') ||
-        element.attr('type') === 'checkbox'
-      ) {
-        error.insertAfter(element.parent());
-      } else if (element.hasClass('custom-control-input')) {
-        error.insertAfter(element.parent().siblings(':last'));
-      } else {
-        error.insertAfter(element);
-      }
-
-      if (element.parent().hasClass('input-group')) {
-        element.parent().addClass('is-invalid');
-      }
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('error');
-      if ($(element).parent().hasClass('input-group')) {
-        $(element).parent().addClass('is-invalid');
-      }
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('error');
-      if ($(element).parent().hasClass('input-group')) {
-        $(element).parent().removeClass('is-invalid');
-      }
-    }
-  });
-}
-
-// Add validation class to input-group (input group validation fix, currently disabled but will be useful in future)
-/* function inputGroupValidation(el) {
-  var validEl,
-    invalidEl,
-    elem = $(el);
-
-  if (elem.hasClass('form-control')) {
-    if ($(elem).is('.form-control:valid, .form-control.is-valid')) {
-      validEl = elem;
-    }
-    if ($(elem).is('.form-control:invalid, .form-control.is-invalid')) {
-      invalidEl = elem;
-    }
-  } else {
-    validEl = elem.find('.form-control:valid, .form-control.is-valid');
-    invalidEl = elem.find('.form-control:invalid, .form-control.is-invalid');
-  }
-  if (validEl !== undefined) {
-    validEl.closest('.input-group').removeClass('.is-valid is-invalid').addClass('is-valid');
-  }
-  if (invalidEl !== undefined) {
-    invalidEl.closest('.input-group').removeClass('.is-valid is-invalid').addClass('is-invalid');
-  }
-} */

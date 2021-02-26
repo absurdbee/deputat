@@ -118,11 +118,6 @@
 
     change: function (compactMenu) {
       var currentBreakpoint = Unison.fetch.now(); // Current Breakpoint
-      console.log(currentBreakpoint);
-      //if (!currentBreakpoint) {
-//
-    //  }
-
       this.reset();
 
       var menuType = $body.data('menu');

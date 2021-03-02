@@ -128,7 +128,7 @@ on('body', 'click', '.ajax', function(event) {
 
 var $body = document.querySelector("body");
 
-$('.nav-link-style').on('click', function () {
+on('#ajax', 'click', '.nav-link-style', function() {
   var $this = this,
     mainMenu = $body.querySelector('.main-menu'),
     navbar = $body.querySelector('.header-navbar');
@@ -147,3 +147,11 @@ $('.nav-link-style').on('click', function () {
   navbar.style.background = "inherit";
   navbar.style.boxShadow = "inherit";
 });
+
+on('#ajax', 'click', '.nav-link-search', function() {
+  this.nextElementSibling.classList.add("open");
+});
+
+on('#ajax', 'click', '.search-input-close', function() {
+  this.parentElement.classList.remove("open");
+})

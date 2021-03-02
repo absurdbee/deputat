@@ -141,7 +141,7 @@ on('body', 'click', '.menu-toggle', function() {
   if (!_this.classList.contains("is-active")){
     _this.classList.add("is-active");
     $body.classList.add("menu-open");
-    $body.querySelector(".dsidenav-overlay").classList.add("show");
+    $body.querySelector(".sidenav-overlay").classList.add("show");
     $body.querySelector(".menu_close").style.display = "block";
   }
 })
@@ -151,7 +151,7 @@ on('body', 'click', '.dsidenav-overlay', function() {
     $body.querySelector(".menu-toggle").remove("is-active");
     $body.classList.remove("menu-open");
     $body.querySelector(".menu_close").style.display = "none";
-    $body.querySelector(".dsidenav-overlay").classList.remove("show");
+    $body.querySelector(".sidenav-overlay").classList.remove("show");
   }
 })
 

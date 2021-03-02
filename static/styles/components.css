@@ -1077,7 +1077,7 @@ footer.footer-border {
   pointer-events : none;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 1072px) { 
   .menu-hide .main-menu, .menu-open .main-menu {
     -webkit-transition : top 0.35s, height 0.35s, -webkit-transform 0.25s;
             transition : top 0.35s, height 0.35s, -webkit-transform 0.25s;

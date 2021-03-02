@@ -2,10 +2,8 @@ function loadScripts( src ) {
     var script = document.createElement("SCRIPT"),
         head = document.getElementsByTagName( "head" )[ 0 ],
         error = false;
-
     script.type = "text/javascript";
     script.onload = script.onreadystatechange = function( e ){
-
         if ( ( !this.readyState || this.readyState == "loaded" || this.readyState == "complete" ) ) {
             if ( !error ) {
                 removeListeners();
@@ -14,14 +12,11 @@ function loadScripts( src ) {
             }
         }
     };
-
     script.onerror = function() {
         error = true;
         removeListeners();
     }
-
     function errorHandle( msg, url, line ) {
-
         if ( url == src ) {
             error = true;
             removeListeners();
@@ -31,7 +26,6 @@ function loadScripts( src ) {
 
     function removeListeners() {
         script.onreadystatechange = script.onload = script.onerror = null;
-
         if ( window.removeEventListener ) {
             window.removeEventListener('error', errorHandle, false );
         } else {
@@ -44,7 +38,6 @@ function loadScripts( src ) {
     } else {
         window.attachEvent("onerror", errorHandle );
     }
-
     script.src = src;
     head.appendChild( script );
 }

@@ -216,7 +216,7 @@
 
 @media (max-width: 1199.98px) {
   .vertical-layout.vertical-menu-modern .main-menu {
-    width : 0;
+    width : 0  !important;
   }
   .vertical-layout.vertical-menu-modern .navbar .navbar-header {
     width : 0;

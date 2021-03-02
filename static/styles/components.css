@@ -1102,6 +1102,9 @@ footer.footer-border {
   .app-content {
     margin-left: 270px
   }
+  .search-input {
+    margin-left: 270px
+  }
 }
 
 @media (min-width: 768px) {

@@ -1,6 +1,6 @@
 .main-menu .navigation li.has-sub > a:after {
     content: '';
-    background-image: url("data:image/svg+xml,%3Csvg%20viewBox=%5C'0%200%2024%2024%5C'%20fill=%5C'none%5C'%20stroke=%5C'%236e6b7b%5C'%20stroke-width=%5C'2%5C'%20stroke-linecap=%5C'round%5C'%20stroke-linejoin=%5C'round%5C'%20class=%5C'feather%20feather-chevron-right%5C'%3E%3Cpolyline%20points=%5C'9%2018%2015%2012%209%206%5C'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url('<svg  width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 1.1rem;

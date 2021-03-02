@@ -124,6 +124,9 @@ on('body', 'click', '.nav-link-style', function() {
 on('body', 'click', '.nav-link-search', function() {
   this.nextElementSibling.classList.add("open");
 });
+on('body', 'click', '.a_has_sub', function() {
+  this.parentElement.classList.contains("open") ? this.parentElement.classList.remove("open") : this.parentElement.classList.add("open")
+});
 
 on('body', 'click', '.search-input-close', function() {
   this.parentElement.classList.remove("open");

@@ -131,3 +131,7 @@ on('body', 'click', '.a_has_sub', function() {
 on('body', 'click', '.search-input-close', function() {
   this.parentElement.classList.remove("open");
 })
+
+on('body', 'click', '.dropdown-user-link', function() {
+  this.nextElementSibling.classList.contains("show") ? this.nextElementSibling.classList.remove("show") : this.nextElementSibling.classList.add("show")
+});

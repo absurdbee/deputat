@@ -159,5 +159,5 @@ on('body', 'click', '.menu_close', function() {
   this.style.display = "none";
   $body.querySelector(".menu-toggle").remove("is-active");
   $body.classList.remove("menu-open");
-  $body.querySelector(".dsidenav-overlay").classList.remove("show");
+  $body.querySelector(".sidenav-overlay").classList.remove("show");
 })

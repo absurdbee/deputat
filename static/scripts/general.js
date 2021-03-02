@@ -1,28 +1,22 @@
 function get_select() {
-  //$('#russia_map path').hover(function(e){
   on('body', 'hover', '#russia_map path', function() {
     svg_list = this.parentElement.querySelectorAll("path");
     for (var i = 0; i < svg_list.length; i++) {
       if (svg_list[i].style.fill != "#897FF1"){
       svg_list[i].style.fill = "rgba(0,0,0,0.2)";
-    }
-    }
+    }}
     if (this.style.fill != "#897FF1"){
     this.style.fill = "#FFFFFF";
-  }
-
-  },
+  }},
 
   function(){
     svg_list = this.parentElement.querySelectorAll("path");
     for (var i = 0; i < svg_list.length; i++) {
       if (svg_list[i].style.fill != "#897FF1"){
       svg_list[i].style.fill = "rgba(0,0,0,0.15)";
-    }
-    }
+    }}
   });
-
-}
+};
 
 function send_form_and_toast(url, form, toast) {
     form_data = new FormData(form);
@@ -54,7 +48,6 @@ function get_image_priview(ggg, img) {
                         $img.src = e.target.result;
                         $img.class = "thumb-image";
                         $img.style.height = "100px";
-                        //ggg.innerHTML = '<a href="#" style="right:15px;top: 0;" class="delete_thumb">Удалить</a>'
                         ggg.append($img)
                     };
                     reader.readAsDataURL(img.files[0])

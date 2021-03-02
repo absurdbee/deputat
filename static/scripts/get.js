@@ -42,6 +42,7 @@ function loadScripts( src ) {
     head.appendChild( script );
 }
 
+loadScripts('/static/scripts/functions/auth.js');
 loadScripts('/static/scripts/functions/general.js');
 loadScripts('/static/scripts/functions/comment_attach.js');
 loadScripts('/static/scripts/functions/preview.js');

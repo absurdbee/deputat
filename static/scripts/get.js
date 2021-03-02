@@ -49,12 +49,12 @@ function loadScripts( src ) {
     head.appendChild( script );
 }
 
-loadScripts('/static/scripts/f/general.js');
-loadScripts('/static/scripts/f/comment_attach.js');
-loadScripts('/static/scripts/f/preview.js');
+loadScripts('/static/scripts/functions/general.js');
+loadScripts('/static/scripts/functionsf/comment_attach.js');
+loadScripts('/static/scripts/functions/preview.js');
 
-loadScripts('/static/scripts/app.js');
+//loadScripts('/static/scripts/app.js');
 loadScripts('/static/scripts/main.js');
-loadScripts('/static/scripts/d/blog_news.js');
-loadScripts('/static/scripts/d/elect.js');
-loadScripts('/static/scripts/d/user.js');
+loadScripts('/static/scripts/progs/blog_news.js');
+loadScripts('/static/scripts/progs/elect.js');
+loadScripts('/static/scripts/progs/user.js');

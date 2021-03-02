@@ -1105,6 +1105,9 @@ footer.footer-border {
   .search-input {
     margin-left: 270px
   }
+  .search-input-close {
+    margin-right: 270px
+  }
 }
 
 @media (min-width: 768px) {

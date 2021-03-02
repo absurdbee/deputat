@@ -135,3 +135,29 @@ on('body', 'click', '.search-input-close', function() {
 on('body', 'click', '.dropdown-user-link', function() {
   this.nextElementSibling.classList.contains("show") ? this.nextElementSibling.classList.remove("show") : this.nextElementSibling.classList.add("show")
 });
+
+on('body', 'click', '.menu-toggle', function() {
+  _this = this;
+  if (!_this.classList.contains("is-active")){
+    _this.classList.add("is-active");
+    $body.classList.add("menu-open");
+    $body.querySelector(".dsidenav-overlay").classList.add("show");
+    $body.querySelector(".menu_close").style.display = "block";
+  }
+})
+
+on('body', 'click', '.dsidenav-overlay', function() {
+  if (this.classList.contains("show")){
+    $body.querySelector(".menu-toggle").remove("is-active");
+    $body.classList.remove("menu-open");
+    $body.querySelector(".menu_close").style.display = "none";
+    $body.querySelector(".dsidenav-overlay").classList.remove("show");
+  }
+})
+
+on('body', 'click', '.menu_close', function() {
+  this.style.display = "none";
+  $body.querySelector(".menu-toggle").remove("is-active");
+  $body.classList.remove("menu-open");
+  $body.querySelector(".dsidenav-overlay").classList.remove("show");
+})

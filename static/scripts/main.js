@@ -133,7 +133,7 @@ $('.nav-link-style').on('click', function () {
     mainMenu = $body.querySelector('.main-menu'),
     navbar = $body.querySelector('.header-navbar');
 
-  if ($body.classList.contains != 'dark-layout') {
+  if (!$body.classList.contains('dark-layout')) {
     $body.classList.add('dark-layout');
     mainMenu.classList.remove('menu-light'); mainMenu.classList.add('menu-dark');
     navbar.classList.remove('navbar-light'); navbar.classList.add('navbar-dark');

@@ -130,9 +130,9 @@ var $body = document.querySelector("body");
 
 function getCurrentLayout() {
   var currentLayout = '';
-  if ($body.hasClass('dark-layout')) {
+  if ($body.classList.contains('dark-layout')) {
     currentLayout = 'dark-layout';
-  } else if ($body.hasClass('bordered-layout')) {
+  } else if ($body.classList.contains('bordered-layout')) {
     currentLayout = 'bordered-layout';
   } else {
     currentLayout = '';

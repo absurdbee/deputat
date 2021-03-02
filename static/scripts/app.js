@@ -702,11 +702,3 @@ window.colors = {
   });
 
 })(window, document, jQuery);
-
-function featherSVG(iconSize) {
-  // Feather Icons
-  if (iconSize == undefined) {
-    iconSize = '14';
-  }
-  return feather.replace({ width: iconSize, height: iconSize });
-}

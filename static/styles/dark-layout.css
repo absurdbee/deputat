@@ -4,13 +4,6 @@ body.dark-layout {
 
 .dark-layout {
   background-color : #161D31;
-  /********* COMPONENTS *********/
-  /********** FORMS **********/
-  /********** TABLE **********/
-  /********** PAGES **********/
-  /********** APPLICATIONS **********/
-  /********** CUSTOMIZER **********/
-  /********** HORIZONTAL LAYOUT **********/
 }
 
 .dark-layout h1, .dark-layout h2, .dark-layout h3, .dark-layout h4, .dark-layout h5, .dark-layout h6 {
@@ -601,24 +594,6 @@ body.dark-layout {
   color : #B4B7BD;
   border-color : #3B4253 !important;
 }
-
-.dark-layout .toast {
-  background-color : rgba(40, 48, 70, 0.85);
-  box-shadow : 0 4px 24px 0 rgba(34, 41, 47, 0.24);
-  color : #B4B7BD;
-}
-
-.dark-layout .toast .toast-header {
-  background-color : #283046;
-  color : #B4B7BD;
-}
-
-.dark-layout .toast .toast-header .close {
-  background-color : transparent !important;
-  box-shadow : none !important;
-  text-shadow : none;
-}
-
 .dark-layout .list-group .list-group-item:not([class*='list-group-item-']), .dark-layout .list-group .list-group-item.list-group-item-action {
   background-color : #283046;
   border-color : #3B4253;

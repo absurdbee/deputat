@@ -27,16 +27,6 @@ on('body', 'click', '.map_selector', function() {
 link.send( null );
 })
 
-var authority_infinite = new Waypoint.Infinite({
-element: $('.pag_container')[0],
-onBeforePageLoad: function () {
-  $('.load').show();
-},
-onAfterPageLoad: function ($items) {
-$('.load').hide();
-}
-});
-
 on('body', 'click', '.select_elect_news_category', function() {
   _this = this;
   url = _this.getAttribute("data-href");

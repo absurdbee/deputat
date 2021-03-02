@@ -154,16 +154,17 @@ $('.nav-link-style').on('click', function () {
   } else {
     switchToLayout = prevLayout;
   }
-  $body.removeClass('dark-layout bordered-layout');
+
+  $body.classList.remove('dark-layout', 'bordered-layout');
   if (switchToLayout === 'dark-layout') {
-    $body.addClass('dark-layout');
-    mainMenu.removeClass('menu-light').addClass('menu-dark');
-    navbar.removeClass('navbar-light').addClass('navbar-dark');
+    $body.classList.add('dark-layout');
+    mainMenu.classList.remove('menu-light'); mainMenu.classList.add('menu-dark');
+    navbar.classList.remove('navbar-light'); navbar.classList.add('navbar-dark');
     $this.find('.ficon').replaceWith(feather.icons['sun'].toSvg({ class: 'ficon' }));
   } else {
-    $body.addClass(prevLayout);
-    mainMenu.removeClass('menu-dark').addClass('menu-light');
-    navbar.removeClass('navbar-dark').addClass('navbar-light');
+    $body.classList.add(prevLayout);
+    mainMenu.classList.remove('menu-dark'); mainMenu.classList.add('menu-light');
+    navbar.classList.remove('navbar-dark'); navbar.classList.add('navbar-light');
     $this.find('.ficon').replaceWith(feather.icons['moon'].toSvg({ class: 'ficon' }));
   }
 

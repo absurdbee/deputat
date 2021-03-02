@@ -115,15 +115,6 @@ on('#ajax', 'click', '.sel__box__options', function() {
   link.send( null );
 });
 
-//$(window).on('load', function() {
-//    if (feather) {
-//        feather.replace({
-//            width: 14,
-//            height: 14
-//        });
-//    }
-//})
-
 on('body', 'click', '.ajax', function(event) {
   event.preventDefault();
   var url = this.getAttribute('href');
@@ -131,3 +122,51 @@ on('body', 'click', '.ajax', function(event) {
     ajax_get_reload(url)
   } else {toast_info("Вы уже на этой странице")}
 })
+
+
+/////////////////////////////////////////////////////
+function getCurrentLayout() {
+  var currentLayout = '';
+  if ($body.hasClass('dark-layout')) {
+    currentLayout = 'dark-layout';
+  } else if ($body.hasClass('bordered-layout')) {
+    currentLayout = 'bordered-layout';
+  } else {
+    currentLayout = '';
+  }
+  return currentLayout;
+}
+
+$('.nav-link-style').on('click', function () {
+  var $this = $(this),
+    currentLayout = getCurrentLayout(),
+    mainMenu = $('.main-menu'),
+    navbar = $('.header-navbar'),
+    switchToLayout = '',
+    prevLayout = $this.attr('data-prev-layout');
+
+  if (currentLayout === '' || currentLayout === 'bordered-layout') {
+    switchToLayout = 'dark-layout';
+    $this.attr('data-prev-layout', currentLayout);
+  } else {
+    switchToLayout = prevLayout;
+  }
+  $body.removeClass('dark-layout bordered-layout');
+  if (switchToLayout === 'dark-layout') {
+    $body.addClass('dark-layout');
+    mainMenu.removeClass('menu-light').addClass('menu-dark');
+    navbar.removeClass('navbar-light').addClass('navbar-dark');
+    $this.find('.ficon').replaceWith(feather.icons['sun'].toSvg({ class: 'ficon' }));
+  } else {
+    $body.addClass(prevLayout);
+    mainMenu.removeClass('menu-dark').addClass('menu-light');
+    navbar.removeClass('navbar-dark').addClass('navbar-light');
+    $this.find('.ficon').replaceWith(feather.icons['moon'].toSvg({ class: 'ficon' }));
+  }
+
+  $('.horizontal-menu .header-navbar.navbar-fixed').css({
+    background: 'inherit',
+    'box-shadow': 'inherit'
+  });
+  $('.horizontal-menu .horizontal-menu-wrapper.header-navbar').css('background', 'inherit');
+});

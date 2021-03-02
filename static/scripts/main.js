@@ -126,7 +126,7 @@ on('body', 'click', '.ajax', function(event) {
 
 /////////////////////////////////////////////////////
 
-var $body = document.body;
+var $body = document.querySelector("body");
 
 function getCurrentLayout() {
   var currentLayout = '';

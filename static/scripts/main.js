@@ -141,7 +141,7 @@ function getCurrentLayout() {
 }
 
 $('.nav-link-style').on('click', function () {
-  var $this = $(this),
+  var $this = this,
     currentLayout = getCurrentLayout(),
     mainMenu = $body.querySelector('.main-menu'),
     navbar = $body.querySelector('.header-navbar'),

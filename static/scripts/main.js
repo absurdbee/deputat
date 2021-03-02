@@ -63,25 +63,8 @@ on('body', 'click', '.window_fullscreen_hide', function() {
   document.getElementById("window_loader").innerHTML=""}
 );
 
-load_chart();
-get_select();
-
-
-on('#ajax', 'click', '.sel', function() {
-  this.classList.toggle('active')
-})
 
 on('#ajax', 'click', '.sel__box__options', function() {
-  var txt = $(this).text();
-  var index = $(this).index();
-  var slug = $(this).attr("slug");
-
-  $(this).siblings('.sel__box__options').removeClass('selected');
-  $(this).addClass('selected');
-
-  var $currentSel = $(this).closest('.sel');
-  $currentSel.children('.sel__placeholder').text(txt);
-  $currentSel.children('select').prop('selectedIndex', index + 1);
 
   block = this.parentElement.parentElement.nextElementSibling;
   map = this.parentElement.parentElement.parentElement.previousElementSibling;

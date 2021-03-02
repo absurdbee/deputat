@@ -23,7 +23,7 @@ function get_select() {
     }
     }
   });
-}
+}; get_select();
 
 function send_form_and_toast(url, form, toast) {
     form_data = new FormData(form);
@@ -295,7 +295,7 @@ function load_chart() {
         ctx.getContext('2d');
         window.myLine = new Chart(ctx, config)
     } catch {return}
-}
+}; load_chart();
 
 function send_like(item, url){
   like = item.querySelector(".like");

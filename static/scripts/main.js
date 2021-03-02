@@ -146,7 +146,7 @@ on('body', 'click', '.menu-toggle', function() {
   }
 })
 
-on('body', 'click', '.dsidenav-overlay', function() {
+on('body', 'click', '.sidenav-overlay', function() {
   if (this.classList.contains("show")){
     $body.querySelector(".menu-toggle").remove("is-active");
     $body.classList.remove("menu-open");

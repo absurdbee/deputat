@@ -143,14 +143,14 @@ function getCurrentLayout() {
 $('.nav-link-style').on('click', function () {
   var $this = $(this),
     currentLayout = getCurrentLayout(),
-    mainMenu = $('.main-menu'),
-    navbar = $('.header-navbar'),
+    mainMenu = $body.querySelector('.main-menu'),
+    navbar = $body.querySelector('.header-navbar'),
     switchToLayout = '',
-    prevLayout = $this.attr('data-prev-layout');
+    prevLayout = $this.getAttribute('data-prev-layout');
 
   if (currentLayout === '' || currentLayout === 'bordered-layout') {
     switchToLayout = 'dark-layout';
-    $this.attr('data-prev-layout', currentLayout);
+    $this.setAttribute('data-prev-layout', currentLayout);
   } else {
     switchToLayout = prevLayout;
   }

@@ -125,6 +125,9 @@ on('body', 'click', '.ajax', function(event) {
 
 
 /////////////////////////////////////////////////////
+
+var $body = document.body;
+
 function getCurrentLayout() {
   var currentLayout = '';
   if ($body.hasClass('dark-layout')) {

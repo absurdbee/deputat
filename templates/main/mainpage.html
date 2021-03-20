@@ -41,7 +41,7 @@
               {% load notify %}
               {% for object in object_list %}
                 {{ object|get_notify:request.user|safe }}
-              {% endblock %}
+              {% endfor %}
             </div>
         </div>
 {% endblock %}

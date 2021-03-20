@@ -41,7 +41,8 @@ class Blog(models.Model):
         from notify.models import Notify
 
         blog = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=Blog.STATUS_DRAFT,)
-        Notify.objects.create(creator_id=creator.pk, attach="blo"+str(blog.pk), "blog_draft", verb="ITE")
+        attach = "blo" + str(blog.pk)
+        Notify.objects.create(creator_id=creator.pk, attach=attach, "blog_draft", verb="ITE")
         return blog
 
     def likes(self):

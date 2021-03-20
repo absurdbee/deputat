@@ -1,8 +1,5 @@
-from django.views.generic.base import TemplateView
+from django.views.generic import ListView
 from generic.mixins import CategoryListMixin
-from lists.models import Region
-from blog.models import Blog, ElectNew
-from common.model.other import PhoneCodes
 from users.models import User
 from django.views import View
 from django.http import Http404
@@ -10,8 +7,8 @@ import json, requests
 from common.utils import render_for_platform, get_small_template
 
 
-class MainPageView(TemplateView, CategoryListMixin):
-	template_name = None
+class MainPageView(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_small_template("main/test.html", request.user, request.META['HTTP_USER_AGENT'])
@@ -19,12 +16,21 @@ class MainPageView(TemplateView, CategoryListMixin):
 
 	def get_context_data(self,**kwargs):
 		context = super(MainPageView,self).get_context_data(**kwargs)
-		context["last_elect_news"] = ElectNew.objects.filter(status="P")[:10]
-		context["last_blog_news"] = Blog.objects.only("pk")[:10]
 		return context
+
+	def get_queryset(self):
+		from common.notify import get_news
+		if self.request.user.is_authenticated:
+			return get_news(self.request.user)
+		else:
+			return []
+
+
 
 class PhoneVerify(View):
     def get(self,request,*args,**kwargs):
+		from common.model.other import PhoneCodes
+
         if not request.is_ajax():
             raise Http404
         code = self.kwargs["code"]

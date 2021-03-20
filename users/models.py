@@ -90,20 +90,19 @@ class User(AbstractUser):
 
     def get_elect_subscribers_count(self):
         from elect.models import SubscribeElect
-
         return SubscribeElect.objects.filter(user_id=self.pk).values("pk").count()
 
     def get_like_news(self):
         from common.model.votes import ElectNewVotes2
         from blog.models import ElectNew
 
-        likes = ElectNewVotes2.objects.filter(user_id=self.pk, vote=ElectNewVotes.LIKE).values("new_id")
+        likes = ElectNewVotes2.objects.filter(user_id=self.pk, vote="L").values("new_id")
         news_ids = [new['new_id'] for new in likes]
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_like_news_count(self):
         from common.model.votes import ElectNewVotes2
-        return ElectNewVotes2.objects.filter(user_id=self.pk, vote=ElectNewVotes.LIKE).values("new_id").count()
+        return ElectNewVotes2.objects.filter(user_id=self.pk, vote="L").values("new_id").count()
 
     def get_dislike_news(self):
         from common.model.votes import ElectNewVotes2

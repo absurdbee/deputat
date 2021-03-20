@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from blog.models import Blog, ElectNew
-from common.model.comments import ElectNewComment, BlogComment, ElectComment
+from common.model.comments import ElectNewComment, BlogComment
 
 
 """

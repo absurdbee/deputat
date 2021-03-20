@@ -1,5 +1,5 @@
 from django.views.generic import ListView
-from common.template.user import get_my_template
+from common.utils import get_my_template
 
 
 class AllNotifyView(ListView):

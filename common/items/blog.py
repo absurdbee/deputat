@@ -5,7 +5,7 @@ def linebreaks(value, autoescape=None):
     return mark_safe(linebreaks(value, autoescape))
 
 
-def get_post(user, value):
+def get_blog(user, value):
     from posts.models import Post
 
     block = ''

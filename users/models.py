@@ -96,25 +96,25 @@ class User(AbstractUser):
         from common.model.votes import ElectNewVotes2
         from blog.models import ElectNew
 
-        likes = ElectNewVotes2.objects.filter(user_id=self.pk, vote="L").values("new_id")
+        likes = ElectNewVotes2.objects.filter(user_id=self.pk, vote=ElectNewVotes2.LIKE).values("new_id")
         news_ids = [new['new_id'] for new in likes]
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_like_news_count(self):
         from common.model.votes import ElectNewVotes2
-        return ElectNewVotes2.objects.filter(user_id=self.pk, vote="L").values("new_id").count()
+        return ElectNewVotes2.objects.filter(user_id=self.pk, vote=ElectNewVotes2.LIKE).values("new_id").count()
 
     def get_dislike_news(self):
         from common.model.votes import ElectNewVotes2
         from blog.models import ElectNew
 
-        dislikes = ElectNewVotes2.objects.filter(user_id=self.pk, vote="D").values("new_id")
+        dislikes = ElectNewVotes2.objects.filter(user_id=self.pk, vote=ElectNewVotes2.DISLIKE).values("new_id")
         news_ids = [new['new_id'] for new in dislikes]
         return ElectNew.objects.filter(id__in=news_ids)
 
     def get_dislike_news_count(self):
         from common.model.votes import ElectNewVotes2
-        return ElectNewVotes2.objects.filter(user_id=self.pk, vote="D").values("new_id").count()
+        return ElectNewVotes2.objects.filter(user_id=self.pk, ElectNewVotes2.DISLIKE).values("new_id").count()
 
     def is_deleted(self):
         return try_except(self.perm == User.DELETED)

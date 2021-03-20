@@ -31,10 +31,12 @@ class AuthorityList(models.Model):
 		return AuthorityList.objects.filter(category_id=self.pk).exists()
 
 	def get_elects(self):
-		return AuthorityList.objects.filter(list_id=self.pk)
+		from elect.models import Elect
+		return Elect.objects.filter(list_id=self.pk)
 
 	def get_elects_10(self):
-		return AuthorityList.objects.filter(list_id=self.pk)[:10]
+		from elect.models import Elect
+		return Elect.objects.filter(list_id=self.pk)[:10]
 
 
 class ElectNewsCategory(models.Model):

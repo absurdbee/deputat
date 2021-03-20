@@ -89,7 +89,7 @@ class Notify(models.Model):
     def is_unread(self):
         return self.status is "U"
 
-    def get__notify(self, user):
+    def get_notify(self, user):
         from common.notify import get_notify
         return get_notify(user, self)
 

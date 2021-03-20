@@ -25,6 +25,42 @@ class MainPageView(ListView, CategoryListMixin):
 		else:
 			return []
 
+class MyNewsView(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_my_template("main/my_news.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MyNewsView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(MyNewsView,self).get_context_data(**kwargs)
+		return context
+
+	def get_queryset(self):
+		from common.notify import get_my_news
+		if self.request.user.is_authenticated:
+			return get_my_news(self.request.user)
+		else:
+			return []
+
+class DraftNewsView(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_my_template("main/draft_news.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(DraftNewsView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(DraftNewsView,self).get_context_data(**kwargs)
+		return context
+
+	def get_queryset(self):
+		from common.notify import get_draft_news
+		if self.request.user.is_authenticated and (self.request.user.is_manager() or self.request.user.is_supermanager()):
+			return get_draft_news(self.request.user)
+		else:
+			return []
+
 
 
 class PhoneVerify(View):

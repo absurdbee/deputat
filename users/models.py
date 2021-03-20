@@ -195,3 +195,34 @@ class User(AbstractUser):
                 return '<i>Была ' + self.get_last_activity() + '</i>' + device
             else:
                 return '<i>Был ' + self.get_last_activity() + '</i>' + device
+
+    def get_user_news_notify_ids(self):
+        from notify.models import UserNewsNotify
+        return [i['target'] for i in UserNewsNotify.objects.filter(user=self.pk).values('target')]
+
+    def get_user_profile_notify_ids(self):
+        from notify.models import UserProfileNotify
+        return [i['target'] for i in UserProfileNotify.objects.filter(user=self.pk).values('target')]
+
+    def get_user_notify(self):
+        from notify.models import Notify
+
+        query = Q(creator_id__in=self.get_user_profile_notify_ids())
+        query.add(Q(user_set__isnull=True, object_set__isnull=True), Q.AND)
+        return Notify.objects.only('created').filter(query)
+
+    def read_user_notify(self):
+        from notify.models import Notify
+        Notify.u_notify_unread(self.pk)
+
+    def count_unread_notify(self):
+        from notify.models import Notify
+        query = Q(recipient_id=self.pk, status="U")
+        return Notify.objects.filter(query).values("pk").count()
+
+    def unread_notify_count(self):
+        count = self.count_unread_notify()
+        if count > 0:
+            return '<span class="tab_badge badge-success" style="font-size: 60%;">' + str(count) + '</span>'
+        else:
+            return ''

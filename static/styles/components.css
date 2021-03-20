@@ -911,6 +911,7 @@ footer.footer-border {
 
 .main-menu.menu-fixed {
   position : fixed;
+  left: -20px;
 }
 
 .main-menu.menu-static {

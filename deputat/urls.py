@@ -26,6 +26,7 @@ urlpatterns = [
 
     url(r'^terms/', include('terms.urls')),
     url(r'^policy/', include('policy.urls')),
+    url(r'^notify/', include('notify.urls')),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^signup/$', TemplateView.as_view(template_name="account/signup.html"), name='signup'),

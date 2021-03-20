@@ -3,32 +3,18 @@ from notify.models import Notify
 
 
 def get_news(user):
-    """ лента всех новостей - первая вкладка на главной странице
-
-        Примечания:
-        - список покажет все уведомления по времени. Вложения уведомлений создаются на срок одного дня.
-        - прикрепленные элементы просто записаны в текстовое поле, например pho_19 - это фотка под номером 19. Так
-            пользователь увидит все действия, как и в контакте.
-    """
     query = Q(user_set__isnull=True, object_set__isnull=True)
     return Notify.objects.filter(query)
 
-def get_subscribes_news(user):
-    """ лента новостей, куда попадают все взаимодействия людей: - вторая вкладка
-        1. Активности, комментарии, лайки/дизлайки, голосования и т.д. тех людей, на которых человек подписан
-        2. Учитываются прямые подписки людей (get_user_news_notify_ids),
-            а также созданные по нажатию на колокольчик (get_user_profile_notify_ids)
-
-        Примечания:
-        - список покажет все уведомления по времени. Вложения уведомлений создаются на срок одного дня.
-        - прикрепленные элементы просто записаны в текстовое поле, например pho_19 - это фотка под номером 19. Так
-            пользователь увидит все действия, как и в контакте.
-    """
+def get_my_news(user):
     query = Q(creator_id__in=user.get_user_news_notify_ids())|\
             Q(creator_id__in=user.get_user_profile_notify_ids())
     query.add(Q(user_set__isnull=True, object_set__isnull=True), Q.AND)
     return Notify.objects.filter(query)
 
+def get_draft_news(user):
+    query = Q(verb="SIT") & Q(user_set__isnull=True, object_set__isnull=True)
+    return Notify.objects.filter(query)
 
 def user_notify(creator, recipient_id, attach, socket_name, verb):
     from notify.models import Notify
@@ -48,3 +34,25 @@ def user_notify(creator, recipient_id, attach, socket_name, verb):
     else:
         Notify.objects.create(creator_id=creator.pk, recipient_id=recipient_id, attach=attach, verb=current_verb)
     #user_send(attach[3:], recipient_id, socket_name)
+
+
+def get_notify(user, notify):
+    attach = notify.attach
+    if attach[:3] == "blo":
+        from common.items.blog import get_blog
+        if notify.verb == "ITE":
+            return get_blog(user, attach[3:])
+        else:
+            if notify.is_have_user_set():
+                first_notify = notify.get_first_user_set()
+                return '<p style="padding: 10px 20px;"><a href="/users/' + str(first_notify.creator.pk) + '" class="ajax">' + first_notify.creator.get_full_name() + '</a> '\
+                + first_notify.get_verb_display() + ' ' + str(notify.count_user_set()) + '</p>'
+            elif notify.is_have_object_set():
+                first_notify = notify.get_first_object_set()
+                return '<p style="padding-left: 7px;"><a href="/users/' + str(first_notify.creator.pk) + '" class="ajax" style="font-weight: bold;">'+ \
+                first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\
+                 + ' запись </p>' + get_blog(user, attach[3:])
+            else:
+                return '<p style="padding-left: 7px;"><a href="' + notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
+                notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
+                 + ' запись </p>' + get_blog(user, attach[3:])

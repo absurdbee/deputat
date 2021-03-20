@@ -28,31 +28,30 @@ class MainPageView(ListView, CategoryListMixin):
 
 
 class PhoneVerify(View):
-    def get(self,request,*args,**kwargs):
+	def get(self,request,*args,**kwargs):
 		from common.model.other import PhoneCodes
 
-        if not request.is_ajax():
-            raise Http404
-        code = self.kwargs["code"]
-        _phone = self.kwargs["phone"]
-        phone = request.user.get_last_location().phone + _phone
-        try:
-            obj = PhoneCodes.objects.get(phone=phone)
-        except:
-            obj = None
-        if obj:
-            user = User.objects.get(pk=request.user.pk)
-            user.perm = User.STANDART
-            user.phone = obj.phone
-            user.save()
-            obj.delete()
-            data = 'ok'
-            response = render_for_platform(request,'generic/response/phone.html',{'response_text':data})
-            return response
-        else:
-            data = 'Код подтверждения неверный. Проверьте, пожалуйста, номер, с которого мы Вам звонили. Последние 4 цифры этого номера и есть код подтверждения, который нужно ввести с поле "Последние 4 цифры". Если не можете найти номер, нажмите на кнопку "Перезвонить повторно".'
-            response = render_for_platform(request,'generic/response/phone.html',{'response_text':data})
-            return response
+		if not request.is_ajax():
+			raise Http404
+		code = self.kwargs["code"]
+		_phone = self.kwargs["phone"]
+		phone = request.user.get_last_location().phone + _phone
+		try:
+			obj = PhoneCodes.objects.get(phone=phone)
+		except:
+			obj = None
+		if obj:
+			user = User.objects.get(pk=request.user.pk)
+			user.perm = User.STANDART
+			user.phone = obj.phone
+			user.save()
+			obj.delete()
+			data = 'ok'
+			response = render_for_platform(request,'generic/response/phone.html',{'response_text':data})
+			return response
+		else:
+			data = 'Код подтверждения неверный. Проверьте, пожалуйста, номер, с которого мы Вам звонили. Последние 4 цифры этого номера и есть код подтверждения, который нужно ввести с поле "Последние 4 цифры". Если не можете найти номер, нажмите на кнопку "Перезвонить повторно".'
+			return render_for_platform(request,'generic/response/phone.html',{'response_text':data})
 
 
 class PhoneSend(View):

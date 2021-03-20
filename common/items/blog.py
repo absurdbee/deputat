@@ -6,7 +6,7 @@ def linebreaks(value, autoescape=None):
 
 
 def get_blog(user, value):
-    from posts.models import Post
+    from blog.models import Blog
 
     block = ''
 

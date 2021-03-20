@@ -40,7 +40,7 @@ class Blog(models.Model):
     def create_new(cls, creator, description, content, comments_enabled, votes_on, status):
         from notify.models import Notify
 
-        blog = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=Blog.STATUS_DRAFT,)
+        blog = Blog.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=Blog.STATUS_DRAFT,)
         attach = "blo" + str(blog.pk)
         Notify.objects.create(creator_id=creator.pk, attach=attach, "blog_draft", verb="ITE")
         return blog

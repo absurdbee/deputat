@@ -114,7 +114,7 @@ class User(AbstractUser):
 
     def get_dislike_news_count(self):
         from common.model.votes import ElectNewVotes2
-        return ElectNewVotes2.objects.filter(user_id=self.pk, ElectNewVotes2.DISLIKE).values("new_id").count()
+        return ElectNewVotes2.objects.filter(user_id=self.pk, vote=ElectNewVotes2.DISLIKE).values("new_id").count()
 
     def is_deleted(self):
         return try_except(self.perm == User.DELETED)

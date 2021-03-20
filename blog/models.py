@@ -40,9 +40,8 @@ class Blog(models.Model):
     def create_new(cls, creator, description, content, comments_enabled, votes_on, status):
         from notify.models import Notify
 
-        blog = Blog.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=Blog.STATUS_DRAFT,)
-        attach = "blo" + str(blog.pk)
-        Notify.objects.create(creator_id=creator.pk, attach=attach, "blog_draft", verb="ITE")
+        blog = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=Blog.STATUS_DRAFT,)
+        Notify.objects.create(creator_id=creator.pk, attach="blo"+str(blog.pk), verb="ITE")
         return blog
 
     def likes(self):
@@ -136,7 +135,7 @@ class ElectNew(models.Model):
         from notify.models import Notify
 
         elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=ElectNew.STATUS_DRAFT,)
-        Notify.objects.create(creator_id=creator.pk, attach="new"+str(elect_new.pk), "elect_new_draft", verb="SIT")
+        Notify.objects.create(creator_id=creator.pk, attach="new"+str(elect_new.pk), verb="SIT")
         return elect_new
 
     def make_publishe_post(self):
@@ -149,7 +148,7 @@ class ElectNew(models.Model):
             old_notify.delete()
         except Notify.DoesNotExist:
             pass
-        Notify.objects.create(creator_id=self.creator.pk, attach="new"+str(self.pk), "elect_new_public", verb="ITE")
+        Notify.objects.create(creator_id=self.creator.pk, attach="new"+str(self.pk), verb="ITE")
 
     def is_draft(self):
         return self.status == ElectNew.STATUS_DRAFT

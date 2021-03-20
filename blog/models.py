@@ -22,12 +22,10 @@ class Blog(models.Model):
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="blog/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
-    content = RichTextUploadingField(config_name='default',external_plugin_resources=[('youtube','/static/ckeditor_plugins/youtube/youtube/','plugin.js',)],)
-    elects = models.ManyToManyField('elect.Elect', blank=True, related_name='elect_news', verbose_name="Чиновник")
+    content = RichTextUploadingField(config_name='default',)
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
-    tags = TaggableManager(blank=True,verbose_name="Теги")
 
     class Meta:
         verbose_name = "Новость проекта"
@@ -37,6 +35,14 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def create_new(cls, creator, description, content, comments_enabled, votes_on, status):
+        from notify.models import Notify
+
+        blog = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=Blog.STATUS_DRAFT,)
+        Notify.objects.create(creator_id=creator.pk, attach="blo"+str(blog.pk), "blog_draft", verb="ITE")
+        return blog
 
     def likes(self):
         from common.model.votes import BlogVotes
@@ -99,7 +105,7 @@ class ElectNew(models.Model):
     STATUS_PROCESSING = 'PG'
     STATUS_PUBLISHED = 'P'
     STATUSES = (
-        (STATUS_DRAFT, 'На рассмотрении'),
+        (STATUS_DRAFT, 'Черновик'),
         (STATUS_PROCESSING, 'Обработка'),
         (STATUS_PUBLISHED, 'Опубликовано'),
     )
@@ -107,20 +113,42 @@ class ElectNew(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     elect = models.ManyToManyField('elect.Elect', related_name="new_elect", blank=True, verbose_name="Чиновник")
-    category = models.ForeignKey('lists.BlogCategory', on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория записи чиновника")
+    category = models.ForeignKey('lists.ElectNewsCategory', on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория активности")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Создатель")
-    content = models.TextField(verbose_name="Текст")
-    tags = TaggableManager(blank=True,verbose_name="Теги")
+    content = RichTextUploadingField(config_name='default',)
+    tags = TaggableManager(blank=True, verbose_name="Теги")
+    comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
+    votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
 
     class Meta:
-        verbose_name = "Запись о чиновнике"
+        verbose_name = "Активность"
         verbose_name_plural = "Лента чиновника"
         indexes = (BrinIndex(fields=['created']),)
         ordering = ["-created"]
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def create_draft_post(cls, creator, description, category, comments_enabled, votes_on, status):
+        from notify.models import Notify
+
+        elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=ElectNew.STATUS_DRAFT,)
+        Notify.objects.create(creator_id=creator.pk, attach="new"+str(elect_new.pk), "elect_new_draft", verb="SIT")
+        return elect_new
+
+    def make_publishe_post(self):
+        from notify.models import Notify
+
+        self.status = ElectNew.STATUS_PUBLISHED
+        self.save(update_fields=['status'])
+        try:
+            old_notify = Notify.objects.get(creator_id=self.creator.pk, attach="new"+str(self.pk), verb="SIT")
+            old_notify.delete()
+        except Notify.DoesNotExist:
+            pass
+        Notify.objects.create(creator_id=self.creator.pk, attach="new"+str(self.pk), "elect_new_public", verb="ITE")
 
     def is_draft(self):
         return self.status == ElectNew.STATUS_DRAFT

@@ -32,11 +32,11 @@ class AuthorityList(models.Model):
 
 	def get_elects(self):
 		from elect.models import Elect
-		return Elect.objects.filter(list_id=self.pk)
+		return Elect.objects.filter(list=self)
 
 	def get_elects_10(self):
 		from elect.models import Elect
-		return Elect.objects.filter(list_id=self.pk)[:10]
+		return Elect.objects.filter(list=self)[:10]
 
 
 class ElectNewsCategory(models.Model):

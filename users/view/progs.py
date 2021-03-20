@@ -14,7 +14,7 @@ class PhoneVerify(View):
         code = self.kwargs["code"]
         phone = self.kwargs["phone"]
         try:
-            obj = PhoneCodes.objects.get(phone=phone)
+            obj = PhoneCodes.objects.get(phone=phone, code=code)
         except:
             obj = None
         if obj:

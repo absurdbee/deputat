@@ -2864,19 +2864,19 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 
 .btn-secondary {
-  color : #FFFFFF;
+  color : #FFFFFF !important;
   background-color : #82868B;
   border-color : #82868B;
 }
 
 .btn-secondary:hover {
-  color : #FFFFFF;
+  color : #FFFFFF !important;
   background-color : #6F7378;
   border-color : #696D71;
 }
 
 .btn-secondary:focus, .btn-secondary.focus {
-  color : #FFFFFF;
+  color : #FFFFFF !important;
   background-color : #6F7378;
   border-color : #696D71;
   box-shadow : 0 0 0 0.2rem rgba(149, 152, 156, 0.5);

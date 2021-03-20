@@ -9,8 +9,7 @@ from common.model.comments import ElectNewComment, BlogComment, ElectComment
     1. Реакции на статьи блога проекта,
     2. Реакции на новостей чиновника,
     3. Реакции на комменты к новостям чиновника,
-    4. Реакции на отзывы о чиновнике,
-    5. Реакции на статьи блога
+    4. Реакции на статьи блога
 """
 
 class BlogVotes(models.Model):
@@ -40,15 +39,6 @@ class ElectNewCommentVotes(models.Model):
     vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     comment = models.ForeignKey(ElectNewComment, on_delete=models.CASCADE)
-
-class ElectCommentVotes(models.Model):
-    LIKE = 1
-    DISLIKE = -1
-    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
-
-    vote = models.IntegerField(verbose_name="Голос", choices=VOTES)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    comment = models.ForeignKey(ElectComment, on_delete=models.CASCADE)
 
 class BlogCommentVotes(models.Model):
     from common.model.comments import BlogComment

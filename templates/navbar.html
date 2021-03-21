@@ -35,6 +35,42 @@
                   <ul class="search-list search-list-main"></ul>
               </div>
             </li>
+            <li class="nav-item dropdown dropdown-notification mr-25">
+              <a class="nav-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ficon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span class="badge badge-pill badge-danger badge-up">6</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                <li class="dropdown-menu-header">
+                  <div class="dropdown-header d-flex">
+                    <h4 class="notification-title mb-0 mr-auto">Уведомления</h4>
+                    <div class="badge badge-pill badge-light-primary">6 новых</div>
+                  </div>
+                </li>
+                        <li class="scrollable-container media-list ps">
+                          <a class="d-flex" href="javascript:void(0)">
+                                <div class="media d-flex align-items-start">
+                                    <div class="media-left">
+                                        <div class="avatar"><img src="/static/images/user.png" alt="avatar" width="32" height="32"></div>
+                                    </div>
+                                    <div class="media-body">
+                                        <p class="media-heading"><span class="font-weight-bolder">Тес</span>winner!</p><small class="notification-text"> Won the monthly best seller badge.</small>
+                                    </div>
+                                </div>
+                            </a>
+
+                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                          <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 0px; right: 0px;">
+                          <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                        </div>
+                      </li>
+                      <li class="dropdown-menu-footer">
+                        <a class="btn btn-primary btn-block">Все уведомления</a>
+                      </li>
+                    </ul>
+                </li>
 
             <li class="nav-item dropdown dropdown-user">
               {% if request.user.is_authenticated %}
@@ -55,24 +91,16 @@
                 </a>
                 <a class="dropdown-item ajax" href="{% url 'user_news' pk=request.user.pk %}">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                  Мои новости
-                </a>
-                <a class="dropdown-item ajax" href="{% url 'subscribe_elects' pk=request.user.pk %}">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
-                  Мои подписки
-                </a>
-                <a class="dropdown-item ajax" href="{% url 'like_news' pk=request.user.pk %}">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-                  Одобрил
-                </a>
-                <a class="dropdown-item ajax" href="{% url 'dislike_news' pk=request.user.pk %}">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-down"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path></svg>
-                  Не одобрил
+                  Моя лента
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item ajax" href="">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-life-buoy"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line><line x1="14.83" y1="9.17" x2="18.36" y2="5.64"></line><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line></svg>
-                  Вопросы
+                  Настройки
+                </a>
+                <a class="dropdown-item ajax" href="">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-life-buoy"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line><line x1="14.83" y1="9.17" x2="18.36" y2="5.64"></line><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line></svg>
+                  Помощь
                 </a>
                 <a class="dropdown-item" href="/logout">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>

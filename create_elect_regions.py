@@ -61,12 +61,12 @@ def main():
         if regions_query:
             regions_query = data["region_list"].split(",")
             for region_name in regions_query:
-                #try:
-                region = Region.objects.get(name=region_name)
-                region.elect_region.add(new_elect)
-                print(data["name"])
-                #except:
-                #    pass
+                try:
+                    region = Region.objects.get(name=region_name)
+                    region.elect_region.add(elect)
+                    print(data["name"])
+                except:
+                    pass
         print("not ok")
 
 if __name__ == '__main__':

@@ -24,7 +24,8 @@ def main():
     list = body.find_all('tr')
 
     for item in list:
-        print(item)
+        tds = item.find_all('td')
+        print(tds[0].text)
 
 if __name__ == '__main__':
     main()

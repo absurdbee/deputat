@@ -124,7 +124,8 @@ def main():
                         region = Region.objects.get(name=region_name)
                         region.elect_region.add(new_elect)
                     except:
-                        pass
+                        region = Region.objects.create(name=region_name)
+                        region.elect_region.add(new_elect)
             new_elect.get_remote_image(data["elect_image"])
             list = AuthorityList.objects.get(slug="state_duma")
             list.elect_list.add(new_elect)

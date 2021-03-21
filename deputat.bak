@@ -1109,7 +1109,6 @@ CREATE TABLE public.lists_region (
     name character varying(100) NOT NULL,
     slug character varying(100) NOT NULL,
     "order" smallint NOT NULL,
-    svg character varying(1000) NOT NULL,
     CONSTRAINT lists_region_order_check CHECK (("order" >= 0))
 );
 
@@ -5590,7 +5589,7 @@ SELECT pg_catalog.setval('public.lists_fraction_id_seq', 5, true);
 -- Data for Name: lists_region; Type: TABLE DATA; Schema: public; Owner: serg
 --
 
-COPY public.lists_region (id, name, slug, "order", svg) FROM stdin;
+COPY public.lists_region (id, name, slug, "order") FROM stdin;
 1	Алтайский край	altai_territory	22
 2 Амурская область	amur_region	 28
 3	Архангельская область	arkhangelsk_region	29

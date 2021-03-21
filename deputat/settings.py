@@ -113,7 +113,7 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'deputat_8',
+        'NAME': 'deputat_9',
         'USER': 'serg',
         'PASSWORD': 'ulihos46',
         'HOST': 'localhost',

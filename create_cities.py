@@ -22,11 +22,11 @@ def main():
     soup = BeautifulSoup(html, 'lxml')
     body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
-    print(list)
+    next(list)
 
     for item in list:
-        tds = item.find('td')[1]
-        print(tds)
+        for cell in item.find_all('td'):
+            print(cell[0])
 
 if __name__ == '__main__':
     main()

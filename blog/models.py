@@ -114,7 +114,7 @@ class ElectNew(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     elect = models.ManyToManyField(Elect, related_name="new_elect", blank=True, verbose_name="Чиновник")
-    #category = models.ForeignKey(ElectNewsCategory, on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория активности")
+    category = models.ForeignKey(ElectNewsCategory, on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория активности")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Создатель")
     content = RichTextUploadingField(config_name='default',)

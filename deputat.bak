@@ -9983,14 +9983,6 @@ CREATE INDEX elect_elect_list_elect_id_21b2ead5 ON public.elect_elect_list USING
 
 CREATE INDEX elect_elect_region_elect_id_23dd3d0c ON public.elect_elect_region USING btree (elect_id);
 
-
---
--- Name: elect_elect_region_region_id_1eb1376b; Type: INDEX; Schema: public; Owner: serg
---
-
-CREATE INDEX elect_elect_region_region_id_1eb1376b ON public.elect_elect_region USING btree (region_id);
-
-
 --
 -- Name: elect_linkelect_elect_id_6afb415e; Type: INDEX; Schema: public; Owner: serg
 --
@@ -10431,8 +10423,8 @@ ALTER TABLE ONLY public.elect_elect_region
 -- Name: elect_elect_region_region_id_1eb1376b_fk_lists_region_id; Type: FK CONSTRAINT; Schema: public; Owner: serg
 --
 
-ALTER TABLE ONLY public.elect_elect_region
-    ADD CONSTRAINT elect_elect_region_region_id_1eb1376b_fk_lists_region_id FOREIGN KEY (region_id) REFERENCES public.lists_region(id) DEFERRABLE INITIALLY DEFERRED;
+--ALTER TABLE ONLY public.elect_elect_region
+--    ADD CONSTRAINT elect_elect_region_region_id_1eb1376b_fk_lists_region_id FOREIGN KEY (region_id) REFERENCES public.lists_region(id) DEFERRABLE INITIALLY DEFERRED;
 
 
 --

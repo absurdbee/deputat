@@ -103,6 +103,13 @@ def main():
     for url in lists:
         html = get_html(url)
         data = get_page_data(html)
+        try:
+            regions_query = data["region_list"].split(",")
+            for region_name in regions_query:
+                if Region.objects.filter(name=region_name).exists():
+                    pass
+                else:
+                    region = Region.objects.create(name=region_name)
         if not Elect.objects.filter(name=data["name"]).exists():
             if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':
                 current_fraction = Fraction.objects.get(slug="edinaya_russia")
@@ -124,8 +131,7 @@ def main():
                         region = Region.objects.get(name=region_name)
                         region.elect_region.add(new_elect)
                     except:
-                        region = Region.objects.create(name=region_name)
-                        region.elect_region.add(new_elect)
+                        pass
             new_elect.get_remote_image(data["elect_image"])
             list = AuthorityList.objects.get(slug="state_duma")
             list.elect_list.add(new_elect)

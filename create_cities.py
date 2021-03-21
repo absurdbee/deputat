@@ -24,7 +24,7 @@ def main():
     list = body.find_all('tr')
 
     for item in list:
-        print item
+        print(item)
 
 if __name__ == '__main__':
     main()

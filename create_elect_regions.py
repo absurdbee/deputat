@@ -65,11 +65,12 @@ def main():
                     try:
                         region = Region.objects.get(name=region_name)
                         region.elect_region.add(new_elect)
+                        print(data["name"])
                     except:
                         pass
         except:
             pass
-        print(data["name"])
+        print("not ok")
 
 if __name__ == '__main__':
     main()

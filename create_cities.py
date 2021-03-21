@@ -20,7 +20,7 @@ def get_html(url):
 def main():
     html = get_html("https://hramy.ru/regions/city_reg.htm")
     soup = BeautifulSoup(html, 'lxml')
-    body = soup.find('tbody')
+    body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
 
     for item in list:

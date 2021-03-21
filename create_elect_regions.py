@@ -56,20 +56,17 @@ def main():
         html = get_html(url)
         data = get_page_data(html)
 
-        try:
-            elect = Elect.objects.get(name=data["name"])
-            regions_query = data["region_list"]
-            if regions_query:
-                regions_query = data["region_list"].split(",")
-                for region_name in regions_query:
-                    try:
-                        region = Region.objects.get(name=region_name)
-                        region.elect_region.add(new_elect)
-                        print(data["name"])
-                    except:
-                        pass
-        except:
-            pass
+        elect = Elect.objects.get(name=data["name"])
+        regions_query = data["region_list"]
+        if regions_query:
+            regions_query = data["region_list"].split(",")
+            for region_name in regions_query:
+                try:
+                    region = Region.objects.get(name=region_name)
+                    region.elect_region.add(new_elect)
+                    print(data["name"])
+                except:
+                    pass
         print("not ok")
 
 if __name__ == '__main__':

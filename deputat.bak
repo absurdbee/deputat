@@ -5590,7 +5590,7 @@ SELECT pg_catalog.setval('public.lists_fraction_id_seq', 5, true);
 -- Data for Name: lists_region; Type: TABLE DATA; Schema: public; Owner: serg
 --
 
-COPY public.lists_region (id, name, slug, "order") FROM stdin;
+COPY public.lists_region (id, name, slug, "order", svg) FROM stdin;
 1	Алтайский край	altai_territory	22
 2 Амурская область	amur_region	 28
 3	Архангельская область	arkhangelsk_region	29

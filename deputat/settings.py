@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'stst',
     'common',
     'notify',
+    'city',
+    'region',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

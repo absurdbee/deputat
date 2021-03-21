@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.postgres.indexes import BrinIndex
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
-from lists.models import Region
+from region.models import Region
 from django.db.models import Q
 
 
@@ -20,7 +20,7 @@ class Elect(models.Model):
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     list = models.ManyToManyField('lists.AuthorityList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
-    region = models.ManyToManyField('lists.Region', blank=True, related_name='elect_region', verbose_name="Регион, за которым закреплен депутат")
+    region = models.ManyToManyField(Region, blank=True, related_name='elect_region', verbose_name="Регион, за которым закреплен депутат")
     birthday = models.CharField(max_length=100, null=True, verbose_name='Дата рождения')
     authorization = models.CharField(max_length=100, null=True, verbose_name='Дата наделения полномочиями')
     term_of_office = models.CharField(max_length=100, null=True, verbose_name='Срок окончания полномочий')

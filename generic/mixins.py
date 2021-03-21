@@ -1,6 +1,7 @@
 from django.views.generic.base import ContextMixin
 from django.conf import settings
-from lists.models import AuthorityList, BlogCategory, Region
+from lists.models import AuthorityList, BlogCategory
+from region.models import Region
 
 
 class CategoryListMixin(ContextMixin):

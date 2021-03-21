@@ -52,31 +52,3 @@ class ElectListsView(TemplateView, CategoryListMixin):
 		context = super(ElectListsView,self).get_context_data(**kwargs)
 		context["lists"] = AuthorityList.objects.only("pk")
 		return context
-
-
-class RegionElectView(TemplateView, CategoryListMixin):
-	template_name = None
-
-	def get(self,request,*args,**kwargs):
-		self.region = Region.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_small_template("elect_list/region_list.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(RegionElectView,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		context = super(RegionElectView,self).get_context_data(**kwargs)
-		context["region"] = self.region
-		return context
-
-
-class RegionDetailView(TemplateView, CategoryListMixin):
-	template_name = None
-
-	def get(self,request,*args,**kwargs):
-		self.region = Region.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_full_template("elect_list/region.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(RegionDetailView,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		context=super(RegionDetailView,self).get_context_data(**kwargs)
-		context["region"] = self.region
-		return context

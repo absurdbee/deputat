@@ -20,6 +20,9 @@ urlpatterns = [
     url(r'^search/', include('search.urls')),
     url(r'^users/', include('users.urls')),
 
+    url(r'^city/', include('city.urls')),
+    url(r'^region/', include('region.urls')),
+
     url(r'^about/', include('about.urls')),
     url(r'^contacts/', include('contacts.urls')),
     url(r'^stat/', include('stst.urls')),

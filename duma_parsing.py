@@ -110,6 +110,8 @@ def main():
                     pass
                 else:
                     region = Region.objects.create(name=region_name)
+        except:
+            pass
         if not Elect.objects.filter(name=data["name"]).exists():
             if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':
                 current_fraction = Fraction.objects.get(slug="edinaya_russia")

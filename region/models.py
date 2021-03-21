@@ -5,7 +5,7 @@ from autoslug import AutoSlugField
 
 class Region(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Название региона")
-	slug = models.CharField(blank=True, max_length=100, verbose_name="Для ссылки английское название")
+	slug = AutoSlugField(populate_from='name', unique=True)
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 	svg = models.CharField(max_length=1000, blank=True, verbose_name="SVG")
 

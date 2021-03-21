@@ -16,14 +16,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -5591,92 +5591,92 @@ SELECT pg_catalog.setval('public.lists_fraction_id_seq', 5, true);
 --
 
 COPY public.lists_region (id, name, slug, "order", svg) FROM stdin;
-1	Алтайский край	altai_territory	22	
-2	Амурская область	amur_region	28	
-3	Архангельская область	arkhangelsk_region	29	
-4	Астраханская область	astrakhan_region	30	
-5	Белгородская область	belgorod_region	31	
-6	Брянская область	bryansk_region	32	
-7	Владимирская область	vladimir_region	33	
-8	Волгоградская область	volgograd_region	34	
-9	Вологодская область	vologda_region	35	
-10	Воронежская область	voronezh_region	36	
-12	Еврейская автономная область	jewish_autonomous_region	79	
-13	Забайкальский край	zabaikalsky_krai	75	
-14	Ивановская область	ivanovo_region	37	
-15	Иркутская область	irkutsk_region	38	
-16	Кабардино-Балкарская Республика	kabardino_balkar_republic	7	
-17	Калининградская область	kaliningrad_region	39	
-18	Калужская область	kaluga_region	40	
-19	Камчатский край	kamchatka_territory	41	
-20	Карачаево-Черкесская Республика	karachay_cherkess_republic	9	
-21	Кемеровская область	kemerovo_region	42	
-22	Кировская область	kirov_region	43	
-23	Костромская область	kostroma_region	44	
-24	Краснодарский край	krasnodar_region	23	
-25	Красноярский край	krasnoyarsk_region	24	
-26	Курганская область	kurgan_area	45	
-27	Курская область	kursk_region	46	
-28	Ленинградская область	leningrad_region	47	
-29	Липецкая область	lipetsk_region	48	
-30	Магаданская область	magadan_region	49	
-31	Московская область	moscow_oblast	50	
-32	Мурманская область	murmansk_region	51	
-33	Ненецкий автономный округ	nenets_autonomous_district	83	
-34	Нижегородская область	nizhny_novgorod_region	52	
-35	Новгородская область	novgorod_region	53	
-36	Новосибирская область	novosibirsk_region	54	
-37	Омская область	omsk_region	55	
-38	Оренбургская область	orenburg_region	56	
-39	Орловская область	orel_area	57	
-40	Пензенская область	penza_region	58	
-41	Пермский край	perm_region	59	
-42	Приморский край	primorsky_krai	25	
-43	Псковская область	pskov_region	60	
-44	Республика Адыгея	adygeya_republic	1	
-45	Республика Алтай	altai_republic	4	
-46	Республика Башкортостан	bashkortostan	2	
-47	Республика Бурятия	republic_of_buryatia	3	
-48	Республика Дагестан	republic_of_dagestan	5	
-49	Республика Ингушетия	ingush_republic	6	
-50	Республика Калмыкия	republic_of_kalmykia	8	
-51	Республика Карелия	republic_of_karelia	10	
-52	Республика Коми	republic_of_komi	11	
-53	Республика Крым	republic_of_krym	91	
-54	Республика Марий Эл	republic_of_mari_el	12	
-55	Республика Мордовия	mordovia	13	
-56	Республика Саха (Якутия)	republic_of_sakha_yakutia	14	
-58	Республика Татарстан	republic_of_tatarstan	16	
-59	Республика Тыва	republic_of_tuva	17	
-60	Республика Хакасия	republic_of_khakassia	19	
-61	Ростовская область	rostov_region	61	
-62	Рязанская область	ryazan_region	62	
-63	Самарская область	samara_region	63	
-64	Санкт-Петербург	saint_petersburg	78	
-65	Саратовская область	saratov_region	64	
-66	Сахалинская область	sakhalin_region	65	
-67	Свердловская область	sverdlovsk_region	0	
-68	Севастополь	sevastopol	92	
-69	Смоленская область	smolensk_region	67	
-70	Ставропольский край	stavropol_territory	26	
-71	Тамбовская область	tambov_region	68	
-72	Тверская область	tver_region	69	
-73	Томская область	tomsk_region	70	
-74	Тульская область	tula_region	71	
-75	Тюменская область	tyumen_region	72	
-77	Ульяновская область	ulyanovsk_region	73	
-78	Хабаровский край	khabarovsk_territory	27	
-80	Челябинская область	chelyabinsk_region	74	
-81	Чеченская Республика	republic_of_chechnya	20	
-83	Чукотский автономный округ	chukotka_autonomous_okrug	87	
-84	Ямало-Ненецкий автономный округ	yamalo_nenets_autonomous_district	89	
-11	Москва	sity_of_moskow	77	
-82	Чувашская Республика - Чувашия	chuvash_republic	21	
-86	Ярославская область	yaroslavl_region	90	
-76	Удмуртская Республика (Удмуртия)	udmurt_republic	18	
-57	Республика Северная Осетия - Алания	republic_of_north_ossetia	15	
-87	Все регионы Российской Федерации	all_regions	0	
-79	Ханты-Мансийский автономный округ - Югра (Тюменская область)	khanty_mansi_autonomous_okrug	86	
+1	Алтайский край	altai_territory	22
+2	Амурская область	amur_region	28
+3	Архангельская область	arkhangelsk_region	29
+4	Астраханская область	astrakhan_region	30
+5	Белгородская область	belgorod_region	31
+6	Брянская область	bryansk_region	32
+7	Владимирская область	vladimir_region	33
+8	Волгоградская область	volgograd_region	34
+9	Вологодская область	vologda_region	35
+10	Воронежская область	voronezh_region	36
+12	Еврейская автономная область	jewish_autonomous_region	79
+13	Забайкальский край	zabaikalsky_krai	75
+14	Ивановская область	ivanovo_region	37
+15	Иркутская область	irkutsk_region	38
+16	Кабардино-Балкарская Республика	kabardino_balkar_republic	7
+17	Калининградская область	kaliningrad_region	39
+18	Калужская область	kaluga_region	40
+19	Камчатский край	kamchatka_territory	41
+20	Карачаево-Черкесская Республика	karachay_cherkess_republic	9
+21	Кемеровская область	kemerovo_region	42
+22	Кировская область	kirov_region	43
+23	Костромская область	kostroma_region	44
+24	Краснодарский край	krasnodar_region	23
+25	Красноярский край	krasnoyarsk_region	24
+26	Курганская область	kurgan_area	45
+27	Курская область	kursk_region	46
+28	Ленинградская область	leningrad_region	47
+29	Липецкая область	lipetsk_region	48
+30	Магаданская область	magadan_region	49
+31	Московская область	moscow_oblast	50
+32	Мурманская область	murmansk_region	51
+33	Ненецкий автономный округ	nenets_autonomous_district	83
+34	Нижегородская область	nizhny_novgorod_region	52
+35	Новгородская область	novgorod_region	53
+36	Новосибирская область	novosibirsk_region	54
+37	Омская область	omsk_region	55
+38	Оренбургская область	orenburg_region	56
+39	Орловская область	orel_area	57
+40	Пензенская область	penza_region	58
+41	Пермский край	perm_region	59
+42	Приморский край	primorsky_krai	25
+43	Псковская область	pskov_region	60
+44	Республика Адыгея	adygeya_republic	1
+45	Республика Алтай	altai_republic	4
+46	Республика Башкортостан	bashkortostan	2
+47	Республика Бурятия	republic_of_buryatia	3
+48	Республика Дагестан	republic_of_dagestan	5
+49	Республика Ингушетия	ingush_republic	6
+50	Республика Калмыкия	republic_of_kalmykia	8
+51	Республика Карелия	republic_of_karelia	10
+52	Республика Коми	republic_of_komi	11
+53	Республика Крым	republic_of_krym	91
+54	Республика Марий Эл	republic_of_mari_el	12
+55	Республика Мордовия	mordovia	13
+56	Республика Саха (Якутия)	republic_of_sakha_yakutia	14
+58	Республика Татарстан	republic_of_tatarstan	16
+59	Республика Тыва	republic_of_tuva	17
+60	Республика Хакасия	republic_of_khakassia	19
+61	Ростовская область	rostov_region	61
+62	Рязанская область	ryazan_region	62
+63	Самарская область	samara_region	63
+64	Санкт-Петербург	saint_petersburg	78
+65	Саратовская область	saratov_region	64
+66	Сахалинская область	sakhalin_region	65
+67	Свердловская область	sverdlovsk_region	0
+68	Севастополь	sevastopol	92
+69	Смоленская область	smolensk_region	67
+70	Ставропольский край	stavropol_territory	26
+71	Тамбовская область	tambov_region	68
+72	Тверская область	tver_region	69
+73	Томская область	tomsk_region	70
+74	Тульская область	tula_region	71
+75	Тюменская область	tyumen_region	72
+77	Ульяновская область	ulyanovsk_region	73
+78	Хабаровский край	khabarovsk_territory	27
+80	Челябинская область	chelyabinsk_region	74
+81	Чеченская Республика	republic_of_chechnya	20
+83	Чукотский автономный округ	chukotka_autonomous_okrug	87
+84	Ямало-Ненецкий автономный округ	yamalo_nenets_autonomous_district	89
+11	Москва	sity_of_moskow	77
+82	Чувашская Республика - Чувашия	chuvash_republic	21
+86	Ярославская область	yaroslavl_region	90
+76	Удмуртская Республика (Удмуртия)	udmurt_republic	18
+57	Республика Северная Осетия - Алания	republic_of_north_ossetia	15
+87	Все регионы Российской Федерации	all_regions	0
+79	Ханты-Мансийский автономный округ - Югра (Тюменская область)	khanty_mansi_autonomous_okrug	86
 \.
 
 
@@ -9867,13 +9867,6 @@ CREATE INDEX blog_electn_created_cb7b2b_brin ON public.blog_electnew USING brin 
 
 
 --
--- Name: blog_electnew_category_id_4c99e294; Type: INDEX; Schema: public; Owner: serg
---
-
-CREATE INDEX blog_electnew_category_id_4c99e294 ON public.blog_electnew USING btree (category_id);
-
-
---
 -- Name: blog_electnew_creator_id_2422dce0; Type: INDEX; Schema: public; Owner: serg
 --
 
@@ -10593,4 +10586,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-

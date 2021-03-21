@@ -10323,15 +10323,6 @@ ALTER TABLE ONLY public.blog_electdoc
 ALTER TABLE ONLY public.blog_electdoc
     ADD CONSTRAINT blog_electdoc_new_id_11e470b7_fk_blog_electnew_id FOREIGN KEY (new_id) REFERENCES public.blog_electnew(id) DEFERRABLE INITIALLY DEFERRED;
 
-
---
--- Name: blog_electnew_category_id_4c99e294_fk_lists_blogcategory_id; Type: FK CONSTRAINT; Schema: public; Owner: serg
---
-
-ALTER TABLE ONLY public.blog_electnew
-    ADD CONSTRAINT blog_electnew_category_id_4c99e294_fk_lists_blogcategory_id FOREIGN KEY (category_id) REFERENCES public.lists_blogcategory(id) DEFERRABLE INITIALLY DEFERRED;
-
-
 --
 -- Name: blog_electnew_creator_id_2422dce0_fk_users_user_id; Type: FK CONSTRAINT; Schema: public; Owner: serg
 --

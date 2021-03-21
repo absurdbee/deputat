@@ -22,11 +22,14 @@ def main():
     soup = BeautifulSoup(html, 'lxml')
     body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
-    #next(list)
-
     for item in list:
+        i = 0
         for cell in item.find_all('td'):
-            print(cell.text)
+            i += 1
+            if i == 1:
+                print("a" + cell.text)
+            elif i == 4:
+                print("b" + cell.text)
 
 if __name__ == '__main__':
     main()

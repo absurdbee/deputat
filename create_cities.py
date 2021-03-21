@@ -22,7 +22,7 @@ def main():
     soup = BeautifulSoup(html, 'lxml')
     body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
-    next(list)
+    #next(list)
 
     for item in list:
         for cell in item.find_all('td'):

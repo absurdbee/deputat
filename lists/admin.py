@@ -1,5 +1,5 @@
 from django.contrib import admin
-from lists.models import AuthorityList, ElectNewsCategory, BlogCategory, Region, Fraction
+from lists.models import AuthorityList, ElectNewsCategory, BlogCategory, Fraction
 
 
 class AuthorityListAdmin(admin.ModelAdmin):

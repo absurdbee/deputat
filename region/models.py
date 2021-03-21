@@ -5,8 +5,9 @@ from autoslug import AutoSlugField
 
 class Region(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Название региона")
-	slug = AutoSlugField(populate_from='name', unique=True, db_index=True)
+	slug = models.CharField(blank=True, max_length=100, verbose_name="Для ссылки английское название")
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
+	svg = models.CharField(max_length=1000, blank=True, verbose_name="SVG")
 
 	def __str__(self):
 		return self.name

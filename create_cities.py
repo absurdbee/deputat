@@ -26,7 +26,7 @@ def main():
 
     for item in list:
         for cell in item.find_all('td'):
-            print(cell[0])
+            print(cell)
 
 if __name__ == '__main__':
     main()

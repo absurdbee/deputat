@@ -25,7 +25,7 @@ def main():
 
     for item in list:
         tds = item.find_all('td')
-        print(tds[0].text)
+        print(tds.text)
 
 if __name__ == '__main__':
     main()

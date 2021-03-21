@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
-from sity.models import City
+from city.models import City
 from django.views.generic import ListView
 from common.utils import get_small_template
 

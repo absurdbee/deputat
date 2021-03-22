@@ -27,10 +27,10 @@ def main():
     body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
     for item in list:
+        print(item[1])
         i = 0
         for cell in item.find_all('td'):
             i += 1
-            if
             if i == 4:
                 print(cell.text)
             elif i == 1:

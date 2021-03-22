@@ -34,40 +34,40 @@ def main():
             if City.objects.filter(name=item.find_all('td')[0].text).exists():
                 print("гогод " + item.find_all('td')[0].text + " уже сохранён...")
             else:
-                if item.find_all('td')[3].text == "Красноярский Край":
-                    region = Region.objects.get(name="Красноярский край")
+                if item.find_all('td')[3].text == "Владимирская Область":
+                    region = Region.objects.get(name="Владимирская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Приморский Край":
-                    region = Region.objects.get(name="Приморский край")
+                elif item.find_all('td')[3].text == "Волгоградская Область":
+                    region = Region.objects.get(name="Волгоградская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Ставропольский Край":
-                    region = Region.objects.get(name="Ставропольский край")
+                elif item.find_all('td')[3].text == "Вологодская Область":
+                    region = Region.objects.get(name="Вологодская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Хабаровский Край":
-                    region = Region.objects.get(name="Хабаровский край")
+                elif item.find_all('td')[3].text == "Воронежская Область":
+                    region = Region.objects.get(name="Воронежская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Амурская Область":
-                    region = Region.objects.get(name="Амурская область")
+                elif item.find_all('td')[3].text == "Ивановская Область":
+                    region = Region.objects.get(name="Ивановская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Архангельская Область":
-                    region = Region.objects.get(name="Архангельская область")
+                elif item.find_all('td')[3].text == "Иркутская Область":
+                    region = Region.objects.get(name="Иркутская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Астраханская Область":
-                    region = Region.objects.get(name="Астраханская область")
+                elif item.find_all('td')[3].text == "Калининградская Область":
+                    region = Region.objects.get(name="Калининградская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Белгородская Область":
-                    region = Region.objects.get(name="Белгородская область")
+                elif item.find_all('td')[3].text == "Калужская Область":
+                    region = Region.objects.get(name="Калужская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Брянская Область":
-                    region = Region.objects.get(name="Брянская область")
+                elif item.find_all('td')[3].text == "Камчатский Край":
+                    region = Region.objects.get(name="Камчатский край")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
 

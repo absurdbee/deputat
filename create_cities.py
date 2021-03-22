@@ -26,8 +26,12 @@ def main():
     soup = BeautifulSoup(resp.content, 'lxml')
     body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
+    p = 0
     for item in list:
-        print(item.find_all('td'))
+        p += 1
+        if p == 2:
+            print(item.find_all('td'))
+        
         i = 0
         for cell in item.find_all('td'):
             i += 1

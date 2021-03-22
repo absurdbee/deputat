@@ -15,13 +15,13 @@ from elect.models import *
 
 def get_html(url):
     r = requests.get(url)
-    return r.text.decode('utf-8', 'ignore')
+    return r.text
 
 def main():
     html = get_html("https://hramy.ru/regions/city_reg.htm")
     soup = BeautifulSoup(html, 'lxml')
     body = soup.find('div', class_='contpost')
-    list = body.find_all('tr')
+    list = body.find_all('tr').decode('utf-8','ignore')
     for item in list:
         i = 0
         for cell in item.find_all('td'):

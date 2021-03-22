@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Q
 from autoslug import AutoSlugField
+from region.models import Region
 
 
 class City(models.Model):

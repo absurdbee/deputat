@@ -1477,7 +1477,7 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
 }
 
 .navbar-light {
-  background : #8C9BE7;
+  background : #8C9BE7 !important;
 }
 
 .navbar-light .navbar-nav .active.nav-link {
@@ -1485,7 +1485,7 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
 }
 
 .navbar-light .navbar-nav .disabled.nav-link {
-  color : #B9B9C3;
+  color : #7367F0;
 }
 
 .navbar-dark {

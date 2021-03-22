@@ -94,7 +94,7 @@ body.dark-layout {
 }
 
 .dark-layout .header-navbar {
-  background-color : #283046;
+  background-color : #283046 !important;
 }
 
 .dark-layout .header-navbar .navbar-container .nav .nav-item .nav-link {

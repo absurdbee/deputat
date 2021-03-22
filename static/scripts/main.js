@@ -167,9 +167,9 @@ on('body', 'click', '.menu_close', function() {
 
 on('body', 'click', '.menu_nav_1', function() {
   _this = this;
-  if (!_this.ckassList.contains("active")){
-    _this.ckassList.add("active");
-    _this.nextElementSibling.ckassList.remove("active");
+  if (!_this.classList.contains("active")){
+    _this.classList.add("active");
+    _this.nextElementSibling.classList.remove("active");
     parent = _this.parentElement;
     parent.nextElementSibling.style.display = "block";
     parent.nextElementSibling.nextElementSibling.style.display = "none";
@@ -177,9 +177,9 @@ on('body', 'click', '.menu_nav_1', function() {
 })
 on('body', 'click', '.menu_nav_2', function() {
   _this = this;
-  if (!_this.ckassList.contains("active")){
-    _this.ckassList.add("active");
-    _this.nextElementSibling.ckassList.remove("active");
+  if (!_this.classList.contains("active")){
+    _this.classList.add("active");
+    _this.nextElementSibling.classList.remove("active");
     parent = _this.parentElement;
     parent.nextElementSibling.style.display = "none";
     parent.nextElementSibling.nextElementSibling.style.display = "block";

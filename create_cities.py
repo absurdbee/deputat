@@ -30,8 +30,8 @@ def main():
     for item in list:
         p += 1
         if p == 2:
-            print(item.find_all('td'))
-        
+            print(item.find_all('td')[0])
+
         i = 0
         for cell in item.find_all('td'):
             i += 1

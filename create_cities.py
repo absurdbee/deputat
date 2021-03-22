@@ -15,7 +15,7 @@ from elect.models import *
 
 def get_html(url):
     r = requests.get(url)
-    return r.text.encode().decode('utf8')
+    return r.text.encode().decode('latin1')
 
 def main():
     html = get_html("https://hramy.ru/regions/city_reg.htm")

@@ -962,6 +962,7 @@ footer.footer-border {
   padding : 0.35rem 1rem 0.3rem 1.64rem;
   -webkit-transition : 300ms ease all, background 0s;
           transition : 300ms ease all, background 0s;
+  margin-top: 19px;
 }
 
 .main-menu .navbar-header .navbar-brand {
@@ -975,8 +976,6 @@ footer.footer-border {
           align-items : center;
   margin-top : 1.35rem;
   font-size : inherit;
-  margin-top: 19px;
-  border-bottom: 1px solid #7367EF;
 }
 
 .main-menu .navbar-header .navbar-brand .brand-logo img {

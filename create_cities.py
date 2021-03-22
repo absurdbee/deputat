@@ -30,7 +30,7 @@ def main():
     p = 0
     for item in list:
         p += 1
-        if p != 1 and p == 2:
+        if p != 1:
             if City.objects.filter(name=item.find_all('td')[0].text).exists():
                 print("гогод " + item.find_all('td')[0].text + " уже сохранён...")
             else:
@@ -38,7 +38,6 @@ def main():
                     region = Region.objects.get(name="Республика Адыгея")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-            print(item.find_all('td')[0].text, item.find_all('td')[3].text)
 
 if __name__ == '__main__':
     main()

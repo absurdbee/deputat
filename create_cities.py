@@ -11,8 +11,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django
 django.setup()
 
-from lists.models import *
-from elect.models import *
+from city.models import City
 
 def get_html(url):
     headers = {"User-Agent": USERAGENT}
@@ -31,6 +30,7 @@ def main():
         i = 0
         for cell in item.find_all('td'):
             i += 1
+            if
             if i == 4:
                 print(cell.text)
             elif i == 1:

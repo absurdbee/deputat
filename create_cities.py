@@ -27,7 +27,7 @@ def main():
     body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
     for item in list:
-        print(item.find_all('td')[0])
+        print(item.find_all('td'))
         i = 0
         for cell in item.find_all('td'):
             i += 1

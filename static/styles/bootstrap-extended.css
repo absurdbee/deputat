@@ -1413,7 +1413,7 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   height : 1.5rem;
   width : 1.5rem;
   font-size : 1.5rem;
-  color : #6E6B7B;
+  color: #D0D2D6 
 }
 
 .header-navbar .navbar-container ul.navbar-nav li i.ficon:hover, .header-navbar .navbar-container ul.navbar-nav li svg.ficon:hover {

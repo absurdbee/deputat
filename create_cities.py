@@ -12,6 +12,7 @@ import django
 django.setup()
 
 from city.models import City
+from region.models import Region
 
 def get_html(url):
     headers = {"User-Agent": USERAGENT}
@@ -34,7 +35,8 @@ def main():
                 print("гогод " + item.find_all('td')[0].text + " уже сохранён...")
             else:
                 if item.find_all('td')[3].text == "Адыгея Республика":
-                    City.objects.create(name=item.find_all('td')[0].text, region__name="Республика Адыгея")
+                    region = Region.objects.get(name="Республика Адыгея")
+                    City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
             print(item.find_all('td')[0].text, item.find_all('td')[3].text)
 

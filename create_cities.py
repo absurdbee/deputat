@@ -31,7 +31,8 @@ def main():
     for item in list:
         p += 1
         if p != 1:
-            if City.objects.filter(name=item.find_all('td')[0].text).exists():
+            _region = Region.objects.get(name=item.find_all('td')[3].text)
+            if City.objects.filter(name=item.find_all('td')[0].text, region=_region).exists():
                 print("гогод " + item.find_all('td')[0].text + " уже сохранён...")
             else:
                 if item.find_all('td')[3].text == "Башкортостан Республика":

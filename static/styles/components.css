@@ -912,7 +912,7 @@ footer.footer-border {
   position : fixed;
   left: -20px;
 }
-@media (max-width: 1000.98px) {
+@media (min-width: 1000.98px) {
   .main-menu.menu-fixed {
     position : fixed;
     left: -48px;

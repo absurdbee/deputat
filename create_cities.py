@@ -23,14 +23,13 @@ def get_html(url):
     return resp.text
 
 def main():
-    headers = {"User-Agent": USERAGENT}
-    resp = requests.get("https://hramy.ru/regions/city_reg.htm", headers=headers)
+    #headers = {"User-Agent": USERAGENT}
+    resp = requests.get("https://hramy.ru/regions/city_reg.htm")
     http_encoding = resp.encoding if 'charset' in resp.headers.get('content-type', '').lower() else None
     html_encoding = EncodingDetector.find_declared_encoding(resp.content, is_html=True)
     encoding = html_encoding or http_encoding
-    html = resp.text
 
-    soup = BeautifulSoup(html, 'lxml', encoding)
+    soup = BeautifulSoup(resp.content, 'lxml', encoding)
     body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
     for item in list:

@@ -29,16 +29,8 @@ def main():
     p = 0
     for item in list:
         p += 1
-        if p == 2:
-            print(item.find_all('td')[0])
-
-        i = 0
-        for cell in item.find_all('td'):
-            i += 1
-            if i == 4:
-                pass
-            elif i == 1:
-                pass
+        if p != 1 and p == 2:
+            print(item.find_all('td')[0], item.find_all('td')[3])
 
 if __name__ == '__main__':
     main()

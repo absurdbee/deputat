@@ -14,8 +14,8 @@ from lists.models import *
 from elect.models import *
 
 def get_html(url):
-    r = requests.get(url).decode('utf-8', 'ignore')
-    return r.text
+    r = requests.get(url)
+    return r.text.decode('utf-8', 'ignore')
 
 def main():
     html = get_html("https://hramy.ru/regions/city_reg.htm")

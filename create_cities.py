@@ -34,20 +34,20 @@ def main():
             if City.objects.filter(name=item.find_all('td')[0].text).exists():
                 print("гогод " + item.find_all('td')[0].text + " уже сохранён...")
             else:
-                if item.find_all('td')[3].text == "Тюменская Область":
-                    region = Region.objects.get(name="Тюменская область")
+                if item.find_all('td')[3].text == "Чукотский Автономный округ":
+                    region = Region.objects.get(name="Чукотский автономный округ")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Ульяновская Область":
-                    region = Region.objects.get(name="Ульяновская область")
+                elif item.find_all('td')[3].text == "Ямало-Ненецкий Автономный округ":
+                    region = Region.objects.get(name="Ямало-Ненецкий автономный округ")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Челябинская Область":
-                    region = Region.objects.get(name="Челябинская область")
+                elif item.find_all('td')[3].text == "Крым Республика":
+                    region = Region.objects.get(name="Республика Крым")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
-                elif item.find_all('td')[3].text == "Забайкальский Край":
-                    region = Region.objects.get(name="Забайкальский край")
+                elif item.find_all('td')[3].text == "Севастополь Город":
+                    region = Region.objects.get(name="Севастополь")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
                 elif item.find_all('td')[3].text == "Ярославская Область":

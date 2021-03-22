@@ -30,7 +30,7 @@ def main():
     for item in list:
         p += 1
         if p != 1 and p == 2:
-            print(item.find_all('td')[0], item.find_all('td')[3])
+            print(item.find_all('td')[0].text, item.find_all('td')[3].text)
 
 if __name__ == '__main__':
     main()

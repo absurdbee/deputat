@@ -31,10 +31,10 @@ def main():
         i = 0
         for cell in item.find_all('td'):
             i += 1
-            if i == 1:
-                print("a" + cell.text)
-            elif i == 4:
-                print("b" + cell.text)
+            if i == 4:
+                print(cell.text)
+            elif i == 1:
+                pass
 
 if __name__ == '__main__':
     main()

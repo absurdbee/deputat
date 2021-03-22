@@ -30,6 +30,12 @@ def main():
     for item in list:
         p += 1
         if p != 1 and p == 2:
+            if City.objects.filter(name=item.find_all('td')[0].text).exists():
+                print("гогод " + item.find_all('td')[0].text + " уже сохранён...")
+            else:
+                if item.find_all('td')[3].text == "Адыгея Республика":
+                    City.objects.create(name=item.find_all('td')[0].text, region__name="")
+                    print("гогод " + item.find_all('td')[0].text + " Добавлен!")
             print(item.find_all('td')[0].text, item.find_all('td')[3].text)
 
 if __name__ == '__main__':

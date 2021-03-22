@@ -28,3 +28,6 @@ class Region(models.Model):
 
 		query = Q(Q(region=self) | Q(region__slug="all_regions"))
 		return Elect.objects.filter(query).exists()
+
+	def get_cities(self):
+		return self.cities_region.filter(region=self)

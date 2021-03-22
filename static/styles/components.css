@@ -975,6 +975,8 @@ footer.footer-border {
           align-items : center;
   margin-top : 1.35rem;
   font-size : inherit;
+  margin-top: 19px;
+  border-bottom: 1px solid #7367EF;
 }
 
 .main-menu .navbar-header .navbar-brand .brand-logo img {

@@ -1477,11 +1477,7 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
 }
 
 .navbar-light {
-  background : #FFFFFF;
-}
-
-.navbar-light.navbar-horizontal {
-  background : #FFFFFF;
+  background : #8C9BE7;
 }
 
 .navbar-light .navbar-nav .active.nav-link {

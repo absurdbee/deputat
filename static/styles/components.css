@@ -553,6 +553,8 @@ footer.footer-border {
 
 .main-menu.menu-light .navigation {
   background : #FFFFFF;
+  max-height: 600px;
+  overflow: auto;
 }
 
 .main-menu.menu-light .navigation .navigation-header {

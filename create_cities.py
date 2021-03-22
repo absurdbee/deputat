@@ -2,6 +2,7 @@ import sys,os
 import re
 import requests
 from bs4 import BeautifulSoup
+from bs4.dammit import EncodingDetector
 
 project_dir = '../deputat/deputat/'
 
@@ -14,12 +15,22 @@ from lists.models import *
 from elect.models import *
 
 def get_html(url):
-    r = requests.get(url)
-    return r.text.encode().decode('latin1')
+    headers = {"User-Agent": USERAGENT}
+    resp = requests.get(url, headers=headers)
+    http_encoding = resp.encoding if 'charset' in resp.headers.get('content-type', '').lower() else None
+    html_encoding = EncodingDetector.find_declared_encoding(resp.content, is_html=True)
+    encoding = html_encoding or http_encoding
+    return resp.text
 
 def main():
-    html = get_html("https://hramy.ru/regions/city_reg.htm")
-    soup = BeautifulSoup(html, 'lxml')
+    headers = {"User-Agent": USERAGENT}
+    resp = requests.get("https://hramy.ru/regions/city_reg.htm", headers=headers)
+    http_encoding = resp.encoding if 'charset' in resp.headers.get('content-type', '').lower() else None
+    html_encoding = EncodingDetector.find_declared_encoding(resp.content, is_html=True)
+    encoding = html_encoding or http_encoding
+    html = resp.text
+
+    soup = BeautifulSoup(html, 'lxml', encoding)
     body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
     for item in list:

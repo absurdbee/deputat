@@ -1335,7 +1335,7 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
 }
 
 .header-navbar .navbar-container ul.navbar-nav li > a.nav-link {
-  color : #6E6B7B;
+  color : #D0D2D6;
   padding : 0 0.5rem;
   position : relative;
 }

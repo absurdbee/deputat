@@ -14,7 +14,7 @@ from lists.models import *
 from elect.models import *
 
 def get_html(url):
-    r = requests.get(url)
+    r = requests.get(url).decode('utf-8', 'ignore')
     return r.text
 
 def main():

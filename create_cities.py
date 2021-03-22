@@ -20,8 +20,8 @@ def get_html(url):
 def main():
     html = get_html("https://hramy.ru/regions/city_reg.htm")
     soup = BeautifulSoup(html, 'lxml')
-    body = soup.find('div', class_='contpost')
-    list = body.find_all('tr').decode('utf-8','ignore')
+    body = soup.find('div', class_='contpost').decode('utf-8','ignore')
+    list = body.find_all('tr')
     for item in list:
         i = 0
         for cell in item.find_all('td'):

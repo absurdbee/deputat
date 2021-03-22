@@ -15,7 +15,7 @@ from elect.models import *
 
 def get_html(url):
     r = requests.get(url)
-    return r.text
+    return r.text.encode().decode()
 
 def main():
     html = get_html("https://hramy.ru/regions/city_reg.htm")
@@ -27,9 +27,9 @@ def main():
         for cell in item.find_all('td'):
             i += 1
             if i == 1:
-                print("a" + cell.text.decode('utf-8','ignore'))
+                print("a" + cell.text)
             elif i == 4:
-                print("b" + cell.text.decode('utf-8','ignore'))
+                print("b" + cell.text)
 
 if __name__ == '__main__':
     main()

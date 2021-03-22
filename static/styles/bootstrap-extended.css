@@ -1912,7 +1912,6 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   position : absolute;
   top : -4rem;
   padding : 0.5rem;
-  border-radius : 50%;
   background-color : #FFFFFF;
   box-shadow : 0 0 8px 0 rgba(34, 41, 47, 0.14);
   margin-bottom : 1.15rem;

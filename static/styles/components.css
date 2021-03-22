@@ -1125,7 +1125,6 @@ footer.footer-border {
 .avatar {
   white-space : nowrap;
   background-color : #C3C3C3;
-  border-radius : 50%;
   position : relative;
   cursor : pointer;
   color : #FFFFFF;
@@ -1154,7 +1153,6 @@ footer.footer-border {
   -webkit-align-items : center;
   -ms-flex-align : center;
           align-items : center;
-  border-radius : 50%;
   font-size : 0.857rem;
 }
 
@@ -1164,7 +1162,6 @@ footer.footer-border {
 }
 
 .avatar [class*='avatar-status-'] {
-  border-radius : 50%;
   width : 11px;
   height : 11px;
   position : absolute;

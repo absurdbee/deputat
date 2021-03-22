@@ -179,7 +179,7 @@ on('body', 'click', '.menu_nav_2', function() {
   _this = this;
   if (!_this.classList.contains("active")){
     _this.classList.add("active");
-    _this.nextElementSibling.classList.remove("active");
+    _this.previousElementSibling.classList.remove("active");
     parent = _this.parentElement;
     parent.nextElementSibling.style.display = "none";
     parent.nextElementSibling.nextElementSibling.style.display = "block";

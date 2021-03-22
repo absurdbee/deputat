@@ -34,7 +34,7 @@ def main():
                 print("гогод " + item.find_all('td')[0].text + " уже сохранён...")
             else:
                 if item.find_all('td')[3].text == "Адыгея Республика":
-                    City.objects.create(name=item.find_all('td')[0].text, region__name="")
+                    City.objects.create(name=item.find_all('td')[0].text, region__name="Республика Адыгея")
                     print("гогод " + item.find_all('td')[0].text + " Добавлен!")
             print(item.find_all('td')[0].text, item.find_all('td')[3].text)
 

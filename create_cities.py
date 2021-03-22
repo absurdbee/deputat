@@ -20,16 +20,16 @@ def get_html(url):
 def main():
     html = get_html("https://hramy.ru/regions/city_reg.htm")
     soup = BeautifulSoup(html, 'lxml')
-    body = soup.find('div', class_='contpost').decode('utf-8','ignore')
+    body = soup.find('div', class_='contpost')
     list = body.find_all('tr')
     for item in list:
         i = 0
         for cell in item.find_all('td'):
             i += 1
             if i == 1:
-                print("a" + cell.text)
+                print("a" + cell.text.decode('utf-8','ignore'))
             elif i == 4:
-                print("b" + cell.text)
+                print("b" + cell.text.decode('utf-8','ignore'))
 
 if __name__ == '__main__':
     main()

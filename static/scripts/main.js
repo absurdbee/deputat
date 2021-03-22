@@ -11,7 +11,7 @@ on('body', 'click', '.map_selector', function() {
   this.style.fill = "#897FF1";
   col_md_3 = this.parentElement.parentElement.nextElementSibling;
   block = col_md_3.querySelector("#elect_for_regions_loader");
-  col_md_3.querySelector("#select_regions").value = text; 
+  col_md_3.querySelector("#select_regions").value = text;
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/list/region/" + slug + "/", true );
@@ -163,4 +163,25 @@ on('body', 'click', '.menu_close', function() {
   $body.querySelector(".sidenav-overlay").classList.remove("show");
   $body.querySelector(".nav_item_toggle").innerHTML = '<a class="nav-link menu-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu ficon"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>'
 
+})
+
+on('body', 'click', '.menu_nav_1', function() {
+  _this = this;
+  if (!_this.ckassList.contains("active")){
+    _this.ckassList.add("active");
+    _this.nextElementSibling.ckassList.remove("active");
+    parent = _this.parentElement;
+    parent.nextElementSibling.style.display = "block";
+    parent.nextElementSibling.nextElementSibling.style.display = "none";
+  }
+})
+on('body', 'click', '.menu_nav_2', function() {
+  _this = this;
+  if (!_this.ckassList.contains("active")){
+    _this.ckassList.add("active");
+    _this.nextElementSibling.ckassList.remove("active");
+    parent = _this.parentElement;
+    parent.nextElementSibling.style.display = "none";
+    parent.nextElementSibling.nextElementSibling.style.display = "block";
+  }
 })

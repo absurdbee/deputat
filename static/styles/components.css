@@ -914,12 +914,6 @@ footer.footer-border {
   position : fixed;
   left: -48px;
 }
-@media (max-width: 600.98px) {
-  .main-menu.menu-fixed {
-    position : fixed;
-    left: -20px;
-  }
-}
 
 .main-menu.menu-static {
   height : 100%;

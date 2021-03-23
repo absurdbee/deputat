@@ -39,7 +39,7 @@
 
             <div class="form-group">
               <label for="select_region">Регион</label>
-              <select class="form-control" id="select_region">
+              <select class="form-control select_region" id="select_region">
                 <option>Выберите регион</option>
                 {% for object in regions %}
                 <option data-order="{{ object.order }}" value="{{ object.order }}">{{ object.name }}</option>

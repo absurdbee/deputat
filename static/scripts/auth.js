@@ -185,7 +185,7 @@ function phone_check() {
       request.send(null)
   });
   on('#ajax', 'change', '.select_region', function() {
-    var val = this.value;
+    var val = this.getAttribute("data-slug");
     if (val == '') {
       this.nextElementSibling.innerHTML = "";
     } else {

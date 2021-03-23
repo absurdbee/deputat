@@ -24,7 +24,7 @@
               </ol>
             </div>
             {% include 'main/nav.html' %}
-            <div class="content-body elect_news_container is_paginate mt-3">
+            <div class="content-body elect_news_container is_paginate mt-2">
               {% load notify %}
               {% for object in object_list %}
                 <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">

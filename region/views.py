@@ -38,7 +38,7 @@ class LoadCitiesView(TemplateView):
 	def get(self,request,*args,**kwargs):
 		from city.models import City
 
-		self.cities = City.objects.filter(region__slug=self.kwargs["slug"])
+		self.cities = City.objects.filter(region__name=self.kwargs["name"])
 		return super(LoadCitiesView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

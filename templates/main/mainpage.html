@@ -2,7 +2,8 @@
 {% block title %}Главная страница{% endblock %}
 {% block content %}
 
-        <div class="content-wrapper">
+        <div class="content-wrapper row">
+          <div class="content-header-left col-md-9 col-12 mb-2">
             {% include 'main/nav.html' %}
             <div class="content-body elect_news_container">
               {% load notify %}
@@ -10,5 +11,7 @@
                 {{ object|get_notify:request.user|safe }}
               {% endfor %}
             </div>
+          </div>
+          <div class="content-header-left col-md-3 col-12 mb-2"></div>
         </div>
 {% endblock %}

@@ -29,7 +29,7 @@ class SignupView(TemplateView):
 	def get_context_data(self,**kwargs):
 		from region.models import Region
 		context=super(SignupView,self).get_context_data(**kwargs)
-		context["regions"] = Region.onjects.only("pk")
+		context["regions"] = Region.objects.only("pk")
 		return context
 
 class MainPhoneSend(TemplateView):

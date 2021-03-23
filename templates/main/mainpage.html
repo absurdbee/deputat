@@ -5,10 +5,12 @@
         <div class="content-wrapper row">
           <div class="content-header-left col-md-9 col-12 mb-2">
             {% include 'main/nav.html' %}
-            <div class="content-body elect_news_container">
+            <div class="content-body elect_news_container is_paginate">
               {% load notify %}
               {% for object in object_list %}
-                {{ object|get_notify:request.user|safe }}
+                <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
+                  {{ object|get_notify:request.user|safe }}
+                </div>
               {% endfor %}
             </div>
           </div>

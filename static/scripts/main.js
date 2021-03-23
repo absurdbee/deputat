@@ -186,7 +186,7 @@ on('body', 'click', '.menu_nav_2', function() {
   }
 })
 
-on('#ajax', 'change', '#select_region', function() {
+on('body', 'change', '#select_region', function() {
   var val = this.value;
   if (val == '') {
     this.nextElementSibling.innerHTML = "";

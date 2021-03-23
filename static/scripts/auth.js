@@ -184,3 +184,22 @@ function phone_check() {
       };
       request.send(null)
   });
+  on('#ajax', 'change', '.select_region', function() {
+    var val = this.value;
+    if (val == '') {
+      this.nextElementSibling.innerHTML = "";
+    } else {
+      var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+      link.open( 'GET', "/region/cat/" + val + "/", true );
+      link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      link.onreadystatechange = function () {
+        if ( link.readyState == 4 ) {
+            if ( link.status == 200 ) {
+                var sub = document.getElementById("subcat");
+                sub.innerHTML = link.responseText;
+            }
+        }
+    };
+    link.send( null );
+    };
+  });

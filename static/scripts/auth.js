@@ -190,7 +190,7 @@ function phone_check() {
       this.nextElementSibling.innerHTML = "";
     } else {
       var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-      link.open( 'GET', "/region/cat/" + val + "/", true );
+      link.open( 'GET', "/region/cities/" + val + "/", true );
       link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
       link.onreadystatechange = function () {
         if ( link.readyState == 4 ) {

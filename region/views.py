@@ -36,6 +36,8 @@ class LoadCitiesView(TemplateView):
 	template_name = "get_region_cities.html"
 
 	def get(self,request,*args,**kwargs):
+		from city.models import City
+		
 		self.cities = City.objects.filter(region__name=self.kwargs["name"])
 		return super(LoadCitiesView,self).get(request,*args,**kwargs)
 

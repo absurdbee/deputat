@@ -1,5 +1,5 @@
 <label for="select_region">Город</label>
-<select class="form-control" name="city">
+<select class="form-control" name="city" id="id_city">
   <option>Выберите город</option>
   {% for object in cities %}
   <option value="{{ object.slug }}">{{ object.name }}</option>

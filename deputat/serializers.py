@@ -48,8 +48,8 @@ class RegisterSerializer(serializers.Serializer):
 
         self.cleaned_data = self.get_cleaned_data()
         user.phone = users_count + 156
-        self.city = self.validated_data.get('city', '')
-        self.gender = self.validated_data.get('gender', '')
+        user.city = self.validated_data.get('city', '')
+        user.gender = self.validated_data.get('gender', '')
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         user.save()

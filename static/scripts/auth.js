@@ -109,6 +109,12 @@ on('body', 'click', '#register_ajax', function() {
   }else if (!form.querySelector("#password2").value){
     form.querySelector("#password2").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль еще раз!")
+  }else if (!form.querySelector("#id_region").value){
+    form.querySelector("#id_region").style.border = "1px #FF0000 solid";
+    toast_error("Выберите регион!")
+  }else if (!form.querySelector("#id_city").value){
+    form.querySelector("#id_city").style.border = "1px #FF0000 solid";
+    toast_error("Выберите город!")
   }
   form_data = new FormData(form);
   reg_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -121,7 +127,6 @@ on('body', 'click', '#register_ajax', function() {
 })
 on('body', 'click', '#logg', function() {
   form = document.querySelector("#login_form");
-  user_pk = form.getAttribute("data-pk");
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
     toast_error("Введите телефон!")}
@@ -129,8 +134,11 @@ on('body', 'click', '#logg', function() {
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль!")}
   else {this.disabled = true}
+  if (form.querySelector("#id_first_name").value){form.querySelector("#id_first_name").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#id_last_name").value){form.querySelector("#id_last_name").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#id_region").value){form.querySelector("#id_region").style.border = "rgba(0, 0, 0, 0.2)";}
 
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

@@ -13,7 +13,7 @@ class AuthView(TemplateView):
 		if request.user.is_authenticated:
 			self.template_name = "profile/user_news.html"
 		else:
-			self.template_name = "account/auth.html"
+			self.template_name = "account/login.html"
 		return super(AuthView,self).get(request,*args,**kwargs)
 
 class SignupView(TemplateView):

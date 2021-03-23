@@ -6,7 +6,7 @@ from common.utils import get_small_template
 from django.http import HttpResponse
 
 
-class AuthView(TemplateView, CategoryListMixin):
+class AuthView(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -15,6 +15,12 @@ class AuthView(TemplateView, CategoryListMixin):
 		else:
 			self.template_name = "account/auth.html"
 		return super(AuthView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from region.models import Region
+		context=super(AuthView,self).get_context_data(**kwargs)
+		context["regions"] = Region.onjects.only("pk")
+		return context
 
 class MainPhoneSend(TemplateView):
 	template_name = None

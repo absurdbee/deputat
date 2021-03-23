@@ -109,8 +109,8 @@ on('body', 'click', '#register_ajax', function() {
   }else if (!form.querySelector("#password2").value){
     form.querySelector("#password2").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль еще раз!")
-  }else if (!form.querySelector("#id_region").value){
-    form.querySelector("#id_region").style.border = "1px #FF0000 solid";
+  }else if (!form.querySelector("#select_region").value){
+    form.querySelector("#select_region").style.border = "1px #FF0000 solid";
     toast_error("Выберите регион!")
   }else if (!form.querySelector("#id_city").value){
     form.querySelector("#id_city").style.border = "1px #FF0000 solid";
@@ -138,7 +138,7 @@ on('body', 'click', '#logg', function() {
   if (form.querySelector("#id_last_name").value){form.querySelector("#id_last_name").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
-  if (form.querySelector("#id_region").value){form.querySelector("#id_region").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#select_region").value){form.querySelector("#select_region").style.border = "rgba(0, 0, 0, 0.2)";}
 
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

@@ -51,8 +51,8 @@ def get_notify(user, notify):
                 first_notify = notify.get_first_object_set()
                 return '<p style="padding-left: 7px;"><a href="/users/' + str(first_notify.creator.pk) + '" class="ajax" style="font-weight: bold;">'+ \
                 first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\
-                 + ' запись </p>' + get_blog(user, attach[3:])
+                 + ' новость проекта </p>' + get_blog(user, attach[3:])
             else:
                 return '<p style="padding-left: 7px;"><a href="/users/' + str(notify.creator.pk) + '" class="ajax" style="font-weight: bold;">'+ \
                 notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
-                 + ' запись </p>' + get_blog(user, attach[3:])
+                 + ' новость проекта </p>' + get_blog(user, attach[3:])

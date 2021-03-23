@@ -4,8 +4,27 @@
 
         <div class="content-wrapper row">
           <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="breadcrumb-wrapper">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="index.html">1. К кому обратиться</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="index.html">2. Как обратиться</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="index.html">3. Где обратиться</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="index.html">4. Зачем публиковать</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="index.html">4. Как публиковать</a>
+                </li>
+              </ol>
+            </div>
             {% include 'main/nav.html' %}
-            <div class="content-body elect_news_container is_paginate">
+            <div class="content-body elect_news_container is_paginate mt-4">
               {% load notify %}
               {% for object in object_list %}
                 <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">

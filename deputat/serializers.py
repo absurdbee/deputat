@@ -14,6 +14,8 @@ class RegisterSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=True, write_only=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
+    city = serializers.CharField(required=True, write_only=True)
+    gender = serializers.CharField(required=True, write_only=True)
 
     def validate_email(self, email):
         email = get_adapter().clean_email(email)
@@ -43,8 +45,11 @@ class RegisterSerializer(serializers.Serializer):
         adapter = get_adapter()
         user = adapter.new_user(request)
         users_count = User.objects.only("pk").count()
-        user.phone = users_count + 156
+
         self.cleaned_data = self.get_cleaned_data()
+        user.phone = users_count + 156
+        self.city = self.validated_data.get('city', '')
+        self.gender = self.validated_data.get('gender', '')
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         user.save()

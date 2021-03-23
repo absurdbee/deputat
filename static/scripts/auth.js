@@ -185,9 +185,10 @@ function phone_check() {
       request.send(null)
   });
   on('#ajax', 'change', '.select_region', function() {
-    var val = this.value;
+    _this = this;
+    var val = _this.value;
     if (val == '') {
-      this.nextElementSibling.innerHTML = "";
+      _this.nextElementSibling.innerHTML = "";
     } else {
       var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
       link.open( 'GET', "/region/cities/" + val + "/", true );
@@ -195,8 +196,7 @@ function phone_check() {
       link.onreadystatechange = function () {
         if ( link.readyState == 4 ) {
             if ( link.status == 200 ) {
-                var sub = document.getElementById("subcat");
-                sub.innerHTML = link.responseText;
+                _this.nextElementSibling.innerHTML = link.responseText;
             }
         }
     };

@@ -10,18 +10,42 @@
 
         <form id="signup" class="auth-register-form mt-2">
             <div class="form-group">
-                <!--<label for="id_first_name" class="form-label">Имя</label?-->
-                <input class="form-control" type="text" name="first_name" id="id_first_name" tabindex="1" autofocus="" placeholder="Ваше имя">
+              <label for="id_first_name" class="form-label">Имя</label>
+              <input class="form-control" type="text" name="first_name" id="id_first_name" tabindex="1" autofocus="">
             </div>
             <div class="form-group">
-                <input class="form-control" type="text" name="last_name" id="id_last_name" tabindex="2" placeholder="Ваша фамилия">
+              <label for="id_first_name" class="form-label">Фамилия</label>
+              <input class="form-control" type="text" name="last_name" id="id_last_name" tabindex="2">
+            </div>
+            <div class="form-group">
+              <label for="id_first_name" class="form-label">Придумайте пароль</label>
+              <input class="form-control form-control-merge" type="password" name="password1" id="password1" tabindex="3">
+            </div>
+            <div class="form-group">
+              <label for="id_first_name" class="form-label">Повторите пароль</label>
+              <input class="form-control form-control-merge" type="password" name="password2" id="password2" tabindex="4">
             </div>
 
-            <div class="form-group">
-                <input class="form-control form-control-merge" type="password" name="password1" id="password1" tabindex="3" placeholder="Придумайте пароль">
+            <div class="demo-inline-spacing">
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="">
+                <label class="custom-control-label" for="customRadio1">Я мужчина</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                <label class="custom-control-label" for="customRadio2">Я женщина</label>
+              </div>
             </div>
+            
             <div class="form-group">
-                <input class="form-control form-control-merge" type="password" name="password2" id="password2" tabindex="4" placeholder="Повторите пароль">
+              <label for="select_region">Регион</label>
+              <select class="form-control" id="select_region">
+                <option>Выберите регион</option>
+                {% for object in regions %}
+                <option data-order="{{ object.order }}" value="{{ object.order }}">{{ object.name }}</option>
+                {% endfor %}
+              </select>
+              <div id="cities"></div>
             </div>
 
             <div class="form-group">

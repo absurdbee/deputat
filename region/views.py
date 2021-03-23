@@ -30,3 +30,16 @@ class RegionDetailView(TemplateView, CategoryListMixin):
 		context=super(RegionDetailView,self).get_context_data(**kwargs)
 		context["region"] = self.region
 		return context
+
+
+class LoadCitiesView(TemplateView):
+	template_name = "get_region_cities.html"
+
+	def get(self,request,*args,**kwargs):
+		self.cities = City.objects.filter(region__name=self.kwargs["name"])
+		return super(LoadCitiesView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadCitiesView,self).get_context_data(**kwargs)
+		context["cities"] = self.cities
+		return context

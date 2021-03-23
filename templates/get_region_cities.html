@@ -1,0 +1,7 @@
+<label for="select_region">Город</label>
+<select class="form-control" id="select_region">
+  <option>Выберите город</option>
+  {% for object in cities %}
+  <option data-order="{{ object.pk }}" value="{{ object.name }}">{{ object.name }}</option>
+  {% endfor %}
+</select>

@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
-from users.views import AuthView
+from users.views import AuthView, SignupView
 
 
 urlpatterns = [
@@ -32,8 +32,6 @@ urlpatterns = [
     url(r'^notify/', include('notify.urls')),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^signup/$', TemplateView.as_view(template_name="account/signup.html"), name='signup'),
-    url(r'^login/$', TemplateView.as_view(template_name="account/login.html"), name='login'),
     url(r'^email-verification/$', TemplateView.as_view(template_name="account/email_verification.html"), name='email-verification'),
     url(r'^password-reset/$',TemplateView.as_view(template_name="account/password_reset.html"), name='password-reset'),
     url(r'^password-reset/confirm/$',TemplateView.as_view(template_name="account/password_reset_confirm.html"), name='password-reset-confirm'),
@@ -45,5 +43,6 @@ urlpatterns = [
     url(r'^account/', include('allauth.urls')),
 
     url(r'^auth/$', AuthView.as_view(), name="auth"),
+    url(r'^signup/$', SignupView.as_view(), name="signup"),
 
 ]  +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -16,9 +16,19 @@ class AuthView(TemplateView):
 			self.template_name = "account/auth.html"
 		return super(AuthView,self).get(request,*args,**kwargs)
 
+class SignupView(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		if request.user.is_authenticated:
+			self.template_name = "profile/user_news.html"
+		else:
+			self.template_name = "account/signup.html"
+		return super(SignupView,self).get(request,*args,**kwargs)
+
 	def get_context_data(self,**kwargs):
 		from region.models import Region
-		context=super(AuthView,self).get_context_data(**kwargs)
+		context=super(SignupView,self).get_context_data(**kwargs)
 		context["regions"] = Region.onjects.only("pk")
 		return context
 

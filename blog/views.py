@@ -17,7 +17,7 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 		from stst.models import BlogNumbers
 		from common.utils import get_full_template
 
-		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
+		self.blog = Blog.objects.get(slug=self.kwargs["slug"])
 		if request.user.is_authenticated:
 			current_pk = request.user.pk
 		else:

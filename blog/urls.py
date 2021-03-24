@@ -21,5 +21,5 @@ urlpatterns = [
     url(r'^progs/', include('blog.url.progs')),
     url(r'^votes/', include('blog.url.votes')),
 
-    url(r'^(?P<pk>\d+)/$', BlogDetailView.as_view(), name="blog_detail"),
+    url(r'^(?P<slug>[\w\-]+)/$', BlogDetailView.as_view(), name="blog_detail"),
 ]

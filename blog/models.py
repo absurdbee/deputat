@@ -29,7 +29,7 @@ class Blog(models.Model):
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
     tags = TaggableManager(blank=True, verbose_name="Теги")
-    slug = AutoSlugField(populate_from='name', unique=True)
+    #slug = AutoSlugField(populate_from='name', unique=True)
 
     class Meta:
         verbose_name = "Новость проекта"

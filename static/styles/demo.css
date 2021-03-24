@@ -81,6 +81,9 @@
     text-overflow: ellipsis;
     padding-bottom: 30px;
 }
+.event_description .svg_info{
+  padding-right:7px
+}
 .left_18 {
   left: -18px !important;
 }

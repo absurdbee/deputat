@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'notify',
     'city',
     'region',
+    'tags',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

@@ -34,26 +34,6 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 		context["object"] = self.blog
 		return context
 
-
-class AllElectsNewsView(ListView, CategoryListMixin):
-	template_name, paginate_by = None, 12
-
-	def get(self,request,*args,**kwargs):
-		from taggit.models import Tag
-
-		self.tag = Tag.objects.get(name=self.kwargs["name"])
-		self.template_name = get_small_template("blog/elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(AllElectsNewsView,self).get(request,*args,**kwargs)
-
-	def get_queryset(self):
-		return ElectNew.objects.filter(tags__name=self.tag)
-
-	def get_context_data(self, **kwargs):
-		context = super(AllElectsNewsView, self).get_context_data(**kwargs)
-		context['tag'] = self.tag
-		return context
-
-
 class ProectNewsView(ListView, CategoryListMixin):
 	template_name, paginate_by = "blog/blog_news.html", 15
 

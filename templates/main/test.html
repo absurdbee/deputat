@@ -8,7 +8,7 @@
               <div class="card-body event_body">
                   <h4 class="event_name">
                     <div style="display: flex;">
-                      <a class="text-body" href="">{{ object.title }}</a>
+                      <a class="text-body ajax" href="">{{ object.title }}</a>
 
                       <div class="dropdown" style="margin-left: auto;">
                         <a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">
@@ -25,15 +25,22 @@
                       </div>
                     </div>
                       <span class="card-text item-company">
-                        {{ object.get_created }}
+                        {{ object.get_created }} |
+                        {% for tag in object.get_manager_tags %}
+                          <a class="ajax" href="{% url 'manager_tag' name=tag.name|urlencode %}">{{ object.title }}</a>
+                        {% endfor %}
                       </span>
                   </h4>
 
                   <div class="card-text event_description">
                       {{ object.description }}
-                      <a href>#tag</a>, <a href>#tag</a>, <a href>#tag</a>
                       <br>
-                      <a class="mt-1" style="text-decoration:underline" href>у кого размещено</a>
+                      {% with names=object.tags.names %}
+                          {% for name in names %}
+                            <a class="ajax" href="{% url 'user_tag' name=name|urlencode %}">{{ name }}</a>{% endfor %}
+                          {% endwith %}
+                      <br>
+                      <a class="mt-1 ajax" style="text-decoration:underline" href>у кого размещено</a>
 
                       <div class="" style="padding: 5px;position: absolute;bottom: 3px;width: 100%;">
                           <span class="like btn_default pointer" title="Нравится">
@@ -67,6 +74,6 @@
                       </div>
                     </div>
 
-                      <div class="load_full_data"></div>
+                    <div class="load_full_data"></div>
               </div>
           </div>

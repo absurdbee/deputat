@@ -19,7 +19,7 @@
             <br><br>
             {% with names=object.tags.names %}
               {% for name in names %}
-                <a href="{% url 'all_elect_news' %}?tag={{ name|urlencode }}" class="tag-link">{{ name }}</a>
+                <a href="{% url 'user_tag' name=name|urlencode %}" class="tag-link ajax">{{ name }}</a>
               {% endfor %}
             {% endwith %}
           </p>

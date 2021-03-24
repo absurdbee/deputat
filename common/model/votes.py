@@ -13,11 +13,12 @@ from common.model.comments import ElectNewComment, BlogComment
 """
 
 class BlogVotes(models.Model):
-    LIKE = 1
-    DISLIKE = -1
-    VOTES = ((DISLIKE, 'Не нравится'),(LIKE, 'Нравится'))
+    LIKE = "LIK"
+    DISLIKE = "DIS"
+    INERT = "INE"
+    VOTES = ((DISLIKE, 'Не оценил'),(LIKE, 'Оценил'),(INERT, 'Объект инертный'))
 
-    vote = models.IntegerField(default=0, verbose_name="Голос", choices=VOTES)
+    vote = models.CharField(default=0, max_length=5, verbose_name="Голос", choices=VOTES) 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
 

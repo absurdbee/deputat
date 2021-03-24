@@ -47,24 +47,33 @@ class Blog(models.Model):
 
     def likes(self):
         from common.model.votes import BlogVotes
-        return BlogVotes.objects.filter(blog_id=self.pk, vote__gt=0)
-
+        return BlogVotes.objects.filter(blog_id=self.pk, vote="LIK")
     def dislikes(self):
         from common.model.votes import BlogVotes
-        return BlogVotes.objects.filter(blog_id=self.pk, vote__lt=0)
+        return BlogVotes.objects.filter(blog_id=self.pk, vote="DIS")
+    def inerts(self):
+        from common.model.votes import BlogVotes
+        return BlogVotes.objects.filter(blog_id=self.pk, vote="INE")
 
     def likes_count(self):
         from common.model.votes import BlogVotes
-        likes = BlogVotes.objects.filter(blog_id=self.pk, vote__gt=0).values("pk")
+        likes = BlogVotes.objects.filter(blog_id=self.pk, vote="LIK").values("pk")
         count = likes.count()
         if count:
             return count
         else:
             return ''
-
     def dislikes_count(self):
         from common.model.votes import BlogVotes
-        dislikes = BlogVotes.objects.filter(blog_id=self.pk, vote__lt=0).values("pk")
+        dislikes = BlogVotes.objects.filter(blog_id=self.pk, vote="DIS").values("pk")
+        count = dislikes.count()
+        if count:
+            return count
+        else:
+            return ''
+    def inerts_count(self):
+        from common.model.votes import BlogVotes
+        dislikes = BlogVotes.objects.filter(blog_id=self.pk, vote="INE").values("pk")
         count = dislikes.count()
         if count:
             return count

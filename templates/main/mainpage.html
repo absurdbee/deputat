@@ -4,25 +4,7 @@
 
         <div class="content-wrapper row ecommerce-application" style="margin-top: -20px">
           <div class="content-header-left col-md-9 col-12">
-            <div class="breadcrumb-wrapper">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="">1. К кому обратиться</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a href="">2. Как обратиться</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a href="">3. Где обратиться</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a href="">4. Зачем публиковать</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a href="">5. Как публиковать</a>
-                </li>
-              </ol>
-            </div>
+            {% include 'main/breadcrumb.html' %}
             {% include 'main/nav.html' %}
             <div class="content-body elect_news_container is_paginate mt-2 list-view">
               {% load notify %}
@@ -31,27 +13,8 @@
                   {{ object|get_notify:request.user|safe }}
                 </div>
               {% endfor %}
-              <div class="card event_card">
-                            <div class="event_img text-center">
-                                <a href="">
-                                  <img class="img-fluid card-img-top" src="/static/images/test_new.jpg" alt="img-placeholder">
-                                </a>
-                            </div>
-                            <div class="card-body event_body">
-                                <h4 class="event_name">
-                                    <a class="text-body" href="">Название</a>
-                                    <span class="card-text item-company">
-                                      Вид активности, время публикации
-                                    </span>
-                                </h4>
-                                <p class="card-text event_description">
-                                    Описание объекта, краткое. Описание объекта, краткое. Описание объекта, краткое.
-                                    <a href>#tag</a>, <a href>#tag</a>, <a href>#tag</a>
-                                    <br>
-                                    <a class="mt-1" style="text-decoration:underline" href>у кого размещено</a>
-                                </p>
-                            </div>
-                        </div>
+
+              {% include 'main/test.html' %}
             </div>
           </div>
           <div class="content-header-left col-md-3 col-12 mb-2"></div>

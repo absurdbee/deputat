@@ -10,10 +10,9 @@
 .event_card {
     grid-template-columns: 1fr;
 
-}
-.event_description{
-  padding-bottom: 30px;
-  }}
+}}
+
+
 .event_img{
   display: -webkit-box;
     display: -webkit-flex;
@@ -80,6 +79,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-bottom: 30px;
 }
 .left_18 {
   left: -18px !important;

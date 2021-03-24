@@ -1,3 +1,16 @@
+.dropdown:hover .dropdown-menu {
+  transform: scale(1);
+}
+.dropdown:hover .dropdown-menu{
+display: block;
+
+}
+.dropdown-menu{
+transform: scale(1)!important;
+font-size: 90%;
+line-height: 1;
+}
+
 .svg_info {
     width: 22px;
 }

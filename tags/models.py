@@ -4,7 +4,7 @@ from blog.models import Blog, ElectNew
 
 class ManagerTag(models.Model):
     name = models.CharField(max_length=100, verbose_name="name")
-    blog = models.ManyToManyField(Blog, blank=True, related_name='blog_tags')
+    #blog = models.ManyToManyField(Blog, blank=True, related_name='blog_tags')
     new = models.ManyToManyField(ElectNew, blank=True, related_name='new_tags')
     parent = models.ManyToManyField("self", blank=True, related_name='tags_category')
 

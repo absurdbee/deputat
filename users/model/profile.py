@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from common.model.comments import BlogComment, ElectNewComment
+from blog.models import Blog, ElectNew
 
 
 class UserLocation(models.Model):

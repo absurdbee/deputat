@@ -13,4 +13,4 @@ django.setup()
 
 from blog.models import Blog
 
-Blog.objects.all()delete()
+Blog.objects.all().delete()

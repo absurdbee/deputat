@@ -116,7 +116,7 @@ class Blog(models.Model):
         else:
             return '/static/images/no_photo.jpg'
 
-    ef get_manager_tags(self):
+    def get_manager_tags(self):
         from tags.models import ManagerTag
         return ManagerTag.objects.filter(blog=self)
 

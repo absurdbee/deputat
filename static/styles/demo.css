@@ -76,7 +76,6 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 0.875rem;
 }
 .left_18 {
   left: -18px !important;

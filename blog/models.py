@@ -27,6 +27,7 @@ class Blog(models.Model):
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
+    tags = TaggableManager(blank=True, verbose_name="Теги")
 
     class Meta:
         verbose_name = "Новость проекта"
@@ -108,6 +109,12 @@ class Blog(models.Model):
     def visits_count(self):
         from stst.models import BlogNumbers
         return BlogNumbers.objects.filter(new=self.pk).values('pk').count()
+
+    def get_photo(self):
+        if self.image:
+            return self.image.url
+        else:
+            return '/static/images/no_photo.jpg'
 
 
 class ElectNew(models.Model):

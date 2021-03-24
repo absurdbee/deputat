@@ -9,7 +9,11 @@
 @media (max-width: 767.98px){
 .event_card {
     grid-template-columns: 1fr;
-}}
+
+}
+.event_description{
+  padding-bottom: 30px;
+  }}
 .event_img{
   display: -webkit-box;
     display: -webkit-flex;

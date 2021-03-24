@@ -1,4 +1,6 @@
-
+.svg_info {
+    width: 22px;
+}
 .event_card{
   overflow: hidden;
   display: grid;

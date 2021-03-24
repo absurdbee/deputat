@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.db import models
+from common.model.comments import BlogComment, ElectNewComment
 
 
 class UserLocation(models.Model):
@@ -21,7 +21,7 @@ class UserLocation(models.Model):
 
     def __str__(self):
         return '{}, {}, {}'.format(self.country_ru, self.region_ru, self.city_ru)
-        
+
     def get_sity(self):
         return self.city_ru
 
@@ -37,3 +37,18 @@ class IPUser(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.user.get_full_name(), self.ip)
+
+
+class Bookmarks(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="user_bookmarks", verbose_name="Избранное", on_delete=models.CASCADE)
+    blog = models.ManyToManyField(Blog, blank=True, related_name='blog_bookmarks')
+    new = models.ManyToManyField(ElectNew, blank=True, related_name='new_bookmarks')
+    blog_comment = models.ManyToManyField(BlogComment, blank=True, related_name='blog_comment_bookmarks')
+    new_comment = models.ManyToManyField(ElectNewComment, blank=True, related_name='new_comment_bookmarks')
+
+    class Meta:
+        verbose_name = "Избранное"
+        verbose_name_plural = "Избранное"
+
+    def __str__(self):
+        return self.user.get_full_name()

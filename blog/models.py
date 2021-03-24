@@ -58,6 +58,16 @@ class Blog(models.Model):
         from common.model.votes import BlogVotes
         return BlogVotes.objects.filter(blog_id=self.pk, vote="INE")
 
+    def is_have_likes(self):
+        from common.model.votes import BlogVotes
+        return BlogVotes.objects.filter(blog_id=self.pk, vote="LIK").exists()
+    def is_have_dislikes(self):
+        from common.model.votes import BlogVotes
+        return BlogVotes.objects.filter(blog_id=self.pk, vote="DIS").exists()
+    def is_have_inerts(self):
+        from common.model.votes import BlogVotes
+        return BlogVotes.objects.filter(blog_id=self.pk, vote="INE").exists()
+
     def likes_count(self):
         from common.model.votes import BlogVotes
         likes = BlogVotes.objects.filter(blog_id=self.pk, vote="LIK").values("pk")
@@ -82,6 +92,9 @@ class Blog(models.Model):
             return count
         else:
             return ''
+
+    def reposts_count(self):
+        return 0
 
     def count_comments(self):
         from common.model.comments import BlogComment
@@ -121,6 +134,14 @@ class Blog(models.Model):
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return ManagerTag.objects.filter(blog=self)
+
+    def count_views(self):
+        from stst.models import BlogNumbers
+        return BlogNumbers.objects.filter(new=self.pk).values("pk").counr()
+
+    def is_blog_in_bookmarks(self, user_id):
+        from user.model.profile import Bookmarks
+        return Bookmarks.objects.filter(blog=self, user_id=user_id).exists()
 
 
 class ElectNew(models.Model):

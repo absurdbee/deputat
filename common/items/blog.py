@@ -11,7 +11,7 @@ def get_blog(user, value):
 
     block, tags, votes_on, post, card_drop = '', '', '', Blog.objects.get(pk=value), '<span class="dropdown-item copy_link">Копировать ссылку</span>'
 
-    if user.is_anonymous:
+    if user == 0:
         user_like, user_dislike, user_inert = "btn_default", "btn_default", "btn_default"
         if not post.votes_on:
             votes_on = 'style="display:none"'

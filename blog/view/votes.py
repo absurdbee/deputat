@@ -16,7 +16,7 @@ class ElectNewLike(View):
             raise Http404
         try:
             likedislike = ElectVotes.objects.get(new=new, user=request.user)
-            if likedislike.vote is not ElectVotes.LIKE:
+            if likedislike.vote == ElectVotes.LIKE:
                 likedislike.vote = ElectVotes.LIKE
                 likedislike.save(update_fields=['vote'])
                 result = True
@@ -116,7 +116,7 @@ class BlogDislike(View):
             raise Http404
         try:
             likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
-            if likedislike.vote is not BlogVotes.DISLIKE:
+            if likedislike.vote != BlogVotes.DISLIKE:
                 likedislike.vote = BlogVotes.DISLIKE
                 likedislike.save(update_fields=['vote'])
             else:

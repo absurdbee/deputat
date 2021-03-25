@@ -133,7 +133,8 @@ class Blog(models.Model):
 
     def get_manager_tags(self):
         from tags.models import ManagerTag
-        return ManagerTag.objects.filter(blog=self)
+        tags = ManagerTag.objects.filter(blog=self).values("name")
+        return [i['name'] for i in tags]
 
     def count_views(self):
         from stst.models import BlogNumbers

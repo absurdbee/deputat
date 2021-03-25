@@ -13,7 +13,7 @@
                   {% if user.is_authenticated %}
                     {{ object|get_notify:request.user|safe }}
                   {% else %}
-                    {{ object|get_notify:0|safe }}
+                    fff
                   {% endif %}
                 </div>
               {% endfor %}

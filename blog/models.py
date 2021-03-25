@@ -94,7 +94,7 @@ class Blog(models.Model):
             return ''
 
     def reposts_count(self):
-        return 0
+        return ''
 
     def count_comments(self):
         from common.model.comments import BlogComment
@@ -105,7 +105,10 @@ class Blog(models.Model):
         for comment in parent_comments:
             i = i + comment.count_replies()
         i = i + parents_count
-        return i
+        if i == 0:
+            return ''
+        else:
+            return i
 
     def get_comments(self):
         from common.model.comments import BlogComment

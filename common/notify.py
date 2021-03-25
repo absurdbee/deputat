@@ -3,7 +3,8 @@ from notify.models import Notify
 
 
 def get_news():
-    query = Q(user_set__isnull=True, object_set__isnull=True)
+    # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
+    query = Q(object_set__isnull=True)
     return Notify.objects.filter(query)
 
 def get_my_news(user):
@@ -47,7 +48,7 @@ def get_notify(user, notify):
                 first_notify = notify.get_first_user_set()
                 return '<p style="padding: 10px 20px;"><a href="/users/' + str(first_notify.creator.pk) + '" class="ajax">' + first_notify.creator.get_full_name() + '</a> '\
                 + first_notify.get_verb_display() + ' ' + str(notify.count_user_set()) + '</p>'
-            elif notify.is_have_object_set():
+            if notify.is_have_object_set():
                 first_notify = notify.get_first_object_set()
                 return '<p style="padding-left: 7px;"><a href="/users/' + str(first_notify.creator.pk) + '" class="ajax" style="font-weight: bold;">'+ \
                 first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\

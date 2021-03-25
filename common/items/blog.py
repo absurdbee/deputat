@@ -9,14 +9,11 @@ def get_blog(user, value):
     from blog.models import Blog
     from django.utils.http import urlencode
 
-    block, tags, post, card_drop = '', '', Blog.objects.get(pk=value), '<span class="dropdown-item post_delete_window">Копировать ссылку</span>'
-    tags = post.get_manager_tags()
+    block, tags, votes_on, post, card_drop = '', '', '', Blog.objects.get(pk=value), '<span class="dropdown-item copy_link">Копировать ссылку</span>'
 
     if user.is_anonymous:
         user_like, user_dislike, user_inert = "btn_default", "btn_default", "btn_default"
-        if post.votes_on:
-            votes_on = ''
-        else:
+        if not post.votes_on:
             votes_on = 'style="display:none"'
     else:
         user_like, user_dislike, user_inert = "btn_default blog_like", "btn_default blog_dislike", "btn_default blog_inert"
@@ -27,7 +24,6 @@ def get_blog(user, value):
                 user_dislike = "btn_success"
             if post.is_have_inerts() and post.inerts().filter(user_id=user.pk).exists():
                 user_inert = "btn_success"
-            votes_on = ''
         else:
             votes_on = 'style="display:none"'
         if user.is_supermanager() or user.is_superuser:
@@ -42,8 +38,9 @@ def get_blog(user, value):
     else:
         comments_enabled = 'style="display:none"'
 
-    #for tag in post.get_manager_tags():
-    #    tags += '<a class="ajax" href="/tags/' + urlencode(tag) + '">' + tag + '</a>'
+    for tag in post.get_manager_tags():
+        #tags += '<a class="ajax" href="/tags/' + urlencode(tag) + '">' + tag + '</a>'
+        pass
 
     return ''.join([block, '<div class="event_card"><div class="event_img text-center"><a class="ajax" href="/blog/' + post.slug + '">\
     <img class="img-fluid card-img-top" src="' + post.get_image() + '" alt="img"></a></div><div class="card-body event_body">\

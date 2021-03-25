@@ -96,13 +96,10 @@ class BlogLike(View):
             if likedislike.vote is not BlogVotes.LIKE:
                 likedislike.vote = BlogVotes.LIKE
                 likedislike.save(update_fields=['vote'])
-                result = True
             else:
                 likedislike.delete()
-                result = False
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.LIKE)
-            result = True
             user_notify(request.user, blog.creator.pk, None, "blo"+str(blog.pk), "blog_notify", "LIK")
         return HttpResponse(json.dumps({
                 "like_count": str(blog.likes_count()),
@@ -122,13 +119,10 @@ class BlogDislike(View):
             if likedislike.vote is not BlogVotes.DISLIKE:
                 likedislike.vote = BlogVotes.DISLIKE
                 likedislike.save(update_fields=['vote'])
-                result = True
             else:
                 likedislike.delete()
-                result = False
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.DISLIKE)
-            result = True
             user_notify(request.user, blog.creator.pk, None, "blo"+str(blog.pk), "blog_notify", "DIS")
         return HttpResponse(json.dumps({
                     "like_count": str(blog.likes_count()),
@@ -148,13 +142,10 @@ class BlogInert(View):
             if likedislike.vote is not BlogVotes.INERT:
                 likedislike.vote = BlogVotes.INERT
                 likedislike.save(update_fields=['vote'])
-                result = True
             else:
                 likedislike.delete()
-                result = False
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.INERT)
-            result = True
             user_notify(request.user, blog.creator.pk, None, "blo"+str(blog.pk), "blog_notify", "INS")
         return HttpResponse(json.dumps({
                     "like_count": str(blog.likes_count()),

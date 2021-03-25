@@ -4,16 +4,15 @@ from tags.models import ManagerTag
 from blog.models import ElectNew
 from django.views.generic import ListView
 from common.utils import get_small_template
+from urllib.parse import unquote
 
 
 class TagView(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		from urllib.parse import unquote
-
 		self.tag = ManagerTag.objects.get(name=unquote(self.kwargs["name"]))
-		self.template_name = get_small_template("tags/tag.html", request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("tags/tag.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(TagView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -26,7 +25,7 @@ class ManagerTagsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 50
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("tags/tags.html", request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("tags/tags.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(ManagerTagsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
@@ -39,7 +38,7 @@ class UserTagView(ListView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		from taggit.models import Tag
 
-		self.tag = Tag.objects.get(name=self.kwargs["name"])
+		self.tag = Tag.objects.get(name=unquote(self.kwargs["name"]))
 		self.template_name = get_small_template("tags/elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserTagView,self).get(request,*args,**kwargs)
 

@@ -41,7 +41,7 @@ def get_blog(user, value):
     else:
         comments_enabled = 'style="display:none"'
 
-    for tag in post.tags.all():
+    for tag in post.get_manager_tags(): 
         tags += '<a class="ajax" href="/tags/' + urlencode(tag) + '">' + tag + '</a>'
 
     return ''.join([block, '<div class="event_card"><div class="event_img text-center"><a class="ajax" href="/blog/' + post.slug + '">\

@@ -44,7 +44,7 @@ def get_blog(user, value):
     for tag in post.tags.all():
         tags += '<a class="ajax" href="/tags/' + urlencode(tag) + '">' + tag + '</a>'
 
-    return ''.join([block, '<div class="card event_card"><div class="event_img text-center"><a href="/blog/' + post.slug + '">\
+    return ''.join([block, '<div class="event_card"><div class="event_img text-center"><a class="ajax" href="/blog/' + post.slug + '">\
     <img class="img-fluid card-img-top" src="' + post.get_image() + '" alt="img"></a></div><div class="card-body event_body">\
     <h4 class="event_name"><div style="display: flex;"><a class="text-body ajax" href="/blog/' + post.slug + '">' + post.title + '</a>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\

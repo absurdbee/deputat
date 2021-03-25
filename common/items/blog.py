@@ -9,7 +9,7 @@ def get_blog(user, value):
     from blog.models import Blog
     from django.utils.http import urlencode
 
-    block, tags, post, card_drop = '', '', Blog.objects.get(pk=value, is_deleted=False), '<span class="dropdown-item post_delete_window">Копировать ссылку</span>'
+    block, tags, post, card_drop = '', '', Blog.objects.get(pk=value), '<span class="dropdown-item post_delete_window">Копировать ссылку</span>'
 
     if user.is_anonymous:
         user_like, user_dislike, user_inert = "btn_default", "btn_default", "btn_default"

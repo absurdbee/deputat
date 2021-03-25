@@ -3,7 +3,7 @@ from main.views import *
 
 
 urlpatterns = [
-	url(r'^$', MainPageView.as_view(), name="main"),
+	url(r'', MainPageView.as_view(), name="main"),
 	url(r'^region/(?P<slug>[\w\-]+)/$', MainRegionView.as_view()),
 	url(r'^map/$', MainMapView.as_view()),
 	url(r'^stat/$', MainStatView.as_view()),

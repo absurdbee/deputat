@@ -61,7 +61,7 @@ on('body', 'click', '.main_nav', function() {
   if (_this.classList.contains("active")){
     return
   }
-  container = _this.parentElement.parentElement.nextElementSibling;
+  container = _this.parentElement.parentElement.parentElement.nextElementSibling;
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', _this.getAttribute("data-href"), true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

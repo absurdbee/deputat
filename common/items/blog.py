@@ -9,7 +9,7 @@ def get_blog(user, value):
     from blog.models import Blog
     from django.utils.http import urlencode
 
-    block, tags, post, card_drop = '', '', Blog.objects.get(pk=value), '<span class="dropdown-item post_delete_window">Копировать ссылку</span>'
+    block, tags, post, card_drop = '', post.get_manager_tags(), Blog.objects.get(pk=value), '<span class="dropdown-item post_delete_window">Копировать ссылку</span>'
 
     if user.is_anonymous:
         user_like, user_dislike, user_inert = "btn_default", "btn_default", "btn_default"
@@ -41,8 +41,8 @@ def get_blog(user, value):
     else:
         comments_enabled = 'style="display:none"'
 
-    for tag in post.get_manager_tags(): 
-        tags += '<a class="ajax" href="/tags/' + urlencode(tag) + '">' + tag + '</a>'
+    #for tag in post.get_manager_tags():
+    #    tags += '<a class="ajax" href="/tags/' + urlencode(tag) + '">' + tag + '</a>'
 
     return ''.join([block, '<div class="event_card"><div class="event_img text-center"><a class="ajax" href="/blog/' + post.slug + '">\
     <img class="img-fluid card-img-top" src="' + post.get_image() + '" alt="img"></a></div><div class="card-body event_body">\

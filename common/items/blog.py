@@ -23,7 +23,7 @@ def get_blog(user, value):
             if post.is_have_dislikes() and post.dislikes().filter(user_id=user.pk).exists():
                 user_dislike = "btn_danger blog_dislike"
             if post.is_have_inerts() and post.inerts().filter(user_id=user.pk).exists():
-                user_inert = "btn_insert blog_inert"
+                user_inert = "btn_inert blog_inert"
         else:
             votes_on = 'style="display:none"'
         if user.is_supermanager() or user.is_superuser:

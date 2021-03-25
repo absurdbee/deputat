@@ -137,7 +137,7 @@ class Blog(models.Model):
 
     def count_views(self):
         from stst.models import BlogNumbers
-        return BlogNumbers.objects.filter(new=self.pk).values("pk").counr()
+        return BlogNumbers.objects.filter(new=self.pk).values("pk").count()
 
     def is_blog_in_bookmarks(self, user_id):
         from user.model.profile import Bookmarks

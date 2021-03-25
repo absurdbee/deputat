@@ -8,7 +8,7 @@ def linebreaks(value, autoescape=None):
 def get_blog(user, value):
     from blog.models import Blog
     from django.utils.http import urlencode
-    import urllib.request import pathname2url
+    from urllib.request import pathname2url
 
     block, tags, votes_on, post, card_drop = '', '', '', Blog.objects.get(pk=value), '<span class="dropdown-item copy_link">Копировать ссылку</span>'
 

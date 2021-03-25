@@ -72,7 +72,7 @@ function send_inert(item, url){
 
     likes_count.innerHTML = jsonResponse.like_count;
     dislikes_count.innerHTML = jsonResponse.dislike_count;
-    nerts_count.innerHTML = jsonResponse.inerts_count;
+    inerts_count.innerHTML = jsonResponse.inerts_count;
 
     dislike.classList.remove("text-danger");
     like.classList.remove("text-success");

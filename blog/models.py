@@ -125,7 +125,7 @@ class Blog(models.Model):
         from stst.models import BlogNumbers
         return BlogNumbers.objects.filter(new=self.pk).values('pk').count()
 
-    def get_photo(self):
+    def get_image(self):
         if self.image:
             return self.image.url
         else:

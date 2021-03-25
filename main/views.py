@@ -1,4 +1,5 @@
 from django.views.generic import ListView
+from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from users.models import User
 from django.views import View
@@ -40,6 +41,34 @@ class MainRegionView(ListView, CategoryListMixin):
 	def get_queryset(self):
 		from common.notify import get_region_news
 		return get_region_news(self.region.name)
+
+class MainMapView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("main/map.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MainMapView,self).get(request,*args,**kwargs)
+
+class MainStatView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("main/stat.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MainStatView,self).get(request,*args,**kwargs)
+
+
+class MainDocsView(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from region.models import Region
+
+		self.template_name = get_small_template("main/docs.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
+		return super(MainDocsView,self).get(request,*args,**kwargs)
+
+	def get_queryset(self):
+		return []
 
 
 class MyNewsView(ListView, CategoryListMixin):

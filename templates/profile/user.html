@@ -60,7 +60,7 @@
                                     <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
                                         <div class="user-avatar-section">
                                             <div class="d-flex justify-content-start">
-                                                <img class="img-fluid rounded" src="{{ request.user.get_avatar }}" alt="User avatar" style="height: 100px;">
+                                                <img class="img-fluid" src="{{ user.get_avatar }}" alt="User avatar" style="height: 100px;">
                                                 <div class="d-flex flex-column ml-1">
                                                     <div class="user-info mb-1">
                                                         <h4 class="mb-0">{{ request.user.get_full_name }}</h4>

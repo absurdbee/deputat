@@ -29,20 +29,18 @@ link.send( null );
 
 on('body', 'click', '.select_elect_news_category', function() {
   _this = this;
-  url = _this.getAttribute("data-href");
   if (_this.classList.contains("active")){
     return
   }
   elect_news_container = document.body.querySelector(".elect_news_container");
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', url, true );
+  link.open( 'GET', _this.getAttribute("data-href"), true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
           links = _this.parentElement.parentElement.querySelectorAll(".select_elect_news_category");
-          console.log(links);
           for (var i = 0; i < links.length; i++){
             links[i].classList.remove("active");
           }
@@ -52,6 +50,34 @@ on('body', 'click', '.select_elect_news_category', function() {
           _this.classList.add("active");
           elect_news_container.innerHTML = "";
           elect_news_container.insertAdjacentHTML('afterBegin', response.innerHTML);
+        }
+    }
+};
+link.send( null );
+})
+
+on('body', 'click', '.main_nav', function() {
+  _this = this;
+  if (_this.classList.contains("active")){
+    return
+  }
+  container = _this.parentElement.parentElement.nextElementSibling;
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', _this.getAttribute("data-href"), true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          links = _this.parentElement.querySelectorAll(".main_nav");
+          for (var i = 0; i < links.length; i++){
+            links[i].classList.remove("active");
+          }
+          elem = link.responseText;
+          response = document.createElement("span");
+          response.innerHTML = elem;
+          _this.classList.add("active");
+          container.innerHTML = "";
+          container.insertAdjacentHTML('afterBegin', response.innerHTML);
         }
     }
 };

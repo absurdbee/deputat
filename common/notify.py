@@ -9,7 +9,7 @@ def get_news():
 
 def get_region_news(name):
     # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
-    query = Q(object_set__isnull=True) & Q(options_icontains=name)
+    query = Q(object_set__isnull=True) & Q(options__icontains=name)
     return Notify.objects.filter(query)
 
 

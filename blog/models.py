@@ -86,8 +86,8 @@ class Blog(models.Model):
             return ''
     def inerts_count(self):
         from common.model.votes import BlogVotes
-        dislikes = BlogVotes.objects.filter(blog_id=self.pk, vote="INE").values("pk")
-        count = dislikes.count()
+        inerts = BlogVotes.objects.filter(blog_id=self.pk, vote="INE").values("pk")
+        count = inerts.count()
         if count:
             return count
         else:

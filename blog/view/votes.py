@@ -7,7 +7,7 @@ from django.http import Http404
 from common.notify import *
 
 
-class ElectNewLikeCreate(View):
+class ElectNewLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectVotes
 
@@ -31,7 +31,7 @@ class ElectNewLikeCreate(View):
         dislikes = new.dislikes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
-class ElectNewDislikeCreate(View):
+class ElectNewDislike(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectVotes
 
@@ -56,7 +56,7 @@ class ElectNewDislikeCreate(View):
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 
-class ElectNewCommentLikeCreate(View):
+class ElectNewCommentLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectNewCommentVotes
 
@@ -84,7 +84,7 @@ class ElectNewCommentLikeCreate(View):
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
 
 
-class BlogLikeCreate(View):
+class BlogLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import BlogVotes
 
@@ -103,12 +103,14 @@ class BlogLikeCreate(View):
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.LIKE)
             result = True
-            user_notify(request.user, blog.creator.pk, None, "blo"+str(blog.pk), "blog_notify", "DIS")
-        likes = blog.likes_count()
-        dislikes = blog.dislikes_count()
-        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+            user_notify(request.user, blog.creator.pk, None, "blo"+str(blog.pk), "blog_notify", "LIK")
+        return HttpResponse(json.dumps({
+                "like_count": str(blog.likes_count()),
+                "inert_count": str(blog.inerts_count()),
+                "dislike_count": str(blog.dislikes_count())}),
+                content_type="application/json")
 
-class BlogDislikeCreate(View):
+class BlogDislike(View):
     def get(self, request, **kwargs):
         from common.model.votes import BlogVotes
 
@@ -127,13 +129,41 @@ class BlogDislikeCreate(View):
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.DISLIKE)
             result = True
-            user_notify(request.user, blog.creator.pk, None, "blo"+str(blog.pk), "blog_notify", "LIK")
-        likes = blog.likes_count()
-        dislikes = blog.dislikes_count()
-        return HttpResponse(json.dumps({"result": result,"like_count": str(likes),"dislike_count": str(dislikes)}),content_type="application/json")
+            user_notify(request.user, blog.creator.pk, None, "blo"+str(blog.pk), "blog_notify", "DIS")
+        return HttpResponse(json.dumps({
+                    "like_count": str(blog.likes_count()),
+                    "inert_count": str(blog.inerts_count()),
+                    "dislike_count": str(blog.dislikes_count())}),
+                    content_type="application/json")
+
+class BlogInert(View):
+    def get(self, request, **kwargs):
+        from common.model.votes import BlogVotes
+
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        if not request.is_ajax():
+            raise Http404
+        try:
+            likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
+            if likedislike.vote is not BlogVotes.INERT:
+                likedislike.vote = BlogVotes.INERT
+                likedislike.save(update_fields=['vote'])
+                result = True
+            else:
+                likedislike.delete()
+                result = False
+        except BlogVotes.DoesNotExist:
+            BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.INERT)
+            result = True
+            user_notify(request.user, blog.creator.pk, None, "blo"+str(blog.pk), "blog_notify", "INS")
+        return HttpResponse(json.dumps({
+                    "like_count": str(blog.likes_count()),
+                    "inert_count": str(blog.inerts_count()),
+                    "dislike_count": str(blog.dislikes_count())}),
+                    content_type="application/json")
 
 
-class BlogCommentLikeCreate(View):
+class BlogCommentLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import BlogCommentVotes
 

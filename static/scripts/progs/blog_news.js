@@ -29,6 +29,11 @@ on('body', 'click', '.blog_dislike', function() {
   pk = item.getAttribute("data-pk");
   send_dislike(item, "/blog/votes/blog_dislike/" + pk + "/");
 });
+on('body', 'click', '.blog_inert', function() {
+  item = this.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_inert(item, "/blog/votes/blog_inert/" + pk + "/");
+});
 on('body', 'click', '.blog_comment_like', function() {
   item = this.parentElement;
   pk = item.getAttribute("data-pk");

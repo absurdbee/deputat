@@ -300,6 +300,8 @@ function load_chart() {
 function send_like(item, url){
   like = item.querySelector(".like");
   dislike = item.querySelector(".dislike");
+  inert = item.querySelector(".inert");
+
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.overrideMimeType("application/json");
   link.open( 'GET', url, true );
@@ -310,10 +312,15 @@ function send_like(item, url){
     jsonResponse = JSON.parse(link.responseText);
     likes_count = item.querySelector(".likes_count");
     dislikes_count = item.querySelector(".dislikes_count");
+    inerts_count = item.querySelector(".inerts_count");
+
     likes_count.innerHTML = jsonResponse.like_count;
     dislikes_count.innerHTML = jsonResponse.dislike_count;
+    inerts_count.innerHTML = jsonResponse.inerts_count;
+
     like.classList.toggle("text-success");
     dislike.classList.remove("text-danger");
+    inert.classList.remove("text-inert");
   }};
   link.send( null );
 }
@@ -321,6 +328,8 @@ function send_like(item, url){
 function send_dislike(item, url){
   like = item.querySelector(".like");
   dislike = item.querySelector(".dislike");
+  inert = item.querySelector(".inert");
+
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.overrideMimeType("application/json");
   link.open( 'GET', url, true );
@@ -331,10 +340,42 @@ function send_dislike(item, url){
     jsonResponse = JSON.parse(link.responseText);
     likes_count = item.querySelector(".likes_count");
     dislikes_count = item.querySelector(".dislikes_count");
+    inerts_count = item.querySelector(".inerts_count");
+
     likes_count.innerHTML = jsonResponse.like_count;
     dislikes_count.innerHTML = jsonResponse.dislike_count;
+    nerts_count.innerHTML = jsonResponse.inerts_count;
+
     dislike.classList.toggle("text-danger");
     like.classList.remove("text-success");
+    inert.classList.remove("text-inert");
+  }};
+  link.send( null );
+}
+function send_inert(item, url){
+  like = item.querySelector(".like");
+  dislike = item.querySelector(".dislike");
+  inert = item.querySelector(".inert");
+
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.overrideMimeType("application/json");
+  link.open( 'GET', url, true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    jsonResponse = JSON.parse(link.responseText);
+    likes_count = item.querySelector(".likes_count");
+    dislikes_count = item.querySelector(".dislikes_count");
+    inerts_count = item.querySelector(".inerts_count");
+
+    likes_count.innerHTML = jsonResponse.like_count;
+    dislikes_count.innerHTML = jsonResponse.dislike_count;
+    nerts_count.innerHTML = jsonResponse.inerts_count;
+
+    dislike.classList.remove("text-danger");
+    like.classList.remove("text-success");
+    inert.classList.toggle("text-inert");
   }};
   link.send( null );
 }

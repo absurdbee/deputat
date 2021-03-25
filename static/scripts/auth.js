@@ -117,6 +117,13 @@ on('body', 'click', '#register_ajax', function() {
     toast_error("Выберите город!")
   }
   form_data = new FormData(form);
+
+  if (form.querySelector("#id_first_name").value){form.querySelector("#id_first_name").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#id_last_name").value){form.querySelector("#id_last_name").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#select_region").value){form.querySelector("#select_region").style.border = "rgba(0, 0, 0, 0.2)";}
+
   reg_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   reg_link.open( 'POST', "/rest-auth/registration/", true );
   reg_link.onreadystatechange = function () {
@@ -134,11 +141,8 @@ on('body', 'click', '#logg', function() {
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль!")}
   else {this.disabled = true}
-  if (form.querySelector("#id_first_name").value){form.querySelector("#id_first_name").style.border = "rgba(0, 0, 0, 0.2)";}
-  if (form.querySelector("#id_last_name").value){form.querySelector("#id_last_name").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
-  if (form.querySelector("#select_region").value){form.querySelector("#select_region").style.border = "rgba(0, 0, 0, 0.2)";}
 
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

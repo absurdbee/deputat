@@ -8,7 +8,6 @@ def linebreaks(value, autoescape=None):
 def get_blog(user, value):
     from blog.models import Blog
     from django.utils.http import urlencode
-    from urllib.request import pathname2url
 
     block, tags, votes_on, post, card_drop = '', '', '', Blog.objects.get(pk=value), '<span class="dropdown-item copy_link">Копировать ссылку</span>'
 
@@ -40,7 +39,7 @@ def get_blog(user, value):
         comments_enabled = 'style="display:none"'
 
     for tag in post.get_manager_tags():
-        tags += '<a class="ajax" href="/tags/' + pathname2url(tag)  + '">' + tag + '</a>'
+        tags += '<a class="ajax" href="/tags/' + tag.encode(encoding='ascii', errors='ignore') + '">' + tag + '</a>'
         #pass
 
     return ''.join([block, '<div class="event_card"><div class="event_img text-center"><a class="ajax" href="/blog/' + post.slug + '">\

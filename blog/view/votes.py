@@ -16,7 +16,7 @@ class ElectNewLike(View):
             raise Http404
         try:
             likedislike = ElectVotes.objects.get(new=new, user=request.user)
-            if likedislike.vote == ElectVotes.LIKE:
+            if likedislike.vote != ElectVotes.LIKE:
                 likedislike.vote = ElectVotes.LIKE
                 likedislike.save(update_fields=['vote'])
                 result = True
@@ -40,7 +40,7 @@ class ElectNewDislike(View):
             raise Http404
         try:
             likedislike = ElectVotes.objects.get(new=new, user=request.user)
-            if likedislike.vote is not ElectVotes.DISLIKE:
+            if likedislike.vote != ElectVotes.DISLIKE:
                 likedislike.vote = ElectVotes.DISLIKE
                 likedislike.save(update_fields=['vote'])
                 result = True
@@ -65,7 +65,7 @@ class ElectNewCommentLike(View):
             raise Http404
         try:
             likedislike = ElectNewCommentVotes.objects.get(comment=comment, user=request.user)
-            if likedislike.vote is not ElectNewCommentVotes.LIKE:
+            if likedislike.vote != ElectNewCommentVotes.LIKE:
                 likedislike.vote = ElectNewCommentVotes.LIKE
                 likedislike.save(update_fields=['vote'])
                 result = True
@@ -139,7 +139,7 @@ class BlogInert(View):
             raise Http404
         try:
             likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
-            if likedislike.vote is not BlogVotes.INERT:
+            if likedislike.vote != BlogVotes.INERT:
                 likedislike.vote = BlogVotes.INERT
                 likedislike.save(update_fields=['vote'])
             else:
@@ -163,7 +163,7 @@ class BlogCommentLike(View):
             raise Http404
         try:
             likedislike = BlogCommentVotes.objects.get(comment=comment, user=request.user)
-            if likedislike.vote is not BlogCommentVotes.LIKE:
+            if likedislike.vote != BlogCommentVotes.LIKE:
                 likedislike.vote = BlogCommentVotes.LIKE
                 likedislike.save(update_fields=['vote'])
                 result = True

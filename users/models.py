@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
 from common.utils import try_except
 from users.helpers import upload_to_user_directory
-
+from city.models import City
 
 """
     Группируем все таблицы пользователя здесь:

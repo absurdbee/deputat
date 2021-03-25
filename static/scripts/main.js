@@ -77,7 +77,7 @@ on('body', 'click', '.main_nav', function() {
           response.innerHTML = elem;
           _this.classList.add("active");
           container.innerHTML = "";
-          container.insertAdjacentHTML('afterBegin', response.innerHTML);
+          container.insertAdjacentHTML('afterBegin', response.querySelector(".main_news_container").innerHTML);
         }
     }
 };

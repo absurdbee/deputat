@@ -10,11 +10,7 @@
               {% load notify %}
               {% for object in object_list %}
                 <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
-                  {% if user.is_authenticated %}
-                    {{ object|get_notify:request.user|safe }}
-                  {% else %}
-                    fff
-                  {% endif %}
+                  {{ object|get_notify:request.user|safe }}
                 </div>
               {% endfor %}
             </div>

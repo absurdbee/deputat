@@ -20,10 +20,7 @@ class MainPageView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		from common.notify import get_news
-		if self.request.user.is_authenticated:
-			return get_news(self.request.user)
-		else:
-			return []
+		return get_news() 
 
 class MyNewsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15

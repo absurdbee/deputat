@@ -2,7 +2,7 @@ from django.db.models import Q
 from notify.models import Notify
 
 
-def get_news(user):
+def get_news():
     query = Q(user_set__isnull=True, object_set__isnull=True)
     return Notify.objects.filter(query)
 

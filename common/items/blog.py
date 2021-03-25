@@ -41,12 +41,12 @@ def get_blog(user, value):
     else:
         comments_enabled = 'style="display:none"'
 
-    for tag in object.tags.all():
+    for tag in post.tags.all():
         tags += '<a class="ajax" href="/tags/' + urlencode(tag) + '">' + tag + '</a>'
 
-    return ''.join([block, '<div class="card event_card"><div class="event_img text-center"><a href="/blog/' + object.slug + '">\
+    return ''.join([block, '<div class="card event_card"><div class="event_img text-center"><a href="/blog/' + post.slug + '">\
     <img class="img-fluid card-img-top" src="' + post.get_image() + '" alt="img"></a></div><div class="card-body event_body">\
-    <h4 class="event_name"><div style="display: flex;"><a class="text-body ajax" href="/blog/' + object.slug + '">{{ object.title }}</a>\
+    <h4 class="event_name"><div style="display: flex;"><a class="text-body ajax" href="/blog/' + post.slug + '">' + post.title + '</a>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\
     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">\

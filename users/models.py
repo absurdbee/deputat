@@ -42,6 +42,12 @@ class User(AbstractUser):
     def __str__(self):
         return str(self.phone)
 
+    def get_verb_gender(self, verb):
+        if self.is_women():
+            return "W" + verb
+        else:
+            return verb
+
     def get_full_name(self):
         return self.first_name + " " + self.last_name
 

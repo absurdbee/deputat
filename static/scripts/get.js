@@ -48,7 +48,7 @@ loadScripts('/static/scripts/functions/general.js');
 loadScripts('/static/scripts/functions/comment_attach.js');
 loadScripts('/static/scripts/functions/preview.js');
 loadScripts('/static/scripts/main.js');
-loadScripts('/static/scripts/progs/blog_news.js');
+loadScripts('/static/scripts/progs/votes.js');
 loadScripts('/static/scripts/progs/elect.js');
 loadScripts('/static/scripts/progs/user.js');
 loadScripts('/static/scripts/auth.js');

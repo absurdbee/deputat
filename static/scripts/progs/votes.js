@@ -17,7 +17,7 @@ function send_like(item, url){
 
     likes_count.innerHTML = jsonResponse.like_count;
     dislikes_count.innerHTML = jsonResponse.dislike_count;
-    inerts_count.innerHTML = jsonResponse.inerts_count;
+    inerts_count.innerHTML = jsonResponse.inert_count;
 
     like.classList.toggle("btn_success");
     dislike.classList.remove("btn_danger");
@@ -45,7 +45,7 @@ function send_dislike(item, url){
 
     likes_count.innerHTML = jsonResponse.like_count;
     dislikes_count.innerHTML = jsonResponse.dislike_count;
-    inerts_count.innerHTML = jsonResponse.inerts_count;
+    inerts_count.innerHTML = jsonResponse.inert_count;
 
     dislike.classList.toggle("btn_danger");
     like.classList.remove("btn_success");
@@ -72,7 +72,7 @@ function send_inert(item, url){
 
     likes_count.innerHTML = jsonResponse.like_count;
     dislikes_count.innerHTML = jsonResponse.dislike_count;
-    inerts_count.innerHTML = jsonResponse.inerts_count;
+    inerts_count.innerHTML = jsonResponse.inert_count;
 
     dislike.classList.remove("btn_danger");
     like.classList.remove("btn_success");

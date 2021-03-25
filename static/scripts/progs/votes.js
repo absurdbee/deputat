@@ -19,9 +19,9 @@ function send_like(item, url){
     dislikes_count.innerHTML = jsonResponse.dislike_count;
     inerts_count.innerHTML = jsonResponse.inerts_count;
 
-    like.classList.toggle("btn-success");
-    dislike.classList.remove("btn-danger");
-    inert.classList.remove("btn-inert");
+    like.classList.toggle("btn_success");
+    dislike.classList.remove("btn_danger");
+    inert.classList.remove("btn_inert");
   }};
   link.send( null );
 }
@@ -47,9 +47,9 @@ function send_dislike(item, url){
     dislikes_count.innerHTML = jsonResponse.dislike_count;
     inerts_count.innerHTML = jsonResponse.inerts_count;
 
-    dislike.classList.toggle("btn-danger");
-    like.classList.remove("btn-success");
-    inert.classList.remove("btn-inert");
+    dislike.classList.toggle("btn_danger");
+    like.classList.remove("btn_success");
+    inert.classList.remove("btn_inert");
   }};
   link.send( null );
 }
@@ -74,9 +74,9 @@ function send_inert(item, url){
     dislikes_count.innerHTML = jsonResponse.dislike_count;
     inerts_count.innerHTML = jsonResponse.inerts_count;
 
-    dislike.classList.remove("btn-danger");
-    like.classList.remove("btn-success");
-    inert.classList.toggle("btn-inert");
+    dislike.classList.remove("btn_danger");
+    like.classList.remove("btn_success");
+    inert.classList.toggle("btn_inert");
   }};
   link.send( null );
 }

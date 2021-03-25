@@ -5,7 +5,7 @@
 display: block;
 
 }
-.dropdown-menu{
+.event_card .dropdown-menu{
 transform: scale(1)!important;
 font-size: 70%;
 line-height: 1;

@@ -9,7 +9,7 @@
             <div class="content-body elect_news_container is_paginate mt-2">
               {% load notify %}
               {% for object in object_list %}
-                <div class="card mb-2 pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.get_pk }}">
+                <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
                   {{ object|get_notify:request.user|safe }}
                 </div>
               {% endfor %}

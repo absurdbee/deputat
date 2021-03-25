@@ -93,9 +93,6 @@ class Notify(models.Model):
         from common.notify import get_notify
         return get_notify(user, self)
 
-    def get_pk(self):
-        return self.attach[3:]
-
 
 class UserNewsNotify(models.Model):
     user = models.PositiveIntegerField(default=0, verbose_name="Кто подписывается")

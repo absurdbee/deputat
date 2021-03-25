@@ -32,7 +32,6 @@ class User(AbstractUser):
     s_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
     gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
-    city = models.CharField(max_length=100, blank=True, null=True, verbose_name='Город')
     city2 = models.ForeignKey(City, null=True, on_delete=models.SET_NULL, verbose_name="Город")
     USERNAME_FIELD = 'phone'
 

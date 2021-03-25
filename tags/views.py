@@ -10,7 +10,9 @@ class TagView(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.tag = ManagerTag.objects.get(name=self.kwargs["name"])
+		from urllib.parse import unquote
+
+		self.tag = ManagerTag.objects.get(name=unquote(self.kwargs["name"]))
 		self.template_name = get_small_template("tags/tag.html", request.META['HTTP_USER_AGENT'])
 		return super(TagView,self).get(request,*args,**kwargs)
 

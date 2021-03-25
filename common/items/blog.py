@@ -19,11 +19,11 @@ def get_blog(user, value):
         user_like, user_dislike, user_inert = "btn_default blog_like", "btn_default blog_dislike", "btn_default blog_inert"
         if post.votes_on:
             if post.is_have_likes() and post.likes().filter(user_id=user.pk).exists():
-                user_like = "btn_success"
+                user_like = "btn_success blog_like"
             if post.is_have_dislikes() and post.dislikes().filter(user_id=user.pk).exists():
-                user_dislike = "btn_success"
+                user_dislike = "btn_success blog_dislike"
             if post.is_have_inerts() and post.inerts().filter(user_id=user.pk).exists():
-                user_inert = "btn_success"
+                user_inert = "btn_success blog_inert"
         else:
             votes_on = 'style="display:none"'
         if user.is_supermanager() or user.is_superuser:
@@ -40,7 +40,6 @@ def get_blog(user, value):
 
     for tag in post.get_manager_tags():
         tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
-        #pass
 
     return ''.join([block, '<div class="event_card"><div class="event_img text-center"><a class="ajax" href="/blog/' + post.slug + '">\
     <img class="img-fluid card-img-top" src="' + post.get_image() + '" alt="img"></a></div><div class="card-body event_body">\

@@ -1346,7 +1346,6 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
 
 .header-navbar .navbar-container ul.navbar-nav li.dropdown-user .dropdown-menu {
   width : 12rem;
-  margin-top : 10px;
 }
 
 .header-navbar .navbar-container ul.navbar-nav li.dropdown-user .dropdown-menu i, .header-navbar .navbar-container ul.navbar-nav li.dropdown-user .dropdown-menu svg {

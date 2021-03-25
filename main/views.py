@@ -20,7 +20,27 @@ class MainPageView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		from common.notify import get_news
-		return get_news() 
+		return get_news()
+
+class MainRegionView(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from region.models import Region
+
+		self.template_name = get_small_template("main/region.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
+		return super(MainRegionView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(MainRegionView,self).get_context_data(**kwargs)
+		context["region"] = self.region
+		return context
+
+	def get_queryset(self):
+		from common.notify import get_region_news
+		return get_region_news(self.region.name)
+
 
 class MyNewsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15

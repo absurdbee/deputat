@@ -1,6 +1,3 @@
-create_pagination(document.getElementById('ajax'));
-page = 2;
-loaded = false;
 
 on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");

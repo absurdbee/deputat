@@ -10,6 +10,11 @@ function create_pagination(block) {
     scrolled(window.location.href, '.is_post_paginate', target = 1)
   }
 }
+
+create_pagination(document.getElementById('ajax'));
+page = 2;
+loaded = false;
+
 function scrolled(link, block_id, target) {
     // работа с прокруткой:
     // 1. Ссылка на страницу с пагинацией

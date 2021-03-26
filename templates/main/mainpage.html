@@ -2,7 +2,7 @@
 {% block title %}Главная страница{% endblock %}
 {% block content %}
 
-        <div class="content-wrapper row"> 
+        <div class="content-wrapper row">
           <div class="content-header-left col-md-9 col-12">
             {% include 'main/breadcrumb.html' %}
 
@@ -33,10 +33,10 @@
                 </div>
             </div>
 
-            <div class="content-body main_news_container is_paginate mt-2">
+            <div class="content-body main_news_container mt-2">
               {% load notify %}
               {% for object in object_list %}
-                <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
+                <div class="card mb-2 is_paginate pag {% if forloop.last %}last{% endif %}">
                   {{ object|get_notify:request.user|safe }}
                 </div>
               {% endfor %}

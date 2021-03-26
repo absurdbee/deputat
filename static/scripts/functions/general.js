@@ -1,5 +1,72 @@
 function on(elSelector,eventName,selector,fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while(el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};
+function create_pagination(block) {
+  if (block.querySelector('.chat_container')) {
+    scrolled(window.location.href, '.chat_container', target = 0)
+  }
+  else if (block.querySelector('.is_paginate')) {
+    scrolled(window.location.href, '.is_paginate', target = 0)
+  }
+  else if (block.querySelector('.is_post_paginate')) {
+    scrolled(window.location.href, '.is_post_paginate', target = 1)
+  }
+}
+function scrolled(link, block_id, target) {
+    // работа с прокруткой:
+    // 1. Ссылка на страницу с пагинацией
+    // 2. id блока, куда нужно грузить следующие страницы
+    // 3. Указатель на нужность работы просмотров элементов в ленте. Например, target=1 - просмотры постов в ленте
+    onscroll = function() {
+        try {
+            if (document.body.querySelector(".chat_container")){
+              block_ = document.body.querySelector(block_id);
+              box_ = block_.querySelector('.first');
+              if (box_ && box_.classList.contains("first")) {
+                inViewport = elementInViewport(box_);
+                if (inViewport) {box_.classList.remove("first");top_paginate(link, block_id)}}
+            } else {_block = document.body.querySelector(block_id);
+                  box = _block.querySelector('.last');
+                  if (box && box.classList.contains("last")) {
+                    inViewport = elementInViewport(box);
+                    if (inViewport) {
+                      box.classList.remove("last");
+                      paginate(link, block_id);
+                    }
+                  };
+                  if (target == 1) {get_post_view()}}
+                } catch {return}
+    }
+};
 
+function paginate(link, block_id) {
+  // общая подгрузка списков в конец указанного блока
+    block = document.body.querySelector(block_id);
+    if (block.getElementsByClassName('pag').length === (page - 1) * 15) {
+        if (loaded) {
+            return
+        };
+        var link_3 = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        link_3.open('GET', link + '?page=' + page++, true);
+        link_3.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+        link_3.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var elem = document.createElement('span');
+                elem.innerHTML = link_3.responseText;
+                if (elem.getElementsByClassName('pag').length < 15) {
+                    loaded = true
+                };
+                if (elem.querySelector(block_id)) {
+                    xxx = document.createElement("span");
+                    xxx.innerHTML = elem.querySelector(block_id).innerHTML;
+                    block.insertAdjacentHTML('beforeend', xxx.innerHTML)
+                } else {
+                    block.insertAdjacentHTML('beforeend', elem.innerHTML)
+                }
+            }
+        }
+        link_3.send();
+    }
+}
 
 function get_select() {
   on('body', 'hover', '#russia_map path', function() {
@@ -71,78 +138,6 @@ function get_image_priview(ggg, img) {
     }
 };
 
-class ToastManager {
-  constructor(){
-    this.id = 0;
-    this.toasts = [];
-    this.icons = {
-      'SUCCESS': "",
-      'ERROR': '',
-      'INFO': '',
-      'WARNING': '',
-    };
-
-    var body = document.querySelector('body');
-    this.toastsContainer = document.createElement('div');
-    this.toastsContainer.classList.add('toasts', 'border-0');
-    body.appendChild(this.toastsContainer);
-  }
-
-  showSuccess(message) {
-    return this._showToast(message, 'SUCCESS');
-  }
-  showError(message) {
-    return this._showToast(message, 'ERROR');
-  }
-  showInfo(message) {
-    return this._showToast(message, 'INFO');
-  }
-  showWarning(message) {
-    return this._showToast(message, 'WARNING');
-  }
-  _showToast(message, toastType) {
-    var newId = this.id + 1;
-
-    var newToast = document.createElement('div');
-    newToast.style.display = 'inline-block';
-    newToast.classList.add(toastType.toLowerCase());
-    newToast.classList.add('toast');
-    newToast.innerHTML = `
-      <progress max="100" value="0"></progress>
-      <h3> ${message} </h3>`;
-    var newToastObject = {
-      id: newId,
-      message,
-      type: toastType,
-      timeout: 4000,
-      progressElement: newToast.querySelector('progress'),
-      counter: 0,
-      timer: setInterval(() => {
-        newToastObject.counter += 1000 / newToastObject.timeout;
-        newToastObject.progressElement.value = newToastObject.counter.toString();
-        if(newToastObject.counter >= 100) {
-          newToast.style.display = 'none';
-          clearInterval(newToastObject.timer);
-          this.toasts = this.toasts.filter((toast) => {
-            return toast.id === newToastObject.id;
-          });
-        }
-      }, 10)
-    }
-
-    newToast.addEventListener('click', () => {
-      newToast.style.display = 'none';
-      clearInterval(newToastObject.timer);
-      this.toasts = this.toasts.filter((toast) => {
-        return toast.id === newToastObject.id;
-      });
-    });
-
-    this.toasts.push(newToastObject);
-    this.toastsContainer.appendChild(newToast);
-    return this.id++;
-  }
-}
 function toast_success(text){
   var toasts = new ToastManager();
   toasts.showSuccess(text);
@@ -325,7 +320,10 @@ function ajax_get_reload(url) {
         window.scrollTo(0,0);
         document.title = elem_.querySelector('title').innerHTML;
         window.history.pushState({route: url}, "network", url);
-        get_select()
+        get_select();
+        page = 2;
+        loaded = false;
+        create_pagination(rtr)
       }
     }
     ajax_link.send();

@@ -1,3 +1,7 @@
+.content-wrapper {
+  margin-top: -80px;
+}
+
 .btn_success svg, .btn_success span{ color:#41cd52}
 .btn_danger svg, .btn_danger span{ color:#FF0000}
 .btn_inert svg, .btn_inert span{ color:orange}

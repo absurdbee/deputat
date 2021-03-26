@@ -80,11 +80,6 @@ body.dark-layout {
   color : #676D7D;
 }
 
-.dark-layout .header-navbar-shadow {
-  background : -webkit-linear-gradient(top, rgba(22, 29, 49, 0.9) 44%, rgba(22, 29, 49, 0.43) 73%, rgba(22, 29, 49, 0));
-  background :         linear-gradient(180deg, rgba(22, 29, 49, 0.9) 44%, rgba(22, 29, 49, 0.43) 73%, rgba(22, 29, 49, 0));
-}
-
 .dark-layout.horizontal-menu .header-navbar {
   background-color : #283046;
 }
@@ -233,14 +228,6 @@ body.dark-layout {
 
 .dark-layout .header-navbar[class*='bg-'] .navbar-nav .nav-item .nav-link {
   background-color : inherit;
-}
-
-.dark-layout.blank-page .card.bg-transparent h1, .dark-layout.blank-page .card.bg-transparent h2, .dark-layout.blank-page .card.bg-transparent h3, .dark-layout.blank-page .card.bg-transparent h4, .dark-layout.blank-page .card.bg-transparent h5, .dark-layout.blank-page .card.bg-transparent h6 {
-  color : #283046;
-}
-
-.dark-layout.blank-page .card.bg-transparent p {
-  color : #161D31;
 }
 
 .dark-layout .main-menu {

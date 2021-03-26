@@ -31,10 +31,6 @@ html .content.app-content.show-overlay .content-overlay {
   opacity : 1;
 }
 
-html .content.app-content.show-overlay .content-overlay ~ .header-navbar-shadow {
-  display : none;
-}
-
 html .content.app-content .content-overlay {
   position : fixed;
   opacity : 0;
@@ -304,41 +300,6 @@ html [data-col='1-column'].horizontal-layout .header-navbar {
 
 html [data-col='1-column'].horizontal-layout .app-content {
   padding : calc(2rem + 4.45rem + 1.3rem) 2rem 0 2rem !important;
-}
-
-html .blank-page .content {
-  margin-left : 0;
-}
-
-html .blank-page .content.app-content {
-  overflow : overlay;
-  overflow-x : hidden;
-  padding : 0 !important;
-}
-
-html .blank-page .content.app-content .header-navbar-shadow {
-  display : none;
-}
-
-html .blank-page .content-wrapper {
-  padding : 0 !important;
-}
-
-html .blank-page .content-wrapper .flexbox-container {
-  display : -webkit-box;
-  display : -webkit-flex;
-  display : -ms-flexbox;
-  display :         flex;
-  -webkit-box-align : center;
-  -webkit-align-items : center;
-  -ms-flex-align : center;
-          align-items : center;
-  height : 100vh;
-  height : calc(var(--vh, 1vh) * 100);
-  -webkit-box-pack : center;
-  -webkit-justify-content : center;
-  -ms-flex-pack : center;
-          justify-content : center;
 }
 
 html .pace .pace-progress {

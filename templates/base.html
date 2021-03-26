@@ -16,8 +16,12 @@
 </head>
 
 <body class="navbar-floating footer-static">
-		{% include "navbar.html" %}
-		{% include "menu.html" %}
+		<div class="row">
+			<div class="col-md-3">
+				{% include "menu.html" %}
+			</div>
+			<div class="col-md-9">
+				{% include "navbar.html" %}
 
 		<div class="app-content content">
       <div class="content-overlay"></div>
@@ -27,6 +31,8 @@
 					{% endblock %}
 				</span>
 			</span>
+		</div>
+		</div>
 		</div>
 
 		<div class="card mb-3 window_fullscreen border" style="display:none">

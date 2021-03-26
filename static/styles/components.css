@@ -3059,11 +3059,6 @@ div.dataTables_wrapper div.dataTables_filter input {
   margin-left : 0.75rem;
 }
 
-div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-  margin-top : 1rem;
-  margin-bottom : 1.5rem;
-}
-
 div.dataTables_wrapper .dataTables_info {
   padding-top : 1.25rem !important;
   color : #B9B9C3;
@@ -3071,47 +3066,4 @@ div.dataTables_wrapper .dataTables_info {
 
 tr.group {
   background-color : #FAFAFC;
-}
-
-@media only screen and (max-width: 768px) {
-  div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-    -webkit-box-pack : center;
-    -webkit-justify-content : center;
-    -ms-flex-pack : center;
-            justify-content : center;
-  }
-  div.dataTables_wrapper div.dataTables_info {
-    white-space : inherit;
-  }
-  div.dt-buttons {
-    -webkit-box-pack : center;
-    -webkit-justify-content : center;
-    -ms-flex-pack : center;
-            justify-content : center;
-    margin-top : 1rem;
-  }
-  div.dt-buttons button {
-    margin-bottom : 0.5rem;
-  }
-}
-
-@media (max-width: 575.98px) {
-  .dtr-bs-modal .modal-body {
-    padding-left : 0;
-    padding-right : 0;
-    overflow-x : scroll;
-  }
-  .dtr-bs-modal .table.dtr-details {
-    margin : 0 auto 1rem;
-  }
-  .dtr-bs-modal .table.dtr-details td {
-    padding-left : 0;
-    padding-right : 0;
-  }
-  .dtr-bs-modal .table.dtr-details tr td:first-child {
-    padding-left : 0.75rem;
-  }
-  div.dataTables_wrapper {
-    overflow : scroll;
-  }
 }

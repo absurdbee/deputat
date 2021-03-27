@@ -155,14 +155,6 @@ on('body', 'click', '#logg', function() {
   link.send(form_data);
 });
 
-on('body', 'click', '.ajax', function(event) {
-  event.preventDefault();
-  var url = this.getAttribute('href');
-  if (url != window.location.pathname){
-    ajax_get_reload(url)
-  } else {toast_info("Вы уже на этой странице")}
-})
-
 function phone_check() {
  if (document.getElementById('phone').value.length > 10)
    document.getElementById("phone_send").removeAttribute('disabled');

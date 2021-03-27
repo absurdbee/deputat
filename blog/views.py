@@ -6,6 +6,9 @@ from django.views import View
 from django.http import Http404
 from django.views.generic import ListView
 from common.utils import get_small_template
+import re
+MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+from stst.models import BlogNumbers
 
 
 class BlogDetailView(TemplateView, CategoryListMixin):
@@ -17,10 +20,6 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 		self.blog = Blog.objects.get(slug=self.kwargs["slug"])
 		self.template_name = get_full_template("blog/blog.html", request.user, request.META['HTTP_USER_AGENT'])
 		if request.user.is_authenticated:
-			import re
-			MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
-			from stst.models import BlogNumbers
-
 			if not BlogNumbers.objects.filter(user=request.user.pk, new=self.blog.pk).exists():
 				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=1)
@@ -33,6 +32,10 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 
 				response = redirect('blog_detail', slug=self.blog.slug)
 				response.set_cookie(blog_id, "blog_view")
+				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=1)
+				else:
+					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
 				return response
 			else:
 				return super(BlogDetailView,self).get(request,*args,**kwargs)

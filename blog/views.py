@@ -23,9 +23,9 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 
 			if not BlogNumbers.objects.filter(user=request.user.pk, new=self.blog.pk).exists():
 				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
-				else:
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=1)
+				else:
+					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
 			return super(BlogDetailView,self).get(request,*args,**kwargs)
 		elif not blog_id in request.COOKIES:
 			from django.shortcuts import redirect

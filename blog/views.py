@@ -21,7 +21,7 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 			MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 			from stst.models import BlogNumbers
 
-			if not BlogNumbers.objects.filter(user=request.user.pk, new=self.blog.pk).exists()
+			if not BlogNumbers.objects.filter(user=request.user.pk, new=self.blog.pk).exists():
 				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
 				else:

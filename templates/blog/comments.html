@@ -1,0 +1,42 @@
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <form class="form">
+              {% csrf_token %}
+                <div class="row">
+                  <div class="row attach_block"></div>
+                    <div class="col-12">
+                        <textarea name="text" class="form-control mb-2" rows="4"></textarea>
+                    </div>
+                    <input type="hidden" name="blog" value="{{ object.pk }}">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary blogComment">Комментировать</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 comments_block_container">
+    {% for comment in object_list %}
+
+    {% if comment.is_deleted %}
+      <p class="underline" style="display: flex; padding-left:10px;margin: 0;">Комментарий удален</p>
+      <span style="cursor:pointer;" class="show_replies content-color-primary">
+          {% if comment.count_replies %}
+          ---- {{ comment.count_replies_ru }} ----
+          {% endif %}
+      </span>
+      <span class="stream_reply_comments">
+          {% for reply in comment.get_replies %}
+            {% include 'blog/comment/reply.html' %}
+          {% endfor %}
+      </span>
+
+      {% else %}
+        {% include 'blog/comment/parent.html' %}
+      {% endif %}
+    {% endfor %}
+</div>

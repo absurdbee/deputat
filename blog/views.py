@@ -37,7 +37,7 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 	def get_context_data(self,**kwargs):
 		context=super(BlogDetailView,self).get_context_data(**kwargs)
 		context["object"] = self.blog
-		context["last_articles"] = Blog.onkects.only("pk")[:6]
+		context["last_articles"] = Blog.objects.only("pk")[:6]
 		return context
 
 class ProectNewsView(ListView, CategoryListMixin):

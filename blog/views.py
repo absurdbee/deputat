@@ -12,22 +12,28 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		import re
-		MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
-		from stst.models import BlogNumbers
 		from common.utils import get_full_template
 
 		self.blog = Blog.objects.get(slug=self.kwargs["slug"])
-		if request.user.is_authenticated:
-			current_pk = request.user.pk
-		else:
-			current_pk = 0
-		if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-			BlogNumbers.objects.create(user=current_pk, blog=self.blog.pk, platform=0)
-		else:
-			BlogNumbers.objects.create(user=current_pk, blog=self.blog.pk, platform=1)
 		self.template_name = get_full_template("blog/blog.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(BlogDetailView,self).get(request,*args,**kwargs)
+		if request.user.is_authenticated:
+			import re
+			MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+			from stst.models import BlogNumbers
+
+			if not BlogNumbers.objects.filter(user=request.user.pk, new=self.blog.pk).exists()
+				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
+				else:
+					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=1)
+		elif not blog_id in request.COOKIES:
+			from django.shortcuts import redirect
+
+			response = redirect('blog_detail', slug=self.blog.slug)
+			response.set_cookie(blog_id, "blog_view")
+			return response
+		else:
+			return super(BlogDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context=super(BlogDetailView,self).get_context_data(**kwargs)

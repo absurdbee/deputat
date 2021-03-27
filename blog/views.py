@@ -27,11 +27,11 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
 			return super(BlogDetailView,self).get(request,*args,**kwargs)
 		else:
-			if not self.blog.pk in request.COOKIES:
+			if not "id"+str(self.blog.pk) in request.COOKIES:
 				from django.shortcuts import redirect
 
 				response = redirect('blog_detail', slug=self.blog.slug)
-				response.set_cookie(self.blog.pk, "blog_view")
+				response.set_cookie(str("id"+str(self.blog.pk), "blog_view")
 				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
 					BlogNumbers.objects.create(user=0, new=self.blog.pk, platform=1)
 				else:

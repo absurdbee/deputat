@@ -26,14 +26,13 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
 				else:
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=1)
+			return super(BlogDetailView,self).get(request,*args,**kwargs)
 		elif not blog_id in request.COOKIES:
 			from django.shortcuts import redirect
 
 			response = redirect('blog_detail', slug=self.blog.slug)
 			response.set_cookie(blog_id, "blog_view")
 			return response
-		else:
-			return super(BlogDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context=super(BlogDetailView,self).get_context_data(**kwargs)

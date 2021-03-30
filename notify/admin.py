@@ -1,5 +1,5 @@
 from django.contrib import admin
-from notify.models import Notify, Wall
+from notify.models import *
 
 
 class NotifyAdmin(admin.ModelAdmin):

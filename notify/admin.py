@@ -1,5 +1,5 @@
 from django.contrib import admin
-from notify.models import *
+from notify.models import Notify, Wall
 
 
 class NotifyAdmin(admin.ModelAdmin):
@@ -8,8 +8,15 @@ class NotifyAdmin(admin.ModelAdmin):
     class Meta:
         model = Notify
 
+class WallAdmin(admin.ModelAdmin):
+    list_display = ['creator', 'created']
+    list_filter = ['created']
+    class Meta:
+        model = Wall
+
 
 admin.site.register(Notify, NotifyAdmin)
+admin.site.register(Wall, WallAdmin)
 
 admin.site.register(UserNewsNotify)
 admin.site.register(UserProfileNotify)

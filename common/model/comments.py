@@ -79,9 +79,28 @@ class BlogComment(models.Model):
             return ''
 
     @classmethod
-    def create_comment(cls, commenter, blog=None, parent=None, text=None, created=None):
-        comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text)
-        comment.save()
+    def create_comment(cls, commenter, blog, parent, text, files, images):
+        from common.notify.notify import user_wall, user_notify
+
+        if not text or not files or not images:
+            from rest_framework.exceptions import PermissionDenied
+            raise PermissionDenied("Нужно написать текст, вставить картинку или документ")
+        comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text, created=timezone.now())
+        if parent:
+            blog = parent.blog
+            type = "blr"+str(comment.pk)+",blc"+str(parent.pk)+",blo"+str(blog.pk)
+            user_wall(commenter, None, type, "u_blog_comment_notify", "REP")
+            user_notify(commenter, blog.creator.pk, None, type, "u_blog_comment_notify", "REP")
+        else:
+            type = "blc"+str(comment.pk)+", bls"+str(blog.pk)
+            user_wall(commenter, None, type, "u_blog_comment_notify", "COM")
+            user_notify(commenter, blog.creator.pk, None, type, "u_blog_comment_notify", "COM")
+        if files:
+            for file in files:
+                BlogCommentDoc.objects.create(comment=comment, file=file)
+        if images:
+            for image in images:
+                BlogCommentPhoto.objects.create(comment=comment, file=file)
         return comment
 
     def count_replies_ru(self):

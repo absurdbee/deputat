@@ -236,3 +236,27 @@ class User(AbstractUser):
             return '<span class="tab_badge badge-success" style="font-size: 60%;">' + str(count) + '</span>'
         else:
             return ''
+
+    def get_member_for_notify_ids(self):
+        from notify.models import UserProfileNotify
+        return [i['target'] for i in UserProfileNotify.objects.filter(user=self.pk).values("target")]
+
+    def add_news_subscriber(self, user_id):
+        from notify.models import UserNewsNotify
+        if not UserNewsNotify.objects.filter(user=self.pk, target=user_id).exists():
+            UserNewsNotify.objects.create(user=self.pk, target=user_id)
+    def delete_news_subscriber(self, user_id):
+        from notify.models import UserNewsNotify
+        if UserNewsNotify.objects.filter(user=self.pk, target=user_id).exists():
+            notify = UserNewsNotify.objects.get(user=self.pk, target=user_id)
+            notify.delete()
+
+    def add_notify_subscriber(self, user_id):
+        from notify.models import UserProfileNotify
+        if not UserProfileNotify.objects.filter(user=self.pk, target=user_id).exists():
+            UserProfileNotify.objects.create(user=self.pk, target=user_id)
+    def delete_notify_subscriber(self, user_id):
+        from notify.models import UserProfileNotify
+        if UserProfileNotify.objects.filter(user=self.pk, target=user_id).exists():
+            notify = UserProfileNotify.objects.get(user=self.pk, target=user_id)
+            notify.delete()

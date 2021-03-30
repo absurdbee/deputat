@@ -13,8 +13,15 @@ class BlogCommentCreate(View):
 		blog = Blog.objects.get(pk=request.POST.get('pk'))
 		if request.is_ajax() and form_post.is_valid() and blog.comments_enabled:
 			comment = form_post.save(commit=False)
-			new_comment = comment.create_comment(commenter=request.user, parent=None, blog=blog, text=comment.text)
-			return render(request, 'blog_comment/blog_parent.html',{'comment': new_comment})
+			new_comment = comment.create_comment(
+													commenter=request.user,
+													blog=blog,
+													parent=None,
+													text=comment.text,
+													files = request.POST.getlist("files"),
+													images = request.POST.getlist("images")
+												)
+			return render(request, 'blog/comment/parent.html',{'comment': new_comment})
 		else:
 			return HttpResponseBadRequest()
 
@@ -29,8 +36,15 @@ class BlogReplyCreate(View):
 		parent = BlogComment.objects.get(pk=request.POST.get('post_comment'))
 		if request.is_ajax() and form_post.is_valid():
 			comment = form_post.save(commit=False)
-			new_comment = comment.create_comment(commenter=request.user, parent=parent, blog=None, text=comment.text)
-			return render(request, 'blog_comment/blog_reply.html',{'reply': new_comment, 'comment': parent,})
+			new_comment = comment.create_comment(
+													commenter=request.user,
+													blog=blog,
+													parent=parent,
+													text=comment.text,
+													files = request.POST.getlist("files"),
+													images = request.POST.getlist("images")
+												)
+			return render(request, 'blog/comment/reply.html',{'reply': new_comment, 'comment': parent,})
 		else:
 			return HttpResponseBadRequest()
 

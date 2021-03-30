@@ -1829,6 +1829,7 @@ pre code {
         -ms-flex : 0 0 75%;
             flex : 0 0 75%;
     max-width : 75%;
+    margin-left: 20rem;
   }
   .col-xl-10 {
     -webkit-box-flex : 0;

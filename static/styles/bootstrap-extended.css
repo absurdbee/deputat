@@ -1387,11 +1387,7 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
     width : 100%;
   }
 }
-@media (min-width: 2000px) {
-  .desctop_custom_width {
-    margin-left: 20rem;
-  }
-}
+
 @media (min-width: 1200px) {
   .header-navbar.floating-nav {
     width : calc(100vw - (100vw - 100%) - calc(2rem * 2));

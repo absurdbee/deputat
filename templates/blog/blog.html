@@ -50,7 +50,8 @@
                                                     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
                                                         <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"></path>
                                                         <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm0 12l-4.34 4.34L12 14H3v-2l3-7h9v10zm4-12h4v12h-4z"></path>
-                                                    </svg> <span class="likes_count margin_right_5">{{ object.dislikes_count }}</span></span>
+                                                    </svg>
+                                                    <span class="dislikes_count margin_right_5">{{ object.dislikes_count }}</span></span>
                                             </div>
                                             <div class="d-flex align-items-center mr-1">
                                                 <span class="inert {% if object.inerts|user_in:request.user %}btn_inert{% else %}btn_default{% endif %} blog_inert pointer" title="Ниочём">
@@ -58,7 +59,7 @@
                                                         <path d="M0 0h24v24H0z" fill="none"></path>
                                                         <path d="M7 11v2h10v-2H7zm5-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
                                                     </svg>
-                                                    <span class="likes_count margin_right_5">{{ object.inerts_count }}</span></span>
+                                                    <span class="inerts_count margin_right_5">{{ object.inerts_count }}</span></span>
                                             </div>
                                             {% endif %}
                                             <span title="Поделиться" class="btn_default pointer get_blog_repost">

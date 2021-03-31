@@ -6,7 +6,7 @@
               {% csrf_token %}
                   <div class="row attach_block"></div>
                     <div class="col-12">
-                        <textarea name="text" class="form-control mb-2" rows="4"></textarea>
+                        <textarea name="text" class="form-control mb-2 text-comment" rows="4"></textarea>
                     </div>
                     <input type="hidden" name="blog" value="{{ object.pk }}">
                     <div class="col-12">

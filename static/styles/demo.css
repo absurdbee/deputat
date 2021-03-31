@@ -1,5 +1,5 @@
 .comments_block_container .show {
-  display: block;
+  display: block !important;
 }
 .main_nav {
   text-transform:uppercase;display:flex;align-items: center;justify-content: center;

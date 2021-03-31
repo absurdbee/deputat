@@ -83,26 +83,27 @@ class BlogComment(models.Model):
         from common.notify import user_wall, user_notify
         from django.utils import timezone
 
-        if not text or not files or not images:
+        if text or files or images:
+            comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text, created=timezone.now())
+            if parent:
+                blog = parent.blog
+                type = "blr"+str(comment.pk)+",blc"+str(parent.pk)+",blo"+str(blog.pk)
+                user_wall(commenter, type, "u_blog_comment_notify", "REP")
+                user_notify(commenter, type, "u_blog_comment_notify", "REP")
+            else:
+                type = "blc"+str(comment.pk)+", bls"+str(blog.pk)
+                user_wall(commenter, type, "u_blog_comment_notify", "COM")
+                user_notify(commenter, type, "u_blog_comment_notify", "COM")
+            if files:
+                for file in files:
+                    BlogCommentDoc.objects.create(comment=comment, file=file)
+            if images:
+                for image in images:
+                    BlogCommentPhoto.objects.create(comment=comment, file=file)
+            return comment
+        else:
             from rest_framework.exceptions import PermissionDenied
             raise PermissionDenied("Нужно написать текст, вставить картинку или документ")
-        comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text, created=timezone.now())
-        if parent:
-            blog = parent.blog
-            type = "blr"+str(comment.pk)+",blc"+str(parent.pk)+",blo"+str(blog.pk)
-            user_wall(commenter, type, "u_blog_comment_notify", "REP")
-            user_notify(commenter, type, "u_blog_comment_notify", "REP")
-        else:
-            type = "blc"+str(comment.pk)+", bls"+str(blog.pk)
-            user_wall(commenter, type, "u_blog_comment_notify", "COM")
-            user_notify(commenter, type, "u_blog_comment_notify", "COM")
-        if files:
-            for file in files:
-                BlogCommentDoc.objects.create(comment=comment, file=file)
-        if images:
-            for image in images:
-                BlogCommentPhoto.objects.create(comment=comment, file=file)
-        return comment
 
     def count_replies_ru(self):
         count = self.blog_comment_replies.count()

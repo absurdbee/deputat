@@ -83,7 +83,7 @@ class BlogComment(models.Model):
         from common.notify import user_wall, user_notify
         from django.utils import timezone
 
-        if not text:
+        if not text or not files or not images:
             from rest_framework.exceptions import PermissionDenied
             raise PermissionDenied("Нужно написать текст, вставить картинку или документ")
         comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text, created=timezone.now())

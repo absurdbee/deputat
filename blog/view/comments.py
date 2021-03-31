@@ -36,13 +36,19 @@ class BlogReplyCreate(View):
 		parent = BlogComment.objects.get(pk=request.POST.get('post_comment'))
 		if request.is_ajax() and form_post.is_valid():
 			comment = form_post.save(commit=False)
+			files = request.POST.getlist("files")
+			images = request.POST.getlist("images")
+			if not files:
+				files = None
+			if not images:
+				images = None
 			new_comment = comment.create_comment(
 													commenter=request.user,
 													blog=blog,
 													parent=parent,
 													text=comment.text,
-													files = request.POST.getlist("files"),
-													images = request.POST.getlist("images")
+													files = files,
+													images = images
 												)
 			return render(request, 'blog/comment/reply.html',{'reply': new_comment, 'comment': parent,})
 		else:

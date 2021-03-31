@@ -11,8 +11,8 @@ MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 from stst.models import BlogNumbers
 
 
-class BlogDetailView(TemplateView, CategoryListMixin):
-	template_name = None
+class BlogDetailView(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
 		from common.utils import get_full_template
@@ -45,6 +45,10 @@ class BlogDetailView(TemplateView, CategoryListMixin):
 		context["object"] = self.blog
 		context["last_articles"] = Blog.objects.only("pk")[:6]
 		return context
+
+	def get_queryset(self):
+		return self.blog.get_comments()
+		
 
 class ProectNewsView(ListView, CategoryListMixin):
 	template_name, paginate_by = "blog/blog_news.html", 15

@@ -39,7 +39,7 @@ def user_notify(creator, attach, socket_name, verb):
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb="G"+verb, object_set=notify)
         else:
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb)
-            send_notify_socket(attach[3:], user_id, socket_name)
+            #send_notify_socket(attach[3:], user_id, socket_name)
 
 def user_wall(creator, attach, socket_name, verb):
     from notify.models import Wall
@@ -57,7 +57,7 @@ def user_wall(creator, attach, socket_name, verb):
         Notify.objects.create(creator_id=creator.pk, attach=attach, verb="G"+verb, object_set=notify)
     else:
         Notify.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb)
-    send_wall_socket(attach[3:], socket_name)
+    #send_wall_socket(attach[3:], socket_name)
 
 
 def get_notify(user, notify):

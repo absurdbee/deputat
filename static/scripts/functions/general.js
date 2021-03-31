@@ -346,7 +346,7 @@ function send_comment(form, block, link, prepend) {
             elem = link_.responseText;
             new_post = document.createElement("span");
             new_post.innerHTML = elem;
-            prepend ? block.prepend(new_post) : block.append(new_post);
+            prepend == "prepend" ? block.prepend(new_post) : block.append(new_post);
             block.append(new_post);
             toast_success(" Комментарий опубликован");
             form.querySelector(".attach_block").innerHTML = "";

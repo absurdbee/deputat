@@ -215,7 +215,7 @@ on('body', 'click', '.menu_nav_2', function() {
 })
 
 on('body', 'click', '.reply_comment', function() {
-  first_name = this.parentElement.parentElement.querySelector(".first_name").innerHTML;
+  first_name = this.parentElement.parentElement.parentElement.querySelector(".first_name").innerHTML;
   console.log(first_name)
   div = this.parentElement.nextElementSibling;
   input = div.querySelector(".text-comment");

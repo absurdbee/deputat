@@ -90,12 +90,12 @@ class BlogComment(models.Model):
         if parent:
             blog = parent.blog
             type = "blr"+str(comment.pk)+",blc"+str(parent.pk)+",blo"+str(blog.pk)
-            user_wall(commenter, None, type, "u_blog_comment_notify", "REP")
-            user_notify(commenter, blog.creator.pk, None, type, "u_blog_comment_notify", "REP")
+            user_wall(commenter, type, "u_blog_comment_notify", "REP")
+            user_notify(commenter, type, "u_blog_comment_notify", "REP")
         else:
             type = "blc"+str(comment.pk)+", bls"+str(blog.pk)
-            user_wall(commenter, None, type, "u_blog_comment_notify", "COM")
-            user_notify(commenter, blog.creator.pk, None, type, "u_blog_comment_notify", "COM")
+            user_wall(commenter, type, "u_blog_comment_notify", "COM")
+            user_notify(commenter, type, "u_blog_comment_notify", "COM")
         if files:
             for file in files:
                 BlogCommentDoc.objects.create(comment=comment, file=file)

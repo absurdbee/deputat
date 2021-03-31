@@ -226,3 +226,6 @@ on('body', 'click', '.reply_comment', function() {
 on('#ajax', 'click', '.show_replies', function() {
   this.nextElementSibling.classList.toggle("show")
 })
+on('#ajax', 'click', '.hide_comment_form', function() {
+  this.parentElement.parentElement.parentElement.parentElement.style.display = "none";
+})

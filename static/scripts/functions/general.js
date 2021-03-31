@@ -334,7 +334,7 @@ function ajax_get_reload(url) {
     ajax_link.send();
 }
 
-function send_comment(form, block, link) {
+function send_comment(form, block, link, prepend) {
     form_comment = new FormData(form);
     link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     link_.open('POST', link, true);
@@ -346,6 +346,7 @@ function send_comment(form, block, link) {
             elem = link_.responseText;
             new_post = document.createElement("span");
             new_post.innerHTML = elem;
+            prepend ? block.prepend(new_post) : block.append(new_post);
             block.append(new_post);
             toast_success(" Комментарий опубликован");
             form.querySelector(".attach_block").innerHTML = "";

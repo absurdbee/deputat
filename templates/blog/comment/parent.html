@@ -8,7 +8,7 @@
             </div>
             <div class="media-body"  data-pk="{{ comment.pk }}">
                 <h6 class="font-weight-bolder mb-25"><span class="first_name">{{ comment.commenter.first_name }}</span> {{ comment.commenter.last_name }}</h6>
-                <span class="card-text text-muted">{{ comment.get_created }}</span><br>
+                <span class="text-muted small">{{ comment.get_created }}</span><br>
                 <span class="card-text">{{ comment.text }}</span><br>
                     <div class="d-inline-flex align-items-center pointer">
                       <span class="like blog_comment_like {% if comment.likes|user_in:request.user %}btn_success{% else %}btn_default{% endif %} pointer" title="Нравится">
@@ -19,7 +19,7 @@
                       <svg class="svg_info reply_comment" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
                     </div>
 
-                    <div style="display:none">
+                    <div style="display:none;margin-bottom:5px">
                     <form class="form">
                       {% csrf_token %}
                           <div class="row attach_block"></div>

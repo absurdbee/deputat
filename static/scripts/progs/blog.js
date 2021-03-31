@@ -5,7 +5,7 @@ on('#ajax', 'click', '.blogComment', function() {
 
 on('#ajax', 'click', '.blogReplyComment', function() {
   form = this.parentElement.parentElement;
-  block = form.parentElement.parentElement.parentElement.nextElementSibling.nextElementSibling;
+  block = form.parentElement.parentElement.parentElement.parentElement.nextElementSibling.nextElementSibling;
   send_comment(form, block, '/blog/blog_reply/', "append")
   form.parentElement.style.display = "none";
   block.classList.add("show");

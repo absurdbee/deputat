@@ -19,6 +19,7 @@
                           <span class="likes_count">{{ comment.likes_count }}</span>
                         </span>
                     </div>
+
                     <div style="display:none">
                     <form class="form">
                       {% csrf_token %}
@@ -26,7 +27,7 @@
                             <div class="col-12">
                                 <textarea name="text" class="form-control mb-2" rows="4"></textarea>
                             </div>
-                            <input type="hidden" name="blog" value="{{ object.pk }}">
+                            <input type="hidden" name="post_comment" value="{{ comment.pk }}">
                             <div class="col-12">
                                 <button type="button" class="btn btn-primary blogReplyComment">Комментировать</button>
                             </div>

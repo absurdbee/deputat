@@ -10,7 +10,7 @@ class BlogCommentCreate(View):
 		from django.shortcuts import render
 
 		form_post = BlogCommentForm(request.POST)
-		blog = Blog.objects.get(pk=request.POST.get('pk'))
+		blog = Blog.objects.get(pk=request.POST.get('blog'))
 		if request.is_ajax() and form_post.is_valid() and blog.comments_enabled:
 			comment = form_post.save(commit=False)
 			new_comment = comment.create_comment(

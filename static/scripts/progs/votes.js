@@ -119,7 +119,7 @@ on('body', 'click', '.blog_inert', function() {
 });
 
 on('body', 'click', '.blog_comment_like', function() {
-  item = this.parentElementюparentElement;
+  item = this.parentElement.parentElement;
   like = item.querySelector(".like");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.overrideMimeType("application/json");

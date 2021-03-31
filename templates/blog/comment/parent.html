@@ -7,7 +7,7 @@
                 <img src="{{ comment.commenter.get_avatar }}" width="38" height="38" alt="Avatar">
             </div>
             <div class="media-body"  data-pk="{{ comment.pk }}">
-                <h6 class="font-weight-bolder mb-25"><span class="first_name">{{ reply.commenter.first_name }}</span> {{ reply.commenter.last_name }}</h6>
+                <h6 class="font-weight-bolder mb-25"><span class="first_name">{{ comment.commenter.first_name }}</span> {{ comment.commenter.last_name }}</h6>
                 <p class="card-text">{{ comment.get_created }}</p>
                 <p class="card-text">{{ comment.text }}</p>
                     <div class="d-inline-flex align-items-center pointer">

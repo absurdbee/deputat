@@ -4,10 +4,16 @@
     <div class="card-body" style="padding: .5rem .5rem;">
         <div class="media">
             <div class="avatar mr-75">
-                <img src="{{ comment.commenter.get_avatar }}" width="30" height="30" alt="Avatar">
+              <a href="{% url 'user' pk=reply.commenter.pk %}" class="ajax">
+                <img src="{{ reply.commenter.get_avatar }}" width="38" height="38" alt="Avatar">
+              </a>
             </div>
             <div class="media-body" data-pk="{{ reply.pk }}">
-                <h6 class="font-weight-bolder mb-25"><span class="first_name">{{ reply.commenter.first_name }}</span> {{ reply.commenter.last_name }}</h6>
+                <h6 class="font-weight-bolder mb-25">
+                  <a href="{% url 'user' pk=reply.commenter.pk %}" class="ajax">
+                    <span class="first_name">{{ reply.commenter.first_name }}</span> {{ reply.commenter.last_name }}
+                  </a>
+                </h6>
                 <span class="text-muted small">{{ reply.get_created }}</span><br>
                 <span class="card-text">{{ reply.text }}</span><br>
                     <div class="d-inline-flex align-items-center pointer">

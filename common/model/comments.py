@@ -80,7 +80,7 @@ class BlogComment(models.Model):
 
     @classmethod
     def create_comment(cls, commenter, blog, parent, text, files, images):
-        from common.notify.notify import user_wall, user_notify
+        from common.notify import user_wall, user_notify 
 
         if not text or not files or not images:
             from rest_framework.exceptions import PermissionDenied

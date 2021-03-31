@@ -8,7 +8,7 @@
                 <img src="{{ comment.commenter.get_avatar }}" width="38" height="38" alt="Avatar">
               </a>
             </div>
-            <div class="media-body"  data-pk="{{ comment.pk }}">
+            <div class="media-body">
                 <h6 class="font-weight-bolder mb-25">
                   <a href="{% url 'user' pk=comment.commenter.pk %}" class="ajax">
                     <span class="first_name">{{ comment.commenter.first_name }}</span> {{ comment.commenter.last_name }}
@@ -16,6 +16,8 @@
                 </h6>
                 <span class="text-muted small">{{ comment.get_created }}</span><br>
             </div>
+
+            <div class="media-footer"  data-pk="{{ comment.pk }}">
             <span class="card-text">{{ comment.text }}</span><br>
 
             {% if comment.is_have_docs %}
@@ -64,6 +66,7 @@
                         </div>
                 </form>
                 </div>
+              </div>
         </div>
     </div>
     <span style="cursor:pointer;text-align:center" class="show_replies content-color-primary">

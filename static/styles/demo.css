@@ -1,3 +1,9 @@
+@media (min-width: 576px) {
+  .comment_footer {
+    margin-left : 5rem;
+  }
+}
+
 .image_fit_150 {
     object-fit: cover;
     max-height: 150px;

@@ -17,7 +17,8 @@
                 <span class="text-muted small">{{ comment.get_created }}</span><br>
             </div>
         </div>
-        <div class="media-footer"  data-pk="{{ comment.pk }}">
+
+        <div class="comment_footer"  data-pk="{{ comment.pk }}">
         <span class="card-text">{{ comment.text }}</span><br>
 
         {% if comment.is_have_docs %}

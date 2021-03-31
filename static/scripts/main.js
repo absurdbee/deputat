@@ -213,3 +213,11 @@ on('body', 'click', '.menu_nav_2', function() {
     parent.nextElementSibling.nextElementSibling.style.display = "block";
   }
 })
+
+on('body', 'click', '.reply_comment', function() {
+  div = this.parentElement.nextElementSibling;
+  input = div.querySelector(".text-comment");
+  input.value = this.parentElement.parentElement.querySelector(".first_name") + ', ';
+  div.style.display = "block";
+  input.focus();
+})

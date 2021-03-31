@@ -6,8 +6,8 @@
             <div class="avatar mr-75">
                 <img src="{{ comment.commenter.get_avatar }}" width="38" height="38" alt="Avatar">
             </div>
-            <div class="media-body">
-                <h6 class="font-weight-bolder mb-25">{{ comment.commenter.get_full_name }}</h6>
+            <div class="media-body"  data-pk="{{ comment.pk }}">
+                <h6 class="font-weight-bolder mb-25"><span class="first_name">{{ reply.commenter.first_name }}</span> {{ reply.commenter.last_name }}</h6>
                 <p class="card-text">{{ comment.get_created }}</p>
                 <p class="card-text">{{ comment.text }}</p>
                     <div class="d-inline-flex align-items-center pointer">
@@ -16,7 +16,7 @@
                         <span class="likes_count">{{ comment.likes_count }}</span>
                       </span>
                       &nbsp;&nbsp;
-                      <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
+                      <svg class="svg_info reply_comment" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/></svg>
                     </div>
 
                     <div style="display:none">

@@ -123,7 +123,7 @@ on('body', 'click', '.blog_comment_like', function() {
   like = item.querySelector(".like");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.overrideMimeType("application/json");
-  link.open( 'GET', "/blog/votes/blog_comment_like/" + item.getAttribute("data-pk"); + "/", true );
+  link.open( 'GET', "/blog/votes/blog_comment_like/" + item.getAttribute("data-pk") + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {

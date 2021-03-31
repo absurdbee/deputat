@@ -47,7 +47,7 @@ class BlogDetailView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		return self.blog.get_comments().reverse()
+		return self.blog.get_comments()
 
 
 class ProectNewsView(ListView, CategoryListMixin):

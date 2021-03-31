@@ -8,8 +8,8 @@ urlpatterns = [
     url(r'^news/$', ProectNewsView.as_view(), name="proect_news"),
     url(r'^comments/(?P<pk>\d+)/$', BlogCommentList.as_view()),
 
-    url(r'^add_blog_comment/$', login_required(BlogCommentCreate.as_view())),
-    url(r'^reply_blog_comment/$', login_required(BlogReplyCreate.as_view())),
+    url(r'^blog_comment/$', login_required(BlogCommentCreate.as_view())),
+    url(r'^blog_reply/$', login_required(BlogReplyCreate.as_view())),
     url(r'^delete_blog_comment/(?P<pk>\d+)/$', login_required(BlogCommentDelete.as_view())),
     url(r'^abort_delete_blog_comment/(?P<pk>\d+)/$', login_required(BlogCommentAbortDelete.as_view())),
 

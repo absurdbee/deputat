@@ -16,11 +16,11 @@
                 </h6>
                 <span class="text-muted small">{{ reply.get_created }}</span><br>
                 <span class="card-text">{{ reply.text }}</span><br>
-                
-                {% if comment.is_have_docs %}
+
+                {% if reply.is_have_docs %}
                 is_have_docs
                 {% endif %}
-                {% if comment.is_have_images %}
+                {% if reply.is_have_images %}
                 is_have_images
                 {% endif %}
 

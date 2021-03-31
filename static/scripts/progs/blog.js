@@ -1,5 +1,5 @@
 on('#ajax', 'click', '.blogComment', function() {
-  form = this.parentElement.parentElement.parentElement;
+  form = this.parentElement.parentElement;
   send_comment(form, form.parentElement.previousElementSibling, '/posts/user_progs/post-comment/');
 });
 

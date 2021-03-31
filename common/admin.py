@@ -21,7 +21,7 @@ class BlogCommentAdmin(admin.ModelAdmin):
     search_fields = ['created','text','commenter']
 
     inlines = [
-        BlogCommentDoc,
+        BlogCommentDocInline,
         BlogCommentPhotoInline,
     ]
 

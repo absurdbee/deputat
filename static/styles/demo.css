@@ -1,3 +1,10 @@
+.image_fit_150 {
+    object-fit: cover;
+    max-height: 150px;
+    height: 100%;
+    width: 100%;
+}
+
 .comments_block_container .show {
   display: block !important;
 }

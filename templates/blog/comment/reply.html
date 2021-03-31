@@ -18,10 +18,14 @@
                 <span class="card-text">{{ reply.text }}</span><br>
 
                 {% if reply.is_have_docs %}
-                is_have_docs
+                is_have_docs<br>
                 {% endif %}
                 {% if reply.is_have_images %}
-                is_have_images
+                  {% for image in reply.get_images %}
+                    <span style="flex-basis: 50%;">
+                      <img src="{{ image.file.url }}" class="image_fit_150" alt="img">
+                    </span>
+                  {% endfor %}
                 {% endif %}
 
                     <div class="d-inline-flex align-items-center pointer">

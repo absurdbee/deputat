@@ -8,7 +8,7 @@
             </div>
             <div class="media-body" data-pk="{{ reply.pk }}">
                 <h6 class="font-weight-bolder mb-25"><span class="first_name">{{ reply.commenter.first_name }}</span> {{ reply.commenter.last_name }}</h6>
-                <p class="card-text">{{ reply.get_created }}</p>
+                <p class="card-text text-muted">{{ reply.get_created }}</p>
                 <p class="card-text">{{ reply.text }}</p>
                     <div class="d-inline-flex align-items-center pointer">
                       <span class="like blog_reply_like {% if comment.likes|user_in:request.user %}btn_success{% else %}btn_default{% endif %} pointer" title="Нравится">

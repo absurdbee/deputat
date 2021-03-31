@@ -21,13 +21,11 @@
     {% for comment in object_list %}
 
     {% if comment.is_deleted %}
-    <div class="col-12">
       <div class="card" style="margin-bottom: .5rem;">
         <div class="card-body">
           <p style="display: flex; padding-left:10px;margin: 0;text-decoration:underline">Комментарий удален</p>
         </div>
       </div>
-    </div>
       <span style="cursor:pointer;" class="show_replies content-color-primary">
           {% if comment.count_replies %}
           ---- {{ comment.count_replies_ru }} ----

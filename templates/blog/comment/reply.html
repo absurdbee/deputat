@@ -5,7 +5,7 @@
         <div class="media">
             <div class="avatar mr-75">
               <a href="{% url 'user' pk=reply.commenter.pk %}" class="ajax">
-                <img src="{{ reply.commenter.get_avatar }}" width="38" height="38" alt="Avatar">
+                <img src="{{ reply.commenter.get_avatar }}" width="28" height="28" alt="Avatar">
               </a>
             </div>
             <div class="media-body" data-pk="{{ reply.pk }}">
@@ -53,7 +53,6 @@
                     <button type="button" class="btn btn-danger btn-sm hide_comment_form float-right" style="margin-left:5px">x</button>
                     <button type="button" class="btn btn-primary btn-sm blogReplyParentComment float-right">Комментировать</button>
                   </div>
-
             </form>
             </div>
           </div>

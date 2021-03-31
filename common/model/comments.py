@@ -160,6 +160,7 @@ class ElectNewComment(models.Model):
         indexes = (BrinIndex(fields=['created']), )
         verbose_name = "комментарий к новости депутата"
         verbose_name_plural = "комментарии к новости депутата"
+        ordering = ["-created"]
 
     def __str__(self):
         return "{0}/{1}".format(self.commenter.get_full_name(), self.text[:10])

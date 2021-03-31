@@ -1,6 +1,6 @@
 on('#ajax', 'click', '.blogComment', function() {
   form = this.parentElement.parentElement;
-  send_comment(form, form.parentElement.parentElement.parentElement.previousElementSibling, '/blog/blog_comment/');
+  send_comment(form, form.parentElement.parentElement.parentElement.nextElementSibling, '/blog/blog_comment/');
 });
 
 on('#ajax', 'click', '.blogReplyComment', function() {

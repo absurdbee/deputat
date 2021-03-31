@@ -24,7 +24,7 @@
 
                   {% if reply.is_have_images %}
                     {% for image in reply.get_images %}
-                      <span class="col-md-6">
+                      <span class="col-md-6" style="padding:5px">
                         <img src="{{ image.file.url }}" class="image_fit_150" alt="img">
                       </span>
                     {% endfor %}

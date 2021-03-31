@@ -47,8 +47,8 @@ class BlogDetailView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		return self.blog.get_comments()
-		
+		return self.blog.get_comments().reverse()
+
 
 class ProectNewsView(ListView, CategoryListMixin):
 	template_name, paginate_by = "blog/blog_news.html", 15

@@ -8,7 +8,7 @@ on('#ajax', 'click', '.blogReplyComment', function() {
   block = form.parentElement.parentElement.nextElementSibling.nextElementSibling;
   send_comment(form, block, '/blog/blog_reply/', "append")
   form.parentElement.style.display = "none";
-  block.classList.add("replies_open");
+  block.classList.add("show");  
 });
 
 on('#ajax', 'click', '.blogReplyParentComment', function() {

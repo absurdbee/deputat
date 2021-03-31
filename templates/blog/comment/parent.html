@@ -1,7 +1,7 @@
 {% load filters %}
 
 <div class="card">
-    <div class="card-body">
+    <div class="card-body" style="padding: .5rem .5rem;">
         <div class="media">
             <div class="avatar mr-75">
                 <img src="{{ comment.commenter.get_avatar }}" width="38" height="38" alt="Avatar">
@@ -36,7 +36,7 @@
             </div>
         </div>
     </div>
-    <span style="cursor:pointer;text-align:center" class="show_replies content-color-primary mb-1">
+    <span style="cursor:pointer;text-align:center" class="show_replies content-color-primary">
       {% if comment.count_replies %}
     ----  {{ comment.count_replies_ru }} ----
       {% endif %}

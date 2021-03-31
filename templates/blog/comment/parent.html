@@ -42,9 +42,13 @@
             <span class="stream_reply_comments">
               {% for reply in comment.get_replies %}
                 {% if reply.is_deleted %}
-                  <div class="comment">
-                    <p class="underline" style="display: flex;">Комментарий удален</p>
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <p style="display: flex; padding-left:10px;margin: 0;text-decoration:underline">Комментарий удален</p>
+                    </div>
                   </div>
+                </div>
                 {% else %}
                   {% include 'blog/comment/reply.html' %}
                 {% endif %}

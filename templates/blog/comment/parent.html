@@ -24,7 +24,7 @@
                       {% csrf_token %}
                           <div class="row attach_block"></div>
                             <div class="col-12">
-                                <textarea name="text" class="form-control mb-2" rows="3"></textarea>
+                                <textarea name="text" class="form-control mb-2 text-comment" rows="3"></textarea>
                             </div>
                             <input type="hidden" name="post_comment" value="{{ comment.pk }}">
                             <div class="col-12">

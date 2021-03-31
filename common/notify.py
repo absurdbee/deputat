@@ -5,23 +5,23 @@ from notify.models import Notify, Wall
 def get_news():
     # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
     query = Q(object_set__isnull=True)
-    return Notify.objects.filter(query)
+    return Wall.objects.filter(query)
 
 def get_region_news(name):
     # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
     query = Q(object_set__isnull=True) & Q(options__icontains=name)
-    return Notify.objects.filter(query)
+    return Wall.objects.filter(query)
 
 
 def get_my_news(user):
     query = Q(creator_id__in=user.get_user_news_notify_ids())|\
             Q(creator_id__in=user.get_user_profile_notify_ids())
     query.add(Q(user_set__isnull=True, object_set__isnull=True), Q.AND)
-    return Notify.objects.filter(query)
+    return Wall.objects.filter(query)
 
 def get_draft_news(user):
     query = Q(verb="SIT") & Q(user_set__isnull=True, object_set__isnull=True)
-    return Notify.objects.filter(query)
+    return Wall.objects.filter(query)
 
 def user_notify(creator, attach, socket_name, verb):
     from notify.models import Notify

@@ -38,7 +38,7 @@ class BlogReplyCreate(View):
 			comment = form_post.save(commit=False)
 			new_comment = comment.create_comment(
 													commenter=request.user,
-													blog=blog,
+													blog=parent.blog,
 													parent=parent,
 													text=comment.text,
 													files = request.POST.getlist("files"),

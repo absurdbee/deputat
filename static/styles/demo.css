@@ -1,3 +1,6 @@
+.stream_reply_comments .show {
+  display: block;
+}
 .main_nav {
   text-transform:uppercase;display:flex;align-items: center;justify-content: center;
 }

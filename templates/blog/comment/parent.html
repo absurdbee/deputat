@@ -41,7 +41,7 @@
       {% endif %}
     </span>
 
-    <span class="stream_reply_comments">
+    <span class="stream_reply_comments" style="display:none">
       {% for reply in comment.get_replies %}
         {% if reply.is_deleted %}
         <div class="col-12">

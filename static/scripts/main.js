@@ -223,3 +223,6 @@ on('body', 'click', '.reply_comment', function() {
   div.style.display = "block";
   input.focus();
 })
+on('#ajax', 'click', '.show_replies', function() {
+  this.nextElementSibling.classList.toggle("show")
+})

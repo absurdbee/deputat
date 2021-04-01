@@ -15,8 +15,8 @@ on('#ajax', 'click', '#edit_user_info_btn', function() {
     field2.style.border = "1px #FF0000 solid";
     toast_error("Введите Вашу фамилию!"); return
   };
-  send_form_and_toast('/users/edit/', form, "Изменения приняты!");
-  field1.value = ""; field2.value = ""; field1.style.border = "1px #D8D6DE solid";field2.style.border = "1px #D8D6DE solid";
+  send_form_and_toast('/users/settings/', form, "Изменения приняты!");
+  field1.style.border = "1px #D8D6DE solid";field2.style.border = "1px #D8D6DE solid";
 });
 
 on('#ajax', 'click', '#edit_user_password_btn', function() {

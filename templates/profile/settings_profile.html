@@ -2,6 +2,8 @@
 {% block title %}Изменение профиля{% endblock %}
 {% block content %}
 
+<div class="row">
+  <div class="col-md-9">
 <div class="card">
     <div class="card-header">
         <h4 class="card-title">Изменение профиля</h4>
@@ -62,5 +64,26 @@
         </form>
     </div>
 </div>
-
+</div>
+<div class="col-md-3">
+  <div class="card">
+    <ul class="list-group">
+      <li class="list-group-item active">Основное</li>
+      <li class="list-group-item">
+        <a class="ajax" href="">
+          О себе
+        <a>
+      </li>
+      <li class="list-group-item">
+        <a class="ajax" href="{% url 'settings_notify' %}">Уведомления<a>
+      </li>
+      <li class="list-group-item">
+        <a class="ajax" href="{% url 'settings_private' %}">Приватность<a>
+        </li>
+      <li class="list-group-item">
+        <a class="ajax" href="{% url 'settings_quard' %}">Безопасность<a>
+      </li>
+    </ul>
+  </div>
+</div>
 {% endblock %}

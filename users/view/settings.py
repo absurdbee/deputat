@@ -33,61 +33,61 @@ class UserProfileSettings(TemplateView):
 
 
 class UserNotifySettings(TemplateView):
-	template_name, form = None, None
+    template_name, form = None, None
 
-	def get(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         from users.forms import UserNotifyForm
 
-		self.template_name = get_my_template("profile/settings_notify.html", request.user, request.META['HTTP_USER_AGENT'])
-		try:
-			self.notify = UserNotifications.objects.get(user=request.user)
-		except:
-			self.notify = UserNotifications.objects.create(user=request.user)
-		self.form = UserNotifyForm(instance=self.notify)
-		return super(UserNotifySettings,self).get(request,*args,**kwargs)
+        self.template_name = get_my_template("profile/settings_notify.html", request.user, request.META['HTTP_USER_AGENT'])
+        try:
+            self.notify = UserNotifications.objects.get(user=request.user)
+        except:
+            self.notify = UserNotifications.objects.create(user=request.user)
+        self.form = UserNotifyForm(instance=self.notify)
+        return super(UserNotifySettings,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(UserNotifySettings,self).get_context_data(**kwargs)
-		context["form"] = self.form
-		context["notify"] = self.notify
-		context["user"] = self.request.user
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(UserNotifySettings,self).get_context_data(**kwargs)
+        context["form"] = self.form
+        context["notify"] = self.notify
+        context["user"] = self.request.user
+        return context
 
-	def post(self,request,*args,**kwargs):
-        from users.forms import UserNotifyForm
+    def post(self,request,*args,**kwargs):
+        from users.forms import UserNotifyFory
 
-		self.notify = UserNotifications.objects.get(user=request.user)
-		self.form = UserNotifyForm(request.POST, instance=self.notify)
-		if request.is_ajax() and self.form.is_valid():
-			self.form.save()
-			return HttpResponse()
+        self.notify = UserNotifications.objects.get(user=request.user)
+        self.form = UserNotifyForm(request.POST, instance=self.notify)
+        if request.is_ajax() and self.form.is_valid():
+            self.form.save()
+        return HttpResponse()
 
 
 class UserPrivateSettings(TemplateView):
-	template_name, form = None, None
+    template_name, form = None, None
 
-	def get(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         from users.forms import UserPrivateForm
 
-		try:
-			self.private = UserPrivate.objects.get(user=request.user)
-		except:
-			self.private = UserPrivate.objects.create(user=request.user)
-		self.form = UserPrivateForm(instance=self.private)
-		self.template_name = get_my_template("profile/settings_private.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(UserPrivateSettings,self).get(request,*args,**kwargs)
+        try:
+            self.private = UserPrivate.objects.get(user=request.user)
+        except:
+            self.private = UserPrivate.objects.create(user=request.user)
+        self.form = UserPrivateForm(instance=self.private)
+        self.template_name = get_my_template("profile/settings_private.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserPrivateSettings,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(UserPrivateSettings,self).get_context_data(**kwargs)
-		context["user"] = self.request.user
-		context["form"] = self.form
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(UserPrivateSettings,self).get_context_data(**kwargs)
+        context["user"] = self.request.user
+        context["form"] = self.form
+        return context
 
-	def post(self,request,*args,**kwargs):
+    def post(self,request,*args,**kwargs):
         from users.forms import UserPrivateForm
 
-		self.private = UserPrivate.objects.get(user=request.user)
-		self.form = UserPrivateForm(request.POST, instance=self.private)
-		if request.is_ajax() and self.form.is_valid():
-			self.form.save()
-			return HttpResponse()
+        self.private = UserPrivate.objects.get(user=request.user)
+        self.form = UserPrivateForm(request.POST, instance=self.private)
+        if request.is_ajax() and self.form.is_valid():
+            self.form.save()
+        return HttpResponse()

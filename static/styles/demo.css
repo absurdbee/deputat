@@ -22,6 +22,9 @@
 .switch.switch-sm:checked + label:before {
     left: 20px;
 }
+.card-body .bg_success {
+    background: #0ca772;
+}
 .switch.switch-sm + label {
     width: 40px;
     height: 20px;

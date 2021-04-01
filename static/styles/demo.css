@@ -16,7 +16,12 @@
 .switch:not(:checked) + label {
     background-color: #040404;
 }
-
+.switch {
+    display: none;
+}
+.switch.switch-sm:checked + label:before {
+    left: 20px;
+}
 .switch.switch-sm + label {
     width: 40px;
     height: 20px;

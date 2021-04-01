@@ -1,3 +1,45 @@
+.switch.switch-sm + label:before {
+    width: 18px;
+    height: 18px;
+}
+.switch + label {
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    position: relative;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+    margin: 0;
+    cursor: pointer;
+}
+.switch:not(:checked) + label {
+    background-color: #040404;
+}
+
+.switch.switch-sm + label {
+    width: 40px;
+    height: 20px;
+    margin-top: 2px;
+}
+.switch:not(:checked) + label {
+    background-image: none !important;
+}
+.switch + label:before {
+    content: '';
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 7px 0px rgb(0 0 0 / 20%);
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    display: block;
+    z-index: 1;
+    margin-top: 0px;
+}
+
 @media (min-width: 576px) {
   .comment_footer {
     margin-left : 3rem;

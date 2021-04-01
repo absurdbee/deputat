@@ -91,3 +91,11 @@ class UserPrivateSettings(TemplateView):
         if request.is_ajax() and self.form.is_valid():
             self.form.save()
         return HttpResponse()
+
+
+class UserQuardSettings(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_my_template("users/settings_quard.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserGeneralChange,self).get(request,*args,**kwargs)

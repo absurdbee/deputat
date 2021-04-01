@@ -22,8 +22,7 @@ class User(AbstractUser):
         (MANAGER, 'Менеджер'),
         (SUPERMANAGER, 'Суперменеджер'),
     )
-    GENDER = ((MALE, 'Мужской'),(FEMALE, 'Женский'),)
-    DEVICE = ((DESCTOP, 'Комп'),(PHONE, 'Телефон'),)
+    GENDER, DEVICE = ((MALE, 'Мужской'),(FEMALE, 'Женский'),), ((DESCTOP, 'Комп'),(PHONE, 'Телефон'),)
 
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     phone = models.CharField(max_length=17, blank=True, null=True, verbose_name='Телефон')

@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^phone_verify/$', MainPhoneSend.as_view(), name="phone_send"),
 
     url(r'^progs/', include('users.url.progs')),
+    url(r'^settings/', include('users.url.settings')),
 ]

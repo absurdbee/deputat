@@ -53,7 +53,7 @@
                     </li>
                 </ul>
                 <div class="row">
-                    <div class="col-xl-9 col-lg-8 col-md-7">
+                    <div class="col-lg-8 col-md-7">
                         <div class="card user-card">
                             <div class="card-body">
                                 <div class="row">
@@ -65,13 +65,6 @@
                                                     <div class="user-info mb-1">
                                                         <h4 class="mb-0">{{ user.get_full_name }}</h4>
                                                         <span class="card-text"></span>
-                                                    </div>
-                                                    <div class="d-flex flex-wrap">
-                                                        {% if user.pk == request.user.pk %}
-                                                          <a href="/users/edit/" class="card-text user-info-title font-weight-bold mb-0 ajax">Редактировать</a>
-                                                          &nbsp;&nbsp;
-                                                          <a href="/users/edit_password/" class="card-text user-info-title font-weight-bold mb-0 ajax">Изменить пароль</a>
-                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,7 +106,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-5">
+                    <div class="col-lg-4 col-md-5">
                             <div class="card plan-card border-primary" style="border: 1px solid #7367F0 !important;">
                                 <div class="card-header d-flex justify-content-between align-items-center pt-75 pb-1">
                                   <h5 class="mb-0">Ваша карма</h5>

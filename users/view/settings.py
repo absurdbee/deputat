@@ -97,5 +97,5 @@ class UserQuardSettings(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_my_template("users/settings_quard.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/settings_quard.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserQuardSettings,self).get(request,*args,**kwargs)

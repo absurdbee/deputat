@@ -81,6 +81,7 @@ class UserPrivateSettings(TemplateView):
         context = super(UserPrivateSettings,self).get_context_data(**kwargs)
         context["user"] = self.request.user
         context["form"] = self.form
+		context["private"] = self.private
         return context
 
     def post(self,request,*args,**kwargs):

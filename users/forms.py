@@ -1,6 +1,6 @@
 from django import forms
 from users.models import User
-from users.model.settings import UserNotifications, UserPrivate
+from users.model.settings import *
 
 
 class UserForm(forms.ModelForm):
@@ -22,3 +22,8 @@ class UserPrivateForm(forms.ModelForm):
     class Meta:
         model = UserPrivate
         fields = ('city','networks','old','other',)
+
+class UserAboutForm(forms.ModelForm):
+    class Meta:
+        model = UserAbout
+        fields = ('education','employment','birthday',)

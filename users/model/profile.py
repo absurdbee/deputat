@@ -54,3 +54,38 @@ class Bookmarks(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+
+class UserInfo(models.Model):
+    NO_VALUE = "NOV"
+    EDUCATION_HIGH = 'EDH'
+    EDUCATION_MEDIUM = 'EDM'
+    EDUCATION_LOW = 'EDL'
+
+    EDUCATION = 'EDU'
+    MEDICAL = 'MED'
+    IT = 'IT'
+
+    EDUCATION = (
+        (NO_VALUE, 'Не выбрано'),
+        (EDUCATION_HIGH, 'Высшее образование'),
+        (EDUCATION_MEDIUM, 'Среднее специальное'),
+        (EDUCATION_LOW, 'Среднее'),
+    )
+    EMPLOYMENT = (
+        (NO_VALUE, 'Не выбрано'),
+        (EDUCATION, 'Образование'),
+        (MEDICAL, 'Медицина'),
+        (IT, 'IT'),
+    )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_info', verbose_name="Пользователь")
+    education = models.CharField(max_length=5, choices=EDUCATION, default=NO_VALUE, verbose_name="Образование")
+    employment = models.CharField(max_length=5, choices=EMPLOYMENT, default=NO_VALUE, verbose_name="Сфера занятости")
+    birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
+
+    class Meta:
+        verbose_name = "Информация о пользователе"
+        verbose_name_plural = "Информация о пользователях"
+
+    def __str__(self):
+        return self.user.get_full_name()

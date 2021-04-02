@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="col-sm-9 offset-sm-3">
-                    <button type="button" class="btn btn-primary float-right" id="edit_user_info_btn">Сохранить</button>
+                    <button type="button" class="btn btn-primary float-right" id="edit_user_profile_btn">Сохранить</button>
                 </div>
             </div>
         </form>
@@ -70,7 +70,7 @@
     <ul class="list-group">
       <li class="list-group-item" style="text-decoration:underline">Основное</li>
       <li class="list-group-item">
-        <a class="ajax" href="">
+        <a class="ajax" href="{% url 'settings_notify' %}">
           О себе
         </a>
       </li>

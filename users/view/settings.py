@@ -99,3 +99,33 @@ class UserQuardSettings(TemplateView):
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_my_template("profile/settings_quard.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserQuardSettings,self).get(request,*args,**kwargs)
+
+
+class UserAboutSettings(TemplateView):
+	template_name, form = None, None
+
+	def get(self,request,*args,**kwargs):
+		from users.forms import UserInfoForm
+		try:
+			self.info = UserInfo.objects.get(user=request.user)
+		except:
+			self.info = UserInfo.objects.create(user=request.user)
+		self.form = UserInfoForm(instance=self.info)
+		self.template_name = get_my_template("profile/settings_about.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserAboutSettings,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserAboutSettings,self).get_context_data(**kwargs)
+		context["user"] = self.request.user
+		context["form"] = self.form
+		context["info"] = self.info
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from users.forms import UserInfoForm
+
+		self.info = UserInfo.objects.get(user=request.user)
+		self.form = UserInfoForm(request.POST, instance=self.info)
+		if request.is_ajax() and self.form.is_valid():
+			self.form.save()
+		return HttpResponse()

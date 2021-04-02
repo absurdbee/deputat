@@ -260,3 +260,8 @@ class User(AbstractUser):
         UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value)
         self.point -= value
         self.save(update_fields=["point"])
+
+    def calculate_age(self):
+        from datetime import date
+        today = date.today()
+        return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))

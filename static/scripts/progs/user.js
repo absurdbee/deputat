@@ -4,7 +4,7 @@ on('#ajax', 'click', '#holder_image', function() {
 });
 
 on('#ajax', 'click', '#edit_user_profile_btn', function() {
-  form = this.parentElement.parentElement.parentElement;
+  form = this.parentElement.parentElement;
   if (!form.querySelector("#id_first_name").value){
     form.querySelector("#id_first_name").style.border = "1px #FF0000 solid";
     toast_error("Введите Ваше имя!"); return
@@ -18,13 +18,13 @@ on('#ajax', 'click', '#edit_user_profile_btn', function() {
 });
 
 on('#ajax', 'click', '#edit_user_about_btn', function() {
-  send_form_and_toast('/users/settings/about/', this.parentElement.parentElement.parentElement, "Изменения приняты!");
+  send_form_and_toast('/users/settings/about/', this.parentElement.parentElement, "Изменения приняты!");
 })
 on('#ajax', 'click', '#edit_user_notify_btn', function() {
-  send_form_and_toast('/users/settings/notify/', this.parentElement.parentElement.parentElement, "Изменения приняты!");
+  send_form_and_toast('/users/settings/notify/', this.parentElement.parentElement, "Изменения приняты!");
 })
 on('#ajax', 'click', '#edit_user_private_btn', function() {
-  send_form_and_toast('/users/settings/private/', this.parentElement.parentElement.parentElement, "Изменения приняты!");
+  send_form_and_toast('/users/settings/private/', this.parentElement.parentElement, "Изменения приняты!");
 })
 
 on('#ajax', 'click', '#edit_user_password_btn', function() {

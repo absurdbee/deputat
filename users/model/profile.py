@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from common.model.comments import BlogComment, ElectNewComment
 from blog.models import Blog, ElectNew
+from django.contrib.postgres.indexes import BrinIndex
 
 
 class UserLocation(models.Model):

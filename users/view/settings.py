@@ -129,5 +129,7 @@ class UserAboutSettings(TemplateView):
 		self.info = UserInfo.objects.get(user=request.user)
 		self.form = UserInfoForm(request.POST, instance=self.info)
 		if request.is_ajax() and self.form.is_valid():
-			self.form.save()
+			new_info = self.form.save(commit=False)
+			new_info.birtday = str(request.POST.get("date_day")) + "/" + str(request.POST.get("date_month")) + "/" + str(request.POST.get("date_year"))
+			new_info.save()
 		return HttpResponse()

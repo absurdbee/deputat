@@ -27,4 +27,4 @@ from users.model.profile import *
 class UserInfoForm(forms.ModelForm):
     class Meta:
         model = UserInfo
-        fields = ('education','employment','birthday',)
+        fields = ('education','employment',)

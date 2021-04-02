@@ -13,10 +13,11 @@
           {% csrf_token %}
           <p class="content-color-primary page-sub-title-small mt-2" style="line-height: 18px;">
                 Комментарии на мои активности
-                <input type="checkbox" checked="" name="comment" id="id_comment" class="switch switch-sm">
+                <input type="checkbox" {% if notify.comment %} checked {% endif %} name="comment" id="id_comment" class="switch switch-sm">
                 <label style="margin-right:12px;bottom: 5px;" for="id_comment" class="bg_success mb-2 border float-right"></label>
           </p>
-          <div class="col-sm-9 offset-sm-3">
+
+          <div class="col-sm-9 offset-sm-3 mt-2">
               <button type="button" class="btn btn-primary float-right" id="edit_user_notify_btn">Сохранить</button>
           </div>
         </form>

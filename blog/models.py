@@ -152,7 +152,7 @@ class ElectNew(models.Model):
     STATUS_DRAFT = 'D'
     STATUS_PROCESSING = 'PG'
     STATUS_PUBLISHED = 'P'
-    STATUS_DELETED = 'DEL'
+    STATUS_DELETED = 'DE'
     STATUSES = (
         (STATUS_DRAFT, 'Черновик'),
         (STATUS_PROCESSING, 'Обработка'),

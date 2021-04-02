@@ -21,7 +21,7 @@ class UserNotifyForm(forms.ModelForm):
 class UserPrivateForm(forms.ModelForm):
     class Meta:
         model = UserPrivate
-        fields = ('city','networks','old','other',)
+        fields = ('city','networks','subscribers','old','other',)
 
 from users.model.profile import *
 class UserInfoForm(forms.ModelForm):

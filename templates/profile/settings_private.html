@@ -27,6 +27,11 @@
                 <label style="margin-right:12px;bottom: 5px;" for="id_old" class="bg_success border float-right"></label>
           </div>
           <div class="col-12 form-group">
+                Мой подписки видны всем
+                <input type="checkbox" {% if private.subscribers %} checked {% endif %} name="subscribers" id="id_subscribers" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_subscribers" class="bg_success border float-right"></label>
+          </div>
+          <div class="col-12 form-group">
                 Моё Образование/сфера занятости видны всем
                 <input type="checkbox" {% if private.other %} checked {% endif %} name="other" id="id_other" class="switch switch-sm">
                 <label style="margin-right:12px;bottom: 5px;" for="id_other" class="bg_success border float-right"></label>

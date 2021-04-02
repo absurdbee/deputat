@@ -11,27 +11,27 @@
     <div class="card-body">
         <form class="form form-horizontal">
           {% csrf_token %}
-          <div class="col-12 form-group" style="line-height: 18px;">
+          <div class="col-12 form-group">
                 Комментарии на мои активности
                 <input type="checkbox" {% if notify.comment %} checked {% endif %} name="comment" id="id_comment" class="switch switch-sm">
                 <label style="margin-right:12px;bottom: 5px;" for="id_comment" class="bg_success mb-2 border float-right"></label>
           </div>
-          <div class="col-12 form-group" style="line-height: 18px;">
+          <div class="col-12 form-group">
                 Реакции на мои активности
                 <input type="checkbox" {% if notify.reaction %} checked {% endif %} name="reaction" id="id_reaction" class="switch switch-sm">
                 <label style="margin-right:12px;bottom: 5px;" for="id_reaction" class="bg_success mb-2 border float-right"></label>
           </div>
-          <div class="col-12 form-group" style="line-height: 18px;">
+          <div class="col-12 form-group">
                 Реакции на мои комментарии
                 <input type="checkbox" {% if notify.comment_reaction %} checked {% endif %} name="comment_reaction" id="id_comment_reaction" class="switch switch-sm">
                 <label style="margin-right:12px;bottom: 5px;" for="id_comment_reaction" class="bg_success mb-2 border float-right"></label>
           </div>
-          <div class="col-12 form-group" style="line-height: 18px;">
+          <div class="col-12 form-group">
                 Ответы на мои активности
                 <input type="checkbox" {% if notify.reply %} checked {% endif %} name="reply" id="id_reply" class="switch switch-sm">
                 <label style="margin-right:12px;bottom: 5px;" for="id_reply" class="bg_success mb-2 border float-right"></label>
           </div>
-          <div class="col-12 form-group" style="line-height: 18px;">
+          <div class="col-12 form-group">
                 Административные уведомления
                 <input type="checkbox" {% if notify.admin %} checked {% endif %} name="admin" id="id_admin" class="switch switch-sm">
                 <label style="margin-right:12px;bottom: 5px;" for="id_admin" class="bg_success mb-2 border float-right"></label>

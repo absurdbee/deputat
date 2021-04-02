@@ -264,6 +264,9 @@ class User(AbstractUser):
         from datetime import date
         from users.model.profile import UserInfo
 
-        user, today = UserInfo.objects.get(user_id=self.pk), date.today()
-        age = today.year - user.birthday.year - ((today.month, today.day) < (user.birthday.month, user.birthday.day))
-        return str(user.birthday) + " (" + str(age) + ")"
+        try:
+            user, today = UserInfo.objects.get(user_id=self.pk), date.today()
+            age = today.year - user.birthday.year - ((today.month, today.day) < (user.birthday.month, user.birthday.day))
+            return str(user.birthday) + " (" + str(age) + ")"
+        except:
+            return 'Дата рождения не указана'

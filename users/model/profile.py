@@ -101,6 +101,7 @@ class UserCheck(models.Model):
     comment = models.BooleanField(default=False, verbose_name="Комментарий написан")
     reaction = models.BooleanField(default=False, verbose_name="Реакция совершена")
     quard = models.BooleanField(default=False, verbose_name="Плохой контент найден")
+    avatar = models.BooleanField(default=False, verbose_name="Аватар поставлен")
 
     class Meta:
         verbose_name = "Проверка действий пользователя"

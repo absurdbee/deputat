@@ -245,3 +245,18 @@ class User(AbstractUser):
         if UserProfileNotify.objects.filter(user=self.pk, target=user_id).exists():
             notify = UserProfileNotify.objects.get(user=self.pk, target=user_id)
             notify.delete()
+
+    def plus_carma(self, value, reason):
+        from users.model.profile import UserTransaction
+
+        UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value)
+        self.point += value
+        self.save(update_fields=["point"])
+
+
+    def minus_carma(self, value, reason):
+        from users.model.profile import UserTransaction
+
+        UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value)
+        self.point -= value
+        self.save(update_fields=["point"])

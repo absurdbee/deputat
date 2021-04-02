@@ -108,7 +108,7 @@
               <a class="nav-link dropdown-toggle dropdown-user-link">
                 <div class="user-nav d-sm-flex d-none">
                   <span class="user-name font-weight-bolder">{{ request.user.first_name }}</span>
-                  <span class="user-status">Онлайн</span>
+                  <span class="user-status">{{ request.user.point }} ({{ request.user.level }})</span>
                 </div>
                 <span class="avatar">
                   <img src="{{ request.user.get_avatar }}" alt="avatar" height="40" width="40">

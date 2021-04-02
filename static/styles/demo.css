@@ -1,3 +1,20 @@
+select {
+    display: block;
+    width: 100%;
+    height: 2.714rem;
+    padding: 0.438rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #6E6B7B;
+    background-color: #FFFFFF;
+    background-clip: padding-box;
+    border: 1px solid #D8D6DE;
+    border-radius: 0.357rem;
+    -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
 .switch.switch-sm + label:before {
     width: 18px;
     height: 18px;

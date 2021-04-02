@@ -14,6 +14,11 @@ select {
     -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.dark-layout select.form-control, .dark-layout .custom-select {
+    background-color: #283046;
+    color: #B4B7BD;
+    border-color: #3B4253;
+}
 
 .switch.switch-sm + label:before {
     width: 18px;

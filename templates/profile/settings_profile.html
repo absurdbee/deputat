@@ -9,7 +9,7 @@
         <h4 class="card-title">Основные настройки</h4>
     </div>
     <div class="card-body">
-        <form class="form form-horizontal" id="edit_user_info_form">
+        <form class="form form-horizontal">
           {% csrf_token %}
             <div class="row">
                 <div class="col-12">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="col-sm-9 offset-sm-3">
-                    <button type="button" class="btn btn-primary mr-1" id="edit_user_info_btn">Сохранить</button>
+                    <button type="button" class="btn btn-primary float-right" id="edit_user_info_btn">Сохранить</button>
                 </div>
             </div>
         </form>

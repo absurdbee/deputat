@@ -3,20 +3,18 @@ on('#ajax', 'click', '#holder_image', function() {
   get_image_priview(this, img);
 });
 
-on('#ajax', 'click', '#edit_user_info_btn', function() {
-  form = document.body.querySelector("#edit_user_info_form");
-  field1 = form.querySelector("#id_first_name");
-  field2 = form.querySelector("#id_last_name");
-  field3 = form.querySelector("#id_email");
-  if (!field1.value){
-    field1.style.border = "1px #FF0000 solid";
+on('#ajax', 'click', '#edit_user_profile_btn', function() {
+  form = this.parentElement.parentElement.parentElement;
+  if (!form.querySelector("#id_first_name").value){
+    form.querySelector("#id_first_name").style.border = "1px #FF0000 solid";
     toast_error("Введите Ваше имя!"); return
-  } else if (!field2.value){
-    field2.style.border = "1px #FF0000 solid";
+  } else if (!form.querySelector("#id_last_name").value){
+    form.querySelector("#id_last_name").style.border = "1px #FF0000 solid";
     toast_error("Введите Вашу фамилию!"); return
   };
   send_form_and_toast('/users/settings/', form, "Изменения приняты!");
-  field1.style.border = "1px #D8D6DE solid";field2.style.border = "1px #D8D6DE solid";
+  form.querySelector("#id_first_name").style.border = "1px #D8D6DE solid";
+  form.querySelector("#id_last_name").style.border = "1px #D8D6DE solid";
 });
 
 on('#ajax', 'click', '#edit_user_password_btn', function() {

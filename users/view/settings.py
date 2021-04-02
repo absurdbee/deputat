@@ -64,34 +64,33 @@ class UserNotifySettings(TemplateView):
 
 
 class UserPrivateSettings(TemplateView):
-    template_name, form = None, None
+	template_name, form = None, None
 
-    def get(self,request,*args,**kwargs):
-        from users.forms import UserPrivateForm
+	def get(self,request,*args,**kwargs):
+		from users.forms import UserPrivateForm
+		try:
+			self.private = UserPrivate.objects.get(user=request.user)
+		except:
+			self.private = UserPrivate.objects.create(user=request.user)
+		self.form = UserPrivateForm(instance=self.private)
+		self.template_name = get_my_template("profile/settings_private.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserPrivateSettings,self).get(request,*args,**kwargs)
 
-        try:
-            self.private = UserPrivate.objects.get(user=request.user)
-        except:
-            self.private = UserPrivate.objects.create(user=request.user)
-        self.form = UserPrivateForm(instance=self.private)
-        self.template_name = get_my_template("profile/settings_private.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserPrivateSettings,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserPrivateSettings,self).get_context_data(**kwargs)
-        context["user"] = self.request.user
-        context["form"] = self.form
+	def get_context_data(self,**kwargs):
+		context = super(UserPrivateSettings,self).get_context_data(**kwargs)
+		context["user"] = self.request.user
+		context["form"] = self.form
 		context["private"] = self.private
-        return context
+		return context
 
-    def post(self,request,*args,**kwargs):
-        from users.forms import UserPrivateForm
+	def post(self,request,*args,**kwargs):
+		from users.forms import UserPrivateForm
 
-        self.private = UserPrivate.objects.get(user=request.user)
-        self.form = UserPrivateForm(request.POST, instance=self.private)
-        if request.is_ajax() and self.form.is_valid():
-            self.form.save()
-        return HttpResponse()
+		self.private = UserPrivate.objects.get(user=request.user)
+		self.form = UserPrivateForm(request.POST, instance=self.private)
+		if request.is_ajax() and self.form.is_valid():
+			self.form.save()
+		return HttpResponse()
 
 
 class UserQuardSettings(TemplateView):

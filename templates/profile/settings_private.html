@@ -11,6 +11,30 @@
     <div class="card-body">
         <form class="form form-horizontal">
           {% csrf_token %}
+          <div class="col-12 form-group">
+                Мой город виден всем
+                <input type="checkbox" {% if notify.city %} checked {% endif %} name="city" id="id_city" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_city" class="bg_success border float-right"></label>
+          </div>
+          <div class="col-12 form-group">
+                Мои соцсети видны всем
+                <input type="checkbox" {% if notify.networks %} checked {% endif %} name="networks" id="id_networks" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_networks" class="bg_success border float-right"></label>
+          </div>
+          <div class="col-12 form-group">
+                Мой возраст виден всем
+                <input type="checkbox" {% if notify.old %} checked {% endif %} name="old" id="id_old" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_old" class="bg_success border float-right"></label>
+          </div>
+          <div class="col-12 form-group">
+                Моё Образование/сфера занятости видны всем
+                <input type="checkbox" {% if notify.other %} checked {% endif %} name="other" id="id_other" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_other" class="bg_success border float-right"></label>
+          </div>
+
+          <div class="col-sm-9 offset-sm-3 mt-2">
+              <button type="button" class="btn btn-primary float-right" id="edit_user_private_btn">Сохранить</button>
+          </div>
         </form>
     </div>
 </div>

@@ -73,7 +73,7 @@ class UserInfo(models.Model):
         (EDUCATION_LOW, 'Среднее'),
     )
     EMPLOYMENT = (
-        (NO_VALUE, 'Не выбрано'),
+        #(NO_VALUE, 'Не выбрано'),
         (EDUCATION, 'Образование'),
         (MEDICAL, 'Медицина'),
         (IT, 'IT'),

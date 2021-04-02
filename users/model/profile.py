@@ -57,7 +57,7 @@ class Bookmarks(models.Model):
 
 
 class UserInfo(models.Model):
-    NO_VALUE = "NOV"
+    NO_VALUE, NO_VALUE2 = "NOV", "NOV"
     EDUCATION_HIGH = 'EDH'
     EDUCATION_MEDIUM = 'EDM'
     EDUCATION_LOW = 'EDL'
@@ -73,14 +73,14 @@ class UserInfo(models.Model):
         (EDUCATION_LOW, 'Среднее'),
     )
     EMPLOYMENT = (
-        #(NO_VALUE, 'Не выбрано'),
+        (NO_VALUE2, 'Не выбрано'),
         (EDUCATION, 'Образование'),
         (MEDICAL, 'Медицина'),
         (IT, 'IT'),
     )
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_info', verbose_name="Пользователь")
     education = models.CharField(max_length=5, choices=EDUCATION, default=NO_VALUE, verbose_name="Образование")
-    employment = models.CharField(max_length=5, choices=EMPLOYMENT, default=NO_VALUE, verbose_name="Сфера занятости")
+    employment = models.CharField(max_length=5, choices=EMPLOYMENT, default=NO_VALUE2, verbose_name="Сфера занятости")
     birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
 
     class Meta:

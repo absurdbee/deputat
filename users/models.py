@@ -269,4 +269,4 @@ class User(AbstractUser):
             age = today.year - user.birthday.year - ((today.month, today.day) < (user.birthday.month, user.birthday.day))
             return str(user.birthday) + " (" + str(age) + ")"
         except:
-            return 'Дата рождения не указана'
+            return 'Не указано'

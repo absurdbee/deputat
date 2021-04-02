@@ -27,7 +27,6 @@ class User(AbstractUser):
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     phone = models.CharField(max_length=17, blank=True, null=True, verbose_name='Телефон')
     perm = models.CharField(max_length=5, choices=PERM, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
-    #b_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
     s_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
     gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
@@ -261,7 +260,10 @@ class User(AbstractUser):
         self.point -= value
         self.save(update_fields=["point"])
 
-    def calculate_age(self):
+    def get_age(self):
         from datetime import date
-        today = date.today()
-        return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))
+        from users.model.profile import UserInfo
+
+        user, today = UserInfo.objects.get(user_id=self.pk), date.today()
+        age = today.year - user.birthday.year - ((today.month, today.day) < (user.birthday.month, user.birthday.day))
+        return str(user.birthday) + " (" + str(age) + ")"

@@ -23,6 +23,7 @@ class UserPrivateForm(forms.ModelForm):
         model = UserPrivate
         fields = ('city','networks','old','other',)
 
+from users.model.profile import *
 class UserAboutForm(forms.ModelForm):
     class Meta:
         model = UserAbout

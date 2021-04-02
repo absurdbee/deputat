@@ -107,7 +107,7 @@ class UserCheck(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
-        
+
 
 class UserTransaction(models.Model):
     NO_REASON = "NOR"
@@ -115,6 +115,13 @@ class UserTransaction(models.Model):
     ADDING = 'ADD'
     AUTOPAYMENT = 'AUP'
     PENALTY = 'PEN'
+    REASON_CHOICES = (
+        (NO_REASON, 'Не указано'),
+        (PAYMENT, 'Оплата'),
+        (ADDING, 'Пополнение'),
+        (AUTOPAYMENT, 'Автоплатёж'),
+        (PENALTY, 'Штраф'),
+    )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     reason = models.IntegerField(choices=REASON_CHOICES, default=NO_REASON, verbose_name="Причина изменения счета")

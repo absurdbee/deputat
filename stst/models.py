@@ -37,3 +37,17 @@ class BlogNumbers(models.Model):
         indexes = (BrinIndex(fields=['created']),)
         verbose_name = "Просмотр новости проекта"
         verbose_name_plural = "Просмотры новостей проекта"
+
+class UserNumbers(models.Model):
+    DESCTOP, PHONE = 'De', 'Ph'
+    DEVICE = ((DESCTOP, 'Комп'),(PHONE, 'Телефон'),)
+
+    visitor = models.PositiveIntegerField(default=0, verbose_name="Кто заходит")
+    target = models.PositiveIntegerField(default=0, verbose_name="К кому заходит")
+    device = models.CharField(max_length=5, choices=DEVICE, default=DESCTOP, blank=True, verbose_name="Оборудование")
+    created = models.DateField(auto_now_add=True, auto_now=False, verbose_name="Создано")
+
+    class Meta:
+        indexes = (BrinIndex(fields=['created']),)
+        verbose_name = "Кто к кому заходил"
+        verbose_name_plural = "Кто к кому заходил"

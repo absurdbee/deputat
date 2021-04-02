@@ -270,3 +270,72 @@ class User(AbstractUser):
             return str(user.birthday) + " (" + str(age) + ")"
         except:
             return 'Не указано'
+
+    def get_elect_new_views_for_year(self, year):
+        from blog.models import ElectNew
+        from common.model.comments import ElectNewComment
+        from common.model.votes import ElectNewVotes2
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.STATUS_PUBLISHED)
+        for i in posts:
+            views = ElectNewNumbers.objects.filter(new=i.pk, created__year=year)
+            auth_count += views.exclude(user=0).values('pk').count()
+            anon_count += views.filter(user=0).values('pk').count()
+
+            comments += ElectNewComment.objects.filter(new=i.pk, created__year=year)
+
+            votes = ElectNewVotes2.objects.filter(new=i.pk, created__year=year)
+            likes += votes.filter(vote="LIK").values('pk').count()
+            dislikes += votes.filter(vote="DIS").values('pk').count()
+            inerts += votes.filter(vote="INE").values('pk').count()
+        return [comments, likes, dislikes, inerts, auth_count, anon_count]
+    def get_post_views_for_month(self, month):
+        from blog.models import ElectNew
+        from common.model.comments import ElectNewComment
+        from common.model.votes import ElectNewVotes2
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.STATUS_PUBLISHED)
+        for i in posts:
+            views = ElectNewNumbers.objects.filter(new=i.pk, created__month=month)
+            auth_count += views.exclude(user=0).values('pk').count()
+            anon_count += views.filter(user=0).values('pk').count()
+
+            comments += ElectNewComment.objects.filter(new=i.pk, created__month=month)
+
+            votes = ElectNewVotes2.objects.filter(new=i.pk, created__month=month)
+            likes += votes.filter(vote="LIK").values('pk').count()
+            dislikes += votes.filter(vote="DIS").values('pk').count()
+            inerts += votes.filter(vote="INE").values('pk').count()
+        return [comments, likes, dislikes, inerts, auth_count, anon_count]
+    def get_post_views_for_week(self, week):
+        from blog.models import ElectNew
+        from common.model.comments import ElectNewComment
+        from common.model.votes import ElectNewVotes2
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.STATUS_PUBLISHED)
+        for i in posts:
+            views = ElectNewNumbers.objects.filter(new=i.pk, created__day__in=week)
+            auth_count += views.exclude(user=0).values('pk').count()
+            anon_count += views.filter(user=0).values('pk').count()
+
+            comments += ElectNewComment.objects.filter(new=i.pk, created__day__in=week)
+
+            votes = ElectNewVotes2.objects.filter(new=i.pk, created__day__in=week)
+            likes += votes.filter(vote="LIK").values('pk').count()
+            dislikes += votes.filter(vote="DIS").values('pk').count()
+            inerts += votes.filter(vote="INE").values('pk').count()
+        return [comments, likes, dislikes, inerts, auth_count, anon_count]
+    def get_post_views_for_day(self, day):
+        from blog.models import ElectNew
+        from common.model.comments import ElectNewComment
+        from common.model.votes import ElectNewVotes2
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.STATUS_PUBLISHED)
+        for i in posts:
+            views = ElectNewNumbers.objects.filter(new=i.pk, created__day=day)
+            auth_count += views.exclude(user=0).values('pk').count()
+            anon_count += views.filter(user=0).values('pk').count()
+
+            comments += ElectNewComment.objects.filter(new=i.pk, created__day=day)
+
+            votes = ElectNewVotes2.objects.filter(new=i.pk, created__day=day)
+            likes += votes.filter(vote="LIK").values('pk').count()
+            dislikes += votes.filter(vote="DIS").values('pk').count()
+            inerts += votes.filter(vote="INE").values('pk').count()
+        return [comments, likes, dislikes, inerts, auth_count, anon_count]

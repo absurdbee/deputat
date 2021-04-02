@@ -66,6 +66,13 @@
                                                         <h4 class="mb-0">{{ user.get_full_name }}</h4>
                                                         <span class="card-text"></span>
                                                     </div>
+                                                    <div class="d-flex flex-wrap">
+                                                        {% if user.pk == request.user.pk %}
+                                                          <a href="{% url 'settings_profile' %}" class="card-text user-info-title font-weight-bold mb-0 ajax">Настройки</a>
+                                                          &nbsp;&nbsp;
+                                                          <a href="{% url 'user_cuberture_week' %}" class="card-text user-info-title font-weight-bold mb-0 ajax">Статистика</a>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

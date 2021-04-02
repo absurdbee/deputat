@@ -35,24 +35,10 @@
                             <span class="d-none d-sm-block">Подписки</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{% url 'like_news' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up">
-                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-                            </svg>
-                            <span class="d-none d-sm-block">Оценил</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'dislike_news' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-down">
-                                <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
-                            </svg>
-                            <span class="d-none d-sm-block">Не оценил</span>
-                        </a>
-                    </li>
                 </ul>
                 <div class="pag_container">
+                    {% if user.user_private.subscribers %}
+
                     {% for object in object_list %}
                       {% include 'elect/elect_index_card.html' %}
                     {% empty %}
@@ -69,6 +55,13 @@
                         <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
                         {% endif %}
                     </div>
+                    {% else %}
+                    <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
+                        <div class="card-body">
+                          <h3 class="card-title">Пользователь скрыл свои подписки</h3>
+                        </div>
+                      </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

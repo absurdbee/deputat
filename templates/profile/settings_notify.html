@@ -16,6 +16,26 @@
                 <input type="checkbox" {% if notify.comment %} checked {% endif %} name="comment" id="id_comment" class="switch switch-sm">
                 <label style="margin-right:12px;bottom: 5px;" for="id_comment" class="bg_success mb-2 border float-right"></label>
           </p>
+          <p class="content-color-primary page-sub-title-small mt-2" style="line-height: 18px;">
+                Реакции на мои активности
+                <input type="checkbox" {% if reaction.reaction %} checked {% endif %} name="reaction" id="id_reaction" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_reaction" class="bg_success mb-2 border float-right"></label>
+          </p>
+          <p class="content-color-primary page-sub-title-small mt-2" style="line-height: 18px;">
+                Реакции на мои комментарии
+                <input type="checkbox" {% if reaction.comment_reaction %} checked {% endif %} name="comment_reaction" id="id_comment_reaction" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_comment_reaction" class="bg_success mb-2 border float-right"></label>
+          </p>
+          <p class="content-color-primary page-sub-title-small mt-2" style="line-height: 18px;">
+                Ответы на мои активности
+                <input type="checkbox" {% if reaction.reply %} checked {% endif %} name="reply" id="id_reply" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_reply" class="bg_success mb-2 border float-right"></label>
+          </p>
+          <p class="content-color-primary page-sub-title-small mt-2" style="line-height: 18px;">
+                Административные уведомления
+                <input type="checkbox" {% if reaction.admin %} checked {% endif %} name="admin" id="id_admin" class="switch switch-sm">
+                <label style="margin-right:12px;bottom: 5px;" for="id_admin" class="bg_success mb-2 border float-right"></label>
+          </p>
 
           <div class="col-sm-9 offset-sm-3 mt-2">
               <button type="button" class="btn btn-primary float-right" id="edit_user_notify_btn">Сохранить</button>

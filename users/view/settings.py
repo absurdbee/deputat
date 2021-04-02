@@ -106,6 +106,7 @@ class UserAboutSettings(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from users.forms import UserInfoForm
+		from users.model.profile import UserInfo
 		try:
 			self.info = UserInfo.objects.get(user=request.user)
 		except:
@@ -123,6 +124,7 @@ class UserAboutSettings(TemplateView):
 
 	def post(self,request,*args,**kwargs):
 		from users.forms import UserInfoForm
+		from users.model.profile import UserInfo
 
 		self.info = UserInfo.objects.get(user=request.user)
 		self.form = UserInfoForm(request.POST, instance=self.info)

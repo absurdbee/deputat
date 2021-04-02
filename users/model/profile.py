@@ -89,3 +89,43 @@ class UserInfo(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+class UserCheck(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_check', verbose_name="Пользователь")
+    birthday = models.BooleanField(default=False, verbose_name="День рождения указан")
+    email = models.BooleanField(default=False, verbose_name="Почта указана")
+    education = models.BooleanField(default=False, verbose_name="Образование указано")
+    employment = models.BooleanField(default=False, verbose_name="Сфера занятости указано")
+    elect_new = models.BooleanField(default=False, verbose_name="Активность написана")
+    comment = models.BooleanField(default=False, verbose_name="Комментарий написан")
+    reaction = models.BooleanField(default=False, verbose_name="Реакция совершена")
+    quard = models.BooleanField(default=False, verbose_name="Плохой контент найден")
+
+    class Meta:
+        verbose_name = "Проверка действий пользователя"
+        verbose_name_plural = "Проверки действий пользователей"
+
+    def __str__(self):
+        return self.user.get_full_name()
+        
+
+class UserTransaction(models.Model):
+    NO_REASON = "NOR"
+    PAYMENT = 'PAY'
+    ADDING = 'ADD'
+    AUTOPAYMENT = 'AUP'
+    PENALTY = 'PEN'
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
+    reason = models.IntegerField(choices=REASON_CHOICES, default=NO_REASON, verbose_name="Причина изменения счета")
+    value = models.PositiveIntegerField(default=0, verbose_name="Сумма транзакции")
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
+
+    class Meta:
+        verbose_name = "Транзакция"
+        verbose_name_plural = "Транзакции"
+        indexes = (BrinIndex(fields=['created']),)
+        ordering = ["-created"]
+
+    def __str__(self):
+        return self.user.get_full_name()

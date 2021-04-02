@@ -27,7 +27,6 @@ class UserProfileSettings(TemplateView):
 			photo_input = request.FILES.get('image')
 			if photo_input:
 				request.user.create_s_avatar(photo_input)
-				request.user.create_b_avatar(photo_input)
 			return HttpResponse()
 		return super(UserProfileSettings,self).post(request,*args,**kwargs)
 

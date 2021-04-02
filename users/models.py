@@ -27,11 +27,13 @@ class User(AbstractUser):
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     phone = models.CharField(max_length=17, blank=True, null=True, verbose_name='Телефон')
     perm = models.CharField(max_length=5, choices=PERM, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
-    b_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
+    #b_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
     s_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
     gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL, verbose_name="Город")
+    point = models.PositiveIntegerField(default=0, verbose_name="Количество кармы")
+    level = models.PositiveSmallIntegerField(default=1, verbose_name="Уровень")
     USERNAME_FIELD = 'phone'
 
     class Meta:
@@ -155,22 +157,6 @@ class User(AbstractUser):
         new_img = get_thumbnailer(self.s_avatar)['small_avatar'].url.replace('media/', '')
         self.s_avatar = new_img
         return self.save(update_fields=['s_avatar'])
-
-    def create_b_avatar(self, photo_input):
-        from easy_thumbnails.files import get_thumbnailer
-
-        self.b_avatar = photo_input
-        self.save(update_fields=['b_avatar'])
-        new_img = get_thumbnailer(self.b_avatar)['avatar'].url.replace('media/', '')
-        self.b_avatar = new_img
-        self.save(update_fields=['b_avatar'])
-        return self.save(update_fields=['b_avatar'])
-
-    def get_b_avatar(self):
-        try:
-            return self.b_avatar.url
-        except:
-            return None
 
     def get_avatar(self):
         try:

@@ -65,7 +65,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    #'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
@@ -82,7 +82,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'deputat.urls'
-
 
 TEMPLATES = [
     {
@@ -119,14 +118,12 @@ DATABASES = {
     }
 }
 
-
-
-#AUTH_PASSWORD_VALIDATORS = [
-#    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
-#    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
-#    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
-#    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
-#]
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
+]
 
 
 LANGUAGE_CODE = 'ru-RU'
@@ -171,7 +168,7 @@ REST_FRAMEWORK = {
 }
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True
 
 THUMBNAIL_DEFAULT_OPTIONS = {"crop":"smart","detail":True}
 

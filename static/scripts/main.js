@@ -1,5 +1,5 @@
 on('body', 'click', '.show_next_element', function() {
-  el.nextElementSibling.style.display = "block"
+  this.nextElementSibling.style.display = "block"
 })
 
 on('body', 'click', '.map_selector', function() {

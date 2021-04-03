@@ -140,10 +140,10 @@ class UserTransaction(models.Model):
     def __str__(self):
         return self.user.get_full_name()
 
-    def get_class(self):
+    def get_pretty_value(self):
         if self.reason == UserTransaction.PAYMENT or self.reason == UserTransaction.AUTOPAYMENT:
-            return 'table-default'
+            return '<span class="font-weight-bolder text-danger">+ ' + str(self.value) + '</span>'
         elif self.reason == UserTransaction.ADDING:
-            return 'table-success'
+            return '<span class="font-weight-bolder text-success">+ ' + str(self.value) + '</span>'
         elif self.reason == UserTransaction.PENALTY:
-            return 'table-danger'
+            return '<span class="font-weight-bolder text-danger">+ ' + str(self.value) + '</span>'

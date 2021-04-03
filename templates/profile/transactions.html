@@ -28,12 +28,12 @@
                     </thead>
                     <tbody class="is_paginate">
                       {% for object in object_list %}
-                        <tr class="{{ object.get_class }}">
+                        <tr>
                             <td>
                                 <span class="font-weight-bold">{{ object.created }}</span>
                             </td>
                             <td>{{ object.get_reason_display }}</td>
-                            <td>{{ object.value }}</td>
+                            <td>{{ object.get_pretty_value|safe }}</td> 
                             <td>{{ object.total }}</td>
                         </tr>
                       {% endfor %}

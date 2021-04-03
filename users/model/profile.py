@@ -141,9 +141,9 @@ class UserTransaction(models.Model):
         return self.user.get_full_name()
 
     def get_class(self):
-        if self.reason == PAYMENT or self.reason == AUTOPAYMENT:
+        if self.reason == UserTransaction.PAYMENT or self.reason == UserTransaction.AUTOPAYMENT:
             return 'table-default'
-        elif self.reason == ADDING:
+        elif self.reason == UserTransaction.ADDING:
             return 'table-success'
-        elif self.reason == PENALTY:
+        elif self.reason == UserTransaction.PENALTY:
             return 'table-danger'

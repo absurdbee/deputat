@@ -130,7 +130,9 @@ class UserAboutSettings(TemplateView):
 		self.form = UserInfoForm(request.POST, instance=self.info)
 		if request.is_ajax() and self.form.is_valid():
 			new_info = self.form.save(commit=False)
-			birthday = str(request.POST.get("date_day")) + "/" + str(request.POST.get("date_month")) + "/" + str(request.POST.get("date_year"))
-			new_info.birthday = datetime.strptime(birthday, '%d/%m/%Y')
-			new_info.save()
+			try:
+				birthday = str(request.POST.get("date_day")) + "/" + str(request.POST.get("date_month")) + "/" + str(request.POST.get("date_year"))
+				new_info.birthday = datetime.strptime(birthday, '%d/%m/%Y')
+			except:
+				new_info.save()
 		return HttpResponse()

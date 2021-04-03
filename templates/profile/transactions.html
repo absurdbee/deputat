@@ -24,7 +24,8 @@
                             <th>Остаток</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="is_paginate">
+                      {% for object in object_list %}
                         <tr class="{{ object.get_class }}">
                             <td>
                                 <span class="font-weight-bold">{{ object.created }}</span>
@@ -33,6 +34,7 @@
                             <td>{{ object.value }}</td>
                             <td>{{ object.total }}</td>
                         </tr>
+                      {% endfor %}
                     </tbody>
                 </table>
             </div>

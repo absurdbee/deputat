@@ -135,17 +135,17 @@ class UserAboutSettings(TemplateView):
 				new_info.birthday = datetime.strptime(birthday, '%d/%m/%Y')
 			except:
 				new_info.save()
-			#try:
-			from users.model.profile import UserCheck
-			check = UserCheck.objects.get(user_id=request.user.pk)
+			try:
+				from users.model.profile import UserCheck
+				check = UserCheck.objects.get(user_id=request.user.pk)
+			except:
+				check = UserCheck.objects.create(user_id=request.user.pk)
 			if not check.profile_info:
 				info = UserInfo.objects.get(user_id=request.user.pk)
 				if info.education and info.employment and info.birthday:
 					check.profile_info = True
 					info.save(update_fields=['profile_info'])
 					request.user.plus_carma(100, "ADD")
-			#except:
-			#	pass
 		return HttpResponse()
 
 

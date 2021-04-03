@@ -93,15 +93,12 @@ class UserInfo(models.Model):
 
 class UserCheck(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_check', verbose_name="Пользователь")
-    birthday = models.BooleanField(default=False, verbose_name="День рождения указан")
     email = models.BooleanField(default=False, verbose_name="Почта указана")
-    education = models.BooleanField(default=False, verbose_name="Образование указано")
-    employment = models.BooleanField(default=False, verbose_name="Сфера занятости указано")
+    profile_info = models.BooleanField(default=False, verbose_name="О себе заполнено")
     elect_new = models.BooleanField(default=False, verbose_name="Активность написана")
     comment = models.BooleanField(default=False, verbose_name="Комментарий написан")
     reaction = models.BooleanField(default=False, verbose_name="Реакция совершена")
     quard = models.BooleanField(default=False, verbose_name="Плохой контент найден")
-    avatar = models.BooleanField(default=False, verbose_name="Аватар поставлен")
 
     class Meta:
         verbose_name = "Проверка действий пользователя"

@@ -361,6 +361,6 @@ class User(AbstractUser):
         from django.db.models import Sum
 
         query = Q(user_id=self.pk)
-        query.add(Q(Q(reason="PAY") | Q(reason="PAY")), Q.AND)
+        query.add(Q(Q(reason="PAY") | Q(reason="AUP") | Q(reason="PEN")), Q.AND) 
         transactions = UserTransaction.objects.filter(query)
         return transactions.aggregate(Sum('value'))

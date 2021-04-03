@@ -1,6 +1,6 @@
 from django.contrib import admin
 from users.models import User
-from users.model.profile import UserLocation, UserInfo
+from users.model.profile import UserLocation, UserInfo, UserTransaction
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['pk', 'phone']
@@ -11,3 +11,4 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(User)
 admin.site.register(UserLocation)
 admin.site.register(UserInfo)
+admin.site.register(UserTransaction)

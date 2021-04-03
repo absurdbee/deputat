@@ -163,10 +163,10 @@ class UserTransactionsView(ListView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		self.user = request.user
 		self.template_name = get_small_template("profile/transactions.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(SubscribeElectsView,self).get(request,*args,**kwargs)
+		return super(UserTransactionsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		context=super(SubscribeElectsView,self).get_context_data(**kwargs)
+		context=super(UserTransactionsView,self).get_context_data(**kwargs)
 		context["user"] = self.user
 		return context
 

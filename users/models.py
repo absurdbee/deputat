@@ -354,7 +354,7 @@ class User(AbstractUser):
         from django.db.models import Sum
 
         transactions = UserTransaction.objects.filter(user_id=self.pk, reason="ADD")
-        return transactions.aggregate(Sum('value'))
+        return transactions.aggregate(Sum('value'))['value__sum']
 
     def get_total_revenue(self):
         from users.model.profile import UserTransaction

@@ -131,4 +131,4 @@ class UserAboutSettings(TemplateView):
 			new_info = self.form.save(commit=False)
 			new_info.birtday = str(request.POST.get("date_day")) + "/" + str(request.POST.get("date_month")) + "/" + str(request.POST.get("date_year"))
 			new_info.save()
-		return HttpResponse()
+		return HttpResponse(new_info.birtday)

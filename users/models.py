@@ -364,3 +364,8 @@ class User(AbstractUser):
         query.add(Q(Q(reason="PAY") | Q(reason="AUP") | Q(reason="PEN")), Q.AND)
         transactions = UserTransaction.objects.filter(query)
         return transactions.aggregate(Sum('value'))['value__sum']
+
+    def get_first_number(self):
+        from users.model.profile import UserLocation
+
+        return UserLocation.objects.filter(user_id=self.pk).last().phone

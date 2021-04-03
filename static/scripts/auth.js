@@ -120,8 +120,8 @@ on('body', 'click', '#register_ajax', function() {
 
   if (form.querySelector("#id_first_name").value){form.querySelector("#id_first_name").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_last_name").value){form.querySelector("#id_last_name").style.border = "rgba(0, 0, 0, 0.2)";}
-  if (form.querySelector("#id_password1").value){form.querySelector("#id_password1").style.border = "rgba(0, 0, 0, 0.2)";}
-  if (form.querySelector("#id_password2").value){form.querySelector("#id_password2").style.border = "rgba(0, 0, 0, 0.2)";} 
+  if (form.querySelector("#password1").value){form.querySelector("#password1").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#password2").value){form.querySelector("#password2").style.border = "rgba(0, 0, 0, 0.2)";} 
   if (form.querySelector("#select_region").value){form.querySelector("#select_region").style.border = "rgba(0, 0, 0, 0.2)";}
 
   reg_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

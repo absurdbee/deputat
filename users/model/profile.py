@@ -126,8 +126,9 @@ class UserTransaction(models.Model):
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    reason = models.CharField(max_length=5, choices=REASON_CHOICES, default=NO_REASON, verbose_name="Причина изменения счета") 
+    reason = models.CharField(max_length=5, choices=REASON_CHOICES, default=NO_REASON, verbose_name="Причина изменения счета")
     value = models.PositiveIntegerField(default=0, verbose_name="Сумма транзакции")
+    total = models.PositiveIntegerField(default=0, verbose_name="Остаток")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
 
     class Meta:
@@ -138,3 +139,11 @@ class UserTransaction(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+    def get_class(self):
+        if self.reason == PAYMENT or self.reason == AUTOPAYMENT:
+            return 'table-default'
+        elif self.reason == ADDING:
+            return 'table-success'
+        elif self.reason == PENALTY:
+            return 'table-danger'

@@ -344,3 +344,19 @@ class User(AbstractUser):
     def get_transactions(self):
         from users.model.profile import UserTransaction
         return UserTransaction.objects.filter(user_id=self.pk)
+
+    def get_total_costs(self):
+        from users.model.profile import UserTransaction
+        from django.db.models import Sum
+
+        transactions = UserTransaction.objects.filter(user_id=self.pk, reason="ADD")
+        return transactions.aggregate(Sum('value'))
+
+    def get_total_revenue(self):
+        from users.model.profile import UserTransaction
+        from django.db.models import Sum
+
+        query = Q(user_id=self.pk)
+        query.add(Q(reason="PAY"), reason="AUP"), Q.AND)
+        transactions = UserTransaction.objects.filter(query)
+        return transactions.aggregate(Sum('value'))

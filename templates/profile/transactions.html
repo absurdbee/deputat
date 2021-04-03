@@ -2,4 +2,42 @@
 {% block title %}Движения Вашей кармы{% endblock %}
 {% block content %}
 
+<div class="row" id="table-contextual">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Движения Вашей кармы</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href="" target="_blank">Как пополнить карму.</a><br>
+                    <a href="" target="_blank">Куда потратить карму.</a><br>
+                </p>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Тип</th>
+                            <th>Сумма</th>
+                            <th>Остаток</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="{{ object.get_class }}">
+                            <td>
+                                <span class="font-weight-bold">{{ object.created }}</span>
+                            </td>
+                            <td>{{ object.get_reason_display }}</td>
+                            <td>{{ object.value }}</td>
+                            <td>{{ object.total }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

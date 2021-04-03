@@ -248,17 +248,16 @@ class User(AbstractUser):
     def plus_carma(self, value, reason):
         from users.model.profile import UserTransaction
 
-        UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value)
         self.point += value
         self.save(update_fields=["point"])
-
+        UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value, total=self.point)
 
     def minus_carma(self, value, reason):
         from users.model.profile import UserTransaction
 
-        UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value)
         self.point -= value
         self.save(update_fields=["point"])
+        UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value, total=self.point)
 
     def get_age(self):
         from datetime import date

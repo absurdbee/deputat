@@ -119,7 +119,7 @@ class UserTransaction(models.Model):
         (PAYMENT, 'Оплата'),
         (ADDING, 'Пополнение'),
         (AUTOPAYMENT, 'Автоплатёж'),
-        (PENALTY, 'Штраф'),
+        (PENALTY, 'Штраф'), 
     )
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")

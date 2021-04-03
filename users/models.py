@@ -263,11 +263,12 @@ class User(AbstractUser):
     def get_age(self):
         from datetime import date
         from users.model.profile import UserInfo
+        from django.utils.formats import localize
 
         try:
             user, today = UserInfo.objects.get(user_id=self.pk), date.today()
             age = today.year - user.birthday.year - ((today.month, today.day) < (user.birthday.month, user.birthday.day))
-            return str(user.birthday) + " (" + str(age) + ")"
+            return str(localize(user.birthday)) + " (" + str(age) + ")"
         except:
             return 'Не указано'
 

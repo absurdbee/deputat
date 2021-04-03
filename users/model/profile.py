@@ -142,8 +142,8 @@ class UserTransaction(models.Model):
 
     def get_pretty_value(self):
         if self.reason == UserTransaction.PAYMENT or self.reason == UserTransaction.AUTOPAYMENT:
-            return '<span class="font-weight-bolder text-danger">+ ' + str(self.value) + '</span>'
+            return '<span class="font-weight-bolder text-danger">- ' + str(self.value) + '</span>'
         elif self.reason == UserTransaction.ADDING:
             return '<span class="font-weight-bolder text-success">+ ' + str(self.value) + '</span>'
         elif self.reason == UserTransaction.PENALTY:
-            return '<span class="font-weight-bolder text-danger">+ ' + str(self.value) + '</span>'
+            return '<span class="font-weight-bolder text-danger">- ' + str(self.value) + '</span>'

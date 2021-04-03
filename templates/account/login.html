@@ -17,7 +17,18 @@
         <form id="login_form" class="auth-login-form mt-2" data-pk="{{ request.user.pk }}">
             <div class="form-group">
                 <label for="id_username" class="form-label">Телефон</label>
-                <input class="form-control" type="text" name="username" id="id_username" tabindex="1" autofocus="">
+                <div class="input-group input-group-merge">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <select name="education" id="id_education">
+                        <option value="8" selected="">+7</option>
+                        <option value="1">+1</option>
+                        <option value="56">+56</option>
+                        <option value="20">+20</option>
+                      </select>
+                    </span>
+                  </div>
+                </div>
             </div>
 
             <div class="form-group">

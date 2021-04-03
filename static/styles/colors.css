@@ -290,11 +290,6 @@ input:focus ~ .bg-dark {
           transition : all 0.2s ease-out;
 }
 
-.select2-dark .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background : #4B4B4B !important;
-  border-color : #4B4B4B !important;
-}
-
 .text-dark.text-darken-1 {
   color : #343434 !important;
 }
@@ -847,11 +842,6 @@ input:focus ~ .bg-primary {
   color : #FFFFFF;
   -webkit-transition : all 0.2s ease-out;
           transition : all 0.2s ease-out;
-}
-
-.select2-primary .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background : #7367F0 !important;
-  border-color : #7367F0 !important;
 }
 
 .text-primary.text-darken-1 {
@@ -1536,11 +1526,6 @@ input:focus ~ .bg-secondary {
           transition : all 0.2s ease-out;
 }
 
-.select2-secondary .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background : #82868B !important;
-  border-color : #82868B !important;
-}
-
 .text-secondary.text-darken-1 {
   color : #75797E !important;
 }
@@ -2085,11 +2070,6 @@ input:focus ~ .bg-success {
   color : #FFFFFF;
   -webkit-transition : all 0.2s ease-out;
           transition : all 0.2s ease-out;
-}
-
-.select2-success .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background : #28C76F !important;
-  border-color : #28C76F !important;
 }
 
 .text-success.text-darken-1 {
@@ -2774,11 +2754,6 @@ input:focus ~ .bg-info {
           transition : all 0.2s ease-out;
 }
 
-.select2-info .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background : #00CFE8 !important;
-  border-color : #00CFE8 !important;
-}
-
 .text-info.text-darken-1 {
   color : #00B8CF !important;
 }
@@ -3461,11 +3436,6 @@ input:focus ~ .bg-warning {
           transition : all 0.2s ease-out;
 }
 
-.select2-warning .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background : #FF9F43 !important;
-  border-color : #FF9F43 !important;
-}
-
 .text-warning.text-darken-1 {
   color : #FF922A !important;
 }
@@ -4146,11 +4116,6 @@ input:focus ~ .bg-danger {
   color : #FFFFFF;
   -webkit-transition : all 0.2s ease-out;
           transition : all 0.2s ease-out;
-}
-
-.select2-danger .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background : #EA5455 !important;
-  border-color : #EA5455 !important;
 }
 
 .text-danger.text-darken-1 {

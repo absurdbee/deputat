@@ -4,8 +4,7 @@
   height: auto;
   border: 1px solid #FFFFFF;
   color:black;
-  background-color: unset;
-    background-clip: unset;
+  outline: none;
 }
 
 

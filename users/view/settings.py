@@ -124,11 +124,13 @@ class UserAboutSettings(TemplateView):
 	def post(self,request,*args,**kwargs):
 		from users.forms import UserInfoForm
 		from users.model.profile import UserInfo
+		from datetime import datetime
 
 		self.info = UserInfo.objects.get(user=request.user)
 		self.form = UserInfoForm(request.POST, instance=self.info)
 		if request.is_ajax() and self.form.is_valid():
 			new_info = self.form.save(commit=False)
-			new_info.birtday = str(request.POST.get("date_day")) + "/" + str(request.POST.get("date_month")) + "/" + str(request.POST.get("date_year"))
+			birtday = str(request.POST.get("date_day")) + "/" + str(request.POST.get("date_month")) + "/" + str(request.POST.get("date_year"))
+			new_info.birtday = datetime.strptime(birthday, '%d/%m/%Y')
 			new_info.save()
 		return HttpResponse(new_info.birtday)

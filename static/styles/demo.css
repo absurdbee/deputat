@@ -3,7 +3,9 @@
   padding: 0;
   height: auto;
   border: 1px solid #FFFFFF;
-  color:black
+  color:black;
+  background-color: unset;
+    background-clip: unset;
 }
 
 

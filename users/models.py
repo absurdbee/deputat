@@ -340,3 +340,7 @@ class User(AbstractUser):
             dislikes += votes.filter(vote="DIS").values('pk').count()
             inerts += votes.filter(vote="INE").values('pk').count()
         return [comments, likes, dislikes, inerts, auth_count, anon_count]
+
+    def get_transactions(self):
+        from users.model.profile import UserTransaction
+        return UserTransaction.objects.filter(user_pk=self.pk)

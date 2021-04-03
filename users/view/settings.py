@@ -136,3 +136,26 @@ class UserAboutSettings(TemplateView):
 			except:
 				new_info.save()
 		return HttpResponse()
+
+
+class UserEditPassword(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("profile/edit_password.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserEditPassword,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from users.forms import UserPasswordForm
+		context = super(UserEditPassword,self).get_context_data(**kwargs)
+		context["form"] = UserPasswordForm()
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from users.forms import UserPasswordForm
+
+		self.form = UserPasswordForm(request.POST,instance=request.user)
+		if request.is_ajax() and self.form.is_valid():
+			self.form.save()
+			return HttpResponse()
+		return super(UserEditPassword,self).post(request,*args,**kwargs)

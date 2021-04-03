@@ -343,4 +343,4 @@ class User(AbstractUser):
 
     def get_transactions(self):
         from users.model.profile import UserTransaction
-        return UserTransaction.objects.filter(user_pk=self.pk)
+        return UserTransaction.objects.filter(user_id=self.pk)

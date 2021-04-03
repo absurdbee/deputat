@@ -40,7 +40,7 @@
                     {% if user.user_info.birthday %}
                       <h6 style="margin-top: 8px;">
                         Вы родились {{ user.user_info.birthday }} -
-                        <a class="pointer show_next_element" style="text-decoration:underline">перевыбрать?</a>
+                        <a class="pointer show_parent_next_element" style="text-decoration:underline">перевыбрать?</a>
                       </h6>
                       <span style="display:none">{% include 'profile/birtday.html' %}</span>
                     {% else %}

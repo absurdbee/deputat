@@ -345,6 +345,10 @@ class User(AbstractUser):
         from users.model.profile import UserTransaction
         return UserTransaction.objects.filter(user_id=self.pk)
 
+    def get_transactions_count(self):
+        from users.model.profile import UserTransaction
+        return UserTransaction.objects.filter(user_id=self.pk).values("pk").count()
+
     def get_total_costs(self):
         from users.model.profile import UserTransaction
         from django.db.models import Sum

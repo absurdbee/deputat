@@ -121,7 +121,7 @@ on('body', 'click', '#register_ajax', function() {
   if (form.querySelector("#id_first_name").value){form.querySelector("#id_first_name").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_last_name").value){form.querySelector("#id_last_name").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#password1").value){form.querySelector("#password1").style.border = "rgba(0, 0, 0, 0.2)";}
-  if (form.querySelector("#password2").value){form.querySelector("#password2").style.border = "rgba(0, 0, 0, 0.2)";} 
+  if (form.querySelector("#password2").value){form.querySelector("#password2").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#select_region").value){form.querySelector("#select_region").style.border = "rgba(0, 0, 0, 0.2)";}
 
   reg_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -140,7 +140,11 @@ on('body', 'click', '#logg', function() {
   else if (!form.querySelector("#id_password").value){
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль!")}
-  else {this.disabled = true}
+  else {
+    this.disabled = true;
+    form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
+    console.log(form.querySelector("#id_username").value)
+  }
   if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
 
@@ -150,6 +154,7 @@ on('body', 'click', '#logg', function() {
 
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
+
     window.location.href = "/"
     }};
   link.send(form_data);

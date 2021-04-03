@@ -37,8 +37,8 @@
                       <label>Дата рождения</label>
                   </div>
                   <div class="col-sm-9">
-                    {% if user.birtday %}
-                      <p> Вы родились {{ form.birtday }} - <a class="pointer show_next_element">перевыбрать?</a></p>
+                    {% if user.birthday %}
+                      <p> Вы родились {{ user.birthday }} - <a class="pointer show_next_element">перевыбрать?</a></p>
                       <span style="display:none">{% include 'profile/birtday.html' %}</span>
                     {% else %}
                       {% include 'profile/birtday.html' %}

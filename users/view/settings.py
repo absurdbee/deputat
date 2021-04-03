@@ -136,6 +136,7 @@ class UserAboutSettings(TemplateView):
 			except:
 				new_info.save()
 			#try:
+			from users.model.profile import UserCheck
 			check = UserCheck.objects.get(user_id=request.user.pk)
 			if not check.profile_info:
 				info = UserInfo.objects.get(user_id=request.user.pk)

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'city',
     'region',
     'tags',
+    'gallery',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

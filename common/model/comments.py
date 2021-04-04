@@ -15,14 +15,25 @@ from imagekit.models import ProcessedImageField
 """
 
 class BlogComment(models.Model):
+    EDITED = 'EDI'
+    DELETED = 'DEL'
+    CLOSED = 'CLO'
+    PROCESSING = 'PRO'
+    PUBLISHED = 'PUB'
+    TYPE = (
+        (DELETED, 'Удалённый'),
+        (EDITED, 'Изменённый'),
+        (CLOSED, 'Закрытый менеджером'),
+        (PROCESSING, 'Обработка'),
+        (PUBLISHED, 'Опубликовано'),
+    )
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='blog_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
-    modified = models.DateTimeField(auto_now_add=True, auto_now=False, db_index=False)
     commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
     text = models.TextField(blank=True)
-    is_edited = models.BooleanField(default=False, verbose_name="Изменено")
-    is_deleted = models.BooleanField(default=False, verbose_name="Удаено")
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, blank=True, null=True)
+    attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
+    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
 
     class Meta:
         indexes = (BrinIndex(fields=['created']), )
@@ -80,12 +91,14 @@ class BlogComment(models.Model):
             return ''
 
     @classmethod
-    def create_comment(cls, commenter, blog, parent, text, files, images):
+    def create_comment(cls, commenter, blog, parent, text, attach):
         from common.notify import user_wall, user_notify
         from django.utils import timezone
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
 
-        if text or files or images:
-            comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text, created=timezone.now())
+        if text or _attach:
+            comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text, attach=_attach, created=timezone.now())
             if parent:
                 blog = parent.blog
                 type = "blr"+str(comment.pk)+",blc"+str(parent.pk)+",blo"+str(blog.pk)
@@ -95,12 +108,7 @@ class BlogComment(models.Model):
                 type = "blc"+str(comment.pk)+", bls"+str(blog.pk)
                 user_wall(commenter, type, "u_blog_comment_notify", "COM")
                 user_notify(commenter, type, "u_blog_comment_notify", "COM")
-            if files:
-                for file in files:
-                    BlogCommentDoc.objects.create(comment=comment, file=file)
-            if images:
-                for image in images:
-                    BlogCommentPhoto.objects.create(comment=comment, file=file)
+
             return comment
         else:
             from rest_framework.exceptions import PermissionDenied
@@ -119,14 +127,25 @@ class BlogComment(models.Model):
 
 
 class ElectNewComment(models.Model):
+    EDITED = 'EDI'
+    DELETED = 'DEL'
+    CLOSED = 'CLO'
+    PROCESSING = 'PRO'
+    PUBLISHED = 'PUB'
+    TYPE = (
+        (DELETED, 'Удалённый'),
+        (EDITED, 'Изменённый'),
+        (CLOSED, 'Закрытый менеджером'),
+        (PROCESSING, 'Обработка'),
+        (PUBLISHED, 'Опубликовано'),
+    )
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='elect_new_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
-    modified = models.DateTimeField(auto_now_add=True, auto_now=False, db_index=False)
     commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
     text = models.TextField(blank=True)
-    is_edited = models.BooleanField(default=False, verbose_name="Изменено")
-    is_deleted = models.BooleanField(default=False, verbose_name="Удаено")
     new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True, null=True)
+    attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
+    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
 
     class Meta:
         indexes = (BrinIndex(fields=['created']), )

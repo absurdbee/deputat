@@ -18,8 +18,7 @@ class BlogCommentCreate(View):
 													blog=blog,
 													parent=None,
 													text=comment.text,
-													files = request.POST.getlist("files"),
-													images = request.POST.getlist("images")
+													attach = request.POST.getlist("attach_items")
 												)
 			return render(request, 'blog/comment/parent.html',{'comment': new_comment})
 		else:
@@ -41,8 +40,7 @@ class BlogReplyCreate(View):
 													blog=parent.blog,
 													parent=parent,
 													text=comment.text,
-													files = request.POST.getlist("files"),
-													images = request.POST.getlist("images")
+													attach = request.POST.getlist("attach_items")
 												)
 			return render(request, 'blog/comment/reply.html',{'reply': new_comment, 'comment': parent,})
 		else:

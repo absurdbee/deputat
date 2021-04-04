@@ -1,4 +1,4 @@
-from gallery.models import Album, Photo, PhotoComment
+from gallery.models import Album, Photo
 from django import forms
 
 

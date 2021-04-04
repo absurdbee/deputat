@@ -165,7 +165,7 @@ class ElectNew(models.Model):
     elect = models.ManyToManyField(Elect, related_name="new_elect", blank=True, verbose_name="Чиновник")
     category = models.ForeignKey(ElectNewsCategory, on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория активности")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="elect_new_creator", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Создатель")
     content = RichTextUploadingField(config_name='default',)
     tags = TaggableManager(blank=True, verbose_name="Теги")
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
@@ -240,27 +240,6 @@ class ElectNew(models.Model):
         from stst.models import ElectNewNumbers
         return ElectNewNumbers.objects.filter(new=self.pk).values('pk').count()
 
-    def is_have_docs(self):
-        if self.doc_new.filter(new_id=self.pk).exists():
-            return True
-        else:
-            return False
-
-    def is_have_images(self):
-        if self.image_new.filter(new_id=self.pk).exists():
-            return True
-        else:
-            return False
-
-    def get_docs(self):
-        return self.doc_new.filter(new_id=self.pk)
-
-    def get_images(self):
-        return self.image_new.filter(new_id=self.pk)
-
-    def get_elects(self):
-        return self.elect.all()
-
     def get_image_url(self):
         return self.image_new.filter(new_id=self.pk)[0].file.url
 
@@ -281,34 +260,3 @@ class ElectNew(models.Model):
         comments_query = Q(new_id=self.pk)
         comments_query.add(Q(parent__isnull=True), Q.AND)
         return ElectNewComment.objects.filter(comments_query)
-
-
-class ElectDoc(models.Model):
-    title = models.CharField(max_length=200, verbose_name="Название")
-    file = models.FileField(upload_to=upload_to_user_directory, verbose_name="Документ")
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
-    new = models.ForeignKey(ElectNew, related_name='doc_new', on_delete=models.CASCADE, blank=True)
-
-    class Meta:
-        ordering = ["-created"]
-        verbose_name = "Документ"
-        verbose_name_plural = "Документы"
-        indexes = (BrinIndex(fields=['created']),)
-
-    def get_mime_type(self):
-        import magic
-        return magic.from_file(self.file.path, mime=True)
-
-
-class ElectPhoto(models.Model):
-    file = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
-    new = models.ForeignKey(ElectNew, related_name='image_new', on_delete=models.CASCADE, blank=True)
-
-    class Meta:
-        indexes = (BrinIndex(fields=['created']),)
-        verbose_name = 'Фото'
-        verbose_name_plural = 'Фото'
-        ordering = ["-created"]

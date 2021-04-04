@@ -16,16 +16,7 @@ class BlogAdmin(admin.ModelAdmin):
         form.base_fields['creator'].initial = request.user
         return form
 
-class PhotoElectNewInline(admin.TabularInline):
-    model = ElectPhoto
-class DocElectNewInline(admin.TabularInline):
-    model = ElectDoc
-
 class ElectNewAdmin(admin.ModelAdmin):
-    inlines = [
-        PhotoElectNewInline,
-        DocElectNewInline,
-    ]
     list_display = ['title', 'description', 'created']
     list_filter = ['created']
     search_fields = ['title', 'description', 'created']

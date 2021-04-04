@@ -117,34 +117,6 @@ class BlogComment(models.Model):
         else:
             return str(count) + " ответов"
 
-    def is_have_docs(self):
-        return self.blog_comment_doc.filter(comment_id=self.pk).exists()
-
-    def is_have_images(self):
-        return self.blog_comment_image.filter(comment_id=self.pk).exists()
-
-    def get_docs(self):
-        return self.blog_comment_doc.filter(comment_id=self.pk)
-
-    def get_images(self):
-        return self.blog_comment_image.filter(comment_id=self.pk)
-
-class BlogCommentDoc(models.Model):
-    file = models.FileField(upload_to=upload_to_user_directory, verbose_name="Документ")
-    comment = models.ForeignKey(BlogComment, related_name='blog_comment_doc', on_delete=models.CASCADE, blank=True)
-
-    class Meta:
-        verbose_name = "Документ коммента к статье блога"
-        verbose_name_plural = "Документы коммента к статье блога"
-
-class BlogCommentPhoto(models.Model):
-    file = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
-    comment = models.ForeignKey(BlogComment, related_name='blog_comment_image', on_delete=models.CASCADE, blank=True)
-
-    class Meta:
-        verbose_name = 'Фото коммента к статье блога'
-        verbose_name_plural = 'Фото коммента к статье блога'
-
 
 class ElectNewComment(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='elect_new_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
@@ -226,31 +198,3 @@ class ElectNewComment(models.Model):
             return str(count) + " ответа"
         else:
             return str(count) + " ответов"
-
-    def is_have_docs(self):
-        return self.elect_new_comment_doc.filter(comment_id=self.pk).exists()
-
-    def is_have_images(self):
-        return self.elect_new_comment_photo.filter(comment_id=self.pk).exists()
-
-    def get_docs(self):
-        return self.elect_new_comment_doc.filter(comment_id=self.pk)
-
-    def get_images(self):
-        return self.elect_new_comment_photo.filter(comment_id=self.pk)
-
-class ElectNewCommentDoc(models.Model):
-    file = models.FileField(upload_to=upload_to_user_directory, verbose_name="Документ")
-    comment = models.ForeignKey(ElectNewComment, related_name='elect_new_comment_doc', on_delete=models.CASCADE, blank=True)
-
-    class Meta:
-        verbose_name = "Документ коммента к новости депутата"
-        verbose_name_plural = "Документы коммента к новости депутата"
-
-class ElectNewCommentPhoto(models.Model):
-    file = ProcessedImageField(format='JPEG', options={'quality': 90}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
-    comment = models.ForeignKey(ElectNewComment, related_name='elect_new_comment_photo', on_delete=models.CASCADE, blank=True)
-
-    class Meta:
-        verbose_name = 'Фото коммента к новости депутата'
-        verbose_name_plural = 'Фото коммента к новости депутата'

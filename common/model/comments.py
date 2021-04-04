@@ -49,11 +49,10 @@ class BlogComment(models.Model):
         return naturaltime(self.created)
 
     def get_replies(self):
-        get_comments = BlogComment.objects.filter(parent=self).all()
-        return get_comments
+        return BlogComment.objects.filter(parent=self,type=BlogComment.PUBLISHED).only("pk")
 
     def count_replies(self):
-        return self.blog_comment_replies.count()
+        return self.get_replies().count()
 
     def likes(self):
         from common.model.votes import BlogCommentVotes
@@ -115,7 +114,7 @@ class BlogComment(models.Model):
             raise PermissionDenied("Нужно написать текст, вставить картинку или документ")
 
     def count_replies_ru(self):
-        count = self.blog_comment_replies.count()
+        count = self.get_replies().count()
         a = count % 10
         b = count % 100
         if (a == 1) and (b != 11):
@@ -165,7 +164,7 @@ class ElectNewComment(models.Model):
         return get_comments
 
     def count_replies(self):
-        return self.elect_new_comment_replies.count()
+        return BlogComment.objects.filter(parent=self,type=ElectNewComment.PUBLISHED).only("pk")
 
     def likes(self):
         from common.model.votes import ElectNewCommentVotes
@@ -208,7 +207,7 @@ class ElectNewComment(models.Model):
         return comment
 
     def count_replies_ru(self):
-        count = self.elect_new_comment_replies.count()
+        count = self.get_replies().count()
         a = count % 10
         b = count % 100
         if (a == 1) and (b != 11):

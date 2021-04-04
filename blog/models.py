@@ -99,7 +99,7 @@ class Blog(models.Model):
     def count_comments(self):
         from common.model.comments import BlogComment
 
-        parent_comments = BlogComment.objects.filter(blog_id=self.pk)
+        parent_comments = BlogComment.objects.filter(blog_id=self.pk, type=BlogComment.PUBLISHED)
         parents_count = parent_comments.count()
         i = 0
         for comment in parent_comments:
@@ -113,8 +113,7 @@ class Blog(models.Model):
     def get_comments(self):
         from common.model.comments import BlogComment
 
-        comments_query = Q(blog_id=self.pk)
-        comments_query.add(Q(parent__isnull=True), Q.AND)
+        comments_query = Q(blog_id=self.pk, type=BlogComment.PUBLISHED, parent__isnull=True)
         return BlogComment.objects.filter(comments_query)
 
     def get_articles_5(self):

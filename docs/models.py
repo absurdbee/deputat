@@ -11,12 +11,14 @@ class DocList(models.Model):
     DELETED = 'DEL'
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
+    MANAGER = 'MAN'
     TYPE = (
         (MAIN, 'Основной'),
         (ALBUM, 'Пользовательский'),
         (DELETED, 'Удалённый'),
         (PRIVATE, 'Приватный'),
         (CLOSED, 'Закрытый менеджером'),
+        (MANAGER, 'Созданный персоналом'),
     )
     name = models.CharField(max_length=255)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_doclist', on_delete=models.CASCADE, verbose_name="Создатель")
@@ -86,12 +88,14 @@ class Doc(models.Model):
     DELETED = 'DEL'
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
+    MANAGER = 'MAN'
     TYPES = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
         (DELETED, 'Удалено'),
         (PRIVATE, 'Приватно'),
         (CLOSED, 'Закрыто модератором'),
+        (MANAGER, 'Созданный персоналом'),
     )
     title = models.CharField(max_length=200, verbose_name="Название")
     file = models.FileField(upload_to=upload_to_doc_directory, verbose_name="Документ")

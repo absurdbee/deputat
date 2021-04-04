@@ -15,12 +15,14 @@ class Album(models.Model):
     DELETED = 'DEL'
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
+    MANAGER = 'MAN'
     TYPE = (
         (WALL, 'Фото со стены'),
         (ALBUM, 'Пользовательский'),
         (DELETED, 'Удалённый'),
         (PRIVATE, 'Приватный'),
         (CLOSED, 'Закрытый менеджером'),
+        (MANAGER, 'Созданный персоналом'),
     )
 
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
@@ -115,12 +117,14 @@ class Photo(models.Model):
     DELETED = 'DEL'
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
+    MANAGER = 'MAN'
     TYPE = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
         (DELETED, 'Удалено'),
         (PRIVATE, 'Приватно'),
         (CLOSED, 'Закрыто модератором'),
+        (MANAGER, 'Созданный персоналом'),
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     album = models.ManyToManyField(Album, related_name="photo_album", blank=True)

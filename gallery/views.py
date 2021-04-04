@@ -32,6 +32,10 @@ class UserPhotosList(ListView):
     def get(self,request,*args,**kwargs):
         self.user = User.objects.get(pk=self.kwargs["pk"])
         self.album = Album.objects.get(uuid=self.kwargs["uuid"])
+		if self.user.pk == request.user.pk:
+			self.photo_list = self.list.get_staff_photos()
+		else:
+			self.photo_list = self.list.get_photos()
         self.template_name = get_small_template(self.album, "user_gallery/list.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(UserPhotosList,self).get(request,*args,**kwargs)
 
@@ -42,8 +46,7 @@ class UserPhotosList(ListView):
         return context
 
     def get_queryset(self):
-        photo_list = self.album.get_photos()
-        return photo_list
+        return self.photo_list
 
 
 class UserAlbumPhoto(TemplateView):
@@ -57,14 +60,21 @@ class UserAlbumPhoto(TemplateView):
             self.template_name = get_small_template("user_gallery/photo.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
+		if request.user.pk == self.photo.creator.pk:
+			query = Q(type="PUB") | Q(type="PRI")
+			self.next = self.photos.filter(query, pk__gt=self.photo.pk, ).order_by('pk').first()
+			self.prev = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
+		else:
+			self.next = self.photos.filter(type="PUB", pk__gt=self.photo.pk, ).order_by('pk').first()
+			self.prev = self.photos.filter(type="PUB", pk__gt=self.photo.pk).order_by('pk').first()
         return super(UserAlbumPhoto,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(UserAlbumPhoto,self).get_context_data(**kwargs)
         context["object"] = self.photo
         context["album"] = self.album
-        context["next"] = self.photos.filter(pk__gt=self.photo.pk, is_deleted=False).order_by('pk').first()
-        context["prev"] = self.photos.filter(pk__lt=self.photo.pk, is_deleted=False).order_by('-pk').first()
+        context["next"] = self.next
+        context["prev"] = self.prev
         return context
 
 
@@ -88,8 +98,8 @@ class UserElectNewPhoto(TemplateView):
 		context["object"] = self.photo
 		context["elect_new"] = self.elect_new
 		context["user"] = self.request.user
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, is_deleted=False).order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, is_deleted=False).order_by('-pk').first()
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
 		return context
 
 class UserCommentPhoto(TemplateView):
@@ -111,8 +121,8 @@ class UserCommentPhoto(TemplateView):
 		context = super(UserCommentPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["user"] = self.request.user
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, is_deleted=False).order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, is_deleted=False).order_by('-pk').first()
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
 		return context
 
 

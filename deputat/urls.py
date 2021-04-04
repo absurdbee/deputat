@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^notify/', include('notify.urls')),
 
     url(r'^gallery/', include('gallery.urls')),
+    url(r'^docs/', include('docs.urls')),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^email-verification/$', TemplateView.as_view(template_name="account/email_verification.html"), name='email-verification'),

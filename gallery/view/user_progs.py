@@ -35,7 +35,7 @@ class PhotoAlbumUserCreate(View):
         uploaded_file = request.FILES['file']
         if request.is_ajax():
             for p in request.FILES.getlist('file'):
-                photo = Photo.objects.create(file=p, preview=p, creator=request.user)
+                photo = Photo.objects.create(file=p, preview=p, creator=request.user, type="PUB")
                 _album.photo_album.add(photo)
                 photos += [photo,]
             return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos, 'album': _album, 'user': request.user})
@@ -55,7 +55,7 @@ class PhotoAttachUserCreate(View):
             except:
                 _album = Album.objects.create(creator=request.user, type=Album.WALL, title="Фото со стены", description="Фото со стены")
             for p in request.FILES.getlist('file'):
-                photo = Photo.objects.create(file=p, preview=p, creator=self.user)
+                photo = Photo.objects.create(file=p, preview=p, creator=self.user, type="PUB")
                 _album.photo_album.add(photo)
                 photos += [photo,]
             return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos, 'user': request.user})
@@ -84,8 +84,8 @@ class UserOnPrivatePhoto(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and photo.creator == request.user:
-            photo.is_public = False
-            photo.save(update_fields=['is_public'])
+            photo.type = "PRI"
+            photo.save(update_fields=['type'])
             return HttpResponse()
         else:
             raise Http404
@@ -94,7 +94,7 @@ class UserOffPrivatePhoto(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and photo.creator == request.user:
-            photo.is_public = True
+            photo.type = "PUB"
             photo.save(update_fields=['is_public'])
             return HttpResponse()
         else:
@@ -124,7 +124,7 @@ class AlbumUserCreate(TemplateView):
             album = self.form.save(commit=False)
             if not album.description:
                 album.description = "Без описания"
-            new_album = Album.objects.create(title=album.title, description=album.description, type=Album.ALBUM, is_public=album.is_public, order=album.order,creator=self.user)
+            new_album = Album.objects.create(title=album.title, description=album.description, type=Album.ALBUM, order=album.order, creator=self.user)
             return render_for_platform(request, 'user_gallery/new_album.html',{'album': new_album, 'user': self.user})
         else:
             return HttpResponseBadRequest()
@@ -165,8 +165,8 @@ class AlbumUserDelete(View):
         user = User.objects.get(pk=self.kwargs["pk"])
         album = Album.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and user == request.user and album.type == Album.ALBUM:
-            album.is_deleted = True
-            album.save(update_fields=['is_deleted'])
+            album.type = "DEL"
+            album.save(update_fields=['type'])
             return HttpResponse()
         else:
             raise Http404
@@ -176,8 +176,8 @@ class AlbumUserAbortDelete(View):
         user = User.objects.get(pk=self.kwargs["pk"])
         album = Album.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and user == request.user:
-            album.is_deleted = False
-            album.save(update_fields=['is_deleted'])
+            album.type = "PUB"
+            album.save(update_fields=['type'])
             return HttpResponse()
         else:
             raise Http404

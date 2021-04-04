@@ -27,26 +27,25 @@ class UserLoadAlbum(ListView):
 
 
 class UserPhotosList(ListView):
-    template_name, paginate_by = None, 15
+	template_name, paginate_by = None, 12
 
-    def get(self,request,*args,**kwargs):
-        self.user = User.objects.get(pk=self.kwargs["pk"])
-        self.album = Album.objects.get(uuid=self.kwargs["uuid"])
+	def get(self,request,*args,**kwargs):
+		self.user = User.objects.get(pk=self.kwargs["pk"])
+		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
 		if self.user.pk == request.user.pk:
 			self.photo_list = self.list.get_staff_photos()
 		else:
 			self.photo_list = self.list.get_photos()
-        self.template_name = get_small_template(self.album, "user_gallery/list.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserPhotosList,self).get(request,*args,**kwargs)
+		self.template_name = get_small_template(self.album, "user_gallery/list.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserPhotosList,self).get(request,*args,**kwargs)
 
-    def get_context_data(self,**kwargs):
-        context = super(UserPhotosList,self).get_context_data(**kwargs)
-        context['user'] = self.user
-        context['album'] = self.album
-        return context
-
-    def get_queryset(self):
-        return self.photo_list
+	def get_context_data(self,**kwargs):
+		context = super(UserPhotosList,self).get_context_data(**kwargs)
+		context['user'] = self.user
+		context['album'] = self.album
+		return context
+	def get_queryset(self):
+		return self.photo_list
 
 
 class UserAlbumPhoto(TemplateView):

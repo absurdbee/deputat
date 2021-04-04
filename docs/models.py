@@ -20,7 +20,7 @@ class DocList(models.Model):
     )
     name = models.CharField(max_length=255)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_doclist', on_delete=models.CASCADE, verbose_name="Создатель")
-    type = models.CharField(max_length=3, choices=TYPE, default=LIST, verbose_name="Тип листа")
+    type = models.CharField(max_length=3, choices=TYPE, default=ALBUM, verbose_name="Тип листа")
     order = models.PositiveIntegerField(default=0)
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
 
@@ -97,7 +97,7 @@ class Doc(models.Model):
     file = models.FileField(upload_to=upload_to_doc_directory, verbose_name="Документ")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     list = models.ManyToManyField(DocList, related_name='doc_list', blank=True)
-    type = models.CharField(choices=TYPES, default='P', max_length=3)
+    type = models.CharField(choices=TYPES, default=PUBLISHED, max_length=3)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
 
     class Meta:

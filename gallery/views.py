@@ -49,16 +49,16 @@ class UserPhotosList(ListView):
 
 
 class UserAlbumPhoto(TemplateView):
-    template_name = None
+	template_name = None
 
-    def get(self,request,*args,**kwargs):
-        self.photo = Photo.objects.get(pk=self.kwargs["pk"])
-        self.album = Album.objects.get(uuid=self.kwargs["uuid"])
-        self.photos = self.album.get_photos()
-        if request.is_ajax():
-            self.template_name = get_small_template("user_gallery/photo.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
+	def get(self,request,*args,**kwargs):
+		self.photo = Photo.objects.get(pk=self.kwargs["pk"])
+		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
+		self.photos = self.album.get_photos()
+		if request.is_ajax():
+			self.template_name = get_small_template("user_gallery/photo.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			raise Http404
 		if request.user.pk == self.photo.creator.pk:
 			query = Q(type="PUB") | Q(type="PRI")
 			self.next = self.photos.filter(query, pk__gt=self.photo.pk, ).order_by('pk').first()
@@ -66,15 +66,15 @@ class UserAlbumPhoto(TemplateView):
 		else:
 			self.next = self.photos.filter(type="PUB", pk__gt=self.photo.pk, ).order_by('pk').first()
 			self.prev = self.photos.filter(type="PUB", pk__gt=self.photo.pk).order_by('pk').first()
-        return super(UserAlbumPhoto,self).get(request,*args,**kwargs)
+		return super(UserAlbumPhoto,self).get(request,*args,**kwargs)
 
-    def get_context_data(self,**kwargs):
-        context = super(UserAlbumPhoto,self).get_context_data(**kwargs)
-        context["object"] = self.photo
-        context["album"] = self.album
-        context["next"] = self.next
-        context["prev"] = self.prev
-        return context
+	def get_context_data(self,**kwargs):
+		context = super(UserAlbumPhoto,self).get_context_data(**kwargs)
+		context["object"] = self.photo
+		context["album"] = self.album
+		context["next"] = self.next
+		context["prev"] = self.prev
+		return context
 
 
 class UserElectNewPhoto(TemplateView):

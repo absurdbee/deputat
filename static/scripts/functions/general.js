@@ -1,3 +1,52 @@
+on('body', 'click', '.photo_preview_delete', function() {
+  parent = this.parentElement;
+  block = parent.parentElement;
+  if (block.classList.contains("attach_block")){
+    remove_file_attach(), is_full_attach()
+  } else if (block.classList.contains("comment_attach_block")){
+    remove_file_dropdown(); is_full_dropdown()
+  } else if (block.classList.contains("message_attach_block")){
+    remove_file_message_attach(); is_full_message_attach()
+  }
+  parent.remove();
+});
+on('body', 'click', '.doc_preview_delete', function() {
+  parent = this.parentElement;
+  block = parent.parentElement;
+  if (block.classList.contains("attach_block")){
+    remove_file_attach(), is_full_attach()
+  } else if (block.classList.contains("comment_attach_block")){
+    remove_file_dropdown(); is_full_dropdown()
+  } else if (block.classList.contains("message_attach_block")){
+    remove_file_message_attach(); is_full_message_attach()
+  }
+  parent.remove();
+  try{ remove_file_dropdown(); is_full_dropdown()} catch { remove_file_attach(), is_full_attach()}
+});
+on('body', 'click', '.video_preview_delete', function() {
+  parent = this.parentElement;
+  block = parent.parentElement;
+  if (block.classList.contains("attach_block")){
+    remove_file_attach(), is_full_attach()
+  } else if (block.classList.contains("comment_attach_block")){
+    remove_file_dropdown(); is_full_dropdown()
+  } else if (block.classList.contains("message_attach_block")){
+    remove_file_message_attach(); is_full_message_attach()
+  }
+  parent.remove();
+});
+on('body', 'click', '.music_preview_delete', function() {
+  parent = this.parentElement;
+  block = parent.parentElement;
+  if (block.classList.contains("attach_block")){
+    remove_file_attach(), is_full_attach()
+  } else if (block.classList.contains("comment_attach_block")){
+    remove_file_dropdown(); is_full_dropdown()
+  } else if (block.classList.contains("message_attach_block")){
+    remove_file_message_attach(); is_full_message_attach()
+  }
+  parent.remove();
+});
 
 function on(elSelector,eventName,selector,fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while(el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};
 function create_pagination(block) {
@@ -340,7 +389,7 @@ function send_comment(form, block, link, prepend) {
     link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     link_.open('POST', link, true);
     link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    (form.querySelector(".text-comment").value || form.querySelector(".attach_block").firstChild) ? null: toast_error("Напишите или прикрепите что-нибудь");
+    (form.querySelector(".text-comment").value || form.querySelector(".comment_attach_block").firstChild) ? null: toast_error("Напишите или прикрепите что-нибудь");
     link_.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             form.querySelector(".text-comment").value = "";
@@ -349,7 +398,7 @@ function send_comment(form, block, link, prepend) {
             new_post.innerHTML = elem;
             prepend == "prepend" ? block.insertAdjacentHTML('afterBegin', new_post.innerHTML) : block.append(new_post);
             toast_success(" Комментарий опубликован");
-            form.querySelector(".attach_block").innerHTML = "";
+            form.querySelector(".comment_attach_block").innerHTML = "";
             try {
                 form_dropdown = form.querySelector(".current_file_dropdown");
                 form_dropdown.classList.remove("current_file_dropdown");

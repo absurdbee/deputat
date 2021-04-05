@@ -27,7 +27,7 @@
 .video_preview_delete,
 .music_preview_delete,
 .doc_preview_delete{
-  position: absolute;
+  position: absolute !important;
   right: 20px;
   padding: 6px;
   background-color: white;
@@ -43,7 +43,7 @@
 .doc_preview_delete svg,
 .music_preview_delete svg{
   width: 12px;
-  position: absolute;
+  position: absolute !important;
   color: grey;
 }
 

@@ -9,7 +9,7 @@ function clear_comment_dropdown(){
     dropdowns[i].classList.remove("current_file_dropdown");
   }} catch { null }
   try{
-  attach_blocks = document.body.querySelectorAll(".attach_block");
+  attach_blocks = document.body.querySelectorAll(".comment_attach_block");
   for (var i = 0; i < attach_blocks.length; i++) {
     attach_blocks[i].innerHTML = "";
   }} catch { null }

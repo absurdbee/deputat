@@ -5,7 +5,7 @@ from django.views.generic import ListView
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views import View
 from django.http import Http404
-from common.utils import get_small_template
+from common.utils import get_small_template, get_list_template
 
 
 class UserLoadAlbum(ListView):
@@ -26,6 +26,28 @@ class UserLoadAlbum(ListView):
 		return list
 
 
+class UserGallery(ListView):
+	template_name, paginate_by = None, 12
+
+	def get(self,request,*args,**kwargs):
+		self.user = User.objects.get(pk=self.kwargs["pk"])
+		self.album = self.user.get_or_create_wall_album()
+		if self.user.pk == request.user.pk:
+			self.photo_list = self.list.get_staff_photos()
+		else:
+			self.photo_list = self.list.get_photos()
+		self.template_name = get_list_template(self.album, "user_gallery/gallery/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserGallery,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserGallery,self).get_context_data(**kwargs)
+		context['user'] = self.user
+		context['album'] = self.album
+		return context
+	def get_queryset(self):
+		return self.photo_list
+
+
 class UserPhotosList(ListView):
 	template_name, paginate_by = None, 12
 
@@ -36,7 +58,7 @@ class UserPhotosList(ListView):
 			self.photo_list = self.list.get_staff_photos()
 		else:
 			self.photo_list = self.list.get_photos()
-		self.template_name = get_small_template(self.album, "user_gallery/list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_list_template(self.album, "user_gallery/album/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserPhotosList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

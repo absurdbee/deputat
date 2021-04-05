@@ -8,17 +8,8 @@ urlpatterns = [
 
     url(r'^delete/(?P<uuid>[0-9a-f-]+)/$', UserVideoDelete.as_view()),
     url(r'^abort_delete/(?P<uuid>[0-9a-f-]+)/$', UserVideoAbortDelete.as_view()),
-    url(r'^on_comment/(?P<uuid>[0-9a-f-]+)/$', UserOpenCommentVideo.as_view()),
-    url(r'^off_comment/(?P<uuid>[0-9a-f-]+)/$', UserCloseCommentVideo.as_view()),
     url(r'^on_private/(?P<uuid>[0-9a-f-]+)/$', UserOnPrivateVideo.as_view()),
     url(r'^off_private/(?P<uuid>[0-9a-f-]+)/$', UserOffPrivateVideo.as_view()),
-    url(r'^on_votes/(?P<uuid>[0-9a-f-]+)/$', UserOnVotesVideo.as_view()),
-    url(r'^off_votes/(?P<uuid>[0-9a-f-]+)/$', UserOffVotesVideo.as_view()),
-
-    url(r'^post-comment/$', VideoCommentUserCreate.as_view()),
-    url(r'^reply-comment/$', VideoReplyUserCreate.as_view()),
-    url(r'^delete_comment/(?P<pk>\d+)/$', VideoCommentUserDelete.as_view()),
-	url(r'^abort_delete_comment/(?P<pk>\d+)/$', VideoCommentUserAbortDelete.as_view()),
 
     url(r'^get_album_preview/(?P<pk>\d+)/$', UserVideoAlbumPreview.as_view()),
 

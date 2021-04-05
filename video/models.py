@@ -65,11 +65,11 @@ class VideoAlbum(models.Model):
     def count_video(self):
         return self.video_album.filter(is_deleted=False).values("pk").count()
 
-    def get_my_queryset(self):
+    def get_my_videos(self):
         query = Q(type="PUB") | Q(type="PRI")
         return self.doc_list.filter(query)
 
-    def get_queryset(self):
+    def get_videos(self):
         query = Q(type="PUB")
         queryset = self.doc_list.filter(type="PUB")
         return queryset

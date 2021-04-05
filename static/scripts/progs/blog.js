@@ -21,10 +21,7 @@ on('#ajax', 'click', '.blogReplyParentComment', function() {
 
 on('#ajax', 'click', '.u_comment_photo', function() {
   this.classList.add("current_file_dropdown");
-  document.body.querySelector(".attach_block") ? (
-      attach_block = document.body.querySelector(".attach_block"),
-      attach_block.innerHTML = "",
-      attach_block.classList.remove("attach_block")) : null;
+  clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_fullscreen('/users/load/u_img_comment_load/', loader)
 });

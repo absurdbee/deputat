@@ -1,4 +1,4 @@
-from video.models import VideoAlbum, Video, VideoComment
+from video.models import VideoAlbum, Video
 from django import forms
 
 

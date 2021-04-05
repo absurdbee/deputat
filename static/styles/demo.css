@@ -1,3 +1,89 @@
+.item_attach_circle{
+  position: absolute;
+  right: 35px;
+  padding: 6px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  top: 12px;
+  height: 25px;
+  width: 25px;
+  border: 1px grey solid;
+}
+.item_attach_circle svg{
+  width: 12px;
+  position: absolute;
+  color: grey;
+  opacity:0
+}
+.active_svg svg{
+  width: 12px;
+  position: absolute;
+  color: black;
+  opacity:1
+}
+
+.photo_preview_delete,
+.video_preview_delete,
+.music_preview_delete,
+.doc_preview_delete{
+  position: absolute;
+  right: 20px;
+  padding: 6px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  top: 6px;
+  height: 25px;
+  width: 25px;
+  border: 1px grey solid;
+}
+.photo_preview_delete svg,
+.video_preview_delete svg,
+.doc_preview_delete svg,
+.music_preview_delete svg{
+  width: 12px;
+  position: absolute;
+  color: grey;
+}
+
+.image_fit{
+  object-fit: cover;
+  max-height: 400px;
+  height: 100%;
+  width:100%;
+}
+.image_fit_200{
+  object-fit: cover;
+  height: 200px;
+  width:100%
+}
+.image_fit_70{
+  object-fit: cover;
+  height: 70px;
+  width:100%
+}
+.image_fit_160{
+  object-fit: cover;
+  height: 160px;
+  width:100%
+}
+.image_fit_50{
+  object-fit: cover;
+  height: 50px;
+  width:100%
+}
+.image_fit_small{
+  object-fit: cover;
+  height: 120px;
+  width:100%
+}
+.files_null{
+  display: block !important;
+}
+.u_photo_detail {
+  cursor:pointer
+}
 .input-group-prepend select {
   height: 35px;
   padding: 0;

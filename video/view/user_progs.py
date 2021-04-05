@@ -1,5 +1,5 @@
 from users.models import User
-from video.models import Video, VideoComment, VideoAlbum
+from video.models import Video, VideoAlbum
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.views import View
 from video.forms import AlbumForm, VideoForm

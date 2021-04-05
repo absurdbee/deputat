@@ -28,7 +28,7 @@ class Album(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     title = models.CharField(max_length=250, verbose_name="Название")
     description = models.TextField(blank=True, null=True, verbose_name="Описание")
-    #cover_photo = models.ForeignKey('Photo', on_delete=models.SET_NULL, related_name='+', blank=True, null=True, verbose_name="Обожка")
+    cover_photo = models.ForeignKey('Photo', on_delete=models.SET_NULL, related_name='+', blank=True, null=True, verbose_name="Обожка")
     type = models.CharField(max_length=5, choices=TYPE, default=ALBUM, verbose_name="Тип альбома")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     order = models.PositiveIntegerField(default=0)
@@ -75,12 +75,6 @@ class Album(models.Model):
     def get_first_photo(self):
         return self.photo_album.filter(type="PUB").first()
 
-    def get_6_photos(self):
-        return self.photo_album.filter(type="PUB")[:5]
-
-    def get_staff_6_photos(self):
-        return self.photo_album.filter(type="PUB")[:5]
-
     def count_photo(self):
         try:
             return self.photo_album.filter(type="PUB").values("pk").count()
@@ -101,7 +95,7 @@ class Album(models.Model):
         return self.photo_album.filter(type="PUB")
 
     def get_staff_photos(self):
-        query = Q(type="PUB") & Q(type="PRI")
+        query = Q(type="PUB") | Q(type="PRI")
         return self.photo_album.filter(query)
 
     def is_not_empty(self):

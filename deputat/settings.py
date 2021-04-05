@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'tags',
     'gallery',
     'docs',
+    'music',
+    'video',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

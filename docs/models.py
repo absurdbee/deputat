@@ -7,14 +7,14 @@ from docs.helpers import upload_to_doc_directory
 
 class DocList(models.Model):
     MAIN = 'MAI'
-    ALBUM = 'ALB'
+    LIST = 'LIS'
     DELETED = 'DEL'
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
     TYPE = (
         (MAIN, 'Основной'),
-        (ALBUM, 'Пользовательский'),
+        (LIST, 'Пользовательский'),
         (DELETED, 'Удалённый'),
         (PRIVATE, 'Приватный'),
         (CLOSED, 'Закрытый менеджером'),
@@ -38,10 +38,11 @@ class DocList(models.Model):
         return self.doc_list.filter(list=self).values("pk").exists()
 
     def get_my_docs(self):
-        query = Q(type="PUB") & Q(type="PRI")
+        query = Q(type="PUB") | Q(type="PRI")
         return self.doc_list.filter(query)
 
     def get_docs(self):
+        query = Q(type="PUB")
         queryset = self.doc_list.filter(type="PUB")
         return queryset
 
@@ -60,15 +61,8 @@ class DocList(models.Model):
         else:
             return False
 
-    def list_30(self):
-        queryset = self.doc_list.exclude(type=Doc.PRIVATE)[:30]
-        return queryset
-    def list_6(self):
-        queryset = self.doc_list.exclude(type=Doc.PRIVATE)[:6]
-        return queryset
-
     def count_docs(self):
-        query = Q(type="PUB") & Q(type="PRI")
+        query = Q(type="PUB") | Q(type="PRI")
         return self.doc_list.filter(query).values("pk").count()
 
     def is_main_list(self):

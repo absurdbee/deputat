@@ -101,7 +101,7 @@ class Music(models.Model):
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
-    TYPES = (
+    TYPE = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
         (DELETED, 'Удалено'),

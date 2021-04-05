@@ -268,12 +268,9 @@ line-height: 1;
 .window_fullscreen, .photo_fullscreen, .create_fullscreen {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  height: 100vh;
   z-index: 500;
   padding: 5%;
-  display: block;
   overflow: auto;
 }
 @media screen and (min-width: 621px) {

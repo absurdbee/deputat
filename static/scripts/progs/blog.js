@@ -26,13 +26,13 @@ on('#ajax', 'click', '.u_comment_photo', function() {
   open_fullscreen('/users/load/u_img_comment_load/', loader)
 });
 
-on('#ajax', 'change', '#u_photo_comment_attach', function() {
-  form = this.parentElement; 
-  form_data = new FormData(form);
-  input = form.querySelector("#u_photo_comment_attach")
-  if (input.files.length > 2) {
+on('body', 'change', '#u_photo_comment_attach', function() {
+  if (this.files.length > 2) {
       toast_error("Не больше 2 фотографий");return
   }
+  form = this.parentElement;
+  form_data = new FormData(form);
+
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/gallery/user_progs/add_attach_photo/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

@@ -42,7 +42,7 @@ on('body', 'change', '#u_photo_comment_attach', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    photo_list = response.querySelectorAll(".col-md-4");
+    photo_list = response.querySelectorAll(".pag");
     photo_comment_upload_attach(photo_list, document.body.querySelector(".current_file_dropdown").parentElement.parentElement
     );
     }

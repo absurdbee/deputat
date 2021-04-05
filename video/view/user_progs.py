@@ -65,8 +65,8 @@ class UserVideolistDelete(View):
         user = User.objects.get(pk=self.kwargs["pk"])
         list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and user == request.user and list.type == VideoAlbum.ALBUM:
-            list.is_deleted = True
-            list.save(update_fields=['is_deleted'])
+            list.type = "DEL"
+            list.save(update_fields=['type'])
             return HttpResponse()
         else:
             raise Http404
@@ -76,8 +76,8 @@ class UserVideolistAbortDelete(View):
         user = User.objects.get(pk=self.kwargs["pk"])
         list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and user == request.user:
-            list.is_deleted = False
-            list.save(update_fields=['is_deleted'])
+            list.type = "PUB"
+            list.save(update_fields=['type'])
             return HttpResponse()
         else:
             raise Http404

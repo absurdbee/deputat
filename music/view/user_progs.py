@@ -2,7 +2,6 @@ from music.models import *
 from users.models import User
 from django.views import View
 from django.views.generic.base import TemplateView
-from rest_framework.exceptions import PermissionDenied
 from music.forms import PlaylistForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.parsing_soundcloud.add_playlist import add_playlist
@@ -81,23 +80,19 @@ class UserPlaylistRemove(View):
         else:
             return HttpResponse()
 
-class UserTrackAdd(View):
-    def get(self, request, *args, **kwargs):
-        track = Music.objects.get(pk=self.kwargs["pk"])
-        list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-
-        if request.is_ajax() and not list.is_track_in_list(track.pk):
-            list.players.add(track)
-            return HttpResponse()
-        else:
-            raise Http404
-
 class UserTrackRemove(View):
     def get(self, request, *args, **kwargs):
         track = Music.objects.get(pk=self.kwargs["pk"])
-        list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.is_track_in_list(track.pk):
-            list.players.remove(track)
+        if request.is_ajax() and track.creator.pk == request.user.pk:
+            track.delete_track()
+            return HttpResponse()
+        else:
+            raise Http404
+class UserTrackAbortRemove(View):
+    def get(self,request,*args,**kwargs):
+        track = Music.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and video.creator == request.user:
+            track.abort_delete_track()
             return HttpResponse()
         else:
             raise Http404

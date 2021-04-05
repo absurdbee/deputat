@@ -33,9 +33,9 @@ class UserGallery(ListView):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		self.album = self.user.get_or_create_wall_album()
 		if self.user.pk == request.user.pk:
-			self.photo_list = self.list.get_staff_photos()
+			self.photo_list = self.album.get_staff_photos()
 		else:
-			self.photo_list = self.list.get_photos()
+			self.photo_list = self.album.get_photos()
 		self.template_name = get_list_template(self.album, "user_gallery/gallery/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserGallery,self).get(request,*args,**kwargs)
 

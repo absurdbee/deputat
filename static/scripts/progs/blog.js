@@ -18,3 +18,13 @@ on('#ajax', 'click', '.blogReplyParentComment', function() {
   form.parentElement.style.display = "none";
   block.classList.add("replies_open");
 });
+
+on('#ajax', 'click', '.u_comment_photo', function() {
+  this.classList.add("current_file_dropdown");
+  document.body.querySelector(".attach_block") ? (
+      attach_block = document.body.querySelector(".attach_block"),
+      attach_block.innerHTML = "",
+      attach_block.classList.remove("attach_block")) : null;
+  loader = document.getElementById("create_loader");
+  open_fullscreen('/users/load/img_comment_load/', loader)
+});

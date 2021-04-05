@@ -261,11 +261,11 @@ line-height: 1;
 
 #holder_image img {height: 100px;}
 
-.window_fullscreen_hide{
+.window_fullscreen_hide, .photo_fullscreen_hide, .create_fullscreen_hide{
   cursor: pointer;
   float: right;
 }
-.window_fullscreen {
+.window_fullscreen, .photo_fullscreen, .create_fullscreen {
   position: fixed;
   top: 0;
   left: 0;
@@ -277,7 +277,7 @@ line-height: 1;
   overflow: auto;
 }
 @media screen and (min-width: 621px) {
-    .window_fullscreen {left: 20%;width: 60%;padding-left: 5%;padding-right: 5%;}
+    .window_fullscreen, .photo_fullscreen, .create_fullscreen {left: 20%;width: 60%;padding-left: 5%;padding-right: 5%;}
     .cover_fit {max-height: 300px !important;}
 }
 

@@ -23,7 +23,7 @@ class DocList(models.Model):
     name = models.CharField(max_length=255)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_doclist', on_delete=models.CASCADE, verbose_name="Создатель")
     type = models.CharField(max_length=3, choices=TYPE, default=LIST, verbose_name="Тип листа")
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=1)
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
 
     users = models.ManyToManyField("users.User", blank=True, related_name='users_doclist')

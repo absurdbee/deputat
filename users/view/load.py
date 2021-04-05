@@ -8,7 +8,7 @@ class UserLoadPhoto(ListView):
 	def get(self,request,*args,**kwargs):
 		from gallery.models import Album
 
-		self.album, self.template_name = Album.objects.get(creator_id=request.user.pk, type=Album.WALL), get_my_template("user_load/u_photo_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.album, self.template_name = request.user.get_or_create_wall_album(), get_my_template("user_load/u_photo_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -42,7 +42,7 @@ class UserLoadPhotoComment(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from gallery.models import Album
-		self.album, self.template_name = Album.objects.get(creator_id=request.user.pk, type=Album.WALL), get_my_template("user_load/u_photo_comments_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.album, self.template_name = request.user.get_or_create_wall_album(), get_my_template("user_load/u_photo_comments_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPhotoComment,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
@@ -72,7 +72,7 @@ class UserLoadVideo(ListView):
 	def get(self,request,*args,**kwargs):
 		from video.models import VideoAlbum
 
-		self.album, self.template_name = VideoAlbum.objects.get(creator_id=request.user.pk, type=VideoAlbum.MAIN), get_my_template("user_load/u_video_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.album, self.template_name = request.user.get_or_create_main_videolist(), get_my_template("user_load/u_video_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadVideo,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -106,8 +106,7 @@ class UserLoadMusic(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from music.models import SoundList
-		self.playlist = SoundList.objects.get(creator_id=request.user.pk, type=SoundList.MAIN)
-		self.template_name = get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.playlist, self.template_name = request.user.get_or_create_main_playlist(), get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadMusic,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -141,8 +140,7 @@ class UserLoadDoc(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from docs.models import DocList
-		self.list = DocList.objects.get(creator_id=request.user.pk, type=DocList.MAIN)
-		self.template_name = get_settings_template("user_load/u_doc_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.list, self.template_name = request.user.get_or_create_main_doclist(), get_settings_template("user_load/u_doc_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadDoc,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

@@ -48,6 +48,35 @@ class User(AbstractUser):
         else:
             return verb
 
+    def get_or_create_wall_album(self):
+        from gallery.models import Album
+        try:
+            album = Album.objects.get(creator_id=self.pk, type=Album.WALL)
+        except:
+            album = Album.objects.create(creator_id=self.pk, type=Album.WALL, title="Прикреплённые фото", description="Прикреплённые фото", order=0)
+        return album
+    def get_or_create_main_doclist(self):
+        from docs.models import DocList
+        try:
+            album = DocList.objects.get(creator_id=self.pk, type=DocList.MAIN)
+        except:
+            album = DocList.objects.create(creator_id=self.pk, type=DocList.MAIN, name="Основной список", order=0)
+        return album
+    def get_or_create_main_playlist(self):
+        from music.models import SoundList
+        try:
+            list = SoundList.objects.get(creator_id=self.pk, type=SoundList.MAIN)
+        except:
+            list = SoundList.objects.create(creator_id=self.pk, type=SoundList.MAIN, name="Основной список", order=0)
+        return list
+    def get_or_create_main_videolist(self):
+        from music.models import VideoAlbum
+        try:
+            list = VideoAlbum.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
+        except:
+            list = VideoAlbum.objects.create(creator_id=self.pk, type=VideoAlbum.MAIN, title="Основной список", order=0)
+        return list
+
     def get_full_name(self):
         return self.first_name + " " + self.last_name
 

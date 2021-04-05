@@ -47,15 +47,14 @@ class PhotoAttachUserCreate(View):
     мульти сохранение изображений с моментальным выводом в превью
     """
     def post(self, request, *args, **kwargs):
-        self.user = User.objects.get(pk=self.kwargs["pk"])
         photos = []
-        if request.is_ajax() and self.user == request.user:
+        if request.is_ajax():
             try:
                 _album = Album.objects.get(creator=request.user, type=Album.WALL)
             except:
                 _album = Album.objects.create(creator=request.user, type=Album.WALL, title="Фото со стены", description="Фото со стены")
             for p in request.FILES.getlist('file'):
-                photo = Photo.objects.create(file=p, preview=p, creator=self.user, type="PUB")
+                photo = Photo.objects.create(file=p, preview=p, creator=request.user, type="PUB")
                 _album.photo_album.add(photo)
                 photos += [photo,]
             return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos, 'user': request.user})

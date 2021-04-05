@@ -1,7 +1,13 @@
 on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
-
+on('#ajax', 'click', '.create_fullscreen_hide_2', function() {
+  this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
+  this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
+});
+on('body', 'click', '.previous_click', function(event) {
+  this.previousElementSibling.click();
+})
 on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");
   text = this.querySelector("title").innerHTML;

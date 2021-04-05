@@ -26,5 +26,5 @@ on('#ajax', 'click', '.u_comment_photo', function() {
       attach_block.innerHTML = "",
       attach_block.classList.remove("attach_block")) : null;
   loader = document.getElementById("create_loader");
-  open_fullscreen('/users/load/img_comment_load/', loader)
+  open_fullscreen('/users/load/u_img_comment_load/', loader)
 });

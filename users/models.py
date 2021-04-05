@@ -48,6 +48,25 @@ class User(AbstractUser):
         else:
             return verb
 
+    def get_full_name_genitive(self):
+        import pymorphy2
+        from string import ascii_letters
+
+        morph = pymorphy2.MorphAnalyzer()
+        if all(map(lambda c: c in ascii_letters, self.first_name)):
+            first_name = self.first_name
+        else:
+            name = morph.parse(self.first_name)[0]
+            v1 = name.inflect({'gent'})
+            first_name = v1.word.title()
+        if all(map(lambda c: c in ascii_letters, self.last_name)):
+            last_name = self.last_name
+        else:
+            surname = morph.parse(self.last_name)[0]
+            v2 = surname.inflect({'gent'})
+            last_name = v2.word.title()
+        return first_name + " " + last_name
+
     def get_or_create_wall_album(self):
         from gallery.models import Album
         try:

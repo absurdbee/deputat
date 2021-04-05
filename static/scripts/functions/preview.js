@@ -1,3 +1,40 @@
+function check_photo_in_block(block, _this, pk) {
+    if (block.querySelector('[photo-pk=' + '"' + pk + '"' + ']')) {
+        _this.parentElement.parentElement.setAttribute("tooltip", "Изображение уже выбрано");
+        _this.parentElement.parentElement.setAttribute("flow", "up");
+        return true
+    } else {
+        return false
+    }
+}
+function check_video_in_block(block, _this, pk) {
+    if (block.querySelector('[video-pk=' + '"' + pk + '"' + ']')) {
+        _this.parentElement.parentElement.setAttribute("tooltip", "Видеоролик уже выбран");
+        _this.parentElement.parentElement.setAttribute("flow", "up");
+        return true
+    } else {
+        return false
+    }
+}
+function check_music_in_block(block, _this, counter) {
+    if (block.querySelector('[music-counter=' + '"' + pk + '"' + ']')) {
+        _this.parentElement.setAttribute("tooltip", "Аудиозапись уже выбрана");
+        _this.parentElement.setAttribute("flow", "up");
+        return true
+    } else {
+        return false
+    }
+}
+function check_doc_in_block(block, _this, pk) {
+    if (block.querySelector('[doc-pk=' + '"' + pk + '"' + ']')) {
+        _this.parentElement.parentElement.setAttribute("tooltip", "Документ уже выбран");
+        _this.parentElement.parentElement.setAttribute("flow", "up");
+        return true
+    } else {
+        return false
+    }
+}
+
 function photo_preview_delete(){
   $span = document.createElement("span");
   $span.classList.add("photo_preview_delete");

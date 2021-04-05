@@ -88,8 +88,19 @@ link.send( null );
 })
 
 on('body', 'click', '.window_fullscreen_hide', function() {
-  document.querySelector(".window_fullscreen").style.display = "none";
-  document.getElementById("window_loader").innerHTML=""}
+  parent = this.parentElement
+  parent.querySelector(".window_fullscreen").style.display = "none";
+  parent.getElementById("window_loader").innerHTML=""}
+);
+on('body', 'click', '.photo_fullscreen_hide', function() {
+  parent = this.parentElement
+  parent.querySelector(".photo_fullscreen").style.display = "none";
+  parent.getElementById("photo_loader").innerHTML=""}
+);
+on('body', 'click', '.create_fullscreen_hide', function() {
+  parent = this.parentElement
+  parent.querySelector(".create_fullscreen").style.display = "none";
+  parent.getElementById("create_loader").innerHTML=""}
 );
 
 

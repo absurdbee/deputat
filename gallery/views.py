@@ -48,7 +48,7 @@ class UserGallery(ListView):
 		return self.photo_list
 
 
-class UserPhotosList(ListView):
+class UserAlbum(ListView):
 	template_name, paginate_by = None, 12
 
 	def get(self,request,*args,**kwargs):
@@ -59,13 +59,14 @@ class UserPhotosList(ListView):
 		else:
 			self.photo_list = self.list.get_photos()
 		self.template_name = get_list_template(self.album, "user_gallery/album/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(UserPhotosList,self).get(request,*args,**kwargs)
+		return super(UserAlbum,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		context = super(UserPhotosList,self).get_context_data(**kwargs)
+		context = super(UserAlbum,self).get_context_data(**kwargs)
 		context['user'] = self.user
 		context['album'] = self.album
 		return context
+
 	def get_queryset(self):
 		return self.photo_list
 

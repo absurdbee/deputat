@@ -53,7 +53,7 @@ function photo_comment_upload_attach(photo_list, dropdown){
 
   attach_block = dropdown.parentElement.previousElementSibling;
   for (var i = 0; i < photo_list.length; i++){
-    div = create_preview_photo(parent.getAttribute('data-href'), parent.getAttribute("photo-pk"));
+    div = create_preview_photo(photo_list[i].getAttribute('data-href'), photo_list[i].getAttribute("photo-pk"));
     block.append(div);
     attach_block.append(div);
     add_file_dropdown()

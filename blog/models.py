@@ -240,7 +240,7 @@ class ElectNew(models.Model):
         return ElectNewNumbers.objects.filter(new=self.pk).values('pk').count()
 
     def get_image_url(self):
-        return self.image_new.filter(new_id=self.pk)[0].file.url
+        return self.creator.s_avatar.url
 
     def count_comments(self):
         from common.model.comments import ElectNewComment

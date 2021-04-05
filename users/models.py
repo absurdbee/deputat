@@ -12,7 +12,7 @@ from city.models import City
 """
 
 class User(AbstractUser):
-    DELETED, BLOCKED, PHONE_NO_VERIFIED, STANDART, MANAGER, SUPERMANAGER = 'DE', 'BL', 'PV', 'ST', 'MA', 'SM'
+    DELETED, SUSPENDED, BLOCKED, PHONE_NO_VERIFIED, STANDART, MANAGER, SUPERMANAGER = 'DE', 'SU', 'BL', 'PV', 'ST', 'MA', 'SM'
     MALE, FEMALE, DESCTOP, PHONE = 'Man', 'Fem', 'De', 'Ph'
     PERM = (
         (DELETED, 'Удален'),
@@ -165,6 +165,8 @@ class User(AbstractUser):
         return try_except(self.perm == User.SUPERMANAGER)
     def is_no_phone_verified(self):
         return try_except(self.perm == User.PHONE_NO_VERIFIED)
+    def is_suspended(self):
+        return try_except(self.perm == User.SUSPENDED)
 
     def is_man(self):
         if self.gender == User.MALE:

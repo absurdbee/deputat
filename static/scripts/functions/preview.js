@@ -132,7 +132,7 @@ function create_preview_doc(media_body, pk){
   return $div
 }
 
-on('#ajax', 'click', '.photo_load_one', function() {
+on('body', 'click', '.photo_load_one', function() {
   _this = this;
   photo_pk = _this.parentElement.getAttribute('photo-pk');
   src = _this.parentElement.getAttribute("data-href");
@@ -145,7 +145,7 @@ on('#ajax', 'click', '.photo_load_one', function() {
   }
 });
 
-on('#ajax', 'click', '.photo_load_several', function() {
+on('body', 'click', '.photo_load_several', function() {
   previous = this.previousElementSibling
   _this = previous.querySelector("img");
   photo_pk = previous.getAttribute('photo-pk');

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from music.models import *
 
 
 class MusicAdmin(admin.ModelAdmin):
@@ -8,13 +8,6 @@ class MusicAdmin(admin.ModelAdmin):
     list_filter = ['tag', 'genre']
     class Meta:
             model = Music
-
-class SoundTagsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'symbol']
-    search_fields = ['name']
-    list_filter = ['symbol']
-    class Meta:
-            model = SoundTags
 
 
 admin.site.register(Music, MusicAdmin)

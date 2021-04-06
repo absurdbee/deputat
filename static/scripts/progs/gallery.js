@@ -71,11 +71,9 @@ on('body', 'click', '#u_edit_album_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     title = form.querySelector('#id_title').value;
-    description = form.querySelector('#id_description').value;
 
     album = document.body.querySelector(".album_active");
     album.querySelector("h6").innerHTML = title;
-    album.querySelector(".albom_description").innerHTML = description;
     album.classList.remove("album_active");
     close_create_window();
     toast_success("Альбом изменен")

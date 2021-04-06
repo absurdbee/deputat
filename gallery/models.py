@@ -65,6 +65,8 @@ class Album(models.Model):
         return self.type == self.WALL
     def is_user_album(self):
         return self.type == self.ALBUM or self.type == self.PRIVATE
+    def is_private_album(self):
+        return self.type == self.PRIVATE
 
     def get_cover_photo(self):
         if self.cover_photo:

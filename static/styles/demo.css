@@ -82,7 +82,10 @@
   display: block !important;
 }
 .u_photo_detail {
-  cursor:pointer
+  cursor:pointer;
+  flex: 0 0 50%;
+  max-width:50%;
+  padding:5px
 }
 .input-group-prepend select {
   height: 35px;
@@ -212,6 +215,10 @@ select {
   }
   .reply_card {
     margin-left : 3rem;
+  }
+  .u_photo_detail {
+    flex: 0 0 33.3333%;
+    max-width:33.3333%;
   }
 }
 

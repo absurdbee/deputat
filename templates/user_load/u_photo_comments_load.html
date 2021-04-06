@@ -19,7 +19,7 @@
 
     {% if request.user.is_have_albums %}
 
-    <div class="row no-gutters mt-3" style="overflow-x: auto;">
+    <div class="row no-gutters mb-3" style="overflow-x: auto;">
       <div class="col-12">
       <ul style="width:max-content;list-style: none;">
         {% for object in request.user.get_albums %}

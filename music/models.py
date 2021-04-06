@@ -8,6 +8,7 @@ from imagekit.models import ProcessedImageField
 from users.helpers import upload_to_user_directory
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
+from django.db.models import Q
 
 
 class SoundList(models.Model):

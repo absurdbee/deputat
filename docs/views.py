@@ -18,7 +18,7 @@ class UserDocs(ListView):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		self.list = self.user.get_or_create_main_doclist()
 		if self.user.pk == request.user.pk:
-			self.doc_list = self.list.get_staff_docs()
+			self.doc_list = self.list.get_my_docs()
 		else:
 			self.doc_list = self.list.get_docs()
 		self.template_name = get_list_template(self.list, "user_docs/", "docs.html", request.user, request.META['HTTP_USER_AGENT'])
@@ -43,7 +43,7 @@ class UserDocsList(ListView):
 		self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		if self.user.pk == request.user.pk:
-			self.doc_list = self.list.get_staff_docs()
+			self.doc_list = self.list.get_my_docs()
 		else:
 			self.doc_list = self.list.get_docs()
 		self.template_name = get_list_template(self.list, "user_docs/", "list.html", request.user, request.META['HTTP_USER_AGENT'])

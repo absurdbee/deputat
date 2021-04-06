@@ -89,7 +89,7 @@ class User(AbstractUser):
             list = SoundList.objects.create(creator_id=self.pk, type=SoundList.MAIN, name="Основной список", order=0)
         return list
     def get_or_create_main_videolist(self):
-        from music.models import VideoAlbum
+        from video.models import VideoAlbum
         try:
             list = VideoAlbum.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
         except:

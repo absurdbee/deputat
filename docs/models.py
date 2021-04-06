@@ -3,6 +3,7 @@ from django.contrib.postgres.indexes import BrinIndex
 import uuid
 from django.conf import settings
 from docs.helpers import upload_to_doc_directory
+from django.db.models import Q
 
 
 class DocList(models.Model):

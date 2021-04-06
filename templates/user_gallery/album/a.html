@@ -6,14 +6,15 @@
   <div class="card-header p-0">
     <div class="row no-gutters">
       <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
-        {% include 'generic/user/user_back.html' %}
+        <a class="btn btn-sm btn_default border ajax" href="{% url 'user_gallery' pk=user.pk %}" style="width: -webkit-fill-available;">
+          <svg fill="currentColor" class="svg_default" style="width: 19px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/></svg>
+        </a>
       </div>
     </div>
   </div>
 
   <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-    <h5 class="mt-1" style="flex: 1;">Фото {{ user.get_full_name_genitive }}</h5>
-    <span>{{ album.count_photo }}</span>
+    <h5 class="mt-1" style="flex: 1;">Фото {{ user.get_full_name_genitive }} ({{ album.count_photo }})</h5>
   </div>
 
   <div class="row is_paginate no-gutters">

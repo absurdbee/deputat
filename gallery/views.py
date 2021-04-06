@@ -27,7 +27,7 @@ class UserLoadAlbum(ListView):
 
 
 class UserGallery(ListView):
-	template_name, paginate_by = None, 12
+	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])

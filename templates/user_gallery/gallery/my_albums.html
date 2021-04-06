@@ -6,9 +6,9 @@
 <div class="row overflow-x-auto no-gutters">
   <div class="col-12">
 
-  <ul class="date-list" style="width:max-content">
+  <ul style="width:max-content;list-style: none;">
     {% for object in user.get_my_albums %}
-        <li class="date">
+        <li class="album_item">
           <div class="cover_block" data-uuid="{{ object.uuid }}">
               <div class="card rounded-0 border-0">
                   <div class="card-header">

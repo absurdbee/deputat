@@ -1,5 +1,4 @@
 function open_load_fullscreen(link, block) {
-    var link_, elem;
     link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     link_.open('GET', link, true);
     link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -9,7 +8,7 @@ function open_load_fullscreen(link, block) {
             block.parentElement.style.display = "block";
             block.innerHTML = "";
             block.innerHTML = elem;
-            scrolled(link, document.getElementById('create_loader'), 0)
+            scrolled(link, block, 0)
         }
     };
     link_.send();

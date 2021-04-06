@@ -147,7 +147,7 @@ class AlbumUserEdit(TemplateView):
     def post(self,request,*args,**kwargs):
         self.album = Album.objects.get(uuid=self.kwargs["uuid"])
         self.form = AlbumForm(request.POST,instance=self.album)
-        if request.is_ajax() and self.form.is_valid() and request.user.pk == album.creator.pk:
+        if request.is_ajax() and self.form.is_valid() and request.user.pk == self.album.creator.pk:
             album = self.form.save(commit=False)
             if not album.description:
                 album.description = "Без описания"

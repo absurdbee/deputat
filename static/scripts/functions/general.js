@@ -2,7 +2,7 @@ function post_and_load_object_page(form, url_post, url_1, url_2) {
     form_data = new FormData(form);
     pk = document.body.querySelector(".pk_saver").getAttribute("data-pk");
     var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    ajax_link.open('POST', url_post + pk + "/", true);
+    ajax_link.open('POST', url_post, true);
     ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     ajax_link.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {

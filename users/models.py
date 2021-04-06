@@ -420,14 +420,22 @@ class User(AbstractUser):
 
     def get_my_albums(self):
         from gallery.models import Album
-
         albums_query = Q(type="PUB") | Q(type="PRI")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query)
+    def is_have_my_albums(self):
+        from gallery.models import Album
+        albums_query = Q(type="PUB") | Q(type="PRI")
+        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return Album.objects.filter(albums_query).exists()
 
     def get_albums(self):
         from gallery.models import Album
-
         albums_query = Q(type="PUB")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query).order_by("order")
+    def is_have_albums(self):
+        from gallery.models import Album
+        albums_query = Q(type="PUB")
+        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return Album.objects.filter(albums_query).order_by("order").exists()

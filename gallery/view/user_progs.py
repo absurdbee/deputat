@@ -106,25 +106,22 @@ class AlbumUserCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         self.form = AlbumForm()
-        self.user = User.objects.get(pk=self.kwargs["pk"])
         self.template_name = get_small_template("user_gallery/add_album.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(AlbumUserCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(AlbumUserCreate,self).get_context_data(**kwargs)
         context["form"] = self.form
-        context["user"] = self.user
         return context
 
     def post(self,request,*args,**kwargs):
         self.form = AlbumForm(request.POST)
-        self.user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and self.form.is_valid() and self.user == request.user:
+        if request.is_ajax() and self.form.is_valid():
             album = self.form.save(commit=False)
             if not album.description:
                 album.description = "Без описания"
-            new_album = Album.objects.create(title=album.title, description=album.description, type=Album.ALBUM, order=album.order, creator=self.user)
-            return render_for_platform(request, 'user_gallery/new_album.html',{'album': new_album, 'user': self.user})
+            new_album = Album.objects.create(title=album.title, description=album.description, type=Album.ALBUM, order=album.order, creator=request.user)
+            return render_for_platform(request, 'user_gallery/new_album.html',{'album': new_album})
         else:
             return HttpResponseBadRequest()
         return super(AlbumUserCreate,self).get(request,*args,**kwargs)
@@ -134,7 +131,6 @@ class AlbumUserEdit(TemplateView):
     form=None
 
     def get(self,request,*args,**kwargs):
-        self.user = User.objects.get(pk=self.kwargs["pk"])
         self.template_name = get_small_template("user_gallery/edit_album.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(AlbumUserEdit,self).get(request,*args,**kwargs)
 
@@ -148,8 +144,7 @@ class AlbumUserEdit(TemplateView):
     def post(self,request,*args,**kwargs):
         self.album = Album.objects.get(uuid=self.kwargs["uuid"])
         self.form = AlbumForm(request.POST,instance=self.album)
-        self.user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and self.form.is_valid() and self.user == request.user:
+        if request.is_ajax() and self.form.is_valid():
             album = self.form.save(commit=False)
             if not album.description:
                 album.description = "Без описания"
@@ -161,9 +156,8 @@ class AlbumUserEdit(TemplateView):
 
 class AlbumUserDelete(View):
     def get(self,request,*args,**kwargs):
-        user = User.objects.get(pk=self.kwargs["pk"])
         album = Album.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and user == request.user and album.type == Album.ALBUM:
+        if request.is_ajax() and album.type != Album.WALL:
             album.type = "DEL"
             album.save(update_fields=['type'])
             return HttpResponse()
@@ -172,9 +166,8 @@ class AlbumUserDelete(View):
 
 class AlbumUserAbortDelete(View):
     def get(self,request,*args,**kwargs):
-        user = User.objects.get(pk=self.kwargs["pk"])
         album = Album.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and user == request.user:
+        if request.is_ajax():
             album.type = "PUB"
             album.save(update_fields=['type'])
             return HttpResponse()

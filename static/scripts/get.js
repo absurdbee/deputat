@@ -54,3 +54,4 @@ loadScripts('/static/scripts/progs/votes.js');
 loadScripts('/static/scripts/progs/elect.js');
 loadScripts('/static/scripts/progs/user.js');
 loadScripts('/static/scripts/auth.js');
+loadScripts('/static/scripts/gallery.js');

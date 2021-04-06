@@ -132,7 +132,7 @@ class AlbumUserCreate(TemplateView):
 
 class AlbumUserEdit(TemplateView):
     template_name = None
-    form=None
+    form = None
 
     def get(self,request,*args,**kwargs):
         self.template_name = get_small_template("user_gallery/edit_album.html", request.user, request.META['HTTP_USER_AGENT'])
@@ -141,7 +141,6 @@ class AlbumUserEdit(TemplateView):
     def get_context_data(self,**kwargs):
         context = super(AlbumUserEdit,self).get_context_data(**kwargs)
         context["form"] = self.form
-        context["user"] = self.user
         context["album"] = Album.objects.get(uuid=self.kwargs["uuid"])
         return context
 
@@ -176,7 +175,7 @@ class AlbumUserAbortDelete(View):
     def get(self,request,*args,**kwargs):
         album = Album.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax():
-            album.type = "PUB"
+            album.type = "ALB"
             album.save(update_fields=['type'])
             return HttpResponse()
         else:

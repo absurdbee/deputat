@@ -67,11 +67,11 @@ class VideoAlbum(models.Model):
 
     def get_my_videos(self):
         query = Q(type="PUB") | Q(type="PRI")
-        return self.doc_list.filter(query)
+        return self.video_album.filter(query)
 
     def get_videos(self):
         query = Q(type="PUB")
-        queryset = self.doc_list.filter(type="PUB")
+        queryset = self.video_album.filter(type="PUB")
         return queryset
 
     def get_video_count(self):

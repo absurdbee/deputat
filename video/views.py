@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 from users.models import User
-from common.utils import get_small_template
+from common.utils import get_small_template, get_list_template
 from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 
@@ -153,3 +153,51 @@ class UserVideolistEdit(TemplateView):
         else:
             return HttpResponseBadRequest()
         return super(UserVideolistEdit,self).get(request,*args,**kwargs)
+
+
+class UserVideo(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		self.user = User.objects.get(pk=self.kwargs["pk"])
+		self.list = self.user.get_or_create_video_list()
+		if self.user.pk == request.user.pk:
+			self.video_list = self.list.get_my_videos()
+		else:
+			self.video_list = self.list.get_videos()
+		self.template_name = get_list_template(self.list, "user_video/", "video.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserVideo,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserVideo,self).get_context_data(**kwargs)
+		context['user'] = self.user
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.video_list
+
+
+class UserVideoList(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from video.models import VideoAlbum
+
+		self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+		self.user = User.objects.get(pk=self.kwargs["pk"])
+		if self.user.pk == request.user.pk:
+			self.video_list = self.list.get_my_videos()
+		else:
+			self.video_list = self.list.get_videos()
+		self.template_name = get_list_template(self.list, "user_video/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserVideoList,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserVideoList,self).get_context_data(**kwargs)
+		context['user'] = self.user
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.video_list

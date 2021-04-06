@@ -5,6 +5,7 @@
   user-select: none;
   text-align: center;
   border-radius: 4px;
+  max-width: 250px;
 }
 
 .item_attach_circle{

@@ -72,6 +72,7 @@ on('body', 'click', '.music_preview_delete', function() {
 });
 
 function on(elSelector,eventName,selector,fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while(el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};
+
 function create_pagination(block) {
   if (block.querySelector('.chat_container')) {
     scrolled(window.location.href, '.chat_container', target = 0)
@@ -83,7 +84,6 @@ function create_pagination(block) {
     scrolled(window.location.href, '.is_post_paginate', target = 1)
   }
 }
-
 create_pagination(document.getElementById('ajax'));
 page = 2;
 loaded = false;
@@ -95,7 +95,7 @@ function scrolled(link, block_id, target) {
     // 3. Указатель на нужность работы просмотров элементов в ленте. Например, target=1 - просмотры постов в ленте
     onscroll = function() {
         try {
-          console.log("ggg")
+          console.log(document.body.querySelector(block_id))
             if (document.body.querySelector(".chat_container")){
               block_ = document.body.querySelector(block_id);
               box_ = block_.querySelector('.first');

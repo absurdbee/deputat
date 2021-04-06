@@ -94,7 +94,7 @@ on('body', 'change', '#u_photo_add', function() {
     response = document.createElement("span");
     response.innerHTML = elem;
     document.body.querySelector("#photos_container").insertAdjacentHTML('afterBegin', response.innerHTML);
-    document.body.querySelector(".photos_empty") ? document.body.querySelector(".post_empty").style.display = "none" : null
+    document.body.querySelector(".photos_empty") ? document.body.querySelector(".photos_empty").style.display = "none" : null
   }}
   link_.send(form_data);
 });

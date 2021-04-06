@@ -25,7 +25,7 @@ on('body', 'click', '.u_album_remove', function() {
     block.querySelector(".card").style.display = "none";
     $block = document.createElement("div");
     $block.classList.add("card", "delete_card", "rounded-0", "border-0", "mb-3");
-    $block.innerHTML = '<div class="card-header"><div class="media"><div class="media-body"><h6 class="mb-0 u_album_abort_remove pointer">Восстановить</h6></div></div></div><div class="card-body"><a><img class="image_fit_200" src="/static/images/no_img/album.jpg" /></a></div>'
+    $block.innerHTML = '<div class="card-header"><div class="media"><div class="media-body"><h6 class="mb-0 u_album_abort_remove pointer">Восстановить</h6></div></div></div><div class="card-body"><a><img class="image_fit_200" src="/static/images/album.jpg" /></a></div>'
     block.append($block);
   }}
   link_.send();
@@ -51,7 +51,7 @@ on('body', 'click', '#u_create_album_btn', function() {
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!");
-  } else { this.disabled = true } 
+  } else { this.disabled = true }
   post_and_load_object_page(form, "/gallery/user_progs/add_album/", "/gallery/album/", "/");
 });
 

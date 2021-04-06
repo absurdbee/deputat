@@ -160,7 +160,7 @@ class UserVideo(ListView):
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.list = self.user.get_or_create_video_list()
+		self.list = self.user.get_or_create_main_videolist()
 		if self.user.pk == request.user.pk:
 			self.video_list = self.list.get_my_videos()
 		else:

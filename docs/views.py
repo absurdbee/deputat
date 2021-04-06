@@ -1,6 +1,7 @@
 from django.views.generic import ListView
 from docs.models import Doc
 from common.utils import get_small_template, get_list_template
+from users.models import User
 
 
 class DocsView(ListView):
@@ -15,7 +16,7 @@ class UserDocs(ListView):
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.list = self.user.get_or_create_doc_list()
+		self.list = self.user.get_or_create_main_doclist()
 		if self.user.pk == request.user.pk:
 			self.doc_list = self.list.get_staff_docs()
 		else:

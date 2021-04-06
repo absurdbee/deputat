@@ -2,6 +2,7 @@ from django.views.generic.base import TemplateView
 from music.models import *
 from django.views.generic import ListView
 from common.utils import get_small_template, get_list_template
+from users.models import User
 
 
 class AllMusicView(TemplateView):
@@ -21,7 +22,7 @@ class UserMusic(ListView):
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.list = self.user.get_or_create_playlist()
+		self.list = self.user.get_or_create_main_playlist()
 		if self.user.pk == request.user.pk:
 			self.music_list = self.list.get_my_playlist()
 		else:

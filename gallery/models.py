@@ -70,9 +70,9 @@ class Album(models.Model):
 
     def get_cover_photo(self):
         if self.cover_photo:
-            return self.cover_photo
+            return self.cover_photo.file.url
         elif self.photo_album.filter(type="PUB").exists():
-            return self.photo_album.filter(type="PUB").first()
+            return self.photo_album.filter(type="PUB").last().file.url
         else:
             return "/static/images/album.jpg"
 

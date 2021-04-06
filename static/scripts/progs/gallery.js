@@ -44,3 +44,59 @@ on('body', 'click', '.u_album_abort_remove', function() {
   }}
   link_.send();
 });
+
+on('#ajax', 'click', '#u_create_album_btn', function() {
+  form = this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!");
+  } else { this.disabled = true }
+  post_and_load_object_page(form, "/gallery/user_progs/add_album/", "/gallery/album/", "/");
+});
+
+on('#ajax', 'click', '#u_edit_album_btn', function() {
+  form = this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!");
+  } else { this.disabled = true }
+  uuid = form.getAttribute("data-uuid")
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/gallery/user_progs/edit_album/" + uuid + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    title = form.querySelector('#id_title').value;
+    description = form.querySelector('#id_description').value;
+
+    album = document.body.querySelector(".album_active");
+    album.querySelector("h6").innerHTML = title;
+    album.querySelector(".albom_description").innerHTML = description;
+    album.classList.remove("album_active");
+    close_create_window();
+    toast_success("Альбом изменен")
+  }}
+  link_.send(form_data);
+});
+
+on('#ajax', 'change', '#u_photo_add', function() {
+  uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
+  form_data = new FormData(document.body.querySelector("#add_photos"));
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/gallery/user_progs/add_photo/" + uuid + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    document.body.querySelector("#photos_container").insertAdjacentHTML('afterBegin', response.innerHTML);
+    document.body.querySelector(".photos_empty") ? document.body.querySelector(".post_empty").style.display = "none" : null
+  }}
+  link_.send(form_data);
+});

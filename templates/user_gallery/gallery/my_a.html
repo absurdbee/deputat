@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Моя аалерея{% endblock %}
+{% block title %}Моя галерея{% endblock %}
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ album.uuid }}"">
@@ -14,8 +14,8 @@
       <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
         <form id="add_photos">
           {% csrf_token %}
-          <input type="file" id="u_gallery_photo_add" name="file" style="display:none" multiple="multiple">
-          <h5 class="btn btn-sm border" id="u_add_multi_photos" style="width: -webkit-fill-available;font-size: 19px;">+ фото</h5>
+          <input type="file" id="u_photo_add" name="file" style="display:none" multiple="multiple">
+          <h5 class="btn btn-sm border previous_click" style="width: -webkit-fill-available;font-size: 19px;">+ фото</h5>
         </form>
       </div>
     </div>
@@ -28,7 +28,7 @@
   <span>{{ album.count_photo }}</span>
 </div>
 
-<div class="row is_paginate no-gutters">
+<div class="row is_paginate no-gutters" id="photos_container"">
   {% if object_list %}
 
   {% for object in object_list %}
@@ -44,7 +44,7 @@
     {% endfor %}
 
   {% else %}
-  <div class="card mb-3 centered" style="width:100%;">
+  <div class="card mb-3 centered photos_empty" style="width:100%;">
     <div class="card-body">
     <svg fill="currentColor" class="thumb_big svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M22 13h-8v-2h8v2zm0-6h-8v2h8V7zm-8 10h8v-2h-8v2zm-2-8v6c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2zm-1.5 6l-2.25-3-1.75 2.26-1.25-1.51L3.5 15h7z"/></svg>
     </div>

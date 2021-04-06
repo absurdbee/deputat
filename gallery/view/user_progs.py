@@ -120,7 +120,11 @@ class AlbumUserCreate(TemplateView):
             album = self.form.save(commit=False)
             if not album.description:
                 album.description = "Без описания"
-            new_album = Album.objects.create(title=album.title, description=album.description, type=Album.ALBUM, order=album.order, creator=request.user)
+            if request.POST.get("is_public"):
+                album.type = Album.ALBUM
+            else:
+                album.type = Album.PRIVATE
+            new_album = Album.objects.create(title=album.title, description=album.description, type=album.type, order=album.order, creator=request.user)
             return render_for_platform(request, 'user_gallery/new_album.html',{'album': new_album})
         else:
             return HttpResponseBadRequest()
@@ -144,10 +148,14 @@ class AlbumUserEdit(TemplateView):
     def post(self,request,*args,**kwargs):
         self.album = Album.objects.get(uuid=self.kwargs["uuid"])
         self.form = AlbumForm(request.POST,instance=self.album)
-        if request.is_ajax() and self.form.is_valid():
+        if request.is_ajax() and self.form.is_valid() and request.user.pk == album.creator.pk:
             album = self.form.save(commit=False)
             if not album.description:
                 album.description = "Без описания"
+            if request.POST.get("is_public"):
+                album.type = Album.ALBUM
+            else:
+                album.type = Album.PRIVATE
             self.form.save()
             return HttpResponse()
         else:

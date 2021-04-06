@@ -1,3 +1,20 @@
+function open_load_fullscreen(link, block) {
+    var link_, elem;
+    link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    link_.open('GET', link, true);
+    link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link_.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            elem = link_.responseText;
+            block.parentElement.style.display = "block";
+            block.innerHTML = "";
+            block.innerHTML = elem;
+            function scrolled(link, document.getElementById('create_loader'), 0)
+        } 
+    };
+    link_.send();
+}
+
 function post_and_load_object_page(form, url_post, url_1, url_2) {
     form_data = new FormData(form);
     pk = document.body.querySelector(".pk_saver").getAttribute("data-pk");

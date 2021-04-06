@@ -17,6 +17,9 @@
 
   <div class="card-body">
 
+    {% include 'user_load/u_albums.html' %}
+
+
 {% if object_list %}
 <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_img_load/">
 {% for object in object_list %}

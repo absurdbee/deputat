@@ -253,3 +253,9 @@ on('#ajax', 'click', '.show_replies', function() {
 on('#ajax', 'click', '.hide_comment_form', function() {
   this.parentElement.parentElement.parentElement.style.display = "none";
 })
+
+on('body', 'click', '.create_ajax', function() {
+  link = this.getAttribute("data-href");
+    loader = document.getElementById("create_loader");
+    open_load_fullscreen(link, loader)
+});

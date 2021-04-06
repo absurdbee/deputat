@@ -45,7 +45,7 @@ on('body', 'click', '.u_album_abort_remove', function() {
   link_.send();
 });
 
-on('#ajax', 'click', '#u_create_album_btn', function() {
+on('body', 'click', '#u_create_album_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   if (!form.querySelector("#id_title").value){
@@ -55,7 +55,7 @@ on('#ajax', 'click', '#u_create_album_btn', function() {
   post_and_load_object_page(form, "/gallery/user_progs/add_album/", "/gallery/album/", "/");
 });
 
-on('#ajax', 'click', '#u_edit_album_btn', function() {
+on('body', 'click', '#u_edit_album_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   if (!form.querySelector("#id_title").value){
@@ -83,7 +83,7 @@ on('#ajax', 'click', '#u_edit_album_btn', function() {
   link_.send(form_data);
 });
 
-on('#ajax', 'change', '#u_photo_add', function() {
+on('body', 'change', '#u_photo_add', function() {
   pk = document.body.querySelector(".pk_saver").getAttribute("data-pk");
   form_data = new FormData(document.body.querySelector("#add_photos"));
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

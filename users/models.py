@@ -416,5 +416,18 @@ class User(AbstractUser):
 
     def get_first_number(self):
         from users.model.profile import UserLocation
-
         return UserLocation.objects.filter(user_id=self.pk).last().phone
+
+    def get_my_albums(self):
+        from gallery.models import Album
+
+        albums_query = Q(type="PUB") | Q(type="PRI")
+        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return Album.objects.filter(albums_query)
+
+    def get_albums(self):
+        from gallery.models import Album
+
+        albums_query = Q(type="PUB")
+        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return Album.objects.filter(albums_query).order_by("order")

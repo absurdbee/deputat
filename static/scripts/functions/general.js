@@ -11,6 +11,7 @@ function post_and_load_object_page(form, url_post, url_1, url_2) {
             rtr = document.getElementById('ajax');
             rtr.innerHTML = ajax.innerHTML;
             window.scrollTo(0, 0);
+            close_create_window();
             document.title = elem_.querySelector('title').innerHTML;
             uuid = rtr.querySelector(".pk_saver").getAttribute("data-uuid");
             window.history.pushState(null, "vfgffgfgf", url_1 + url_2 + uuid + '/')

@@ -53,7 +53,7 @@ class UserAlbum(ListView):
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
+		self.album = Album.objects.get(pk=self.kwargs["list_pk"])
 		if self.user.pk == request.user.pk:
 			self.photo_list = self.list.get_staff_photos()
 		else:

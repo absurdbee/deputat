@@ -9,7 +9,7 @@ function open_load_fullscreen(link, block) {
             block.parentElement.style.display = "block";
             block.innerHTML = "";
             block.innerHTML = elem;
-            function scrolled(link, document.getElementById('create_loader'), 0))
+            scrolled(link, document.getElementById('create_loader'), 0))
         }
     };
     link_.send();

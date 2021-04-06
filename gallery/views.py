@@ -55,9 +55,9 @@ class UserAlbum(ListView):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		self.album = Album.objects.get(pk=self.kwargs["list_pk"])
 		if self.user.pk == request.user.pk:
-			self.photo_list = self.list.get_staff_photos()
+			self.photo_list = self.album.get_staff_photos()
 		else:
-			self.photo_list = self.list.get_photos()
+			self.photo_list = self.album.get_photos()
 		self.template_name = get_list_template(self.album, "user_gallery/album/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserAlbum,self).get(request,*args,**kwargs)
 

@@ -82,10 +82,10 @@ on('body', 'click', '#u_edit_album_btn', function() {
 });
 
 on('body', 'change', '#u_photo_add', function() {
-  pk = document.body.querySelector(".pk_saver").getAttribute("data-pk");
+  uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
   form_data = new FormData(document.body.querySelector("#add_photos"));
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/gallery/user_progs/add_photo/" + pk + "/", true );
+  link_.open( 'POST', "/gallery/user_progs/add_photo/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

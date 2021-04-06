@@ -8,7 +8,7 @@ urlpatterns=[
     url(r'^on_private/(?P<uuid>[0-9a-f-]+)/$', UserOnPrivatePhoto.as_view()),
     url(r'^off_private/(?P<uuid>[0-9a-f-]+)/$', UserOffPrivatePhoto.as_view()),
 
-    url(r'^add_photo/(?P<pk>\d+)/$', PhotoAlbumUserCreate.as_view()),
+    url(r'^add_photo/(?P<uuid>[0-9a-f-]+)/$', PhotoAlbumUserCreate.as_view()),
     url(r'^add_attach_photo/$', PhotoAttachUserCreate.as_view()),
 
     url(r'^add_album/$', AlbumUserCreate.as_view()),

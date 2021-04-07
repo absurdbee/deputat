@@ -158,20 +158,19 @@ class UserCommentPhoto(TemplateView):
 
 
 class GetUserPhoto(TemplateView):
-    template_name = None
+	template_name = None
 
-    def get(self,request,*args,**kwargs):
+	def get(self,request,*args,**kwargs):
 		from common.templates import get_small_template
-
-        self.photo = Photo.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax():
-            self.template_name = get_small_template("user_gallery/get_photo.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
+		self.photo = Photo.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax():
+			self.template_name = get_small_template("user_gallery/get_photo.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
 			from django.http import Http404
-            raise Http404
-        return super(GetUserPhoto,self).get(request,*args,**kwargs)
+			raise Http404
+		return super(GetUserPhoto,self).get(request,*args,**kwargs)
 
-    def get_context_data(self,**kwargs):
-        context = super(GetUserPhoto,self).get_context_data(**kwargs)
-        context["object"] = self.photo
-        return context
+	def get_context_data(self,**kwargs):
+		context = super(GetUserPhoto,self).get_context_data(**kwargs)
+		context["object"] = self.photo
+		return context

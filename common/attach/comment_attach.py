@@ -4,7 +4,7 @@ def get_u_comment_attach(comment, user):
         if item[:3] == "pho":
             try:
                 from gallery.models import Photo
-                photo = Photo.objects.get(pk=item[3:], is_public=True)
+                photo = Photo.objects.get(pk=item[3:], type="PUB") 
                 block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit u_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass

@@ -162,3 +162,19 @@ on('body', 'click', '.u_photo_detail', function() {
   loader = document.getElementById("photo_loader");
   open_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", loader)
 });
+
+on('body', 'click', '.next_photo', function(event) {
+  event.preventDefault();
+  this.style.display = "none";
+  open_fullscreen(this.getAttribute('href'), document.getElementById('photo_loader'));
+})
+on('body', 'click', '.prev_photo', function(event) {
+  event.preventDefault();
+  this.style.display = "none";
+  open_fullscreen(this.getAttribute('href'), document.getElementById('photo_loader'));
+})
+
+on('body', 'click', '.photo_fullscreen_hide_2', function() {
+  this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
+  this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
+});

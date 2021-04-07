@@ -138,7 +138,6 @@ def get_u_comment_attach(comment, user):
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
                 repost_svg, add_svg = '', ''
                 if user.is_authenticated:
-                    if list.is_not_empty():
                     if list.is_user_can_add_list(user.pk):
                         add_svg = '<span title="Добавить список видеозаписей" class="u_add_video_list btn_default"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'
                     elif user.pk in list.get_users_ids():

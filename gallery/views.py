@@ -140,7 +140,7 @@ class UserCommentPhoto(TemplateView):
 		from common.model.comments import ElectNewComment
 		from common.templates import get_item_template
 
-		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
+		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"]) 
 		self.comment = PostComment.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.comment.get_attach_photos()
 		if request.is_ajax():

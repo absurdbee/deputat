@@ -1,3 +1,13 @@
+on('body', 'click', '.menu_drop', function() {
+  block = this.nextElementSibling;
+  if (block.classList.contains("show")) { block.classList.remove("show") }
+  else {
+  all_drop = document.body.querySelectorAll(".dropdown-menu");
+  for(i=0; i<all_drop.length; i++) {
+    all_drop[i].classList.remove("show")
+  } block.classList.add("show")}
+});
+
 function mob_send_change(span, _link, new_class, html) {
     parent = span.parentElement;
     item = span.parentElement.parentElement.parentElement.parentElement.parentElement;

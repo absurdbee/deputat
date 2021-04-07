@@ -88,7 +88,7 @@ def get_list_template(list, folder, template, request_user, user_agent):
             elif request_user.is_manager() or request_user.is_supermanager():
                 template_name = folder + "staff_" + template
             elif request_user.is_blocked_with_user_with_id(user_id=user.pk):
-                template_name = "generic/u_template/you_block_акщь_user.html"
+                template_name = "generic/u_template/you_block_from_user.html"
             elif list.type == "PRI":
                 template_name = folder + "private_" + template
             else:

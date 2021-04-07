@@ -21,17 +21,10 @@
             <span class="card-text">{{ reply.text }}</span><br>
             <div class="row no-gutters">
 
-                {% if reply.is_have_docs %}
-                is_have_docs<br>
-                {% endif %}
-
-                {% if reply.is_have_images %}
-                {% for image in reply.get_images %}
-                <span class="col-md-4 col-sm-6" style="padding:5px">
-                    <img src="{{ image.file.url }}" class="image_fit_150" alt="img">
-                </span>
-                {% endfor %}
-                {% endif %}
+              {% if comment.attach %}
+                {% load comment %}
+                {{ comment|get_user_attach:request.user|safe }}
+              {% endif %}
             </div>
 
             <div class="d-inline-flex align-items-center pointer">

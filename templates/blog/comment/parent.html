@@ -21,15 +21,9 @@
         <div class="comment_footer" data-pk="{{ comment.pk }}">
             <span class="card-text">{{ comment.text }}</span><br>
 
-            {% if comment.is_have_docs %}
-            is_have_docs
-            {% endif %}
-            {% if comment.is_have_images %}
-            {% for image in comment.get_images %}
-            <span style="flex-basis: 50%;">
-                <img src="{{ image.file.url }}" class="image_fit_150" alt="img">
-            </span>
-            {% endfor %}
+            {% if comment.attach %}
+              {% load comment %}
+              {{ comment|get_user_attach:request.user|safe }}
             {% endif %}
 
             <div class="d-inline-flex align-items-center pointer">

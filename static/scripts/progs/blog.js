@@ -19,7 +19,7 @@ on('#ajax', 'click', '.blogReplyParentComment', function() {
   block.classList.add("replies_open");
 });
 
-on('#ajax', 'click', '.u_comment_photo', function() {
+on('#ajax', 'click', '.u_load_comment_photo', function() {
   clear_comment_dropdown();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");

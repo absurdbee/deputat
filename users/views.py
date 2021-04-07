@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from users.models import User
 from django.views.generic import ListView
-from common.utils import get_small_template
+from common.templates import get_small_template
 from django.http import HttpResponse
 
 
@@ -132,7 +132,7 @@ class UserEditView(TemplateView):
 	template_name, form = None, None
 
 	def get(self,request,*args,**kwargs):
-		from common.utils import get_my_template
+		from common.templates import get_my_template
 		self.template_name = get_small_template("profile/edit.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserEditView,self).get(request,*args,**kwargs)
 

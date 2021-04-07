@@ -3,7 +3,7 @@ from generic.mixins import CategoryListMixin
 from elect.models import Elect
 from blog.models import ElectNew
 from django.views.generic import ListView
-from common.utils import get_small_template
+from common.templates import get_small_template
 
 
 """
@@ -23,7 +23,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
         import re
         MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
         from stst.models import ElectNumbers
-        from common.utils import get_full_template
+        from common.templates import get_full_template
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         if request.user.is_authenticated:
@@ -124,7 +124,7 @@ class ElectNewDetailView(TemplateView, CategoryListMixin):
         import re
         MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
         from stst.models import ElectNewNumbers
-        from common.utils import get_full_template
+        from common.templates import get_full_template
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if request.user.is_authenticated:

@@ -3,7 +3,7 @@ from generic.mixins import CategoryListMixin
 from django.views.generic import ListView
 from lists.models import BlogCategory
 from blog.models import Blog
-from common.utils import get_small_template
+from common.templates import get_small_template
 
 
 class BlogListView(ListView, CategoryListMixin):

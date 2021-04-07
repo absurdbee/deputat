@@ -3,7 +3,7 @@ from generic.mixins import CategoryListMixin
 from tags.models import ManagerTag
 from blog.models import ElectNew
 from django.views.generic import ListView
-from common.utils import get_small_template
+from common.templates import get_small_template
 from urllib.parse import unquote
 
 

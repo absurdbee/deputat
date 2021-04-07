@@ -5,9 +5,8 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.views import View
 from users.models import User
 from django.http import Http404
-from common.utils import render_for_platform
+from common.templates import render_for_platform, get_small_template
 from django.views.generic.base import TemplateView
-from common.utils import get_small_template
 
 
 class UserAlbumAdd(View):

@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
-from common.utils import get_small_template
+from common.templates import get_small_template
 
 
 class ContactsView(TemplateView, CategoryListMixin):

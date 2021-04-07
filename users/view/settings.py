@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 from users.model.settings import *
 from django.http import HttpResponse, HttpResponseBadRequest
-from common.utils import get_my_template
+from common.templates import get_my_template
 
 
 class UserProfileSettings(TemplateView):

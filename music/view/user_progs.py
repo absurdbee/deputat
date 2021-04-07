@@ -6,7 +6,7 @@ from music.forms import PlaylistForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.parsing_soundcloud.add_playlist import add_playlist
 from django.http import Http404
-from common.utils import get_small_template, render_for_platform
+from common.templates import get_small_template, render_for_platform
 
 
 class UserSoundcloudSetPlaylistWindow(TemplateView):

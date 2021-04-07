@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 from stst.models import UserNumbers
 from users.models import User
-from common.utils import get_my_template
+from common.templates import get_my_template
 #from common.utils import get_mf_ages
 
 

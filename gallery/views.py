@@ -1,17 +1,14 @@
 from django.views.generic.base import TemplateView
-from users.models import User
-from gallery.models import Album, Photo
 from django.views.generic import ListView
-from django.http import HttpResponse, HttpResponseBadRequest
-from django.views import View
-from django.http import Http404
-from common.utils import get_small_template, get_list_template
+from gallery.models import Album, Photo
 
 
 class UserLoadAlbum(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
+		from common.templates import get_small_template
+
 		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
 		self.template_name = get_small_template("user_gallery/load_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadAlbum,self).get(request,*args,**kwargs)
@@ -30,6 +27,9 @@ class UserGallery(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
+		from common.templates import get_list_template
+		from users.models import User
+
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		self.album = self.user.get_or_create_wall_album()
 		if self.user.pk == request.user.pk:
@@ -52,6 +52,9 @@ class UserAlbum(ListView):
 	template_name, paginate_by = None, 12
 
 	def get(self,request,*args,**kwargs):
+		from common.templates import get_list_template
+		from users.models import User
+
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
 		if self.user.pk == request.user.pk:
@@ -75,12 +78,14 @@ class UserAlbumPhoto(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.photo = Photo.objects.get(pk=self.kwargs["pk"])
-		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
+		from common.templates import get_item_template
+
+		self.photo, self.album = Photo.objects.get(pk=self.kwargs["pk"]), Album.objects.get(uuid=self.kwargs["uuid"])
 		self.photos = self.album.get_photos()
 		if request.is_ajax():
-			self.template_name = get_small_template("user_gallery/photo.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
+			from django.http import Http404
 			raise Http404
 		if request.user.pk == self.photo.creator.pk:
 			query = Q(type="PUB") | Q(type="PRI")
@@ -105,13 +110,15 @@ class UserElectNewPhoto(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from blog.models import ElectNew
+		from common.templates import get_item_template
 
 		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
 		self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.elect_new.get_attach_photos()
 		if request.is_ajax():
-			self.template_name = get_small_template("user_gallery/elect_new_photo.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
+			from django.http import Http404
 			raise Http404
 		return super(UserElectNewPhoto,self).get(request,*args,**kwargs)
 
@@ -129,13 +136,15 @@ class UserCommentPhoto(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from common.model.comments import ElectNewComment
+		from common.templates import get_item_template
 
 		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
 		self.comment = PostComment.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.comment.get_attach_photos()
 		if request.is_ajax():
-			self.template_name = get_small_template("user_gallery/elect_new_comment_photo.html.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
+			from django.http import Http404
 			raise Http404
 		return super(UserCommentPhoto,self).get(request,*args,**kwargs)
 
@@ -152,10 +161,13 @@ class GetUserPhoto(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+		from common.templates import get_small_template
+
         self.photo = Photo.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax():
             self.template_name = get_small_template("user_gallery/get_photo.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
+			from django.http import Http404
             raise Http404
         return super(GetUserPhoto,self).get(request,*args,**kwargs)
 

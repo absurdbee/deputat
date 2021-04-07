@@ -6,7 +6,7 @@ from rest_framework.exceptions import PermissionDenied
 from docs.forms import DoclistForm, DocForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.http import Http404
-from common.utils import render_for_platform
+from common.templates import render_for_platform
 
 
 class UserDoclistAdd(View):

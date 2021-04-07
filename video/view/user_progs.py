@@ -3,7 +3,7 @@ from video.models import Video, VideoAlbum
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.views import View
 from video.forms import AlbumForm, VideoForm
-from common.utils import get_small_template
+from common.templates import get_small_template
 
 
 class UserVideoAlbumAdd(View):

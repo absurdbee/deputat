@@ -5,7 +5,7 @@ from users.models import User
 from django.views import View
 from django.http import Http404
 import json, requests
-from common.utils import render_for_platform, get_small_template
+from common.templates import render_for_platform, get_small_template
 
 
 class MainPageView(ListView, CategoryListMixin):

@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from city.models import City
 from django.views.generic import ListView
-from common.utils import get_small_template
+from common.templates import get_small_template
 
 
 class CityDetailView(TemplateView, CategoryListMixin):

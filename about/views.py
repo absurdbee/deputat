@@ -5,7 +5,7 @@ from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views import View
-from common.utils import get_small_template
+from common.templates import get_small_template
 
 
 class AboutView(TemplateView, CategoryListMixin):

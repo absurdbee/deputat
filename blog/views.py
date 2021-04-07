@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.views import View
 from django.http import Http404
 from django.views.generic import ListView
-from common.utils import get_small_template
+from common.templates import get_small_template
 import re
 MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 from stst.models import BlogNumbers
@@ -15,7 +15,7 @@ class BlogDetailView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.utils import get_full_template
+		from common.templates import get_full_template
 
 		self.blog = Blog.objects.get(slug=self.kwargs["slug"])
 		self.template_name = get_full_template("blog/blog.html", request.user, request.META['HTTP_USER_AGENT'])

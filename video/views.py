@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 from users.models import User
-from common.utils import get_small_template, get_list_template
+from common.templates import get_small_template, get_list_template
 from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 

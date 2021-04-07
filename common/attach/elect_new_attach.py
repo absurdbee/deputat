@@ -145,4 +145,4 @@ def get_elect_new_attach(post, user):
                 block = ''.join([block, '<div style="flex-basis: 100%;" class="card"><div class="card-body" data-pk="', str(creator.pk), '" data-uuid="', str(list.uuid), '"style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_video_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_video_list pointer">', list.title, '</h6><p>Список видеозаписей <a class="ajax underline" href="', creator.get_link(), '">', str(creator.get_full_name_genitive()), '</a><br>Видеозаписей: ', str(list.count_video()), '</p></div><span class="playlist_share">', add_svg, '</span></div></div></div>'])
             except:
                 pass
-    return ''.join(["<div class='attach_container'>", block, "</div>"])
+    return ''.join(["<div class='items_container'>", block, "</div>"])

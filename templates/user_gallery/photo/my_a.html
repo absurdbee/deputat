@@ -19,11 +19,13 @@
           <span>
             <a class="dropdown-item mob_user_photo_remove pointer">Удалить</a>
           </span>
+          <span>
           {% if object.is_private %}
             <a class="dropdown-item mob_u_photo_off_private pointer">Выкл. приватность</a>
           {% else %}
             <a class="dropdown-item mob_u_photo_off_private pointer">Вкл. приватность</a>
           {% endif %}
+          </span>
       </div>
     </div>
     <div class="col" style="padding:5px;">

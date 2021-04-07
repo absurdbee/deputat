@@ -98,3 +98,67 @@ on('body', 'change', '#u_photo_add', function() {
   }}
   link_.send(form_data);
 });
+
+on('body', 'click', '.mob_user_photo_remove', function() {
+  mob_send_change(this, "/gallery/user_progs/delete/", "mob_user_photo_abort_remove", "Отмена");
+  post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  post.querySelector(".content_block").style.display = "none";
+  post.querySelector(".image_card").style.opacity = "0.5";
+})
+on('body', 'click', '.mob_user_photo_abort_remove', function() {
+  mob_send_change(this, "/gallery/user_progs/abort_delete/", "mob_user_photo_remove", "Удалить");
+  post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  post.querySelector(".content_block").style.display = "unset";
+  post.querySelector(".image_card").style.opacity = "1";
+})
+on('body', 'click', '.mob_u_photo_off_private', function() {
+  mob_send_change(this, "/gallery/user_progs/off_private/", "mob_u_photo_on_private", "Вкл. приватность")
+})
+on('body', 'click', '.mob_u_photo_on_private', function() {
+  mob_send_change(this, "/gallery/user_progs/on_private/", "mob_u_photo_off_private", "Выкл. приватность")
+})
+on('body', 'click', '.u_add_photo_in_album', function() {
+  _this = this;
+  parent = _this.parentElement;
+  uuid = parent.getAttribute("data-uuid");
+  pk = parent.parentElement.parentElement.getAttribute("data-pk");
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', '/gallery/user_progs/add_photo_in_album/' + pk + "/" + uuid + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    list = parent.querySelector(".u_add_photo_in_album");
+    list.style.paddingLeft = "14px";
+    list.classList.add("u_remove_photo_in_album");
+    list.classList.remove("u_add_photo_in_album");
+    span = document.createElement("span");
+    span.innerHTML = '<svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> ';
+    list.prepend(span)
+  }};
+  link.send( null );
+})
+on('body', 'click', '.u_remove_photo_in_album', function() {
+  _this = this;
+  parent = _this.parentElement;
+  uuid = parent.getAttribute("data-uuid");
+  pk = parent.parentElement.parentElement.getAttribute("data-pk");
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', '/gallery/user_progs/remove_photo_in_album/' + pk + "/" + uuid + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    list = parent.querySelector(".u_remove_photo_in_album");
+    list.style.paddingLeft = "30px";
+    list.classList.add("u_add_photo_in_album");
+    list.classList.remove("u_remove_photo_in_album");
+    list.querySelector("svg").remove();
+  }};
+  link.send( null );
+})
+
+on('body', 'click', '.u_photo_detail', function() {
+  pk = this.getAttribute('photo-pk');
+  this.parentElement.parentElement.parentElement.getAttribute('data-uuid') ? uuid = this.parentElement.parentElement.parentElement.getAttribute('data-uuid') : uuid = document.body.querySelector(".pk_saver").getAttribute('data-uuid')
+  loader = document.getElementById("photo_loader");
+  open_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", loader)
+});

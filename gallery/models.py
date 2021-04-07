@@ -170,3 +170,6 @@ class Photo(models.Model):
 
     def get_type(self):
         return self.album.all()[0].type
+
+    def is_private(self):
+        return self.type == self.PRIVATE

@@ -33,3 +33,10 @@ def is_user_subscribe(elect, user_pk):
         return True
     else:
         return False
+
+@register.filter
+def photo_in_album(album, photo_id):
+    if album.is_photo_in_album(photo_id):
+        return True
+    else:
+        return False

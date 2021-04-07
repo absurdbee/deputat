@@ -1,6 +1,6 @@
 {% load filters %}
 
-<div class="card" style="margin-bottom: .5rem;">
+<div class="card pag {% if forloop.last %}last{% endif %}" style="margin-bottom: .5rem;">
     <div class="card-body" style="padding: .5rem .5rem;">
         <div class="media">
             <div class="avatar mr-75">

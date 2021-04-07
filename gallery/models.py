@@ -165,7 +165,7 @@ class Photo(models.Model):
             Notify.objects.filter(attach="pho" + str(self.pk)).update(status="R")
         except:
             pass
-        self.type = "PRO"
+        self.type = "PUB"
         return self.save(update_fields=['type'])
 
     def get_type(self):

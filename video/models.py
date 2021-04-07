@@ -176,8 +176,8 @@ class Video(models.Model):
             Notify.objects.filter(attach="vid" + str(self.pk)).update(status="C")
         except:
             pass
-        self.is_deleted = True
-        return self.save(update_fields=['is_deleted'])
+        self.type = "DEL"
+        return self.save(update_fields=['type'])
 
     def abort_delete_video(self):
         try:
@@ -185,5 +185,5 @@ class Video(models.Model):
             Notify.objects.filter(attach="vid" + str(self.pk)).update(status="R")
         except:
             pass
-        self.is_deleted = False
-        return self.save(update_fields=['is_deleted'])
+        self.type = "PUB"
+        return self.save(update_fields=['type'])

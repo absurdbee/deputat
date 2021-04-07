@@ -181,7 +181,7 @@ on('body', 'click', '.photo_fullscreen_hide_2', function() {
 
 on('body', 'click', '.u_comment_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
-  comment_pk = this.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk');
+  comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
   loader = document.getElementById("photo_loader");
   open_fullscreen("/gallery/photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });

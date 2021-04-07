@@ -24,7 +24,7 @@ on('body', 'click', '.u_album_remove', function() {
   if ( this.readyState == 4 && this.status == 200 ) {
     block.querySelector(".card").style.display = "none";
     $block = document.createElement("div");
-    $block.classList.add("card", "delete_card", "rounded-0", "border-0", "mb-3");
+    $block.classList.add("card", "delete_card");
     $block.innerHTML = '<div class="card-header"><div class="media"><div class="media-body"><h6 class="mb-0 u_album_abort_remove pointer">Восстановить</h6></div></div></div><div class="card-body"><a><img style="object-fit: cover;height: 150px;width: 170px;" src="/static/images/album.jpg" /></a></div>'
     block.append($block);
   }}

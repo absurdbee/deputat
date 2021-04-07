@@ -80,6 +80,7 @@ class UserAlbumPhoto(TemplateView):
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_item_template
 
+
 		self.photo, self.album = Photo.objects.get(pk=self.kwargs["pk"]), Album.objects.get(uuid=self.kwargs["uuid"])
 		self.photos = self.album.get_photos()
 		if request.is_ajax():
@@ -88,8 +89,9 @@ class UserAlbumPhoto(TemplateView):
 			from django.http import Http404
 			raise Http404
 		if request.user.pk == self.photo.creator.pk:
+			from django.db.models import Q
 			query = Q(type="PUB") | Q(type="PRI")
-			self.next = self.photos.filter(query, pk__gt=self.photo.pk, ).order_by('pk').first()
+			self.next = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
 			self.prev = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
 		else:
 			self.next = self.photos.filter(type="PUB", pk__gt=self.photo.pk, ).order_by('pk').first()

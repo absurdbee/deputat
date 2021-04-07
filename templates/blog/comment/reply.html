@@ -21,8 +21,7 @@
             <span class="card-text">{{ reply.text }}</span><br>
             <div class="row no-gutters">
 
-              {% if comment.attach %}
-                {% load comment %}
+              {% if reply.attach %}
                 {{ comment|get_user_attach:request.user|safe }}
               {% endif %}
             </div>

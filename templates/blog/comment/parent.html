@@ -22,7 +22,6 @@
             <span class="card-text">{{ comment.text }}</span><br>
 
             {% if comment.attach %}
-              {% load comment %}
               {{ comment|get_user_attach:request.user|safe }}
             {% endif %}
 

@@ -124,6 +124,10 @@ class BlogComment(models.Model):
         else:
             return str(count) + " ответов"
 
+    def get_u_attach(self, user):
+        from common.attach.comment_attach import get_u_comment_attach
+        return get_u_comment_attach(self, user)
+
 
 class ElectNewComment(models.Model):
     EDITED = 'EDI'
@@ -216,3 +220,7 @@ class ElectNewComment(models.Model):
             return str(count) + " ответа"
         else:
             return str(count) + " ответов"
+
+    def get_u_attach(self, user):
+        from common.attach.comment_attach import get_u_comment_attach
+        return get_u_comment_attach(self, user)

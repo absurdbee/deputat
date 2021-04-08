@@ -20,7 +20,7 @@ on('#ajax', 'click', '.blogReplyParentComment', function() {
 });
 
 on('#ajax', 'click', '.u_load_comment_photo', function() {
-  clear_comment_dropdown();
+  check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");
   open_fullscreen('/users/load/u_img_comment_load/', loader)

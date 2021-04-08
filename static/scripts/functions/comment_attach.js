@@ -14,6 +14,11 @@ function clear_comment_dropdown(){
     attach_blocks[i].innerHTML = "";
   }} catch { null }
 }
+function check_attach_block_message_post(){
+  // удаляем другие активные поля прикрепления - в сообщениях, записях, если они есть
+  document.body.querySelector(".message_attach_block") ? clear_message_attach_block() :
+  document.body.querySelector(".attach_block") ? clear_attach_block() : null
+}
 function is_full_dropdown(){
   dropdown = document.body.querySelector(".current_file_dropdown").parentElement.parentElement;
   if (dropdown.classList.contains("files_two")){

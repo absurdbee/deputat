@@ -223,9 +223,7 @@ on('body', 'click', '.photo_load_one', function() {
   photo_pk = _this.parentElement.getAttribute('photo-pk');
   src = _this.parentElement.getAttribute("data-href");
   if (document.body.querySelector(".current_file_dropdown")){
-  //  check_photo_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, photo_pk) ? null : (
-      photo_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, photo_pk, src), close_create_window()
-  //  )
+    check_photo_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, photo_pk) ? null : (photo_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, photo_pk, src), close_create_window())
   } else if (document.body.querySelector(".attach_block")){
     check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, src), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){

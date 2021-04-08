@@ -51,7 +51,7 @@ function photo_album_comment_attach(dropdown, src, title, pk, count) {
   is_full_dropdown();
   attach_block = dropdown.parentElement.previousElementSibling;
   div = create_preview_photo_album(src, title, pk, count);
-  attach_block.innerHTML = div.innerHTML;
+  attach_block.append(div.innerHTML);
   add_file_dropdown()
   is_full_dropdown();
 }

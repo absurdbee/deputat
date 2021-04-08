@@ -25,9 +25,9 @@
         {% for object in request.user.get_albums %}
             {% if object.is_not_empty %}
             <li class="album_item">
-              <div class="cover_block" data-pk="{{ user.pk }}" data-uuid="{{ object.uuid }}">
+              <div class="cover_block">
                         <h6 class="mb-0">{{ object.title }}</h6>
-                        <span class="pointer photo_attach_album" data-pk="{{ object.pk }}">Прикрепить альбом</span>
+                        <span class="pointer photo_attach_album" data-pk="{{ object.pk }}" data-count="{{ object.count_photo }}">Прикрепить альбом</span>
                         <a data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}" class="pointer create_ajax">
                           <img style="object-fit: cover;height: 150px;width: 170px;" src="{{ object.get_cover_photo }}" />
                         </a>
@@ -43,7 +43,7 @@
 {% if object_list %}
 <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_img_load/">
 {% for object in object_list %}
-<div class="load_pag {% if forloop.last %}load_last{% endif %}" style="cursor:pointer;flex: 0 0 50%;max-width:50%;padding:5px;position: relative;">
+<div class="load_pag u_load_photo_detail {% if forloop.last %}load_last{% endif %}" style="position: relative;">
   <div class="progressive replace" data-href="{{ object.file.url }}" photo-pk="{{ object.pk }}" data-pk="{{ request.user.pk }}">
       <img class="image_fit_small photo_load_one preview pointer" src="{{ object.preview.url }}" alt="img">
   </div>

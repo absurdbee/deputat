@@ -103,7 +103,7 @@
 .files_null{
   display: block !important;
 }
-.u_photo_detail {
+.u_photo_detail, .u_load_photo_detail {
   cursor:pointer;
   flex: 0 0 50%;
   max-width:50%;
@@ -238,7 +238,7 @@ select {
   .reply_card {
     margin-left : 3rem;
   }
-  .u_photo_detail {
+  .u_photo_detail, .u_load_photo_detail {
     flex: 0 0 33.3333%;
     max-width:33.3333%;
   }

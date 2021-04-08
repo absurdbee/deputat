@@ -7,6 +7,15 @@ function check_photo_in_block(block, _this, pk) {
         return false
     }
 }
+function check_photo_album_in_block(block, _this, pk) {
+    if (block.querySelector('[data-pk=' + '"' + pk + '"' + ']')) {
+        _this.parentElement.parentElement.setAttribute("tooltip", "Альбом уже выбран");
+        _this.parentElement.parentElement.setAttribute("flow", "up");
+        return true
+    } else {
+        return false
+    }
+}
 function check_video_in_block(block, _this, pk) {
     if (block.querySelector('[video-pk=' + '"' + pk + '"' + ']')) {
         _this.parentElement.parentElement.setAttribute("tooltip", "Видеоролик уже выбран");
@@ -82,6 +91,10 @@ function create_preview_photo(img_src, photo_pk){
   $div.append($input);
   $div.append($img);
   return $div
+}
+function create_preview_photo_album(src, title, pk, count){
+  a = '<div><div class="card mb-3" style="flex-basis: 100%;"><input type="hidden" name="attach_items" value="lph' + pk + '"><div class="card-body" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><img style="object-fit: cover;height: 150px;width: 170px;" src="' + src + '" /></figure><div class="media-body" style="margin-left:10px"><h6 class="my-0 mt-1">' + title + '</h6><p class="">Фотоальбом<br>Всего: ' + count + '</p></div><span flow="up" tooltip="Открепить" class="photo_attach_album_remove btn_default pointer" style="margin-right: 14px;"><svg class="svg_default svg_default_30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></div></div></div></div>'
+  return a
 }
 
 function create_preview_video(img_src, pk, counter){
@@ -193,5 +206,20 @@ on('body', 'click', '.photo_load_several', function() {
     check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
     check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, src), this.classList.add("active_svg"))
+  }
+});
+
+on('body', 'click', '.photo_attach_album', function() {
+  _this = this;
+  src = _this.nextElementSibling.querySelector("img").getAttribute("src");
+  title = _this.previousElementSibling.innerHTML;
+  pk = _this.getAttribute('photo-pk');
+  count = _this.getAttribute('data-count');
+  if (document.body.querySelector(".current_file_dropdown")){
+    check_photo_album_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_album_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_create_window())
+  } else if (document.body.querySelector(".attach_block")){
+    check_photo_album_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (photo_album_post_attach(document.body.querySelector(".attach_block"), src, title, pk, count), close_create_window())
+  } else if (document.body.querySelector(".message_attach_block")){
+    check_photo_album_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (photo_album_message_attach(document.body.querySelector(".message_attach_block"), src, title, pk, count), close_create_window())
   }
 });

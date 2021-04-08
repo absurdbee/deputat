@@ -93,6 +93,7 @@ class BlogComment(models.Model):
     def create_comment(cls, commenter, blog, parent, text, attach):
         from common.notify import user_wall, user_notify
         from django.utils import timezone
+        from common.processing import get_blog_message_processing
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
 
@@ -108,6 +109,7 @@ class BlogComment(models.Model):
                 user_wall(commenter, type, "u_blog_comment_notify", "COM")
                 user_notify(commenter, type, "u_blog_comment_notify", "COM")
 
+            get_blog_message_processing(comment)
             return comment
         else:
             from rest_framework.exceptions import PermissionDenied

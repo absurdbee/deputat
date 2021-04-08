@@ -130,7 +130,6 @@ function create_preview_photo_album(src, title, pk, count){
   $flex.append($input);
   $flex.append($figure);
   $flex.append($media_body);
-  $flex.append($span);
 
   $card_body.append($flex);
   $div.append($card_body);

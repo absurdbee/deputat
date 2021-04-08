@@ -125,7 +125,7 @@ class BlogComment(models.Model):
             return str(count) + " ответов"
 
     def get_u_attach(self, user):
-        from common.attach.comment_attach import get_u_comment_attach
+        from common.attach.comment_attach import get_u_blog_comment_attach
         return get_u_blog_comment_attach(self, user)
 
 
@@ -222,5 +222,5 @@ class ElectNewComment(models.Model):
             return str(count) + " ответов"
 
     def get_u_attach(self, user):
-        from common.attach.comment_attach import get_u_comment_attach
+        from common.attach.comment_attach import get_u_elect_new_comment_attach
         return get_u_elect_new_comment_attach(self, user)

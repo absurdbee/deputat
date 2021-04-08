@@ -94,7 +94,6 @@ function create_preview_photo(img_src, photo_pk){
 }
 function create_preview_photo_album(src, title, pk, count){
   $div = document.createElement("div");
-  $div.classList.add("card");
   $div.style.flexBasis = "100%";
 
   $input = document.createElement("span");
@@ -114,8 +113,10 @@ function create_preview_photo_album(src, title, pk, count){
   $h6.innerHTML = title;
   $h6.classList.add("my-0", "mt-1");
   $media_body = document.createElement("div");
-  $media_body.append($h6); $media_body.append($p);
+  $media_body.classList.add("media-body");
+  $media_body.style.marginLeft = "10px";
 
+  $media_body.append($h6); $media_body.append($p);
   $span = document.createElement("span");
   $span.classList.add("photo_attach_album_remove", "btn_default", "pointer");
   $span.style.marginRight = "14px";

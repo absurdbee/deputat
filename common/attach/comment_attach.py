@@ -126,7 +126,7 @@ def get_u_blog_comment_attach(comment, user):
             from gallery.models import Album
             album = Album.objects.get(pk=item[3:])
             creator = album.creator
-            add = '', ''
+            add = ''
             if user.is_authenticated:
                 if album.is_user_can_add_list(user.pk):
                     add = '<a class="col pointer u_add_photo_album">В коллекцию</a>'
@@ -261,7 +261,7 @@ def get_u_elect_new_comment_attach(comment, user):
                 list = DocList.objects.get(list_query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>'
-                repost_svg, add_svg = '', ''
+                add_svg = ''
                 if user.is_authenticated:
                     if list.is_user_can_add_list(user.pk):
                         add_svg = '<span title="Добавить список документов" class="u_add_doc_list btn_default"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'
@@ -275,7 +275,7 @@ def get_u_elect_new_comment_attach(comment, user):
                 from gallery.models import Album
                 album = Album.objects.get(list_query, pk=item[3:])
                 creator = album.creator
-                add = '', ''
+                add = ''
                 if user.is_authenticated:
                     if album.is_user_can_add_list(user.pk):
                         add = '<a class="col pointer u_add_photo_album">В коллекцию</a>'
@@ -290,7 +290,7 @@ def get_u_elect_new_comment_attach(comment, user):
                 list = VideoAlbum.objects.get(list_query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
-                repost_svg, add_svg = '', ''
+                add_svg = ''
                 if user.is_authenticated:
                     if list.is_user_can_add_list(user.pk):
                         add_svg = '<span title="Добавить список видеозаписей" class="u_add_video_list btn_default"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'

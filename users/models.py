@@ -67,12 +67,12 @@ class User(AbstractUser):
             last_name = v2.word.title()
         return first_name + " " + last_name
 
-    def get_or_create_wall_album(self):
+    def get_or_create_main_album(self):
         from gallery.models import Album
         try:
-            album = Album.objects.get(creator_id=self.pk, type=Album.WALL)
+            album = Album.objects.get(creator_id=self.pk, type=Album.MAIN)
         except:
-            album = Album.objects.create(creator_id=self.pk, type=Album.WALL, title="Прикреплённые фото", description="Прикреплённые фото", order=0)
+            album = Album.objects.create(creator_id=self.pk, type=Album.MAIN, title="Прикреплённые фото", description="Прикреплённые фото", order=0)
         return album
     def get_or_create_main_doclist(self):
         from docs.models import DocList

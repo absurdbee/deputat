@@ -49,9 +49,9 @@ class PhotoAttachUserCreate(View):
         photos = []
         if request.is_ajax():
             try:
-                _album = Album.objects.get(creator=request.user, type=Album.WALL)
+                _album = Album.objects.get(creator=request.user, type=Album.MAIN)
             except:
-                _album = Album.objects.create(creator=request.user, type=Album.WALL, title="Фото со стены", description="Фото со стены")
+                _album = Album.objects.create(creator=request.user, type=Album.MAIN, title="Фото со стены", description="Фото со стены")
             for p in request.FILES.getlist('file'):
                 photo = Photo.objects.create(file=p, preview=p, creator=request.user, type="PUB")
                 _album.photo_album.add(photo)
@@ -163,7 +163,7 @@ class AlbumUserEdit(TemplateView):
 class AlbumUserDelete(View):
     def get(self,request,*args,**kwargs):
         album = Album.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and album.type != Album.WALL:
+        if request.is_ajax() and album.type != Album.MAIN:
             album.type = "DEL"
             album.save(update_fields=['type'])
             return HttpResponse()

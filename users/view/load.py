@@ -8,7 +8,7 @@ class UserLoadPhoto(ListView):
 	def get(self,request,*args,**kwargs):
 		from gallery.models import Album
 
-		self.album, self.template_name = request.user.get_or_create_wall_album(), get_my_template("user_load/u_photo_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.album, self.template_name = request.user.get_or_create_main_album(), get_my_template("user_load/u_photo_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -42,7 +42,7 @@ class UserLoadPhotoComment(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from gallery.models import Album
-		self.album, self.template_name = request.user.get_or_create_wall_album(), get_my_template("user_load/u_photo_comments_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.album, self.template_name = request.user.get_or_create_main_album(), get_my_template("user_load/u_photo_comments_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPhotoComment,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):

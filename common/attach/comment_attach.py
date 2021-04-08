@@ -1,6 +1,6 @@
 from django.db.models import Q
 query = Q(type="PUB") | Q(type="MAN")
-list_query = Q(type="LIS") | Q(type="MAN") | Q(type="WAL")
+list_query = Q(type="LIS") | Q(type="MAN") | Q(type="MAI")
 
 def get_u_blog_comment_attach(comment, user):
 

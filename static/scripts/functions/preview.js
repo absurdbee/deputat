@@ -80,7 +80,7 @@ function doc_preview_delete(){
 
 function create_preview_photo(img_src, photo_pk){
   $div = document.createElement("div");
-  $div.classList.add("col-md-6", "photo");
+  $div.classList.add("col-sm-6", "col-md-4", "photo");
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="pho' + photo_pk + '">';
   $img = document.createElement("img");
@@ -94,7 +94,7 @@ function create_preview_photo(img_src, photo_pk){
 }
 function create_preview_photo_album(src, title, pk, count){
   $div = document.createElement("div");
-  $div.classList.add("col-md-6")
+  $div.classList.add("col-sm-6", "col-md-4", "photo");
 
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="lph' + pk + '">';

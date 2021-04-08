@@ -101,7 +101,6 @@ function create_preview_photo_album(src, title, pk, count){
   $input.innerHTML = '<input type="hidden" name="attach_items" value="lph' + pk + '">';
 
   $img = document.createElement("img");
-  $img.classList.add("u_preview_photo", "image_fit", "pointer");
   $img.setAttribute("src", src);
   $img.style.objectFit = "cover";
   $img.style.height = "150px";
@@ -125,6 +124,10 @@ function create_preview_photo_album(src, title, pk, count){
   $span.innerHTML = '<svg class="svg_default svg_default_30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>';
 
   $card_body = document.createElement("div");
+  $card_body.classList.add("card-body");
+  $card_body.style.padding = "8px";
+  $card_body.style.paddingBottom = "0";
+
   $flex = document.createElement("div");
   $flex.style.display = "flex";
   $flex.append($input);
@@ -253,7 +256,7 @@ on('body', 'click', '.photo_attach_album', function() {
   _this = this;
   src = _this.nextElementSibling.querySelector("img").getAttribute("src");
   title = _this.previousElementSibling.innerHTML;
-  pk = _this.getAttribute('photo-pk');
+  pk = _this.getAttribute('data-pk');
   count = _this.getAttribute('data-count');
   if (document.body.querySelector(".current_file_dropdown")){
     check_photo_album_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_album_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_create_window())

@@ -5,11 +5,11 @@ def get_elect_new_processing(post):
     return post
 
 def get_blog_message_processing(comment):
-    comment.status = "PUB"
-    comment.save(update_fields=['status'])
+    comment.type = "PUB"
+    comment.save(update_fields=['type'])
     return comment
 
 def get_elect_new_message_processing(comment):
-    comment.status = "PUB"
-    comment.save(update_fields=['status'])
+    comment.type = "PUB"
+    comment.save(update_fields=['type'])
     return comment

@@ -116,14 +116,14 @@ on('body', 'click', '.music_preview_delete', function() {
 });
 on('body', 'click', '.photo_attach_album_remove', function() {
   block = this.parentElement.parentElement.parentElement;
-  block.remove();
   if (block.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()
-  } else if (block.parentElement.parentElement.classList.contains("comment_attach_block")){ 
+  } else if (block.parentElement.parentElement.classList.contains("comment_attach_block")){
     remove_file_dropdown(); is_full_dropdown()
   } else if (block.classList.contains("message_attach_block")){
     remove_file_message_attach(); is_full_message_attach()
   }
+  block.remove();
 });
 
 function on(elSelector,eventName,selector,fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while(el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};

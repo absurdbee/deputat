@@ -31,7 +31,7 @@ class UserGallery(ListView):
 		from users.models import User
 
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.album = self.user.get_or_create_wall_album()
+		self.album = self.user.get_or_create_main_album()
 		if self.user.pk == request.user.pk:
 			self.photo_list = self.album.get_staff_photos()
 		else:

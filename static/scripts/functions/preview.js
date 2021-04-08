@@ -110,7 +110,7 @@ function create_preview_photo_album(src, title, pk, count){
   $figure.append($img);
 
   $p = document.createElement("p");
-  $p.innerHTML = 'Фотоальбом<br>Всего: ' + count + ';
+  $p.innerHTML = 'Фотоальбом<br>Всего: ' + count;
   $h6 = document.createElement("h6");
   $h6.innerHTML = title;
   $h6.classList.add("my-0", "mt-1");

@@ -120,7 +120,7 @@ class AlbumUserCreate(TemplateView):
             if not album.description:
                 album.description = "Без описания"
             if request.POST.get("is_public"):
-                album.type = Album.ALBUM
+                album.type = Album.LIST
             else:
                 album.type = Album.PRIVATE
             new_album = Album.objects.create(title=album.title, description=album.description, type=album.type, order=album.order, creator=request.user)
@@ -151,7 +151,7 @@ class AlbumUserEdit(TemplateView):
             if not album.description:
                 album.description = "Без описания"
             if request.POST.get("is_public"):
-                album.type = Album.ALBUM
+                album.type = Album.LIST
             else:
                 album.type = Album.PRIVATE
             self.form.save()
@@ -174,7 +174,7 @@ class AlbumUserAbortDelete(View):
     def get(self,request,*args,**kwargs):
         album = Album.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax():
-            album.type = "ALB"
+            album.type = "LIS"
             album.save(update_fields=['type'])
             return HttpResponse()
         else:

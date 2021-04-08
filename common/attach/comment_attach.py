@@ -1,5 +1,6 @@
 from django.db.models import Q
 query = Q(type="PUB") | Q(type="MAN")
+list_query = Q(type="LIS") | Q(type="MAN")
 
 def get_u_blog_comment_attach(comment, user):
 
@@ -90,7 +91,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "lmu":
             try:
                 from music.models import SoundList
-                playlist = SoundList.objects.get(query, pk=item[3:])
+                playlist = SoundList.objects.get(list_query, pk=item[3:])
                 creator = playlist.creator
                 if playlist.image:
                     image = '<img src="' + playlist.image.url + '" style="width:120px;height:120px;" alt="image">'
@@ -108,7 +109,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "ldo":
             try:
                 from docs.models import DocList
-                list = DocList.objects.get(query, pk=item[3:])
+                list = DocList.objects.get(list_query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>'
                 repost_svg, add_svg = '', ''
@@ -123,7 +124,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "lph":
             try:
                 from gallery.models import Album
-                album = Album.objects.get(pk=item[3:], is_public=True)
+                album = Album.objects.get(list_query, pk=item[3:])
                 creator = album.creator
                 add = '', ''
                 if user.is_authenticated:
@@ -137,7 +138,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "lvi":
             try:
                 from video.models import VideoAlbum
-                list = VideoAlbum.objects.get(query, pk=item[3:])
+                list = VideoAlbum.objects.get(list_query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
                 repost_svg, add_svg = '', ''
@@ -239,7 +240,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "lmu":
             try:
                 from music.models import SoundList
-                playlist = SoundList.objects.get(query, pk=item[3:])
+                playlist = SoundList.objects.get(list_query, pk=item[3:])
                 creator = playlist.creator
                 if playlist.image:
                     image = '<img src="' + playlist.image.url + '" style="width:120px;height:120px;" alt="image">'
@@ -257,7 +258,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "ldo":
             try:
                 from docs.models import DocList
-                list = DocList.objects.get(pk=item[3:])
+                list = DocList.objects.get(list_query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>'
                 repost_svg, add_svg = '', ''
@@ -272,7 +273,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "lph":
             try:
                 from gallery.models import Album
-                album = Album.objects.get(query, pk=item[3:])
+                album = Album.objects.get(list_query, pk=item[3:])
                 creator = album.creator
                 add = '', ''
                 if user.is_authenticated:
@@ -286,7 +287,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "lvi":
             try:
                 from video.models import VideoAlbum
-                list = VideoAlbum.objects.get(query, pk=item[3:])
+                list = VideoAlbum.objects.get(list_query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
                 repost_svg, add_svg = '', ''

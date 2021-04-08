@@ -11,14 +11,14 @@ from django.utils import timezone
 
 class Album(models.Model):
     WALL = 'WAL'
-    ALBUM = 'ALB'
+    LIST = 'LIS'
     DELETED = 'DEL'
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
     TYPE = (
         (WALL, 'Фото со стены'),
-        (ALBUM, 'Пользовательский'),
+        (LIST, 'Пользовательский'),
         (DELETED, 'Удалённый'),
         (PRIVATE, 'Приватный'),
         (CLOSED, 'Закрытый менеджером'),
@@ -64,7 +64,7 @@ class Album(models.Model):
     def is_wall_album(self):
         return self.type == self.WALL
     def is_user_album(self):
-        return self.type == self.ALBUM or self.type == self.PRIVATE
+        return self.type == self.LIST or self.type == self.PRIVATE
     def is_private_album(self):
         return self.type == self.PRIVATE
 

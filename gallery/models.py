@@ -29,7 +29,7 @@ class Album(models.Model):
     title = models.CharField(max_length=250, verbose_name="Название")
     description = models.TextField(blank=True, null=True, verbose_name="Описание")
     cover_photo = models.ForeignKey('Photo', on_delete=models.SET_NULL, related_name='+', blank=True, null=True, verbose_name="Обожка")
-    type = models.CharField(max_length=5, choices=TYPE, default=ALBUM, verbose_name="Тип альбома")
+    type = models.CharField(max_length=5, choices=TYPE, default=LIST, verbose_name="Тип альбома")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     order = models.PositiveIntegerField(default=0)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_album_creator', null=False, blank=False, verbose_name="Создатель")

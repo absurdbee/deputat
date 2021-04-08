@@ -94,7 +94,7 @@ function create_preview_photo(img_src, photo_pk){
 }
 function create_preview_photo_album(src, title, pk, count){
   $div = document.createElement("div");
-  $div.style.flexBasis = "100%";
+  //$div.style.flexBasis = "100%";
 
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="lph' + pk + '">';
@@ -115,14 +115,10 @@ function create_preview_photo_album(src, title, pk, count){
   $media_body = document.createElement("div");
   $media_body.classList.add("media-body");
   $media_body.style.marginLeft = "10px";
-
-  $media_body.append($h6); $media_body.append($p);
-  $span = document.createElement("span");
-  $span.classList.add("photo_attach_album_remove", "btn_default", "pointer");
-  $span.style.marginRight = "14px";
-  $span.setAttribute("flow", "up");
-  $span.setAttribute("tooltip", "Открепить");
-  $span.innerHTML = '<svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>';
+  $p2 = document.createElement("p");
+  $p2.innerHTML = 'Открепить';
+  $p2.classList.add("photo_attach_album_remove", "pointer");
+  $media_body.append($h6); $media_body.append($p); $media_body.append($p2)
 
   $card_body = document.createElement("div");
   $card_body.classList.add("card-body");

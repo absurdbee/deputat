@@ -80,7 +80,7 @@ function doc_preview_delete(){
 
 function create_preview_photo(img_src, photo_pk){
   $div = document.createElement("div");
-  $div.classList.add("col-md-4", "photo");
+  $div.classList.add("col-md-6", "photo");
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="pho' + photo_pk + '">';
   $img = document.createElement("img");
@@ -94,7 +94,7 @@ function create_preview_photo(img_src, photo_pk){
 }
 function create_preview_photo_album(src, title, pk, count){
   $div = document.createElement("div");
-  //$div.style.flexBasis = "100%";
+  $div.classList.add("col-md-6")
 
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="lph' + pk + '">';
@@ -107,23 +107,20 @@ function create_preview_photo_album(src, title, pk, count){
   $figure = document.createElement("figure");
   $figure.append($img);
 
-  $p = document.createElement("p");
-  $p.innerHTML = 'Фотоальбом<br>Всего: ' + count;
   $h6 = document.createElement("h6");
   $h6.innerHTML = title;
   $h6.classList.add("my-0", "mt-1");
   $media_body = document.createElement("div");
   $media_body.classList.add("media-body");
   $media_body.style.marginLeft = "10px";
-  $p2 = document.createElement("p");
-  $p2.innerHTML = 'Открепить';
-  $p2.classList.add("photo_attach_album_remove", "pointer");
-  $media_body.append($h6); $media_body.append($p); $media_body.append($p2)
+  $p = document.createElement("p");
+  $p.innerHTML = 'Открепить';
+  $p.classList.add("photo_attach_album_remove", "pointer");
+  $media_body.append($h6); $media_body.append($p)
 
   $card_body = document.createElement("div");
   $card_body.classList.add("card-body");
-  $card_body.style.padding = "8px";
-  $card_body.style.paddingBottom = "0";
+  $card_body.style.padding = "0";
 
   $flex = document.createElement("div");
   $flex.style.display = "flex";

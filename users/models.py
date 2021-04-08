@@ -40,7 +40,7 @@ class User(AbstractUser):
         verbose_name_plural = 'пользователи'
 
     def __str__(self):
-        return str(self.phone)
+        return self.get_full_name
 
     def get_verb_gender(self, verb):
         if self.is_women():

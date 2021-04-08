@@ -93,8 +93,48 @@ function create_preview_photo(img_src, photo_pk){
   return $div
 }
 function create_preview_photo_album(src, title, pk, count){
-  a = '<div><div class="card mb-3" style="flex-basis: 100%;"><input type="hidden" name="attach_items" value="lph' + pk + '"><div class="card-body" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><img style="object-fit: cover;height: 150px;width: 170px;" src="' + src + '" /></figure><div class="media-body" style="margin-left:10px"><h6 class="my-0 mt-1">' + title + '</h6><p class="">Фотоальбом<br>Всего: ' + count + '</p></div><span flow="up" tooltip="Открепить" class="photo_attach_album_remove btn_default pointer" style="margin-right: 14px;"><svg class="svg_default svg_default_30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></div></div></div></div>'
-  return a
+  $div = document.createElement("div");
+  $div.classList.add("card");
+  $div.style.flexBasis = "100%";
+
+  $input = document.createElement("span");
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="lph' + pk + '">';
+
+  $img = document.createElement("img");
+  $img.classList.add("u_preview_photo", "image_fit", "pointer");
+  $img.setAttribute("src", src);
+  $img.style.objectFit = "cover";
+  $img.style.height = "150px";
+  $img.style.width = "170px";
+  $figure = document.createElement("figure");
+  $figure.append($img);
+
+  $p = document.createElement("p");
+  $p.innerHTML = 'Фотоальбом<br>Всего: ' + count + ';
+  $h6 = document.createElement("h6");
+  $h6.innerHTML = title;
+  $h6.classList.add("my-0", "mt-1");
+  $media_body = document.createElement("div");
+  $media_body.append($h6); $media_body.append($p);
+
+  $span = document.createElement("span");
+  $span.classList.add("photo_attach_album_remove", "btn_default", "pointer");
+  $span.style.marginRight = "14px";
+  $span.setAttribute("flow", "up");
+  $span.setAttribute("tooltip", "Открепить");
+  $span.innerHTML = '<svg class="svg_default svg_default_30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>';
+
+  $card_body = document.createElement("div");
+  $flex = document.createElement("div");
+  $flex.style.display = "flex";
+  $flex.append($input);
+  $flex.append($figure);
+  $flex.append($media_body);
+  $flex.append($span);
+
+  $card_body.append($flex);
+  $div.append($card_body);
+  return $div
 }
 
 function create_preview_video(img_src, pk, counter){

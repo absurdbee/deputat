@@ -124,7 +124,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "lph":
             #try:
             from gallery.models import Album
-            album = Album.objects.get(list_query, pk=item[3:])
+            album = Album.objects.get(pk=item[3:])
             creator = album.creator
             add = '', ''
             if user.is_authenticated:

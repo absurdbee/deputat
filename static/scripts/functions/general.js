@@ -119,7 +119,7 @@ on('body', 'click', '.photo_attach_album_remove', function() {
   block.remove();
   if (block.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()
-  } else if (block.classList.contains("current_file_dropdown")){ 
+  } else if (block.parentElement.parentElement.classList.contains("comment_attach_block")){ 
     remove_file_dropdown(); is_full_dropdown()
   } else if (block.classList.contains("message_attach_block")){
     remove_file_message_attach(); is_full_message_attach()

@@ -146,6 +146,26 @@ class Blog(models.Model):
         from user.model.profile import Bookmarks
         return Bookmarks.objects.filter(blog=self, user_id=user_id).exists()
 
+    def get_attach_photos(self):
+        if "pho" in self.attach:
+            query = []
+            from gallery.models import Photo
+
+            for item in self.attach.split(","):
+                if item[:3] == "pho":
+                    query.append(item[3:])
+        return Photo.objects.filter(id__in=query)
+
+    def get_attach_videos(self):
+        if "pho" in self.attach:
+            query = []
+            from video.models import Video
+
+            for item in self.attach.split(","):
+                if item[:3] == "vid":
+                    query.append(item[3:])
+        return Video.objects.filter(id__in=query)
+
 
 class ElectNew(models.Model):
     STATUS_DRAFT = 'D'
@@ -259,3 +279,23 @@ class ElectNew(models.Model):
         comments_query = Q(new_id=self.pk)
         comments_query.add(Q(parent__isnull=True), Q.AND)
         return ElectNewComment.objects.filter(comments_query)
+
+    def get_attach_photos(self):
+        if "pho" in self.attach:
+            query = []
+            from gallery.models import Photo
+
+            for item in self.attach.split(","):
+                if item[:3] == "pho":
+                    query.append(item[3:])
+        return Photo.objects.filter(id__in=query)
+
+    def get_attach_videos(self):
+        if "pho" in self.attach:
+            query = []
+            from video.models import Video
+
+            for item in self.attach.split(","):
+                if item[:3] == "vid":
+                    query.append(item[3:])
+        return Video.objects.filter(id__in=query)

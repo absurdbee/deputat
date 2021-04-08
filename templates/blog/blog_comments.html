@@ -6,7 +6,7 @@
               {% csrf_token %}
                   <div class="row comment_attach_block"></div>
                   <span style="display:flex">
-                      {% include 'blog/comment/dropdown.html' %}
+                      {% include 'blog/dropdown.html' %}
                       <input name="text" placeholder="Напишите комментарий" class="form-control text-comment" style="margin-bottom:5px">
                   </span>
                     <input type="hidden" name="blog" value="{{ object.pk }}">

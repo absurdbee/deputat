@@ -1,24 +1,28 @@
+from django.db.models import Q
+query = Q(type="PUB") | Q(type="MAN")
+
 def get_u_blog_comment_attach(comment, user):
+
     block = ''
     for item in comment.attach.split(","):
         if item[:3] == "pho":
             try:
                 from gallery.models import Photo
-                photo = Photo.objects.get(pk=item[3:], type="PUB")
+                photo = Photo.objects.get(query, pk=item[3:])
                 block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit u_blog_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":
             try:
                 from video.models import Video
-                video = Video.objects.get(pk=item[3:], is_public=True)
+                video = Video.objects.get(query, pk=item[3:])
                 block = ''.join([block, '<div class="video"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_blog_comment_video" video-pk="', str(video.pk), '" data-uuid="', str(video.uuid), '" video-counter="0"></div></div>'])
             except:
                 pass
         elif item[:3] == "mus":
             try:
-                from music.models import SoundcloudParsing
-                music = SoundcloudParsing.objects.get(pk=item[3:])
+                from music.models import Music
+                music = Music.objects.get(query, pk=item[3:])
                 if music.artwork_url:
                     figure = ''.join(['<figure><a class="music_list_comment music_thumb pointer"><img style="width:30px;heigth:auto" src="', music.artwork_url.url, '" alt="img" /></a></figure>'])
                 else:
@@ -38,7 +42,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "doc":
             try:
                 from docs.models import Doc
-                doc = Doc.objects.get(pk=item[3:])
+                doc = Doc.objects.get(query, pk=item[3:])
                 span_btn = ''
                 if user.is_authenticated:
                     lists = ''
@@ -54,7 +58,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "sur":
             try:
                 from survey.models import Survey
-                survey = Survey.objects.get(pk=item[3:])
+                survey = Survey.objects.get(query, pk=item[3:])
                 _class, voted, answers, creator = "", "", "", survey.creator
                 if survey.is_time_end():
                     time = "<p>Время голосования вышло</p>"
@@ -86,7 +90,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "lmu":
             try:
                 from music.models import SoundList
-                playlist = SoundList.objects.get(pk=item[3:])
+                playlist = SoundList.objects.get(query, pk=item[3:])
                 creator = playlist.creator
                 if playlist.image:
                     image = '<img src="' + playlist.image.url + '" style="width:120px;height:120px;" alt="image">'
@@ -104,7 +108,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "ldo":
             try:
                 from docs.models import DocList
-                list = DocList.objects.get(pk=item[3:])
+                list = DocList.objects.get(query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>'
                 repost_svg, add_svg = '', ''
@@ -133,7 +137,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "lvi":
             try:
                 from video.models import VideoAlbum
-                list = VideoAlbum.objects.get(pk=item[3:])
+                list = VideoAlbum.objects.get(query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
                 repost_svg, add_svg = '', ''
@@ -153,21 +157,21 @@ def get_u_elect_new_comment_attach(comment, user):
         if item[:3] == "pho":
             try:
                 from gallery.models import Photo
-                photo = Photo.objects.get(pk=item[3:], type="PUB")
+                photo = Photo.objects.get(query, pk=item[3:])
                 block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit u_elect_new_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":
             try:
                 from video.models import Video
-                video = Video.objects.get(pk=item[3:], is_public=True)
+                video = Video.objects.get(query, pk=item[3:])
                 block = ''.join([block, '<div class="video"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_elect_new_comment_video" video-pk="', str(video.pk), '" data-uuid="', str(video.uuid), '" video-counter="0"></div></div>'])
             except:
                 pass
         elif item[:3] == "mus":
             try:
-                from music.models import SoundcloudParsing
-                music = SoundcloudParsing.objects.get(pk=item[3:])
+                from music.models import Music
+                music = Music.objects.get(query, pk=item[3:])
                 if music.artwork_url:
                     figure = ''.join(['<figure><a class="music_list_comment music_thumb pointer"><img style="width:30px;heigth:auto" src="', music.artwork_url.url, '" alt="img" /></a></figure>'])
                 else:
@@ -187,7 +191,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "doc":
             try:
                 from docs.models import Doc
-                doc = Doc.objects.get(pk=item[3:])
+                doc = Doc.objects.get(query, pk=item[3:])
                 span_btn = ''
                 if user.is_authenticated:
                     lists = ''
@@ -203,7 +207,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "sur":
             try:
                 from survey.models import Survey
-                survey = Survey.objects.get(pk=item[3:])
+                survey = Survey.objects.get(query, pk=item[3:])
                 _class, voted, answers, creator = "", "", "", survey.creator
                 if survey.is_time_end():
                     time = "<p>Время голосования вышло</p>"
@@ -235,7 +239,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "lmu":
             try:
                 from music.models import SoundList
-                playlist = SoundList.objects.get(pk=item[3:])
+                playlist = SoundList.objects.get(query, pk=item[3:])
                 creator = playlist.creator
                 if playlist.image:
                     image = '<img src="' + playlist.image.url + '" style="width:120px;height:120px;" alt="image">'
@@ -268,7 +272,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "lph":
             try:
                 from gallery.models import Album
-                album = Album.objects.get(pk=item[3:], is_public=True)
+                album = Album.objects.get(query, pk=item[3:])
                 creator = album.creator
                 add = '', ''
                 if user.is_authenticated:
@@ -282,7 +286,7 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "lvi":
             try:
                 from video.models import VideoAlbum
-                list = VideoAlbum.objects.get(pk=item[3:])
+                list = VideoAlbum.objects.get(query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default border" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
                 repost_svg, add_svg = '', ''

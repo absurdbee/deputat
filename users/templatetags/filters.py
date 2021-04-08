@@ -42,5 +42,5 @@ def photo_in_album(album, photo_id):
         return False
 
 @register.filter
-def get_user_attach(comment, request_user):
+def get_blog_comment_attach(comment, request_user):
     return comment.get_u_attach(request_user)

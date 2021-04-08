@@ -133,25 +133,50 @@ class UserElectNewPhoto(TemplateView):
 		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
 		return context
 
-class UserCommentPhoto(TemplateView):
+class UserBlogCommentPhoto(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.model.comments import BlogComment
+		from common.templates import get_item_template
+
+		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
+		self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
+		self.photos = self.comment.get_attach_photos()
+		if request.is_ajax():
+			self.template_name = get_item_template(self.photo, "user_gallery/blog_comment_photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			from django.http import Http404
+			raise Http404
+		return super(UserBlogCommentPhoto,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserBlogCommentPhoto,self).get_context_data(**kwargs)
+		context["object"] = self.photo
+		context["user"] = self.request.user
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
+		return context
+
+class UserElectNewCommentPhoto(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
 		from common.model.comments import ElectNewComment
 		from common.templates import get_item_template
 
-		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"]) 
-		self.comment = PostComment.objects.get(pk=self.kwargs["pk"])
+		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
+		self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.comment.get_attach_photos()
 		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_item_template(self.photo, "user_gallery/elect_new_comment_photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
 			from django.http import Http404
 			raise Http404
-		return super(UserCommentPhoto,self).get(request,*args,**kwargs)
+		return super(UserElectNewCommentPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		context = super(UserCommentPhoto,self).get_context_data(**kwargs)
+		context = super(UserElectNewCommentPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["user"] = self.request.user
 		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()

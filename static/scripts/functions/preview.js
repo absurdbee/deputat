@@ -9,8 +9,7 @@ function check_photo_in_block(block, _this, pk) {
 }
 function check_photo_album_in_block(block, _this, pk) {
     if (block.querySelector('[data-pk=' + '"' + pk + '"' + ']')) {
-        _this.setAttribute("tooltip", "Альбом уже выбран");
-        _this.setAttribute("flow", "up");
+        toats_info("Альбом уже прикреплён")
         return true
     } else {
         return false

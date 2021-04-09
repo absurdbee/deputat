@@ -93,7 +93,7 @@ function create_preview_photo(img_src, photo_pk){
 }
 function create_preview_photo_album(src, title, pk, count){
   $div = document.createElement("div");
-  $div.classList.add("col-sm-6", "col-md-4", "bg-dark", "position-relative", "text-center");
+  $div.classList.add("col-sm-6", "col-md-4", "bg-dark", "position-relative", "text-center", "big_mobile_element");
   $div.setAttribute("data-pk", pk);
 
   $input = document.createElement("span");

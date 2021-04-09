@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
-    url(r'^create_list/$', UserDoclistCreate.as_view()),
+    url(r'^add_list/$', UserDoclistCreate.as_view()),
     url(r'^edit_list/(?P<uuid>[0-9a-f-]+)/$', UserDoclistEdit.as_view()),
     url(r'^delete_list/(?P<uuid>[0-9a-f-]+)/$', UserDoclistDelete.as_view()),
     url(r'^abort_delete_list/(?P<uuid>[0-9a-f-]+)/$', UserDoclistAbortDelete.as_view()),

@@ -115,7 +115,7 @@ on('body', 'click', '.music_preview_delete', function() {
   parent.remove();
 });
 on('body', 'click', '.photo_attach_album_remove', function() {
-  block = this.parentElement.parentElement.parentElement.parentElement;
+  block = this.parentElement.parentElement; 
   if (block.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()
   } else if (block.parentElement.classList.contains("comment_attach_block")){

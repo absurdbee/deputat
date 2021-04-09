@@ -44,3 +44,7 @@ def photo_in_album(album, photo_id):
 @register.filter
 def get_blog_comment_attach(comment, request_user):
     return comment.get_u_attach(request_user)
+
+@register.filter
+def is_user_can_add_list(list, user_id):
+    return list.is_user_can_add_list(user_id):

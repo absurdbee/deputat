@@ -7,10 +7,10 @@ class UserLoadAlbum(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_small_template
+		from common.templates import get_list_template
 
-		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
-		self.template_name = get_small_template("user_gallery/load_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.album = Album.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_list_template(self.album, "user_gallery/load_list/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadAlbum,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

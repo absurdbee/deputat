@@ -191,3 +191,9 @@ on('body', 'click', '.u_elect_new_comment_photo', function() {
   loader = document.getElementById("photo_loader");
   open_fullscreen("/gallery/elect_new_comment_photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });
+on('body', 'click', '.u_load_photo_album', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  pk = parent.getAttribute("data-pk");
+  loader = document.getElementById("item_loader");
+  open_fullscreen("/gallery/load_list/" + pk + "/", loader)
+});

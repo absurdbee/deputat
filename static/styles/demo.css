@@ -1,8 +1,9 @@
 .underline {
   text-decoration: underline;
-
 }
-
+.nowrap {
+  white-space: nowrap;
+}
 .background-img {
     width: 100%;
     position: absolute;

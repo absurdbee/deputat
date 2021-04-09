@@ -194,6 +194,6 @@ on('body', 'click', '.u_elect_new_comment_photo', function() {
 on('body', 'click', '.u_load_photo_album', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("data-pk");
-  loader = document.getElementById("loader");
+  loader = document.getElementById("window_loader"); 
   open_fullscreen("/gallery/load_album/" + pk + "/", loader)
 });

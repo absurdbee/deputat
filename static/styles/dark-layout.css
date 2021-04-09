@@ -1,7 +1,9 @@
 body.dark-layout {
   color : #B4B7BD;
 }
-
+.file-logo-wrapper {
+    background-color: #161D31 !important;
+}
 .dark-layout {
   background-color : #161D31;
 }

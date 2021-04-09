@@ -10,7 +10,6 @@
 .file-logo-wrapper {
     padding: 1rem;
     height: 7.5rem;
-    background-color: #F8F8F8;
 }
 .file-name {
     width: calc(100% - 26rem);

@@ -6060,6 +6060,7 @@ a.bg-light:hover, a.bg-light:focus, button.bg-light:hover, button.bg-light:focus
 
 .bg-dark {
   background-color : #4B4B4B !important;
+  overflow: hidden;
 }
 
 a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {

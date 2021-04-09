@@ -6,10 +6,12 @@ body.dark-layout {
   background-color : #161D31;
 }
 
-.dark-layout h1, .dark-layout h2, .dark-layout h3, .dark-layout h4, .dark-layout h5, .dark-layout h6 {
+.dark-layout h1, .dark-layout h2, .dark-layout h3, .dark-layout h4, .dark-layout h5, .dark-layout h6, .dark-layout p{
   color : #D0D2D6;
 }
-
+.dark-layout a {
+  color : #D0D2D6;
+}
 .dark-layout .border, .dark-layout .border-top, .dark-layout .border-right, .dark-layout .border-bottom, .dark-layout .border-left {
   border-color : #B4B7BD !important;
 }

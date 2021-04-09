@@ -45,13 +45,15 @@
                               </div>
                             </a>
                         </div>
+                        <a href="{% url 'user_docs_list' pk=user.pk uuid=object.uuid %}" class="ajax">
                         <div class="card-body pt-0">
                             <div class="content-wrapper">
-                                <a href="{% url 'user_docs_list' pk=user.pk uuid=object.uuid %}" class="card-text file-name mb-0 ajax">{{ object.name }}</a>
+                                <p class="card-text file-name mb-0">{{ object.name }}</p>
                                 <p class="card-text file-size mb-0">{{ object.count_docs }}</p>
                             </div>
                             <small class="file-accessed text-muted">{{ object.get_type_display }} список</small>
                         </div>
+                        </a>
                     </div>
                 </li>
                 {% endfor %}

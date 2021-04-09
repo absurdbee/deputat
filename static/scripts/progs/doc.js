@@ -147,7 +147,7 @@ on('body', 'click', '.u_load_doc_list', function() {
   open_fullscreen("/docs/load/" + pk + "/", loader)
 });
 
-on('#ajax', 'click', '#u_create_doc_btn', function() {
+on('body', 'click', '#u_create_doc_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
 

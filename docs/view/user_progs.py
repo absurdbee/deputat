@@ -96,7 +96,7 @@ class UserDocCreate(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
-        form_post, user = DocForm(request.POST, request.FILES), User.objects.get(pk=self.kwargs["pk"])
+        form_post = DocForm(request.POST, request.FILES)
 
         if request.is_ajax() and form_post.is_valid():
             list, new_doc = DocList.objects.get(creator_id=request.user.pk, type=DocList.MAIN), form_post.save(commit=False)

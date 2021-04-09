@@ -93,7 +93,7 @@ function create_preview_photo(img_src, photo_pk){
 }
 function create_preview_photo_album(src, title, pk, count){
   $div = document.createElement("div");
-  $div.classList.add("col-sm-6", "col-md-4", "photo");
+  $div.classList.add("col-sm-6", "col-md-4", "bg-dark", "position-relative");
   $div.setAttribute("data-pk", pk);
 
   $input = document.createElement("span");
@@ -101,35 +101,34 @@ function create_preview_photo_album(src, title, pk, count){
 
   $img = document.createElement("img");
   $img.setAttribute("src", src);
-  $img.style.objectFit = "cover";
-  $img.style.height = "150px";
-  $img.style.width = "170px";
+
   $figure = document.createElement("figure");
+  $figure.classList.add("background-img");
   $figure.append($img);
 
   $h6 = document.createElement("h6");
   $h6.innerHTML = title;
-  $h6.classList.add("my-0", "mt-1");
-  $media_body = document.createElement("div");
-  $media_body.classList.add("media-body");
-  $media_body.style.marginLeft = "10px";
-  $p = document.createElement("p");
-  $p.innerHTML = 'Открепить';
-  $p.classList.add("photo_attach_album_remove", "pointer");
-  $media_body.append($h6); $media_body.append($p)
+  $h6.classList.add("u_load_photo_album", "text-white", "pointer", "mb-2", "nowrap");
 
-  $card_body = document.createElement("div");
-  $card_body.classList.add("card-body");
-  $card_body.style.padding = "0";
+  $span = document.createElement("span");
+  $span.classList.add("photo_attach_album_remove", "underline", "pointer", "text-white");
 
-  $flex = document.createElement("div");
-  $flex.style.display = "flex";
-  $flex.append($input);
-  $flex.append($figure);
-  $flex.append($media_body);
+  $hr = document.createElement("hr");
+  $hr.classList.add("my-3");
 
-  $card_body.append($flex);
-  $div.append($card_body);
+  $a = document.createElement("a");
+  $a.classList.add("u_load_photo_album", "pointer", "text-white");
+  $a.innerHTML = count;
+
+  $container = document.createElement("div");
+  $container.classList.add("container", "p-3");
+
+  $container.append($h6);
+  $container.append($span);
+  $container.append($hr);
+  $container.append($a);
+
+  $div.append($figure); $div.append($container);
   return $div
 }
 

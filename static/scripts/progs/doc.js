@@ -142,3 +142,51 @@ on('body', 'click', '.u_load_doc_list', function() {
   loader = document.getElementById("window_loader");
   open_fullscreen("/docs/load/" + pk + "/", loader)
 });
+
+on('#ajax', 'click', '#u_create_doc_btn', function() {
+  form = this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+
+  lists = form.querySelector("#id_list");
+  selectedOptions = lists.selectedOptions;
+  val = false;
+  for (var i = 0; i < selectedOptions.length; i++) {
+    if(selectedOptions[i].value) {val = true}
+  }
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!")
+  } else if (!val){
+    form.querySelector("#id_list").style.border = "1px #FF0000 solid";
+    toast_error("Выберите список!")
+  }
+  else if (!form.querySelector("#id_file").value){
+    form.querySelector("#id_file").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите документ!")
+  } else { this.disabled = true }
+  
+  uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/docs/user_progs/create_doc/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    span1 = response.querySelector('.span1')
+    if (span1.classList.contains(uuid)){
+      container = document.body.querySelector(".is_paginate");
+      container.insertAdjacentHTML('afterBegin', response.innerHTML);
+      container.querySelector(".doc_empty") ? container.querySelector(".doc_empty").style.display = "none" : null;
+      toast_info("Документ создан!")
+    } else{
+      toast_info("Документ создан!")
+    }
+    close_create_window();
+  }};
+
+  link_.send(form_data);
+});

@@ -9,10 +9,10 @@
         {% include 'generic/user/user_back.html' %}
       </div>
       <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-        <h5 class="btn btn-sm border u_docs_add" style="width: -webkit-fill-available;font-size: 19px;">+ список</h5>
+        <h5 class="btn btn-sm border u_doc_list_add" style="width: -webkit-fill-available;font-size: 19px;">+ список</h5>
       </div>
       <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-          <h5 class="btn btn-sm border" style="width: -webkit-fill-available;font-size: 19px;">+ файл</h5>
+          <h5 class="btn btn-sm border u_doc_add" style="width: -webkit-fill-available;font-size: 19px;">+ файл</h5>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@
                 <span class='span_btn' data-pk="{{ doc.pk }}">
                   {% if user.is_have_my_all_doc_lists %}
                     {% include 'user_docs/add_dropdown.html' %}
-                  {% endif %} 
+                  {% endif %}
                   <div class="dropdown" style="position: inherit;">
                     <a class="btn_default drop pointer">
                       <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
@@ -72,7 +72,7 @@
     {% endfor %}
 
   {% else %}
-  <div class="card mb-3 centered photos_empty" style="width:100%;">
+  <div class="card mb-3 centered doc_empty" style="width:100%;">
     <h6 style="margin: 20px;text-align: center;"> Файлов пока нет...</h6>
   </div>
 

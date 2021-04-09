@@ -30,14 +30,12 @@
                   <img src="{{ object.get_cover_photo }}">
                 </figure>
                 <div class="container p-3"">
-                  <h4 class="u_load_photo_album text-white pointer">
+                  <h6 class="u_load_photo_album text-white pointer">
                     <a data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}">{{ object.title }}</a>
-                  </h4>
-                  <p class="lead">
+                  </h6>
                     <a class="photo_attach_album pointer text-white underline" data-pk="{{ object.pk }}">
                       Прикрепить альбом
                     </a>
-                  </p>
                   <hr class="my-3">
                   <a data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}" class="text-white">{{ object.count_photo_ru }}</a>
                 </div>

@@ -2,7 +2,6 @@ from docs.models import Doc, DocList
 from users.models import User
 from django.views import View
 from django.views.generic.base import TemplateView
-from rest_framework.exceptions import PermissionDenied
 from docs.forms import DoclistForm, DocForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.http import Http404
@@ -60,28 +59,12 @@ class UserDocListRemove(View):
         else:
             raise Http404
 
-class UserCreateDoclistWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.user, self.template_name = User.objects.get(pk=self.kwargs["pk"]), get_small_template("user_docs/create_doc_list.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserCreateDoclistWindow,self).get(request,*args,**kwargs)
-
-class UserCreateDocWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.user, self.template_name = User.objects.get(pk=self.kwargs["pk"]), get_small_template("user_docs/", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserCreateDocWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserCreateDocWindow,self).get_context_data(**kwargs)
-        context["form_post"] = DocForm()
-        return context
-
-
-class UserDoclistCreate(View):
+class UserDoclistCreate(TemplateView):
     form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("user_docs/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserDoclistCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(UserDoclistCreate,self).get_context_data(**kwargs)
@@ -96,13 +79,16 @@ class UserDoclistCreate(View):
             if not new_list.order:
                 new_list.order = 0
             new_list.save()
-            return render_for_platform(request, 'user_docs/list.html',{'list': new_list, 'user': request.user})
+            return render_for_platform(request, 'user_docs/list/my_list.html',{'list': new_list, 'user': request.user})
         else:
             return HttpResponseBadRequest()
 
-
-class UserDocCreate(View):
+class UserDocCreate(TemplateView):
     form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("user_docs/create_doc.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserDocCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(UserDocCreate,self).get_context_data(**kwargs)
@@ -112,14 +98,14 @@ class UserDocCreate(View):
     def post(self,request,*args,**kwargs):
         form_post, user = DocForm(request.POST, request.FILES), User.objects.get(pk=self.kwargs["pk"])
 
-        if request.is_ajax() and form_post.is_valid() and request.user == user:
-            list, new_doc = DocList.objects.get(creator_id=user.pk, type=DocList.MAIN), form_post.save(commit=False)
+        if request.is_ajax() and form_post.is_valid():
+            list, new_doc = DocList.objects.get(creator_id=request.user.pk, type=DocList.MAIN), form_post.save(commit=False)
             new_doc.creator_id = request.user.pk
             lists = form_post.cleaned_data.get("list")
             new_doc.save()
             for _list in lists:
                 _list.doc_list.add(new_doc)
-            user_notify(request.user, new_post.creator.pk, None, "doc"+str(new_doc.pk), "u_doc_create", "ITE")
+            user_notify(request.user, new_doc.creator.pk, None, "doc"+str(new_doc.pk), "u_doc_create", "ITE")
             return render_for_platform(request, 'user_docs/new_doc.html',{'object': new_doc})
         else:
             return HttpResponseBadRequest()
@@ -129,19 +115,18 @@ class UserDoclistEdit(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.user, self.template_name = User.objects.get(pk=self.kwargs["pk"]), get_small_template("user_docs/edit_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_small_template("user_docs/edit_list.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(UserDoclistEdit,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(UserDoclistEdit,self).get_context_data(**kwargs)
-        context["user"] = self.user
         context["list"] = DocList.objects.get(uuid=self.kwargs["uuid"])
         return context
 
     def post(self,request,*args,**kwargs):
         self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        self.form, self.user = DoclistForm(request.POST,instance=self.list), User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and self.form.is_valid() and self.user == request.user:
+        self.form = DoclistForm(request.POST,instance=self.list)
+        if request.is_ajax() and self.form.is_valid():
             list = self.form.save(commit=False)
             self.form.save()
             return HttpResponse()
@@ -163,7 +148,7 @@ class UserDoclistAbortDelete(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and self.kwargs["pk"] == request.user.pk:
-            list.type = "PUB"
+            list.type = "LIS"
             list.save(update_fields=['type'])
             return HttpResponse()
         else:

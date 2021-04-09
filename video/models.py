@@ -22,10 +22,6 @@ class VideoCategory(models.Model):
     def is_video_in_category(self, track_id):
         self.video_category.filter(id=track_id).exists()
 
-    def get_100_videos(self):
-        queryset = self.video_category.filter(is_deleted=True).values("pk").count()
-        return queryset[:100]
-
     class Meta:
         verbose_name = "Категория ролика"
         verbose_name_plural = "Категории ролика"
@@ -100,6 +96,9 @@ class VideoAlbum(models.Model):
             return True
         else:
             return False
+
+    def is_item_in_list(self, item_id):
+        return self.video_album.filter(pk=item_id).exists()
 
 
 class Video(models.Model):

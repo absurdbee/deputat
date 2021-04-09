@@ -428,7 +428,6 @@ class User(AbstractUser):
         albums_query = Q(type="LIS") | Q(type="PRI")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query).exists()
-
     def get_albums(self):
         from gallery.models import Album
         albums_query = Q(type="LIS")
@@ -439,3 +438,76 @@ class User(AbstractUser):
         albums_query = Q(type="LIS")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query).order_by("order").exists()
+
+    def get_my_all_doc_lists(self):
+        from docs.models import DocList
+        docs_query = Q(type="LIS") | Q(type="PRI") | Q(type="MAI")
+        docs_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return DocList.objects.filter(docs_query)
+    def is_have_my_all_doc_lists(self):
+        from docs.models import DocList
+        docs_query = Q(type="LIS") | Q(type="PRI") | Q(type="MAI")
+        docs_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return DocList.objects.filter(docs_query).exists()
+    def get_my_doc_lists(self):
+        from docs.models import DocList
+        docs_query = Q(type="LIS") | Q(type="PRI")
+        docs_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return DocList.objects.filter(docs_query)
+    def is_have_my_doc_lists(self):
+        from docs.models import DocList
+        docs_query = Q(type="LIS") | Q(type="PRI")
+        docs_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return DocList.objects.filter(docs_query).exists()
+    def get_doc_lists(self):
+        from docs.models import DocList
+        docs_query = Q(type="LIS")
+        docs_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return DocList.objects.filter(docs_query).order_by("order")
+    def is_have_doc_lists(self):
+        from docs.models import DocList
+        docs_query = Q(type="LIS")
+        docs_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return DocList.objects.filter(docs_query).order_by("order").exists()
+
+    def get_my_playlists(self):
+        from music.models import SoundList
+        tracks_query = Q(type="LIS") | Q(type="PRI")
+        tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(tracks_query)
+    def is_have_my_playlists(self):
+        from music.models import SoundList
+        tracks_query = Q(type="LIS") | Q(type="PRI")
+        tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(tracks_query).exists()
+    def get_playlists(self):
+        from music.models import SoundList
+        tracks_query = Q(type="LIS")
+        tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(tracks_query).order_by("order")
+    def is_have_playlists(self):
+        from music.models import SoundList
+        tracks_query = Q(type="LIS")
+        tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(tracks_query).order_by("order").exists()
+
+    def get_my_video_lists(self):
+        from video.models import VideoAlbum
+        video_query = Q(type="LIS") | Q(type="PRI")
+        video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return VideoAlbum.objects.filter(video_query)
+    def is_have_my_video_lists(self):
+        from video.models import VideoAlbum
+        video_query = Q(type="LIS") | Q(type="PRI")
+        video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return VideoAlbum.objects.filter(video_query).exists()
+    def get_video_lists(self):
+        from video.models import VideoAlbum
+        video_query = Q(type="LIS")
+        video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return VideoAlbum.objects.filter(video_query).order_by("order")
+    def is_have_video_lists(self):
+        from video.models import VideoAlbum
+        video_query = Q(type="LIS")
+        video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return VideoAlbum.objects.filter(video_query).order_by("order").exists()

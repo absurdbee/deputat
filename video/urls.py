@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^user_videolist/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserVideoList.as_view(), name='user_videolist'),
     url(r'^create_video_attach/(?P<pk>\d+)/$', UserVideoAttachCreate.as_view()),
     url(r'^create_video/(?P<pk>\d+)/$', UserVideoCreate.as_view()),
-    url(r'^get_album_preview/(?P<pk>\d+)/$', UserVideoAlbumPreview.as_view()),
     url(r'^create_list/(?P<pk>\d+)/$', UserVideoListCreate.as_view()),
     url(r'^edit_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserVideolistEdit.as_view()),
 

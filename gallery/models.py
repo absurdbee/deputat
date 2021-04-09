@@ -105,8 +105,8 @@ class Album(models.Model):
     def is_not_empty(self):
         return self.photo_album.filter(album=self, type="PUB").values("pk").exists()
 
-    def is_photo_in_album(self, photo_id):
-        return self.photo_album.filter(pk=photo_id).values("pk").exists()
+    def is_item_in_list(self, item_id):
+        return self.photo_album.filter(pk=item_id).exists()
 
 
 class Photo(models.Model):

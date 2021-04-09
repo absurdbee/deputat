@@ -32,8 +32,8 @@ class DocList(models.Model):
     def __str__(self):
         return self.name + " " + self.creator.get_full_name()
 
-    def is_doc_in_list(self, doc_id):
-        return self.doc_list.filter(pk=doc_id).values("pk").exists()
+    def is_item_in_list(self, item_id):
+        return self.doc_list.filter(pk=item_id).exists()
 
     def is_not_empty(self):
         return self.doc_list.filter(list=self).values("pk").exists()

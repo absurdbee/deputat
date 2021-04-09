@@ -112,21 +112,6 @@ class UserVideoCreate(TemplateView):
         else:
             return HttpResponse()
 
-
-class UserVideoAlbumPreview(TemplateView):
-	template_name = None
-
-	def get(self,request,*args,**kwargs):
-		self.album = VideoAlbum.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_small_template("user_video/album_preview.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(UserVideoAlbumPreview,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		context = super(UserVideoAlbumPreview,self).get_context_data(**kwargs)
-		context["album"] = self.album
-		return context
-
-
 class UserVideolistEdit(TemplateView):
     template_name = None
     form=None

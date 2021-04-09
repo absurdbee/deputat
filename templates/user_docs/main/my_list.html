@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Мои документы{% endblock %}
+{% block content %}
+
+<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
+  <div class="card-header p-0">
+    <div class="row no-gutters">
+      <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
+        {% include 'generic/user/user_back.html' %}
+      </div>
+      <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
+        <h5 class="btn btn-sm border u_docs_add" style="width: -webkit-fill-available;font-size: 19px;">+ список</h5>
+      </div>
+      <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
+          <h5 class="btn btn-sm border" style="width: -webkit-fill-available;font-size: 19px;">+ файл</h5>
+      </div>
+    </div>
+  </div>
+
+  {% if user.is_have_my_doc_lists %}
+  <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
+    <h5 class="mt-1" style="flex: 1;">Мои списки</h5>
+    <span>{{ user.count_docs_lists }}</span>
+  </div>
+  <div class="row no-gutters" style="overflow-x: auto;">
+    <div class="col-12">
+
+    <ul style="width:max-content;list-style: none;">
+      {% for object in user.get_my_doc_lists %}
+          <li class="album_item">
+            {{ object.name }}
+          </li>
+      {% endfor %}
+    </ul>
+    </div>
+  </div>
+  {% endif %}
+
+
+<div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
+  <h5 class="mt-1" style="flex: 1;">Мои документы ({{ list.count_docs }})</h5>
+</div>
+
+<div class="row is_paginate no-gutters" id="docs_container">
+  {% if object_list %}
+
+  {% for object in object_list %}
+  <div class="pag {% if forloop.last %}last{% endif %}" style="padding-bottom:10px">
+      <div class="media" style="align-items: unset;position: relative;">
+          <div class="media-body doc_media_body">
+              <h6 class="pointer" style="width: 84%;overflow: hidden;">
+                <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
+              </h6>
+                <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
+                <span class='span_btn' data-pk="{{ doc.pk }}">
+                  {% if user.is_have_my_all_doc_lists %}
+                    {% include 'user_docs/add_dropdown.html' %}
+                  {% endif %} 
+                  <div class="dropdown" style="position: inherit;">
+                    <a class="btn_default drop pointer">
+                      <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    </a>
+                      <div class="dropdown-menu dropdown-menu-right" style="top: 32px;">
+                          <span class="dropdown-item u_doc_edit">Изменить</span>
+                          <span class="dropdown-item u_doc_remove">Удалить</span>
+                      </div>
+                  </div>
+                </span>
+          </div>
+      </div>
+  </div>
+    {% endfor %}
+
+  {% else %}
+  <div class="card mb-3 centered photos_empty" style="width:100%;">
+    <h6 style="margin: 20px;text-align: center;"> Файлов пока нет...</h6>
+  </div>
+
+  {% endif %}
+</div>
+
+</div>
+
+{% endblock %}

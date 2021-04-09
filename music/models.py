@@ -38,8 +38,8 @@ class SoundList(models.Model):
     def __str__(self):
         return self.name + " " + self.creator.get_full_name()
 
-    def is_track_in_list(self, track_id):
-        return self.playlist.filter(pk=track_id).values("pk").exists()
+    def is_item_in_list(self, item_id):
+        return self.playlist.filter(pk=item_id).exists()
 
     def is_not_empty(self):
         return self.playlist.filter(list=self).values("pk").exists()

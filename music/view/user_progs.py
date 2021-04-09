@@ -6,35 +6,14 @@ from music.forms import PlaylistForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.parsing_soundcloud.add_playlist import add_playlist
 from django.http import Http404
-from common.templates import get_small_template, render_for_platform
 
 
-class UserSoundcloudSetPlaylistWindow(TemplateView):
-    template_name = None
+class UserSoundcloudSetCreate(TemplateView):
+    form_post = None
 
     def get(self,request,*args,**kwargs):
         self.template_name = get_small_template("user_music/soundcloud_add_playlist.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserSoundcloudSetPlaylistWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserSoundcloudSetPlaylistWindow,self).get_context_data(**kwargs)
-        context['form_post'] = PlaylistForm()
-        return context
-
-class UserSoundcloudSetWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("user_music/soundcloud_set_playlist.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserSoundcloudSetWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserSoundcloudSetWindow,self).get_context_data(**kwargs)
-        return context
-
-
-class UserSoundcloudSetCreate(View):
-    form_post = None
+        return super(UserSoundcloudSetCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(UserSoundcloudSetCreate,self).get_context_data(**kwargs)
@@ -53,7 +32,11 @@ class UserSoundcloudSetCreate(View):
         else:
             return HttpResponseBadRequest()
 
-class UserSoundcloudSet(View):
+class UserSoundcloudSet(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("user_music/soundcloud_set_playlist.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserSoundcloudSet,self).get(request,*args,**kwargs)
+
     def post(self,request,*args,**kwargs):
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax():

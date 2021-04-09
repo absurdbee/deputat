@@ -21,7 +21,7 @@ class UserDocs(ListView):
 			self.doc_list = self.list.get_my_docs()
 		else:
 			self.doc_list = self.list.get_docs()
-		self.template_name = get_list_template(self.list, "user_docs/", "docs.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_list_template(self.list, "user_docs/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserDocs,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -46,7 +46,7 @@ class UserDocsList(ListView):
 			self.doc_list = self.list.get_my_docs()
 		else:
 			self.doc_list = self.list.get_docs()
-		self.template_name = get_list_template(self.list, "user_docs/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_list_template(self.list, "user_docs/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserDocsList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -65,7 +65,7 @@ class UserLoadDoclist(ListView):
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
-		self.template_name = get_small_template("user_docs/load_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_list_template(self.list, "user_docs/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadDoclist,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

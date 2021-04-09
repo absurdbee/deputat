@@ -83,16 +83,3 @@ class UserLoadPlaylist(ListView):
 	def get_queryset(self):
 		playlist = self.playlist.playlist_too()
 		return playlist
-
-
-class MusicPlaylistPreview(TemplateView):
-	template_name = None
-
-	def get(self,request,*args,**kwargs):
-		self.playlist, self.template_name = SoundList.objects.get(pk=self.kwargs["pk"]), get_small_template("user_music/playlist_preview.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(MusicPlaylistPreview,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		context = super(MusicPlaylistPreview,self).get_context_data(**kwargs)
-		context["playlist"] = self.playlist
-		return context

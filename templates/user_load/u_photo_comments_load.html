@@ -31,11 +31,11 @@
                 </figure>
                 <div class="container p-3"">
                   <h6 class="u_load_photo_album text-white pointer">
-                    <a data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}">{{ object.title }}</a>
+                    <a data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}" style="white-space: nowrap;">{{ object.title }}</a>
                   </h6>
-                    <a class="photo_attach_album pointer text-white underline" data-pk="{{ object.pk }}">
+                    <span class="photo_attach_album pointer text-white underline" data-pk="{{ object.pk }}">
                       Прикрепить альбом
-                    </a>
+                    </span>
                   <hr class="my-3">
                   <a data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}" class="text-white">{{ object.count_photo_ru }}</a>
                 </div>

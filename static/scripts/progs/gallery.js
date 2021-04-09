@@ -195,5 +195,5 @@ on('body', 'click', '.u_load_photo_album', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("data-pk");
   loader = document.getElementById("item_loader");
-  open_fullscreen("/gallery/load_list/" + pk + "/", loader)
+  open_fullscreen("/gallery/load_album/" + pk + "/", loader)
 });

@@ -1,3 +1,26 @@
+.file-manager-item {
+    border: 1px solid #EBE9F1;
+    margin-bottom: 1.6rem;
+    box-shadow: none;
+    margin-right: 1rem;
+    -webkit-transition: none;
+    transition: none;
+}
+@media (min-width: 576px){
+.file-manager-application .view-container .file-manager-item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 23%;
+    -ms-flex: 0 0 23%;
+    flex: 0 0 23%;
+    max-width: 25%;
+}}
+.file-manager-application .view-container .file-manager-item {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 47%;
+    -ms-flex: 0 0 47%;
+    flex: 0 0 47%;
+    max-width: 50%;
+}
 .underline {
   text-decoration: underline;
 }

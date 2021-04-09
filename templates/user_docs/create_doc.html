@@ -10,6 +10,10 @@
               <input type="text" name="title" class="form-control" id="id_title">
             </div>
             <div class="form-group">
+              <label>Файл</label>
+              {{ form_post.file }}
+            </div>
+            <div class="form-group">
               <label>Списки</label>
               <select class="form-control" id="id_list" name="list" multiple style="height: 100%">
                   {% for object in request.user.get_all_doc_lists %}

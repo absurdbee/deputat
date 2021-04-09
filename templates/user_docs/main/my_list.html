@@ -3,81 +3,103 @@
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
-  <div class="card-header p-0">
-    <div class="row no-gutters">
-      <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
-        {% include 'generic/user/user_back.html' %}
-      </div>
-      <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-        <h5 class="btn btn-sm border u_doc_list_add" style="width: -webkit-fill-available;font-size: 19px;">+ список</h5>
-      </div>
-      <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-          <h5 class="btn btn-sm border u_doc_add" style="width: -webkit-fill-available;font-size: 19px;">+ файл</h5>
-      </div>
+    <div class="card-header p-0">
+        <div class="row no-gutters">
+            <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
+                {% include 'generic/user/user_back.html' %}
+            </div>
+            <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
+                <h5 class="btn btn-sm border u_doc_list_add" style="width: -webkit-fill-available;font-size: 19px;">+ список</h5>
+            </div>
+            <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
+                <h5 class="btn btn-sm border u_doc_add" style="width: -webkit-fill-available;font-size: 19px;">+ файл</h5>
+            </div>
+        </div>
     </div>
-  </div>
 
-  {% if user.is_have_my_doc_lists %}
-  <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-    <h5 class="mt-1" style="flex: 1;">Мои списки</h5>
-    <span>{{ user.count_docs_lists }}</span>
-  </div>
-  <div class="row no-gutters" style="overflow-x: auto;">
-    <div class="col-12">
-
-    <ul style="width:max-content;list-style: none;">
-      {% for object in user.get_my_doc_lists %}
-          <li class="album_item">
-            {{ object.name }}
-          </li>
-      {% endfor %}
-    </ul>
+    {% if user.is_have_my_doc_lists %}
+    <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
+        <h5 class="mt-1" style="flex: 1;">Мои списки</h5>
+        <span>{{ user.count_docs_lists }}</span>
     </div>
-  </div>
-  {% endif %}
+    <div class="row no-gutters" style="overflow-x: auto;">
+        <div class="col-12">
+
+            <ul style="width:max-content;list-style: none;">
+                {% for object in user.get_my_doc_lists %}
+                <li class="album_item">
+                    <div class="file-manager-item folder">
+                        <div class="card-img-top file-logo-wrapper">
+                            <div class="dropdown float-right">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical toggle-dropdown mt-n25"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center w-100">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
+                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="content-wrapper">
+                                <p class="card-text file-name mb-0">{{ object.name }}</p>
+                                <p class="card-text file-size mb-0">{{ object.count_docs }}</p>
+                                <p class="card-text file-date">05 may 2019</p>
+                            </div>
+                            <small class="file-accessed text-muted">{{ object.get_type_display }} список</small>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
 
 
-<div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-  <h5 class="mt-1" style="flex: 1;">Мои документы ({{ list.count_docs }})</h5>
-</div>
+    <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
+        <h5 class="mt-1" style="flex: 1;">Мои документы ({{ list.count_docs }})</h5>
+    </div>
 
-<div class="row is_paginate no-gutters" id="docs_container">
-  {% if object_list %}
+    <div class="row is_paginate no-gutters" id="docs_container">
+        {% if object_list %}
 
-  {% for object in object_list %}
-  <div class="pag {% if forloop.last %}last{% endif %}" style="padding-bottom:10px">
-      <div class="media" style="align-items: unset;position: relative;">
-          <div class="media-body doc_media_body">
-              <h6 class="pointer" style="width: 84%;overflow: hidden;">
-                <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
-              </h6>
-                <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
-                <span class='span_btn' data-pk="{{ doc.pk }}">
-                  {% if user.is_have_my_all_doc_lists %}
-                    {% include 'user_docs/add_dropdown.html' %}
-                  {% endif %}
-                  <div class="dropdown" style="position: inherit;">
-                    <a class="btn_default drop pointer">
-                      <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                    </a>
-                      <div class="dropdown-menu dropdown-menu-right" style="top: 32px;">
-                          <span class="dropdown-item u_doc_edit">Изменить</span>
-                          <span class="dropdown-item u_doc_remove">Удалить</span>
-                      </div>
-                  </div>
-                </span>
-          </div>
-      </div>
-  </div>
-    {% endfor %}
+        {% for object in object_list %}
+        <div class="pag {% if forloop.last %}last{% endif %}" style="padding-bottom:10px">
+            <div class="media" style="align-items: unset;position: relative;">
+                <div class="media-body doc_media_body">
+                    <h6 class="pointer" style="width: 84%;overflow: hidden;">
+                        <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
+                    </h6>
+                    <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
+                    <span class='span_btn' data-pk="{{ doc.pk }}">
+                        {% if user.is_have_my_all_doc_lists %}
+                        {% include 'user_docs/add_dropdown.html' %}
+                        {% endif %}
+                        <div class="dropdown" style="position: inherit;">
+                            <a class="btn_default drop pointer">
+                                <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                                </svg>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="top: 32px;">
+                                <span class="dropdown-item u_doc_edit">Изменить</span>
+                                <span class="dropdown-item u_doc_remove">Удалить</span>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
-  {% else %}
-  <div class="card mb-3 centered doc_empty" style="width:100%;">
-    <h6 style="margin: 20px;text-align: center;"> Файлов пока нет...</h6>
-  </div>
+        {% else %}
+        <div class="card mb-3 centered doc_empty" style="width:100%;">
+            <h6 style="margin: 20px;text-align: center;"> Файлов пока нет...</h6>
+        </div>
 
-  {% endif %}
-</div>
+        {% endif %}
+    </div>
 
 </div>
 

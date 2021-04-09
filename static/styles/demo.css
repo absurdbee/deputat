@@ -273,13 +273,11 @@ select {
   .image_fit_200{
     height: 200px;
   }
-  .big_mobile_element {
-    flex-basis: 50%;
-  }
 }
 .big_mobile_element {
-  flex-basis: 100%;
+  flex-basis: 100% !important
 }
+
 .image_fit_150 {
     object-fit: cover;
     max-height: 150px;

@@ -5,9 +5,9 @@
   white-space: nowrap;
 }
 .background-img {
-    width: 100%;
+    width: 99%;
     position: absolute;
-    left: 0;
+    left: 1px;
     top: 0;
     height: 100%;
     overflow: hidden;

@@ -5,7 +5,7 @@ from django.views.generic.base import TemplateView
 from docs.forms import DoclistForm, DocForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.http import Http404
-from common.templates import render_for_platform
+from common.templates import render_for_platform, get_small_template
 
 
 class UserDoclistAdd(View):

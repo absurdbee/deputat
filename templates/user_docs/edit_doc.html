@@ -11,6 +11,10 @@
                   <input type="text" value="{{ doc.title }}" name="title" class="form-control" id="id_title">
                 </div>
                 <div class="form-group">
+                  <label>Файл</label>
+                  {{ form_post.file }}
+                </div>
+                <div class="form-group">
                   {{ form.list }}
                 </div>
                 <div class="form-group ">

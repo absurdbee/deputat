@@ -38,14 +38,16 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-center w-100">
-                                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
+                              <a href="{% url 'user_docs_list' pk=user.pk uuid=object.uuid %}" class="ajax">
+                                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
                                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                                 </svg>
+                              </a>
                             </div>
                         </div>
                         <div class="card-body pt-0">
                             <div class="content-wrapper">
-                                <p class="card-text file-name mb-0">{{ object.name }}</p>
+                                <a href="{% url 'user_docs_list' pk=user.pk uuid=object.uuid %}" class="card-text file-name mb-0 ajax">{{ object.name }}</a>
                                 <p class="card-text file-size mb-0">{{ object.count_docs }}</p>
                             </div>
                             <small class="file-accessed text-muted">{{ object.get_type_display }} список</small>

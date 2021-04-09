@@ -2,6 +2,10 @@ on('body', 'click', '.u_doc_list_add', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen("/docs/user_progs/add_list/", loader)
 });
+on('body', 'click', '.u_doc_add', function() {
+  loader = document.getElementById("create_loader");
+  open_fullscreen("/docs/user_progs/create_doc/", loader)
+});
 on('body', 'click', '.u_doc_list_edit', function() {
   list = document.body.querySelectorAll('.cover_block');
   for (var i = 0; i < list.length; i++) {
@@ -165,7 +169,7 @@ on('#ajax', 'click', '#u_create_doc_btn', function() {
     form.querySelector("#id_file").style.border = "1px #FF0000 solid";
     toast_error("Загрузите документ!")
   } else { this.disabled = true }
-  
+
   uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/docs/user_progs/create_doc/", true );

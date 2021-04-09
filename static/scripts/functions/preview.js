@@ -247,10 +247,10 @@ on('body', 'click', '.photo_load_several', function() {
 
 on('body', 'click', '.photo_attach_album', function() {
   _this = this;
-  src = _this.nextElementSibling.querySelector("img").getAttribute("src");
-  title = _this.previousElementSibling.innerHTML;
+  src = _this.parentElement.previousElementSibling.querySelector("img").getAttribute("src");
+  title = _this.parentElement.querySelector(".nowrap").innerHTML;
   pk = _this.getAttribute('data-pk');
-  count = _this.getAttribute('data-count');
+  count = _this.parentElement.querySelector(".count").innerHTML;
   if (document.body.querySelector(".current_file_dropdown")){
     check_photo_album_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_album_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_create_window())
   } else if (document.body.querySelector(".attach_block")){

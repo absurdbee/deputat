@@ -107,7 +107,7 @@ on('body', 'click', '.u_add_doc_in_list', function() {
   uuid = parent.getAttribute("data-uuid");
   pk = parent.parentElement.parentElement.parentElement.getAttribute("data-pk");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', '/docs/user_progs/u_add_doc_in_list/' + pk + "/" + uuid + "/", true );
+  link.open( 'GET', '/docs/user_progs/add_doc_in_list/' + pk + "/" + uuid + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
@@ -127,7 +127,7 @@ on('body', 'click', '.u_remove_doc_in_list', function() {
   uuid = parent.getAttribute("data-uuid");
   pk = parent.parentElement.parentElement.getAttribute("data-pk");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', '/docs/user_progs/u_remove_doc_in_list/' + pk + "/" + uuid + "/", true );
+  link.open( 'GET', '/docs/user_progs/remove_doc_in_list/' + pk + "/" + uuid + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {

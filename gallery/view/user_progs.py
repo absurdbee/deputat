@@ -189,7 +189,7 @@ class UserPhotoAlbumAdd(View):
         photo = Photo.objects.get(pk=self.kwargs["pk"])
         album = Album.objects.get(uuid=self.kwargs["uuid"])
 
-        if request.is_ajax() and not album.is_photo_in_album(photo.pk):
+        if request.is_ajax() and not album.is_item_in_list(photo.pk):
             album.photo_album.add(photo)
             return HttpResponse()
         else:
@@ -202,7 +202,7 @@ class UserPhotoAlbumRemove(View):
     def get(self, request, *args, **kwargs):
         photo = Photo.objects.get(pk=self.kwargs["pk"])
         album = Album.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and album.is_photo_in_album(photo.pk):
+        if request.is_ajax() and album.is_item_in_list(photo.pk):
             album.photo_album.remove(photo)
             return HttpResponse()
         else:

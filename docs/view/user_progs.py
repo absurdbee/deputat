@@ -44,7 +44,7 @@ class UserDocRemove(View):
 class UserDocListAdd(View):
     def get(self, request, *args, **kwargs):
         doc, list = Doc.objects.get(pk=self.kwargs["pk"]), DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and not list.is_doc_in_list(doc.pk):
+        if request.is_ajax() and not list.is_item_in_list(doc.pk):
             list.doc_list.add(doc)
             return HttpResponse()
         else:
@@ -53,7 +53,7 @@ class UserDocListAdd(View):
 class UserDocListRemove(View):
     def get(self, request, *args, **kwargs):
         doc, list = Doc.objects.get(pk=self.kwargs["pk"]), DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.is_doc_in_list(doc.pk):
+        if request.is_ajax() and list.is_item_in_list(doc.pk):
             list.doc_list.remove(doc)
             return HttpResponse()
         else:

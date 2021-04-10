@@ -81,3 +81,21 @@ class UserVideolistAbortDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+class UserVideoListAdd(View):
+    def get(self, request, *args, **kwargs):
+        video, list = Video.objects.get(pk=self.kwargs["pk"]), VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and not list.is_item_in_list(video.pk):
+            list.video_album.add(video)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class UserVideoListRemove(View):
+    def get(self, request, *args, **kwargs):
+        video, list = Video.objects.get(pk=self.kwargs["pk"]), VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and list.is_item_in_list(video.pk):
+            list.video_album.remove(video)
+            return HttpResponse()
+        else:
+            raise Http404

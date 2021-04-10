@@ -85,7 +85,7 @@ class UserTrackListAdd(View):
         track = Music.objects.get(pk=self.kwargs["pk"])
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
 
-        if request.is_ajax() and not list.is_track_in_list(track.pk):
+        if request.is_ajax() and not list.is_item_in_list(track.pk):
             list.players.add(track)
             return HttpResponse()
         else:
@@ -95,7 +95,7 @@ class UserTrackListRemove(View):
     def get(self, request, *args, **kwargs):
         track = Music.objects.get(pk=self.kwargs["pk"])
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.is_track_in_list(track.pk):
+        if request.is_ajax() and list.is_item_in_list(track.pk):
             list.players.remove(track)
             return HttpResponse()
         else:

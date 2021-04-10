@@ -99,13 +99,8 @@ class UserDocCreate(TemplateView):
         form_post = DocForm(request.POST, request.FILES)
 
         if request.is_ajax() and form_post.is_valid():
-            list, new_doc = DocList.objects.get(creator_id=request.user.pk, type=DocList.MAIN), form_post.save(commit=False)
-            new_doc.creator_id = request.user.pk
-            lists = form_post.cleaned_data.get("list")
-            new_doc.save()
-            for _list in lists:
-                _list.doc_list.add(new_doc)
-            user_notify(request.user, new_doc.creator.pk, None, "doc"+str(new_doc.pk), "u_doc_create", "ITE")
+            doc = form_post.save(commit=False)
+            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, form_post.cleaned_data.getlist("list"))
             return render_for_platform(request, 'user_docs/new_doc.html',{'object': new_doc})
         else:
             return HttpResponseBadRequest()

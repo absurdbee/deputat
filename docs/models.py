@@ -113,3 +113,23 @@ class Doc(models.Model):
         import magic
         mime = magic.from_file(self.file.path, mime=True)
         return mime
+
+    @classmethod
+    def create_doc(cls, creator, title, file, lists):
+        #from notify.models import Notify, Wall, get_user_managers_ids
+        #from common.notify import send_notify_socket
+        from common.processing import get_doc_processing
+
+        doc = cls.objects.create(creator=creator,title=title,file=file,status=ElectNew.PROCESSING,)
+        get_doc_processing(doc)
+
+        for list_id in lists:
+            doc_list = DocList.objects.get(pk=list_id)
+            doc_list.doc_list.add(doc)
+
+        #for user_id in creator.get_user_news_notify_ids():
+        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="doc"+str(doc.pk), verb="ITE")
+            #send_notify_socket(attach[3:], user_id, "create_doc_notify")
+        #Wall.objects.create(creator_id=creator.pk, attach="doc"+str(doc.pk), verb="ITE")
+        #send_notify_socket(attach[3:], user_id, "create_doc_wall")
+        return doc

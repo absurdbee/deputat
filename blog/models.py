@@ -196,7 +196,7 @@ class ElectNew(models.Model):
         return self.title
 
     @classmethod
-    def create_draft_post(cls, creator, description, category, comments_enabled, votes_on, status):
+    def create_draft_new(cls, creator, description, category, comments_enabled, votes_on, status):
         from notify.models import Notify, Wall, get_user_managers_ids
         from common.notify import send_notify_socket
 
@@ -208,15 +208,19 @@ class ElectNew(models.Model):
         #send_notify_socket(attach[3:], user_id, "create_draft_elect_new_wall")
         return elect_new
 
-    def make_publish_post(self):
-        from notify.models import Notify
+    def make_publish_new(self):
+        from notify.models import Notify, Wall, get_user_managers_ids
+        from common.notify import send_notify_socket
 
         self.status = ElectNew.STATUS_PUBLISHED
         self.save(update_fields=['status'])
         if Notify.objects.filter(attach="new"+str(self.pk), verb="SIT").exists():
             Notify.objects.filter(attach="new"+str(self.pk), verb="SIT").delete()
-
-        Notify.objects.create(creator_id=self.creator.pk, attach="new"+str(self.pk), verb="ITE")
+        for user_id in self.elect.get_subscribers_ids():
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="new"+str(elect_new.pk), verb="ITE")
+            #send_notify_socket(attach[3:], user_id, "create_elect_new_notify")
+        Wall.objects.create(creator_id=creator.pk, attach="new"+str(elect_new.pk), verb="ITE")
+        #send_notify_socket(attach[3:], user_id, "create_elect_new_wall")
 
     def is_draft(self):
         return self.status == ElectNew.STATUS_DRAFT

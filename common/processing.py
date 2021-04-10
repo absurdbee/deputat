@@ -13,3 +13,8 @@ def get_elect_new_message_processing(comment):
     comment.type = "PUB"
     comment.save(update_fields=['type'])
     return comment
+
+def get_doc_processing(doc):
+    doc.status = "PUB"
+    doc.save(update_fields=['status'])
+    return doc

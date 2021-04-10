@@ -89,11 +89,13 @@ class Elect(models.Model):
         except:
             return '/static/images/user.png'
 
-    def get_subscribers(self):
+    def get_subscribers_ids(self):
         from users.models import User
         subscribers = SubscribeElect.objects.filter(elect_id=self.pk).values("user_id")
-        user_ids = [i['user_id'] for i in subscribers]
-        return User.objects.filter(id__in=user_ids)
+        return [i['user_id'] for i in subscribers]
+
+    def get_subscribers(self):
+        return User.objects.filter(id__in=self.get_subscribers_ids())
 
     def is_have_subscribers(self):
         from users.models import User

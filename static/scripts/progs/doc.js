@@ -125,7 +125,7 @@ on('body', 'click', '.u_remove_doc_in_list', function() {
   _this = this;
   parent = _this.parentElement;
   uuid = parent.getAttribute("data-uuid");
-  pk = parent.parentElement.parentElement.getAttribute("data-pk");
+  pk = parent.parentElement.parentElement.parentElement.getAttribute("data-pk");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', '/docs/user_progs/remove_doc_in_list/' + pk + "/" + uuid + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

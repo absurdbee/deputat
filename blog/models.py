@@ -116,9 +116,6 @@ class Blog(models.Model):
         comments_query = Q(blog_id=self.pk, type=BlogComment.PUBLISHED, parent__isnull=True)
         return BlogComment.objects.filter(comments_query)
 
-    def get_articles_5(self):
-        return Blog.objects.filter(category__in=self.category.all())[:5]
-
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
         return naturaltime(self.created)
@@ -181,7 +178,7 @@ class ElectNew(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
-    elect = models.ManyToManyField(Elect, related_name="new_elect", blank=True, verbose_name="Чиновник")
+    elect = models.ForeignKey(Elect, related_name="new_elect", blank=True, verbose_name="Чиновник")
     category = models.ForeignKey(ElectNewsCategory, on_delete=models.CASCADE, related_name="elect_cat", blank=True, null=True, verbose_name="Категория активности")
     status = models.CharField(blank=False, null=False, choices=STATUSES, default=STATUS_PUBLISHED, max_length=2, verbose_name="Статус записи")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="elect_new_creator", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Создатель")
@@ -201,22 +198,25 @@ class ElectNew(models.Model):
 
     @classmethod
     def create_draft_post(cls, creator, description, category, comments_enabled, votes_on, status):
-        from notify.models import Notify
+        from notify.models import Notify, Wall, get_user_managers_ids
+        from common.notify import send_notify_socket
 
         elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=ElectNew.STATUS_DRAFT,)
-        Notify.objects.create(creator_id=creator.pk, attach="new"+str(elect_new.pk), verb="SIT")
+        for user_id in creator.get_user_managers_ids():
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="new"+str(elect_new.pk), verb="SIT")
+            #send_notify_socket(attach[3:], user_id, "create_draft_elect_new_notify")
+        Wall.objects.create(creator_id=creator.pk, attach="new"+str(elect_new.pk), verb="SIT")
+        #send_notify_socket(attach[3:], user_id, "create_draft_elect_new_wall")
         return elect_new
 
-    def make_publishe_post(self):
+    def make_publish_post(self):
         from notify.models import Notify
 
         self.status = ElectNew.STATUS_PUBLISHED
         self.save(update_fields=['status'])
-        try:
-            old_notify = Notify.objects.get(creator_id=self.creator.pk, attach="new"+str(self.pk), verb="SIT")
-            old_notify.delete()
-        except Notify.DoesNotExist:
-            pass
+        if Notify.objects.filter(attach="new"+str(self.pk), verb="SIT").exists():
+            Notify.objects.filter(attach="new"+str(self.pk), verb="SIT").delete()
+
         Notify.objects.create(creator_id=self.creator.pk, attach="new"+str(self.pk), verb="ITE")
 
     def is_draft(self):
@@ -227,29 +227,51 @@ class ElectNew(models.Model):
 
     def likes(self):
         from common.model.votes import ElectNewVotes2
-        return ElectNewVotes2.objects.filter(new_id=self.pk, vote__gt=0)
-
+        return ElectNewVotes2.objects.filter(new_id=self.pk, vote="LIK")
     def dislikes(self):
         from common.model.votes import ElectNewVotes2
-        return ElectNewVotes2.objects.filter(new_id=self.pk, vote__lt=0)
+        return ElectNewVotes2.objects.filter(new_id=self.pk, vote="DIS")
+    def inerts(self):
+        from common.model.votes import ElectNewVotes2
+        return ElectNewVotes2.objects.filter(new_id=self.pk, vote="INE")
+
+    def is_have_likes(self):
+        from common.model.votes import ElectNewVotes2
+        return ElectNewVotes2.objects.filter(new_id=self.pk, vote="LIK").exists()
+    def is_have_dislikes(self):
+        from common.model.votes import ElectNewVotes2
+        return ElectNewVotes2.objects.filter(new_id=self.pk, vote="DIS").exists()
+    def is_have_inerts(self):
+        from common.model.votes import ElectNewVotes2
+        return ElectNewVotes2.objects.filter(new_id=self.pk, vote="INE").exists()
 
     def likes_count(self):
         from common.model.votes import ElectNewVotes2
-        likes = ElectNewVotes2.objects.filter(new_id=self.pk, vote__gt=0).values("pk")
+        likes = ElectNewVotes2.objects.filter(new_id=self.pk, vote="LIK").values("pk")
         count = likes.count()
         if count:
             return count
         else:
             return ''
-
     def dislikes_count(self):
         from common.model.votes import ElectNewVotes2
-        dislikes = ElectNewVotes2.objects.filter(new_id=self.pk, vote__lt=0).values("pk")
+        dislikes = ElectNewVotes2.objects.filter(new_id=self.pk, vote="DIS").values("pk")
         count = dislikes.count()
         if count:
             return count
         else:
             return ''
+    def inerts_count(self):
+        from common.model.votes import ElectNewVotes2
+        inerts = ElectNewVotes2.objects.filter(new_id=self.pk, vote="INE").values("pk")
+        count = inerts.count()
+        if count:
+            return count
+        else:
+            return ''
+
+    def reposts_count(self):
+        return ''
 
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime

@@ -189,3 +189,7 @@ class UserProfileNotify(models.Model):
         indexes = (BrinIndex(fields=['created']),)
         verbose_name = "уведомления при подписке на уведосления пользователя"
         verbose_name_plural = "уведомления при подписке на уведосления пользователя"
+
+def get_user_managers_ids():
+    from users.models import User
+    return [i['pk'] for i in User.objects.filter(perm=User.MANAGER).values("pk")]

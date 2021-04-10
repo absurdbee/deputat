@@ -47,16 +47,16 @@ def user_wall(creator, attach, socket_name, verb):
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
 
-    if Notify.objects.filter(creator_id=creator.pk, attach=attach, verb=verb).exists():
+    if Wall.objects.filter(creator_id=creator.pk, attach=attach, verb=verb).exists():
         pass
-    #elif Notify.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
-    #    notify = Notify.objects.get(attach__contains=attach[:3], created__gt=today, verb=current_verb)
-    #    Notify.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb, user_set=notify)
-    elif Notify.objects.filter(attach=attach, created__gt=today, verb=verb).exists():
-        notify = Notify.objects.get(attach=attach, created__gt=today, verb=verb)
-        Notify.objects.create(creator_id=creator.pk, attach=attach, verb="G"+verb, object_set=notify)
+    #elif Wall.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
+    #    notify = Wall.objects.get(attach__contains=attach[:3], created__gt=today, verb=current_verb)
+    #    Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb, user_set=notify)
+    elif Wall.objects.filter(attach=attach, created__gt=today, verb=verb).exists():
+        notify = Wall.objects.get(attach=attach, created__gt=today, verb=verb)
+        Wall.objects.create(creator_id=creator.pk, attach=attach, verb="G"+verb, object_set=notify)
     else:
-        Notify.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb)
+        Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb)
     #send_wall_socket(attach[3:], socket_name)
 
 

@@ -69,7 +69,7 @@
 
         {% for doc in object_list %}
         <div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding-bottom:10px">
-            <div class="media" style="align-items: unset;position: relative;">
+            <div class="media border p-1">
                 <div class="media-body doc_media_body">
                     <h6 class="pointer" style="width: 84%;overflow: hidden;">
                         <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>

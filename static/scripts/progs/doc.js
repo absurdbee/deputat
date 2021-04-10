@@ -84,12 +84,12 @@ on('body', 'click', '#u_edit_doc_list_btn', function() {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
+    close_create_window();
     title = form.querySelector('#id_name').value;
 
     album = document.body.querySelector(".album_active");
     album.querySelector("h6").innerHTML = title;
     album.classList.remove("album_active");
-    close_create_window();
     toast_success("Список изменен")
   }}
   link_.send(form_data);
@@ -105,12 +105,7 @@ on('body', 'click', '.mob_user_doc_abort_remove', function() {
   post.querySelector(".content_block").style.display = "unset";
   post.querySelector(".image_card").style.opacity = "1";
 })
-on('body', 'click', '.mob_u_photo_off_private', function() {
-  mob_send_change(this, "/docs/user_progs/off_private/", "mob_u_photo_on_private", "Вкл. приватность")
-})
-on('body', 'click', '.mob_u_photo_on_private', function() {
-  mob_send_change(this, "/docs/user_progs/on_private/", "mob_u_photo_off_private", "Выкл. приватность")
-})
+
 on('body', 'click', '.u_add_doc_in_list', function() {
   _this = this;
   parent = _this.parentElement;
@@ -236,13 +231,13 @@ on('body', 'click', '#u_edit_doc_btn', function() {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Документ изменен!")
+    close_create_window();
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
     doc = document.body.querySelector(".edited_doc");
     doc.insertBefore(response.innerHTML, doc)
-    toast_info("Документ изменен!")
-    close_create_window();
   }};
 
   link_.send(form_data);

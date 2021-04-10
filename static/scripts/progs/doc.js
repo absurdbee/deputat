@@ -237,7 +237,7 @@ on('body', 'click', '#u_edit_doc_btn', function() {
     response = document.createElement("span");
     response.innerHTML = elem;
     doc = document.body.querySelector(".edited_doc");
-    doc.insertBefore(response.innerHTML, doc)
+    doc.insertBefore(response, doc)
   }};
 
   link_.send(form_data);

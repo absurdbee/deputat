@@ -140,10 +140,10 @@ class Doc(models.Model):
         self.file = file
         self.lists = lists
         if is_public:
-            get_doc_processing(doc, Doc.PUBLISHED)
+            get_doc_processing(self, Doc.PUBLISHED)
             self.make_publish()
         else:
-            get_doc_processing(doc, Doc.PRIVATE)
+            get_doc_processing(self, Doc.PRIVATE)
             self.make_private()
         self.save()
 

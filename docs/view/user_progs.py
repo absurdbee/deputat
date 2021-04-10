@@ -145,11 +145,12 @@ class UserDocEdit(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
+        self.doc = Doc.objects.get(pk=self.kwargs["pk"])
         form_post = DocForm(request.POST, request.FILES, instance=self.doc)
 
         if request.is_ajax() and form_post.is_valid():
-            doc = form_post.save(commit=False)
-            new_doc = Doc.edit_doc(title=doc.title, file=doc.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            _doc = form_post.save(commit=False)
+            new_doc = Doc.edit_doc(title=_doc.title, file=_doc.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_docs/new_doc.html',{'doc': new_doc})
         else:
             return HttpResponseBadRequest()

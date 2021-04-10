@@ -120,7 +120,7 @@ class Doc(models.Model):
         #from common.notify import send_notify_socket
         from common.processing import get_doc_processing
 
-        doc = cls.objects.create(creator=creator,title=title,file=file,status=ElectNew.PROCESSING,)
+        doc = cls.objects.create(creator=creator,title=title,file=file,status=Doc.PROCESSING,)
         get_doc_processing(doc)
 
         for list_id in lists:

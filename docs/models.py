@@ -40,13 +40,11 @@ class DocList(models.Model):
         return self.doc_list.filter(list=self).values("pk").exists()
 
     def get_my_docs(self):
-        query = Q(type="PUB") | Q(type="PRI")
+        query = Q(status="PUB") | Q(status="PRI")
         return self.doc_list.filter(query)
 
     def get_docs(self):
-        query = Q(type="PUB")
-        queryset = self.doc_list.filter(type="PUB")
-        return queryset
+        return self.doc_list.filter(status="PUB")
 
     def get_users_ids(self):
         users = self.users.exclude(perm="DE").exclude(perm="BL").exclude(perm="PV").values("pk")
@@ -64,7 +62,7 @@ class DocList(models.Model):
             return False
 
     def count_docs(self):
-        query = Q(type="PUB") | Q(type="PRI")
+        query = Q(status="PUB") | Q(status="PRI")
         return self.doc_list.filter(query).values("pk").count()
 
     def is_main_list(self):

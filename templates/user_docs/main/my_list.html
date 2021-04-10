@@ -19,12 +19,11 @@
 
     {% if user.is_have_my_doc_lists %}
     <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">Мои списки</h5>
-        <span>{{ user.count_docs_lists }}</span>
+        <h5 class="mt-1" style="flex: 1;">Мои списки ({{ user.count_docs_lists }})</h5>
+        <span>{{ user.count_doc_lists }}</span>
     </div>
     <div class="row no-gutters" style="overflow-x: auto;">
         <div class="col-12">
-
             <ul style="width:max-content;list-style: none;">
                 {% for object in user.get_my_doc_lists %}
                 <li class="album_item">
@@ -49,7 +48,7 @@
                                 <p class="card-text file-name mb-0">{{ object.name }}</p>
                                 <p class="card-text file-size mb-0">{{ object.count_docs }}</p>
                             </div>
-                            <small class="file-accessed text-muted">{{ object.get_type_display }} список</small>
+                            <small class="file-accessed text-muted">{{ object.get_type_display }}</small>
                         </div>
                         </a>
                     </div>
@@ -65,10 +64,10 @@
         <h5 class="mt-1" style="flex: 1;">Мои документы ({{ list.count_docs }})</h5>
     </div>
 
-    <div class="row is_paginate no-gutters" id="docs_container">
+    <div class="row is_paginate no-gutters">
         {% if object_list %}
 
-        {% for object in object_list %}
+        {% for doc in object_list %}
         <div class="pag {% if forloop.last %}last{% endif %}" style="padding-bottom:10px">
             <div class="media" style="align-items: unset;position: relative;">
                 <div class="media-body doc_media_body">

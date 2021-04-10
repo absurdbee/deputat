@@ -437,7 +437,7 @@ class User(AbstractUser):
         from gallery.models import Album
         albums_query = Q(type="LIS")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return Album.objects.filter(albums_query).order_by("order").exists()
+        return Album.objects.filter(albums_query).exists()
 
     def get_my_all_doc_lists(self):
         from docs.models import DocList
@@ -468,7 +468,12 @@ class User(AbstractUser):
         from docs.models import DocList
         docs_query = Q(type="LIS")
         docs_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return DocList.objects.filter(docs_query).order_by("order").exists()
+        return DocList.objects.filter(docs_query).exists()
+    def count_doc_lists(self):
+        from docs.models import DocList
+        docs_query = Q(type="LIS")
+        docs_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return DocList.objects.filter(docs_query).values("pk").count()
 
     def get_my_playlists(self):
         from music.models import SoundList
@@ -489,7 +494,7 @@ class User(AbstractUser):
         from music.models import SoundList
         tracks_query = Q(type="LIS")
         tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(tracks_query).order_by("order").exists()
+        return SoundList.objects.filter(tracks_query).exists()
 
     def get_my_video_lists(self):
         from video.models import VideoAlbum
@@ -510,4 +515,4 @@ class User(AbstractUser):
         from video.models import VideoAlbum
         video_query = Q(type="LIS")
         video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return VideoAlbum.objects.filter(video_query).order_by("order").exists()
+        return VideoAlbum.objects.filter(video_query).exists()

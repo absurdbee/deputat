@@ -145,7 +145,7 @@ class Doc(models.Model):
         else:
             get_doc_processing(self, Doc.PRIVATE)
             self.make_private()
-        self.save()
+        return self.save()
 
     def make_private(self):
         from notify.models import Notify, Wall

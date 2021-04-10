@@ -7,7 +7,7 @@
             </h6>
             <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
             <span class='span_btn' data-pk="{{ doc.pk }}">
-                {% if user.is_have_my_all_doc_lists %}
+                {% if request.user.is_have_my_all_doc_lists %}
                 {% include 'user_docs/add_dropdown.html' %}
                 {% endif %}
                 <div class="dropdown" style="position: inherit;">

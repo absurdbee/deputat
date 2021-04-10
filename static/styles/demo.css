@@ -1,3 +1,11 @@
+.doc_media_body {
+    line-height: initial;
+}
+.doc_media_body .span_btn {
+    float: right;
+    margin-top: -33px;
+    display: flex;
+}
 a {
   color: #5E5873;
 }

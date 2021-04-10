@@ -100,7 +100,7 @@ class UserDocCreate(TemplateView):
 
         if request.is_ajax() and form_post.is_valid():
             doc = form_post.save(commit=False)
-            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, lists=form_post.cleaned_data.getlist("list"))
+            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, lists=request.POST.getlist("list"))
             return render_for_platform(request, 'user_docs/new_doc.html',{'object': new_doc})
         else:
             return HttpResponseBadRequest()

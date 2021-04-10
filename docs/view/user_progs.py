@@ -132,9 +132,9 @@ class UserDoclistEdit(TemplateView):
 class UserDoclistDelete(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and self.kwargs["pk"] == request.user.pk and list.type == DocList.LIST:
-            list.type = "DEL"
-            list.save(update_fields=['type'])
+        if request.is_ajax() and self.kwargs["pk"] == request.user.pk and list.status == DocList.LIST:
+            list.status = "DEL"
+            list.save(update_fields=['status'])
             return HttpResponse()
         else:
             raise Http404
@@ -143,8 +143,8 @@ class UserDoclistAbortDelete(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and self.kwargs["pk"] == request.user.pk:
-            list.type = "LIS"
-            list.save(update_fields=['type'])
+            list.status = "LIS"
+            list.save(update_fields=['status'])
             return HttpResponse()
         else:
             raise Http404

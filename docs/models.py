@@ -113,21 +113,57 @@ class Doc(models.Model):
         return mime
 
     @classmethod
-    def create_doc(cls, creator, title, file, lists):
+    def create_doc(cls, creator, title, file, lists, is_public):
         #from notify.models import Notify, Wall, get_user_managers_ids
         #from common.notify import send_notify_socket
         from common.processing import get_doc_processing
 
         doc = cls.objects.create(creator=creator,title=title,file=file,status=Doc.PROCESSING,)
-        get_doc_processing(doc)
-
+        if is_public:
+            get_doc_processing(doc, Doc.PUBLISHED)
+            #for user_id in creator.get_user_news_notify_ids():
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="doc"+str(doc.pk), verb="ITE")
+                #send_notify_socket(attach[3:], user_id, "create_doc_notify")
+            #Wall.objects.create(creator_id=creator.pk, attach="doc"+str(doc.pk), verb="ITE")
+            #send_notify_socket(attach[3:], user_id, "create_doc_wall")
+        else:
+            get_doc_processing(doc, Doc.PRIVATE)
         for list_id in lists:
             doc_list = DocList.objects.get(pk=list_id)
             doc_list.doc_list.add(doc)
-
-        #for user_id in creator.get_user_news_notify_ids():
-        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="doc"+str(doc.pk), verb="ITE")
-            #send_notify_socket(attach[3:], user_id, "create_doc_notify")
-        #Wall.objects.create(creator_id=creator.pk, attach="doc"+str(doc.pk), verb="ITE")
-        #send_notify_socket(attach[3:], user_id, "create_doc_wall")
         return doc
+
+    def edit_doc(self, title, file, lists, is_public):
+        from common.processing import get_doc_processing
+
+        self.title = title
+        self.file = file 
+        self.lists = lists
+        if is_public:
+            get_doc_processing(doc, Doc.PUBLISHED)
+            self.make_publish()
+        else:
+            get_doc_processing(doc, Doc.PRIVATE)
+            self.make_private()
+        self.save()
+
+    def make_private(self):
+        from notify.models import Notify, Wall
+
+        self.status = Doc.PRIVATE
+        self.save(update_fields=['status'])
+
+        if Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="SIT")
+        if Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="SIT")
+    def make_publish(self):
+        from notify.models import Notify, Wall
+
+        self.status = Doc.PUBLISHED
+        self.save(update_fields=['status'])
+
+        if Notify.objects.filter(attach="doc"+str(self.pk), verb="SIT").exists():
+            Notify.objects.filter(attach="doc"+str(self.pk), verb="SIT").update(status="ITE")
+        if Wall.objects.filter(attach="doc"+str(self.pk), verb="SIT").exists():
+            Wall.objects.filter(attach="doc"+str(self.pk), verb="SIT").update(status="ITE")

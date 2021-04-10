@@ -83,28 +83,6 @@ class UserDoclistCreate(TemplateView):
         else:
             return HttpResponseBadRequest()
 
-class UserDocCreate(TemplateView):
-    form_post = None
-
-    def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("user_docs/create_doc.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserDocCreate,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserDocCreate,self).get_context_data(**kwargs)
-        context["form_post"] = DocForm()
-        return context
-
-    def post(self,request,*args,**kwargs):
-        form_post = DocForm(request.POST, request.FILES)
-
-        if request.is_ajax() and form_post.is_valid():
-            doc = form_post.save(commit=False)
-            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, lists=request.POST.getlist("list"))
-            return render_for_platform(request, 'user_docs/new_doc.html',{'doc': new_doc})
-        else:
-            return HttpResponseBadRequest()
-
 
 class UserDoclistEdit(TemplateView):
     template_name = None
@@ -128,6 +106,54 @@ class UserDoclistEdit(TemplateView):
         else:
             return HttpResponseBadRequest()
         return super(UserDoclistEdit,self).get(request,*args,**kwargs)
+
+
+class UserDocCreate(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("user_docs/create_doc.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserDocCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(UserDocCreate,self).get_context_data(**kwargs)
+        context["form_post"] = DocForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        form_post = DocForm(request.POST, request.FILES)
+
+        if request.is_ajax() and form_post.is_valid():
+            doc = form_post.save(commit=False)
+            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, lists=request.POST.getlist("list"), is_public=request.POST.list("is_public"))
+            return render_for_platform(request, 'user_docs/new_doc.html',{'doc': new_doc})
+        else:
+            return HttpResponseBadRequest()
+
+class UserDocEdit(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.doc = Doc.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_small_template("user_docs/edit_doc.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserDocEdit,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(UserDocEdit,self).get_context_data(**kwargs)
+        context["form_post"] = DocForm()
+        context["doc"] = self.doc
+        return context
+
+    def post(self,request,*args,**kwargs):
+        form_post = DocForm(request.POST, request.FILES, instance=self.doc)
+
+        if request.is_ajax() and form_post.is_valid():
+            doc = form_post.save(commit=False)
+            new_doc = Doc.edit_doc(title=doc.title, file=doc.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            return render_for_platform(request, 'user_docs/new_doc.html',{'doc': new_doc})
+        else:
+            return HttpResponseBadRequest()
+
 
 class UserDoclistDelete(View):
     def get(self,request,*args,**kwargs):

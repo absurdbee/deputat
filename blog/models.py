@@ -301,8 +301,7 @@ class ElectNew(models.Model):
     def get_comments(self):
         from common.model.comments import ElectNewComment
 
-        comments_query = Q(new_id=self.pk)
-        comments_query.add(Q(parent__isnull=True), Q.AND)
+        comments_query = Q(new_id=self.pk, parent__isnull=True)
         return ElectNewComment.objects.filter(comments_query)
 
     def get_attach_photos(self):

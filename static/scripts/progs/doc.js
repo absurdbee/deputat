@@ -3,8 +3,18 @@ on('body', 'click', '.u_doc_list_add', function() {
   open_fullscreen("/docs/user_progs/add_list/", loader)
 });
 on('body', 'click', '.u_doc_add', function() {
+
   loader = document.getElementById("create_loader");
   open_fullscreen("/docs/user_progs/create_doc/", loader)
+});
+on('body', 'click', '.u_doc_edit', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  blocks = document.body.querySelectorAll('.col-sm-12');
+  for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_doc")}
+
+  parent.parentElement.parentElement.parentElement.classList.add("edited_doc")
+  loader = document.getElementById("create_loader");
+  open_fullscreen("/docs/user_progs/edit_doc/" + parent.getAttribute("data-pk") +"/", loader)
 });
 on('body', 'click', '.u_doc_list_edit', function() {
   list = document.body.querySelectorAll('.cover_block');
@@ -189,6 +199,49 @@ on('body', 'click', '#u_create_doc_btn', function() {
     } else{
       toast_info("Документ создан!")
     }
+    close_create_window();
+  }};
+
+  link_.send(form_data);
+});
+
+on('body', 'click', '#u_edit_doc_btn', function() {
+  form = this.parentElement.parentElement.parentElement;
+  pk = form.getAttribute("data-pk");
+  form_data = new FormData(form);
+
+  lists = form.querySelector("#id_list");
+  selectedOptions = lists.selectedOptions;
+  val = false;
+  for (var i = 0; i < selectedOptions.length; i++) {
+    if(selectedOptions[i].value) {val = true}
+  }
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!")
+  } else if (!val){
+    form.querySelector("#id_list").style.border = "1px #FF0000 solid";
+    toast_error("Выберите список!")
+  }
+  else if (!form.querySelector("#id_file").value){
+    form.querySelector("#id_file").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите документ!")
+  } else { this.disabled = true }
+
+  uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/docs/user_progs/edit_doc/" + pk + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    doc = document.body.querySelector(".edited_doc");
+    doc.insertBefore(response.innerHTML, doc)
+    toast_info("Документ изменен!")
     close_create_window();
   }};
 

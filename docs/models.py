@@ -133,7 +133,7 @@ class Doc(models.Model):
             doc_list.doc_list.add(doc)
         return doc
 
-    def edit_doc(title, file, lists, is_public):
+    def edit_doc(self, title, file, lists, is_public):
         from common.processing import get_doc_processing
 
         self.title = title

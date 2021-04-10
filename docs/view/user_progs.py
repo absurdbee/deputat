@@ -150,7 +150,7 @@ class UserDocEdit(TemplateView):
 
         if request.is_ajax() and form_post.is_valid():
             _doc = form_post.save(commit=False)
-            new_doc = Doc.edit_doc(title=_doc.title, file=_doc.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            new_doc = self.doc.edit_doc(title=_doc.title, file=_doc.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_docs/new_doc.html',{'doc': new_doc})
         else:
             return HttpResponseBadRequest()

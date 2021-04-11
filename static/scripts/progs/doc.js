@@ -3,7 +3,6 @@ on('body', 'click', '.u_doc_list_add', function() {
   open_fullscreen("/docs/user_progs/add_list/", loader)
 });
 on('body', 'click', '.u_doc_add', function() {
-
   loader = document.getElementById("create_loader");
   open_fullscreen("/docs/user_progs/create_doc/", loader)
 });
@@ -37,6 +36,7 @@ on('body', 'click', '.u_doc_list_remove', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     name = block.querySelector(".file-name");
+    console.log(name);
     name.innerHTML = "Восстановить";
     name.classList.add("u_doc_list_abort_remove", "pointer");
     name.parentElement.nextElementSibling.innerHTML = "Удалённый"
@@ -91,17 +91,6 @@ on('body', 'click', '#u_edit_doc_list_btn', function() {
   }}
   link_.send(form_data);
 });
-
-on('body', 'click', '.mob_user_doc_remove', function() {
-  mob_send_change(this, "/docs/user_progs/delete/", "mob_user_photo_abort_remove", "Отмена");
-  toast_success("Список изменен")
-})
-on('body', 'click', '.mob_user_doc_abort_remove', function() {
-  mob_send_change(this, "/docs/user_progs/abort_delete/", "mob_user_photo_remove", "Удалить");
-  post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
-  post.querySelector(".content_block").style.display = "unset";
-  post.querySelector(".image_card").style.opacity = "1";
-})
 
 on('body', 'click', '.u_add_doc_in_list', function() {
   _this = this;

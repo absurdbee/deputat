@@ -36,11 +36,11 @@ on('body', 'click', '.u_doc_list_remove', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     a = block.querySelector(".content-wrapper");
-    e = a.querySelector("span");
+    e = a.querySelector("p");
     console.log(a);
     console.log(e);
-    e.innerHTML = "Восстановить";
     e.classList.add("u_doc_list_abort_remove", "pointer");
+    e.innerHTML = "Восстановить";
     a.nextElementSibling.innerHTML = "Удалённый"
   }}
   link_.send();

@@ -61,7 +61,7 @@ class DocList(models.Model):
         return list
 
     def edit_list(self, name, description, order, is_public):
-        from common.processing import get_doc_processing
+        from common.processing import get_doc_list_processing
 
         if not order:
             order = 1

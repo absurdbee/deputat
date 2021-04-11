@@ -2,7 +2,7 @@
 <div class="card mb-4">
   <div class="row">
     <div style="flex: 0 0 80%;max-width:80%;padding:5px;">
-        <h5 class="btn btn-sm border">Добавить</h5>
+        <h5 class="btn btn-sm border" style="width: -webkit-fill-available;">Добавить</h5>
     </div>
     <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
       <a class="btn btn-sm border create_fullscreen_hide_2" style="width: -webkit-fill-available;">
@@ -22,7 +22,7 @@
             {% if object.is_not_empty %}
             <li class="album_item">
                 <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
-                    <div class="card-img-top file-logo-wrapper">
+                    <div class="card-img-top file-logo-wrapper" style="padding: 2rem;">
                         <div class="d-flex align-items-center justify-content-center w-100">
                           <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
                               <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -34,7 +34,7 @@
                             <p class="card-text file-name mb-0" data-name="{{ object.name }}">{{ object.name }}</p>
                             <p class="card-text file-size mb-0">{{ object.count_docs }}</p>
                         </div>
-                        <small class="file-accessed">Прикрепить список</small>
+                        <small class="file-accessed pointer">Прикрепить список</small>
                     </div>
                 </div>
             </li>
@@ -55,7 +55,7 @@
           <path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
         </svg>
       </figure>
-      <div class="media-body" style="padding-top: 5px; padding-left: 5px;margin-right:40px">
+      <div class="media-body" style="padding-top: 8px; padding-left: 5px;margin-right:40px">
           <h6>
             <a href="{{ object.file.url }}" style="white-space: nowrap;" target="_blank" rel="nofollow">{{ object.title }}</a>
           </h6>

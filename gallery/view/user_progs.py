@@ -44,7 +44,7 @@ class PhotoAttachUserCreate(View):
     """
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
-        album, photos = request.user.get_or_create_main_album(), []
+            album, photos = request.user.get_or_create_main_album(), []
             for p in request.FILES.getlist('file'):
                 photo = Photo.create_photo(creator_id=request.user.pk, image=p, album=album)
                 photos += [photo]

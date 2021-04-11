@@ -38,7 +38,7 @@ on('body', 'click', '.u_doc_list_remove', function() {
     name = block.querySelector(".doc_name");
     console.log(name);
     name.innerHTML = "Восстановить";
-    name.classList.add("u_doc_list_abort_remove", "pointer");
+    //name.classList.add("u_doc_list_abort_remove", "pointer");
     name.parentElement.nextElementSibling.innerHTML = "Удалённый"
   }}
   link_.send();

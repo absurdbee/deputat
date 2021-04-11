@@ -22,21 +22,20 @@ class UserDoclistRemove(View):
             list.users.remove(request.user)
         return HttpResponse()
 
-
-class UserDocAdd(View):
+class UserDocRemove(View):
     def get(self, request, *args, **kwargs):
-        doc, list = Doc.objects.get(pk=self.kwargs["pk"]), DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and not list.is_doc_in_list(doc.pk):
-            list.doc_list.add(doc)
+        doc = Doc.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and doc.creator.pk == request.user.pk:
+            doc.delete_doc()
             return HttpResponse()
         else:
             raise Http404
 
-class UserDocRemove(View):
+class UserDocAbortRemove(View):
     def get(self, request, *args, **kwargs):
         doc = Doc.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and list.is_doc_in_list(doc.pk):
-            doc.remove()
+        if request.is_ajax() and doc.creator.pk == request.user.pk:
+            doc.abort_delete_doc()
             return HttpResponse()
         else:
             raise Http404
@@ -44,7 +43,7 @@ class UserDocRemove(View):
 class UserDocListAdd(View):
     def get(self, request, *args, **kwargs):
         doc, list = Doc.objects.get(pk=self.kwargs["pk"]), DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and not list.is_item_in_list(doc.pk):
+        if request.is_ajax() and not list.is_item_in_list(doc.pk) and list.creator.pk == request.user.pk :
             list.doc_list.add(doc)
             return HttpResponse()
         else:
@@ -53,7 +52,7 @@ class UserDocListAdd(View):
 class UserDocListRemove(View):
     def get(self, request, *args, **kwargs):
         doc, list = Doc.objects.get(pk=self.kwargs["pk"]), DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.is_item_in_list(doc.pk):
+        if request.is_ajax() and list.is_item_in_list(doc.pk) and list.creator.pk == request.user.pk:
             list.doc_list.remove(doc)
             return HttpResponse()
         else:
@@ -159,9 +158,8 @@ class UserDocEdit(TemplateView):
 class UserDoclistDelete(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and self.kwargs["pk"] == request.user.pk and list.status == DocList.LIST:
-            list.type = "DEL"
-            list.save(update_fields=['type'])
+        if request.is_ajax() and list.creator.pk == request.user.pk and list.status != DocList.MAIN:
+            list.delete_list()
             return HttpResponse()
         else:
             raise Http404
@@ -169,9 +167,8 @@ class UserDoclistDelete(View):
 class UserDoclistAbortDelete(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and self.kwargs["pk"] == request.user.pk:
-            list.type = "LIS"
-            list.save(update_fields=['type'])
+        if request.is_ajax() and list.creator.pk == request.user.pk:
+            list.abort_delete_list()
             return HttpResponse()
         else:
             raise Http404

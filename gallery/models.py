@@ -108,6 +108,40 @@ class Album(models.Model):
     def is_item_in_list(self, item_id):
         return self.photo_album.filter(pk=item_id).exists()
 
+    def make_private(self):
+        from notify.models import Notify, Wall
+        self.type = Album.PRIVATE
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="C")
+        if Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="C")
+    def make_publish(self):
+        from notify.models import Notify, Wall
+        self.type = Album.PUBLISHED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="R")
+        if Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="R")
+
+    def delete_list(self):
+        from notify.models import Notify, Wall
+        self.type = Album.DELETED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="C")
+        if Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="C")
+    def abort_delete_list(self):
+        from notify.models import Notify, Wall
+        self.type = Album.PRIVATE
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="R")
+        if Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="R")
+
 
 class Photo(models.Model):
     PROCESSING = 'PRO'
@@ -150,23 +184,39 @@ class Photo(models.Model):
     def is_album_exists(self):
         return self.photo_album.filter(creator=self.creator).exists()
 
-    def delete_photo(self):
-        try:
-            from notify.models import Notify
-            Notify.objects.filter(attach="pho" + str(self.pk)).update(status="C")
-        except:
-            pass
-        self.type = "DEL"
-        return self.save(update_fields=['type'])
+    def make_private(self):
+        from notify.models import Notify, Wall
+        self.type = Photo.PRIVATE
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="C")
+        if Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="C")
+    def make_publish(self):
+        from notify.models import Notify, Wall
+        self.type = Photo.PUBLISHED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="R")
+        if Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="R")
 
+    def delete_photo(self):
+        from notify.models import Notify, Wall
+        self.type = Photo.DELETED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="C")
+        if Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="C")
     def abort_delete_photo(self):
-        try:
-            from notify.models import Notify
-            Notify.objects.filter(attach="pho" + str(self.pk)).update(status="R")
-        except:
-            pass
-        self.type = "PUB"
-        return self.save(update_fields=['type'])
+        from notify.models import Notify, Wall
+        self.type = Photo.PRIVATE
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="R")
+        if Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="R")
 
     def get_type(self):
         return self.album.all()[0].type

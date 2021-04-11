@@ -24,7 +24,7 @@ class UserVideoAlbumRemove(View):
 class UserVideoDelete(View):
     def get(self,request,*args,**kwargs):
         video = Video.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and video.creator == request.user:
+        if request.is_ajax() and video.creator.pk == request.user.pk:
             video.delete_video()
             return HttpResponse()
         else:
@@ -33,7 +33,7 @@ class UserVideoDelete(View):
 class UserVideoAbortDelete(View):
     def get(self,request,*args,**kwargs):
         video = Video.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and video.creator == request.user:
+        if request.is_ajax() and video.creator.pk == request.user.pk:
             video.abort_delete_video()
             return HttpResponse()
         else:
@@ -43,9 +43,8 @@ class UserVideoAbortDelete(View):
 class UserOnPrivateVideo(View):
     def get(self,request,*args,**kwargs):
         video = Video.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and video.creator == request.user:
-            video.type = "PRI"
-            video.save(update_fields=['type'])
+        if request.is_ajax() and video.creator.pk == request.user.pk:
+            video.make_private()
             return HttpResponse()
         else:
             raise Http404
@@ -53,31 +52,26 @@ class UserOnPrivateVideo(View):
 class UserOffPrivateVideo(View):
     def get(self,request,*args,**kwargs):
         video = Video.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and video.creator == request.user:
-            video.type = "PUB"
-            video.save(update_fields=['type'])
+        if request.is_ajax() and video.creator.pk == request.user.pk:
+            video.make_publish()
             return HttpResponse()
         else:
             raise Http404
 
 class UserVideolistDelete(View):
     def get(self,request,*args,**kwargs):
-        user = User.objects.get(pk=self.kwargs["pk"])
         list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and user == request.user and list.type == VideoAlbum.ALBUM:
-            list.type = "DEL"
-            list.save(update_fields=['type'])
+        if request.is_ajax() and list.creator.pk == request.user.pk and list.type == VideoAlbum.ALBUM:
+            list.delete_list()
             return HttpResponse()
         else:
             raise Http404
 
 class UserVideolistAbortDelete(View):
     def get(self,request,*args,**kwargs):
-        user = User.objects.get(pk=self.kwargs["pk"])
         list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and user == request.user:
-            list.type = "PUB"
-            list.save(update_fields=['type'])
+        if request.is_ajax() and list.creator.pk == request.user.pk:
+            list.abort_delete_list()
             return HttpResponse()
         else:
             raise Http404

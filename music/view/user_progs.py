@@ -85,8 +85,8 @@ class UserTrackListAdd(View):
         track = Music.objects.get(pk=self.kwargs["pk"])
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
 
-        if request.is_ajax() and not list.is_item_in_list(track.pk):
-            list.players.add(track)
+        if request.is_ajax() and not list.is_item_in_list(track.pk) and list.creator.pk == request.user.pk:
+            list.playlist.add(track)
             return HttpResponse()
         else:
             raise Http404
@@ -95,8 +95,8 @@ class UserTrackListRemove(View):
     def get(self, request, *args, **kwargs):
         track = Music.objects.get(pk=self.kwargs["pk"])
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.is_item_in_list(track.pk):
-            list.players.remove(track)
+        if request.is_ajax() and list.is_item_in_list(track.pk) and list.creator.pk == request.user.pk:
+            list.playlist.remove(track)
             return HttpResponse()
         else:
             raise Http404
@@ -157,9 +157,8 @@ class UserPlaylistEdit(TemplateView):
 class UserPlaylistDelete(View):
     def get(self,request,*args,**kwargs):
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.type == SoundList.LIST:
-            list.is_deleted = True
-            list.save(update_fields=['is_deleted'])
+        if request.is_ajax() and list.creator.pk == request.user.pk and list.type == SoundList.LIST:
+            list.delete_list()
             return HttpResponse()
         else:
             raise Http404
@@ -167,9 +166,8 @@ class UserPlaylistDelete(View):
 class UserPlaylistAbortDelete(View):
     def get(self,request,*args,**kwargs):
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax():
-            list.is_deleted = False
-            list.save(update_fields=['is_deleted'])
+        if request.is_ajax() and list.creator.pk == request.user.pk:
+            list.abort_delete_list()
             return HttpResponse()
         else:
             raise Http404

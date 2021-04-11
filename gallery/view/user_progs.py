@@ -63,7 +63,7 @@ class PhotoAttachUserCreate(View):
 class UserPhotoDelete(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and photo.creator == request.user:
+        if request.is_ajax() and photo.creator.pk == request.user.pk:
             photo.delete_photo()
             return HttpResponse()
         else:
@@ -72,7 +72,7 @@ class UserPhotoDelete(View):
 class UserPhotoAbortDelete(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and photo.creator == request.user:
+        if request.is_ajax() and photo.creator.pk == request.user.pk:
             photo.abort_delete_photo()
             return HttpResponse()
         else:
@@ -81,9 +81,8 @@ class UserPhotoAbortDelete(View):
 class UserOnPrivatePhoto(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and photo.creator == request.user:
-            photo.type = "PRI"
-            photo.save(update_fields=['type'])
+        if request.is_ajax() and photo.creator.pk == request.user.pk:
+            photo.make_private()
             return HttpResponse()
         else:
             raise Http404
@@ -91,13 +90,11 @@ class UserOnPrivatePhoto(View):
 class UserOffPrivatePhoto(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and photo.creator == request.user:
-            photo.type = "PUB"
-            photo.save(update_fields=['type'])
+        if request.is_ajax() and photo.creator.pk == request.user.pk:
+            photo.make_publish()
             return HttpResponse()
         else:
             raise Http404
-
 
 class AlbumUserCreate(TemplateView):
     template_name = None
@@ -163,9 +160,8 @@ class AlbumUserEdit(TemplateView):
 class AlbumUserDelete(View):
     def get(self,request,*args,**kwargs):
         album = Album.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and album.type != Album.MAIN:
-            album.type = "DEL"
-            album.save(update_fields=['type'])
+        if request.is_ajax() and album.creator.pk == request.user.pk and album.type != Album.MAIN:
+            album.delete_list()
             return HttpResponse()
         else:
             raise Http404
@@ -173,9 +169,8 @@ class AlbumUserDelete(View):
 class AlbumUserAbortDelete(View):
     def get(self,request,*args,**kwargs):
         album = Album.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax():
-            album.type = "LIS"
-            album.save(update_fields=['type'])
+        if request.is_ajax() and album.creator.pk == request.user.pk:
+            album.abort_delete_list()
             return HttpResponse()
         else:
             raise Http404
@@ -189,7 +184,7 @@ class UserPhotoAlbumAdd(View):
         photo = Photo.objects.get(pk=self.kwargs["pk"])
         album = Album.objects.get(uuid=self.kwargs["uuid"])
 
-        if request.is_ajax() and not album.is_item_in_list(photo.pk):
+        if request.is_ajax() and not album.is_item_in_list(photo.pk) and album.creator.pk == request.user.pk:
             album.photo_album.add(photo)
             return HttpResponse()
         else:
@@ -202,7 +197,7 @@ class UserPhotoAlbumRemove(View):
     def get(self, request, *args, **kwargs):
         photo = Photo.objects.get(pk=self.kwargs["pk"])
         album = Album.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and album.is_item_in_list(photo.pk):
+        if request.is_ajax() and album.is_item_in_list(photo.pk) and album.creator.pk == request.user.pk:
             album.photo_album.remove(photo)
             return HttpResponse()
         else:

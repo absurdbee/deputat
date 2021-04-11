@@ -38,6 +38,11 @@ class SoundList(models.Model):
     def __str__(self):
         return self.name + " " + self.creator.get_full_name()
 
+    class Meta:
+        verbose_name = "список треков"
+        verbose_name_plural = "списки треков"
+        ordering = ['order']
+
     def is_item_in_list(self, item_id):
         return self.playlist.filter(pk=item_id).exists()
 
@@ -89,10 +94,39 @@ class SoundList(models.Model):
     def is_user_list(self):
         return self.type == self.LIST
 
-    class Meta:
-        verbose_name = "список треков"
-        verbose_name_plural = "списки треков"
-        ordering = ['order']
+    def make_private(self):
+        from notify.models import Notify, Wall
+        self.type = SoundList.PRIVATE
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
+        if Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
+    def make_publish(self):
+        from notify.models import Notify, Wall
+        self.type = SoundList.PUBLISHED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")
+        if Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")
+
+    def delete_list(self):
+        from notify.models import Notify, Wall
+        self.type = SoundList.DELETED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
+        if Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
+    def abort_delete_list(self):
+        from notify.models import Notify, Wall
+        self.type = SoundList.PRIVATE
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")
+        if Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")
 
 
 class Music(models.Model):
@@ -123,6 +157,12 @@ class Music(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "треки"
+        verbose_name_plural = "треки"
+        indexes = (BrinIndex(fields=['created']),)
+        ordering = ['-created']
+
     def get_mp3(self):
         url = self.uri + '/stream?client_id=3ddce5652caa1b66331903493735ddd64d'
         url.replace("\\?", "%3f")
@@ -141,8 +181,36 @@ class Music(models.Model):
         )
         self.save()
 
-    class Meta:
-        verbose_name = "треки"
-        verbose_name_plural = "треки"
-        indexes = (BrinIndex(fields=['created']),)
-        ordering = ['-created']
+    def make_private(self):
+        from notify.models import Notify, Wall
+        self.type = Music.PRIVATE
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="C")
+        if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="C")
+    def make_publish(self):
+        from notify.models import Notify, Wall
+        self.type = Music.PUBLISHED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="R")
+        if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="R")
+
+    def delete_photo(self):
+        from notify.models import Notify, Wall
+        self.type = Music.DELETED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="C")
+        if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="C")
+    def abort_delete_photo(self):
+        from notify.models import Notify, Wall
+        self.type = Music.PRIVATE
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
+            Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="R")
+        if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
+            Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="R")

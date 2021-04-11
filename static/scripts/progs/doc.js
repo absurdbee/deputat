@@ -242,3 +242,38 @@ on('body', 'click', '#u_edit_doc_btn', function() {
 
   link_.send(form_data);
 });
+
+on('body', 'click', '.u_post_remove', function() {
+  saver = this.parentElement.parentElement.parentElement;
+  pk = saver.getAttribute("data-pk")
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/docs/user_progs/remove_doc/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    p = document.createElement("div");
+    p.classList.add("card", "mb-3");
+    p.style.padding = "20px";
+    p.style.display =  "block";
+    p.innerHTML = "Запись удалена. <span class='u_doc_abort_remove pointer' data-pk='" + pk + "'>Восстановить</span>";
+    item = saver.parentElement.parentElement.parentElement;
+    item.parentElement.insertBefore(p, item), item.style.display = "none"
+  }};
+  link.send( );
+});
+on('body', 'click', '.u_doc_abort_remove', function() {
+  item = this.parentElement.nextElementSibling;
+  item.style.display = "block";
+  pk = this.getAttribute("data-pk");
+  block = this.parentElement;
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/docs/user_progs/abort_remove_doc/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    block.remove();
+  }};
+  link.send();
+});

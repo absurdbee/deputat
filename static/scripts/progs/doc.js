@@ -28,6 +28,8 @@ on('body', 'click', '.u_doc_list_edit', function() {
 });
 on('body', 'click', '.u_doc_list_remove', function() {
   block = this.parentElement.parentElement.parentElement.parentElement;
+  this.parentElement.parentElement.style.display = "none";
+
   uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/docs/user_progs/delete_list/" + uuid + "/", true );
@@ -46,6 +48,7 @@ on('body', 'click', '.u_doc_list_remove', function() {
 on('body', 'click', '.u_doc_list_abort_remove', function() {
   _this = this;
   block = this.parentElement.parentElement.parentElement.parentElement;
+  block.querySelector(".dropdown").style.display = "block";
   uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/docs/user_progs/abort_delete_list/" + uuid + "/", true );

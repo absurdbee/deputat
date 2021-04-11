@@ -243,7 +243,7 @@ on('body', 'click', '#u_edit_doc_btn', function() {
   link_.send(form_data);
 });
 
-on('body', 'click', '.u_post_remove', function() {
+on('body', 'click', '.u_doc_remove', function() {
   saver = this.parentElement.parentElement.parentElement;
   pk = saver.getAttribute("data-pk")
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

@@ -26,7 +26,7 @@
         <div class="col-12">
             <ul style="width:max-content;list-style: none;">
                 {% for object in user.get_my_doc_lists %}
-                <li class="album_item">
+                <li class="album_item" data-uuid="{{ object.uuid }}">
                     <div class="card file-manager-item folder cover_block border">
                         <div class="card-img-top file-logo-wrapper">
                             <div class="dropdown float-right">
@@ -45,7 +45,7 @@
                         <a href="{% url 'user_docs_list' pk=user.pk uuid=object.uuid %}" class="ajax">
                         <div class="card-body pt-0">
                             <div class="content-wrapper">
-                                <p class="card-text file-name mb-0">{{ object.name }}</p>
+                                <p class="card-text file-name mb-0" data-name="{{ object.name }}">{{ object.name }}</p>
                                 <p class="card-text file-size mb-0">{{ object.count_docs }}</p>
                             </div>
                             <small class="file-accessed text-muted">{{ object.get_type_display }}</small>

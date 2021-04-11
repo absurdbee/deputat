@@ -3580,7 +3580,7 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
 
 .dropdown-item {
   display : block;
-  width : 100%;
+  width : 170px;
   padding : 0.65rem 1.28rem;
   clear : both;
   font-weight : 400;
@@ -3589,6 +3589,8 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
   white-space : nowrap;
   background-color : transparent;
   border : 0;
+  overflow: hidden;
+  margin-right: 10px;
 }
 
 .dropdown-item:hover, .dropdown-item:focus {

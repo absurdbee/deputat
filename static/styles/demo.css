@@ -107,7 +107,7 @@ a {
   user-select: none;
   text-align: center;
   border-radius: 4px;
-  max-width: 200px;
+  width: 200px;
   margin-right: 5px;
 }
 

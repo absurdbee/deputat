@@ -21,14 +21,14 @@ on('body', 'click', '.u_doc_list_edit', function() {
   for (var i = 0; i < list.length; i++) {
     list[i].classList.remove("list_active")
   }
-  block = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+  block = this.parentElement.parentElement.parentElement.parentElement;
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
   loader = document.getElementById("create_loader");
   open_fullscreen("/docs/user_progs/edit_list/" + uuid + "/", loader)
 });
 on('body', 'click', '.u_doc_list_remove', function() {
-  block = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+  block = this.parentElement.parentElement.parentElement.parentElement;
   uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/docs/user_progs/delete_list/" + uuid + "/", true );
@@ -36,25 +36,22 @@ on('body', 'click', '.u_doc_list_remove', function() {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    block.querySelector(".card").style.display = "none";
-    $block = document.createElement("div");
-    $block.classList.add("card", "delete_card");
-    $block.innerHTML = '<div class="card-header"><div class="media"><div class="media-body"><h6 class="mb-0 u_album_abort_remove pointer">Восстановить</h6></div></div></div><div class="card-body"><a><img style="object-fit: cover;height: 150px;width: 170px;" src="/static/images/album.jpg" /></a></div>'
-    block.append($block);
+    name = block.querySelector(".file-name");
+    name.innerHTML = "Восстановить";
+    name.classList.add("u_doc_list_abort_remove", "pointer");
+    name.parentElement.nextElementSibling.innerHTML = "Удалённый"
   }}
   link_.send();
 });
 on('body', 'click', '.u_doc_list_abort_remove', function() {
-  block = this.parentElement.parentElement.parentElement.parentElement.parentElement;
-  uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/docs/user_progs/abort_delete_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    block.querySelector(".delete_card").remove();
-    block.querySelector(".card").style.display = "block";
+    this.classList.remove("u_doc_list_abort_remove", "pointer");
+    this.innerHTML = this.getAttribute("data-name");
+    name.parentElement.nextElementSibling.innerHTML = "Приватный"
   }}
   link_.send();
 });

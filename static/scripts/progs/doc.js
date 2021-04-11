@@ -36,9 +36,7 @@ on('body', 'click', '.u_doc_list_remove', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     a = block.querySelector(".content-wrapper");
-    e = a.querySelector("p");
-    console.log(a);
-    console.log(e);
+    e = a.querySelector(".file-name");
     e.classList.add("u_doc_list_abort_remove", "pointer");
     e.innerHTML = "Восстановить";
     a.nextElementSibling.innerHTML = "Удалённый"
@@ -46,14 +44,17 @@ on('body', 'click', '.u_doc_list_remove', function() {
   link_.send();
 });
 on('body', 'click', '.u_doc_list_abort_remove', function() {
+  _this = this;
+  block = this.parentElement.parentElement.parentElement.parentElement;
+  uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/docs/user_progs/abort_delete_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    this.classList.remove("u_doc_list_abort_remove", "pointer");
-    this.innerHTML = this.getAttribute("data-name");
-    name.parentElement.nextElementSibling.innerHTML = "Приватный"
+    _this.classList.remove("u_doc_list_abort_remove", "pointer");
+    _this.innerHTML = this.getAttribute("data-name");
+    _this.parentElement.nextElementSibling.innerHTML = "Приватный"
   }}
   link_.send();
 });

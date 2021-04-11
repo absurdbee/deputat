@@ -48,7 +48,7 @@ class DocList(models.Model):
             order = 1
         list = cls.objects.create(creator=creator,name=name,description=description, order=order)
         if is_public:
-            get_doc_list_processing(list, DocList.PUBLISHED)
+            get_doc_list_processing(list, DocList.LIST)
             #for user_id in creator.get_user_news_notify_ids():
             #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="ldo"+str(list.pk), verb="ITE")
                 #send_notify_socket(attach[3:], user_id, "create_doc_list_notify")
@@ -68,7 +68,7 @@ class DocList(models.Model):
         self.order = order
         self.save()
         if is_public:
-            get_doc_list_processing(self, DocList.PUBLISHED)
+            get_doc_list_processing(self, DocList.LIST)
             self.make_publish()
         else:
             get_doc_list_processing(self, DocList.PRIVATE)

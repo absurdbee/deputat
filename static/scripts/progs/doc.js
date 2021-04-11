@@ -85,7 +85,7 @@ on('body', 'click', '#u_edit_doc_list_btn', function() {
     title = form.querySelector('#id_name').value;
 
     album = document.body.querySelector(".album_active");
-    album.querySelector("h6").innerHTML = title;
+    album.querySelector(".doc_name").innerHTML = title; 
     album.classList.remove("album_active");
     toast_success("Список изменен")
   }}

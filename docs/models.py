@@ -28,7 +28,7 @@ class DocList(models.Model):
     type = models.CharField(max_length=3, choices=TYPE, default=PROCESSING, verbose_name="Тип листа")
     order = models.PositiveIntegerField(default=1)
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
-    description = models.CharField(max_length=200, blank=True, null=True, verbose_name="Описание")
+    description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
 
     users = models.ManyToManyField("users.User", blank=True, related_name='users_doclist')
 

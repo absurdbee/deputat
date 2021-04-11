@@ -15,8 +15,8 @@ def get_elect_new_message_processing(comment):
     return comment
 
 def get_doc_processing(doc, status):
-    doc.type = status
-    doc.save(update_fields=['type'])
+    doc.status = status
+    doc.save(update_fields=['status'])
     return doc
 def get_doc_list_processing(list, status):
     list.type = status
@@ -24,8 +24,8 @@ def get_doc_list_processing(list, status):
     return list
 
 def get_photo_processing(photo, status):
-    photo.type = status
-    photo.save(update_fields=['type'])
+    photo.status = status
+    photo.save(update_fields=['status'])
     return photo
 def get_photo_album_processing(album, status):
     album.type = status
@@ -33,8 +33,8 @@ def get_photo_album_processing(album, status):
     return album
 
 def get_music_processing(music, status):
-    music.type = status
-    music.save(update_fields=['type'])
+    music.status = status
+    music.save(update_fields=['status'])
     return music
 def get_playlist_processing(playlist, status):
     playlist.type = status
@@ -42,8 +42,8 @@ def get_playlist_processing(playlist, status):
     return playlist
 
 def get_video_processing(video, status):
-    video.type = status
-    video.save(update_fields=['type'])
+    video.status = status
+    video.save(update_fields=['status'])
     return video
 def get_video_list_processing(list, status):
     list.type = status

@@ -114,7 +114,7 @@ class DocList(models.Model):
     def is_user_list(self):
         return self.type == self.LIST
     def is_private(self):
-        return self.type == self.LIST
+        return self.type == self.PRIVATE
 
     def make_private(self):
         from notify.models import Notify, Wall

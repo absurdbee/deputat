@@ -23,15 +23,21 @@
             <li class="album_item">
                 <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
                     <div class="card-img-top file-logo-wrapper" style="padding: 2rem;">
+                      <a class="create_ajax nowrap" data-href="{% url 'u_doc_list_load' uuid=object.uuid %}">
                         <div class="d-flex align-items-center justify-content-center w-100">
                           <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
                               <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                           </svg>
                         </div>
+                      </a>
                     </div>
                     <div class="card-body pt-0">
                         <div class="content-wrapper">
-                            <p class="card-text file-name mb-0" data-name="{{ object.name }}">{{ object.name }}</p>
+                            <p class="card-text file-name mb-0">
+                              <a class="create_ajax nowrap" data-href="{% url 'u_doc_list_load' uuid=object.uuid %}">
+                                {{ object.name }}
+                              </a>
+                            </p>
                             <p class="card-text file-size mb-0">{{ object.count_docs }}</p>
                         </div>
                         <small class="file-accessed pointer">Прикрепить список</small>
@@ -70,7 +76,7 @@
 </div>
 {% else %}
 <div class="card mb-3 centered">
-  <h5 style="text-align: center;margin: 20px;"> Ваш список загруженных фото пустой.</h5>
+  <h5 style="text-align: center;margin: 20px;"> Список документов пустой.</h5>
 </div>
 {% endif %}
 </div>

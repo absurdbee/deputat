@@ -45,3 +45,7 @@ def get_blog_comment_attach(comment, request_user):
 @register.filter
 def is_user_can_add_list(list, user_id):
     return list.is_user_can_add_list(user_id)
+
+@register.filter
+def is_user_can_add_list(list, user_id):
+    return list.is_user_can_add_list(user_id):

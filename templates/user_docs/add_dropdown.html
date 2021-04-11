@@ -1,3 +1,5 @@
+
+{% if request.user.is_have_my_all_doc_lists %}
 {% load filters %}
 
 <span class='dropdown' style="position: inherit;">
@@ -19,3 +21,4 @@
       {% endfor %}
   </div>
 </span>
+{% endif %}

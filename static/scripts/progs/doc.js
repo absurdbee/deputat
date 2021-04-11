@@ -76,7 +76,7 @@ on('body', 'click', '#u_edit_doc_list_btn', function() {
   uuid = form.getAttribute("data-uuid")
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/gallery/user_progs/edit_doc_list/" + uuid + "/", true );
+  link_.open( 'POST', "/docs/user_progs/edit_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

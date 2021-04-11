@@ -123,7 +123,7 @@ class UserLoadMusicList(ListView):
 	def get(self,request,*args,**kwargs):
 		from music.models import SoundList
 		self.playlist = SoundList.objects.get(uuid=self.kwargs["uuid"])
-		self.template_name = get_settings_template("user_load/u_music_list_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("user_load/u_music_list_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadMusicList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -140,7 +140,7 @@ class UserLoadDoc(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from docs.models import DocList
-		self.list, self.template_name = request.user.get_or_create_main_doclist(), get_settings_template("user_load/u_doc_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.list, self.template_name = request.user.get_or_create_main_doclist(), get_my_template("user_load/u_doc_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadDoc,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -157,7 +157,7 @@ class UserLoadDocList(ListView):
 	def get(self,request,*args,**kwargs):
 		from docs.models import DocList
 		self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
-		self.template_name = get_settings_template("user_load/u_doc_list_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("user_load/u_doc_list_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadDocList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

@@ -35,8 +35,9 @@ on('body', 'click', '.u_doc_list_remove', function() {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    name = block.querySelector(".doc_name");
-    console.log(block);
+    a = block.querySelector(".content-wrapper");
+    name = a.querySelector(".doc_name");
+    console.log(a);
     console.log(name);
     name.innerHTML = "Восстановить";
     //name.classList.add("u_doc_list_abort_remove", "pointer");

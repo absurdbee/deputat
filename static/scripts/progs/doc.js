@@ -53,7 +53,7 @@ on('body', 'click', '.u_doc_list_abort_remove', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     _this.classList.remove("u_doc_list_abort_remove", "pointer");
-    _this.innerHTML = this.getAttribute("data-name");
+    _this.innerHTML = _this.getAttribute("data-name");
     _this.parentElement.nextElementSibling.innerHTML = "Приватный"
   }}
   link_.send();

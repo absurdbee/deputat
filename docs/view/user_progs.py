@@ -74,11 +74,8 @@ class UserDoclistCreate(TemplateView):
         form_post= DoclistForm(request.POST)
         if request.is_ajax() and form_post.is_valid():
             new_list = form_post.save(commit=False)
-            new_list.creator = request.user
-            if not new_list.order:
-                new_list.order = 0
-            new_list.save()
-            return render_for_platform(request, 'user_docs/list/my_list.html',{'list': new_list, 'user': request.user})
+            new_list.create_list(creator=request.user, name=new_list.name, description=new_list.description, order=new_list.order, is_public=request.POST.get("is_public"))
+            return render_for_platform(request, 'user_docs/list/my_list.html',{'list': new_list})
         else:
             return HttpResponseBadRequest()
 
@@ -100,7 +97,7 @@ class UserDoclistEdit(TemplateView):
         self.form = DoclistForm(request.POST,instance=self.list)
         if request.is_ajax() and self.form.is_valid():
             list = self.form.save(commit=False)
-            self.form.save()
+            list.edit_list(name=list.name, description=list.description, order=list.order, is_public=request.POST.get("is_public"))
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -124,7 +121,7 @@ class UserDocCreate(TemplateView):
 
         if request.is_ajax() and form_post.is_valid():
             doc = form_post.save(commit=False)
-            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, lists=request.POST.getlist("list"), is_public=request.POST.list("is_public"))
+            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_docs/new_doc.html',{'doc': new_doc})
         else:
             return HttpResponseBadRequest()

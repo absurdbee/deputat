@@ -29,15 +29,12 @@ class PhotoAlbumUserCreate(View):
     асинхронная мульти загрузка фотографий пользователя в альбом
     """
     def post(self, request, *args, **kwargs):
-        _album = Album.objects.get(uuid=self.kwargs["uuid"])
-        photos = []
-        uploaded_file = request.FILES['file']
         if request.is_ajax():
+            album, photos = Album.objects.get(uuid=self.kwargs["uuid"]), []
             for p in request.FILES.getlist('file'):
-                photo = Photo.objects.create(file=p, preview=p, creator=request.user, type="PUB")
-                _album.photo_album.add(photo)
-                photos += [photo,]
-            return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos, 'album': _album, 'user': request.user})
+                photo = Photo.create_photo(creator_id=request.user.pk, image=p, album=album)
+                photos += [photo]
+            return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos})
         else:
             raise Http404
 
@@ -46,17 +43,12 @@ class PhotoAttachUserCreate(View):
     мульти сохранение изображений с моментальным выводом в превью
     """
     def post(self, request, *args, **kwargs):
-        photos = []
         if request.is_ajax():
-            try:
-                _album = Album.objects.get(creator=request.user, type=Album.MAIN)
-            except:
-                _album = Album.objects.create(creator=request.user, type=Album.MAIN, title="Фото со стены", description="Фото со стены")
+        album, photos = request.user.get_or_create_main_album(), []
             for p in request.FILES.getlist('file'):
-                photo = Photo.objects.create(file=p, preview=p, creator=request.user, type="PUB")
-                _album.photo_album.add(photo)
-                photos += [photo,]
-            return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos, 'user': request.user})
+                photo = Photo.create_photo(creator_id=request.user.pk, image=p, album=album)
+                photos += [photo]
+            return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos})
         else:
             raise Http404
 

@@ -177,8 +177,22 @@ class Photo(models.Model):
         return naturaltime(self.created)
 
     @classmethod
-    def create_photo(cls, creator, album=None, file=None, created=None, is_public=None):
-        photo = Photo.objects.create(creator=creator, file=file, is_public=is_public, album=album)
+    def create_photo(cls, creator, image, album):
+        #from notify.models import Notify, Wall, get_user_managers_ids
+        #from common.notify import send_notify_socket
+        from common.processing import get_photo_processing
+
+        photo = cls.objects.create(creator=creator,file=image,preview=image)
+        if not album.is_private_album():
+            get_photo_processing(photo, Photo.PUBLISHED)
+            #for user_id in creator.get_user_news_notify_ids():
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="doc"+str(doc.pk), verb="ITE")
+                #send_notify_socket(attach[3:], user_id, "create_doc_notify")
+            #Wall.objects.create(creator_id=creator.pk, attach="doc"+str(doc.pk), verb="ITE")
+            #send_notify_socket(attach[3:], user_id, "create_doc_wall")
+        else:
+            get_photo_processing(photo, Photo.PRIVATE)
+        album.photo_album.add(photo)
         return photo
 
     def is_album_exists(self):

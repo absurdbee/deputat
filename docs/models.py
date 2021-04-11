@@ -38,6 +38,43 @@ class DocList(models.Model):
         verbose_name_plural = "списки документов"
         ordering = ['order']
 
+    @classmethod
+    def create_list(cls, creator, name, description, order, is_public):
+        #from notify.models import Notify, Wall, get_user_managers_ids
+        #from common.notify import send_notify_socket
+        from common.processing import get_doc_list_processing
+
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description, order=order)
+        if is_public:
+            get_doc_list_processing(list, DocList.PUBLISHED)
+            #for user_id in creator.get_user_news_notify_ids():
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="ldo"+str(list.pk), verb="ITE")
+                #send_notify_socket(attach[3:], user_id, "create_doc_list_notify")
+            #Wall.objects.create(creator_id=creator.pk, attach="ldo"+str(list.pk), verb="ITE")
+            #send_notify_socket(attach[3:], user_id, "create_doc_list_wall")
+        else:
+            get_doc_list_processing(list, DocList.PRIVATE)
+        return list
+
+    def edit_list(self, name, description, order, is_public):
+        from common.processing import get_doc_processing
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        if is_public:
+            get_doc_list_processing(self, DocList.PUBLISHED)
+            self.make_publish()
+        else:
+            get_doc_list_processing(self, DocList.PRIVATE)
+            self.make_private()
+        return self
+
     def is_item_in_list(self, item_id):
         return self.doc_list.filter(pk=item_id).exists()
 
@@ -152,7 +189,7 @@ class Doc(models.Model):
         #from common.notify import send_notify_socket
         from common.processing import get_doc_processing
 
-        doc = cls.objects.create(creator=creator,title=title,file=file,status=Doc.PROCESSING,)
+        doc = cls.objects.create(creator=creator,title=title,file=file)
         if is_public:
             get_doc_processing(doc, Doc.PUBLISHED)
             #for user_id in creator.get_user_news_notify_ids():

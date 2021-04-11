@@ -200,16 +200,16 @@ class Doc(models.Model):
 
     def delete_doc(self):
         from notify.models import Notify, Wall
-        self.type = Doc.DELETED
-        self.save(update_fields=['type'])
+        self.status = Doc.DELETED
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="C")
         if Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="C")
     def abort_delete_doc(self):
         from notify.models import Notify, Wall
-        self.type = Doc.PRIVATE
-        self.save(update_fields=['type'])
+        self.status = Doc.PRIVATE
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():

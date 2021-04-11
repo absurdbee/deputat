@@ -155,7 +155,7 @@ class UserDocEdit(TemplateView):
 class UserDoclistDelete(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.creator.pk == request.user.pk and list.status != DocList.MAIN:
+        if request.is_ajax() and list.creator.pk == request.user.pk and list.type != DocList.MAIN:
             list.delete_list()
             return HttpResponse()
         else:

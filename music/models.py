@@ -106,7 +106,7 @@ class SoundList(models.Model):
             Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.type = SoundList.PUBLISHED
+        self.type = SoundList.LIST
         self.save(update_fields=['type'])
         if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")

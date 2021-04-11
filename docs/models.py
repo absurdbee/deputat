@@ -124,7 +124,7 @@ class DocList(models.Model):
             Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.type = DocList.PUBLISHED
+        self.type = DocList.LIST
         self.save(update_fields=['type'])
         if Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="R")

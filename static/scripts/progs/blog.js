@@ -168,7 +168,7 @@ on('#ajax', 'click', '.u_load_comment_doc', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");
-  open_fullscreen('/users/load/u_doc_comment_load/', loader)
+  open_fullscreen('/users/load/u_doc_load/', loader)
 });
 
 on('body', 'change', '#u_photo_comment_attach', function() {

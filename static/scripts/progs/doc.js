@@ -36,7 +36,7 @@ on('body', 'click', '.u_doc_list_remove', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     a = block.querySelector(".content-wrapper");
-    name = a.querySelector("p");
+    name = a.querySelector("span");
     console.log(a);
     console.log(name);
     name.innerHTML = "Восстановить";

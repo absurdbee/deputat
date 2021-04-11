@@ -13,6 +13,7 @@ class DocList(models.Model):
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
+    PROCESSING = 'PRO'
     TYPE = (
         (MAIN, 'Основной'),
         (LIST, 'Пользовательский'),
@@ -20,10 +21,11 @@ class DocList(models.Model):
         (PRIVATE, 'Приватный'),
         (CLOSED, 'Закрытый менеджером'),
         (MANAGER, 'Созданный персоналом'),
+        (PROCESSING, 'Обработка'),
     )
     name = models.CharField(max_length=255)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_doclist', on_delete=models.CASCADE, verbose_name="Создатель")
-    type = models.CharField(max_length=3, choices=TYPE, default=LIST, verbose_name="Тип листа")
+    type = models.CharField(max_length=3, choices=TYPE, default=PROCESSING, verbose_name="Тип листа")
     order = models.PositiveIntegerField(default=1)
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     description = models.CharField(max_length=200, blank=True, null=True, verbose_name="Описание")

@@ -34,6 +34,7 @@ class VideoAlbum(models.Model):
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
+    PROCESSING = 'PRO'
     TYPE = (
         (MAIN, 'Основной'),
         (LIST, 'Пользовательский'),
@@ -41,12 +42,13 @@ class VideoAlbum(models.Model):
         (PRIVATE, 'Приватный'),
         (CLOSED, 'Закрытый менеджером'),
         (MANAGER, 'Созданный персоналом'),
+        (PROCESSING, 'Обработка'),
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     title = models.CharField(max_length=250, verbose_name="Название")
     order = models.PositiveIntegerField(default=0)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_user_creator', verbose_name="Создатель")
-    type = models.CharField(max_length=5, choices=TYPE, default=LIST, verbose_name="Тип альбома")
+    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
 
     users = models.ManyToManyField("users.User", blank=True, related_name='users_video_album')
 

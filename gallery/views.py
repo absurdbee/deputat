@@ -88,10 +88,10 @@ class UserAlbumPhoto(TemplateView):
 			from django.http import Http404
 			raise Http404
 		if request.user.pk == self.photo.creator.pk:
-			query = Q(type="PUB") | Q(type="PRI")
+			query = Q(status="PUB") | Q(status="PRI")
 			self.photos = self.album.get_photos()
 		else:
-			query = Q(type="PUB")
+			query = Q(status="PUB")
 			self.photos = self.album.get_staff_photos()
 		self.next = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
 		self.prev = self.photos.filter(query, pk__lt=self.photo.pk).order_by('pk').first()

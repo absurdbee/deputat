@@ -79,25 +79,24 @@ class UserAlbumPhoto(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_item_template
-
+		from django.db.models import Q
 
 		self.photo, self.album = Photo.objects.get(pk=self.kwargs["pk"]), Album.objects.get(uuid=self.kwargs["uuid"])
-		self.photos = self.album.get_photos()
 		if request.is_ajax():
 			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
 			from django.http import Http404
 			raise Http404
 		if request.user.pk == self.photo.creator.pk:
-			from django.db.models import Q
 			query = Q(type="PUB") | Q(type="PRI")
-			self.next = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
-			self.prev = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
+			self.photos = self.album.get_photos()
 		else:
-			self.next = self.photos.filter(type="PUB", pk__gt=self.photo.pk, ).order_by('pk').first()
-			self.prev = self.photos.filter(type="PUB", pk__gt=self.photo.pk).order_by('pk').first()
+			query = Q(type="PUB")
+			self.photos = self.album.get_staff_photos()
+		self.next = self.photos.filter(query, pk__gt=self.photo.pk, ).order_by('pk').first()
+		self.prev = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
 		return super(UserAlbumPhoto,self).get(request,*args,**kwargs)
-
+		
 	def get_context_data(self,**kwargs):
 		context = super(UserAlbumPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo

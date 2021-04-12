@@ -32,7 +32,7 @@ class PhotoAlbumUserCreate(View):
         if request.is_ajax():
             album, photos = Album.objects.get(uuid=self.kwargs["uuid"]), []
             for p in request.FILES.getlist('file'):
-                photo = Photo.create_photo(creator_id=request.user.pk, image=p, album=album)
+                photo = Photo.create_photo(creator=request.user, image=p, album=album)
                 photos += [photo]
             return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos})
         else:
@@ -46,7 +46,7 @@ class PhotoAttachUserCreate(View):
         if request.is_ajax():
             album, photos = request.user.get_or_create_main_album(), []
             for p in request.FILES.getlist('file'):
-                photo = Photo.create_photo(creator_id=request.user.pk, image=p, album=album)
+                photo = Photo.create_photo(creator=request.user, image=p, album=album)
                 photos += [photo]
             return render_for_platform(request, 'user_gallery/new_album_photos.html',{'object_list': photos})
         else:

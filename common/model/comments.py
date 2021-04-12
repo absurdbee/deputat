@@ -20,7 +20,7 @@ class BlogComment(models.Model):
     CLOSED = 'CLO'
     PROCESSING = 'PRO'
     PUBLISHED = 'PUB'
-    TYPE = (
+    STATUS = (
         (DELETED, 'Удалённый'),
         (EDITED, 'Изменённый'),
         (CLOSED, 'Закрытый менеджером'),
@@ -33,7 +33,7 @@ class BlogComment(models.Model):
     text = models.TextField(blank=True)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, blank=True, null=True)
     attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
-    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
+    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип альбома")
 
     class Meta:
         indexes = (BrinIndex(fields=['created']), )
@@ -157,7 +157,7 @@ class ElectNewComment(models.Model):
     CLOSED = 'CLO'
     PROCESSING = 'PRO'
     PUBLISHED = 'PUB'
-    TYPE = (
+    STATUS = (
         (DELETED, 'Удалённый'),
         (EDITED, 'Изменённый'),
         (CLOSED, 'Закрытый менеджером'),
@@ -170,7 +170,7 @@ class ElectNewComment(models.Model):
     text = models.TextField(blank=True)
     new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True, null=True)
     attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
-    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
+    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип альбома")
 
     class Meta:
         indexes = (BrinIndex(fields=['created']), )

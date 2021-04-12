@@ -52,11 +52,11 @@ class SoundList(models.Model):
         return self.playlist.filter(list=self).values("pk").exists()
 
     def get_my_playlist(self):
-        query = Q(type="PUB") & Q(type="PRI")
+        query = Q(status="PUB") & Q(status="PRI")
         return self.playlist.filter(query)
 
     def get_playlist(self):
-        query = Q(type="PUB")
+        query = Q(status="PUB")
         queryset = self.playlist.filter(query)
         return queryset
 
@@ -88,7 +88,7 @@ class SoundList(models.Model):
         self.save()
 
     def count_tracks(self):
-        query = Q(type="MAI") | Q(type="LIS")
+        query = Q(status="MAI") | Q(status="LIS")
         return self.playlist.filter(query).values("pk").count()
 
     def is_main_list(self):
@@ -138,7 +138,7 @@ class Music(models.Model):
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
-    TYPE = (
+    STATUS = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
         (DELETED, 'Удалено'),
@@ -154,7 +154,7 @@ class Music(models.Model):
     uri = models.CharField(max_length=255, blank=True, null=True)
     release_year = models.CharField(max_length=10, blank=True, null=True)
     list = models.ManyToManyField(SoundList, related_name='playlist', blank="True")
-    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип")
+    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип")
 
     def __str__(self):
         return self.title
@@ -185,16 +185,16 @@ class Music(models.Model):
 
     def make_private(self):
         from notify.models import Notify, Wall
-        self.type = Music.PRIVATE
-        self.save(update_fields=['type'])
+        self.status = Music.PRIVATE
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="C")
         if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.type = Music.PUBLISHED
-        self.save(update_fields=['type'])
+        self.status = Music.PUBLISHED
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
@@ -202,16 +202,16 @@ class Music(models.Model):
 
     def delete_photo(self):
         from notify.models import Notify, Wall
-        self.type = Music.DELETED
-        self.save(update_fields=['type'])
+        self.status = Music.DELETED
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="C")
         if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="C")
     def abort_delete_photo(self):
         from notify.models import Notify, Wall
-        self.type = Music.PRIVATE
-        self.save(update_fields=['type'])
+        self.status = Music.PRIVATE
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():

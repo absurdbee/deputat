@@ -61,19 +61,19 @@ class VideoAlbum(models.Model):
         return self.title
 
     def count_video(self):
-        return self.video_album.filter(is_deleted=False).values("pk").count()
+        return self.video_album.filter(status="PUB").values("pk").count()
 
     def get_my_videos(self):
-        query = Q(type="PUB") | Q(type="PRI")
+        query = Q(status="PUB") | Q(status="PRI")
         return self.video_album.filter(query)
 
     def get_videos(self):
-        query = Q(type="PUB")
-        queryset = self.video_album.filter(type="PUB")
+        query = Q(status="PUB")
+        queryset = self.video_album.filter(status="PUB")
         return queryset
 
     def get_video_count(self):
-        query = Q(type="PUB") | Q(type="PRI")
+        query = Q(status="PUB") | Q(status="PRI")
         return self.video_album.filter(query).values("pk").count()
 
     def is_main_album(self):
@@ -144,7 +144,7 @@ class Video(models.Model):
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
-    TYPES = (
+    STATUS = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
         (DELETED, 'Удалено'),
@@ -166,7 +166,7 @@ class Video(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     album = models.ManyToManyField(VideoAlbum, related_name="video_album", blank=True, verbose_name="Альбом")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="video_creator", on_delete=models.CASCADE, verbose_name="Создатель")
-    type = models.CharField(choices=TYPES, default=PROCESSING, max_length=3)
+    status = models.CharField(choices=STATUS, default=PROCESSING, max_length=3)
 
     class Meta:
         verbose_name = "Видео-ролики"
@@ -207,16 +207,16 @@ class Video(models.Model):
 
     def make_private(self):
         from notify.models import Notify, Wall
-        self.type = Video.PRIVATE
-        self.save(update_fields=['type'])
+        self.status = Video.PRIVATE
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="C")
         if Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.type = Video.PUBLISHED
-        self.save(update_fields=['type'])
+        self.status = Video.PUBLISHED
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
@@ -224,16 +224,16 @@ class Video(models.Model):
 
     def delete_video(self):
         from notify.models import Notify, Wall
-        self.type = Video.DELETED
-        self.save(update_fields=['type'])
+        self.status = Video.DELETED
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="C")
         if Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="C")
     def abort_delete_video(self):
         from notify.models import Notify, Wall
-        self.type = Video.PRIVATE
-        self.save(update_fields=['type'])
+        self.status = Video.PRIVATE
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():

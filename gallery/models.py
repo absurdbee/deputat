@@ -73,17 +73,17 @@ class Album(models.Model):
     def get_cover_photo(self):
         if self.cover_photo:
             return self.cover_photo.file.url
-        elif self.photo_album.filter(type="PUB").exists():
-            return self.photo_album.filter(type="PUB").last().file.url
+        elif self.photo_album.filter(status="PUB").exists():
+            return self.photo_album.filter(status="PUB").last().file.url
         else:
             return "/static/images/album.jpg"
 
     def get_first_photo(self):
-        return self.photo_album.filter(type="PUB").first()
+        return self.photo_album.filter(status="PUB").first()
 
     def count_photo(self):
         try:
-            return self.photo_album.filter(type="PUB").values("pk").count()
+            return self.photo_album.filter(status="PUB").values("pk").count()
         except:
             return 0
     def count_photo_ru(self):
@@ -98,14 +98,14 @@ class Album(models.Model):
             return str(count) + " фотографий"
 
     def get_photos(self):
-        return self.photo_album.filter(type="PUB")
+        return self.photo_album.filter(status="PUB")
 
     def get_staff_photos(self):
-        query = Q(type="PUB") | Q(type="PRI")
+        query = Q(status="PUB") | Q(status="PRI")
         return self.photo_album.filter(query)
 
     def is_not_empty(self):
-        return self.photo_album.filter(album=self, type="PUB").values("pk").exists()
+        return self.photo_album.filter(album=self, status="PUB").values("pk").exists()
 
     def is_item_in_list(self, item_id):
         return self.photo_album.filter(pk=item_id).exists()
@@ -152,7 +152,7 @@ class Photo(models.Model):
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
-    TYPE = (
+    STATUS = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
         (DELETED, 'Удалено'),
@@ -166,7 +166,7 @@ class Photo(models.Model):
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
-    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
+    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип альбома")
 
     class Meta:
         indexes = (BrinIndex(fields=['created']),)
@@ -202,16 +202,16 @@ class Photo(models.Model):
 
     def make_private(self):
         from notify.models import Notify, Wall
-        self.type = Photo.PRIVATE
-        self.save(update_fields=['type'])
+        self.status = Photo.PRIVATE
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="C")
         if Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.type = Photo.PUBLISHED
-        self.save(update_fields=['type'])
+        self.status = Photo.PUBLISHED
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
@@ -219,16 +219,16 @@ class Photo(models.Model):
 
     def delete_photo(self):
         from notify.models import Notify, Wall
-        self.type = Photo.DELETED
-        self.save(update_fields=['type'])
+        self.status = Photo.DELETED
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="C")
         if Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="C")
     def abort_delete_photo(self):
         from notify.models import Notify, Wall
-        self.type = Photo.PRIVATE
-        self.save(update_fields=['type'])
+        self.status = Photo.PRIVATE
+        self.save(update_fields=['status'])
         if Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
             Notify.objects.filter(attach="pho"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="pho"+str(self.pk), verb="ITE").exists():
@@ -238,4 +238,4 @@ class Photo(models.Model):
         return self.album.all()[0].type
 
     def is_private(self):
-        return self.type == self.PRIVATE
+        return self.status == self.PRIVATE

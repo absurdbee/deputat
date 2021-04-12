@@ -195,9 +195,7 @@ function create_preview_doc(media_body, pk){
 
   $div.classList.add("col-md-12", "doc");
   $div.setAttribute("data-pk", pk);
-  $div.style.display = "flex";
-  $div.style.margin = "5px";
-  $div.style.flexBasis = "100%";
+  $div.style.padding = "3px";
 
   $input.innerHTML = '<input type="hidden" name="attach_items" value="doc' + pk + '">';
 

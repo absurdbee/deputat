@@ -94,9 +94,9 @@ class UserAlbumPhoto(TemplateView):
 			query = Q(type="PUB")
 			self.photos = self.album.get_staff_photos()
 		self.next = self.photos.filter(query, pk__gt=self.photo.pk, ).order_by('pk').first()
-		self.prev = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
+		self.prev = self.photos.filter(query, pk__lt=self.photo.pk).order_by('pk').first()
 		return super(UserAlbumPhoto,self).get(request,*args,**kwargs)
-		
+
 	def get_context_data(self,**kwargs):
 		context = super(UserAlbumPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo

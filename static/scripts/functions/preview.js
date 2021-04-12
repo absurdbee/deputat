@@ -191,7 +191,7 @@ function create_preview_doc(media_body, pk){
   $input = document.createElement("span");
   $span = document.createElement("span");
   $media = document.createElement("span");
-  $figure = document.createElement("figure");
+  $span2 = document.createElement("span");
 
   $div.classList.add("col-md-6", "col-sm-12");
   $div.setAttribute("doc-pk", pk);
@@ -200,7 +200,7 @@ function create_preview_doc(media_body, pk){
 
   $input.innerHTML = '<input type="hidden" name="attach_items" value="doc' + pk + '">';
   $span.innerHTML = '<svg fill="currentColor" style="width:35px;heigth:35px" class="svg_default" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>';
-  $figure.append($span);
+  $span2.append($span);
 
   $media.innerHTML = media_body.innerHTML;
   $media.style.marginLeft = "10px";
@@ -211,7 +211,7 @@ function create_preview_doc(media_body, pk){
 
   $div.append(doc_preview_delete());
   $div.append($input);
-  $div.append($figure);
+  $div.append($span2);
   $div.append($media);
   return $div
 }

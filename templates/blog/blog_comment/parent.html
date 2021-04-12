@@ -19,8 +19,7 @@
         </div>
 
         <div class="comment_footer" data-pk="{{ comment.pk }}">
-            <span class="card-text">{{ comment.text }}</span><br>
-
+            <span class="card-text">{{ comment.text }}</span>
             {% if comment.attach %}
               {{ comment|get_blog_comment_attach:request.user|safe }}
             {% endif %}

@@ -1,7 +1,9 @@
 .doc_preview_delete {
   top: 8px !important;
 }
-
+.comment_attach_block {
+  margin-bottom: 5px;
+}
 .doc_media_body {
     line-height: initial;
 }

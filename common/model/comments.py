@@ -45,7 +45,7 @@ class BlogComment(models.Model):
         if self.text:
             return self.text[:10]
         else:
-            return 'Комментатор ' + self.commenter
+            return 'Комментатор ' + str(self.commenter)
 
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime

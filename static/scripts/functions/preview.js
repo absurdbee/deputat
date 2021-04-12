@@ -193,9 +193,10 @@ function create_preview_doc(media_body, pk){
   $figure = document.createElement("figure");
   $media = document.createElement("span");
 
-  $div.classList.add("col-md-12", "doc");
+  $div.classList.add("col-md-6", "col-sm-12");
   $div.setAttribute("data-pk", pk);
   $div.style.padding = "3px";
+  $div.style.display = "flex";
 
   $input.innerHTML = '<input type="hidden" name="attach_items" value="doc' + pk + '">';
 
@@ -207,7 +208,7 @@ function create_preview_doc(media_body, pk){
   $media.style.marginRight = "40px";
   $media.style.overflow = "hidden";
   h6 = $media.querySelector("h6");
-  h6.style.paddingTop = "8px";
+  h6.style.paddingTop = "9px";
 
   $div.append(doc_preview_delete());
   $div.append($input);

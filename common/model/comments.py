@@ -42,7 +42,10 @@ class BlogComment(models.Model):
         ordering = ["-created"]
 
     def __str__(self):
-        return "{0}/{1}".format(self.commenter.get_full_name(), self.text[:10])
+        if self.text:
+            return self.text[:10]
+        else:
+            return 'Комментатор ' + self.commenter
 
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime

@@ -4,7 +4,7 @@ from common.model.comments import *
 from common.model.votes import *
 
 class BlogCommentAdmin(admin.ModelAdmin):
-    list_display = ['text','commenter','created']
+    list_display = ['commenter','text','created']
     list_filter = ['created']
     search_fields = ['created','text','commenter']
 

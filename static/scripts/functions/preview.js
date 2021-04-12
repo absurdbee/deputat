@@ -244,7 +244,6 @@ on('body', 'click', '.photo_load_several', function() {
     check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, src), this.classList.add("active_svg"))
   }
 });
-
 on('body', 'click', '.photo_attach_album', function() {
   _this = this;
   src = _this.parentElement.previousElementSibling.querySelector("img").getAttribute("src");
@@ -257,5 +256,18 @@ on('body', 'click', '.photo_attach_album', function() {
     check_photo_album_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (photo_album_post_attach(document.body.querySelector(".attach_block"), src, title, pk, count), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
     check_photo_album_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (photo_album_message_attach(document.body.querySelector(".message_attach_block"), src, title, pk, count), close_create_window())
+  }
+});
+
+on('#ajax', 'click', '.doc_load_several', function() {
+  _this = this.previousElementSibling;
+  pk = _this.getAttribute('data-pk');
+  media_block = _this.querySelector(".media-body")
+  if (document.body.querySelector(".current_file_dropdown")){
+    check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_block, pk), this.classList.add("active_svg"))
+  } else if (document.body.querySelector(".attach_block")){
+    check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), media_block, pk), this.classList.add("active_svg"))
+  } else if (document.body.querySelector(".message_attach_block")){
+    check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), media_block, pk), this.classList.add("active_svg"))
   }
 });

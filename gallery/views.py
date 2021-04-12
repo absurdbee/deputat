@@ -93,7 +93,7 @@ class UserAlbumPhoto(TemplateView):
 		else:
 			query = Q(type="PUB")
 			self.photos = self.album.get_staff_photos()
-		self.next = self.photos.filter(query, pk__gt=self.photo.pk, ).order_by('pk').first()
+		self.next = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
 		self.prev = self.photos.filter(query, pk__lt=self.photo.pk).order_by('pk').first()
 		return super(UserAlbumPhoto,self).get(request,*args,**kwargs)
 
@@ -128,8 +128,8 @@ class UserElectNewPhoto(TemplateView):
 		context["object"] = self.photo
 		context["elect_new"] = self.elect_new
 		context["user"] = self.request.user
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, status="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, status="PUB").order_by('-pk').first()
 		return context
 
 class UserBlogCommentPhoto(TemplateView):
@@ -153,8 +153,8 @@ class UserBlogCommentPhoto(TemplateView):
 		context = super(UserBlogCommentPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["user"] = self.request.user
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, status="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, status="PUB").order_by('-pk').first()
 		context["comment"] = self.comment
 		return context
 
@@ -179,8 +179,8 @@ class UserElectNewCommentPhoto(TemplateView):
 		context = super(UserElectNewCommentPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["user"] = self.request.user
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, status="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, status="PUB").order_by('-pk').first()
 		context["comment"] = self.comment
 		return context
 

@@ -49,7 +49,7 @@ class BlogComment(models.Model):
         return naturaltime(self.created)
 
     def get_replies(self):
-        return BlogComment.objects.filter(parent=self,type=BlogComment.PUBLISHED).only("pk")
+        return BlogComment.objects.filter(parent=self,status=BlogComment.PUBLISHED).only("pk")
 
     def count_replies(self):
         return self.get_replies().count()

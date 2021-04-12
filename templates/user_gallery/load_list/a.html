@@ -25,7 +25,7 @@
   <div class="media mt-3" style="display:flex;align-items: flex-start">
     <h5 class="mt-1" style="flex: 1;">
       {{ album.title }} ({{ album.count_photo }}) - альбом
-      <a href="{% url 'user' pk=object.creator.pk %}" class="ajax underline">
+      <a href="{% url 'user' pk=album.creator.pk %}" class="ajax underline">
         {{ album.creator.get_full_name_genitive }}
       </a>
     </h5>

@@ -46,7 +46,13 @@ def get_u_blog_comment_attach(comment, user):
             doc = Doc.objects.get(query, pk=item[3:])
             span_btn = ''
             if user.is_authenticated:
-                lists, options = '', ''
+                lists = ''
+                if user.pk == doc.creator.pk:
+                    options = '<span class="dropdown-item u_doc_edit">Изменить</span><span class="dropdown-item u_doc_remove">Удалить</span>'
+                elif user.is_manager():
+                    options = '<a class="dropdown-item doc_manager_remove pointer">♦ Удалить</a>'
+                else:
+                    options = '<span class="dropdown-item doc_claim">Пожаловаться</span>'
                 opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 42px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
                 for list in user.get_my_all_doc_lists():
                     if list.is_item_in_list(doc.pk):

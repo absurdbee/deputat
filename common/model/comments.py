@@ -27,7 +27,7 @@ class BlogComment(models.Model):
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
     )
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='blog_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='blog_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
     text = models.TextField(blank=True)
@@ -167,7 +167,7 @@ class ElectNewComment(models.Model):
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
     )
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='elect_new_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='elect_new_comment_replies', null=True, blank=True, verbose_name="Родительский комментарий")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
     text = models.TextField(blank=True)

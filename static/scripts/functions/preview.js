@@ -129,7 +129,7 @@ function create_preview_photo_album(src, title, pk, count){
   $container.append($hr);
   $container.append($a);
 
-  $div.append($figure); $div.append($container);
+  $div.append($figure); $div.append($container); $div.append($input);
   return $div
 }
 

@@ -194,7 +194,7 @@ function create_preview_doc(media_body, pk){
   $media = document.createElement("span");
 
   $div.classList.add("col-md-6", "col-sm-12");
-  $div.setAttribute("data-pk", pk);
+  $div.setAttribute("doc-pk", pk);
   $div.style.padding = "3px";
   $div.style.display = "flex";
 

@@ -63,8 +63,7 @@ class UserLoadDoclist(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
+		self.list = DocList.objects.get(pk=self.kwargs["pk"])
 		self.template_name = get_list_template(self.list, "user_docs/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadDoclist,self).get(request,*args,**kwargs)
 

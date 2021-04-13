@@ -1,5 +1,5 @@
 from django.views.generic import ListView
-from docs.models import Doc
+from docs.models import Doc, DocList
 from common.templates import get_small_template, get_list_template
 from users.models import User
 

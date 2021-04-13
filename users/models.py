@@ -188,10 +188,10 @@ class User(AbstractUser):
         return try_except(self.perm == User.SUSPENDED)
 
     def is_man(self):
-        return self.gender == User.MALE:
+        return self.gender == User.MALE
 
     def is_women(self):
-        return self.gender == User.FEMALE:
+        return self.gender == User.FEMALE
 
     def create_s_avatar(self, photo_input):
         from easy_thumbnails.files import get_thumbnailer

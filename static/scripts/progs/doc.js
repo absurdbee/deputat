@@ -269,3 +269,10 @@ on('body', 'click', '.u_doc_abort_remove', function() {
   }};
   link.send();
 });
+
+on('body', 'click', '.u_load_doc_list', function() {
+  parent = this.parentElement.parentElement;
+  pk = parent.getAttribute("data-pk");
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/docs/load/" + pk + "/", loader)
+});

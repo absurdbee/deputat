@@ -65,7 +65,7 @@ class UserLoadDoclist(ListView):
 	def get(self,request,*args,**kwargs):
 		self.list = DocList.objects.get(pk=self.kwargs["pk"])
 		self.template_name = get_list_template(self.list, "user_docs/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
-		if self.user.pk == request.user.pk:
+		if list.creator.pk == request.user.pk:
 			self.doc_list = self.list.get_my_docs()
 		else:
 			self.doc_list = self.list.get_docs()

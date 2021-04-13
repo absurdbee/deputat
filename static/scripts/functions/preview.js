@@ -230,12 +230,12 @@ function create_preview_doc_list(name, pk, count){
   $div.setAttribute("doclist-pk", pk);
 
   $input = document.createElement("span");
-  $input.innerHTML = '<input type="hidden" name="attach_items" value="ldo' + pk + '">';
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="ldo' + pk + '/">';
 
   $div_svg = document.createElement("div");
   $div_svg.classList.add("card-img-top", "file-logo-wrapper");
   $div_svg.style.padding = "2rem";
-  $div_svg.innerHTML = '<a class="ajax nowrap" href="/docs/load/' + pk + '"/><div class="d-flex align-items-center justify-content-center w-100"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></div></a>'
+  $div_svg.innerHTML = '<a class="ajax nowrap" href="/docs/load/' + pk + '/"><div class="d-flex align-items-center justify-content-center w-100"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></div></a>'
 
   $card_body = document.createElement("div");
   $card_body.classList.add("card-body", "pt-0");

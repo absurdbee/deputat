@@ -1,0 +1,62 @@
+{% load filters %}
+
+<div class="container mt-3 pk_saver" data-uuid="{{ album.uuid }}">
+  <div class="row no-gutters">
+    {% if list|is_user_can_add_list:request.user.pk %}
+    <div class="col">
+      <a class="btn btn-sm border u_add_doc_list" style="width: -webkit-fill-available;">
+        Добавить список
+      </a>
+    </div>
+    {% elif request.user.pk in list.get_users_ids %}
+    <div class="col">
+      <a class="btn btn-sm border u_remove_doc_list" style="width: -webkit-fill-available;">
+        Удалить альбом
+      </a>
+    </div>
+    {% endif %}
+    <div class="col">
+      <a class="btn btn-sm border photo_fullscreen_hide_2" style="width: -webkit-fill-available;">
+        <svg fill="currentColor" class="svg_default" style="width: 17px;" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="media mt-3" style="display:flex;align-items: flex-start">
+    <h5 class="mt-1" style="flex: 1;">
+      {{ list.title }} ({{ list.count_docs }}) - альбом
+      <a href="{% url 'user' pk=list.creator.pk %}" class="ajax underline">
+        {{ list.creator.get_full_name_genitive }}
+      </a>
+    </h5>
+  </div>
+
+<div class="row is_load_paginate no-gutters" data-link="/docs/load/{{ list.pk }}/">
+{% for object in object_list %}
+<div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
+    <div class="media border p-1">
+        <div class="media-body doc_media_body">
+            <h6 class="pointer" style="width: 84%;overflow: hidden;">
+                <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
+            </h6>
+            <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
+            <span class='span_btn' data-pk="{{ doc.pk }}">
+                {% include 'user_docs/add_dropdown.html' %}
+                <div class="dropdown" style="position: inherit;">
+                    <a class="btn_default drop pointer">
+                        <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" style="top: 42px;">
+                        <span class="dropdown-item doc_manager_remove">♦ Удалить</span>
+                        <span class="dropdown-item copy_link">Копировать ссылку</span>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>

@@ -4,7 +4,7 @@ on('body', 'click', '.u_track_list_add', function() {
 });
 on('body', 'click', '.u_track_add', function() {
   loader = document.getElementById("create_loader");
-  open_fullscreen("/music/user_progs/create_doc/", loader)
+  open_fullscreen("/music/user_progs/create_track/", loader)
 });
 on('body', 'click', '.u_track_edit', function() {
   parent = this.parentElement.parentElement.parentElement;
@@ -14,6 +14,10 @@ on('body', 'click', '.u_track_edit', function() {
   parent.parentElement.parentElement.parentElement.classList.add("edited_track")
   loader = document.getElementById("create_loader");
   open_fullscreen("/music/user_progs/edit_track/" + parent.getAttribute("data-pk") +"/", loader)
+});
+on('body', 'click', '.u_playlist_add', function() {
+  loader = document.getElementById("create_loader");
+  open_fullscreen("/music/user_progs/create_list/", loader)
 });
 on('body', 'click', '.u_playlist_edit', function() {
   list = document.body.querySelectorAll('.cover_block');

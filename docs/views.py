@@ -65,6 +65,10 @@ class UserLoadDoclist(ListView):
 	def get(self,request,*args,**kwargs):
 		self.list = DocList.objects.get(pk=self.kwargs["pk"])
 		self.template_name = get_list_template(self.list, "user_docs/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		if self.user.pk == request.user.pk:
+			self.doc_list = self.list.get_my_docs()
+		else:
+			self.doc_list = self.list.get_docs()
 		return super(UserLoadDoclist,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -73,5 +77,4 @@ class UserLoadDoclist(ListView):
 		return context
 
 	def get_queryset(self):
-		list = self.list.get_docs()
-		return list
+		return self.doc_list

@@ -102,7 +102,7 @@ class UserTrackListRemove(View):
             raise Http404
 
 
-class UserPlaylistCreate(View):
+class UserPlaylistCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):

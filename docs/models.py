@@ -255,3 +255,6 @@ class Doc(models.Model):
             Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="R")
+
+    def is_private(self):
+        return self.status == self.PRIVATE

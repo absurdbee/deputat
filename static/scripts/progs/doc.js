@@ -209,7 +209,6 @@ on('body', 'click', '#u_edit_doc_btn', function() {
     toast_error("Загрузите документ!")
   } else { this.disabled = true }
 
-  uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/docs/user_progs/edit_doc/" + pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

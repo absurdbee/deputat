@@ -20,31 +20,8 @@
     <div class="row is_paginate no-gutters">
         {% if object_list %}
 
-        {% for doc in object_list %}
-        <div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
-            <div class="media border p-1">
-                <div class="media-body doc_media_body">
-                    <h6 class="pointer" style="width: 84%;overflow: hidden;">
-                        <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
-                    </h6>
-                    <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
-                    <span class='span_btn' data-pk="{{ doc.pk }}">
-                        {% include 'user_docs/add_dropdown.html' %}
-                        <div class="dropdown" style="position: inherit;">
-                            <a class="btn_default drop pointer">
-                                <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                                </svg>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" style="top: 42px;">
-                                <span class="dropdown-item copy_link">Копировать ссылку</span>
-                            </div>
-                        </div>
-                    </span>
-                </div>
-            </div>
-        </div>
+        {% for object in object_list %}
+          {% include 'user_music/anon_track.html' %}
         {% endfor %}
 
         {% else %}

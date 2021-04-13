@@ -60,6 +60,14 @@ function photo_album_comment_attach(dropdown, src, title, pk, count) {
   add_file_dropdown()
   is_full_dropdown();
 }
+function doc_list_comment_attach(dropdown, title, pk, count) {
+  is_full_dropdown();
+  attach_block = dropdown.parentElement.previousElementSibling;
+  div = create_preview_doc_list(title, pk, count);
+  attach_block.append(div);
+  add_file_dropdown()
+  is_full_dropdown();
+}
 
 function photo_comment_upload_attach(photo_list, dropdown){
   is_full_dropdown();

@@ -43,7 +43,7 @@ def get_u_blog_comment_attach(comment, user):
         elif item[:3] == "doc":
             try:
                 from docs.models import Doc
-                doc = Doc.objects.get(pk=item[3:])
+                doc = Doc.objects.get(query, pk=item[3:])
                 span_btn, lists = '', ''
                 if user.is_authenticated:
                     if user.pk == doc.creator.pk:

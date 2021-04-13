@@ -171,3 +171,51 @@ class UserPlaylistAbortDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class UserTrackCreate(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("user_music/create_track.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserTrackCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(UserTrackCreate,self).get_context_data(**kwargs)
+        context["form_post"] = TrackForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        form_post = TrackForm(request.POST, request.FILES)
+
+        if request.is_ajax() and form_post.is_valid():
+            track = form_post.save(commit=False)
+            new_track = Music.create_track(creator=request.user, title=track.title, file=track.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            return render_for_platform(request, 'user_music/new_track.html',{'object': new_track})
+        else:
+            return HttpResponseBadRequest()
+
+class UserTrackEdit(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.track = Music.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_small_template("user_music/edit_track.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserTrackEdit,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(UserTrackEdit,self).get_context_data(**kwargs)
+        context["form_post"] = TrackForm(instance=self.track)
+        context["track"] = self.track
+        return context
+
+    def post(self,request,*args,**kwargs):
+        self.track = Music.objects.get(pk=self.kwargs["pk"])
+        form_post = TrackForm(request.POST, request.FILES, instance=self.track)
+
+        if request.is_ajax() and form_post.is_valid():
+            _track = form_post.save(commit=False)
+            new_doc = self.track.edit_track(title=_track.title, file=_track.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            return render_for_platform(request, 'user_music/new_track.html',{'object': self.track})
+        else:
+            return HttpResponseBadRequest()

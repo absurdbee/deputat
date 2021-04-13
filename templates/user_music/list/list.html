@@ -10,8 +10,9 @@
               <a class="btn btn-sm btn_default border ajax" href="{% url 'user_music' pk=user.pk %}" style="width: -webkit-fill-available;">
                 <svg fill="currentColor" class="svg_default" style="width: 19px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/></svg>
               </a>
+            </div>
               {% if list|is_user_can_add_list:request.user.pk %}
-              <div style="flex: 0 0 40%;max-width:40%;padding:5px;"
+              <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
                   <h5 class="btn btn-sm border copy_playlist" style="width: -webkit-fill-available;font-size: 19px;">Добавить</h5>
               </div>
               {% elif request.user.pk in list.get_users_ids %}

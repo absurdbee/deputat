@@ -1,7 +1,7 @@
 from music.models import *
 from django.views import View
 from django.views.generic.base import TemplateView
-from music.forms import PlaylistForm
+from music.forms import PlaylistForm, TrackForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.parsing_soundcloud.add_playlist import add_playlist
 from django.http import Http404
@@ -107,7 +107,7 @@ class UserPlaylistCreate(View):
 
     def get(self,request,*args,**kwargs):
         self.template_name = get_small_template("user_music/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserCreatePlaylistWindow,self).get(request,*args,**kwargs)
+        return super(UserPlaylistCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(UserPlaylistCreate,self).get_context_data(**kwargs)

@@ -95,6 +95,8 @@ class SoundList(models.Model):
         return self.type == self.MAIN
     def is_user_list(self):
         return self.type == self.LIST
+    def is_private(self):
+        return self.type == self.PRIVATE
 
     def make_private(self):
         from notify.models import Notify, Wall
@@ -216,3 +218,6 @@ class Music(models.Model):
             Notify.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="mus"+str(self.pk), verb="ITE").update(status="R")
+
+    def is_private(self):
+        return self.status == self.PRIVATE

@@ -188,15 +188,10 @@ class User(AbstractUser):
         return try_except(self.perm == User.SUSPENDED)
 
     def is_man(self):
-        if self.gender == User.MALE:
-            return True
-        else:
-            return False
+        return self.gender == User.MALE:
+
     def is_women(self):
-        if self.gender == User.FEMALE:
-            return True
-        else:
-            return False
+        return self.gender == User.FEMALE:
 
     def create_s_avatar(self, photo_input):
         from easy_thumbnails.files import get_thumbnailer
@@ -215,12 +210,10 @@ class User(AbstractUser):
 
     def get_last_activity(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
-
         return naturaltime(self.last_activity)
 
     def get_country(self):
         from users.model.profile import UserLocation
-
         return UserLocation.objects.filter(user_id=self.pk).last().country_ru
 
     def get_online_display(self):
@@ -297,14 +290,12 @@ class User(AbstractUser):
 
     def plus_carma(self, value, reason):
         from users.model.profile import UserTransaction
-
         self.point += value
         self.save(update_fields=["point"])
         UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value, total=self.point)
 
     def minus_carma(self, value, reason):
         from users.model.profile import UserTransaction
-
         self.point -= value
         self.save(update_fields=["point"])
         UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value, total=self.point)
@@ -477,24 +468,34 @@ class User(AbstractUser):
 
     def get_my_playlists(self):
         from music.models import SoundList
-        tracks_query = Q(type="LIS") | Q(type="PRI")
-        tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(tracks_query)
+        query = Q(type="LIS") | Q(type="PRI")
+        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(query)
     def is_have_my_playlists(self):
         from music.models import SoundList
-        tracks_query = Q(type="LIS") | Q(type="PRI")
-        tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(tracks_query).exists()
+        query = Q(type="LIS") | Q(type="PRI")
+        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(query).exists()
     def get_playlists(self):
         from music.models import SoundList
-        tracks_query = Q(type="LIS")
-        tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(tracks_query).order_by("order")
+        query = Q(type="LIS")
+        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(query).order_by("order")
     def is_have_playlists(self):
         from music.models import SoundList
-        tracks_query = Q(type="LIS")
-        tracks_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(tracks_query).exists()
+        query = Q(type="LIS")
+        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(query).exists()
+    def get_my_all_music_lists(self):
+        from music.models import SoundList
+        query = Q(type="LIS") | Q(type="PRI") | Q(type="MAI")
+        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return SoundList.objects.filter(query)
+    def is_have_my_all_music_lists(self):
+        from music.models import SoundList
+        query = Q(type="LIS") | Q(type="PRI") | Q(type="MAI")
+        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return DocList.objects.filter(query).exists()
 
     def get_my_video_lists(self):
         from video.models import VideoAlbum

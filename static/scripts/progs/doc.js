@@ -240,7 +240,7 @@ on('body', 'click', '.u_doc_remove', function() {
     div.classList.add("col-md-6", "col-sm-12");
     div.style.padding = "20px";
     div.style.display =  "block";
-    div.innerHTML = "Запись удалена. <span class='u_doc_abort_remove pointer' data-pk='" + pk + "'>Восстановить</span>";
+    div.innerHTML = "Запись удалена. <span class='u_doc_abort_remove pointer underline' data-pk='" + pk + "'>Восстановить</span>";
     item = saver.parentElement.parentElement.parentElement;
     item.parentElement.insertBefore(div, item), item.style.display = "none"
   }};

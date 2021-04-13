@@ -1,11 +1,11 @@
 from music.models import *
-from users.models import User
 from django.views import View
 from django.views.generic.base import TemplateView
 from music.forms import PlaylistForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.parsing_soundcloud.add_playlist import add_playlist
 from django.http import Http404
+from common.templates import render_for_platform, get_small_template
 
 
 class UserSoundcloudSetCreate(TemplateView):

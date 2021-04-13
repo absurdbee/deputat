@@ -69,7 +69,6 @@ class UserLoadDoclist(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadDoclist,self).get_context_data(**kwargs)
-		context['user'] = self.user
 		context['list'] = self.list
 		return context
 

@@ -5,7 +5,7 @@ from django.contrib.postgres.indexes import BrinIndex
 from django.utils import timezone
 from pilkit.processors import ResizeToFill, ResizeToFit
 from imagekit.models import ProcessedImageField
-from users.helpers import upload_to_user_directory
+from music.helpers import upload_to_music_directory
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from django.db.models import Q
@@ -33,7 +33,7 @@ class SoundList(models.Model):
     type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип")
     order = models.PositiveIntegerField(default=0)
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
-    image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=400, height=400)])
+    image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_music_directory, processors=[Transpose(), ResizeToFit(width=400, height=400)])
 
     users = models.ManyToManyField("users.User", blank=True, related_name='user_soundlist')
 
@@ -154,9 +154,9 @@ class Music(models.Model):
     description = models.CharField(max_length=500, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     uri = models.CharField(max_length=255, blank=True, null=True)
-    release_year = models.CharField(max_length=10, blank=True, null=True)
     list = models.ManyToManyField(SoundList, related_name='playlist', blank="True")
     status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип")
+    file = models.FileField(upload_to=upload_to_doc_directory, verbose_name="Аудиозапись")
 
     def __str__(self):
         return self.title

@@ -137,13 +137,6 @@ on('body', 'click', '.u_remove_doc_in_list', function() {
   link.send( null );
 })
 
-on('body', 'click', '.u_load_doc_list', function() {
-  parent = this.parentElement.parentElement.parentElement;
-  pk = parent.getAttribute("data-pk");
-  loader = document.getElementById("window_loader");
-  open_fullscreen("/docs/load/" + pk + "/", loader)
-});
-
 on('body', 'click', '#u_create_doc_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
@@ -271,7 +264,7 @@ on('body', 'click', '.u_doc_abort_remove', function() {
 });
 
 on('body', 'click', '.u_load_doc_list', function() {
-  parent = this.parentElement.parentElement;
+  parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("doclist-pk");
   loader = document.getElementById("window_loader");
   open_fullscreen("/docs/load/" + pk + "/", loader)

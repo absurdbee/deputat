@@ -148,7 +148,8 @@ class Music(models.Model):
         (CLOSED, 'Закрыто модератором'),
         (MANAGER, 'Созданный персоналом'),
     )
-    artwork_url = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=100, height=100)])
+    artwork_url = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_music_directory, processors=[Transpose(), ResizeToFit(width=100, height=100)])
+    file = models.FileField(upload_to=upload_to_music_directory, verbose_name="Аудиозапись")
     created = models.DateTimeField(default=timezone.now)
     duration = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
@@ -156,7 +157,6 @@ class Music(models.Model):
     uri = models.CharField(max_length=255, blank=True, null=True)
     list = models.ManyToManyField(SoundList, related_name='playlist', blank="True")
     status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип")
-    file = models.FileField(upload_to=upload_to_doc_directory, verbose_name="Аудиозапись")
 
     def __str__(self):
         return self.title

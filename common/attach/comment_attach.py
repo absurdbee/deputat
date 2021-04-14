@@ -128,19 +128,19 @@ def get_u_blog_comment_attach(comment, user):
             except:
                 pass
         elif item[:3] == "lph":
-            #try:
-            from gallery.models import Album
-            album = Album.objects.get(pk=item[3:])
-            creator = album.creator
-            add = ''
-            if user.is_authenticated:
-                if album.is_user_can_add_list(user.pk):
-                    add = '<a class="col pointer u_add_photo_album text-white">Добавить</a>'
-                elif user.pk in album.get_users_ids():
-                    add = '<a class="col pointer u_remove_photo_album">Удалить</a>'
-            block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" data-pk="', str(album.pk), '"><figure class="background-img"><img src="', album.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_album text-white pointer"><a class="nowrap">', album.title, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(album.creator), '</a></p><hr class="my-3"><a class="u_load_photo_album text-white pointer">', album.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
-            #except:
-            #    pass
+            try:
+                from gallery.models import Album
+                album = Album.objects.get(pk=item[3:])
+                creator = album.creator
+                add = ''
+                if user.is_authenticated:
+                    if album.is_user_can_add_list(user.pk):
+                        add = '<a class="col pointer u_add_photo_album text-white">Добавить</a>'
+                    elif user.pk in album.get_users_ids():
+                        add = '<a class="col pointer u_remove_photo_album text-white">Удалить</a>'
+                block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" data-pk="', str(album.pk), '"><figure class="background-img"><img src="', album.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_album text-white pointer"><a class="nowrap">', album.title, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(album.creator), '</a></p><hr class="my-3"><a class="u_load_photo_album text-white pointer">', album.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
+            except:
+                pass
         elif item[:3] == "lvi":
             try:
                 from video.models import VideoAlbum
@@ -279,15 +279,15 @@ def get_u_elect_new_comment_attach(comment, user):
         elif item[:3] == "lph":
             try:
                 from gallery.models import Album
-                album = Album.objects.get(list_query, pk=item[3:])
+                album = Album.objects.get(pk=item[3:])
                 creator = album.creator
                 add = ''
                 if user.is_authenticated:
                     if album.is_user_can_add_list(user.pk):
-                        add = '<a class="col pointer u_add_photo_album">В коллекцию</a>'
+                        add = '<a class="col pointer u_add_photo_album text-white">Добавить</a>'
                     elif user.pk in album.get_users_ids():
-                        add = '<a class="col pointer u_remove_photo_album">Удалить</a>'
-                block = ''.join([block, '<div class="custom_color text-center has-background-img position-relative box-shadow" data-pk="', str(creator.pk), '" data-uuid="', str(album.uuid), '" style="width: 100%;flex-basis: 100%;"><figure class="background-img"><img src="', album.get_cover_photo().file.url, '">"</figure><div class="container"><i class="figure avatar120 mr-0 fa fa-gift rounded-circle bg-none"></i><br><h4 class="u_load_photo_album pointer"><a>', album.title, '</a></h4><p class="lead"><a class="ajax underline" href="/users/', creator.pk, '">', str(album.creator), '</a></p><hr class="my-3"><a class="u_load_photo_album pointer">', album.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
+                        add = '<a class="col pointer u_remove_photo_album text-white">Удалить</a>'
+                block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" data-pk="', str(album.pk), '"><figure class="background-img"><img src="', album.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_album text-white pointer"><a class="nowrap">', album.title, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(album.creator), '</a></p><hr class="my-3"><a class="u_load_photo_album text-white pointer">', album.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
             except:
                 pass
         elif item[:3] == "lvi":

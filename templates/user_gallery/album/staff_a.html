@@ -13,15 +13,15 @@
           </div>
             {% if album|is_user_can_add_list:request.user.pk %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border copy_photo_album" style="width: -webkit-fill-available;font-size: 19px;">Добавить</a>
+                <a class="btn btn-sm border copy_photo_album" style="width: -webkit-fill-available;font-size: 17px;">Добавить</a>
             </div>
             {% elif request.user.pk in album.get_users_ids %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;"
-                <a class="btn btn-sm border uncopy_photo_album" style="width: -webkit-fill-available;font-size: 19px;">Удалить</a>
+                <a class="btn btn-sm border uncopy_photo_album" style="width: -webkit-fill-available;font-size: 17px;">Удалить</a>
             </div>
             {% endif %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border manage_remove_photo_album" style="width: -webkit-fill-available;font-size: 19px;">♦ Закрыть</a>
+                <a class="btn btn-sm border manage_remove_photo_album" style="width: -webkit-fill-available;font-size: 17px;">♦ Закрыть</a>
             </div>
           </div>
       </div>

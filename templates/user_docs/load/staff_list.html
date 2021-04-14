@@ -4,13 +4,13 @@
   <div class="row no-gutters">
     {% if list|is_user_can_add_list:request.user.pk %}
     <div class="col">
-      <a class="btn btn-sm border u_add_doc_list" style="width: -webkit-fill-available;font-size: 19px;">
+      <a class="btn btn-sm border u_add_doc_list" style="width: -webkit-fill-available;font-size: 17px;">
         Добавить список
       </a>
     </div>
     {% elif request.user.pk in list.get_users_ids %}
     <div class="col">
-      <a class="btn btn-sm border u_remove_doc_list" style="width: -webkit-fill-available;font-size: 19px;">
+      <a class="btn btn-sm border u_remove_doc_list" style="width: -webkit-fill-available;font-size: 17px;">
         Удалить альбом
       </a>
     </div>

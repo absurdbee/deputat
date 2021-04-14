@@ -156,6 +156,7 @@ class UserBlock(models.Model):
 
     @classmethod
     def users_are_blocked(cls, user_a_id, user_b_id):
+        from django.db.models import Q
         return cls.objects.filter(Q(blocked_user_id=user_a_id, blocker_id=user_b_id)).exists()
 
     class Meta:

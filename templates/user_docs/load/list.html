@@ -1,6 +1,6 @@
 {% load filters %}
 
-<div class="container mt-3 pk_saver" data-uuid="{{ album.uuid }}">
+<div class="container mt-3 pk_saver">
   <div class="row no-gutters">
     {% if list|is_user_can_add_list:request.user.pk %}
     <div class="col">

@@ -129,7 +129,7 @@ def get_item_template(item, folder, template, request_user, user_agent):
                 template_name = folder + "staff_" + template
             elif request_user.is_blocked_with_user_with_id(user_id=user.pk):
                 template_name = "generic/u_template/you_block_акщь_user.html"
-            elif item.type == "PRI":
+            elif item.status == "PRI":
                 template_name = folder + "private_" + template
             else:
                 template_name = folder + template
@@ -138,7 +138,7 @@ def get_item_template(item, folder, template, request_user, user_agent):
             template_name = "generic/anon_user_suspended.html"
         elif user.is_blocked():
             template_name = "generic/anon_user_global_block.html"
-        elif item.type == "PRI":
+        elif item.status == "PRI":
             template_name = folder + "anon_private_" + template
         else:
             template_name = folder + "anon_" + template

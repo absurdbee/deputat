@@ -95,15 +95,9 @@ class DocList(models.Model):
         return [i['pk'] for i in users]
 
     def is_user_can_add_list(self, user_id):
-        if self.creator.pk != user_id and user_id not in self.get_users_ids():
-            return True
-        else:
-            return False
+        return self.creator.pk != user_id and user_id not in self.get_users_ids():
     def is_user_can_delete_list(self, user_id):
-        if self.creator.pk != user_id and user_id in self.get_users_ids():
-            return True
-        else:
-            return False
+        return self.creator.pk != user_id and user_id in self.get_users_ids():
 
     def count_docs(self):
         query = Q(status="PUB") | Q(status="PRI")

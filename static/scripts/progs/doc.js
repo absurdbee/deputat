@@ -171,12 +171,19 @@ on('body', 'click', '#u_create_doc_btn', function() {
     response = document.createElement("span");
     response.innerHTML = elem;
     span1 = response.querySelector('.span1')
-    if (span1.classList.contains(uuid)){
-      container = document.body.querySelector(".is_paginate");
+      if (document.body.querySelector(".current_file_dropdown")){
+        check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_block, pk))
+      } else if (document.body.querySelector(".attach_block")){
+        check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), media_block, pk))
+      } else if (document.body.querySector(".message_attach_block")){
+        check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), media_block, pk))
+      }
+      else {
+        if (span1.classList.contains(uuid)){
+          container = document.body.querySelector(".is_paginate");
       container.insertAdjacentHTML('afterBegin', response.innerHTML);
-      container.querySelector(".doc_empty") ? container.querySelector(".doc_empty").style.display = "none" : null;
-      toast_info("Документ создан!")
-    } else{
+      container.querySelector(".doc_empty") ? container.querySelector(".doc_empty").style.display = "none" : null
+    } else{ toast_info("Документ создан!")}
       toast_info("Документ создан!")
     }
     close_create_window();

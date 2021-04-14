@@ -417,13 +417,13 @@ class User(AbstractUser):
         # это все альбомы их создателя - приватные и пользовательские. Кроме основного.
         from gallery.models import Album
         albums_query = Q(type="LIS") | Q(type="PRI")
-        albums_query.add(Q(creator_id=self.id)), Q.AND)
+        albums_query.add(Q(creator_id=self.id), Q.AND)
         return Album.objects.filter(albums_query)
     def is_have_my_albums(self):
         # есть ли альбомы у request пользователя - приватные и пользовательские. Кроме основного.
         from gallery.models import Album
         albums_query = Q(type="LIS") | Q(type="PRI")
-        albums_query.add(Q(creator_id=self.id)), Q.AND)
+        albums_query.add(Q(creator_id=self.id), Q.AND)
         return Album.objects.filter(albums_query).exists()
     def get_my_albums_collections(self):
         # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.

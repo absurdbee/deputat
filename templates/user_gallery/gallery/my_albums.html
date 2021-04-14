@@ -1,4 +1,4 @@
-{% if user.is_have_my_albums %}
+{% if user.is_have_my_albums_collections %}
 <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
   <h5 class="mt-1" style="flex: 1;">Мои альбомы</h5>
   <span>{{ user.count_albums }}</span>
@@ -7,7 +7,7 @@
   <div class="col-12">
 
   <ul style="width:max-content;list-style: none;">
-    {% for object in user.get_my_albums %}
+    {% for object in user.get_my_albums_collections %}
         <li class="album_item">
           <div class="cover_block" data-uuid="{{ object.uuid }}">
               <div class="card rounded-0 border-0">

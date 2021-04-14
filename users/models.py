@@ -414,21 +414,33 @@ class User(AbstractUser):
         return UserLocation.objects.filter(user_id=self.pk).last().phone
 
     def get_my_albums(self):
+        # это все альбомы их создателя - приватные и пользовательские. Кроме основного.
+        from gallery.models import Album
+        return Album.objects.filter(Q(type="LIS") | Q(type="PRI"))
+    def is_have_my_albums(self):
+        # есть ли альбомы у request пользователя - приватные и пользовательские. Кроме основного.
+        from gallery.models import Album
+        return Album.objects.filter(Q(type="LIS") | Q(type="PRI")).exists()
+    def get_my_albums_collections(self):
+        # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
         from gallery.models import Album
         albums_query = Q(type="LIS") | Q(type="PRI")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query)
-    def is_have_my_albums(self):
+    def is_have_my_albums_collections(self):
+        # есть ли альбомы у request пользователя, кроме основного. И все добавленные альбомы.
         from gallery.models import Album
         albums_query = Q(type="LIS") | Q(type="PRI")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query).exists()
     def get_albums(self):
+        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
         from gallery.models import Album
         albums_query = Q(type="LIS")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query).order_by("order")
     def is_have_albums(self):
+        # есть ли альбомы пользователя - пользовательские. И все добавленные им альбомы.
         from gallery.models import Album
         albums_query = Q(type="LIS")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)

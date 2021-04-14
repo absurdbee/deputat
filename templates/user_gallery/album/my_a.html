@@ -11,13 +11,13 @@
         </a>
       </div>
       <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-        <h5 class="btn btn-sm border u_album_add" style="width: -webkit-fill-available;font-size: 19px;">+ альбом</h5>
+        <a class="btn btn-sm border u_album_add" style="width: -webkit-fill-available;font-size: 19px;">+ альбом</a>
       </div>
       <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
         <form id="add_photos">
           {% csrf_token %}
           <input type="file" id="u_photo_add" name="file" style="display:none" multiple="multiple">
-          <h5 class="btn btn-sm border previous_click" style="width: -webkit-fill-available;font-size: 19px;">+ фото</h5>
+          <a class="btn btn-sm border previous_click" style="width: -webkit-fill-available;font-size: 19px;">+ фото</a>
         </form>
       </div>
     </div>

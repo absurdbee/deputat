@@ -13,19 +13,18 @@
           </div>
             {% if list|is_user_can_add_list:request.user.pk %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <h5 class="btn btn-sm border copy_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Добавить</h5>
+                <a class="btn btn-sm border copy_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Добавить</a>
             </div>
             {% elif request.user.pk in list.get_users_ids %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;"
-                <h5 class="btn btn-sm border uncopy_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Удалить</h5>
+                <a class="btn btn-sm border uncopy_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Удалить</a>
             </div>
             {% endif %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <h5 class="btn btn-sm border claim_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Жалоба</h5>
+                <a class="btn btn-sm border claim_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Жалоба</a>
             </div>
           </div>
       </div>
-  </div>
 
     {% include 'user_docs/main/lists.html' %}
 

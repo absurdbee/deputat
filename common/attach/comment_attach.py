@@ -138,7 +138,7 @@ def get_u_blog_comment_attach(comment, user):
                     add = '<a class="col pointer u_add_photo_album text-white">Добавить</a>'
                 elif user.pk in album.get_users_ids():
                     add = '<a class="col pointer u_remove_photo_album">Удалить</a>'
-            block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" data-pk="', str(album.pk), '"><div><figure class="background-img"><img src="', album.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_album text-white pointer"><a class="nowrap">', album.title, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(album.creator), '</a></p><hr class="my-3"><a class="u_load_photo_album text-white pointer">', album.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div></div>'])
+            block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" data-pk="', str(album.pk), '"><figure class="background-img"><img src="', album.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_album text-white pointer"><a class="nowrap">', album.title, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(album.creator), '</a></p><hr class="my-3"><a class="u_load_photo_album text-white pointer">', album.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
             #except:
             #    pass
         elif item[:3] == "lvi":

@@ -15,6 +15,9 @@ body.dark-layout {
 .dark-layout .border, .dark-layout .border-top, .dark-layout .border-right, .dark-layout .border-bottom, .dark-layout .border-left {
   border-color : #404656 !important;
 }
+.dark-layout .border:hover {
+  border-color : #606370 !important;
+}
 
 .dark-layout a:hover {
   color : #FFFFFF;

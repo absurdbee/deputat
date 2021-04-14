@@ -9,9 +9,9 @@ on('body', 'click', '.menu_drop', function() {
 });
 
 function on_off_list_in_collections(_this, url, new_class, old_class, text) {
-  uuid = _this.parentElement.parentElement.parentElement.getAttribute("data-uuid");
+  pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk");
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', url + uuid + "/", true );
+  link.open( 'GET', url + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
     if ( link.readyState == 4 && link.status == 200 ) {

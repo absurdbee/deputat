@@ -11,14 +11,14 @@ from django.views.generic.base import TemplateView
 
 class UserAlbumAdd(View):
     def get(self,request,*args,**kwargs):
-        list = Album.objects.get(uuid=self.kwargs["uuid"])
+        list = Album.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_add_list(request.user.pk):
             list.users.add(request.user)
         return HttpResponse()
 
 class UserAlbumRemove(View):
     def get(self,request,*args,**kwargs):
-        list = Album.objects.get(uuid=self.kwargs["uuid"])
+        list = Album.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_delete_list(request.user.pk):
             list.users.remove(request.user)
         return HttpResponse()

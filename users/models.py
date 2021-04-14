@@ -413,14 +413,18 @@ class User(AbstractUser):
         from users.model.profile import UserLocation
         return UserLocation.objects.filter(user_id=self.pk).last().phone
 
-    def get_my_albums(self): 
+    def get_my_albums(self):
         # это все альбомы их создателя - приватные и пользовательские. Кроме основного.
         from gallery.models import Album
-        return Album.objects.filter(Q(type="LIS") | Q(type="PRI"))
+        albums_query = Q(type="LIS") | Q(type="PRI")
+        albums_query.add(Q(creator_id=self.id)), Q.AND)
+        return Album.objects.filter(albums_query)
     def is_have_my_albums(self):
         # есть ли альбомы у request пользователя - приватные и пользовательские. Кроме основного.
         from gallery.models import Album
-        return Album.objects.filter(Q(type="LIS") | Q(type="PRI")).exists()
+        albums_query = Q(type="LIS") | Q(type="PRI")
+        albums_query.add(Q(creator_id=self.id)), Q.AND)
+        return Album.objects.filter(albums_query).exists()
     def get_my_albums_collections(self):
         # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
         from gallery.models import Album

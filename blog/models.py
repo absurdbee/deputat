@@ -140,7 +140,7 @@ class Blog(models.Model):
         return BlogNumbers.objects.filter(new=self.pk).values("pk").count()
 
     def is_blog_in_bookmarks(self, user_id):
-        from user.model.profile import Bookmarks
+        from users.model.profile import Bookmarks
         return Bookmarks.objects.filter(blog=self, user_id=user_id).exists()
 
     def get_attach_photos(self):

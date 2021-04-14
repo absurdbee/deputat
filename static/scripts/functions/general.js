@@ -19,7 +19,9 @@ function on_off_list_in_collections(_this, url, new_class, old_class, text) {
       _this.classList.add(new_class);
       _this.classList.remove(old_class)
       _this.innerHTML = text
-}
+}}
+link.send( null );
+};
 
 function mob_send_change(span, _link, new_class, html) {
     parent = span.parentElement;

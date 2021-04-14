@@ -198,9 +198,9 @@ on('body', 'click', '.u_load_photo_album', function() {
   open_fullscreen("/gallery/load_album/" + pk + "/", loader)
 });
 
-on('#ajax', 'click', '.u_add_photo_album', function(e) {
+on('body', 'click', '.u_add_photo_album', function() {
   on_off_list_in_collections(this, "/gallery/user_progs/add_list/", "u_remove_photo_album", "u_add_photo_album", "Удалить")
 });
-on('#ajax', 'click', '.u_remove_photo_album', function(e) {
+on('body', 'click', '.u_remove_photo_album', function() {
   on_off_list_in_collections(this, "/gallery/user_progs/remove_list/", "u_add_photo_album", "u_remove_photo_album", "Добавить")
 });

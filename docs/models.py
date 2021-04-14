@@ -84,14 +84,13 @@ class DocList(models.Model):
         return self.doc_list.filter(list=self).values("pk").exists()
 
     def get_my_docs(self):
-        query = Q(status="PUB") | Q(status="PRI")
-        return self.doc_list.filter(query)
+        return self.doc_list.filter(Q(status="PUB")|Q(status="PRI"))
 
     def get_docs(self):
         return self.doc_list.filter(status="PUB")
 
     def get_users_ids(self):
-        users = self.users.exclude(perm="DE").exclude(perm="BL").exclude(perm="PV").values("pk")
+        users = self.users.exclude(Q(perm="DE")|Q(perm="BL")).values("pk")
         return [i['pk'] for i in users]
 
     def is_user_can_add_list(self, user_id):
@@ -100,8 +99,7 @@ class DocList(models.Model):
         return self.creator.pk != user_id and user_id in self.get_users_ids()
 
     def count_docs(self):
-        query = Q(status="PUB") | Q(status="PRI")
-        return self.doc_list.filter(query).values("pk").count()
+        return self.doc_list.filter(Q(status="PUB")|Q(status="PRI")).values("pk").count()
 
     def is_main_list(self):
         return self.type == self.MAIN
@@ -178,8 +176,7 @@ class Doc(models.Model):
 
     def get_mime_type(self):
         import magic
-        mime = magic.from_file(self.file.path, mime=True)
-        return mime
+        return magic.from_file(self.file.path, mime=True)
 
     @classmethod
     def create_doc(cls, creator, title, file, lists, is_public):

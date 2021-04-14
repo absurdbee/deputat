@@ -61,19 +61,13 @@ class SoundList(models.Model):
         return queryset
 
     def get_users_ids(self):
-        users = self.users.exclude(perm="DE").exclude(perm="BL").exclude(perm="PV").values("pk")
+        users = self.users.exclude(Q(perm="DE")|Q(perm="BL")).values("pk")
         return [i['pk'] for i in users]
 
     def is_user_can_add_list(self, user_id):
-        if self.creator.pk != user_id and user_id not in self.get_users_ids():
-            return True
-        else:
-            return False
+        return self.creator.pk != user_id and user_id not in self.get_users_ids()
     def is_user_can_delete_list(self, user_id):
-        if self.creator.pk != user_id and user_id in self.get_users_ids():
-            return True
-        else:
-            return False
+        return self.creator.pk != user_id and user_id in self.get_users_ids()
 
     def get_remote_image(self, image_url):
         import os

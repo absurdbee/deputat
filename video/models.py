@@ -85,19 +85,14 @@ class VideoAlbum(models.Model):
         return self.video_album.filter(album=self).values("pk").exists()
 
     def get_users_ids(self):
-        users = self.users.exclude(perm="DE").exclude(perm="BL").exclude(perm="PV").values("pk")
+        users = self.users.exclude(Q(perm="DE")|Q(perm="BL")).values("pk")
         return [i['pk'] for i in users]
 
     def is_user_can_add_list(self, user_id):
-        if self.creator.pk != user_id and user_id not in self.get_users_ids():
-            return True
-        else:
-            return False
+        return self.creator.pk != user_id and user_id not in self.get_users_ids()
+
     def is_user_can_delete_list(self, user_id):
-        if self.creator.pk != user_id and user_id in self.get_users_ids():
-            return True
-        else:
-            return False
+        return self.creator.pk != user_id and user_id in self.get_users_ids()
 
     def is_item_in_list(self, item_id):
         return self.video_album.filter(pk=item_id).exists()
@@ -182,8 +177,7 @@ class Video(models.Model):
         return naturaltime(self.created)
 
     def likes(self):
-        likes = VideoVotes.objects.filter(parent=self, vote__gt=0)
-        return likes
+        return VideoVotes.objects.filter(parent_id=self.pk, vote__gt=0)
 
     def visits_count_ru(self):
         count = self.all_visits_count()

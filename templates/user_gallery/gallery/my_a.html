@@ -3,7 +3,6 @@
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ album.uuid }}">
-  <div class="card-header p-0">
     <div class="row no-gutters">
       <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
         {% include 'generic/user/user_back.html' %}
@@ -19,7 +18,6 @@
         </form>
       </div>
     </div>
-  </div>
 
 {% include 'user_gallery/gallery/my_albums.html' %}
 

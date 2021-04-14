@@ -3,7 +3,6 @@
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ album.uuid }}">
-  <div class="card-header p-0">
     <div class="row no-gutters">
       <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
         <a class="btn btn-sm btn_default border ajax" href="{% url 'user_gallery' pk=user.pk %}" style="width: -webkit-fill-available;">
@@ -21,7 +20,6 @@
         </form>
       </div>
     </div>
-  </div>
 
 <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
   <h5 class="mt-1" style="flex: 1;">{{ album.title }} ({{ album.count_photo }})</h5>

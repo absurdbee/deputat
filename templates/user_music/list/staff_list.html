@@ -4,7 +4,6 @@
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
-    <div class="card-header p-0">
         <div class="row no-gutters">
             <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
               <a class="btn btn-sm btn_default border ajax" href="{% url 'user_music' pk=user.pk %}" style="width: -webkit-fill-available;">
@@ -24,7 +23,6 @@
                   <a class="btn btn-sm border manage_remove_playlist" style="width: -webkit-fill-available;font-size: 19px;">♦ Удалить</a>
               </div>
             </div>
-        </div>
 
     <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
         <h5 class="mt-1" style="flex: 1;">{{ list.name }} - аудиозаписи {{ user.get_full_name_genitive }} ({{ list.count_tracks }})</h5>

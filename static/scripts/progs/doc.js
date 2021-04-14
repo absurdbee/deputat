@@ -138,7 +138,8 @@ on('body', 'click', '.u_remove_doc_in_list', function() {
 })
 
 on('body', 'click', '#u_create_doc_btn', function() {
-  form = this.parentElement.parentElement.parentElement;
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
 
   lists = form.querySelector("#id_list");
@@ -158,7 +159,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
   else if (!form.querySelector("#id_file").value){
     form.querySelector("#id_file").style.border = "1px #FF0000 solid";
     toast_error("Загрузите документ!")
-  } else { this.disabled = true }
+  } else { _this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/docs/user_progs/create_doc/", true );

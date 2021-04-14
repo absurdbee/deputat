@@ -146,6 +146,10 @@ class User(AbstractUser):
         elect_ids = [elect['elect_id'] for elect in elect_subscribers]
         return Elect.objects.filter(id__in=elect_ids).exists()
 
+    def is_blocked_with_user_with_id(self, user_id):
+        from users.model.profile import UserBlock
+        return UserBlock.users_are_blocked(user_a_id=self.pk, user_b_id=user_id)
+
     def get_elect_subscribers_count(self):
         from elect.models import SubscribeElect
         return SubscribeElect.objects.filter(user_id=self.pk).values("pk").count()

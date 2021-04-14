@@ -8,6 +8,19 @@ on('body', 'click', '.menu_drop', function() {
   } block.classList.add("show")}
 });
 
+function on_off_list_in_collections(_this, url, new_class, old_class, text) {
+  uuid = _this.parentElement.parentElement.parentElement.getAttribute("data-uuid");
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', url + uuid + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 && link.status == 200 ) {
+      _this.innerHTML = "";
+      _this.classList.add(new_class);
+      _this.classList.remove(old_class)
+      _this.innerHTML = text
+}
+
 function mob_send_change(span, _link, new_class, html) {
     parent = span.parentElement;
     item = span.parentElement.parentElement.parentElement.parentElement.parentElement;
@@ -126,7 +139,7 @@ on('body', 'click', '.photo_attach_album_remove', function() {
   block.remove();
 });
 on('body', 'click', '.doc_attach_list_remove', function() {
-  block = this.parentElement.parentElement; 
+  block = this.parentElement.parentElement;
   if (block.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()
   } else if (block.parentElement.classList.contains("comment_attach_block")){

@@ -194,6 +194,13 @@ on('body', 'click', '.u_elect_new_comment_photo', function() {
 on('body', 'click', '.u_load_photo_album', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("data-pk");
-  loader = document.getElementById("window_loader"); 
+  loader = document.getElementById("window_loader");
   open_fullscreen("/gallery/load_album/" + pk + "/", loader)
+});
+
+on('#ajax', 'click', '.u_add_photo_album', function(e) {
+  on_off_list_in_collections(this, "/gallery/user_progs/add_list/", "u_remove_photo_album", "u_add_photo_album", "Удалить")
+});
+on('#ajax', 'click', '.u_remove_photo_album', function(e) {
+  on_off_list_in_collections(this, "/gallery/user_progs/remove_list/", "u_add_photo_album", "u_remove_photo_album", "Добавить")
 });

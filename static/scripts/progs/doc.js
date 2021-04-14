@@ -160,7 +160,6 @@ on('body', 'click', '#u_create_doc_btn', function() {
     toast_error("Загрузите документ!")
   } else { this.disabled = true }
 
-  uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/docs/user_progs/create_doc/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -179,6 +178,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
         check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), media_block, pk))
       }
       else {
+        uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
         if (span1.classList.contains(uuid)){
           container = document.body.querySelector(".is_paginate");
       container.insertAdjacentHTML('afterBegin', response.innerHTML);

@@ -421,7 +421,7 @@ body.dark-layout {
 
 .dark-layout .dropdown-menu .dropdown-item:hover, .dark-layout .dropdown-menu .dropdown-item:focus {
   background : rgba(115, 103, 240, 0.12);
-  color : #7367F0;
+  color : #FFFFFF;
 }
 
 .dark-layout .dropdown-menu .dropdown-item:active, .dark-layout .dropdown-menu .dropdown-item.active {

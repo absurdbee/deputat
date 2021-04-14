@@ -212,9 +212,7 @@ function create_preview_doc(media_body, pk){
   $span2.append($span);
 
   $media.innerHTML = media_body.innerHTML;
-  $media.style.marginLeft = "10px";
-  $media.style.marginRight = "40px";
-  $media.style.overflow = "hidden";
+  $media.classList.add("media_title");
   h6 = $media.querySelector("h6");
   h6.style.paddingTop = "9px";
 

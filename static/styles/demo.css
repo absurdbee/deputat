@@ -1,3 +1,10 @@
+.media_title {
+  margin-left: 10px;
+  margin-right: 40px;
+  overflow: hidden;
+  width: 77%;
+}
+
 .doc_preview_delete {
   top: 8px !important;
 }

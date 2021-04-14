@@ -175,7 +175,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
         pk = response.querySelector(".span_btn").getAttribute("data-pk");
         media_body = response.querySelector(".media-body");
         media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
-        check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response.querySelector(".media-body"), pk))
+        check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_body, pk))
       } else if (document.body.querySelector(".attach_block")){
         pk = response.querySelector(".span_btn").getAttribute("data-pk");
         check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), pk))

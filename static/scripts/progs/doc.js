@@ -172,11 +172,14 @@ on('body', 'click', '#u_create_doc_btn', function() {
     response.innerHTML = elem;
 
       if (document.body.querySelector(".current_file_dropdown")){
-        check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response.querySelector(".media-body"), response.querySelector(".span_btn").getAttribute("data-pk")))
+        pk = response.querySelector(".span_btn").getAttribute("data-pk");
+        check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response.querySelector(".media-body"), pk))
       } else if (document.body.querySelector(".attach_block")){
-        check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), response.querySelector(".span_btn").getAttribute("data-pk")))
+        pk = response.querySelector(".span_btn").getAttribute("data-pk");
+        check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), pk))
       } else if (document.body.querySector(".message_attach_block")){
-        check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), response.querySelector(".media-body"), response.querySelector(".span_btn").getAttribute("data-pk")))
+        pk = response.querySelector(".span_btn").getAttribute("data-pk");
+        check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), response.querySelector(".media-body"), pk))
       }
       else {
         uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");

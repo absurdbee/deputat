@@ -95,6 +95,7 @@ class Elect(models.Model):
         return [i['user_id'] for i in subscribers]
 
     def get_subscribers(self):
+        from users.models import User
         return User.objects.filter(id__in=self.get_subscribers_ids())
 
     def is_have_subscribers(self):

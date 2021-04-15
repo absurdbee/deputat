@@ -182,3 +182,5 @@ THUMBNAIL_ALIASES = {
         "small_avatar": {"size":(100,100)},
     },
 }
+
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'

@@ -99,13 +99,13 @@ def get_comment_blog(user, notify):
         _attach = attach.split(",")
         if notify.is_have_user_set():
             return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a> '\
-            + notify.get_verb_display() + ' ' + str(notify.count_user_set_comment()) + ' к новости</p>' + blog(user, _attach[1][3:])
+            + notify.get_verb_display() + ' ' + str(notify.count_user_set_comment()) + ' к новости</p>' + blog(user, _attach[1][4:])
         elif notify.is_have_object_set():
             first_notify = notify.get_first_object_set()
             return '<p style="padding-left: 7px;"><a href="' + first_notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
             first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\
-             + ' новость </p>' + blog(user, _attach[1][3:])
+             + ' новость </p>' + blog(user, _attach[1][4:])
         else:
             return '<p style="padding-left: 7px;"><a href="' + notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
             notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
-             + ' новость </p>' + blog(user, _attach[1][3:])
+             + ' новость </p>' + blog(user, _attach[1][4:])

@@ -81,8 +81,7 @@ def get_blog(user, notify):
 
 def get_comment_blog(user, notify):
     attach = notify.attach
-    return attach
-    if attach[3:] == "blr":
+    if attach[:3] == "blr":
         _attach = attach.split(",")
         if notify.is_have_user_set():
             return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a> '\
@@ -96,7 +95,7 @@ def get_comment_blog(user, notify):
             return '<p style="padding-left: 7px;"><a href="' + notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
             notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
              + ' новость </p>' + blog(user, _attach[2][3:])
-    if attach[3:] == "blc":
+    if attach[:3] == "blc":
         _attach = attach.split(",")
         if notify.is_have_user_set():
             return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a> '\

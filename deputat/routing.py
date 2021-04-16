@@ -10,7 +10,7 @@ application = ProtocolTypeRouter({
     "websocket": AllowedHostsOriginValidator(
         AuthMiddlewareStack(
             URLRouter([
-                url(r"^notify/$", NotificationsConsumer),
+                url(r"^notify/$", NotificationsConsumer.as_asgi()),
             ])
         ),
     ),

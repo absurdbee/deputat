@@ -66,7 +66,6 @@ def get_notify(user, notify):
         from common.items.blog import get_blog
         return get_blog(user, notify)
     elif attach[:2] == "bl":
-        return attach[:2]
         from common.items.blog import get_comment_blog
         return get_comment_blog(user, notify)
 

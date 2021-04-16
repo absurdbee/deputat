@@ -80,8 +80,8 @@ def get_blog(user, notify):
              + ' новость </p>' + blog(user, notify.attach[3:])
 
 def get_comment_blog(user, notify):
-    return True
     attach = notify.attach
+    return attach
     if attach[3:] == "blr":
         _attach = attach.split(",")
         if notify.is_have_user_set():

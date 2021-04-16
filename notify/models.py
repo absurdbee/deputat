@@ -138,15 +138,33 @@ class Wall(models.Model):
         from django.db.models import Q
         return Wall.objects.filter(Q(id=self) | Q(user_set_id=self.pk))[:6]
 
-    def count_user_set(self):
+    def count_user_set_blog(self):
         count = Wall.objects.filter(user_set_id=self.pk).values("pk").count() + 1
         a, b = count % 10, count % 100
         if (a == 1) and (b != 11):
-            return str(count) + " запись"
+            return str(count) + " новость"
         elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
-            return str(count) + " записи"
+            return str(count) + " новости"
         else:
-            return str(count) + " записей"
+            return str(count) + " новостей"
+    def count_user_set_act(self):
+        count = Wall.objects.filter(user_set_id=self.pk).values("pk").count() + 1
+        a, b = count % 10, count % 100
+        if (a == 1) and (b != 11):
+            return str(count) + " активность"
+        elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
+            return str(count) + " активности"
+        else:
+            return str(count) + " активностей"
+    def count_user_set_comment(self):
+        count = Wall.objects.filter(user_set_id=self.pk).values("pk").count() + 1
+        a, b = count % 10, count % 100
+        if (a == 1) and (b != 11):
+            return str(count) + " комментарий"
+        elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
+            return str(count) + " комментария"
+        else:
+            return str(count) + " комментариев"
     def get_first_user_set(self):
         return Wall.objects.filter(user_set_id=self.pk).first()
 

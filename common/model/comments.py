@@ -94,7 +94,7 @@ class BlogComment(models.Model):
 
     @classmethod
     def create_comment(cls, commenter, blog, parent, text, attach):
-        from common.notify import user_wall, user_notify
+        from common.notify import user_comment_wall, user_comment_notify
         from django.utils import timezone
         from common.processing import get_blog_message_processing
         _attach = str(attach)
@@ -105,12 +105,12 @@ class BlogComment(models.Model):
             if parent:
                 blog = parent.blog
                 type = "blc"+str(parent.pk)+",blo"+str(blog.pk)
-                user_wall(commenter, type, "u_blog_comment_notify", "COM")
-                user_notify(commenter, "blr"+type, "u_blog_comment_notify", "REP")
+                user_comment_wall(commenter, type, "news_wall", "COM")
+                user_comment_notify(commenter, "blr"+type, "u_blog_comment_notify", "REP")
             else:
                 type = "blc"+str(comment.pk)+", blo"+str(blog.pk)
-                user_wall(commenter, type, "u_blog_comment_notify", "COM")
-                user_notify(commenter, type, "u_blog_comment_notify", "COM")
+                user_comment_wall(commenter, type, "news_wall", "COM")
+                user_comment_notify(commenter, type, "u_blog_comment_notify", "COM")
 
             get_blog_message_processing(comment)
             return comment

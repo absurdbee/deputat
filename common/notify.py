@@ -39,7 +39,7 @@ def user_notify(creator, attach, socket_name, verb):
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb="G"+verb, object_set=notify)
         else:
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb)
-            #send_notify_socket(attach[3:], user_id, socket_name)
+            send_notify_socket(attach[3:], user_id, socket_name)
 
 def user_wall(creator, attach, socket_name, verb):
     from notify.models import Wall
@@ -47,8 +47,8 @@ def user_wall(creator, attach, socket_name, verb):
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
 
-    #if Wall.objects.filter(creator_id=creator.pk, attach=attach, verb=verb).exists():
-    #    pass
+    if Wall.objects.filter(creator_id=creator.pk, attach=attach, verb=verb).exists():
+        pass
     if Wall.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
         notify = Wall.objects.filter(attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
         Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb, user_set=notify)
@@ -57,7 +57,7 @@ def user_wall(creator, attach, socket_name, verb):
         Wall.objects.create(creator_id=creator.pk, attach=attach, verb="G"+verb, object_set=notify)
     else:
         Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb)
-    #send_wall_socket(attach[3:], socket_name)
+    send_wall_socket(attach[3:], socket_name)
 
 
 def get_notify(user, notify):
@@ -68,6 +68,38 @@ def get_notify(user, notify):
     elif attach[:3] == "blc":
         from common.items.blog import get_comment_blog
         return get_comment_blog(user, notify)
+
+def user_comment_notify(creator, attach, socket_name, verb):
+    from notify.models import Notify
+    from datetime import date
+
+    current_verb, today = creator.get_verb_gender(verb), date.today()
+    for user_id in creator.get_member_for_notify_ids():
+        if Notify.objects.filter(recipient_id=user_id, created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
+            notify = Notify.objects.filter(recipient_id=user_id, attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb, user_set=notify)
+        elif Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).exists():
+            notify = Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).last()
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb="G"+verb, object_set=notify)
+        else:
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb)
+            send_notify_socket(attach[3:], user_id, socket_name)
+
+def user_comment_wall(creator, attach, socket_name, verb):
+    from notify.models import Wall
+    from datetime import date
+
+    current_verb, today = creator.get_verb_gender(verb), date.today()
+    if Wall.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
+        notify = Wall.objects.filter(attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
+        Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb, user_set=notify)
+    elif Wall.objects.filter(attach=attach, created__gt=today, verb=verb).exists():
+        notify = Wall.objects.filter(attach=attach, created__gt=today, verb=verb).last()
+        Wall.objects.create(creator_id=creator.pk, attach=attach, verb="G"+verb, object_set=notify)
+    else:
+        Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb)
+    send_wall_socket(attach[3:], socket_name)
+
 
 def send_notify_socket(id, recipient_id, socket_name):
     # посылаем сокет с переменными: id-id объекта, user_ids-все получатели уведомлений, recipient_id - id получателя,
@@ -81,7 +113,7 @@ def send_notify_socket(id, recipient_id, socket_name):
         'key': 'notification',
         'id': str(post.pk),
         'recipient_id': str(recipient_id),
-        'name': "u_post_create",
+        'name': socket_name,
     }
     async_to_sync(channel_layer.group_send)('notification', payload)
 
@@ -93,7 +125,7 @@ def send_wall_socket(id, socket_name):
     channel_layer = get_channel_layer()
     payload = {
         'type': 'receive',
-        'key': 'notification',
+        'key': 'wall',
         'id': str(id),
         'name': socket_name,
     }

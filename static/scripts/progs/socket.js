@@ -15,7 +15,7 @@ function case_u_post_notify(pk) {
     new Audio('/static/audio/apple/nota.mp3').play();
 }
 
-function case_u_wall_create(pk) {
+function case_news_wall(pk) {
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
   link_.open('GET', "/notify/new_notify/" + pk + "/", true);
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -73,16 +73,14 @@ webSocket.listen(function (event) {
         break;
 
       case "wall":
-          if (event.recipient_id == request_user_id){
             if (event.name == "user_wall"){
               // появление новых записей на стене, сваязанных с пользователями (например, действия челов разной направленности)
               case_user_wall()
             }
             else if (event.name == "news_wall"){
               // появление новых записей на главной стене
-              case_news_wall(event.notify_id)
+              case_news_wall(event.id)
             }
-          }
           break;
 
       case "message":

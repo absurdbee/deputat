@@ -16,11 +16,11 @@ CONNECTION_CONFIRMED, WOMEN_CONNECTION_CONFIRMED, GROUP_CONNECTION_CONFIRMED = '
 
 REGISTER, WOMEN_REGISTER, GROUP_REGISTER = 'REG', 'WREG', 'GREG'
 
-UNREAD, READ, DELETED = 'U', 'R', 'D'
+UNREAD, READ, DELETED, CLOSED = 'U', 'R', 'D', 'C'
 
 VERB = (
     (ITEM, ' разместил'),
-    (COMMENT, ' оставил'), (WOMEN_COMMENT, ' оставила'), (GROUP_COMMENT, ' оставили'),
+    (COMMENT, ' оставил комментарий'), (WOMEN_COMMENT, ' оставила комментарий'), (GROUP_COMMENT, ' оставили комментарий'),
     (REPLY, ' ответил на'), (WOMEN_REPLY, ' ответила на'), (GROUP_REPLY, ' ответили на'),
 
     (LIKE, ' оценил'), (WOMEN_LIKE, ' оценила'), (GROUP_LIKE, ' оценили'),
@@ -36,4 +36,4 @@ VERB = (
     (REGISTER, ' зарегистрировался'), (WOMEN_REGISTER, ' зарегистрировалась'), (GROUP_REGISTER, ' зарегистрировались'),
 )
 
-STATUS = ((UNREAD, 'Не прочитано'),(READ, 'Прочитано'),(DELETED, 'Удалено'),)
+STATUS = ((UNREAD, 'Не прочитано'),(READ, 'Прочитано'),(DELETED, 'Удалено'),(CLOSED, 'Закрыто'),)

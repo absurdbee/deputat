@@ -120,7 +120,7 @@ def send_notify_socket(id, recipient_id, socket_name):
 def send_wall_socket(id, socket_name):
     # посылаем сокет с переменными: id-id объекта, socket_name-имя, по которому следует назначать событие в скрипте js
     from asgiref.sync import async_to_sync
-    from channels.layers import get_channel_laye
+    from channels.layers import get_channel_layer
 
     channel_layer = get_channel_layer()
     payload = {

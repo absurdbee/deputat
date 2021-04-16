@@ -104,9 +104,9 @@ class BlogComment(models.Model):
             comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text, attach=_attach, created=timezone.now())
             if parent:
                 blog = parent.blog
-                type = "blr"+str(comment.pk)+",blc"+str(parent.pk)+",blo"+str(blog.pk)
-                user_wall(commenter, type, "u_blog_comment_notify", "REP")
-                user_notify(commenter, type, "u_blog_comment_notify", "REP")
+                type = "blc"+str(parent.pk)+",blo"+str(blog.pk)
+                user_wall(commenter, type, "u_blog_comment_notify", "COM")
+                user_notify(commenter, "blr"+type, "u_blog_comment_notify", "REP")
             else:
                 type = "blc"+str(comment.pk)+", blo"+str(blog.pk)
                 user_wall(commenter, type, "u_blog_comment_notify", "COM")

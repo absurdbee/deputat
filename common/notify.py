@@ -4,7 +4,7 @@ from notify.models import Notify, Wall
 
 def get_news():
     # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
-    query = Q(object_set__isnull=True)&Q(user_set__isnull=name)
+    query = Q(object_set__isnull=True)&Q(user_set__isnull=True)
     return Wall.objects.filter(query)
 
 def get_region_news(name):

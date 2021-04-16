@@ -17,7 +17,7 @@ function case_u_post_notify(pk) {
 
 function case_news_wall(pk) {
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  link_.open('GET', "/notify/new_notify/" + pk + "/", true);
+  link_.open('GET', "/notify/new_wall/" + pk + "/", true);
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function() {

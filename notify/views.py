@@ -1,6 +1,7 @@
 from django.views.generic import ListView
 from common.templates import get_my_template, get_small_template
 from django.views.generic.base import TemplateView
+from notify.models import Notify, Wall
 
 
 class AllNotifyView(ListView):
@@ -21,11 +22,11 @@ class AllNotifyView(ListView):
         return self.all_notify
 
 
-class NewNotify(TemplateView):
+class NewWall(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.notify = Notify.objects.get(pk=self.kwargs["pk"])
+		self.notify = Wall.objects.get(pk=self.kwargs["pk"])
 		self.template_name = get_small_template("notify/new_notify.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(NewNotify,self).get(request,*args,**kwargs)
 

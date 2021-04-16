@@ -32,10 +32,10 @@ def user_notify(creator, attach, socket_name, verb):
         if Notify.objects.filter(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=verb).exists():
             pass
         elif Notify.objects.filter(recipient_id=user_id, created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
-            notify = Notify.objects.filter(recipient_id=user_id, attach__contains=attach[:3], created__gt=today, verb=current_verb).first()
+            notify = Notify.objects.filter(recipient_id=user_id, attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb, user_set=notify)
         elif Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).exists():
-            notify = Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).first()
+            notify = Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).last()
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb="G"+verb, object_set=notify)
         else:
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb)
@@ -50,10 +50,10 @@ def user_wall(creator, attach, socket_name, verb):
     if Wall.objects.filter(creator_id=creator.pk, attach=attach, verb=verb).exists():
         pass
     elif Wall.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
-        notify = Wall.objects.filter(attach__contains=attach[:3], created__gt=today, verb=current_verb).first()
+        notify = Wall.objects.filter(attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
         Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb, user_set=notify)
     elif Wall.objects.filter(attach=attach, created__gt=today, verb=verb).exists():
-        notify = Wall.objects.filter(attach=attach, created__gt=today, verb=verb).first()
+        notify = Wall.objects.filter(attach=attach, created__gt=today, verb=verb).last()
         Wall.objects.create(creator_id=creator.pk, attach=attach, verb="G"+verb, object_set=notify)
     else:
         Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb)

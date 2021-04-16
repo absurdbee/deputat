@@ -47,9 +47,9 @@ def user_wall(creator, attach, socket_name, verb):
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
 
-    if Wall.objects.filter(creator_id=creator.pk, attach=attach, verb=verb).exists():
-        pass
-    elif Wall.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
+    #if Wall.objects.filter(creator_id=creator.pk, attach=attach, verb=verb).exists():
+    #    pass
+    if Wall.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
         notify = Wall.objects.filter(attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
         Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb, user_set=notify)
     elif Wall.objects.filter(attach=attach, created__gt=today, verb=verb).exists():

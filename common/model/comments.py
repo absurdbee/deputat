@@ -111,7 +111,6 @@ class BlogComment(models.Model):
                 type = "blc"+str(comment.pk)+", blo"+str(blog.pk)
                 user_comment_wall(commenter, type, "news_wall", "COM")
                 user_comment_notify(commenter, type, "u_blog_comment_notify", "COM")
-
             get_blog_message_processing(comment)
             return comment
         else:

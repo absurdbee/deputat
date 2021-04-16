@@ -79,7 +79,7 @@ webSocket.listen(function (event) {
             }
             else if (event.name == "news_wall"){
               // появление новых записей на главной стене
-              case_news_wall(event.id)
+              if document.body.querySelector(".news_stream") {case_news_wall(event.id)}
             }
           break;
 

@@ -68,7 +68,7 @@ def get_blog(user, notify):
     else:
         if notify.is_have_user_set():
             return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a> '\
-            + notify.get_verb_display() + ' ' + str(notify.count_user_set()) + '</p>' + blog(user, notify.attach[3:])
+            + notify.get_verb_display() + ' ' + notify.count_user_set_blog() + '</p>' + blog(user, notify.attach[3:])
         elif notify.is_have_object_set():
             first_notify = notify.get_first_object_set()
             return '<p style="padding-left: 7px;"><a href="' + first_notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
@@ -78,3 +78,34 @@ def get_blog(user, notify):
             return '<p style="padding-left: 7px;"><a href="' + notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
             notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
              + ' новость </p>' + blog(user, notify.attach[3:])
+
+def get_comment_blog(user, notify):
+    attach = notify.attach
+    if attach[3:] == "blr":
+        _attach = attach.split(",")
+        if notify.is_have_user_set():
+            return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a> '\
+            + notify.get_verb_display() + ' ' + str(notify.count_user_set_comment()) + ' к новости</p>' + blog(user, _attach[2][3:])
+        elif notify.is_have_object_set():
+            first_notify = notify.get_first_object_set()
+            return '<p style="padding-left: 7px;"><a href="' + first_notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
+            first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\
+             + ' новость </p>' + blog(user, _attach[2][3:])
+        else:
+            return '<p style="padding-left: 7px;"><a href="' + notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
+            notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
+             + ' новость </p>' + blog(user, _attach[2][3:])
+    if attach[3:] == "blc":
+        _attach = attach.split(",")
+        if notify.is_have_user_set():
+            return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a> '\
+            + notify.get_verb_display() + ' ' + str(notify.count_user_set_comment()) + ' к новости</p>' + blog(user, _attach[1][3:])
+        elif notify.is_have_object_set():
+            first_notify = notify.get_first_object_set()
+            return '<p style="padding-left: 7px;"><a href="' + first_notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
+            first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\
+             + ' новость </p>' + blog(user, _attach[1][3:])
+        else:
+            return '<p style="padding-left: 7px;"><a href="' + notify.creator.get_link() + '" class="ajax" style="font-weight: bold;">'+ \
+            notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
+             + ' новость </p>' + blog(user, _attach[1][3:])

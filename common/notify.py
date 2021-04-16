@@ -65,6 +65,9 @@ def get_notify(user, notify):
     if attach[:3] == "blo":
         from common.items.blog import get_blog
         return get_blog(user, notify)
+    elif "bl" in attach__contains:
+        from common.items.blog import get_comment_blog
+        return get_comment_blog(user, notify)
 
 def send_notify_socket(id, recipient_id, socket_name):
     # посылаем сокет с переменными: id-id объекта, user_ids-все получатели уведомлений, recipient_id - id получателя,

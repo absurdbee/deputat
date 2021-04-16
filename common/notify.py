@@ -65,9 +65,8 @@ def get_notify(user, notify):
     if attach[:3] == "blo":
         from common.items.blog import get_blog
         return get_blog(user, notify)
-    elif attach.find("bl"):
+    elif attach[:2] == "bl":
         from common.items.blog import get_comment_blog
-        return True
         return get_comment_blog(user, notify)
 
 def send_notify_socket(id, recipient_id, socket_name):

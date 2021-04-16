@@ -108,7 +108,7 @@ class BlogComment(models.Model):
                 user_wall(commenter, type, "u_blog_comment_notify", "REP")
                 user_notify(commenter, type, "u_blog_comment_notify", "REP")
             else:
-                type = "blc"+str(comment.pk)+", bls"+str(blog.pk)
+                type = "blc"+str(comment.pk)+", blo"+str(blog.pk)
                 user_wall(commenter, type, "u_blog_comment_notify", "COM")
                 user_notify(commenter, type, "u_blog_comment_notify", "COM")
 

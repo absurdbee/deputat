@@ -2,6 +2,10 @@ function case_user_notify() {
   console.log('заявки, дружба, приглашения...');
   new Audio('/static/audio/apple/stargaze.mp3').play();
 }
+function case_user_wall() {
+  console.log('заявки, дружба, приглашения...');
+  new Audio('/static/audio/apple/stargaze.mp3').play();
+}
 function case_u_post_notify(pk) {
     console.log('Реакции на записи');
     try{

@@ -537,3 +537,10 @@ class User(AbstractUser):
         video_query = Q(type="LIS")
         video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return VideoAlbum.objects.filter(video_query).exists()
+
+    def get_unread_notify_count(self):
+        count = self.notifications.filter(status="U").values("pk").count()
+        if count:
+            return count
+        else:
+            return''

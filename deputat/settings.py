@@ -184,3 +184,16 @@ THUMBNAIL_ALIASES = {
 }
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
+UNICODE_JSON = True
+REDIS_URL = "redis://127.0.0.1:6379"
+ASGI_APPLICATION = 'deputat.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': ["redis://127.0.0.1:6379", ],
+        },
+    }
+}

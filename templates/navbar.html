@@ -69,7 +69,7 @@
             <li class="nav-item dropdown dropdown-notification mr-25" tooltip="Уведомления" flow="down">
               <a class="nav-link">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ficon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                <span class="badge badge-pill badge-danger badge-up">6</span>
+                <span class="badge badge-pill resent_notify badge-up">{{ request.user.get_unread_notify_count }}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                 <li class="dropdown-menu-header">
@@ -79,10 +79,12 @@
                   </div>
                 </li>
                         <li class="scrollable-container media-list ps">
-                          <a class="d-flex" href="javascript:void(0)">
+                          <a class="d-flex">
                                 <div class="media d-flex align-items-start">
                                     <div class="media-left">
-                                        <div class="avatar"><img src="/static/images/user.png" alt="avatar" width="32" height="32"></div>
+                                        <div class="avatar">
+                                          <img src="/static/images/user.png" alt="avatar" width="32" height="32">
+                                        </div>
                                     </div>
                                     <div class="media-body">
                                         <p class="media-heading"><span class="font-weight-bolder">Тес</span>winner!</p><small class="notification-text"> Won the monthly best seller badge.</small>
@@ -105,7 +107,7 @@
 
             <li class="nav-item dropdown dropdown-user">
               {% if request.user.is_authenticated %}
-              <a class="nav-link dropdown-toggle dropdown-user-link">
+              <a class="nav-link dropdown-toggle dropdown-user-link userpic" data-pk="{{ request.user.pk }}">
                 <div class="user-nav d-sm-flex d-none">
                   <span class="user-name font-weight-bolder">{{ request.user.first_name }}</span>
                   <span class="user-status">{{ request.user.point }} ({{ request.user.level }})</span>

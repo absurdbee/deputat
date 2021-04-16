@@ -23,6 +23,9 @@ class Notify(models.Model):
         ordering = ["-created"]
         indexes = (BrinIndex(fields=['created']),)
 
+    def __str__(self):
+        return self.attach
+
     def is_have_user_set(self):
         return Notify.objects.filter(user_set_id=self.pk).exists()
     def get_user_set(self):
@@ -129,6 +132,9 @@ class Wall(models.Model):
         verbose_name_plural = "Новости"
         ordering = ["-created"]
         indexes = (BrinIndex(fields=['created']),)
+
+    def __str__(self):
+        return self.attach
 
     def is_have_user_set(self):
         return Wall.objects.filter(user_set_id=self.pk).exists()

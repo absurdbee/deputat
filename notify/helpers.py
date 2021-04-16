@@ -20,7 +20,7 @@ UNREAD, READ, DELETED, CLOSED = 'U', 'R', 'D', 'C'
 
 VERB = (
     (ITEM, ' разместил'),
-    (COMMENT, ' оставил комментарий'), (WOMEN_COMMENT, ' оставила комментарий'), (GROUP_COMMENT, ' оставили комментарий'),
+    (COMMENT, ' прокомментировал'), (WOMEN_COMMENT, ' прокомментировала'), (GROUP_COMMENT, ' прокомментировали'),
     (REPLY, ' ответил на'), (WOMEN_REPLY, ' ответила на'), (GROUP_REPLY, ' ответили на'),
 
     (LIKE, ' оценил'), (WOMEN_LIKE, ' оценила'), (GROUP_LIKE, ' оценили'),

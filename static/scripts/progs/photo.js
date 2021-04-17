@@ -192,7 +192,7 @@ on('body', 'click', '.u_elect_new_comment_photo', function() {
   open_fullscreen("/gallery/elect_new_comment_photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });
 on('body', 'click', '.u_load_photo_album', function() {
-  parent = this.parentElement.parentElement.parentElement;
+  parent = this.parentElement.parentElement;
   pk = parent.getAttribute("data-pk");
   loader = document.getElementById("window_loader");
   open_fullscreen("/gallery/load_album/" + pk + "/", loader)

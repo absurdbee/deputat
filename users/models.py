@@ -443,6 +443,12 @@ class User(AbstractUser):
         albums_query = Q(type="LIS")
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query).order_by("order")
+    def get_albums_count(self):
+        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
+        from gallery.models import Album
+        albums_query = Q(type="LIS")
+        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return Album.objects.filter(albums_query).values("pk").count()
     def is_have_albums(self):
         # есть ли альбомы пользователя - пользовательские. И все добавленные им альбомы.
         from gallery.models import Album

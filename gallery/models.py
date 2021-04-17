@@ -160,7 +160,7 @@ class Photo(models.Model):
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
-    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип альбома")
+    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип изображения")
 
     class Meta:
         indexes = (BrinIndex(fields=['created']),)
@@ -179,15 +179,15 @@ class Photo(models.Model):
         from common.processing import get_photo_processing
 
         photo = cls.objects.create(creator=creator,file=image,preview=image)
-        if not album.is_private_album():
+        if album.is_private_album():
+            get_photo_processing(photo, Photo.PRIVATE)
+        else:
             get_photo_processing(photo, Photo.PUBLISHED)
             #for user_id in creator.get_user_news_notify_ids():
             #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="doc"+str(doc.pk), verb="ITE")
                 #send_notify_socket(attach[3:], user_id, "create_doc_notify")
             #Wall.objects.create(creator_id=creator.pk, attach="doc"+str(doc.pk), verb="ITE")
             #send_notify_socket(attach[3:], user_id, "create_doc_wall")
-        else:
-            get_photo_processing(photo, Photo.PRIVATE)
         album.photo_album.add(photo)
         return photo
 

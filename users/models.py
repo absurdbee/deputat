@@ -417,7 +417,7 @@ class User(AbstractUser):
         # это все альбомы их создателя - приватные и пользовательские. Кроме основного.
         from gallery.models import Album
         albums_query = ~Q(type="CLO") | ~Q(type="DEL")
-        albums_query.add(Q(creator_id=user_pk), Q.AND)
+        albums_query.add(Q(creator_id=self.pk), Q.AND)
         return Album.objects.filter(albums_query)
 
     def get_my_all_doc_lists(self):

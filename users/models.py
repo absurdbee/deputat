@@ -413,7 +413,7 @@ class User(AbstractUser):
         from users.model.profile import UserLocation
         return UserLocation.objects.filter(user_id=self.pk).last().phone
 
-    def get_my_albums(cls, user_pk):
+    def get_my_albums(self):
         # это все альбомы их создателя - приватные и пользовательские. Кроме основного.
         from gallery.models import Album
         albums_query = ~Q(type="CLO") | ~Q(type="DEL")

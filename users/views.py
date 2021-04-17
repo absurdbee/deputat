@@ -36,7 +36,10 @@ class MainPhoneSend(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("generic/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_no_phone_verified():
+			self.template_name = get_small_template("generic/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			self.template_name = get_small_template("profile/user.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainPhoneSend,self).get(request,*args,**kwargs)
 
 class UserNewsView(ListView, CategoryListMixin):

@@ -197,30 +197,21 @@ class ElectNew(models.Model):
 
     @classmethod
     def create_draft_new(cls, creator, description, category, comments_enabled, votes_on, status):
-        from notify.models import Notify, Wall, get_user_managers_ids
-        from common.notify import send_notify_socket
+        from common.notify import user_wall, user_notify
 
         elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=ElectNew.STATUS_DRAFT,)
-        for user_id in creator.get_user_managers_ids():
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="new"+str(elect_new.pk), verb="SIT")
-            #send_notify_socket(attach[3:], user_id, "create_draft_elect_new_notify")
-        Wall.objects.create(creator_id=creator.pk, attach="new"+str(elect_new.pk), verb="SIT")
-        #send_notify_socket(attach[3:], user_id, "create_draft_elect_new_wall")
+        user_wall(creator, "blo"+str(elect_new.pk), "draft_news_wall", "SIT")
+        user_notify(creator, "blo"+str(elect_new.pk), "draft_news_notify", "SIT")
         return elect_new
 
     def make_publish_new(self):
-        from notify.models import Notify, Wall, get_user_managers_ids
-        from common.notify import send_notify_socket
+        from common.notify import user_wall, user_notify
 
         self.status = ElectNew.STATUS_PUBLISHED
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="new"+str(self.pk), verb="SIT").exists():
-            Notify.objects.filter(attach="new"+str(self.pk), verb="SIT").delete()
-        for user_id in self.elect.get_subscribers_ids():
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="new"+str(elect_new.pk), verb="ITE")
-            #send_notify_socket(attach[3:], user_id, "create_elect_new_notify")
-        Wall.objects.create(creator_id=creator.pk, attach="new"+str(elect_new.pk), verb="ITE")
-        #send_notify_socket(attach[3:], user_id, "create_elect_new_wall")
+        user_wall(self.manager, "blo"+str(self.pk), "news_wall", "ITE")
+        user_notify(self.manager, "blo"+str(self.pk), "news_notify", "ITE")
+        return self
 
     def is_draft(self):
         return self.status == ElectNew.STATUS_DRAFT

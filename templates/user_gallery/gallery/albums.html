@@ -1,12 +1,11 @@
 {% if user.is_have_albums %}
 <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-  <h5 class="mt-1" style="flex: 1;">Альбомы</h5>
-  <span>{{ user.count_albums }}</span>
+  <h5 class="mt-1" style="flex: 1;">Альбомы ({{ user.count_albums }})</h5>
 </div>
 <div class="row no-gutters" style="overflow-x: auto;">
   <div class="col-12">
   <ul class="date-list" style="width:max-content">
-    {% for object in user.get_all_albums %}
+    {% for object in user.get_albums %}
         <li class="date">
           <div class="cover_block" data-pk="{{ user.pk }}" data-uuid="{{ object.uuid }}">
               <div class="card rounded-0 border-0">

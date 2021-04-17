@@ -429,6 +429,7 @@ class User(AbstractUser):
         # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
         from gallery.models import Album
         albums_query = ~Q(type="CLO") | ~Q(type="DEL")
+        albums_query.add(Q(~Q(type="MAI") & ~Q(creator_id=self.id)), Q.AND)
         albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
         return Album.objects.filter(albums_query)
     def is_have_my_albums_collections(self):

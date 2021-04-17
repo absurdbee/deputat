@@ -2,7 +2,7 @@
 {% block title %}Моя галерея{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ album.uuid }}">
+<div class="container mt-3 pk_saver" list-pk="{{ album.pk }}" data-uuid="{{ album.uuid }}">
     <div class="row no-gutters">
       <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
         {% include 'generic/user/user_back.html' %}

@@ -413,48 +413,12 @@ class User(AbstractUser):
         from users.model.profile import UserLocation
         return UserLocation.objects.filter(user_id=self.pk).last().phone
 
-    def get_my_albums(self):
+    def get_my_albums(cls, user_pk):
         # это все альбомы их создателя - приватные и пользовательские. Кроме основного.
         from gallery.models import Album
-        albums_query = Q(type="LIS") | Q(type="PRI")
-        albums_query.add(Q(creator_id=self.id), Q.AND)
+        albums_query = ~Q(type="CLO") | ~Q(type="DEL")
+        albums_query.add(Q(creator_id=user_pk), Q.AND)
         return Album.objects.filter(albums_query)
-    def is_have_my_albums(self):
-        # есть ли альбомы у request пользователя - приватные и пользовательские. Кроме основного.
-        from gallery.models import Album
-        albums_query = Q(type="LIS") | Q(type="PRI")
-        albums_query.add(Q(creator_id=self.id), Q.AND)
-        return Album.objects.filter(albums_query).exists()
-    def get_my_albums_collections(self):
-        # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
-        from gallery.models import Album
-        albums_query = Q(type="LIS") | Q(type="PRI")
-        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return Album.objects.filter(albums_query)
-    def is_have_my_albums_collections(self):
-        # есть ли альбомы у request пользователя, кроме основного. И все добавленные альбомы.
-        from gallery.models import Album
-        albums_query = Q(type="LIS") | Q(type="PRI")
-        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return Album.objects.filter(albums_query).exists()
-    def get_albums(self):
-        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
-        from gallery.models import Album
-        albums_query = Q(type="LIS")
-        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return Album.objects.filter(albums_query).order_by("order")
-    def get_albums_count(self):
-        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
-        from gallery.models import Album
-        albums_query = Q(type="LIS")
-        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return Album.objects.filter(albums_query).values("pk").count()
-    def is_have_albums(self):
-        # есть ли альбомы пользователя - пользовательские. И все добавленные им альбомы.
-        from gallery.models import Album
-        albums_query = Q(type="LIS")
-        albums_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return Album.objects.filter(albums_query).exists()
 
     def get_my_all_doc_lists(self):
         from docs.models import DocList

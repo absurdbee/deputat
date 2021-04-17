@@ -30,12 +30,17 @@ class UserGallery(ListView):
 		from common.templates import get_list_template
 		from users.models import User
 
-		self.user = User.objects.get(pk=self.kwargs["pk"])
+		pk = self.kwargs["pk"]
+		self.user = User.objects.get(pk=pk)
 		self.album = self.user.get_or_create_main_album()
-		if self.user.pk == request.user.pk:
+		if pk == request.user.pk:
 			self.photo_list = self.album.get_staff_photos()
+			self.is_have_albums = self.album.is_have_my_albums(pk)
+			self.get_albums = self.album.get_my_albums(pk)
 		else:
 			self.photo_list = self.album.get_photos()
+			self.is_have_albums = self.album.is_have_albums(pk)
+			self.get_albums = self.album.get_albums(pk)
 		self.template_name = get_list_template(self.album, "user_gallery/gallery/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserGallery,self).get(request,*args,**kwargs)
 
@@ -43,10 +48,12 @@ class UserGallery(ListView):
 		context = super(UserGallery,self).get_context_data(**kwargs)
 		context['user'] = self.user
 		context['album'] = self.album
-		return context
+		context['is_have_albums'] = self.is_have_albums
+		context['get_albums'] = self.get_albums
+		return context 
+
 	def get_queryset(self):
 		return self.photo_list
-
 
 class UserAlbum(ListView):
 	template_name, paginate_by = None, 12

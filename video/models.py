@@ -79,7 +79,12 @@ class VideoAlbum(models.Model):
     def is_main_album(self):
         return self.type == self.MAIN
     def is_user_album(self):
-        return self.type == self.ALBUM
+        return self.type == self.LIST
+    def is_private(self):
+        return self.type == self.PRIVATE
+    def is_open(self):
+        return self.type == self.LIST or self.type == self.MAIN or self.type == self.MANAGER
+
 
     def is_not_empty(self):
         return self.video_album.filter(album=self).values("pk").exists()
@@ -89,7 +94,7 @@ class VideoAlbum(models.Model):
         return [i['pk'] for i in users]
 
     def is_user_can_add_list(self, user_id):
-        return self.creator.pk != user_id and user_id not in self.get_users_ids()
+        return self.creator.pk != user_id and user_id not in self.get_users_ids() and self.is_open()
 
     def is_user_can_delete_list(self, user_id):
         return self.creator.pk != user_id and user_id in self.get_users_ids()

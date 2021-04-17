@@ -53,16 +53,18 @@ class Album(models.Model):
         return [i['pk'] for i in users]
 
     def is_user_can_add_list(self, user_id):
-        return self.creator.pk != user_id and user_id not in self.get_users_ids()
+        return self.creator.pk != user_id and user_id not in self.get_users_ids() and self.is_open()
     def is_user_can_delete_list(self, user_id):
         return self.creator.pk != user_id and user_id in self.get_users_ids()
 
     def is_main_album(self):
         return self.type == self.MAIN
     def is_user_album(self):
-        return self.type == self.LIST or self.type == self.PRIVATE
+        return self.type == self.LIST
     def is_private_album(self):
         return self.type == self.PRIVATE
+    def is_open(self):
+        return self.type == self.LIST or self.type == self.MAIN or self.type == self.MANAGER
 
     def get_cover_photo(self):
         if self.cover_photo:
@@ -137,6 +139,41 @@ class Album(models.Model):
             Notify.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="R")
         if Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="lph"+str(self.pk), verb="ITE").update(status="R")
+
+    @classmethod
+    def get_my_albums(cls, user_pk):
+        # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
+        albums_query = Q(type="LIS") | Q(type="PRI")
+        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return Album.objects.filter(albums_query)
+
+    @classmethod
+    def is_have_my_albums(cls, user_pk):
+        # есть ли альбомы у request пользователя, кроме основного. И все добавленные альбомы.
+        albums_query = Q(type="LIS") | Q(type="PRI")
+        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return Album.objects.filter(albums_query).exists()
+
+    @classmethod
+    def get_albums(cls, user_pk):
+        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
+        albums_query = Q(type="LIS")
+        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return Album.objects.filter(albums_query).order_by("order")
+
+    @classmethod
+    def is_have_albums(cls, user_pk):
+        # есть ли альбомы пользователя - пользовательские. И все добавленные им альбомы.
+        albums_query = Q(type="LIS")
+        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return Album.objects.filter(albums_query).exists()
+
+    @classmethod
+    def get_albums_count(cls, user_pk):
+        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
+        albums_query = Q(type="LIS")
+        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return Album.objects.filter(albums_query).values("pk").count()
 
 
 class Photo(models.Model):

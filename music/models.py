@@ -65,7 +65,7 @@ class SoundList(models.Model):
         return [i['pk'] for i in users]
 
     def is_user_can_add_list(self, user_id):
-        return self.creator.pk != user_id and user_id not in self.get_users_ids()
+        return self.creator.pk != user_id and user_id not in self.get_users_ids() and self.is_open()
     def is_user_can_delete_list(self, user_id):
         return self.creator.pk != user_id and user_id in self.get_users_ids()
 
@@ -91,6 +91,8 @@ class SoundList(models.Model):
         return self.type == self.LIST
     def is_private(self):
         return self.type == self.PRIVATE
+    def is_open(self):
+        return self.type == self.LIST or self.type == self.MAIN or self.type == self.MANAGER
 
     def make_private(self):
         from notify.models import Notify, Wall

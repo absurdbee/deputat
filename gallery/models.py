@@ -143,37 +143,37 @@ class Album(models.Model):
     @classmethod
     def get_my_albums(cls, user_pk):
         # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
-        albums_query = Q(type="LIS") | Q(type="PRI")
-        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
-        return Album.objects.filter(albums_query)
+        query = Q(type="LIS") | Q(type="PRI")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query)
 
     @classmethod
     def is_have_my_albums(cls, user_pk):
         # есть ли альбомы у request пользователя, кроме основного. И все добавленные альбомы.
-        albums_query = Q(type="LIS") | Q(type="PRI")
-        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
-        return Album.objects.filter(albums_query).exists()
+        query = Q(type="LIS") | Q(type="PRI")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).exists()
 
     @classmethod
     def get_albums(cls, user_pk):
         # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
-        albums_query = Q(type="LIS")
-        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
-        return Album.objects.filter(albums_query).order_by("order")
+        query = Q(type="LIS")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).order_by("order")
 
     @classmethod
     def is_have_albums(cls, user_pk):
         # есть ли альбомы пользователя - пользовательские. И все добавленные им альбомы.
-        albums_query = Q(type="LIS")
-        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
-        return Album.objects.filter(albums_query).exists()
+        query = Q(type="LIS")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).exists()
 
     @classmethod
     def get_albums_count(cls, user_pk):
         # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
-        albums_query = Q(type="LIS")
-        albums_query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
-        return Album.objects.filter(albums_query).values("pk").count()
+        query = Q(type="LIS")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).values("pk").count()
 
 
 class Photo(models.Model):

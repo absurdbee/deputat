@@ -144,6 +144,41 @@ class DocList(models.Model):
         if Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
             Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="R")
 
+    @classmethod
+    def get_my_doc_lists(cls, user_pk):
+        # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
+        query = Q(type="LIS") | Q(type="PRI")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query)
+
+    @classmethod
+    def is_have_my_doc_lists(cls, user_pk):
+        # есть ли альбомы у request пользователя, кроме основного. И все добавленные альбомы.
+        query = Q(type="LIS") | Q(type="PRI")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).exists()
+
+    @classmethod
+    def get_doc_lists(cls, user_pk):
+        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
+        query = Q(type="LIS")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).order_by("order")
+
+    @classmethod
+    def is_have_doc_lists(cls, user_pk):
+        # есть ли альбомы пользователя - пользовательские. И все добавленные им альбомы.
+        query = Q(type="LIS")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).exists()
+
+    @classmethod
+    def get_doc_lists_count(cls, user_pk):
+        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
+        query = Q(type="LIS")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).values("pk").count()
+
 
 class Doc(models.Model):
     PROCESSING = 'PRO'

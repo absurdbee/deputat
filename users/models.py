@@ -422,61 +422,21 @@ class User(AbstractUser):
 
     def get_my_doc_lists(self):
         from docs.models import DocList
-        docs_query = ~Q(type="CLO") | ~Q(type="DEL")
-        docs_query.add(Q(creator_id=self.id), Q.AND)
-        return DocList.objects.filter(docs_query)
+        query = ~Q(type="CLO") | ~Q(type="DEL")
+        query.add(Q(creator_id=self.id), Q.AND)
+        return DocList.objects.filter(query)
 
     def get_my_playlists(self):
         from music.models import SoundList
-        query = Q(type="LIS") | Q(type="PRI")
-        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        query = ~Q(type="CLO") | ~Q(type="DEL")
+        query.add(Q(creator_id=self.id), Q.AND)
         return SoundList.objects.filter(query)
-    def is_have_my_playlists(self):
-        from music.models import SoundList
-        query = Q(type="LIS") | Q(type="PRI")
-        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(query).exists()
-    def get_playlists(self):
-        from music.models import SoundList
-        query = Q(type="LIS")
-        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(query).order_by("order")
-    def is_have_playlists(self):
-        from music.models import SoundList
-        query = Q(type="LIS")
-        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(query).exists()
-    def get_my_all_music_lists(self):
-        from music.models import SoundList
-        query = Q(type="LIS") | Q(type="PRI") | Q(type="MAI")
-        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return SoundList.objects.filter(query)
-    def is_have_my_all_music_lists(self):
-        from music.models import SoundList
-        query = Q(type="LIS") | Q(type="PRI") | Q(type="MAI")
-        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return DocList.objects.filter(query).exists()
 
     def get_my_video_lists(self):
         from video.models import VideoAlbum
-        video_query = Q(type="LIS") | Q(type="PRI")
-        video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return VideoAlbum.objects.filter(video_query)
-    def is_have_my_video_lists(self):
-        from video.models import VideoAlbum
-        video_query = Q(type="LIS") | Q(type="PRI")
-        video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return VideoAlbum.objects.filter(video_query).exists()
-    def get_video_lists(self):
-        from video.models import VideoAlbum
-        video_query = Q(type="LIS")
-        video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return VideoAlbum.objects.filter(video_query).order_by("order")
-    def is_have_video_lists(self):
-        from video.models import VideoAlbum
-        video_query = Q(type="LIS")
-        video_query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return VideoAlbum.objects.filter(video_query).exists()
+        query = ~Q(type="CLO") | ~Q(type="DEL")
+        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
+        return VideoAlbum.objects.filter(query)
 
     def get_unread_notify_count(self):
         count = self.notifications.filter(status="U").values("pk").count()

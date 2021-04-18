@@ -137,27 +137,6 @@ on('body', 'click', '.u_remove_doc_in_list', function() {
   link.send( null );
 })
 
-function check_span1(span1, uuid, response) {
-  if (span1.classList.contains(uuid)){
-    container = document.body.querySelector(".is_paginate");
-    container.insertAdjacentHTML('afterBegin', response.innerHTML)
-  }
-}
-function get_doc_preview(_this, response) {
-  if (document.body.querySelector(".current_file_dropdown")){
-    pk = response.querySelector(".span_btn").getAttribute("data-pk");
-    media_body = response.querySelector(".media-body");
-    media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
-    check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_body, pk))
-  } else if (document.body.querySelector(".attach_block")){
-    pk = response.querySelector(".span_btn").getAttribute("data-pk");
-    check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), pk))
-  } else if (document.body.querySector(".message_attach_block")){
-    pk = response.querySelector(".span_btn").getAttribute("data-pk");
-    check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), response.querySelector(".media-body"), pk))
-  };
-};
-
 on('body', 'click', '#u_create_doc_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;
@@ -191,14 +170,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-
-    document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
-        uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
-        span1 = response.querySelector('.span1'),
-        check_span1(span1, uuid, response.innerHTML),
-        container.querySelector(".doc_empty") ? container.querySelector(".doc_empty").style.display = "none" : null)
-      : get_preview(_this, response);
-
+    document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),span1 = response.querySelector('.span1'),check_span1(span1, uuid, response.innerHTML),container.querySelector(".doc_empty") ? container.querySelector(".doc_empty").style.display = "none" : null) : get_preview(_this, response, "doc");
     toast_info("Документ создан!")
     close_create_window();
   }};

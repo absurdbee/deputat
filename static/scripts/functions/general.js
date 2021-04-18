@@ -1,3 +1,34 @@
+function check_span1(span1, uuid, response) {
+  if (span1.classList.contains(uuid)){
+    container = document.body.querySelector(".is_paginate");
+    container.insertAdjacentHTML('afterBegin', response.innerHTML)
+  }
+}
+function get_preview(_this, response, type) {
+  if (document.body.querySelector(".current_file_dropdown")){
+    if (type == "doc") {
+      pk = response.querySelector(".span_btn").getAttribute("data-pk");
+      media_body = response.querySelector(".media-body");
+      media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
+      check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_body, pk))
+    }
+  } else if (document.body.querySelector(".attach_block")){
+    if (type == "doc") {
+      pk = response.querySelector(".span_btn").getAttribute("data-pk");
+      media_body = response.querySelector(".media-body");
+      media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
+      check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), pk))
+    }
+  } else if (document.body.querySector(".message_attach_block")){
+    if (type == "doc") {
+      pk = response.querySelector(".span_btn").getAttribute("data-pk");
+      media_body = response.querySelector(".media-body");
+      media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
+      check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), response.querySelector(".media-body"), pk))
+  }
+  };
+};
+
 on('body', 'click', '.menu_drop', function() {
   block = this.nextElementSibling;
   if (block.classList.contains("show")) { block.classList.remove("show") }

@@ -17,12 +17,12 @@
 
   <div class="card-body">
 
-    {% if request.user.is_have_albums %}
+    {% if is_have_albums %}
 
     <div class="row no-gutters mb-3" style="overflow-x: auto;">
       <div class="col-12 mb-1">
       <ul style="width:max-content;list-style: none;">
-        {% for object in request.user.get_albums %}
+        {% for object in get_albums %}
             {% if object.is_not_empty %}
             <li class="album_item">
               <div class="text-center bg-dark position-relative">

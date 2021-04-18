@@ -9,11 +9,15 @@ class UserLoadPhoto(ListView):
 		from gallery.models import Album
 
 		self.album, self.template_name = request.user.get_or_create_main_album(), get_my_template("user_load/u_photo_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		pk = request.user.pk
+		self.is_have_albums = self.album.is_have_albums(pk)
+		self.get_albums = self.album.get_albums(pk)
 		return super(UserLoadPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadPhoto,self).get_context_data(**kwargs)
-		context["album"] = self.album
+		context['is_have_albums'] = self.is_have_albums
+		context['get_albums'] = self.get_albums
 		return context
 
 	def get_queryset(self):
@@ -43,7 +47,16 @@ class UserLoadPhotoComment(ListView):
 	def get(self,request,*args,**kwargs):
 		from gallery.models import Album
 		self.album, self.template_name = request.user.get_or_create_main_album(), get_my_template("user_load/u_photo_comments_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		pk = request.user.pk
+		self.is_have_albums = self.album.is_have_albums(pk)
+		self.get_albums = self.album.get_albums(pk)
 		return super(UserLoadPhotoComment,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserLoadPhotoComment,self).get_context_data(**kwargs)
+		context['is_have_albums'] = self.is_have_albums
+		context['get_albums'] = self.get_albums
+		return context
 
 	def get_queryset(self):
 		return self.album.get_photos()
@@ -107,11 +120,15 @@ class UserLoadMusic(ListView):
 	def get(self,request,*args,**kwargs):
 		from music.models import SoundList
 		self.playlist, self.template_name = request.user.get_or_create_main_playlist(), get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		pk = request.user.pk
+		self.is_have_lists = self.playlist.is_have_lists(pk)
+		self.get_albums = self.playlist.get_lists(pk)
 		return super(UserLoadMusic,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadMusic,self).get_context_data(**kwargs)
-		context["playlist"] = self.playlist
+		context['is_have_albums'] = self.is_have_lists
+		context['get_albums'] = self.get_lists
 		return context
 
 	def get_queryset(self):

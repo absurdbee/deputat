@@ -1,7 +1,6 @@
 function check_span1(span1, uuid, response) {
   if (span1.classList.contains(uuid)){
-    container = document.body.querySelector(".is_paginate");
-    container.insertAdjacentHTML('afterBegin', response.innerHTML)
+    document.body.querySelector(".is_paginate").insertAdjacentHTML('afterBegin', response.innerHTML)
   }
 }
 function get_preview(_this, response, type) {

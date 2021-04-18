@@ -127,8 +127,8 @@ class UserLoadMusic(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadMusic,self).get_context_data(**kwargs)
-		context['is_have_albums'] = self.is_have_lists
-		context['get_albums'] = self.get_lists
+		context['is_have_lists'] = self.is_have_lists
+		context['get_lists'] = self.get_lists
 		return context
 
 	def get_queryset(self):
@@ -158,11 +158,15 @@ class UserLoadDoc(ListView):
 	def get(self,request,*args,**kwargs):
 		from docs.models import DocList
 		self.list, self.template_name = request.user.get_or_create_main_doclist(), get_my_template("user_load/u_doc_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		pk = request.user.pk
+		self.is_have_lists = self.list.is_have_lists(pk)
+		self.get_albums = self.list.get_lists(pk)
 		return super(UserLoadDoc,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadDoc,self).get_context_data(**kwargs)
-		context["list"] = self.list
+		context['is_have_lists'] = self.is_have_lists
+		context['get_lists'] = self.get_lists
 		return context
 
 	def get_queryset(self):

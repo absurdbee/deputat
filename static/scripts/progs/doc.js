@@ -137,6 +137,12 @@ on('body', 'click', '.u_remove_doc_in_list', function() {
   link.send( null );
 })
 
+function check_span1(span1, uuid, response) {
+  if (span1.classList.contains(uuid)){
+    container = document.body.querySelector(".is_paginate");
+    container.insertAdjacentHTML('afterBegin', response.innerHTML)
+  }
+}
 on('body', 'click', '#u_create_doc_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;
@@ -174,9 +180,8 @@ on('body', 'click', '#u_create_doc_btn', function() {
     document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
         uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
         span1 = response.querySelector('.span1'),
-        if (span1.classList.contains(uuid)){container = document.body.querySelector(".is_paginate");container.insertAdjacentHTML('afterBegin', response.innerHTML)},
+        check_span1(span1, uuid, response.innerHTML),
         container.querySelector(".doc_empty") ? container.querySelector(".doc_empty").style.display = "none" : null)
-
       :
       if (document.body.querySelector(".current_file_dropdown")){
         pk = response.querySelector(".span_btn").getAttribute("data-pk");

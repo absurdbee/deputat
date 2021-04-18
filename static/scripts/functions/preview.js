@@ -8,7 +8,7 @@ function check_photo_in_block(block, _this, pk) {
     }
 }
 function check_photo_album_in_block(block, _this, pk) {
-    if (block.querySelector('[data-pk=' + '"' + pk + '"' + ']')) {
+    if (block.querySelector('[photoalbum-pk=' + '"' + pk + '"' + ']')) {
         toats_info("Альбом уже прикреплён")
         return true
     } else {
@@ -44,7 +44,7 @@ function check_doc_in_block(block, _this, pk) {
 }
 function check_doc_list_in_block(block, _this, pk) {
     if (block.querySelector('[doclist-pk=' + '"' + pk + '"' + ']')) {
-        _this.parentElement.parentElement.setAttribute("tooltip", "Документ уже выбран");
+        _this.parentElement.parentElement.setAttribute("tooltip", "Список уже выбран");
         _this.parentElement.parentElement.setAttribute("flow", "up");
         return true
     } else {
@@ -103,7 +103,7 @@ function create_preview_photo(img_src, photo_pk){
 function create_preview_photo_album(src, title, pk, count){
   $div = document.createElement("div");
   $div.classList.add("col-sm-6", "col-md-4", "bg-dark", "position-relative", "text-center", "big_mobile_element", "col-md-6");
-  $div.setAttribute("data-pk", pk);
+  $div.setAttribute("photoalbum-pk", pk);
 
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="lph' + pk + '">';

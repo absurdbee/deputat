@@ -141,34 +141,30 @@ class UserVideolistEdit(TemplateView):
 
 
 class UserVideo(ListView):
-	template_name, paginate_by = None, 15
+    template_name, paginate_by = None, 15
 
-	def get(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         pk = self.kwargs["pk"]
-		self.user = User.objects.get(pk)
-		self.list = self.user.get_or_create_main_videolist()
-		if self.user.pk == request.user.pk:
-			self.video_list = self.list.get_my_videos()
+        self.user = User.objects.get(pk)
+        self.list = self.user.get_or_create_main_videolist()
+        if self.user.pk == request.user.pk:
+            self.video_list = self.list.get_my_videos()
             self.is_have_lists = self.list.is_have_my_lists(pk)
-			self.get_lists = self.list.get_my_lists(pk)
-		else:
-			self.video_list = self.list.get_videos()
+            self.get_lists = self.list.get_my_lists(pk)
+        else:
+            self.video_list = self.list.get_videos()
             self.is_have_lists = self.list.is_have_lists(pk)
-			self.get_lists = self.list.get_lists(pk)
-		self.template_name = get_list_template(self.list, "user_video/", "video.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(UserVideo,self).get(request,*args,**kwargs)
+            self.get_lists = self.list.get_lists(pk)
+        self.template_name = get_list_template(self.list, "user_video/", "video.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserVideo,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(UserVideo,self).get_context_data(**kwargs)
-		context['user'] = self.user
-		context['list'] = self.list
-        context['is_have_lists'] = self.is_have_lists
-		context['get_lists'] = self.get_lists
-		context['count_lists'] = self.count_lists
-		return context
+    def get_context_data(self,**kwargs):
+        c = super(UserVideo,self).get_context_data(**kwargs)
+        c['user'], c['list'], c['is_have_lists'], c['get_lists'], c['count_lists'] = self.user, self.list, self.is_have_lists, self.get_lists, self.count_lists
+        return c
 
-	def get_queryset(self):
-		return self.video_list
+    def get_queryset(self):
+        return self.video_list
 
 
 class UserVideoList(ListView):

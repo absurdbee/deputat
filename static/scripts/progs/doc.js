@@ -171,6 +171,13 @@ on('body', 'click', '#u_create_doc_btn', function() {
     response = document.createElement("span");
     response.innerHTML = elem;
 
+    document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
+        uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
+        span1 = response.querySelector('.span1'),
+        if (span1.classList.contains(uuid)){container = document.body.querySelector(".is_paginate");container.insertAdjacentHTML('afterBegin', response.innerHTML)},
+        container.querySelector(".doc_empty") ? container.querySelector(".doc_empty").style.display = "none" : null)
+
+      :
       if (document.body.querySelector(".current_file_dropdown")){
         pk = response.querySelector(".span_btn").getAttribute("data-pk");
         media_body = response.querySelector(".media-body");
@@ -182,17 +189,9 @@ on('body', 'click', '#u_create_doc_btn', function() {
       } else if (document.body.querySector(".message_attach_block")){
         pk = response.querySelector(".span_btn").getAttribute("data-pk");
         check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), response.querySelector(".media-body"), pk))
-      }
-      else {
-        uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
-        span1 = response.querySelector('.span1')
-        if (span1.classList.contains(uuid)){
-          container = document.body.querySelector(".is_paginate");
-      container.insertAdjacentHTML('afterBegin', response.innerHTML);
-      container.querySelector(".doc_empty") ? container.querySelector(".doc_empty").style.display = "none" : null
-    } else{ toast_info("Документ создан!")}
-      toast_info("Документ создан!")
-    }
+      };
+
+    toast_info("Документ создан!")
     close_create_window();
   }};
 

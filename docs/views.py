@@ -19,8 +19,12 @@ class UserDocs(ListView):
 		self.list = self.user.get_or_create_main_doclist()
 		if self.user.pk == request.user.pk:
 			self.doc_list = self.list.get_my_docs()
+			self.is_have_lists = self.list.is_have_my_doc_lists(pk)
+			self.get_lists = self.list.get_my_doc_lists(pk)
 		else:
 			self.doc_list = self.list.get_docs()
+			self.is_have_lists = self.list.is_have_doc_lists(pk)
+			self.get_lists = self.list.get_doc_lists(pk)
 		self.template_name = get_list_template(self.list, "user_docs/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserDocs,self).get(request,*args,**kwargs)
 
@@ -28,6 +32,8 @@ class UserDocs(ListView):
 		context = super(UserDocs,self).get_context_data(**kwargs)
 		context['user'] = self.user
 		context['list'] = self.list
+		context['is_have_lists'] = self.is_have_lists
+		context['get_lists'] = self.get_lists
 		return context
 
 	def get_queryset(self):

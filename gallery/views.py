@@ -33,6 +33,7 @@ class UserGallery(ListView):
 		pk = self.kwargs["pk"]
 		self.user = User.objects.get(pk=pk)
 		self.album = self.user.get_or_create_main_album()
+		self.count_albums = self.album.get_albums_count(pk)
 		if pk == request.user.pk:
 			self.photo_list = self.album.get_staff_photos()
 			self.is_have_albums = self.album.is_have_my_albums(pk)
@@ -50,7 +51,8 @@ class UserGallery(ListView):
 		context['album'] = self.album
 		context['is_have_albums'] = self.is_have_albums
 		context['get_albums'] = self.get_albums
-		return context 
+		context['count_albums'] = self.count_albums
+		return context
 
 	def get_queryset(self):
 		return self.photo_list

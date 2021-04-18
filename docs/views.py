@@ -15,7 +15,8 @@ class UserDocs(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.user = User.objects.get(pk=self.kwargs["pk"])
+		pk = self.kwargs["pk"]
+		self.user = User.objects.get(pk=pk)
 		self.list = self.user.get_or_create_main_doclist()
 		if self.user.pk == request.user.pk:
 			self.doc_list = self.list.get_my_docs()

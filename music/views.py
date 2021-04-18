@@ -21,12 +21,17 @@ class UserMusic(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.user = User.objects.get(pk=self.kwargs["pk"])
+        pk = self.kwargs["pk"]
+		self.user = User.objects.get(pk=pk)
 		self.list = self.user.get_or_create_main_playlist()
 		if self.user.pk == request.user.pk:
 			self.music_list = self.list.get_my_playlist()
+            self.is_have_lists = self.list.is_have_my_lists(pk)
+			self.get_lists = self.list.get_my_lists(pk)
 		else:
 			self.music_list = self.list.get_playlist()
+            self.is_have_lists = self.list.is_have_lists(pk)
+			self.get_lists = self.list.get_lists(pk)
 		self.template_name = get_list_template(self.list, "user_music/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserMusic,self).get(request,*args,**kwargs)
 
@@ -34,6 +39,9 @@ class UserMusic(ListView):
 		context = super(UserMusic,self).get_context_data(**kwargs)
 		context['user'] = self.user
 		context['list'] = self.list
+        context['is_have_lists'] = self.is_have_lists
+		context['get_lists'] = self.get_lists
+		context['count_lists'] = self.count_lists
 		return context
 
 	def get_queryset(self):

@@ -23,81 +23,81 @@ def get_draft_news(user):
     query = Q(verb="SIT") & Q(user_set__isnull=True, object_set__isnull=True)
     return Wall.objects.filter(query)
 
-def user_notify(creator, attach, socket_name, verb):
+def user_notify(creator, object_id, type, socket_name, verb):
     from notify.models import Notify
     from datetime import date
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
     for user_id in creator.get_member_for_notify_ids():
-        if Notify.objects.filter(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=verb).exists():
+        if Notify.objects.filter(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=verb).exists():
             pass
-        elif Notify.objects.filter(recipient_id=user_id, created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
-            notify = Notify.objects.filter(recipient_id=user_id, attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb, user_set=notify)
-        elif Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).exists():
-            notify = Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).last()
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb="G"+verb, object_set=notify)
+        elif Notify.objects.filter(recipient_id=user_id, created__gt=today, type=type, verb=current_verb).exists():
+            notify = Notify.objects.filter(recipient_id=user_id, type=type, created__gt=today, verb=current_verb).last()
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb, user_set=notify)
+        elif Notify.objects.filter(recipient_id=user_id, object_id=object_id, type=type, created__gt=today, verb=verb).exists():
+            notify = Notify.objects.filter(recipient_id=user_id, object_id=object_id, type=type, created__gt=today, verb=verb).last()
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
         else:
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb)
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb)
             send_notify_socket(attach[3:], user_id, socket_name)
 
-def user_wall(creator, attach, socket_name, verb):
+def user_wall(creator, object_id, type, socket_name, verb):
     from notify.models import Wall
     from datetime import date
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
 
-    if Wall.objects.filter(creator_id=creator.pk, attach=attach, verb=verb).exists():
+    if Wall.objects.filter(creator_id=creator.pk, object_id=object_id, type=type, verb=verb).exists():
         pass
-    if Wall.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
-        notify = Wall.objects.filter(attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
-        Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb, user_set=notify)
-    elif Wall.objects.filter(attach=attach, created__gt=today, verb=verb).exists():
-        notify = Wall.objects.filter(attach=attach, created__gt=today, verb=verb).last()
-        Wall.objects.create(creator_id=creator.pk, attach=attach, verb="G"+verb, object_set=notify)
+    if Wall.objects.filter(created__gt=today, type=type, verb=current_verb).exists():
+        notify = Wall.objects.filter(type=type, created__gt=today, verb=current_verb).last()
+        Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb=current_verb, user_set=notify)
+    elif Wall.objects.filter(object_id=object_id, type=type, created__gt=today, verb=verb).exists():
+        notify = Wall.objects.filter(object_id=object_id, type=type, created__gt=today, verb=verb).last()
+        Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
     else:
-        Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb)
+        Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb=current_verb)
     send_wall_socket(attach[3:], socket_name)
 
 
 def get_notify(user, notify):
-    attach = notify.attach
-    if attach[:3] == "blo":
+    type = notify.type
+    if type == "BLO":
         from common.items.blog import get_blog
         return get_blog(user, notify)
-    elif attach[:3] == "blc":
+    elif type == "BLOC":
         from common.items.blog import get_comment_blog
         return get_comment_blog(user, notify)
 
-def user_comment_notify(creator, attach, socket_name, verb):
+def user_comment_notify(creator, object_id, type, socket_name, verb):
     from notify.models import Notify
     from datetime import date
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
     for user_id in creator.get_member_for_notify_ids():
-        if Notify.objects.filter(recipient_id=user_id, created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
-            notify = Notify.objects.filter(recipient_id=user_id, attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb, user_set=notify)
-        elif Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).exists():
-            notify = Notify.objects.filter(recipient_id=user_id, attach=attach, created__gt=today, verb=verb).last()
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb="G"+verb, object_set=notify)
+        if Notify.objects.filter(recipient_id=user_id, created__gt=today, type=type, verb=current_verb).exists():
+            notify = Notify.objects.filter(recipient_id=user_id, type=type, created__gt=today, verb=current_verb).last()
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb, user_set=notify)
+        elif Notify.objects.filter(recipient_id=user_id, object_id=object_id, type=type, created__gt=today, verb=verb).exists():
+            notify = Notify.objects.filter(recipient_id=user_id, object_id=object_id, type=type, created__gt=today, verb=verb).last()
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
         else:
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach=attach, verb=current_verb)
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb)
             send_notify_socket(attach[3:], user_id, socket_name)
 
-def user_comment_wall(creator, attach, socket_name, verb):
+def user_comment_wall(creator, object_id, type, socket_name, verb):
     from notify.models import Wall
     from datetime import date
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
-    if Wall.objects.filter(created__gt=today, attach__contains=attach[:3], verb=current_verb).exists():
-        notify = Wall.objects.filter(attach__contains=attach[:3], created__gt=today, verb=current_verb).last()
-        wall = Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb, user_set=notify)
-    elif Wall.objects.filter(attach=attach, created__gt=today, verb=verb).exists():
-        notify = Wall.objects.filter(attach=attach, created__gt=today, verb=verb).last()
-        wall = Wall.objects.create(creator_id=creator.pk, attach=attach, verb="G"+verb, object_set=notify)
+    if Wall.objects.filter(created__gt=today, type=type, verb=current_verb).exists():
+        notify = Wall.objects.filter(type=type, created__gt=today, verb=current_verb).last()
+        wall = Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb=current_verb, user_set=notify)
+    elif Wall.objects.filter(object_id=object_id, type=type, created__gt=today, verb=verb).exists():
+        notify = Wall.objects.filter(object_id=object_id, type=type, created__gt=today, verb=verb).last()
+        wall = Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
     else:
-        wall = Wall.objects.create(creator_id=creator.pk, attach=attach, verb=current_verb)
+        wall = Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb=current_verb)
     send_wall_socket(wall.pk, socket_name)
 
 

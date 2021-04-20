@@ -99,15 +99,8 @@ class BlogComment(models.Model):
 
         if text or _attach:
             comment = BlogComment.objects.create(commenter=commenter, parent=parent, blog=blog, text=text, attach=_attach, created=timezone.now())
-            if parent:
-                blog = parent.blog
-                type = "blc"+str(parent.pk)+",blo"+str(blog.pk)
-                user_comment_wall(commenter, type, "news_wall", "COM")
-                user_comment_notify(commenter, "blr"+type, "u_blog_comment_notify", "REP")
-            else:
-                type = "blc"+str(comment.pk)+", blo"+str(blog.pk)
-                user_comment_wall(commenter, type, "news_wall", "COM")
-                user_comment_notify(commenter, type, "u_blog_comment_notify", "COM")
+            user_comment_wall(commenter, type="BLOC", object_id=comment.pk, "news_wall", "COM")
+            user_comment_notify(commenter, type="BLOC", object_id=comment.pk, "u_blog_comment_notify", "COM")
             get_blog_message_processing(comment)
             return comment
         else:

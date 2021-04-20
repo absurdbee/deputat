@@ -1,3 +1,5 @@
+from blog.models import Blog, BlogComment
+
 def linebreaks(value, autoescape=None):
     from django.utils.html import linebreaks
     from django.utils.safestring import mark_safe
@@ -5,11 +7,10 @@ def linebreaks(value, autoescape=None):
     return mark_safe(linebreaks(value, autoescape))
 
 
-def blog(user, value):
-    from blog.models import Blog
+def blog(user, blog):
     from django.utils.http import urlencode
 
-    block, tags, votes_on, post, card_drop = '', '', '', Blog.objects.get(pk=value), '<span class="dropdown-item copy_link">Копировать ссылку</span>'
+    block, tags, votes_on, card_drop, post, value = '', '', '', '<span class="dropdown-item copy_link">Копировать ссылку</span>', blog, blog.pk
 
     if user.is_anonymous:
         user_like, user_dislike, user_inert = "btn_default", "btn_default", "btn_default"
@@ -63,34 +64,38 @@ def blog(user, value):
     <svg fill="currentColor" class="svg_info svg_default" style="padding-bottom: 2px;font-size:17px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"/></svg>', str(post.count_views()), '</span></div></div><div class="load_full_data"></div></div></div>'])
 
 def get_blog(user, notify):
-    if notify.verb == "ITE":
-        return blog(user, notify.attach[3:])
+    if notify.type == "BLO":
+        return blog(user, Blog.objects.get(pk=notify.object_id))
     else:
         if notify.is_have_user_set():
             return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a> '\
-            + notify.get_verb_display() + ' ' + notify.count_user_set_blog() + '</p>' + blog(user, notify.attach[3:])
+            + notify.get_verb_display() + ' ' + notify.count_user_set_blog() + '</p>' + blog(user, Blog.objects.get(pk=notify.object_id))
         elif notify.is_have_object_set():
             first_notify = notify.get_first_object_set()
             return '<p style="padding-left: 7px;"><a href="' + str(first_notify.creator.pk) + '" class="ajax" style="font-weight: bold;">'+ \
             first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\
-             + ' новость </p>' + blog(user, notify.attach[3:])
+             + ' новость </p>' + blog(user, Blog.objects.get(pk=notify.object_id))
         else:
             return '<p style="padding-left: 7px;"><a href="' + str(notify.creator.pk) + '" class="ajax" style="font-weight: bold;">'+ \
             notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
-             + ' новость </p>' + blog(user, notify.attach[3:])
+             + ' новость </p>' + blog(user, Blog.objects.get(pk=notify.object_id))
 
 def get_comment_blog(user, notify):
-    attach = notify.attach
-    _attach = attach.split(",")
+    from comon.model.comments import BlogComment
+    comment = BlogComment.objects.get(pk=notify.object_id)
+    if comment.parent:
+        blog = comment.parent.blog
+    else:
+        blog = comment.blog
     if notify.is_have_user_set():
         return '<p style="padding-left: 7px"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">' + notify.creator.get_full_name() + '</a> '\
-        + notify.get_verb_display() + ' новость ' + str(notify.count_user_set_comment()) + '</p>' + blog(user, _attach[1][4:])
+        + notify.get_verb_display() + ' новость ' + str(notify.count_user_set_comment()) + '</p>' + blog(user, blog)
     elif notify.is_have_object_set():
         first_notify = notify.get_first_object_set()
         return '<p style="padding-left: 7px;"><a href="/users/' + str(first_notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">'+ \
         first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\
-         + ' новость</p>' + blog(user, _attach[1][4:])
+         + ' новость</p>' + blog(user, blog)
     else:
         return '<p style="padding-left: 7px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">'+ \
         notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
-         + ' новость </p>' + blog(user, _attach[1][4:])
+         + ' новость </p>' + blog(user, blog)

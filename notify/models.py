@@ -5,13 +5,32 @@ from django.contrib.postgres.indexes import BrinIndex
 from notify.helpers import VERB, STATUS
 
 
+USER, COMMUNITY = 'USE', 'COM'
+ELECT_NEW, ELECT_NEW_COMMENT = 'ELN', 'ELNC'
+BLOG, BLOG_COMMENT = 'BLO', 'BLOC'
+PHOTO_LIST, PHOTO, PHOTO_COMMENT = 'PHL', 'PHO', 'PHOC'
+DOC_LIST, DOC = 'DOL', 'DOC'
+MUSIC_LIST, MUSIC = 'MUL', 'MUS'
+VIDEO_LIST, VIDEO, VIDEO_COMMENT = 'VIL', 'VID', 'VIDC'
+
+TYPE = (
+    (USER, 'Пользователь'), (COMMUNITY, 'Сообщество'),
+    (MUSIC_LIST, 'Плейлист'), (MUSIC, 'Трек'),
+    (ELECT_NEW, 'Активность'), (ELECT_NEW_COMMENT, 'Коммент к активности'),
+    (BLOG, 'Новость'), (BLOG_COMMENT, 'Коммент к новости'),
+    (DOC_LIST, 'Список документов'), (DOC, 'документ'),
+    (PHOTO_LIST, 'Список фотографий'), (PHOTO, 'Фотография'), (PHOTO_COMMENT, 'Коммент к фотографии'),
+    (VIDEO_LIST, 'Список роликов'), (VIDEO, 'Ролик'), (VIDEO_COMMENT, 'Коммент к ролику'),
+)
+
 class Notify(models.Model):
     recipient = models.ForeignKey('users.User', blank=True, null=True, on_delete=models.CASCADE, related_name='notifications', verbose_name="Получатель")
     creator = models.ForeignKey('users.User', verbose_name="Инициатор", on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True, editable=False, verbose_name="Создано")
     verb = models.CharField(max_length=5, choices=VERB, verbose_name="Тип уведомления")
     status = models.CharField(max_length=1, choices=STATUS, default="U", verbose_name="Статус")
-    attach = models.CharField(max_length=30, verbose_name="Объект")
+    type = models.CharField(max_length=5, choices=TYPE, verbose_name="Класс объекта")
+    object_id = models.PositiveIntegerField(default=0, verbose_name="id объекта")
     options = models.CharField(max_length=200, blank=True, null=True, verbose_name="Доп. поле, например регионы")
 
     user_set = models.ForeignKey('self', related_name='+', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Например, человек лайкает несколько постов. Нужно для группировки")
@@ -121,7 +140,8 @@ class Wall(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False, verbose_name="Создано")
     verb = models.CharField(max_length=5, choices=VERB, verbose_name="Тип уведомления")
     status = models.CharField(max_length=1, choices=STATUS, default="U", verbose_name="Статус")
-    attach = models.CharField(max_length=30, verbose_name="Объект")
+    type = models.CharField(max_length=5, choices=TYPE, verbose_name="Класс объекта")
+    object_id = models.PositiveIntegerField(default=0, verbose_name="id объекта")
     options = models.CharField(max_length=200, blank=True, null=True, verbose_name="Доп. поле, например регионы")
 
     user_set = models.ForeignKey('self', related_name='+', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Например, человек лайкает несколько постов. Нужно для группировки")

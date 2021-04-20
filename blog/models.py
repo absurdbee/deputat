@@ -45,7 +45,7 @@ class Blog(models.Model):
         from notify.models import Notify
 
         blog = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=Blog.STATUS_DRAFT,)
-        Notify.objects.create(creator_id=creator.pk, attach="blo"+str(blog.pk), verb="ITE")
+        Notify.objects.create(creator_id=creator.pk, type="BLO", object_id=blog.pk, verb="ITE")
         return blog
 
     def likes(self):
@@ -200,8 +200,8 @@ class ElectNew(models.Model):
         from common.notify import user_wall, user_notify
 
         elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=ElectNew.STATUS_DRAFT,)
-        user_wall(creator, "blo"+str(elect_new.pk), "draft_news_wall", "SIT")
-        user_notify(creator, "blo"+str(elect_new.pk), "draft_news_notify", "SIT")
+        user_wall(creator, type="ELN", object_id=elect_new.pk, "draft_news_wall", "SIT")
+        user_notify(creator, type="ELN", object_id=elect_new.pk, "draft_news_notify", "SIT")
         return elect_new
 
     def make_publish_new(self):
@@ -209,8 +209,8 @@ class ElectNew(models.Model):
 
         self.status = ElectNew.STATUS_PUBLISHED
         self.save(update_fields=['status'])
-        user_wall(self.manager, "blo"+str(self.pk), "news_wall", "ITE")
-        user_notify(self.manager, "blo"+str(self.pk), "news_notify", "ITE")
+        user_wall(self.manager, type="ELN", object_id=elect_new.pk, "news_wall", "ITE")
+        user_notify(self.manager, type="ELN", object_id=elect_new.pk, "news_notify", "ITE")
         return self
 
     def is_draft(self):

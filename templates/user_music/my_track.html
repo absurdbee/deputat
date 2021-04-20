@@ -8,7 +8,7 @@
           {% endif %}
         </a>
       <div class="media-body doc_media_body" style="line-height: 8px;">
-          <h6 class="music_list_item pointer" style="width: 80%;overflow: hidden;"><a>{{ object.title }}</a></h6>
+          <h6 class="music_list_item pointer" style="width: 80%;overflow: hidden;margin-top: 3px;"><a>{{ object.title }}</a></h6>
           <a class="ajax small" href="{% url 'user' pk=object.creator.pk %}">{{ object.creator.get_full_name }}</a>
 
           <span class='span_btn' data-pk="{{ object.pk }}">
@@ -20,7 +20,7 @@
                         <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
                     </svg>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" style="top: 42px;">
+                <div class="dropdown-menu dropdown-menu-right" style="top: 50px;">
                     <span class="dropdown-item u_track_edit">Изменить</span>
                     <span class="dropdown-item u_track_remove">Удалить</span>
                 </div>

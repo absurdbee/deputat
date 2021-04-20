@@ -1,5 +1,5 @@
 <div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
-  <div class="media" music-counter="{{ forloop.counter0|add:page_obj.start_index }}" style="align-items: unset;position: relative;">
+  <div class="media border p-1" music-counter="{{ forloop.counter0|add:page_obj.start_index }}">
       <figure>
         <a class="pointer music_list_item">
           {% if object.artwork_url %}
@@ -11,9 +11,9 @@
       </figure>
       <div class="media-body" style="line-height: 0.4;">
           <h6 class="music_list_item pointer" style="width: 80%;overflow: hidden;"><a>{{ object.title }}</a></h6>
-          <a class="ajax" href="{% url 'user' pk=object.creator.pk %}">{{ object.creator.get_full_name }}</a>
+          <a class="ajax small" href="{% url 'user' pk=object.creator.pk %}">{{ object.creator.get_full_name }}</a>
 
-          <span class='span_btn' style="float:right;margin-top: -25px;display:flex" data-pk="{{ object.pk }}">
+          <span class='span_btn' data-pk="{{ object.pk }}">
             {% include 'user_music/add_dropdown.html' %}
             <div class="dropdown" style="position: inherit;">
                 <a class="btn_default drop pointer">

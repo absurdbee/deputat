@@ -57,7 +57,7 @@ class UserMusicList(ListView):
 			self.music_list = self.list.get_my_playlist()
 		else:
 			self.music_list = self.list.get_playlist()
-		self.template_name = get_list_template(self.list, "user_docs/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_list_template(self.list, "user_music/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserMusicList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

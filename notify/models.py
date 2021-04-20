@@ -43,7 +43,7 @@ class Notify(models.Model):
         indexes = (BrinIndex(fields=['created']),)
 
     def __str__(self):
-        return self.attach
+        return self.creator.get_full_name()
 
     def is_have_user_set(self):
         return Notify.objects.filter(user_set_id=self.pk).exists()

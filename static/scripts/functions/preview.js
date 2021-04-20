@@ -238,7 +238,7 @@ function create_preview_doc_list(name, pk, count){
 
   $card_body = document.createElement("div");
   $card_body.classList.add("card-body", "pt-0");
-  $card_body.innerHTML = '<div class="content-wrapper" style="display: flex;"><p class="card-text file-name mb-0 u_load_doc_list pointer"><a class="nowrap">' + name + '</a></p><p class="card-text file-size mb-0">' + count + '</p></div><small class="file-accessed pointer doc_attach_list_remove underline">Открепить</small>'
+  $card_body.innerHTML = '<div class="content-wrapper" style="display: flex;"><p class="card-text file-name mb-0 u_load_doc_list pointer"><a class="nowrap">' + name + ' (' + count + ')</a></p></div><small class="file-accessed pointer doc_attach_list_remove underline">Открепить</small>'
 
   $div.append($input);
   $div.append($div_svg);

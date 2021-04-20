@@ -2,10 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.postgres.indexes import BrinIndex
 from blog.models import Blog, ElectNew
-from elect.models import Elect
-from users.helpers import upload_to_user_directory
-from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
-from imagekit.models import ProcessedImageField
+from django.db.models import Q
 
 
 """

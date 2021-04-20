@@ -156,6 +156,13 @@ class SoundList(models.Model):
         query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
         return cls.objects.filter(query).exists()
 
+    @classmethod
+    def get_lists_count(cls, user_pk):
+        # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
+        query = Q(type="LIS") | Q(type="PRI")
+        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+        return cls.objects.filter(query).values("pk").count()
+
 
 class Music(models.Model):
     PROCESSING = 'PRO'

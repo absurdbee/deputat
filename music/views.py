@@ -32,6 +32,7 @@ class UserMusic(ListView):
             self.music_list = self.list.get_playlist()
             self.is_have_lists = self.list.is_have_lists(pk)
             self.get_lists = self.list.get_lists(pk)
+        self.count_lists = self.list.get_lists_count(pk)
         self.template_name = get_list_template(self.list, "user_music/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(UserMusic,self).get(request,*args,**kwargs)
 

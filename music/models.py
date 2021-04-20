@@ -225,7 +225,7 @@ class Music(models.Model):
     uri = models.CharField(max_length=255, blank=True, null=True)
     list = models.ManyToManyField(SoundList, related_name='playlist', blank="True")
     status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип")
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
 
     def __str__(self):
         return self.title

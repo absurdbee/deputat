@@ -1,4 +1,5 @@
-from blog.models import Blog, BlogComment
+from blog.models import Blog
+from common.model.comments import BlogComment
 
 def linebreaks(value, autoescape=None):
     from django.utils.html import linebreaks
@@ -81,7 +82,6 @@ def get_blog(user, notify):
              + ' новость </p>' + blog(user, Blog.objects.get(pk=notify.object_id))
 
 def get_comment_blog(user, notify):
-    from comon.model.comments import BlogComment
     comment = BlogComment.objects.get(pk=notify.object_id)
     if comment.parent:
         blog = comment.parent.blog

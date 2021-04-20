@@ -25,7 +25,7 @@ def get_draft_news(user):
 
 def user_notify(creator, type, object_id, socket_name, verb):
     from notify.models import Notify
-    from datetime import date 
+    from datetime import date
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
     for user_id in creator.get_member_for_notify_ids():
@@ -39,7 +39,7 @@ def user_notify(creator, type, object_id, socket_name, verb):
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
         else:
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb)
-            send_notify_socket(attach[3:], user_id, socket_name)
+            send_notify_socket(object_id, user_id, socket_name)
 
 def user_wall(creator, type, object_id, socket_name, verb):
     from notify.models import Wall
@@ -57,7 +57,7 @@ def user_wall(creator, type, object_id, socket_name, verb):
         Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
     else:
         Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb=current_verb)
-    send_wall_socket(attach[3:], socket_name)
+    send_wall_socket(object_id, socket_name)
 
 
 def get_notify(user, notify):
@@ -83,7 +83,7 @@ def user_comment_notify(creator, object_id, type, socket_name, verb):
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
         else:
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb)
-            send_notify_socket(attach[3:], user_id, socket_name)
+            send_notify_socket(object_id, user_id, socket_name)
 
 def user_comment_wall(creator, object_id, type, socket_name, verb):
     from notify.models import Wall
@@ -98,7 +98,7 @@ def user_comment_wall(creator, object_id, type, socket_name, verb):
         wall = Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
     else:
         wall = Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb=current_verb)
-    send_wall_socket(wall.pk, socket_name)
+    send_wall_socket(object_id, socket_name)
 
 
 def send_notify_socket(id, recipient_id, socket_name):

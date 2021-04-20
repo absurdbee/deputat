@@ -121,7 +121,7 @@ class UserLoadMusic(ListView):
 		from music.models import SoundList
 
 		self.playlist, self.template_name = request.user.get_or_create_main_playlist(), get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.pk = request.user.pk
+		pk = request.user.pk
 		self.is_have_lists = self.playlist.is_have_lists(pk)
 		self.get_lists = self.playlist.get_lists(pk)
 		return super(UserLoadMusic,self).get(request,*args,**kwargs)

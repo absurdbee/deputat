@@ -26,8 +26,8 @@ class ElectNewLike(View):
         except ElectVotes.DoesNotExist:
             ElectVotes.objects.create(new=new, user=request.user, vote=ElectVotes.LIKE)
             result = True
-            user_wall(request.user, type="ELN", object_id=new.pk, "new_wall", "LIK")
-            user_notify(request.user, type="ELN", object_id=new.pk, "new_notify", "LIK")
+            user_wall(request.user, "ELN", new.pk, "new_wall", "LIK")
+            user_notify(request.user, "ELN", new.pk, "new_notify", "LIK")
         return HttpResponse(json.dumps({
                 "like_count": str(new.likes_count()),
                 "inert_count": str(new.inerts_count()),
@@ -53,8 +53,8 @@ class ElectNewDislike(View):
         except ElectVotes.DoesNotExist:
             ElectVotes.objects.create(new=new, user=request.user, vote=ElectVotes.DISLIKE)
             result = True
-            user_wall(request.user, type="ELN", object_id=new.pk, "new_wall", "DIS")
-            user_notify(request.user, type="ELN", object_id=new.pk, "new_notify", "DIS")
+            user_wall(request.user, "ELN", new.pk, "new_wall", "DIS")
+            user_notify(request.user, "ELN", new.pk, "new_notify", "DIS")
         return HttpResponse(json.dumps({
                 "like_count": str(new.likes_count()),
                 "inert_count": str(new.inerts_count()),
@@ -77,8 +77,8 @@ class ElectNewInert(View):
                 likedislike.delete()
         except ElectVotes.DoesNotExist:
             ElectVotes.objects.create(new=new, user=request.user, vote=ElectVotes.INERT)
-            user_wall(request.user, type="ELN", object_id=new.pk, "new_notify", "INE")
-            user_notify(request.user, type="ELN", object_id=new.pk, "new_notify", "INE")
+            user_wall(request.user, "ELN", new.pk, "new_notify", "INE")
+            user_notify(request.user, "ELN", new.pk, "new_notify", "INE")
         return HttpResponse(json.dumps({
                     "like_count": str(new.likes_count()),
                     "inert_count": str(new.inerts_count()),
@@ -105,8 +105,8 @@ class ElectNewCommentLike(View):
         except ElectNewCommentVotes.DoesNotExist:
             ElectNewCommentVotes.objects.create(comment=comment, user=request.user, vote=ElectNewCommentVotes.LIKE)
             result = True
-            user_wall(request.user, type="ELNC", object_id=comment.pk, "new_comment", "LCO")
-            user_notify(request.user, type="ELNC", object_id=comment.pk, "new_comment", "LRE")
+            user_wall(request.user, "ELNC", comment.pk, "new_comment", "LCO")
+            user_notify(request.user, "ELNC", comment.pk, "new_comment", "LRE")
         likes = comment.likes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes)}),content_type="application/json")
 
@@ -127,8 +127,8 @@ class BlogLike(View):
                 likedislike.save(update_fields=['vote'])
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.LIKE)
-            user_wall(request.user, type="BLO", object_id=blog.pk, "new_notify", "LIK")
-            user_notify(request.user, type="BLO", object_id=blog.pk, "new_notify", "LIK")
+            user_wall(request.user, "BLO", blog.pk, "new_notify", "LIK")
+            user_notify(request.user, "BLO", blog.pk, "new_notify", "LIK")
         return HttpResponse(json.dumps({
                 "like_count": str(blog.likes_count()),
                 "inert_count": str(blog.inerts_count()),
@@ -151,8 +151,8 @@ class BlogDislike(View):
                 likedislike.delete()
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.DISLIKE)
-            user_wall(request.user, type="BLO", object_id=blog.pk, "new_notify", "DIS")
-            user_notify(request.user, type="BLO", object_id=blog.pk, "new_notify", "DIS")
+            user_wall(request.user, "BLO", blog.pk, "new_notify", "DIS")
+            user_notify(request.user, "BLO", blog.pk, "new_notify", "DIS")
         return HttpResponse(json.dumps({
                     "like_count": str(blog.likes_count()),
                     "inert_count": str(blog.inerts_count()),
@@ -175,8 +175,8 @@ class BlogInert(View):
                 likedislike.delete()
         except BlogVotes.DoesNotExist:
             BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.INERT)
-            user_wall(request.user, type="BLO", object_id=blog.pk, "new_notify", "INE")
-            user_notify(request.user, type="BLO", object_id=blog.pk, "new_notify", "INE")
+            user_wall(request.user, "BLO", blog.pk, "new_notify", "INE")
+            user_notify(request.user, "BLO", blog.pk, "new_notify", "INE")
         return HttpResponse(json.dumps({
                     "like_count": str(blog.likes_count()),
                     "inert_count": str(blog.inerts_count()),
@@ -203,7 +203,7 @@ class BlogCommentLike(View):
         except BlogCommentVotes.DoesNotExist:
             BlogCommentVotes.objects.create(comment=comment, user=request.user, vote=BlogCommentVotes.LIKE)
             result = True
-            user_wall(request.user, type="BLOC", object_id=comment.pk, "blog_comment", "LCO")
-            user_notify(request.user, type="BLOC", object_id=comment.pk, "blog_comment", "LRE")
+            user_wall(request.user, "BLOC", comment.pk, "blog_comment", "LCO")
+            user_notify(request.user, "BLOC", comment.pk, "blog_comment", "LRE")
         likes = comment.likes_count()
         return HttpResponse(json.dumps({"result": result,"like_count": str(likes)}),content_type="application/json")

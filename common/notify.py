@@ -23,7 +23,7 @@ def get_draft_news(user):
     query = Q(verb="SIT") & Q(user_set__isnull=True, object_set__isnull=True)
     return Wall.objects.filter(query)
 
-def user_notify(creator, object_id, type, socket_name, verb):
+def user_notify(creator, type, object_id, socket_name, verb):
     from notify.models import Notify
     from datetime import date
 
@@ -41,7 +41,7 @@ def user_notify(creator, object_id, type, socket_name, verb):
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb)
             send_notify_socket(attach[3:], user_id, socket_name)
 
-def user_wall(creator, object_id, type, socket_name, verb):
+def user_wall(creator, type, object_id, socket_name, verb):
     from notify.models import Wall
     from datetime import date
 

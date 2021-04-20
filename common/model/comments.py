@@ -52,10 +52,10 @@ class BlogComment(models.Model):
         return naturaltime(self.created)
 
     def get_replies(self):
-        return BlogComment.objects.filter(parent=self,status=BlogComment.PUBLISHED).only("pk")
+        return self.blog_comment_replies.filter(Q(status="PUB")|Q(status="EDI"))
 
     def count_replies(self):
-        return self.get_replies().count()
+        return self.get_replies().values("pk").count()
 
     def likes(self):
         from common.model.votes import BlogCommentVotes
@@ -188,11 +188,10 @@ class ElectNewComment(models.Model):
         return naturaltime(self.created)
 
     def get_replies(self):
-        get_comments = ElectNewComment.objects.filter(parent=self).all()
-        return get_comments
+        return self.elect_new_comment_replies.filter(Q(status="PUB")|Q(status="EDI"))
 
     def count_replies(self):
-        return BlogComment.objects.filter(parent=self,type=ElectNewComment.PUBLISHED).only("pk")
+        return self.get_replies().values("pk").count()
 
     def likes(self):
         from common.model.votes import ElectNewCommentVotes

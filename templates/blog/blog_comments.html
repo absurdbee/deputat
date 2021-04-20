@@ -4,7 +4,7 @@
         <div class="card-body">
             <form class="form">
               {% csrf_token %}
-                  <div class="row comment_attach_block"></div>
+                  <div class="row comment_attach_block no_gutters"></div>
                   <span style="display:flex">
                       {% include 'blog/dropdown.html' %}
                       <input name="text" placeholder="Напишите комментарий" class="form-control text-comment" style="margin-bottom:5px">

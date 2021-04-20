@@ -52,7 +52,7 @@ class SoundList(models.Model):
         return self.playlist.filter(list=self).values("pk").exists()
 
     def get_my_playlist(self):
-        query = Q(status="PUB") & Q(status="PRI")
+        query = Q(status="PUB")|Q(status="PRI")
         return self.playlist.filter(query)
 
     def get_playlist(self):

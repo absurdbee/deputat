@@ -25,7 +25,7 @@ def get_draft_news(user):
 
 def user_notify(creator, type, object_id, socket_name, verb):
     from notify.models import Notify
-    from datetime import date
+    from datetime import date 
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
     for user_id in creator.get_member_for_notify_ids():

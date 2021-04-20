@@ -119,7 +119,7 @@ class UserPlaylistCreate(TemplateView):
             if not new_list.order:
                 new_list.order = 0
             new_list.save()
-            return render_for_platform(request, 'user_music/my_list.html',{'list': new_list, 'user': request.user})
+            return render_for_platform(request, 'user_music/list/my_list.html',{'list': new_list, 'user': request.user})
         else:
             return HttpResponseBadRequest()
 

@@ -308,7 +308,7 @@ class Music(models.Model):
         else:
             get_music_processing(track, Music.PRIVATE)
         for list_id in lists:
-            playlist = DocList.objects.get(pk=list_id)
+            playlist = SoundList.objects.get(pk=list_id)
             playlist.playlist.add(track)
         return track
 

@@ -52,7 +52,7 @@
     {% endif %}
 
 {% if object_list %}
-<div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_doc_load/">
+<div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_music_load/">
 {% for object in object_list %}
 <div class="border load_pag {% if forloop.last %}load_last{% endif %}" style="position: relative;width: 100%;padding:5px 10px; margin-bottom:7px">
   <div style="display:flex" data-pk="{{ object.pk }}">
@@ -65,7 +65,7 @@
           </h6>
       </div>
   </div>
-  <span class="item_attach_circle doc_load_several" style="top: 8px;">
+  <span class="item_attach_circle track_load_several" style="top: 8px;">
       <svg fill="currentColor" viewBox="0 0 24 24">
         <path d="M24 24H0V0h24v24z" fill="none"/><circle cx="12" cy="12" r="8"/>
       </svg>

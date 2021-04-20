@@ -225,6 +225,7 @@ function create_preview_doc(media_body, pk){
 function create_preview_doc_list(name, pk, count){
   $div = document.createElement("div");
   $div.classList.add("col-md-6", "col-sm-12", "folder");
+  $div.style.textAlign = "center";
   $div.setAttribute("doclist-pk", pk);
 
   $input = document.createElement("span");

@@ -9,8 +9,8 @@
           {% endif %}
         </a>
       </figure>
-      <div class="media-body" style="line-height: 0.4;">
-          <h6 class="music_list_item pointer" style="width: 80%;overflow: hidden;"><a>{{ object.title }}</a></h6>
+      <div class="media-body doc_media_body">
+          <h6 class="pointer" style="width: 80%;overflow: hidden;"><a>{{ object.title }}</a></h6>
           <a class="ajax small" href="{% url 'user' pk=object.creator.pk %}">{{ object.creator.get_full_name }}</a>
 
           <span class='span_btn' data-pk="{{ object.pk }}">

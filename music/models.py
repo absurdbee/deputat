@@ -98,35 +98,35 @@ class SoundList(models.Model):
         from notify.models import Notify, Wall
         self.type = SoundList.PRIVATE
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.type = SoundList.LIST
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
     def delete_list(self):
         from notify.models import Notify, Wall
         self.type = SoundList.DELETED
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
         self.type = SoundList.PRIVATE
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="lmu"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
     def get_my_lists(cls, user_pk):
@@ -162,6 +162,43 @@ class SoundList(models.Model):
         query = Q(type="LIS") | Q(type="PRI")
         query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
         return cls.objects.filter(query).values("pk").count()
+
+    @classmethod
+    def create_list(cls, creator, name, description, order, is_public):
+        #from notify.models import Notify, Wall, get_user_managers_ids
+        #from common.notify import send_notify_socket
+        from common.processing import get_playlist_processing
+
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description, order=order)
+        if is_public:
+            get_doc_list_processing(list, SoundList.LIST)
+            #for user_id in creator.get_user_news_notify_ids():
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="ldo"+str(list.pk), verb="ITE")
+                #send_notify_socket(attach[3:], user_id, "create_doc_list_notify")
+            #Wall.objects.create(creator_id=creator.pk, attach="ldo"+str(list.pk), verb="ITE")
+            #send_notify_socket(attach[3:], user_id, "create_doc_list_wall")
+        else:
+            get_doc_list_processing(list, SoundList.PRIVATE)
+        return list
+
+    def edit_list(self, name, description, order, is_public):
+        from common.processing import get_playlist_processing
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        if is_public:
+            get_playlist_processing(self, DocList.LIST)
+            self.make_publish()
+        else:
+            get_playlist_processing(self, DocList.PRIVATE)
+            self.make_private()
+        return self
 
 
 class Music(models.Model):

@@ -119,6 +119,7 @@ class UserLoadMusic(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from music.models import SoundList
+		
 		self.playlist, self.template_name = request.user.get_or_create_main_playlist(), get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		pk = request.user.pk
 		self.is_have_lists = self.playlist.is_have_lists(pk)

@@ -51,6 +51,15 @@ function check_doc_list_in_block(block, _this, pk) {
         return false
     }
 }
+function check_playlist_in_block(block, _this, pk) {
+    if (block.querySelector('[playlist-pk=' + '"' + pk + '"' + ']')) {
+        _this.parentElement.parentElement.setAttribute("tooltip", "Плейлист уже выбран");
+        _this.parentElement.parentElement.setAttribute("flow", "up");
+        return true
+    } else {
+        return false
+    }
+}
 
 function photo_preview_delete(){
   $span = document.createElement("span");
@@ -245,6 +254,29 @@ function create_preview_doc_list(name, pk, count){
   $div.append($card_body);
   return $div
 }
+function create_preview_doc_list(name, pk, count){
+  $div = document.createElement("div");
+  $div.classList.add("col-md-6", "col-sm-12", "folder");
+  $div.style.textAlign = "center";
+  $div.setAttribute("playlist-pk", pk);
+
+  $input = document.createElement("span");
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="lmu' + pk + ' />';
+
+  $div_svg = document.createElement("div");
+  $div_svg.classList.add("card-img-top", "file-logo-wrapper");
+  $div_svg.style.padding = "2rem";
+  $div_svg.innerHTML = '<a class="nowrap"><div class="d-flex align-items-center justify-content-center w-100 u_load_doc_list pointer"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></div></a>'
+
+  $card_body = document.createElement("div");
+  $card_body.classList.add("card-body", "pt-0");
+  $card_body.innerHTML = '<div class="content-wrapper" style="display: flex;"><p class="card-text file-name mb-0 u_load_doc_list pointer"><a class="nowrap">' + name + ' (' + count + ')</a></p></div><small class="file-accessed pointer doc_attach_list_remove underline">Открепить</small>'
+
+  $div.append($input);
+  $div.append($div_svg);
+  $div.append($card_body);
+  return $div
+}
 
 on('body', 'click', '.photo_load_one', function() {
   _this = this;
@@ -310,5 +342,18 @@ on('body', 'click', '.doc_attach_list', function() {
     check_doc_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_list_comment_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
     check_doc_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_list_comment_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
+  }
+});
+on('body', 'click', '.music_attach_list', function() {
+  _this = this;
+  name = _this.parentElement.querySelector(".list_name").innerHTML;
+  pk = _this.getAttribute('data-pk');
+  count = _this.parentElement.querySelector(".count").innerHTML;
+  if (document.body.querySelector(".current_file_dropdown")){
+    check_playlist_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_create_window())
+  } else if (document.body.querySelector(".attach_block")){
+    check_playlist_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
+  } else if (document.body.querySelector(".message_attach_block")){
+    check_playlist_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
   }
 });

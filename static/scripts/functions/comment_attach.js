@@ -15,9 +15,12 @@ function clear_comment_dropdown(){
   }} catch { null }
 }
 function check_attach_block_message_post(){
-  // удаляем другие активные поля прикрепления - в сообщениях, записях, если они есть
+  // удаляем другие активные поля прикрепления - в сообщениях, записях, если они есть.
+  // также найдем все активные поля комментов и их деактивируем
   document.body.querySelector(".message_attach_block") ? clear_message_attach_block() :
   document.body.querySelector(".attach_block") ? clear_attach_block() : null
+  list = document.body.querySelectorAll('.current_file_dropdown');
+  for (var i = 0; i < list.length; i++) {list[i].classList.remove("current_file_dropdown")}
 }
 function is_full_dropdown(){
   dropdown = document.body.querySelector(".current_file_dropdown").parentElement.parentElement;
@@ -64,6 +67,14 @@ function doc_list_comment_attach(dropdown, title, pk, count) {
   is_full_dropdown();
   attach_block = dropdown.parentElement.previousElementSibling;
   div = create_preview_doc_list(title, pk, count);
+  attach_block.append(div);
+  add_file_dropdown()
+  is_full_dropdown();
+}
+function playlist_comment_attach(dropdown, title, pk, count) {
+  is_full_dropdown();
+  attach_block = dropdown.parentElement.previousElementSibling;
+  div = create_preview_playlist(title, pk, count);
   attach_block.append(div);
   add_file_dropdown()
   is_full_dropdown();

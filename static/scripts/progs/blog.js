@@ -164,13 +164,13 @@ on('#ajax', 'click', '.u_load_comment_photo', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen('/users/load/u_img_comment_load/', loader)
 });
-on('#ajax', 'click', '.u_comment_doc', function() {
+on('#ajax', 'click', '.u_load_doc', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");
   open_fullscreen('/users/load/u_doc_load/', loader)
 });
-on('#ajax', 'click', '.u_comment_music', function() {
+on('#ajax', 'click', '.u_load_music', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");

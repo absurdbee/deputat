@@ -25,7 +25,7 @@ function check_video_in_block(block, _this, pk) {
     }
 }
 function check_track_in_block(block, _this, counter) {
-    if (block.querySelector('[music-counter=' + '"' + pk + '"' + ']')) {
+    if (block.querySelector('[data-pk=' + '"' + pk + '"' + ']')) {
         _this.parentElement.setAttribute("tooltip", "Аудиозапись уже выбрана");
         _this.parentElement.setAttribute("flow", "up");
         return true
@@ -178,7 +178,7 @@ function create_preview_music(_this){
 
   media_body = _this.querySelector(".media-body");
   pk = _this.getAttribute('data-pk');
-  counter = _this.querySelector(".counter").getAttribute('music-counter');
+  counter = _this.getAttribute('music-counter');
 
   if (img_src) {
     $img = document.createElement("img");
@@ -191,6 +191,7 @@ function create_preview_music(_this){
   $div.style.padding = "3px";
   $div.style.display = "flex";
   $div.setAttribute('music-counter', counter);
+  $div.setAttribute('data-pk', pk);
 
   $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + pk + '">';
 

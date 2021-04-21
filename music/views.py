@@ -71,21 +71,21 @@ class UserMusicList(ListView):
 
 
 class UserLoadPlaylist(ListView):
-	template_name, paginate_by = None, 15
+    template_name, paginate_by = None, 15
 
-	def get(self,request,*args,**kwargs):
-		self.playlist = SoundList.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_list_template(self.playlist, "user_music/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+    def get(self,request,*args,**kwargs):
+        self.playlist = SoundList.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_list_template(self.playlist, "user_music/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
         if self.playlist.creator.pk == request.user.pk:
-			self.music_list = self.list.get_my_playlist()
-		else:
-			self.music_list = self.list.get_playlist()
-		return super(UserLoadPlaylist,self).get(request,*args,**kwargs)
+            self.music_list = self.list.get_my_playlist()
+        else:
+            self.music_list = self.list.get_playlist()
+        return super(UserLoadPlaylist,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(UserLoadPlaylist,self).get_context_data(**kwargs)
-		context['playlist'] = self.playlist
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(UserLoadPlaylist,self).get_context_data(**kwargs)
+        context['playlist'] = self.playlist
+        return context
 
-	def get_queryset(self):
-		return self.music_list
+    def get_queryset(self):
+        return self.music_list

@@ -117,7 +117,7 @@ on('body', 'click', '.u_add_track_in_list', function() {
     list.classList.add("u_remove_track_in_list");
     list.classList.remove("u_add_track_in_list");
     span = document.createElement("span");
-    span.innerHTML = '<svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> ';
+    span.innerHTML = '<svg fill="currentColor" style="width:12px;height:12px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> ';
     list.prepend(span)
   }};
   link.send( null );

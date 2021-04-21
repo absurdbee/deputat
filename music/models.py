@@ -246,6 +246,11 @@ class Music(models.Model):
             return self.file.url
         else:
             return self.uri
+    def get_duration(self):
+        if self.duration:
+            return self.duration
+        else:
+            return 0
 
     def get_remote_image(self, image_url):
         import os

@@ -37,7 +37,7 @@ def get_u_blog_comment_attach(comment, user):
                     else:
                         lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_add_track_in_list" style="padding-left: 30px;">', list.name, '</span></span>'])
                 span_btn = ''.join([span_btn, '<span class="span_btn" style="margin-left:auto;display:flex" data-pk="', str(music.pk), '"><span class="dropdown" style="position: inherit;"><span class="btn_default pointer drop"><svg fill="currentColor" style="width:25px;height:25px;" class="svg_default" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span><div class="dropdown-menu dropdown-menu-right" style="top: 25px;">', lists, '<span class="dropdown-item u_create_music_list_track_add" style="padding-left: 30px;">В новый плейлист</span></div></span></span>'])
-            block = ''.join([block, '<div class="music" data-path="', music.get_uri(), '" data-duration="', music.duration, '" style="width: 100%;position: relative;"><div class="media" music-counter="0">', figure, '<div class="media-body" style="display: flex;"><h6 class="music_list_comment music_title"><a>', music.title, '</a></h6>', span_btn, '</div></div></div>'])
+            block = ''.join([block, '<div class="music" data-path="', music.get_uri(), '" data-duration="', str(music.duration), '" style="width: 100%;position: relative;"><div class="media" music-counter="0">', figure, '<div class="media-body" style="display: flex;"><h6 class="music_list_comment music_title"><a>', music.title, '</a></h6>', span_btn, '</div></div></div>'])
             #except:
             #    pass
         elif item[:3] == "doc":

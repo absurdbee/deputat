@@ -3,27 +3,30 @@ function check_span1(span1, uuid, response) {
     document.body.querySelector(".is_paginate").insertAdjacentHTML('afterBegin', response)
   }
 }
-function get_preview(_this, response, type) {
+function get_preview(response, type) {
   if (document.body.querySelector(".current_file_dropdown")){
     if (type == "doc") {
       pk = response.querySelector(".span_btn").getAttribute("data-pk");
       media_body = response.querySelector(".media-body");
       media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
-      check_doc_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_body, pk))
+      doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_body, pk)
+    } else if (type == "track") {
+      response.querySelector(".span_btn").remove(); response.querySelector(".small").remove();
+      track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response)
     }
   } else if (document.body.querySelector(".attach_block")){
     if (type == "doc") {
       pk = response.querySelector(".span_btn").getAttribute("data-pk");
       media_body = response.querySelector(".media-body");
       media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
-      check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), pk))
+      doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), pk)
     }
   } else if (document.body.querySector(".message_attach_block")){
     if (type == "doc") {
       pk = response.querySelector(".span_btn").getAttribute("data-pk");
       media_body = response.querySelector(".media-body");
       media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
-      check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), response.querySelector(".media-body"), pk))
+      doc_message_attach(document.body.querySelector(".message_attach_block"), response.querySelector(".media-body"), pk)
   }
   };
 };

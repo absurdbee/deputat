@@ -174,15 +174,11 @@ on('body', 'click', '#u_create_track_btn', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    span1 = response.querySelector('.span1')
-    if (span1.classList.contains(uuid)){
-      container = document.body.querySelector(".is_paginate");
-      container.insertAdjacentHTML('afterBegin', response.innerHTML);
-      container.querySelector(".track_empty") ? container.querySelector(".doc_empty").style.display = "none" : null;
-      toast_info("Аудиозапись создана!")
-    } else{
-      toast_info("Аудиозапись создана!")
-    }
+    document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
+      uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
+      check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
+      document.body.querySelector(".track_empty") ? document.body.querySelector(".track_empty").style.display = "none" : null) : get_preview(response, "track");
+    toast_info("Аудиозапись создана!")
     close_create_window();
   }};
 

@@ -31,7 +31,7 @@ def get_u_blog_comment_attach(comment, user):
             span_btn = ''
             if user.is_authenticated:
                 lists = ''
-                for list in user.get_all_audio_playlists():
+                for list in user.get_my_playlists():
                     if list.is_item_in_list(music.pk):
                         lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_remove_track_in_list"><svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>', list.name, '</span></span>'])
                     else:

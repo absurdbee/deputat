@@ -15,7 +15,7 @@
                           </svg>
                         </div>
                     </div>
-                    <a href="{% url 'user_docs_list' pk=user.pk uuid=object.uuid %}" class="ajax">
+                    <a href="{% url 'user_docs_list' uuid=object.uuid %}" class="ajax">
                     <div class="card-body pt-0">
                         <div class="content-wrapper">
                             <p class="card-text file-name mb-0" data-name="{{ object.name }}">{{ object.name }}</p>

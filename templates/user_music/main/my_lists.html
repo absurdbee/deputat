@@ -5,7 +5,7 @@
 <div class="row no-gutters" style="overflow-x: auto;">
     <div class="col-12">
         <ul style="width:max-content;list-style: none;">
-            {% for object in get_lists %} 
+            {% for object in get_lists %}
             <li class="album_item">
                 <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
                     <div class="card-img-top file-logo-wrapper">
@@ -23,7 +23,7 @@
                         <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                         </div>
                     </div>
-                    <a href="{% url 'user_playlist' pk=user.pk uuid=object.uuid %}" class="ajax">
+                    <a href="{% url 'user_playlist' uuid=object.uuid %}" class="ajax">
                     <div class="card-body pt-0">
                         <div class="content-wrapper">
                             <p class="card-text file-name mb-0 playlist_name" style="text-align: left;" data-name="{{ object.name }}">{{ object.name }}</p>

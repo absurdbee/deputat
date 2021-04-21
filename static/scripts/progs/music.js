@@ -235,7 +235,7 @@ on('body', 'click', '.u_track_remove', function() {
   saver = this.parentElement.parentElement.parentElement;
   pk = saver.getAttribute("data-pk")
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/music/user_progs/remove_track/" + pk + "/", true );
+  link.open( 'GET', "/music/user_progs/delete_track/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {
@@ -256,7 +256,7 @@ on('body', 'click', '.u_track_abort_remove', function() {
   pk = this.getAttribute("data-pk");
   block = this.parentElement;
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/music/user_progs/abort_remove_track/" + pk + "/", true );
+  link.open( 'GET', "/music/user_progs/abort_delete_track/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {

@@ -31,9 +31,9 @@
                         </div>
                         <small class="file-accessed text-muted">
                           {% if object.creator.pk == request.user.pk %}
-                            {{ user.get_full_name }}
-                          {% else %}
                             {{ object.get_type_display }}
+                          {% else %}
+                            {{ user.get_full_name }}
                           {% endif %}
                         </small>
                     </div>

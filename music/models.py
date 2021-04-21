@@ -175,10 +175,10 @@ class SoundList(models.Model):
         if is_public:
             get_playlist_processing(list, SoundList.LIST)
             #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="ldo"+str(list.pk), verb="ITE")
-                #send_notify_socket(attach[3:], user_id, "create_doc_list_notify")
-            #Wall.objects.create(creator_id=creator.pk, attach="ldo"+str(list.pk), verb="ITE")
-            #send_notify_socket(attach[3:], user_id, "create_doc_list_wall")
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUL", object_id=list.pk, verb="ITE")
+                #send_notify_socket(object_id, user_id, "create_playlist_notify")
+            #Wall.objects.create(creator_id=creator.pk, ype="MUL", object_id=list.pk), verb="ITE")
+            #send_notify_socket(object_id, user_id, "create_doc_list_wall")
         else:
             get_playlist_processing(list, SoundList.PRIVATE)
         return list
@@ -301,10 +301,10 @@ class Music(models.Model):
         if is_public:
             get_music_processing(track, Music.PUBLISHED)
             #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="doc"+str(doc.pk), verb="ITE")
-                #send_notify_socket(attach[3:], user_id, "create_doc_notify")
-            #Wall.objects.create(creator_id=creator.pk, attach="doc"+str(doc.pk), verb="ITE")
-            #send_notify_socket(attach[3:], user_id, "create_doc_wall")
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUS", object_id=track.pk, verb="ITE")
+                #send_notify_socket(attach[3:], user_id, "create_track_notify")
+            #Wall.objects.create(creator_id=creator.pk, type="MUS", object_id=track.pk, verb="ITE")
+            #send_notify_socket(attach[3:], user_id, "create_track_wall")
         else:
             get_music_processing(track, Music.PRIVATE)
         for list_id in lists:
@@ -325,3 +325,20 @@ class Music(models.Model):
             get_music_processing(self, Music.PRIVATE)
             self.make_private()
         return self.save()
+
+    def delete_track(self):
+        from notify.models import Notify, Wall
+        self.status = Music.DELETED
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_delete_track(self):
+        from notify.models import Notify, Wall
+        self.status = Music.PRIVATE
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")

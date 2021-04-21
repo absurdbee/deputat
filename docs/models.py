@@ -52,10 +52,10 @@ class DocList(models.Model):
         if is_public:
             get_doc_list_processing(list, DocList.LIST)
             #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="ldo"+str(list.pk), verb="ITE")
-                #send_notify_socket(attach[3:], user_id, "create_doc_list_notify")
-            #Wall.objects.create(creator_id=creator.pk, attach="ldo"+str(list.pk), verb="ITE")
-            #send_notify_socket(attach[3:], user_id, "create_doc_list_wall")
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="DOL", object_id=list.pk, verb="ITE")
+                #send_notify_socket(object_id, user_id, "create_doc_list_notify")
+            #Wall.objects.create(creator_id=creator.pk, type="DOL", object_id=list.pk, verb="ITE")
+            #send_notify_socket(object_id, user_id, "create_doc_list_wall")
         else:
             get_doc_list_processing(list, DocList.PRIVATE)
         return list
@@ -114,35 +114,35 @@ class DocList(models.Model):
         from notify.models import Notify, Wall
         self.type = DocList.PRIVATE
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.type = DocList.LIST
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
 
     def delete_list(self):
         from notify.models import Notify, Wall
         self.type = DocList.DELETED
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
         self.type = DocList.PRIVATE
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="ldo"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
     def get_my_lists(cls, user_pk):
@@ -225,10 +225,10 @@ class Doc(models.Model):
         if is_public:
             get_doc_processing(doc, Doc.PUBLISHED)
             #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, attach="doc"+str(doc.pk), verb="ITE")
-                #send_notify_socket(attach[3:], user_id, "create_doc_notify")
-            #Wall.objects.create(creator_id=creator.pk, attach="doc"+str(doc.pk), verb="ITE")
-            #send_notify_socket(attach[3:], user_id, "create_doc_wall")
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="DOC", object_id=doc.pk, verb="ITE")
+                #send_notify_socket(object_id, user_id, "create_doc_notify")
+            #Wall.objects.create(creator_id=creator.pk, type="DOC", object_id=doc.pk, verb="ITE")
+            #send_notify_socket(object_id, user_id, "create_doc_wall")
         else:
             get_doc_processing(doc, Doc.PRIVATE)
         for list_id in lists:
@@ -254,35 +254,35 @@ class Doc(models.Model):
         from notify.models import Notify, Wall
         self.status = Doc.PRIVATE
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.status = Doc.PUBLISHED
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
 
     def delete_doc(self):
         from notify.models import Notify, Wall
         self.status = Doc.DELETED
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_doc(self):
         from notify.models import Notify, Wall
         self.status = Doc.PRIVATE
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="doc"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
 
     def is_private(self):
         return self.status == self.PRIVATE

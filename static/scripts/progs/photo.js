@@ -210,3 +210,10 @@ on('body', 'click', '.u_copy_playlist', function() {
 on('body', 'click', '.u_uncopy_playlist', function() {
   on_off_list_in_collections(this, "/music/user_progs/remove_list/", "u_copy_playlist", "u_uncopy_playlist", "Добавить")
 });
+
+on('body', 'click', '.u_copy_doc_list', function() {
+  on_off_list_in_collections(this, "/music/user_progs/add_list/", "u_uncopy_doc_list", "u_copy_doc_list", "Удалить")
+});
+on('body', 'click', '.u_uncopy_doc_list', function() {
+  on_off_list_in_collections(this, "/music/user_progs/remove_list/", "u_copy_doc_list", "u_uncopy_doc_list", "Добавить")
+});

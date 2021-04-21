@@ -254,7 +254,7 @@ function create_preview_doc_list(name, pk, count){
   $div.append($card_body);
   return $div
 }
-function create_preview_doc_list(name, pk, count){
+function create_preview_playlist(name, pk, count){
   $div = document.createElement("div");
   $div.classList.add("col-md-6", "col-sm-12", "folder");
   $div.style.textAlign = "center";

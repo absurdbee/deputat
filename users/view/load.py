@@ -150,7 +150,7 @@ class UserLoadMusicList(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.playlist.playlist_too().order_by('-created_at')
+		return self.playlist.get_playlist().order_by('-created_at')
 
 
 class UserLoadDoc(ListView):

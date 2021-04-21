@@ -1,4 +1,4 @@
-<div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
+<div class="col-md-6 col-sm-12 pag" style="padding:3px">
   <span class="span1 {% for list in object.get_lists %}{{ list.uuid }}{% endfor %}"></span>
   <div class="media border p-1" music-counter="{{ forloop.counter0|add:page_obj.start_index }}">
         <a class="pointer music_list_item">

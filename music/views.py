@@ -52,8 +52,7 @@ class UserMusicList(ListView):
 		from music.models import SoundList
 
 		self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-		self.user = User.objects.get(pk=self.kwargs["pk"])
-		if self.user.pk == request.user.pk:
+		if self.list.creator.pk == request.user.pk:
 			self.music_list = self.list.get_my_playlist()
 		else:
 			self.music_list = self.list.get_playlist()
@@ -62,7 +61,7 @@ class UserMusicList(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserMusicList,self).get_context_data(**kwargs)
-		context['user'] = self.user
+		context['user'] = self.list.creator
 		context['playlist'] = self.list
 		return context
 

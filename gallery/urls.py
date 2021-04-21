@@ -4,7 +4,7 @@ from gallery.views import *
 
 urlpatterns=[
 	url(r'^(?P<pk>\d+)/$', UserGallery.as_view(), name="user_gallery"),
-	url(r'^album/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserAlbum.as_view(), name="user_album"),
+	url(r'^album/(?P<uuid>[0-9a-f-]+)/$', UserAlbum.as_view(), name="user_album"),
 	url(r'^load_album/(?P<pk>\d+)/$', UserLoadAlbum.as_view()),
     url(r'^photo/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserAlbumPhoto.as_view(), name="u_photo"),
 	url(r'^elect_new_photo/(?P<pk>\d+)/(?P<photo_pk>\d+)/$', UserElectNewPhoto.as_view(), name="u_elect_new_photo"),

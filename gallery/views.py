@@ -62,11 +62,9 @@ class UserAlbum(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_list_template
-		from users.models import User
 
-		self.user = User.objects.get(pk=self.kwargs["pk"])
 		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
-		if self.user.pk == request.user.pk:
+		if self.album.creator.pk == request.user.pk:
 			self.photo_list = self.album.get_staff_photos()
 		else:
 			self.photo_list = self.album.get_photos()
@@ -75,7 +73,7 @@ class UserAlbum(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserAlbum,self).get_context_data(**kwargs)
-		context['user'] = self.user
+		context['user'] = self.album.creator
 		context['album'] = self.album
 		return context
 

@@ -50,8 +50,7 @@ class UserDocsList(ListView):
 		from docs.models import DocList
 
 		self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
-		self.user = User.objects.get(pk=self.kwargs["pk"])
-		if self.user.pk == request.user.pk:
+		if self.list.creator.pk == request.user.pk:
 			self.doc_list = self.list.get_my_docs()
 		else:
 			self.doc_list = self.list.get_docs()
@@ -60,7 +59,7 @@ class UserDocsList(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserDocsList,self).get_context_data(**kwargs)
-		context['user'] = self.user
+		context['user'] = self.list.creator
 		context['list'] = self.list
 		return context
 

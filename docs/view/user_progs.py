@@ -11,7 +11,7 @@ from common.templates import render_for_platform, get_small_template
 class UserDoclistAdd(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax():
+        if request.is_ajax() and list.is_user_can_add_list(request.user.pk):
             list.users.add(request.user)
         return HttpResponse()
 

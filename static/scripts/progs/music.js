@@ -266,5 +266,7 @@ on('body', 'click', '.u_track_abort_remove', function() {
 });
 
 on('body', 'click', '.u_load_playlist', function() {
-  open_fullscreen("/music/load/" + this.parentElement.parentElement.parentElement.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
+  parent = this.parentElement.parentElement.parentElement;
+  console.log(parent)
+  open_fullscreen("/music/load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
 });

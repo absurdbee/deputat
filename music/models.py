@@ -241,6 +241,11 @@ class Music(models.Model):
         url.replace("\\?", "%3f")
         url.replace("=", "%3d")
         return url
+    def get_uri(self):
+        if self.file:
+            return self.file.url
+        else:
+            return self.uri
 
     def get_remote_image(self, image_url):
         import os

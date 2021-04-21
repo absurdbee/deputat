@@ -179,10 +179,10 @@ function create_preview_music(img_src, pk, counter){
 
   media_body = _this.querySelector(".media-body");
 
-  $div.classList.add("col-md-12", "music");
+  $div.classList.add("col-md-6", "col-sm-12", "border");
   $div.style.display = "flex";
-  $div.style.margin = "5px";
-  $div.style.flexBasis = "100%";
+  $div.style.padding = "3px";
+  $div.style.display = "flex";
   $div.setAttribute('music-counter', counter);
 
   $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + pk + '">';
@@ -196,6 +196,7 @@ function create_preview_music(img_src, pk, counter){
   $media.style.marginRight = "40px";
   $media.style.overflow = "hidden";
   h6 = $media.querySelector("h6");
+  h6.style.paddingTop = "9px";
   h6.classList.add("music_list_item", "pointer", "music_title");
 
   $div.append(music_preview_delete());

@@ -176,13 +176,12 @@ function create_preview_music(_this){
   $img = document.createElement("img");
   $media = document.createElement("span");
 
-  media_body = _this.querySelector(".media-body");
   pk = _this.getAttribute('data-pk');
   counter = _this.getAttribute('music-counter');
 
-  if (img_src) {
+  if (_this.querySelector("img")) {
     $img = document.createElement("img");
-    $img.src = img_src;
+    $img.src = _this.querySelector("img").getAttribute("src");
     $img.style.width = "30px";
   } else {$img = document.createElement("span"); $img.append('<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>');}
 

@@ -352,3 +352,6 @@ class Music(models.Model):
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
+
+    def get_lists(self):
+        return self.list.all()

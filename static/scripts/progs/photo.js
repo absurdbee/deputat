@@ -204,3 +204,9 @@ on('body', 'click', '.u_add_photo_album', function() {
 on('body', 'click', '.u_remove_photo_album', function() {
   on_off_list_in_collections(this, "/gallery/user_progs/remove_list/", "u_add_photo_album", "u_remove_photo_album", "Добавить")
 });
+on('body', 'click', '.u_copy_playlist', function() {
+  on_off_list_in_collections(this, "/music/user_progs/add_list/", "u_uncopy_playlist", "u_copy_playlist", "Удалить")
+});
+on('body', 'click', '.u_uncopy_playlist', function() {
+  on_off_list_in_collections(this, "/music/user_progs/remove_list/", "u_copy_playlist", "u_uncopy_playlist", "Добавить")
+});

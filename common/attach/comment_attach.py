@@ -25,9 +25,9 @@ def get_u_blog_comment_attach(comment, user):
             from music.models import Music
             music = Music.objects.get(query, pk=item[3:])
             if music.artwork_url:
-                figure = ''.join(['<figure><a class="music_list_comment music_thumb pointer"><img style="width:30px;heigth:auto" src="', music.artwork_url.url, '" alt="img" /></a></figure>'])
+                figure = ''.join(['<a class="music_list_comment music_thumb pointer"><img style="width:30px;heigth:auto" src="', music.artwork_url.url, '" alt="img" /></a>'])
             else:
-                figure = '<figure><a class="music_list_comment music_thumb pointer"><svg fill="currentColor" style="width:30px;heigth:30px" class="svg_default" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 5h-3v5.5c0 1.38-1.12 2.5-2.5 2.5S10 13.88 10 12.5s1.12-2.5 2.5-2.5c.57 0 1.08.19 1.5.51V5h4v2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/></svg></a></figure>'
+                figure = '<a class="music_list_comment music_thumb pointer"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></a>'
             span_btn = ''
             if user.is_authenticated:
                 lists = ''
@@ -37,7 +37,7 @@ def get_u_blog_comment_attach(comment, user):
                     else:
                         lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_add_track_in_list" style="padding-left: 30px;">', list.name, '</span></span>'])
                 span_btn = ''.join([span_btn, '<span class="span_btn" style="margin-left:auto;display:flex" data-pk="', str(music.pk), '"><span class="dropdown" style="position: inherit;"><span class="btn_default pointer drop"><svg fill="currentColor" style="width:25px;height:25px;" class="svg_default" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span><div class="dropdown-menu dropdown-menu-right" style="top: 25px;">', lists, '<span class="dropdown-item u_create_music_list_track_add" style="padding-left: 30px;">В новый плейлист</span></div></span></span>'])
-            block = ''.join([block, '<div class="music" data-path="', music.get_uri(), '" data-duration="', str(music.duration), '" class="col-md-6 col-sm-12" style="flex-basis: 100%;"><div class="media" music-counter="0">', figure, '<div class="media-body" style="display: flex;"><h6 class="music_list_comment music_title"><a>', music.title, '</a></h6>', span_btn, '</div></div></div>'])
+            block = ''.join([block, '<div class="col-md-6 col-sm-12" data-path="', music.get_uri(), '" data-duration="', str(music.duration), '" style="flex-basis: 100%;"><div class="media border" music-counter="0">', figure, '<div class="media-body" style="display: flex;"><h6 class="music_list_comment music_title"><a>', music.title, '</a></h6>', span_btn, '</div></div></div>'])
             #except:
             #    pass
         elif item[:3] == "doc":

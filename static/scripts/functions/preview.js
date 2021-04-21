@@ -194,7 +194,7 @@ function create_preview_music(_this){
 
   $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + pk + '">';
 
-  $media.innerHTML = media_body.innerHTML;
+  $media.innerHTML = _this.querySelector(".media-body").innerHTML;
   $media.style.marginLeft = "10px";
   $media.style.marginRight = "40px";
   $media.style.overflow = "hidden";

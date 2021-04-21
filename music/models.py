@@ -82,7 +82,7 @@ class SoundList(models.Model):
         self.save()
 
     def count_tracks(self):
-        query = Q(status="MAI") | Q(status="LIS")
+        query = Q(status="PUB") | Q(status="MAN")
         return self.playlist.filter(query).values("pk").count()
 
     def is_main_list(self):

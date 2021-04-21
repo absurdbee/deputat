@@ -252,7 +252,7 @@ on('body', 'click', '.u_track_remove', function() {
 });
 on('body', 'click', '.u_track_abort_remove', function() {
   pk = this.getAttribute("data-pk");
-  block = this.parentElement;
+  block = this.parentElement; next = block.nextElementSibling;
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/music/user_progs/abort_delete_track/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -260,8 +260,7 @@ on('body', 'click', '.u_track_abort_remove', function() {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     block.remove();
-    item = this.parentElement.nextElementSibling;
-    item.style.display = "block";
+    next.style.display = "block";
   }};
   link.send();
 });

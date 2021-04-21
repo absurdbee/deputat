@@ -242,7 +242,7 @@ function create_preview_doc_list(name, pk, count){
   $div.setAttribute("doclist-pk", pk);
 
   $input = document.createElement("span");
-  $input.innerHTML = '<input type="hidden" name="attach_items" value="ldo' + pk + ' />';
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="ldo' + pk + '">';
 
   $div_svg = document.createElement("div");
   $div_svg.classList.add("card-img-top", "file-logo-wrapper");
@@ -265,7 +265,7 @@ function create_preview_playlist(name, pk, count){
   $div.setAttribute("playlist-pk", pk);
 
   $input = document.createElement("span");
-  $input.innerHTML = '<input type="hidden" name="attach_items" value="lmu' + pk + ' />';
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="lmu' + pk + '">';
 
   $div_svg = document.createElement("div");
   $div_svg.classList.add("card-img-top", "file-logo-wrapper");

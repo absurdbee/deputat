@@ -246,13 +246,11 @@ on('body', 'click', '.u_track_remove', function() {
     div.style.display =  "block";
     div.innerHTML = "Аудиозапись удалена. <span class='u_track_abort_remove pointer underline' data-pk='" + pk + "'>Восстановить</span>";
     item = saver.parentElement.parentElement.parentElement;
-    item.parentElement.insertBefore(div, item), item.style.display = "none"
+    item.style.display = "none"; item.parentElement.insertBefore(div, item)
   }};
   link.send( );
 });
 on('body', 'click', '.u_track_abort_remove', function() {
-  item = this.parentElement.nextElementSibling;
-  item.style.display = "block";
   pk = this.getAttribute("data-pk");
   block = this.parentElement;
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -262,6 +260,8 @@ on('body', 'click', '.u_track_abort_remove', function() {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     block.remove();
+    item = this.parentElement.nextElementSibling;
+    item.style.display = "block";
   }};
   link.send();
 });

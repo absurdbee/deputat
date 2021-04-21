@@ -70,7 +70,7 @@ class UserTrackRemove(View):
 class UserTrackAbortRemove(View):
     def get(self,request,*args,**kwargs):
         track = Music.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and video.creator == request.user:
+        if request.is_ajax() and track.creator == request.user:
             track.abort_delete_track()
             return HttpResponse()
         else:

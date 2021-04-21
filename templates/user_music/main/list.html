@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ list.name }} | Аудиозаписи {{ user.get_full_name_genitive }}{% endblock %}
+{% block title %}{{ playlist.name }} | Аудиозаписи {{ user.get_full_name_genitive }}{% endblock %}
 {% load filters %}
 {% block content %}
 
@@ -27,7 +27,7 @@
     {% include 'user_music/main/lists.html' %}
 
     <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">Аудиозаписи {{ user.get_full_name_genitive }} ({{ list.count_tracks }})</h5>
+        <h5 class="mt-1" style="flex: 1;">Аудиозаписи {{ user.get_full_name_genitive }} ({{ playlist.count_tracks }})</h5>
     </div>
 
     <div class="row is_paginate no-gutters">

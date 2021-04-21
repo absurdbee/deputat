@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ list.name }} | Мои аудиозаписи{% endblock %}
+{% block title %}{{ playlist.name }} | Мои аудиозаписи{% endblock %}
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
@@ -18,7 +18,7 @@
         </div>
 
     <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">{{ list.name }} - аудиозаписи ({{ list.count_tracks }})</h5>
+        <h5 class="mt-1" style="flex: 1;">{{ playlist.name }} - аудиозаписи ({{ playlist.count_tracks }})</h5>
     </div>
 
     <div class="row is_paginate no-gutters">

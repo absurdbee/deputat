@@ -13,7 +13,7 @@
     <h5 class="mt-1" style="flex: 1;">{{ playlist.name }} ({{ playlist.count_tracks }}) - мой плейлист
   </div>
 
-<div class="row is_load_paginate no-gutters" data-link="/docs/load/{{ list.pk }}/">
+<div class="row is_load_paginate no-gutters" data-link="/docs/load/{{ playlist.pk }}/">
 {% for object in object_list %}
   {% include 'user_music/my_track.html' %}
 {% endfor %}

@@ -84,18 +84,18 @@ def get_blog(user, notify):
 def get_comment_blog(user, notify):
     comment = BlogComment.objects.get(pk=notify.object_id)
     if comment.parent:
-        blog = comment.parent.blog
+        _blog = comment.parent.blog
     else:
-        blog = comment.blog
+        _blog = comment.blog
     if notify.is_have_user_set():
         return '<p style="padding-left: 7px"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">' + notify.creator.get_full_name() + '</a> '\
-        + notify.get_verb_display() + ' новость ' + str(notify.count_user_set_comment()) + '</p>' + blog(user, blog)
+        + notify.get_verb_display() + ' новость ' + str(notify.count_user_set_comment()) + '</p>' + blog(user, _blog)
     elif notify.is_have_object_set():
         first_notify = notify.get_first_object_set()
         return '<p style="padding-left: 7px;"><a href="/users/' + str(first_notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">'+ \
         first_notify.creator.get_full_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display()\
-         + ' новость</p>' + blog(user, blog)
+         + ' новость</p>' + blog(user, _blog)
     else:
         return '<p style="padding-left: 7px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">'+ \
         notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
-         + ' новость </p>' 
+         + ' новость </p>' + blog(user, _blog)

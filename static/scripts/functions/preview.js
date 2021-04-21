@@ -170,14 +170,21 @@ function create_preview_video(img_src, pk, counter){
   $div.append($icon_div);
   return $div
 }
-function create_preview_music(img_src, pk, counter){
+function create_preview_music(_this){
   $div = document.createElement("div");
   $input = document.createElement("span");
   $img = document.createElement("img");
-  $figure = document.createElement("figure");
   $media = document.createElement("span");
 
   media_body = _this.querySelector(".media-body");
+  pk = _this.getAttribute('data-pk');
+  counter = _this.querySelector(".counter").getAttribute('music-counter');
+
+  if (img_src) {
+    $img = document.createElement("img");
+    $img.src = img_src;
+    $img.style.width = "30px";
+  } else {$img = document.createElement("span"); $img.append('<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>');}
 
   $div.classList.add("col-md-6", "col-sm-12", "border");
   $div.style.display = "flex";
@@ -186,10 +193,6 @@ function create_preview_music(img_src, pk, counter){
   $div.setAttribute('music-counter', counter);
 
   $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + pk + '">';
-
-  $img.src = img_src;
-  $img.style.width = "30px";
-  $figure.append($img);
 
   $media.innerHTML = media_body.innerHTML;
   $media.style.marginLeft = "10px";
@@ -201,7 +204,7 @@ function create_preview_music(img_src, pk, counter){
 
   $div.append(music_preview_delete());
   $div.append($input);
-  $div.append($figure);
+  $div.append($img);
   $div.append($media);
   return $div
 }
@@ -335,13 +338,12 @@ on('#ajax', 'click', '.doc_load_several', function() {
 on('#ajax', 'click', '.track_load_several', function() {
   _this = this.previousElementSibling;
   pk = _this.getAttribute('data-pk');
-  media_block = _this.querySelector(".media-body")
   if (document.body.querySelector(".current_file_dropdown")){
-    check_track_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_block, pk), this.classList.add("active_svg"))
+    check_track_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, _this), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".attach_block")){
-    check_track_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (track_post_attach(document.body.querySelector(".attach_block"), media_block, pk), this.classList.add("active_svg"))
+    check_track_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (track_post_attach(document.body.querySelector(".attach_block"), _this), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
-    check_track_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (track_message_attach(document.body.querySelector(".message_attach_block"), media_block, pk), this.classList.add("active_svg"))
+    check_track_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (track_message_attach(document.body.querySelector(".message_attach_block"), _this), this.classList.add("active_svg"))
   }
 });
 on('body', 'click', '.doc_attach_list', function() {

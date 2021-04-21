@@ -102,10 +102,10 @@ function video_comment_attach(dropdown, pk, counter, src){
   is_full_dropdown();
 }
 
-function track_comment_attach(dropdown, pk, counter, src){
+function track_comment_attach(dropdown, _this){
   is_full_dropdown(dropdown);
   attach_block = dropdown.parentElement.previousElementSibling;
-  div = create_preview_music(src, pk, counter)
+  div = create_preview_music(_this)
   add_file_dropdown();
   attach_block.append(div)
   is_full_dropdown();

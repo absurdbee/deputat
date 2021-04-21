@@ -24,7 +24,7 @@ function check_video_in_block(block, _this, pk) {
         return false
     }
 }
-function check_music_in_block(block, _this, counter) {
+function check_track_in_block(block, _this, counter) {
     if (block.querySelector('[music-counter=' + '"' + pk + '"' + ']')) {
         _this.parentElement.setAttribute("tooltip", "Аудиозапись уже выбрана");
         _this.parentElement.setAttribute("flow", "up");
@@ -329,6 +329,18 @@ on('#ajax', 'click', '.doc_load_several', function() {
     check_doc_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_post_attach(document.body.querySelector(".attach_block"), media_block, pk), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
     check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), media_block, pk), this.classList.add("active_svg"))
+  }
+});
+on('#ajax', 'click', '.track_load_several', function() {
+  _this = this.previousElementSibling;
+  pk = _this.getAttribute('data-pk');
+  media_block = _this.querySelector(".media-body")
+  if (document.body.querySelector(".current_file_dropdown")){
+    check_track_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_block, pk), this.classList.add("active_svg"))
+  } else if (document.body.querySelector(".attach_block")){
+    check_track_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (track_post_attach(document.body.querySelector(".attach_block"), media_block, pk), this.classList.add("active_svg"))
+  } else if (document.body.querySelector(".message_attach_block")){
+    check_track_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (track_message_attach(document.body.querySelector(".message_attach_block"), media_block, pk), this.classList.add("active_svg"))
   }
 });
 on('body', 'click', '.doc_attach_list', function() {

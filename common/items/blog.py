@@ -98,4 +98,4 @@ def get_comment_blog(user, notify):
     else:
         return '<p style="padding-left: 7px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">'+ \
         notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
-         + ' новость </p>' + blog(user, blog)
+         + ' новость </p>' 

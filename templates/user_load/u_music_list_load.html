@@ -32,7 +32,6 @@
         </a>
       <div class="media-body doc_media_body" style="line-height: 8px;">
           <h6 class="music_list_item pointer" style="width: 80%;overflow: hidden;margin-top: 3px;"><a>{{ object.title }}</a></h6>
-          <a class="ajax small" href="{% url 'user' pk=object.creator.pk %}">{{ object.creator.get_full_name }}</a>
       </div>
   </div>
   <span class="item_attach_circle track_load_several" style="top: 8px;">

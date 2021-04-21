@@ -77,9 +77,9 @@ class UserLoadPlaylist(ListView):
         self.playlist = SoundList.objects.get(pk=self.kwargs["pk"])
         self.template_name = get_list_template(self.playlist, "user_music/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
         if self.playlist.creator.pk == request.user.pk:
-            self.music_list = self.list.get_my_playlist()
+            self.music_list = self.playlist.get_my_playlist()
         else:
-            self.music_list = self.list.get_playlist()
+            self.music_list = self.playlist.get_playlist()
         return super(UserLoadPlaylist,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

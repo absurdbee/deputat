@@ -238,15 +238,13 @@ on('body', 'click', '.u_doc_remove', function() {
     div.style.display =  "block";
     div.innerHTML = "Запись удалена. <span class='u_doc_abort_remove pointer underline' data-pk='" + pk + "'>Восстановить</span>";
     item = saver.parentElement.parentElement.parentElement;
-    item.parentElement.insertBefore(div, item), item.style.display = "none"
+    item.style.display = "none"; item.parentElement.insertBefore(div, item)
   }};
   link.send( );
 });
 on('body', 'click', '.u_doc_abort_remove', function() {
-  item = this.parentElement.nextElementSibling;
-  item.style.display = "block";
   pk = this.getAttribute("data-pk");
-  block = this.parentElement;
+  block = this.parentElement; next = block.nextElementSibling;
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/docs/user_progs/abort_remove_doc/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -254,6 +252,7 @@ on('body', 'click', '.u_doc_abort_remove', function() {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     block.remove();
+    next.style.display = "block";
   }};
   link.send();
 });

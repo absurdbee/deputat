@@ -283,13 +283,8 @@ class Doc(models.Model):
     def is_private(self):
         return self.status == self.PRIVATE
 
-    def get_mime_type(file):
-        import magic
-        initial_pos = file.tell()
-        file.seek(0)
-        mime_type = magic.from_buffer(file.read(1024), mime=True)
-        file.seek(initial_pos)
-        return mime_type
+    def get_mime_type(self):
+        return self.file.content_type
 
     #def get_mime_type(self):
     #    import magic

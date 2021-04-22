@@ -19,7 +19,9 @@
 .list_share .add_svg {
   width: 30px !important;
 }
-
+.audio_div {
+  width:80%
+}
 .media_title {
   margin-left: 10px;
   margin-right: 40px;
@@ -38,7 +40,7 @@
 }
 .doc_media_body .span_btn {
     float: right;
-    margin-top: -18px;
+    margin-top: -40px;
     display: flex;
 }
 a {
@@ -370,6 +372,9 @@ select {
   }
   .image_fit_200{
     height: 200px;
+  }
+  .audio_div {
+    width:90%
   }
 }
 .big_mobile_element {

@@ -286,12 +286,9 @@ class Doc(models.Model):
     def get_mime_type(self):
         import magic
 
-        initial_pos = self.file.tell()
-        self.file.seek(0)
-        mime_type = magic.from_buffer(self.file.read(1024), mime=True)
-        self.file.seek(initial_pos)
+        file = self.file
+        initial_pos = file.tell()
+        file.seek(0)
+        mime_type = magic.from_buffer(file.read(1024), mime=True)
+        file.seek(initial_pos)
         return mime_type
-
-    #def get_mime_type(self):
-    #    import magic
-    #    return magic.from_file(self.file.path, mime=True)

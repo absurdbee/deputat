@@ -49,6 +49,7 @@ class VideoAlbum(models.Model):
     order = models.PositiveIntegerField(default=0)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_user_creator', verbose_name="Создатель")
     type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
+    description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
 
     users = models.ManyToManyField("users.User", blank=True, related_name='users_video_album')
 
@@ -59,6 +60,43 @@ class VideoAlbum(models.Model):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def create_list(cls, creator, name, description, order, is_public):
+        #from notify.models import Notify, Wall, get_user_managers_ids
+        #from common.notify import send_notify_socket
+        from common.processing import get_video_list_processing
+
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description, order=order)
+        if is_public:
+            get_video_list_processing(list, VideoAlbum.LIST)
+            #for user_id in creator.get_user_news_notify_ids():
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VIL", object_id=list.pk, verb="ITE")
+                #send_notify_socket(object_id, user_id, "create_video_list_notify")
+            #Wall.objects.create(creator_id=creator.pk, type="VIL", object_id=list.pk, verb="ITE")
+            #send_notify_socket(object_id, user_id, "create_video_list_wall")
+        else:
+            get_video_list_processing(list, VideoAlbum.PRIVATE)
+        return list
+
+    def edit_list(self, name, description, order, is_public):
+        from common.processing import get_video_list_processing
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        if is_public:
+            get_video_list_processing(self, VideoAlbum.LIST)
+            self.make_publish()
+        else:
+            get_video_list_processing(self, VideoAlbum.PRIVATE)
+            self.make_private()
+        return self
 
     def count_video(self):
         return self.video_album.filter(status="PUB").values("pk").count()
@@ -106,35 +144,35 @@ class VideoAlbum(models.Model):
         from notify.models import Notify, Wall
         self.type = VideoAlbum.PRIVATE
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="lvi"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="lvi"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="lvi"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="lvi"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.type = VideoAlbum.LIST
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="lvi"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="lvi"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="lvi"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="lvi"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
 
     def delete_list(self):
         from notify.models import Notify, Wall
         self.type = VideoAlbum.DELETED
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="lvi"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="lvi"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="lvi"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="lvi"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
         self.type = VideoAlbum.PRIVATE
         self.save(update_fields=['type'])
-        if Notify.objects.filter(attach="lvi"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="lvi"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="lvi"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="lvi"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
     def get_my_video_lists(cls, user_pk):
@@ -213,6 +251,41 @@ class Video(models.Model):
     def __str__(self):
         return self.title
 
+    @classmethod
+    def create_video(cls, creator, title, file, lists, is_public):
+        #from notify.models import Notify, Wall, get_user_managers_ids
+        #from common.notify import send_notify_socket
+        from common.processing import get_video_processing
+
+        video = cls.objects.create(creator=creator,title=title,file=file)
+        if is_public:
+            get_video_processing(video, Video.PUBLISHED)
+            #for user_id in creator.get_user_news_notify_ids():
+            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VID", object_id=video.pk, verb="ITE")
+                #send_notify_socket(object_id, user_id, "create_video_notify")
+            #Wall.objects.create(creator_id=creator.pk, type="VID", object_id=video.pk, verb="ITE")
+            #send_notify_socket(object_id, user_id, "create_video_wall")
+        else:
+            get_video_processing(video, VIDEO.PRIVATE)
+        for list_id in lists:
+            video_list = VIDEO.objects.get(pk=list_id)
+            video_list.video_list.add(video)
+        return video
+
+    def edit_video(self, title, file, lists, is_public):
+        from common.processing import get_video_processing
+
+        self.title = title
+        self.file = file
+        self.lists = lists
+        if is_public:
+            get_video_processing(self, VIDEO.PUBLISHED)
+            self.make_publish()
+        else:
+            get_video_processing(self, VIDEO.PRIVATE)
+            self.make_private()
+        return self.save()
+
     def get_uri(self):
         if self.file:
             return self.file.url
@@ -250,32 +323,37 @@ class Video(models.Model):
         from notify.models import Notify, Wall
         self.status = Video.PRIVATE
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.status = Video.PUBLISHED
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
 
     def delete_video(self):
         from notify.models import Notify, Wall
         self.status = Video.DELETED
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="C")
-        if Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="C")
+        if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_video(self):
         from notify.models import Notify, Wall
         self.status = Video.PRIVATE
         self.save(update_fields=['status'])
-        if Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
-            Notify.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="R")
-        if Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").exists():
-            Wall.objects.filter(attach="vid"+str(self.pk), verb="ITE").update(status="R")
+        if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
+
+    def is_private(self):
+        return self.type == self.PRIVATE
+    def is_open(self):
+        return self.type == self.MANAGER or self.type == self.PUBLISHED

@@ -269,4 +269,6 @@ class Photo(models.Model):
         return self.album.all()[0].type
 
     def is_private(self):
-        return self.status == self.PRIVATE
+        return self.type == self.PRIVATE
+    def is_open(self):
+        return self.type == self.MANAGER or self.type == self.PUBLISHED

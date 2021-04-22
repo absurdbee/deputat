@@ -5,7 +5,7 @@
                 <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
             </h6>
             <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
-            <span class='span_btn' data-pk="{{ doc.pk }}">
+            <span class='span_btn' data-pk="{{ doc.pk }}"> 
                 {% include 'user_docs/add_dropdown.html' %}
                 <div class="dropdown" style="position: inherit;">
                     <a class="btn_default drop pointer">
@@ -15,8 +15,8 @@
                         </svg>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" style="top: 42px;">
-                        <span class="dropdown-item doc_claim">Пожаловаться</span>
-                        <span class="dropdown-item copy_link">Копировать ссылку</span>
+                        <span class="dropdown-item u_doc_edit">Изменить</span>
+                        <span class="dropdown-item u_doc_remove">Удалить</span>
                     </div>
                 </div>
             </span>

@@ -164,7 +164,6 @@ on('body', 'click', '#u_create_track_btn', function() {
     toast_error("Загрузите аудиозапись!")
   } else { this.disabled = true }
 
-  uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/music/user_progs/create_track/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -179,7 +178,7 @@ on('body', 'click', '#u_create_track_btn', function() {
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
       document.body.querySelector(".track_empty") ? document.body.querySelector(".track_empty").style.display = "none" : null) : get_preview(response, "track");
     toast_info("Аудиозапись создана!")
-    close_create_window();
+    close_create_window(); 
   }};
 
   link_.send(form_data);

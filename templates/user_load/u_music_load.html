@@ -2,7 +2,7 @@
 <div class="card mb-4">
   <div class="row">
     <div style="flex: 0 0 80%;max-width:80%;padding:5px;">
-        <h5 class="btn btn-sm border u_music_add" style="width: -webkit-fill-available;padding: 10px 0px;">Добавить аудио</h5>
+        <h5 class="btn btn-sm border u_track_add" style="width: -webkit-fill-available;padding: 10px 0px;">Добавить аудио</h5>
     </div>
     <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
       <a class="btn btn-sm border create_fullscreen_hide_2" style="width: -webkit-fill-available;">
@@ -34,7 +34,7 @@
                             <p class="card-text file-name mb-0">
                               <a class="create_ajax nowrap list_name" data-href="{% url 'u_music_list_load' uuid=object.uuid %}">
                                 {{ object.name }}
-                              </a> 
+                              </a>
                             </p>
                             <p class="card-text file-size mb-0 count">{{ object.count_tracks }}</p>
                         </div>

@@ -284,7 +284,8 @@ class Doc(models.Model):
         return self.status == self.PRIVATE
 
     def get_mime_type(self):
-        return self.file.content_type
+        import mimetypes
+        return mimetypes.guess_type(self.file)
 
     #def get_mime_type(self):
     #    import magic

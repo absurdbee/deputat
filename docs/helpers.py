@@ -26,5 +26,5 @@ def validate_file_extension(value):
     valid_extensions = ['.pdf','.doc','.docx']
     if not ext in valid_extensions:
         raise ValidationError('Допустимы форматы: pdf, doc, docx!')
-    if value._size > settings.DOC_UPLOAD_FILE_MAX_SIZE:
+    if value.size > settings.DOC_UPLOAD_FILE_MAX_SIZE:
         raise ValidationError('Размер не более 5 МБ!')

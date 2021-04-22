@@ -1,13 +1,12 @@
 
-import uuid
-from os.path import splitext
-
-
 def upload_to_doc_directory(user_profile, filename):
     creator = user_profile.creator
     return _upload_to_user_directory(creator=creator, filename=filename)
 
 def _upload_to_user_directory(creator, filename):
+    import uuid
+    from os.path import splitext
+
     extension = splitext(filename)[1].lower()
     new_filename = str(uuid.uuid4()) + extension
 
@@ -20,6 +19,8 @@ def _upload_to_user_directory(creator, filename):
 
 def validate_file_extension(value):
     import os
+    from rest_framework.exceptions import ValidationError
+
     ext = os.path.splitext(value.name)[1]
     valid_extensions = ['.pdf','.doc','.docx']
     if not ext in valid_extensions:

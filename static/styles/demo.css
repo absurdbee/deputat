@@ -377,7 +377,7 @@ select {
     width:90%
   }
   .plyr__volume {
-    display: none
+    display: none !important
   }
 }
 .big_mobile_element {

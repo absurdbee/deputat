@@ -197,3 +197,5 @@ CHANNEL_LAYERS = {
         },
     }
 }
+
+DOC_FILE_MAX_SIZE = "214958080"

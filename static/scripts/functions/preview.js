@@ -199,7 +199,7 @@ function create_preview_music(_this){
   $media.style.marginRight = "40px";
   $media.style.overflow = "hidden";
   h6 = $media.querySelector("h6");
-  h6.style.paddingTop = "9px";
+  h6.style.paddingTop = "4px";
   h6.classList.add("music_list_item", "pointer", "music_title");
 
   $div.append(music_preview_delete());

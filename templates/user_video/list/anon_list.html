@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ list.name }} | Документы {{ user.get_full_name_genitive }}{% endblock %}
+{% block title %}{{ list.name }} | Видеозаписи {{ user.get_full_name_genitive }}{% endblock %}
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
@@ -12,19 +12,19 @@
         </div>
 
     <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">{{ list.name }} | Документы {{ user.get_full_name_genitive }} ({{ list.count_docs }})</h5>
+        <h5 class="mt-1" style="flex: 1;">{{ list.name }} | Видеозаписи {{ user.get_full_name_genitive }} ({{ list.count_videos }})</h5>
     </div>
 
     <div class="row is_paginate no-gutters">
         {% if object_list %}
 
         {% for doc in object_list %}
-          {% include 'user_docs/anon_doc.html' %}
+          {% include 'user_video/anon_video.html' %}
         {% endfor %}
 
         {% else %}
         <div class="card mb-3 centered doc_empty" style="width:100%;">
-            <h6 style="margin: 20px;text-align: center;"> Файлов пока нет...</h6>
+            <h6 style="margin: 20px;text-align: center;"> Видеозаписей пока нет...</h6>
         </div>
 
         {% endif %}

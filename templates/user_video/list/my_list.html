@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ list.name }} | Мои документы{% endblock %}
+{% block title %}{{ list.name }} | Мои видеозаписи{% endblock %}
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
@@ -18,7 +18,7 @@
         </div>
 
     <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">{{ list.name }} - мои документы ({{ list.count_docs }})</h5>
+        <h5 class="mt-1" style="flex: 1;">{{ list.name }} - мои видеозаписи ({{ list.count_docs }})</h5>
     </div>
 
     <div class="row is_paginate no-gutters">
@@ -30,7 +30,7 @@
 
         {% else %}
         <div class="card mb-3 centered doc_empty" style="width:100%;">
-            <h6 style="margin: 20px;text-align: center;"> Список документов пустой...</h6>
+            <h6 style="margin: 20px;text-align: center;"> Список видеозаписей пустой...</h6>
         </div>
 
         {% endif %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Мои документы{% endblock %}
+{% block title %}Мои видеозаписи{% endblock %}
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
@@ -8,29 +8,29 @@
                 {% include 'generic/user/user_back.html' %}
             </div>
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border u_doc_list_add" style="width: -webkit-fill-available;font-size: 19px;">+ список</a>
+                <a class="btn btn-sm border u_video_list_add" style="width: -webkit-fill-available;font-size: 19px;">+ список</a>
             </div>
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border u_doc_add" style="width: -webkit-fill-available;font-size: 19px;">+ файл</a>
+                <a class="btn btn-sm border u_video_add" style="width: -webkit-fill-available;font-size: 19px;">+ файл</a>
             </div>
         </div>
 
-    {% include 'user_docs/main/my_lists.html' %}
+    {% include 'user_video/main/my_lists.html' %}
 
     <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">Мои документы ({{ list.count_docs }})</h5>
+        <h5 class="mt-1" style="flex: 1;">Мои видеозаписи ({{ list.count_videos }})</h5>
     </div>
 
     <div class="row is_paginate no-gutters">
         {% if object_list %}
 
         {% for doc in object_list %}
-          {% include 'user_docs/my_doc.html' %}
+          {% include 'user_video/my_video.html' %}
         {% endfor %}
 
         {% else %}
         <div class="card mb-3 centered doc_empty" style="width:100%;">
-            <h6 style="margin: 20px;text-align: center;"> Файлов пока нет...</h6>
+            <h6 style="margin: 20px;text-align: center;"> Видеозаписей пока нет...</h6>
         </div>
 
         {% endif %}

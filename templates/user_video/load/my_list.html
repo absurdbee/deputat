@@ -10,11 +10,11 @@
   </div>
 
   <div class="media mt-3" style="display:flex;align-items: flex-start">
-    <h5 class="mt-1" style="flex: 1;">{{ list.name }} ({{ list.count_docs }}) - мой список документов</h5>
+    <h5 class="mt-1" style="flex: 1;">{{ list.name }} ({{ list.count_videos }}) - мой видеоальбом</h5>
   </div>
 
-<div class="row is_load_paginate no-gutters" data-link="/docs/load/{{ list.pk }}/">
-{% for doc in object_list %}
-  {% include 'user_docs/my_doc.html' %}
+<div class="row is_load_paginate no-gutters" data-link="/video/load/{{ list.pk }}/">
+{% for object in object_list %}
+  {% include 'user_video/my_video.html' %}
 {% endfor %}
 </div>

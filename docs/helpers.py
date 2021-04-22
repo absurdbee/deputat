@@ -20,8 +20,11 @@ def _upload_to_user_directory(creator, filename):
 def validate_file_extension(value):
     import os
     from rest_framework.exceptions import ValidationError
+    from django.conf import settings
 
     ext = os.path.splitext(value.name)[1]
     valid_extensions = ['.pdf','.doc','.docx']
     if not ext in valid_extensions:
-        raise ValidationError(u'File not supported!')
+        raise ValidationError('Допустимы форматы: pdf, doc, docx!')
+    if value._size > settings.DOC_UPLOAD_FILE_MAX_SIZE:
+        raise ValidationError('Размер не более 5 МБ!')

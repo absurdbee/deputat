@@ -2,7 +2,7 @@ from video.models import VideoAlbum, Video
 from django import forms
 
 
-class VideolistForm(forms.ModelForm):
+class VideoAlbumForm(forms.ModelForm):
 
 	class Meta:
 		model = VideoAlbum

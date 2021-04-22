@@ -1,3 +1,8 @@
+var ready = (callback) => {
+  if (document.readyState != "loading") callback();
+  else document.addEventListener("DOMContentLoaded", callback);
+}
+
 function check_span1(span1, uuid, response) {
   if (span1.classList.contains(uuid)){
     document.body.querySelector(".is_paginate").insertAdjacentHTML('afterBegin', response)

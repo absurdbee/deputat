@@ -1,3 +1,10 @@
+ready(() => {
+  audios = document.body.querySelectorAll("audio");
+  for (var i = 0; i < audios.length; i++) {
+    var player + audios[i] = new Plyr('.audio-player');
+  }
+});
+
 on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })

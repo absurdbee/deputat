@@ -211,10 +211,6 @@ class Doc(models.Model):
     def get_lists_for_doc(self):
         return self.list.all()
 
-    def get_mime_type(self):
-        import magic
-        return magic.from_file(self.file.path, mime=True)
-
     @classmethod
     def create_doc(cls, creator, title, file, lists, is_public):
         #from notify.models import Notify, Wall, get_user_managers_ids
@@ -286,3 +282,15 @@ class Doc(models.Model):
 
     def is_private(self):
         return self.status == self.PRIVATE
+
+    def get_mime_type(file):
+        import magic
+        initial_pos = file.tell()
+        file.seek(0)
+        mime_type = magic.from_buffer(file.read(1024), mime=True)
+        file.seek(initial_pos)
+        return mime_type
+
+    def get_mime_type(self):
+        import magic
+        return magic.from_file(self.file.path, mime=True)

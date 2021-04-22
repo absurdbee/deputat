@@ -45,7 +45,7 @@ class VideoAlbum(models.Model):
         (PROCESSING, 'Обработка'),
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
-    title = models.CharField(max_length=250, verbose_name="Название")
+    name = models.CharField(max_length=250, verbose_name="Название")
     order = models.PositiveIntegerField(default=0)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_user_creator', verbose_name="Создатель")
     type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")

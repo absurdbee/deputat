@@ -16,3 +16,11 @@ def _upload_to_user_directory(creator, filename):
 
     return '%(path)s%(new_filename)s' % {'path': path,
                                          'new_filename': new_filename, }
+
+
+def validate_file_extension(value):
+    import os
+    ext = os.path.splitext(value.name)[1]
+    valid_extensions = ['.pdf','.doc','.docx']
+    if not ext in valid_extensions:
+        raise ValidationError(u'File not supported!')

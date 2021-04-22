@@ -2,14 +2,15 @@ from video.models import VideoAlbum, Video
 from django import forms
 
 
-class AlbumForm(forms.ModelForm):
+class VideolistForm(forms.ModelForm):
 
 	class Meta:
 		model = VideoAlbum
-		fields = ['title', 'order']
+		fields = ['name', 'order']
 
 class VideoForm(forms.ModelForm):
-	description = forms.CharField( label="", required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '4', 'placeholder':'Описание'}))
+	description = forms.CharField( label="", required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '4'}))
+
 	class Meta:
 		model = Video
-		fields = ['title', 'description', 'image', 'category', 'album', 'uri']
+		fields = ['title', 'file', 'list', ]

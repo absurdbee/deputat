@@ -1,12 +1,7 @@
 <div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
   <div class="media border p-1" music-counter="{{ forloop.counter0|add:page_obj.start_index }}">
       <div class="media-body doc_media_body" style="line-height: 8px;">
-        <a class="ajax small" href="{% url 'user' pk=object.creator.pk %}">{{ object.title }}</a>
-        <audio id="player" class="audio_player small" controls>
-          <source src="{{ object.file.url }}" type="audio/mp3" />
-        </audio>
-
-
+        <a class="ajax small" href="{% url 'user' pk=object.creator.pk %}">{{ object.title }}
           <span class='span_btn' data-pk="{{ object.pk }}">
             {% include 'user_music/add_dropdown.html' %}
             <div class="dropdown" style="position: inherit;">
@@ -22,6 +17,10 @@
                 </div>
             </div>
           </span>
+        </a>
+        <audio id="player" class="audio_player small" controls>
+          <source src="{{ object.file.url }}" type="audio/mp3" />
+        </audio>
       </div>
   </div>
 </div>

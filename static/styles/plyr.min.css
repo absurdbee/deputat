@@ -714,15 +714,6 @@ a.plyr__control::before {
     margin-right: var(--plyr-control-spacing, 10px)
 }
 
-@media (max-width: 768px) {
-    .plyr__time+.plyr__time {
-        display: none
-    }
-    .plyr__volume {
-      display: none
-    }
-}
-
 .plyr__tooltip {
     background: rgba(255, 255, 255, .9);
     background: var(--plyr-tooltip-background, rgba(255, 255, 255, .9));
@@ -1617,4 +1608,12 @@ a.plyr__control::before {
 
 .plyr [hidden] {
     display: none !important
+}
+@media (max-width: 768px) {
+    .plyr__time+.plyr__time {
+        display: none
+    }
+    .plyr__volume {
+      display: none
+    }
 }

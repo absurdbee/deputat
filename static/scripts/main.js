@@ -1,7 +1,7 @@
 ready(() => {
   audios = document.body.querySelectorAll("audio");
   for (var i = 0; i < audios.length; i++) {
-    player + audios[i] = new Plyr('.audio-player');
+    player = new Plyr('.audio-player');
   }
 });
 

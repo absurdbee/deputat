@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^create_video/$', UserVideoCreate.as_view()),
     url(r'^edit_video/(?P<pk>\d+)/$', UserVideoEdit.as_view()),
     url(r'^remove_video/(?P<pk>\d+)/$', UserVideoRemove.as_view()),
-    url(r'^abort_remove_video/(?P<pk>\d+)/$', UserVideoAbortRemove.as_view()),
+    url(r'^abort_remove_video/(?P<pk>\d+)/$', UseVideoAbortRemove.as_view()),
 
     url(r'^add_video_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserVideoListAdd.as_view()),
     url(r'^remove_video_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserVideoListRemove.as_view()),

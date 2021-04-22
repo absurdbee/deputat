@@ -285,7 +285,7 @@ class Doc(models.Model):
 
     def get_mime_type(self):
         import mimetypes
-        return mimetypes.guess_type(self.file)
+        return mimetypes.guess_type(self.file.url)
 
     #def get_mime_type(self):
     #    import magic

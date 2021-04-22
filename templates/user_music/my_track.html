@@ -2,11 +2,11 @@
   <div class="media border p-1" music-counter="{{ forloop.counter0|add:page_obj.start_index }}">
       <div class="media-body doc_media_body" style="line-height: 8px;">
         <a class="ajax small" href="{% url 'user' pk=object.creator.pk %}">{{ object.title }}</a>
-        <span class="audio_div"> 
+        <div class="audio_div">
           <audio id="player" class="audio_player">
             <source src="{{ object.file.url }}" type="audio/mp3" />
           </audio>
-        </span>
+        </div>
         <span class='span_btn' data-pk="{{ object.pk }}">
           {% include 'user_music/add_dropdown.html' %}
           <div class="dropdown" style="position: inherit;">

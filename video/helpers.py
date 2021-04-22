@@ -15,3 +15,15 @@ def _upload_to_user_directory(creator, filename):
 
     return '%(path)s%(new_filename)s' % {'path': path,
                                          'new_filename': new_filename, }
+
+def validate_file_extension(value):
+    import os
+    from rest_framework.exceptions import ValidationError
+    from django.conf import settings
+
+    ext = os.path.splitext(value.name)[1]
+    valid_extensions = ['.mp4','.mpeg4']
+    if not ext in valid_extensions:
+        raise ValidationError('Допустимы форматы: mp4, mpeg4!')
+    if value.size > settings.VIDEO_FILE_MAX_SIZE:
+        raise ValidationError('Размер не более 5 МБ!')

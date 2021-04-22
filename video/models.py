@@ -5,7 +5,7 @@ from django.contrib.postgres.indexes import BrinIndex
 from django.utils import timezone
 from pilkit.processors import ResizeToFill, ResizeToFit
 from imagekit.models import ProcessedImageField
-from video.helpers import upload_to_video_directory
+from video.helpers import upload_to_video_directory, validate_file_extension
 from django.db.models import Q
 
 
@@ -202,6 +202,7 @@ class Video(models.Model):
     album = models.ManyToManyField(VideoAlbum, related_name="video_album", blank=True, verbose_name="Альбом")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="video_creator", on_delete=models.CASCADE, verbose_name="Создатель")
     status = models.CharField(choices=STATUS, default=PROCESSING, max_length=3)
+    file = models.FileField(upload_to=upload_to_music_directory, validators=[validate_file_extension], verbose_name="Аудиозапись")
 
     class Meta:
         verbose_name = "Видео-ролики"
@@ -211,6 +212,12 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_uri(self):
+        if self.file:
+            return self.file.url
+        else:
+            return self.uri
 
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime

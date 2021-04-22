@@ -5,7 +5,7 @@ from django.contrib.postgres.indexes import BrinIndex
 from django.utils import timezone
 from pilkit.processors import ResizeToFill, ResizeToFit
 from imagekit.models import ProcessedImageField
-from music.helpers import upload_to_music_directory
+from music.helpers import upload_to_music_directory, validate_file_extension
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from django.db.models import Q
@@ -217,7 +217,7 @@ class Music(models.Model):
         (MANAGER, 'Созданный персоналом'),
     )
     artwork_url = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_music_directory, processors=[Transpose(), ResizeToFit(width=100, height=100)])
-    file = models.FileField(upload_to=upload_to_music_directory, verbose_name="Аудиозапись")
+    file = models.FileField(upload_to=upload_to_music_directory, validators=[validate_file_extension], verbose_name="Аудиозапись")
     created = models.DateTimeField(default=timezone.now)
     duration = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)

@@ -1610,7 +1610,7 @@ a.plyr__control::before {
     display: none !important
 }
 @media (max-width: 768px) {
-    .plyr__time+.plyr__time {
+    .plyr__time {
         display: none
     }
     .plyr__volume {

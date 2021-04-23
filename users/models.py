@@ -93,7 +93,7 @@ class User(AbstractUser):
         try:
             list = VideoAlbum.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
         except:
-            list = VideoAlbum.objects.create(creator_id=self.pk, type=VideoAlbum.MAIN, title="Основной список", order=0)
+            list = VideoAlbum.objects.create(creator_id=self.pk, type=VideoAlbum.MAIN, name="Основной список", order=0)
         return list
 
     def get_full_name(self):

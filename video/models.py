@@ -28,21 +28,17 @@ class VideoCategory(models.Model):
 
 
 class VideoAlbum(models.Model):
-    MAIN = 'MAI'
-    LIST = 'LIS'
-    DELETED = 'DEL'
-    PRIVATE = 'PRI'
-    CLOSED = 'CLO'
-    MANAGER = 'MAN'
-    PROCESSING = 'PRO'
+    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', 'PRO', 'PRI'
+
+    DELETED, DELETED_PRIVATE, DELETED_MANAGER = 'DEL', 'DELP', 'DELM'
+
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = 'CLO', 'CLOP', 'CLOM', 'CLOMA'
     TYPE = (
-        (MAIN, 'Основной'),
-        (LIST, 'Пользовательский'),
-        (DELETED, 'Удалённый'),
-        (PRIVATE, 'Приватный'),
-        (CLOSED, 'Закрытый менеджером'),
-        (MANAGER, 'Созданный персоналом'),
-        (PROCESSING, 'Обработка'),
+        (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
+
+        (DELETED, 'Удалённый'),(DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),
+
+        (CLOSED, 'Закрытый менеджером'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MAIN, 'Закрытый основной'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     name = models.CharField(max_length=250, verbose_name="Название")
@@ -159,7 +155,12 @@ class VideoAlbum(models.Model):
 
     def delete_list(self):
         from notify.models import Notify, Wall
-        self.type = VideoAlbum.DELETED
+        if self.type == "LIS":
+            self.type = VideoAlbum.DELETED
+        elif self.type == "PRI":
+            self.type = VideoAlbum.DELETED_PRIVATE
+        elif self.type == "MAN":
+            self.type = VideoAlbum.DELETED_MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
@@ -167,7 +168,12 @@ class VideoAlbum(models.Model):
             Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
-        self.type = VideoAlbum.PRIVATE
+        if self.type == "DEL":
+            self.type = VideoAlbum.LIST
+        elif self.type == "DELP":
+            self.type = VideoAlbum.PRIVATE
+        elif self.type == "DELM":
+            self.type = VideoAlbum.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
@@ -211,12 +217,20 @@ class VideoAlbum(models.Model):
 
 
 class Video(models.Model):
-    PROCESSING = 'PRO'
-    PUBLISHED = 'PUB'
-    DELETED = 'DEL'
-    PRIVATE = 'PRI'
-    CLOSED = 'CLO'
+    MAIN = 'MAI'
+    LIST = 'LIS'
     MANAGER = 'MAN'
+    PROCESSING = 'PRO'
+    PRIVATE = 'PRI'
+
+    DELETED = 'DEL'
+    DELETED_PRIVATE = 'DELP'
+    DELETED_MANAGER = 'DELM'
+
+    CLOSED = 'CLO'
+    CLOSED_PRIVATE = 'CLOP'
+    CLOSED_MAIN = 'CLOM'
+    CLOSED_MANAGER = 'CLOM'
     STATUS = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
@@ -224,6 +238,10 @@ class Video(models.Model):
         (PRIVATE, 'Приватно'),
         (CLOSED, 'Закрыто модератором'),
         (MANAGER, 'Созданный персоналом'),
+        (DELETED_PRIVATE, 'Удалённый приватный'),
+        (DELETED_MANAGER, 'Удалённый менеджерский'),
+        (CLOSED_PRIVATE, 'Закрытый приватный'),
+        (CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
 
     image = ProcessedImageField(format='JPEG',
@@ -338,7 +356,12 @@ class Video(models.Model):
 
     def delete_video(self):
         from notify.models import Notify, Wall
-        self.status = Video.DELETED
+        if self.status == "PUB":
+            self.status = Video.DELETED
+        elif self.status == "PRI":
+            self.status = Video.DELETED_PRIVATE
+        elif self.status == "MAN":
+            self.status = Video.DELETED_MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
@@ -346,7 +369,12 @@ class Video(models.Model):
             Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_video(self):
         from notify.models import Notify, Wall
-        self.status = Video.PRIVATE
+        if self.status == "DEL":
+            self.status = Video.PUBLISHED
+        elif self.status == "DELP":
+            self.status = Video.PRIVATE
+        elif self.status == "DELM":
+            self.status = Video.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")

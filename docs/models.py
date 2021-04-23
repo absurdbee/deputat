@@ -7,21 +7,17 @@ from django.db.models import Q
 
 
 class DocList(models.Model):
-    MAIN = 'MAI'
-    LIST = 'LIS'
-    DELETED = 'DEL'
-    PRIVATE = 'PRI'
-    CLOSED = 'CLO'
-    MANAGER = 'MAN'
-    PROCESSING = 'PRO'
+    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', 'PRO', 'PRI'
+
+    DELETED, DELETED_PRIVATE, DELETED_MANAGER = 'DEL', 'DELP', 'DELM'
+
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = 'CLO', 'CLOP', 'CLOM', 'CLOMA'
     TYPE = (
-        (MAIN, 'Основной'),
-        (LIST, 'Пользовательский'),
-        (DELETED, 'Удалённый'),
-        (PRIVATE, 'Приватный'),
-        (CLOSED, 'Закрытый менеджером'),
-        (MANAGER, 'Созданный персоналом'),
-        (PROCESSING, 'Обработка'),
+        (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
+
+        (DELETED, 'Удалённый'),(DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),
+
+        (CLOSED, 'Закрытый менеджером'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MAIN, 'Закрытый основной'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     name = models.CharField(max_length=255)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_doclist', on_delete=models.CASCADE, verbose_name="Создатель")
@@ -129,7 +125,12 @@ class DocList(models.Model):
 
     def delete_list(self):
         from notify.models import Notify, Wall
-        self.type = DocList.DELETED
+        if self.type == "LIS":
+            self.type = DocList.DELETED
+        elif self.type == "PRI":
+            self.type = DocList.DELETED_PRIVATE
+        elif self.type == "MAN":
+            self.type = DocList.DELETED_MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
@@ -137,7 +138,12 @@ class DocList(models.Model):
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
-        self.type = DocList.PRIVATE
+        if self.type == "DEL":
+            self.type = DocList.LIST
+        elif self.type == "DELP":
+            self.type = DocList.PRIVATE
+        elif self.type == "DELM":
+            self.type = DocList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
@@ -183,10 +189,14 @@ class DocList(models.Model):
 class Doc(models.Model):
     PROCESSING = 'PRO'
     PUBLISHED = 'PUB'
-    DELETED = 'DEL'
     PRIVATE = 'PRI'
-    CLOSED = 'CLO'
     MANAGER = 'MAN'
+    DELETED = 'DEL'
+    DELETED_PRIVATE = 'DELP'
+
+    CLOSED = 'CLO'
+    CLOSED_PRIVATE = 'CLOP'
+    CLOSED_MANAGER = 'CLOM'
     STATUS = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
@@ -194,6 +204,9 @@ class Doc(models.Model):
         (PRIVATE, 'Приватно'),
         (CLOSED, 'Закрыто модератором'),
         (MANAGER, 'Созданный персоналом'),
+        (DELETED_PRIVATE, 'Удалённый приватный'),
+        (CLOSED_PRIVATE, 'Закрытый приватный'),
+        (CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     title = models.CharField(max_length=200, verbose_name="Название")
     file = models.FileField(upload_to=upload_to_doc_directory, validators=[validate_file_extension], verbose_name="Документ")
@@ -265,7 +278,12 @@ class Doc(models.Model):
 
     def delete_doc(self):
         from notify.models import Notify, Wall
-        self.status = Doc.DELETED
+        if self.status == "PUB":
+            self.status = Doc.DELETED
+        elif self.status == "PRI":
+            self.status = Doc.DELETED_PRIVATE
+        elif self.status == "MAN":
+            self.status = Doc.DELETED_MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
@@ -273,7 +291,12 @@ class Doc(models.Model):
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_doc(self):
         from notify.models import Notify, Wall
-        self.status = Doc.PRIVATE
+        if self.status == "DEL":
+            self.status = Doc.PUBLISHED
+        elif self.status == "DELP":
+            self.status = Doc.PRIVATE
+        elif self.status == "DELM":
+            self.status = Doc.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")

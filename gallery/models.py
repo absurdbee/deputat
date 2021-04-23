@@ -10,21 +10,17 @@ from django.utils import timezone
 
 
 class Album(models.Model):
-    MAIN = 'MAI'
-    LIST = 'LIS'
-    DELETED = 'DEL'
-    PRIVATE = 'PRI'
-    CLOSED = 'CLO'
-    MANAGER = 'MAN'
-    PROCESSING = 'PRO'
+    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', 'PRO', 'PRI'
+
+    DELETED, DELETED_PRIVATE, DELETED_MANAGER = 'DEL', 'DELP', 'DELM'
+
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = 'CLO', 'CLOP', 'CLOM', 'CLOMA'
     TYPE = (
-        (MAIN, 'Фото со стены'),
-        (LIST, 'Пользовательский'),
-        (DELETED, 'Удалённый'),
-        (PRIVATE, 'Приватный'),
-        (CLOSED, 'Закрытый менеджером'),
-        (MANAGER, 'Созданный персоналом'),
-        (PROCESSING, 'Обработка'),
+        (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
+
+        (DELETED, 'Удалённый'),(DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),
+
+        (CLOSED, 'Закрытый менеджером'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MAIN, 'Закрытый основной'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
 
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
@@ -125,7 +121,12 @@ class Album(models.Model):
 
     def delete_list(self):
         from notify.models import Notify, Wall
-        self.type = Album.DELETED
+        if self.type == "LIS":
+            self.type = Album.DELETED
+        elif self.type == "PRI":
+            self.type = Album.DELETED_PRIVATE
+        elif self.type == "MAN":
+            self.type = Album.DELETED_MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
@@ -133,7 +134,12 @@ class Album(models.Model):
             Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
-        self.type = Album.PRIVATE
+        if self.type == "DEL":
+            self.type = Album.LIST
+        elif self.type == "DELP":
+            self.type = Album.PRIVATE
+        elif self.type == "DELM":
+            self.type = Album.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
@@ -183,6 +189,9 @@ class Photo(models.Model):
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
+    CLOSED_PRIVATE = 'CLOP'
+    DELETED_PRIVATE = 'DELP'
+    CLOSED_MANAGER = 'CLOM'
     STATUS = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
@@ -190,6 +199,9 @@ class Photo(models.Model):
         (PRIVATE, 'Приватно'),
         (CLOSED, 'Закрыто модератором'),
         (MANAGER, 'Созданный персоналом'),
+        (DELETED_PRIVATE, 'Удалённый приватный'),
+        (CLOSED_PRIVATE, 'Закрытый приватный'),
+        (CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     album = models.ManyToManyField(Album, related_name="photo_album", blank=True)
@@ -250,7 +262,12 @@ class Photo(models.Model):
 
     def delete_photo(self):
         from notify.models import Notify, Wall
-        self.status = Photo.DELETED
+        if self.status == "PUB":
+            self.status = Photo.DELETED
+        elif self.status == "PRI":
+            self.status = Photo.DELETED_PRIVATE
+        elif self.status == "MAN":
+            self.status = Photo.DELETED_MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
@@ -258,7 +275,12 @@ class Photo(models.Model):
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_photo(self):
         from notify.models import Notify, Wall
-        self.status = Photo.PRIVATE
+        if self.status == "DEL":
+            self.status = Photo.PUBLISHED
+        elif self.status == "DELP":
+            self.status = Photo.PRIVATE
+        elif self.status == "DELM":
+            self.status = Photo.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")

@@ -12,21 +12,17 @@ from django.db.models import Q
 
 
 class SoundList(models.Model):
-    MAIN = 'MAI'
-    LIST = 'LIS'
-    DELETED = 'DEL'
-    PRIVATE = 'PRI'
-    CLOSED = 'CLO'
-    MANAGER = 'MAN'
-    PROCESSING = 'PRO'
+    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', 'PRO', 'PRI'
+
+    DELETED, DELETED_PRIVATE, DELETED_MANAGER = 'DEL', 'DELP', 'DELM'
+
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = 'CLO', 'CLOP', 'CLOM', 'CLOMA'
     TYPE = (
-        (MAIN, 'Основной'),
-        (LIST, 'Пользовательский'),
-        (DELETED, 'Удалённый'),
-        (PRIVATE, 'Приватный'),
-        (CLOSED, 'Закрытый менеджером'),
-        (MANAGER, 'Созданный персоналом'),
-        (PROCESSING, 'Обработка'),
+        (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
+
+        (DELETED, 'Удалённый'),(DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),
+
+        (CLOSED, 'Закрытый менеджером'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MAIN, 'Закрытый основной'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     name = models.CharField(max_length=255)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_playlist', db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
@@ -113,7 +109,12 @@ class SoundList(models.Model):
 
     def delete_list(self):
         from notify.models import Notify, Wall
-        self.type = SoundList.DELETED
+        if self.type == "LIS":
+            self.type = SoundList.DELETED
+        elif self.type == "PRI":
+            self.type = SoundList.DELETED_PRIVATE
+        elif self.type == "MAN":
+            self.type = SoundList.DELETED_MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
@@ -121,7 +122,12 @@ class SoundList(models.Model):
             Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
-        self.type = SoundList.PRIVATE
+        if self.type == "DEL":
+            self.type = SoundList.LIST
+        elif self.type == "DELP":
+            self.type = SoundList.PRIVATE
+        elif self.type == "DELM":
+            self.type = SoundList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
@@ -208,6 +214,9 @@ class Music(models.Model):
     PRIVATE = 'PRI'
     CLOSED = 'CLO'
     MANAGER = 'MAN'
+    CLOSED_PRIVATE = 'CLOP'
+    DELETED_PRIVATE = 'DELP'
+    CLOSED_MANAGER = 'CLOM'
     STATUS = (
         (PROCESSING, 'Обработка'),
         (PUBLISHED, 'Опубликовано'),
@@ -215,6 +224,9 @@ class Music(models.Model):
         (PRIVATE, 'Приватно'),
         (CLOSED, 'Закрыто модератором'),
         (MANAGER, 'Созданный персоналом'),
+        (DELETED_PRIVATE, 'Удалённый приватный'),
+        (CLOSED_PRIVATE, 'Закрытый приватный'),
+        (CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     artwork_url = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_music_directory, processors=[Transpose(), ResizeToFit(width=100, height=100)])
     file = models.FileField(upload_to=upload_to_music_directory, validators=[validate_file_extension], verbose_name="Аудиозапись")
@@ -338,7 +350,12 @@ class Music(models.Model):
 
     def delete_track(self):
         from notify.models import Notify, Wall
-        self.status = Music.DELETED
+        if self.status == "PUB":
+            self.status = Music.DELETED
+        elif self.status == "PRI":
+            self.status = Music.DELETED_PRIVATE
+        elif self.status == "MAN":
+            self.status = Music.DELETED_MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
@@ -346,7 +363,12 @@ class Music(models.Model):
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_track(self):
         from notify.models import Notify, Wall
-        self.status = Music.PRIVATE
+        if self.status == "DEL":
+            self.status = Music.PUBLISHED
+        elif self.status == "DELP":
+            self.status = Music.PRIVATE
+        elif self.status == "DELM":
+            self.status = Music.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")

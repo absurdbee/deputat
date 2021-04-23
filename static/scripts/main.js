@@ -259,5 +259,5 @@ on('body', 'click', '.create_ajax', function() {
   link = this.getAttribute("data-href");
     loader = document.getElementById("create_loader");
     open_load_fullscreen(link, loader);
-    init_music()
+    init_music(loader)
 });

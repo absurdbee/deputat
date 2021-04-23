@@ -76,24 +76,6 @@ function toast_error(text){
   var toasts = new ToastManager();
   toasts.showError(text);
 }
-function ajax_get_reload(url) {
-  var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-    ajax_link.open( 'GET', url, true );
-    ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    ajax_link.onreadystatechange = function () {
-      if ( this.readyState == 4 && this.status == 200 ) {
-        elem_ = document.createElement('span');
-        elem_.innerHTML = ajax_link.responseText;
-        ajax = elem_.querySelector("#reload_block");
-        rtr = document.getElementById('ajax');
-        rtr.innerHTML = ajax.innerHTML;
-        window.scrollTo(0,0);
-        document.title = elem_.querySelector('title').innerHTML;
-        window.history.pushState({route: url}, "network", url);
-      }
-    }
-    ajax_link.send();
-}
 
 on('body', 'click', '#register_ajax', function() {
   form = document.querySelector("#signup");

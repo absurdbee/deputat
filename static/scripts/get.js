@@ -46,7 +46,6 @@ function loadScripts( src ) {
 
 loadScripts('/static/scripts/lib/progressive-image.js');
 loadScripts('/static/scripts/lib/websocketbridge.js');
-loadScripts('/static/scripts/lib/plyr.min.js');
 loadScripts('/static/scripts/functions/general.js');
 loadScripts('/static/scripts/functions/comment_attach.js');
 loadScripts('/static/scripts/functions/preview.js');
@@ -58,5 +57,4 @@ loadScripts('/static/scripts/progs/photo.js');
 loadScripts('/static/scripts/progs/doc.js');
 loadScripts('/static/scripts/progs/video.js');
 loadScripts('/static/scripts/progs/music.js');
-loadScripts('/static/scripts/progs/socket.js');
 loadScripts('/static/scripts/auth.js');

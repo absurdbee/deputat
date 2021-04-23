@@ -531,7 +531,6 @@ function ajax_get_reload(url) {
         page = 2;
         loaded = false;
         create_pagination(rtr);
-        init_music()
       }
     }
     ajax_link.send();

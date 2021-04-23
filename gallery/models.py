@@ -146,6 +146,37 @@ class Album(models.Model):
         if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
 
+    def close_list(self):
+        from notify.models import Notify, Wall
+        if self.type == "LIS":
+            self.type = Album.CLOSED
+        elif self.type == "MAI":
+            self.type = Album.CLOSED_MAIN
+        elif self.type == "PRI":
+            self.type = Album.CLOSED_PRIVATE
+        elif self.type == "MAN":
+            self.type = Album.CLOSED_MANAGER
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_list(self):
+        from notify.models import Notify, Wall
+        if self.type == "CLO":
+            self.type = Album.LIST
+        elif self.type == "CLOM":
+            self.type = Album.MAIN
+        elif self.type == "CLOP":
+            self.type = Album.PRIVATE
+        elif self.type == "CLOM":
+            self.type = Album.MANAGER
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+
     @classmethod
     def get_my_albums(cls, user_pk):
         # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
@@ -275,6 +306,33 @@ class Photo(models.Model):
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
+
+    def close_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "PUB":
+            self.status = Photo.CLOSED
+        elif self.status == "PRI":
+            self.status = Photo.CLOSED_PRIVATE
+        elif self.status == "MAN":
+            self.status = Photo.CLOSED_MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "CLO":
+            self.status = Photo.PUBLISHED
+        elif self.status == "CLOP":
+            self.status = Photo.PRIVATE
+        elif self.status == "CLOM":
+            self.status = Photo.MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_type(self):
         return self.album.all()[0].type

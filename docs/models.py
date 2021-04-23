@@ -150,6 +150,37 @@ class DocList(models.Model):
         if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
 
+    def close_list(self):
+        from notify.models import Notify, Wall
+        if self.type == "LIS":
+            self.type = DocList.CLOSED
+        elif self.type == "MAI":
+            self.type = DocList.CLOSED_MAIN
+        elif self.type == "PRI":
+            self.type = DocList.CLOSED_PRIVATE
+        elif self.type == "MAN":
+            self.type = DocList.CLOSED_MANAGER
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_list(self):
+        from notify.models import Notify, Wall
+        if self.type == "CLO":
+            self.type = DocList.LIST
+        elif self.type == "CLOM":
+            self.type = DocList.MAIN
+        elif self.type == "CLOP":
+            self.type = DocList.PRIVATE
+        elif self.type == "CLOM":
+            self.type = DocList.MANAGER
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+
     @classmethod
     def get_my_lists(cls, user_pk):
         # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
@@ -284,6 +315,33 @@ class Doc(models.Model):
         elif self.status == "DELP":
             self.status = Doc.PRIVATE
         elif self.status == "DELM":
+            self.status = Doc.MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+
+    def close_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "PUB":
+            self.status = Doc.CLOSED
+        elif self.status == "PRI":
+            self.status = Doc.CLOSED_PRIVATE
+        elif self.status == "MAN":
+            self.status = Doc.CLOSED_MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "CLO":
+            self.status = Doc.PUBLISHED
+        elif self.status == "CLOP":
+            self.status = Doc.PRIVATE
+        elif self.status == "CLOM":
             self.status = Doc.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():

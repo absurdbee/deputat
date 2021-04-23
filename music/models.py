@@ -134,6 +134,37 @@ class SoundList(models.Model):
         if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
+    def close_list(self):
+        from notify.models import Notify, Wall
+        if self.type == "LIS":
+            self.type = SoundList.CLOSED
+        elif self.type == "MAI":
+            self.type = SoundList.CLOSED_MAIN
+        elif self.type == "PRI":
+            self.type = SoundList.CLOSED_PRIVATE
+        elif self.type == "MAN":
+            self.type = SoundList.CLOSED_MANAGER
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_list(self):
+        from notify.models import Notify, Wall
+        if self.type == "CLO":
+            self.type = SoundList.LIST
+        elif self.type == "CLOM":
+            self.type = SoundList.MAIN
+        elif self.type == "CLOP":
+            self.type = SoundList.PRIVATE
+        elif self.type == "CLOM":
+            self.type = SoundList.MANAGER
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+
     @classmethod
     def get_my_lists(cls, user_pk):
         # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
@@ -363,6 +394,33 @@ class Music(models.Model):
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
+
+    def close_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "PUB":
+            self.status = Music.CLOSED
+        elif self.status == "PRI":
+            self.status = Music.CLOSED_PRIVATE
+        elif self.status == "MAN":
+            self.status = Music.CLOSED_MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "CLO":
+            self.status = Music.PUBLISHED
+        elif self.status == "CLOP":
+            self.status = Music.PRIVATE
+        elif self.status == "CLOM":
+            self.status = Music.MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_lists(self):
         return self.list.all()

@@ -3,6 +3,13 @@ var ready = (callback) => {
   else document.addEventListener("DOMContentLoaded", callback);
 }
 
+function init_music() {
+  audios = document.body.querySelectorAll("audio");
+  for (var i = 0; i < audios.length; i++) {
+    player = new Plyr(audios[i]);
+  }
+}
+
 function check_span1(span1, uuid, response) {
   if (span1.classList.contains(uuid)){
     document.body.querySelector(".is_paginate").insertAdjacentHTML('afterBegin', response)
@@ -205,6 +212,7 @@ function create_pagination(block) {
   }
 }
 create_pagination(document.getElementById('ajax'));
+init_music();
 page = 2;
 loaded = false;
 
@@ -522,7 +530,8 @@ function ajax_get_reload(url) {
         get_select();
         page = 2;
         loaded = false;
-        create_pagination(rtr)
+        create_pagination(rtr);
+        init_music()
       }
     }
     ajax_link.send();

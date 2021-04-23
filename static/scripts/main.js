@@ -1,9 +1,3 @@
-ready(() => {
-  audios = document.body.querySelectorAll("audio");
-  for (var i = 0; i < audios.length; i++) {
-    player = new Plyr(audios[i]);
-  }
-});
 
 on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
@@ -264,5 +258,6 @@ on('#ajax', 'click', '.hide_comment_form', function() {
 on('body', 'click', '.create_ajax', function() {
   link = this.getAttribute("data-href");
     loader = document.getElementById("create_loader");
-    open_load_fullscreen(link, loader)
+    open_load_fullscreen(link, loader);
+    init_music()
 });

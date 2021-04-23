@@ -42,7 +42,7 @@ class UserVideo(ListView):
             self.is_have_lists = self.list.is_have_lists(pk)
             self.get_lists = self.list.get_lists(pk)
         self.count_lists = self.list.get_lists_count(pk)
-        self.template_name = get_list_template(self.list, "user_video/list/", "video.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_list_template(self.list, "user_video/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(UserVideo,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

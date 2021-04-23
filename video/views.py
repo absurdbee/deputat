@@ -41,6 +41,7 @@ class UserVideo(ListView):
             self.video_list = self.list.get_videos()
             self.is_have_lists = self.list.is_have_lists(pk)
             self.get_lists = self.list.get_lists(pk)
+        self.count_lists = self.list.get_lists_count(pk)
         self.template_name = get_list_template(self.list, "user_video/", "video.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(UserVideo,self).get(request,*args,**kwargs)
 

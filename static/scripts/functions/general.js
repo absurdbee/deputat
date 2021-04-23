@@ -3,8 +3,8 @@ var ready = (callback) => {
   else document.addEventListener("DOMContentLoaded", callback);
 }
 
-function init_music() {
-  audios = document.body.querySelectorAll("audio");
+function init_music(block) {
+  audios = block.querySelectorAll("audio");
   for (var i = 0; i < audios.length; i++) {
     player = new Plyr(audios[i]);
   }
@@ -211,8 +211,10 @@ function create_pagination(block) {
     scrolled(window.location.href, '.is_post_paginate', target = 1)
   }
 }
-create_pagination(document.getElementById('ajax'));
-init_music();
+_ajax = document.getElementById('ajax');
+
+create_pagination(_ajax);
+init_music(_ajax);
 page = 2;
 loaded = false;
 
@@ -531,6 +533,7 @@ function ajax_get_reload(url) {
         page = 2;
         loaded = false;
         create_pagination(rtr);
+        init_music(rtr);
       }
     }
     ajax_link.send();

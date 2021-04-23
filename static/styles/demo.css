@@ -133,9 +133,6 @@ a {
 .items_container div:nth-child(4){
   flex-basis: 50%;
 }
-.items_container div {
-  padding: 3px
-}
 
 .album_item {
   float: left;

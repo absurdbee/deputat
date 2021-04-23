@@ -187,26 +187,14 @@ class DocList(models.Model):
 
 
 class Doc(models.Model):
-    PROCESSING = 'PRO'
-    PUBLISHED = 'PUB'
-    PRIVATE = 'PRI'
-    MANAGER = 'MAN'
-    DELETED = 'DEL'
-    DELETED_PRIVATE = 'DELP'
+    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = 'PRO','PUB','PRI', 'MAN', 'DEL'
+    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = 'DELP', 'DELM', 'CLOP', 'CLOM'
 
-    CLOSED = 'CLO'
     CLOSED_PRIVATE = 'CLOP'
     CLOSED_MANAGER = 'CLOM'
     STATUS = (
-        (PROCESSING, 'Обработка'),
-        (PUBLISHED, 'Опубликовано'),
-        (DELETED, 'Удалено'),
-        (PRIVATE, 'Приватно'),
-        (CLOSED, 'Закрыто модератором'),
-        (MANAGER, 'Созданный персоналом'),
-        (DELETED_PRIVATE, 'Удалённый приватный'),
-        (CLOSED_PRIVATE, 'Закрытый приватный'),
-        (CLOSED_MANAGER, 'Закрытый менеджерский'),
+        (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
+        (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     title = models.CharField(max_length=200, verbose_name="Название")
     file = models.FileField(upload_to=upload_to_doc_directory, validators=[validate_file_extension], verbose_name="Документ")

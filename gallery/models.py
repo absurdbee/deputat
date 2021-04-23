@@ -183,25 +183,11 @@ class Album(models.Model):
 
 
 class Photo(models.Model):
-    PROCESSING = 'PRO'
-    PUBLISHED = 'PUB'
-    DELETED = 'DEL'
-    PRIVATE = 'PRI'
-    CLOSED = 'CLO'
-    MANAGER = 'MAN'
     CLOSED_PRIVATE = 'CLOP'
-    DELETED_PRIVATE = 'DELP'
     CLOSED_MANAGER = 'CLOM'
     STATUS = (
-        (PROCESSING, 'Обработка'),
-        (PUBLISHED, 'Опубликовано'),
-        (DELETED, 'Удалено'),
-        (PRIVATE, 'Приватно'),
-        (CLOSED, 'Закрыто модератором'),
-        (MANAGER, 'Созданный персоналом'),
-        (DELETED_PRIVATE, 'Удалённый приватный'),
-        (CLOSED_PRIVATE, 'Закрытый приватный'),
-        (CLOSED_MANAGER, 'Закрытый менеджерский'),
+        (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
+        (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     album = models.ManyToManyField(Album, related_name="photo_album", blank=True)

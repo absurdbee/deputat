@@ -1,32 +1,28 @@
-<div class="col-md-6 col-sm-12 pag" style="padding:3px">
-  <span class="span1 {% for list in object.get_lists %}{{ list.uuid }}{% endfor %}"></span>
-  <div class="media border p-1" music-counter="0">
-        <a class="pointer music_list_item">
-          {% if object.artwork_url %}
-            <img style="width:40px;heigth:auto" src="{{ object.artwork_url.url }}" />
-          {% else %}
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          {% endif %}
-        </a>
+<div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
+  <div class="media border p-1">
       <div class="media-body doc_media_body" style="line-height: 8px;">
-          <h6 class="music_list_item pointer" style="width: 80%;overflow: hidden;margin-top: 3px;"><a>{{ object.title }}</a></h6>
-          <a class="ajax small" href="{% url 'user' pk=object.creator.pk %}">{{ object.creator.get_full_name }}</a>
-
-          <span class='span_btn' data-pk="{{ object.pk }}">
-            {% include 'user_music/add_dropdown.html' %}
-            <div class="dropdown" style="position: inherit;">
-                <a class="btn_default drop pointer">
-                    <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                    </svg>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" style="top: 50px;">
-                    <span class="dropdown-item u_track_edit">Изменить</span>
-                    <span class="dropdown-item u_track_remove">Удалить</span>
-                </div>
-            </div>
-          </span>
+        <span>{{ object.title }}</span>
+        <div class="audio_div">
+          <audio id="player" class="audio_player">
+            <source src="{{ object.file.url }}" type="audio/mp3" />
+          </audio>
+        </div>
+        <span class='span_btn' data-pk="{{ object.pk }}">
+          {% include 'user_music/add_dropdown.html' %}
+          <div class="dropdown" style="position: inherit;">
+              <a class="btn_default drop pointer">
+                  <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                  </svg>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" style="top: 60px;">
+                <span class="dropdown-item u_track_edit">Изменить</span>
+                <span class="dropdown-item u_track_remove">Удалить</span>
+                <span class="dropdown-item copy_link">Копировать ссылку</span>
+              </div>
+          </div>
+        </span>
       </div>
   </div>
 </div>

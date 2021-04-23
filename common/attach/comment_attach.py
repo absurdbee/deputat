@@ -39,7 +39,7 @@ def get_u_blog_comment_attach(comment, user):
                         else:
                             lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_add_track_in_list" style="padding-left: 30px;">', list.name, '</span></span>'])
                     span_btn = ''.join([span_btn, '<span class="span_btn" data-pk="', str(music.pk), '"><span class="dropdown" style="position: inherit;"><span class="btn_default pointer drop"><svg fill="currentColor" style="width:25px;height:25px;" class="svg_default" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span><div class="dropdown-menu dropdown-menu-right" style="top: 60px;">', lists, '</div></span>', opt_drop, '</span>'])
-                block = ''.join([block, '<div class="col-md-12" style="flex-basis: 100%;"><div class="media border p-1"><div class="media-body doc_media_body" style="line-height: 8px;"><span>', music.title, '</span><div class="audio_div"><audio id="player" class="audio_player"><source src="{{ object.file.url }}" type="audio/mp3" /></audio></div>', span_btn, '</div></div></div>'])
+                block = ''.join([block, '<div class="col-md-12" style="flex-basis: 100%;"><div class="media border p-1"><div class="media-body doc_media_body" style="line-height: 8px;"><span>', music.title, '</span><div class="audio_div"><audio id="player" class="audio_player"><source src="', music.get_uri(), '" type="audio/mp3" /></audio></div>', span_btn, '</div></div></div>'])
             except:
                 pass
         elif item[:3] == "doc":

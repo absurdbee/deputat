@@ -44,7 +44,7 @@ class VideoAlbum(models.Model):
     name = models.CharField(max_length=250, verbose_name="Название")
     order = models.PositiveIntegerField(default=0)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_user_creator', verbose_name="Создатель")
-    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
+    type = models.CharField(max_length=6, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
     description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
 
     users = models.ManyToManyField("users.User", blank=True, related_name='users_video_album')

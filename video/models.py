@@ -191,10 +191,10 @@ class VideoAlbum(models.Model):
         elif self.type == "MAN":
             self.type = VideoAlbum.CLOSED_MANAGER
         self.save(update_fields=['type'])
-        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+        if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_list(self):
         from notify.models import Notify, Wall
         if self.type == "CLO":
@@ -206,10 +206,10 @@ class VideoAlbum(models.Model):
         elif self.type == "CLOM":
             self.type = VideoAlbum.MANAGER
         self.save(update_fields=['type'])
-        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+        if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
     def get_my_lists(cls, user_pk):
@@ -392,7 +392,7 @@ class Video(models.Model):
         if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_doc(self):
+    def close_video(self):
         from notify.models import Notify, Wall
         if self.status == "PUB":
             self.status = Video.CLOSED
@@ -401,11 +401,11 @@ class Video(models.Model):
         elif self.status == "MAN":
             self.status = Video.CLOSED_MANAGER
         self.save(update_fields=['status'])
-        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_doc(self):
+        if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_video(self):
         from notify.models import Notify, Wall
         if self.status == "CLO":
             self.status = Video.PUBLISHED
@@ -414,10 +414,10 @@ class Video(models.Model):
         elif self.status == "CLOM":
             self.status = Video.MANAGER
         self.save(update_fields=['status'])
-        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+        if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
 
     def is_private(self):
         return self.type == self.PRIVATE

@@ -313,7 +313,7 @@ class Music(models.Model):
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
-    def delete_photo(self):
+    def delete_music(self):
         from notify.models import Notify, Wall
         self.status = Music.DELETED
         self.save(update_fields=['status'])
@@ -321,7 +321,7 @@ class Music(models.Model):
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_delete_photo(self):
+    def abort_delete_music(self):
         from notify.models import Notify, Wall
         self.status = Music.PRIVATE
         self.save(update_fields=['status'])
@@ -395,7 +395,7 @@ class Music(models.Model):
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_doc(self):
+    def close_track(self):
         from notify.models import Notify, Wall
         if self.status == "PUB":
             self.status = Music.CLOSED
@@ -404,11 +404,11 @@ class Music(models.Model):
         elif self.status == "MAN":
             self.status = Music.CLOSED_MANAGER
         self.save(update_fields=['status'])
-        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_doc(self):
+        if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_track(self):
         from notify.models import Notify, Wall
         if self.status == "CLO":
             self.status = Music.PUBLISHED
@@ -417,10 +417,10 @@ class Music(models.Model):
         elif self.status == "CLOM":
             self.status = Music.MANAGER
         self.save(update_fields=['status'])
-        if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+        if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_lists(self):
         return self.list.all()

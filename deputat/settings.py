@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'music',
     'video',
     'communities',
+    'managers',
+    'survey',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

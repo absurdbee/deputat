@@ -28,11 +28,11 @@ class VideoCategory(models.Model):
 
 
 class VideoAlbum(models.Model):
-    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', 'PRO', 'PRI'
+    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
 
-    DELETED, DELETED_PRIVATE, DELETED_MANAGER = 'DEL', 'DELP', 'DELM'
+    DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
 
-    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = 'CLO', 'CLOP', 'CLOM', 'CLOMA'
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CLOM', '_CLOMA'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
 
@@ -59,22 +59,19 @@ class VideoAlbum(models.Model):
 
     @classmethod
     def create_list(cls, creator, name, description, order, is_public):
-        #from notify.models import Notify, Wall, get_user_managers_ids
-        #from common.notify import send_notify_socket
+        from notify.models import Notify, Wall
         from common.processing import get_video_list_processing
-
         if not order:
             order = 1
         list = cls.objects.create(creator=creator,name=name,description=description, order=order)
         if is_public:
-            get_video_list_processing(list, VideoAlbum.LIST)
-            #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VIL", object_id=list.pk, verb="ITE")
-                #send_notify_socket(object_id, user_id, "create_video_list_notify")
-            #Wall.objects.create(creator_id=creator.pk, type="VIL", object_id=list.pk, verb="ITE")
-            #send_notify_socket(object_id, user_id, "create_video_list_wall")
-        else:
-            get_video_list_processing(list, VideoAlbum.PRIVATE)
+            from common.notify import user_notify, user_wall
+            Wall.objects.create(creator_id=creator.pk, type="VIL", object_id=list.pk, verb="ITE")
+            user_wall(list.pk, None, "create_u_video_list_wall")
+            for user_id in creator.get_user_news_notify_ids():
+                Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VIL", object_id=list.pk, verb="ITE")
+                user_notify(list.pk, creator.pk, user_id, None, "create_u_video_list_notify")
+        get_video_list_processing(list, VideoAlbum.LIST)
         return list
 
     def edit_list(self, name, description, order, is_public):
@@ -168,11 +165,11 @@ class VideoAlbum(models.Model):
             Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
-        if self.type == "DEL":
+        if self.type == "_DEL":
             self.type = VideoAlbum.LIST
-        elif self.type == "DELP":
+        elif self.type == "_DELP":
             self.type = VideoAlbum.PRIVATE
-        elif self.type == "DELM":
+        elif self.type == "_DELM":
             self.type = VideoAlbum.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
@@ -197,13 +194,13 @@ class VideoAlbum(models.Model):
             Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_list(self):
         from notify.models import Notify, Wall
-        if self.type == "CLO":
+        if self.type == "_CLO":
             self.type = VideoAlbum.LIST
-        elif self.type == "CLOM":
+        elif self.type == "_CLOM":
             self.type = VideoAlbum.MAIN
-        elif self.type == "CLOP":
+        elif self.type == "_CLOP":
             self.type = VideoAlbum.PRIVATE
-        elif self.type == "CLOM":
+        elif self.type == "_CLOM":
             self.type = VideoAlbum.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
@@ -380,11 +377,11 @@ class Video(models.Model):
             Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_video(self):
         from notify.models import Notify, Wall
-        if self.status == "DEL":
+        if self.status == "_DEL":
             self.status = Video.PUBLISHED
-        elif self.status == "DELP":
+        elif self.status == "_DELP":
             self.status = Video.PRIVATE
-        elif self.status == "DELM":
+        elif self.status == "_DELM":
             self.status = Video.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
@@ -407,11 +404,11 @@ class Video(models.Model):
             Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_video(self):
         from notify.models import Notify, Wall
-        if self.status == "CLO":
+        if self.status == "_CLO":
             self.status = Video.PUBLISHED
-        elif self.status == "CLOP":
+        elif self.status == "_CLOP":
             self.status = Video.PRIVATE
-        elif self.status == "CLOM":
+        elif self.status == "_CLOM":
             self.status = Video.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():

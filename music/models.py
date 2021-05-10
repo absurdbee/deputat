@@ -12,11 +12,11 @@ from django.db.models import Q
 
 
 class SoundList(models.Model):
-    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', 'PRO', 'PRI'
+    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
 
-    DELETED, DELETED_PRIVATE, DELETED_MANAGER = 'DEL', 'DELP', 'DELM'
+    DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
 
-    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = 'CLO', 'CLOP', 'CLOM', 'CLOMA'
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CLOM', '_CLOMA'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
 
@@ -145,10 +145,10 @@ class SoundList(models.Model):
         elif self.type == "MAN":
             self.type = SoundList.CLOSED_MANAGER
         self.save(update_fields=['type'])
-        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+        if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_list(self):
         from notify.models import Notify, Wall
         if self.type == "CLO":
@@ -160,10 +160,10 @@ class SoundList(models.Model):
         elif self.type == "CLOM":
             self.type = SoundList.MANAGER
         self.save(update_fields=['type'])
-        if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+        if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
     def get_my_lists(cls, user_pk):
@@ -202,22 +202,19 @@ class SoundList(models.Model):
 
     @classmethod
     def create_list(cls, creator, name, description, order, is_public):
-        #from notify.models import Notify, Wall, get_user_managers_ids
-        #from common.notify import send_notify_socket
+        from notify.models import Notify, Wall
         from common.processing import get_playlist_processing
-
         if not order:
             order = 1
         list = cls.objects.create(creator=creator,name=name,description=description, order=order)
         if is_public:
-            get_playlist_processing(list, SoundList.LIST)
-            #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUL", object_id=list.pk, verb="ITE")
-                #send_notify_socket(object_id, user_id, "create_playlist_notify")
-            #Wall.objects.create(creator_id=creator.pk, ype="MUL", object_id=list.pk), verb="ITE")
-            #send_notify_socket(object_id, user_id, "create_doc_list_wall")
-        else:
-            get_playlist_processing(list, SoundList.PRIVATE)
+            from common.notify import user_notify, user_wall
+            Wall.objects.create(creator_id=creator.pk, type="MUL", object_id=list.pk, verb="ITE")
+            user_wall(list.pk, None, "create_u_playlist_wall")
+            for user_id in creator.get_user_news_notify_ids():
+                Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUL", object_id=list.pk, verb="ITE")
+                user_notify(list.pk, creator.pk, user_id, None, "create_u_playlist_notify")
+        get_playlist_processing(list, SoundList.LIST)
         return list
 
     def edit_list(self, name, description, order, is_public):
@@ -230,20 +227,17 @@ class SoundList(models.Model):
         self.order = order
         self.save()
         if is_public:
-            get_playlist_processing(self, DocList.LIST)
+            get_playlist_processing(self, SoundList.LIST)
             self.make_publish()
         else:
-            get_playlist_processing(self, DocList.PRIVATE)
+            get_playlist_processing(self, SoundList.PRIVATE)
             self.make_private()
         return self
 
 
 class Music(models.Model):
-    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = 'PRO','PUB','PRI', 'MAN', 'DEL', 'CLO'
-    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = 'DELP', 'DELM', 'CLOP', 'CLOM'
-
-    CLOSED_PRIVATE = 'CLOP'
-    CLOSED_MANAGER = 'CLOM'
+    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = '_PRO','PUB','PRI', 'MAN', '_DEL', '_CLO'
+    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = '_DELP', '_DELM', '_CLOP', '_CLOM'
     STATUS = (
         (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
         (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
@@ -313,23 +307,6 @@ class Music(models.Model):
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
-    def delete_music(self):
-        from notify.models import Notify, Wall
-        self.status = Music.DELETED
-        self.save(update_fields=['status'])
-        if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_delete_music(self):
-        from notify.models import Notify, Wall
-        self.status = Music.PRIVATE
-        self.save(update_fields=['status'])
-        if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
-
     def is_private(self):
         return self.status == self.PRIVATE
 
@@ -383,11 +360,11 @@ class Music(models.Model):
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_track(self):
         from notify.models import Notify, Wall
-        if self.status == "DEL":
+        if self.status == "_DEL":
             self.status = Music.PUBLISHED
-        elif self.status == "DELP":
+        elif self.status == "_DELP":
             self.status = Music.PRIVATE
-        elif self.status == "DELM":
+        elif self.status == "_DELM":
             self.status = Music.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
@@ -410,11 +387,11 @@ class Music(models.Model):
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_track(self):
         from notify.models import Notify, Wall
-        if self.status == "CLO":
+        if self.status == "_CLO":
             self.status = Music.PUBLISHED
-        elif self.status == "CLOP":
+        elif self.status == "_CLOP":
             self.status = Music.PRIVATE
-        elif self.status == "CLOM":
+        elif self.status == "_CLOM":
             self.status = Music.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():

@@ -10,11 +10,11 @@ from django.utils import timezone
 
 
 class Album(models.Model):
-    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', 'PRO', 'PRI'
+    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
 
-    DELETED, DELETED_PRIVATE, DELETED_MANAGER = 'DEL', 'DELP', 'DELM'
+    DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
 
-    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = 'CLO', 'CLOP', 'CLOM', 'CLOMA'
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CLOM', '_CLOMA'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
 
@@ -102,6 +102,40 @@ class Album(models.Model):
     def is_item_in_list(self, item_id):
         return self.photo_album.filter(pk=item_id).exists()
 
+    @classmethod
+    def create_list(cls, creator, name, description, order, is_public):
+        from notify.models import Notify, Wall
+        from common.processing import get_photo_album_processing
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description, order=order)
+        if is_public:
+            from common.notify import user_notify, user_wall
+            Wall.objects.create(creator_id=creator.pk, type="PHL", object_id=list.pk, verb="ITE")
+            user_wall(list.pk, None, "create_u_photo_list_wall")
+            for user_id in creator.get_user_news_notify_ids():
+                Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="PHL", object_id=list.pk, verb="ITE")
+                user_notify(list.pk, creator.pk, user_id, None, "create_u_photo_list_notify")
+        get_photo_album_processing(list, Album.LIST)
+        return list
+
+    def edit_list(self, name, description, order, is_public):
+        from common.processing import get_photo_album_processing
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        if is_public:
+            get_photo_album_processing(self, Album.LIST)
+            self.make_publish()
+        else:
+            get_photo_album_processing(self, Album.PRIVATE)
+            self.make_private()
+        return self
+
     def make_private(self):
         from notify.models import Notify, Wall
         self.type = Album.PRIVATE
@@ -134,11 +168,11 @@ class Album(models.Model):
             Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
-        if self.type == "DEL":
+        if self.type == "_DEL":
             self.type = Album.LIST
-        elif self.type == "DELP":
+        elif self.type == "_DELP":
             self.type = Album.PRIVATE
-        elif self.type == "DELM":
+        elif self.type == "_DELM":
             self.type = Album.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
@@ -163,13 +197,13 @@ class Album(models.Model):
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_list(self):
         from notify.models import Notify, Wall
-        if self.type == "CLO":
+        if self.type == "_CLO":
             self.type = Album.LIST
-        elif self.type == "CLOM":
+        elif self.type == "_CLOM":
             self.type = Album.MAIN
-        elif self.type == "CLOP":
+        elif self.type == "_CLOP":
             self.type = Album.PRIVATE
-        elif self.type == "CLOM":
+        elif self.type == "_CLOM":
             self.type = Album.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
@@ -214,11 +248,8 @@ class Album(models.Model):
 
 
 class Photo(models.Model):
-    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = 'PRO','PUB','PRI', 'MAN', 'DEL', 'CLO'
-    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = 'DELP', 'DELM', 'CLOP', 'CLOM'
-
-    CLOSED_PRIVATE = 'CLOP'
-    CLOSED_MANAGER = 'CLOM'
+    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = '_PRO','PUB','PRI', 'MAN', '_DEL', '_CLO'
+    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = '_DELP', '_DELM', '_CLOP', '_CLOM'
     STATUS = (
         (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
         (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
@@ -295,11 +326,11 @@ class Photo(models.Model):
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_photo(self):
         from notify.models import Notify, Wall
-        if self.status == "DEL":
+        if self.status == "_DEL":
             self.status = Photo.PUBLISHED
-        elif self.status == "DELP":
+        elif self.status == "_DELP":
             self.status = Photo.PRIVATE
-        elif self.status == "DELM":
+        elif self.status == "_DELM":
             self.status = Photo.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
@@ -322,11 +353,11 @@ class Photo(models.Model):
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_doc(self):
         from notify.models import Notify, Wall
-        if self.status == "CLO":
+        if self.status == "_CLO":
             self.status = Photo.PUBLISHED
-        elif self.status == "CLOP":
+        elif self.status == "_CLOP":
             self.status = Photo.PRIVATE
-        elif self.status == "CLOM":
+        elif self.status == "_CLOM":
             self.status = Photo.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():

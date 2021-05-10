@@ -7,11 +7,11 @@ from django.db.models import Q
 
 
 class DocList(models.Model):
-    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', 'PRO', 'PRI'
+    MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
 
-    DELETED, DELETED_PRIVATE, DELETED_MANAGER = 'DEL', 'DELP', 'DELM'
+    DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
 
-    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = 'CLO', 'CLOP', 'CLOM', 'CLOMA'
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CLOM', '_CLOMA'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
 
@@ -38,22 +38,19 @@ class DocList(models.Model):
 
     @classmethod
     def create_list(cls, creator, name, description, order, is_public):
-        #from notify.models import Notify, Wall, get_user_managers_ids
-        #from common.notify import send_notify_socket
+        from notify.models import Notify, Wall
         from common.processing import get_doc_list_processing
-
         if not order:
             order = 1
         list = cls.objects.create(creator=creator,name=name,description=description, order=order)
         if is_public:
-            get_doc_list_processing(list, DocList.LIST)
-            #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="DOL", object_id=list.pk, verb="ITE")
-                #send_notify_socket(object_id, user_id, "create_doc_list_notify")
-            #Wall.objects.create(creator_id=creator.pk, type="DOL", object_id=list.pk, verb="ITE")
-            #send_notify_socket(object_id, user_id, "create_doc_list_wall")
-        else:
-            get_doc_list_processing(list, DocList.PRIVATE)
+            from common.notify import user_notify, user_wall
+            Wall.objects.create(creator_id=creator.pk, type="DOL", object_id=list.pk, verb="ITE")
+            user_wall(list.pk, None, "create_u_doc_list_wall")
+            for user_id in creator.get_user_news_notify_ids():
+                Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="POL", object_id=list.pk, verb="ITE")
+                user_notify(list.pk, creator.pk, user_id, None, "create_u_doc_list_notify")
+        get_doc_list_processing(list, DocList.LIST)
         return list
 
     def edit_list(self, name, description, order, is_public):
@@ -138,11 +135,11 @@ class DocList(models.Model):
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
-        if self.type == "DEL":
+        if self.type == "_DEL":
             self.type = DocList.LIST
-        elif self.type == "DELP":
+        elif self.type == "_DELP":
             self.type = DocList.PRIVATE
-        elif self.type == "DELM":
+        elif self.type == "_DELM":
             self.type = DocList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
@@ -167,13 +164,13 @@ class DocList(models.Model):
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_list(self):
         from notify.models import Notify, Wall
-        if self.type == "CLO":
+        if self.type == "_CLO":
             self.type = DocList.LIST
-        elif self.type == "CLOM":
+        elif self.type == "_CLOM":
             self.type = DocList.MAIN
-        elif self.type == "CLOP":
+        elif self.type == "_CLOP":
             self.type = DocList.PRIVATE
-        elif self.type == "CLOM":
+        elif self.type == "_CLOM":
             self.type = DocList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
@@ -218,11 +215,8 @@ class DocList(models.Model):
 
 
 class Doc(models.Model):
-    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = 'PRO','PUB','PRI', 'MAN', 'DEL', 'CLO'
-    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = 'DELP', 'DELM', 'CLOP', 'CLOM'
-
-    CLOSED_PRIVATE = 'CLOP'
-    CLOSED_MANAGER = 'CLOM'
+    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = '_PRO','PUB','PRI', 'MAN', '_DEL', '_CLO'
+    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = '_DELP', '_DELM', '_CLOP', '_CLOM'
     STATUS = (
         (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
         (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
@@ -310,11 +304,11 @@ class Doc(models.Model):
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_doc(self):
         from notify.models import Notify, Wall
-        if self.status == "DEL":
+        if self.status == "_DEL":
             self.status = Doc.PUBLISHED
-        elif self.status == "DELP":
+        elif self.status == "_DELP":
             self.status = Doc.PRIVATE
-        elif self.status == "DELM":
+        elif self.status == "_DELM":
             self.status = Doc.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
@@ -337,11 +331,11 @@ class Doc(models.Model):
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_doc(self):
         from notify.models import Notify, Wall
-        if self.status == "CLO":
+        if self.status == "_CLO":
             self.status = Doc.PUBLISHED
-        elif self.status == "CLOP":
+        elif self.status == "_CLOP":
             self.status = Doc.PRIVATE
-        elif self.status == "CLOM":
+        elif self.status == "_CLOM":
             self.status = Doc.MANAGER
         self.save(update_fields=['status'])
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():

@@ -339,33 +339,16 @@ class Moderated(models.Model):
         # Объект блокирован
         return self.status == Moderated.BANNER_GET
 
-    def create_suspend(self, manager_id, severity_int):
-        from django.utils import timezone
-
+    def create_suspend(self, manager_id, duration_of_penalty):
         self.verified = True
-        severity = None
-        duration_of_penalty = None
-        if severity_int == '4':
-            duration_of_penalty = timezone.timedelta(days=30)
-            severity = "C"
-        elif severity_int == '3':
-            duration_of_penalty = timezone.timedelta(days=7)
-            severity = "H"
-        elif severity_int == '2':
-            duration_of_penalty = timezone.timedelta(days=3)
-            severity = "M"
-        elif severity_int == '1':
-            duration_of_penalty = timezone.timedelta(hours=6)
-            severity = "L"
+
         moderation_expiration = timezone.now() + duration_of_penalty
         ModerationPenalty.create_suspension_penalty(moderated_object=self, manager_id=manager_id, type=self.type, object_id=self.object_id, expiration=moderation_expiration)
-        #UserManageLog.objects.create(user=user_id, manager=manager_id, action_type=severity)
         self.save()
     def create_warning_banner(self, manager_id):
         self.verified = True
         self.save()
         ModerationPenaltyUser.create_banner_penalty(moderated_object=self, manager_id=manager_id, type=self.type, object_id=self.object_id)
-        #UserManageLog.objects.create(user=user_id, manager=manager_id, action_type=UserManageLog.WARNING_BANNER)
     def create_close(self, object, description, manager_id):
         self.status = Moderated.CLOSE
         self.description = description
@@ -376,7 +359,6 @@ class Moderated(models.Model):
             object.close_item(object.community)
         else:
             object.close_item(None)
-        #AudioManageLog.objects.create(audio=audio_id, manager=manager_id, action_type=AudioManageLog.DELETED)
     def delete_close(self, object, manager_id):
         obj = ModerationPenalty.objects.get(moderated_object=self, type=self.type, object_id=self.object_id)
         obj.delete()
@@ -385,28 +367,23 @@ class Moderated(models.Model):
         else:
             object.close_item(None)
         self.delete()
-        #AudioManageLog.objects.create(audio=audio_id, manager=manager_id, action_type=AudioManageLog.UNDELETED)
     def delete_suspend(self, manager_id):
         obj = ModerationPenalty.objects.get(moderated_object=self, type=self.type, object_id=self.object_id)
         obj.delete()
         self.delete()
-        #UserManageLog.objects.create(user=user_id, manager=manager_id, action_type=UserManageLog.UNSUSPENDED)
     def delete_warning_banner(self, manager_id):
         obj = ModerationPenalty.objects.get(moderated_object=self, type=self.type, object_id=self.object_id)
         obj.delete()
         self.delete()
-        #UserManageLog.objects.create(user=user_id, manager=manager_id, action_type=UserManageLog.NO_WARNING_BANNER)
 
     def unverify_moderation(self, manager_id):
         self.verified = False
         self.moderated_object.all().delete()
-        #UserManageLog.objects.create(user=user_id, manager=manager_id, action_type=UserManageLog.UNVERIFY)
         self.save()
 
     def reject_moderation(self, manager_id):
         self.verified = True
         self.status = ModeratedUser.REJECTED
-        #UserManageLog.objects.create(user=user_id, manager=manager_id, action_type=UserManageLog.REJECT)
         self.save()
 
     @classmethod

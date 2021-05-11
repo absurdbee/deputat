@@ -8,6 +8,7 @@ from managers.models import Moderated
 from managers.forms import ModeratedForm, ReportForm
 from django.http import Http404
 from common.templates import get_detect_platform_template
+from logs.model.manage_user_community import CommunityManageLog
 
 
 class CommunityAdminCreate(View):
@@ -175,6 +176,8 @@ class CommunitySuspensionCreate(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
+        from django.utils import timezone
+
         form = ModeratedForm(request.POST)
 
         if request.is_ajax() and form.is_valid() and (request.user.is_community_manager() or request.user.is_superuser):
@@ -183,8 +186,21 @@ class CommunitySuspensionCreate(TemplateView):
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=self.kwargs["pk"], type="COM")
             moderate_obj.status = Moderated.SUSPEND
             moderate_obj.description = mod.description
+            moderate_obj.type = ""
             moderate_obj.save()
-            moderate_obj.create_suspend(manager_id=request.user.pk, severity_int=number)
+            if severity_int == '4':
+                duration_of_penalty = timezone.timedelta(days=30)
+                CommunityManageLog.objects.create(item=self.pk, manager=request.user.pk, action_type=CommunityManageLog.SEVERITY_CRITICAL)
+            elif severity_int == '3':
+                duration_of_penalty = timezone.timedelta(days=7)
+                CommunityManageLog.objects.create(item=self.pk, manager=request.user.pk, action_type=CommunityManageLog.SEVERITY_HIGH)
+            elif severity_int == '2':
+                duration_of_penalty = timezone.timedelta(days=3)
+                CommunityManageLog.objects.create(item=self.pk, manager=request.user.pk, action_type=CommunityManageLog.SEVERITY_MEDIUM)
+            elif severity_int == '1':
+                duration_of_penalty = timezone.timedelta(hours=6)
+                CommunityManageLog.objects.create(item=self.pk, manager=request.user.pk, action_type=CommunityManageLog.SEVERITY_LOW)
+            moderate_obj.create_suspend(manager_id=request.user.pk, duration_of_penalty=duration_of_penalty)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -194,6 +210,7 @@ class CommunitySuspensionDelete(View):
         if request.is_ajax() and request.user.is_community_manager() or request.user.is_superuser:
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.delete_suspend(manager_id=request.user.pk)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.SUSPENDED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -221,6 +238,7 @@ class CommunityCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(type="COM", object_id=community.pk)
             moderate_obj.create_close(object=community, description=mod.description, manager_id=request.user.pk)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -231,6 +249,7 @@ class CommunityCloseDelete(View):
         if request.is_ajax() and (request.user.is_community_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.delete_close(object=community, manager_id=request.user.pk)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -260,6 +279,7 @@ class CommunityWarningBannerCreate(TemplateView):
             moderate_obj.description = mod.description
             moderate_obj.save()
             moderate_obj.create_warning_banner(manager_id=request.user.pk)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.WARNING_BANNER)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -292,6 +312,7 @@ class CommunityWarningBannerDelete(View):
         if request.is_ajax() and (request.user.is_community_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.delete_warning_banner(manager_id=request.user.pk)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.WARNING_BANNER_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -301,6 +322,7 @@ class CommunityRejectedCreate(View):
         if request.is_ajax() and (request.user.is_community_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.reject_moderation(manager_id=request.user.pk)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -310,6 +332,7 @@ class CommunityUnverify(View):
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_community_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.UNVERIFY)
             return HttpResponse()
         else:
             raise Http404

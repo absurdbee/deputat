@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
 from common.templates import get_detect_platform_template
+from logs.model.manage_elect_new import ElectNewManageLog
 
 
 class ElectNewAdminCreate(View):
@@ -140,6 +141,7 @@ class ElectNewCloseCreate(View):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="POS")
             moderate_obj.create_close(object=post, description=mod.description, manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -150,6 +152,7 @@ class ElectNewCloseDelete(View):
         if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=post.pk, type="POS")
             moderate_obj.delete_close(object=post, manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -183,6 +186,7 @@ class ElectNewRejectedCreate(View):
         if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=post.pk, type="POS")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -194,6 +198,7 @@ class ElectNewUnverify(View):
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
             raise Http404
@@ -204,6 +209,7 @@ class CommentElectNewUnverify(View):
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_UNVERIFY)
             return HttpResponse()
         else:
             raise Http404
@@ -231,6 +237,7 @@ class CommentElectNewCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=comment.pk, type="POSC")
             moderate_obj.create_close(object=comment, description=mod.description, manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -241,6 +248,7 @@ class CommentElectNewCloseDelete(View):
         if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
             moderate_obj.delete_close(object=comment, manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -281,6 +289,7 @@ class CommentElectNewRejectedCreate(View):
         if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_REJECT)
             return HttpResponse()
         else:
             raise Http404

@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
 from common.templates import get_detect_platform_template
+from logs.model.manage_video import VideoManageLog
 
 
 class VideoAdminCreate(View):
@@ -140,6 +141,7 @@ class VideoCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=video.pk, type="VID")
             moderate_obj.create_close(object=video, description=mod.description, manager_id=request.user.pk)
+            VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -150,6 +152,7 @@ class VideoCloseDelete(View):
         if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=video.pk, type="VID")
             moderate_obj.delete_close(object=video, manager_id=request.user.pk)
+            VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -183,6 +186,7 @@ class VideoRejectedCreate(View):
         if request.is_ajax() and request.user.is_video_manager() or request.user.is_superuser:
             moderate_obj = Moderated.objects.get(object_id=video.pk, type="VID")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
+            VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -192,6 +196,7 @@ class VideoUnverify(View):
         video, obj = Video.objects.get(uuid=self.kwargs["video_uuid"]), Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
+            VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.UNVERIFY)
             return HttpResponse()
         else:
             raise Http404

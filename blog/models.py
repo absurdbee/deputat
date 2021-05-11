@@ -35,6 +35,7 @@ class Blog(models.Model):
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
     dislike = models.PositiveIntegerField(default=0, verbose_name="Кол-во дизлайков")
     inert = models.PositiveIntegerField(default=0, verbose_name="Кол-во inert")
+    repost = models.PositiveIntegerField(default=0, verbose_name="Кол-во репостов")
 
     class Meta:
         verbose_name = "Новость проекта"
@@ -89,6 +90,12 @@ class Blog(models.Model):
     def count_comments(self):
         if self.comment > 0:
             return self.comment > 0
+        else:
+            return ''
+
+    def count_reposts(self):
+        if self.repost > 0:
+            return self.repost > 0
         else:
             return ''
 
@@ -178,6 +185,7 @@ class ElectNew(models.Model):
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
     dislike = models.PositiveIntegerField(default=0, verbose_name="Кол-во дизлайков")
     inert = models.PositiveIntegerField(default=0, verbose_name="Кол-во inert")
+    repost = models.PositiveIntegerField(default=0, verbose_name="Кол-во репостов")
 
     class Meta:
         verbose_name = "Активность"
@@ -252,6 +260,12 @@ class ElectNew(models.Model):
         else:
             return ''
 
+    def count_reposts(self):
+        if self.repost > 0:
+            return self.repost > 0
+        else:
+            return ''
+
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
         return naturaltime(self.created)
@@ -263,7 +277,10 @@ class ElectNew(models.Model):
         return self.creator.s_avatar.url
 
     def count_comments(self):
-        return self.comment
+        if self.comment > 0:
+            return self.comment > 0
+        else:
+            return ''
 
     def get_comments(self):
         from common.model.comments import ElectNewComment

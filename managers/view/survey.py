@@ -7,6 +7,7 @@ from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
 from common.templates import get_detect_platform_template
+from logs.model.manage_survey import SurveyManageLog
 
 
 class SurveyAdminCreate(View):
@@ -146,6 +147,7 @@ class SurveyCloseCreate(View):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=survey.pk, type="MUS")
             moderate_obj.create_close(object=survey, description=mod.description, manager_id=request.user.pk)
+            SurveyManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=SurveyManageLog.ITEM_CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -156,6 +158,7 @@ class SurveyCloseDelete(View):
         if request.is_ajax() and (request.user.is_survey_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=survey.pk, type="MUS")
             moderate_obj.delete_close(object=survey, manager_id=request.user.pk)
+            SurveyManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=SurveyManageLog.ITEM_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -189,6 +192,7 @@ class SurveyRejectedCreate(View):
         if request.is_ajax() and (request.user.is_survey_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=self.kwargs["pk"], type="MUS")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
+            SurveyManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=SurveyManageLog.ITEM_REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -199,6 +203,7 @@ class SurveyUnverify(View):
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_survey_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
+            SurveyManageLog.objects.create(item=obj.object_id, manager=request.user.pk, action_type=SurveyManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
             raise Http404

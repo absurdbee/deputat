@@ -7,6 +7,7 @@ from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
 from common.templates import get_detect_platform_template
+from logs.model.manage_audio import AudioManageLog
 
 
 class AudioAdminCreate(View):
@@ -146,6 +147,7 @@ class AudioCloseCreate(View):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=audio.pk, type="MUS")
             moderate_obj.create_close(object=audio, description=mod.description, manager_id=request.user.pk)
+            AudioManageLog.objects.create(item=audio.pk, manager=manager_id, action_type=AudioManageLog.ITEM_CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -156,6 +158,7 @@ class AudioCloseDelete(View):
         if request.is_ajax() and (request.user.is_audio_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=audio.pk, type="MUS")
             moderate_obj.delete_close(object=audio, manager_id=request.user.pk)
+            AudioManageLog.objects.create(item=audio.pk, manager=manager_id, action_type=AudioManageLog.ITEM_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -189,6 +192,7 @@ class AudioRejectedCreate(View):
         if request.is_ajax() and (request.user.is_audio_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=self.kwargs["pk"], type="MUS")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
+            AudioManageLog.objects.create(item=self.kwargs["pk"], manager=manager_id, action_type=AudioManageLog.ITEM_REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -199,6 +203,7 @@ class AudioUnverify(View):
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_audio_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
+            AudioManageLog.objects.create(item=obj.object_id, manager=manager_id, action_type=AudioManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
             raise Http404

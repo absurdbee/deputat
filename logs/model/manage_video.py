@@ -4,18 +4,18 @@ from django.conf import settings
 
 
 class VideoManageLog(models.Model):
-    DELETED = 'D'
-    UNDELETED = 'UD'
-    REJECT = 'R'
-    UNVERIFY = 'UV'
+    LIST_CLOSED, ITEM_CLOSED, COMMENT_CLOSED = 'LCLO', 'ICLO','CCLO'
+    LIST_CLOSED_HIDE, ITEM_CLOSED_HIDE, COMMENT_CLOSED_HIDE = 'LRES', 'IRES','CRES'
+    LIST_REJECT, ITEM_REJECT, COMMENT_REJECT = 'LREJ', 'IREJ','CREJ'
+    LIST_UNVERIFY, ITEM_UNVERIFY, COMMENT_UNVERIFY = 'LUNV', 'IUNV','CUNV'
     ACTION_TYPES = (
-        (DELETED, 'Удален'),
-        (UNDELETED, 'Восстановлен'),
-        (REJECT, 'Жалоба отклонена'),
-        (UNVERIFY, 'Проверка убрана'),
+        (LIST_CLOSED, 'Список закрыт'),(ITEM_CLOSED, 'Элемент закрыт'),(COMMENT_CLOSED, 'Комментарий закрыт'),
+        (LIST_RESTORE, 'Список восстановлен'),(ITEM_RESTORE, 'Элемент восстановлен'),(COMMENT_RESTORE, 'Комментарий восстановлен'),
+        (LIST_REJECT, 'Жалоба на список отклонена'),(ITEM_REJECT, 'Жалоба на элемент отклонена'),(COMMENT_REJECT, 'Жалоба на комментарий отклонена'),
+        (LIST_UNVERIFY, 'Проверка на список убрана'),(ITEM_UNVERIFY, 'Проверка на элемент убрана'),(COMMENT_UNVERIFY, 'Проверка на комментарий убрана'),
     )
 
-    video = models.PositiveIntegerField(default=0, verbose_name="Запись")
+    item = models.PositiveIntegerField(default=0, verbose_name="Запись")
     manager = models.PositiveIntegerField(default=0, verbose_name="Менеджер")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     action_type = models.CharField(editable=False, blank=False, null=False, choices=ACTION_TYPES, max_length=5)

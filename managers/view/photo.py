@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
 from common.templates import get_detect_platform_template
+from logs.model.manage_photo import PhotoManageLog
 
 
 class PhotoAdminCreate(View):
@@ -139,6 +140,7 @@ class PhotoCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=photo.pk, type="PHO")
             moderate_obj.create_close(object=photo, description=mod.description, manager_id=request.user.pk)
+            PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -149,6 +151,7 @@ class PhotoCloseDelete(View):
         if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
             moderate_obj = Moderated.objects.get(object_id=photo.pk, type="PHO")
             moderate_obj.delete_close(object=photo, manager_id=request.user.pk)
+            PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -182,6 +185,7 @@ class PhotoRejectedCreate(View):
         if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
             moderate_obj = Moderated.objects.get(object_id=photo.pk, type="PHO")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
+            PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -192,6 +196,7 @@ class PhotoUnverify(View):
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
             obj.unverify_moderation(manager_id=request.user.pk)
+            PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
             raise Http404

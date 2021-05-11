@@ -4,31 +4,24 @@ from django.conf import settings
 
 
 class UserManageLog(models.Model):
-    DELETED = 'D'
-    UNDELETED = 'UD'
-    BLOCK = 'B'
-    UNBLOCK = 'UB'
-    SEVERITY_CRITICAL = 'C'
-    SEVERITY_HIGH = 'H'
-    SEVERITY_MEDIUM = 'M'
-    SEVERITY_LOW = 'L'
-    UNSUSPENDED = 'US'
+    CLOSED = 'CLO'
+    CLOSED_HIDE = 'CLOH'
+    SEVERITY_CRITICAL, SEVERITY_HIGH, SEVERITY_MEDIUM, SEVERITY_LOW = 'SC', 'SH', 'SM', 'SL'
+    SUSPENDED_HIDE = 'USH'
     WARNING_BANNER = 'WB'
-    NO_WARNING_BANNER = 'NWB'
-    REJECT = 'R'
-    UNVERIFY = 'UV'
+    WARNING_BANNER_HIDE = 'NWBH'
+    REJECT = 'REJ'
+    UNVERIFY = 'UNV'
     ACTION_TYPES = (
-        (DELETED, 'Удален'),
-        (UNDELETED, 'Восстановлен'),
-        (BLOCK, 'Заблокирован'),
-        (UNBLOCK, 'Разблокирован'),
+        (CLOSED, 'Закрыт'),
+        (CLOSED_HIDE, 'Восстановлен'),
         (SEVERITY_CRITICAL, 'Вечная заморозка'),
         (SEVERITY_HIGH, 'Долгая заморозка'),
         (SEVERITY_MEDIUM, 'Средняя заморозка'),
         (SEVERITY_LOW, 'Краткая заморозка'),
-        (UNSUSPENDED, 'Разморожен'),
+        (SUSPENDED_HIDE, 'Разморожен'),
         (WARNING_BANNER, 'Выставлен предупреждающий баннер'),
-        (NO_WARNING_BANNER, 'Убран предупреждающий баннер'),
+        (WARNING_BANNER_HIDE, 'Убран предупреждающий баннер'),
         (REJECT, 'Жалоба отклонена'),
         (UNVERIFY, 'Проверка убрана'),
     )
@@ -45,31 +38,24 @@ class UserManageLog(models.Model):
         ordering=["-created"]
 
 class CommunityManageLog(models.Model):
-    DELETED = 'D'
-    UNDELETED = 'UD'
-    BLOCK = 'B'
-    UNBLOCK = 'UB'
-    SEVERITY_CRITICAL = 'C'
-    SEVERITY_HIGH = 'H'
-    SEVERITY_MEDIUM = 'M'
-    SEVERITY_LOW = 'L'
-    UNSUSPENDED = 'US'
+    CLOSED = 'CLO'
+    CLOSED_HIDE = 'CLOH'
+    SEVERITY_CRITICAL, SEVERITY_HIGH, SEVERITY_MEDIUM, SEVERITY_LOW = 'SC', 'SH', 'SM', 'SL'
+    SUSPENDED_HIDE = 'USH'
     WARNING_BANNER = 'WB'
-    NO_WARNING_BANNER = 'NWB'
-    REJECT = 'R'
-    UNVERIFY = 'UV'
+    WARNING_BANNER_HIDE = 'NWBH'
+    REJECT = 'REJ'
+    UNVERIFY = 'UNV'
     ACTION_TYPES = (
-        (DELETED, 'Удалено'),
-        (UNDELETED, 'Восстановлено'),
-        (BLOCK, 'Заблокировано'),
-        (UNBLOCK, 'Разблокировано'),
+        (CLOSED, 'Закрыт'),
+        (CLOSED_HIDE, 'Восстановлен'),
         (SEVERITY_CRITICAL, 'Вечная заморозка'),
         (SEVERITY_HIGH, 'Долгая заморозка'),
         (SEVERITY_MEDIUM, 'Средняя заморозка'),
         (SEVERITY_LOW, 'Краткая заморозка'),
-        (UNSUSPENDED, 'Разморожено'),
+        (SUSPENDED_HIDE, 'Разморожен'),
         (WARNING_BANNER, 'Выставлен предупреждающий баннер'),
-        (NO_WARNING_BANNER, 'Убран предупреждающий баннер'),
+        (WARNING_BANNER_HIDE, 'Убран предупреждающий баннер'),
         (REJECT, 'Жалоба отклонена'),
         (UNVERIFY, 'Проверка убрана'),
     )

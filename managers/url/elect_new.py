@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', login_required(ElectNewCloseDelete.as_view())),
     url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', login_required(ElectNewRejectedCreate.as_view())),
     url(r'^create_claim/(?P<pk>\d+)/$', login_required(ElectNewClaimCreate.as_view())),
-    url(r'^unverify/(?P<post_uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', login_required(PostUnverify.as_view())),
+    url(r'^unverify/(?P<post_uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', login_required(ElectNewUnverify.as_view())),
 
     url(r'^comment_create_close/(?P<pk>\d+)/$', login_required(CommentElectNewCloseCreate.as_view())),
     url(r'^comment_delete_close/(?P<pk>\d+)/$', login_required(CommentElectNewCloseDelete.as_view())),

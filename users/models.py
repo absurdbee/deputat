@@ -30,7 +30,7 @@ class User(AbstractUser):
 
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     phone = models.CharField(max_length=17, unique=True, verbose_name='Телефон')
-    perm = models.CharField(max_length=5, choices=PERM, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
+    perm = models.CharField(max_length=5, choices=TYPE, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
     s_avatar = models.ImageField(blank=True, upload_to=upload_to_user_directory)
     gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
@@ -183,17 +183,17 @@ class User(AbstractUser):
         return ElectNewVotes2.objects.filter(user_id=self.pk, vote=ElectNewVotes2.DISLIKE).values("new_id").count()
 
     def is_deleted(self):
-        return try_except(self.perm == User.DELETED)
+        return self.perm == User.DELETED
     def is_blocked(self):
-        return try_except(self.perm == User.BLOCKED)
+        return self.perm == User.BLOCKED
     def is_manager(self):
-        return try_except(self.perm == User.MANAGER)
+        return self.perm == User.MANAGER
     def is_supermanager(self):
-        return try_except(self.perm == User.SUPERMANAGER)
+        return self.perm == User.SUPERMANAGER
     def is_no_phone_verified(self):
-        return try_except(self.perm == User.PHONE_NO_VERIFIED)
+        return self.perm == User.PHONE_NO_VERIFIED
     def is_suspended(self):
-        return try_except(self.perm == User.SUSPENDED)
+        return self.perm == User.SUSPENDED
 
     def is_man(self):
         return self.gender == User.MALE

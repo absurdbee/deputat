@@ -3,6 +3,17 @@ MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 from django.shortcuts import render
 from rest_framework.exceptions import PermissionDenied
 
+
+def get_detect_platform_template(template, request_user, user_agent):
+    """ получаем шаблон для зарегистрированного пользователя. Анонимов не пускаем."""
+    if request_user.is_anonymous:
+        raise PermissionDenied("Ошибка доступа")
+    elif request_user.is_no_phone_verified():
+        template = "main/phone_verification.html"
+
+    return get_folder(user_agent) + template
+
+
 def render_for_platform(request, template, data):
     if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
         return render(request, template, data)

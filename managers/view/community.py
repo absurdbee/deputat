@@ -7,7 +7,7 @@ from common.staff_progs.community import *
 from managers.models import Moderated
 from managers.forms import ModeratedForm, ReportForm
 from django.http import Http404
-from common.template.user import get_detect_platform_template
+from common.templates import get_detect_platform_template
 
 
 class CommunityAdminCreate(View):
@@ -158,7 +158,22 @@ class CommunityWorkerAdvertiserDelete(View):
         else:
             raise Http404
 
-class CommunitySuspensionCreate(View):
+class CommunitySuspensionCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.community = Community.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_community_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/community_suspend.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(CommunitySuspensionCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(CommunitySuspensionCreate,self).get_context_data(**kwargs)
+        context["community"] = self.community
+        return context
+
     def post(self,request,*args,**kwargs):
         form = ModeratedForm(request.POST)
 
@@ -183,7 +198,22 @@ class CommunitySuspensionDelete(View):
         else:
             raise Http404
 
-class CommunityCloseCreate(View):
+class CommunityCloseCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.community = Community.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_community_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/community_close.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(CommunityCloseCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(CommunityCloseCreate,self).get_context_data(**kwargs)
+        context["community"] = self.community
+        return context
+
     def post(self,request,*args,**kwargs):
         community = Community.objects.get(pk=self.kwargs["pk"])
         form = ModeratedForm(request.POST)
@@ -205,7 +235,22 @@ class CommunityCloseDelete(View):
         else:
             raise Http404
 
-class CommunityWarningBannerCreate(View):
+class CommunityWarningBannerCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.community = Community.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_community_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/community_warning_banner.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(CommunityWarningBannerCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(CommunityWarningBannerCreate,self).get_context_data(**kwargs)
+        context["community"] = self.community
+        return context
+
     def post(self,request,*args,**kwargs):
         form = ModeratedForm(request.POST)
         if request.is_ajax() and form.is_valid() and (request.user.is_community_manager() or request.user.is_superuser):
@@ -219,7 +264,18 @@ class CommunityWarningBannerCreate(View):
         else:
             return HttpResponseBadRequest()
 
-class CommunityClaimCreate(View):
+class CommunityClaimCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.community, self.template_name = Community.objects.get(pk=self.kwargs["pk"]), get_detect_platform_template("managers/manage_create/community_claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CommunityClaimCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(CommunityClaimCreate,self).get_context_data(**kwargs)
+        context["community"] = self.community
+        return context
+
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
@@ -248,67 +304,6 @@ class CommunityRejectedCreate(View):
             return HttpResponse()
         else:
             raise Http404
-
-
-class CommunitySuspendWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.community = Community.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_community_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/community_suspend.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(CommunitySuspendWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(CommunitySuspendWindow,self).get_context_data(**kwargs)
-        context["community"] = self.community
-        return context
-
-class CommunityCloseWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.community = Community.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_community_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/community_close.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(CommunityCloseWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(CommunityCloseWindow,self).get_context_data(**kwargs)
-        context["community"] = self.community
-        return context
-
-class CommunityWarningBannerdWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.community = Community.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_community_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/community_warning_banner.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(CommunityWarningBannerdWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(CommunityWarningBannerdWindow,self).get_context_data(**kwargs)
-        context["community"] = self.community
-        return context
-
-class CommunityClaimWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.community, self.template_name = Community.objects.get(pk=self.kwargs["pk"]), get_detect_platform_template("managers/manage_create/community_claim.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(CommunityClaimWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(CommunityClaimWindow,self).get_context_data(**kwargs)
-        context["community"] = self.community
-        return context
 
 class CommunityUnverify(View):
     def get(self,request,*args,**kwargs):

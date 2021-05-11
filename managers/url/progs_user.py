@@ -31,9 +31,4 @@ urlpatterns = [
     url(r'^create_rejected/(?P<pk>\d+)/$', login_required(UserRejectedCreate.as_view())),
     url(r'^create_claim/(?P<pk>\d+)/$', login_required(UserClaimCreate.as_view())),
     url(r'^unverify/(?P<user_pk>\d+)/(?P<obj_pk>\d+)/$', login_required(UserUnverify.as_view())),
-
-    url(r'^suspend_window/(?P<pk>\d+)/$', login_required(UserSuspendWindow.as_view())),
-    url(r'^close_window/(?P<pk>\d+)/$', login_required(UserCloseWindow.as_view())),
-    url(r'^warning_banner_window/(?P<pk>\d+)/$', login_required(UserWarningBannerdWindow.as_view())),
-    url(r'^claim_window/(?P<pk>\d+)/$', login_required(UserClaimWindow.as_view())),
 ]

@@ -32,20 +32,35 @@ class CommunityStaff(models.Model):
         verbose_name = 'Полномочия в сообществе'
         verbose_name_plural = 'Полномочия в сообществе'
 
-class PostUserStaff(models.Model):
+class ElectNewUserStaff(models.Model):
     ADMINISTRATOR, MODERATOR, EDITOR, ADVERTISER = 'A', 'M', 'E', 'R'
     LEVEL = (
         (ADMINISTRATOR, 'Администратор'),(MODERATOR, 'Модератор'),(EDITOR, 'Редактор'),(ADVERTISER, 'Рекламодатель'),
     )
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='post_user_staff', verbose_name="Особый пользователь")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='elect_new_user_staff', verbose_name="Особый пользователь")
     level = models.CharField(max_length=5, choices=LEVEL, blank=True, verbose_name="Уровень доступа")
 
     def __str__(self):
         return self.user.get_full_name()
 
     class Meta:
-        verbose_name = 'Полномочия в постах пользователей'
-        verbose_name_plural = 'Полномочия в постах пользователей'
+        verbose_name = 'Полномочия в активностях депутатов'
+        verbose_name_plural = 'Полномочия в активностях депутатов'
+
+class SurveyUserStaff(models.Model):
+    ADMINISTRATOR, MODERATOR, EDITOR, ADVERTISER = 'A', 'M', 'E', 'R'
+    LEVEL = (
+        (ADMINISTRATOR, 'Администратор'),(MODERATOR, 'Модератор'),(EDITOR, 'Редактор'),(ADVERTISER, 'Рекламодатель'),
+    )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='survey_user_staff', verbose_name="Особый пользователь")
+    level = models.CharField(max_length=5, choices=LEVEL, blank=True, verbose_name="Уровень доступа")
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        verbose_name = 'Полномочия в опросах'
+        verbose_name_plural = 'Полномочия в опросах'
 
 class DocUserStaff(models.Model):
     ADMINISTRATOR, MODERATOR, EDITOR, ADVERTISER = 'A', 'M', 'E', 'R'
@@ -138,19 +153,33 @@ class CanWorkStaffCommunity(models.Model):
         verbose_name = 'Создатель персонала сообщетсв'
         verbose_name_plural = 'Создатели персонала сообщетсв'
 
-class CanWorkStaffPostUser(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='can_work_staff_post_user', verbose_name="Создатель персонала в записях")
-    can_work_administrator = models.BooleanField(default=False, verbose_name="Может добавлять администраторов записей")
-    can_work_moderator = models.BooleanField(default=False, verbose_name="Может добавлять модераторов записей")
-    can_work_editor = models.BooleanField(default=False, verbose_name="Может добавлять редакторов записей")
-    can_work_advertiser = models.BooleanField(default=False, verbose_name="Может добавлять рекламодателей записей")
+class CanWorkStaffElectNewUser(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='can_work_staff_elect_new_user', verbose_name="Создатель персонала в записях")
+    can_work_administrator = models.BooleanField(default=False, verbose_name="Может добавлять администраторов активностей депутатов")
+    can_work_moderator = models.BooleanField(default=False, verbose_name="Может добавлять модераторов активностей депутатов")
+    can_work_editor = models.BooleanField(default=False, verbose_name="Может добавлять редакторов активностей депутатов")
+    can_work_advertiser = models.BooleanField(default=False, verbose_name="Может добавлять рекламодателей активностей депутатов")
 
     def __str__(self):
         return self.user.get_full_name()
 
     class Meta:
-        verbose_name = 'Создатель персонала записей'
-        verbose_name_plural = 'Создатели персонала записей'
+        verbose_name = 'Создатель персонала активностей депутатов'
+        verbose_name_plural = 'Создатели персонала активностей депутатов'
+
+class CanWorkStaffSurveyUser(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='can_work_staff_survey_user', verbose_name="Создатель персонала в записях")
+    can_work_administrator = models.BooleanField(default=False, verbose_name="Может добавлять администраторов опросов")
+    can_work_moderator = models.BooleanField(default=False, verbose_name="Может добавлять модераторов опросов")
+    can_work_editor = models.BooleanField(default=False, verbose_name="Может добавлять редакторов опросов")
+    can_work_advertiser = models.BooleanField(default=False, verbose_name="Может добавлять рекламодателей опросов")
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        verbose_name = 'Создатель персонала опросов'
+        verbose_name_plural = 'Создатели персонала опросов'
 
 class CanWorkStaffDocUser(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='can_work_staff_doc_user', verbose_name="Создатель персонала в товарах")
@@ -232,15 +261,17 @@ class ModerationCategory(models.Model):
 
 
 USER, COMMUNITY = 'USE', 'COM'
-POST_LIST, POST, POST_COMMENT = 'POL', 'POS', 'POSC'
+ELECT_NEW_LIST, ELECT_NEW, ELECT_NEW_COMMENT = 'ENL', 'ELE', 'ELEC'
 PHOTO_LIST, PHOTO, PHOTO_COMMENT = 'PHL', 'PHO', 'PHOC'
 DOC_LIST, DOC = 'DOL', 'DOC'
 MUSIC_LIST, MUSIC = 'MUL', 'MUS'
+SURVEY_LIST, SURVEY = 'SUL', 'SUR'
 VIDEO_LIST, VIDEO, VIDEO_COMMENT = 'VIL', 'VID', 'VIDC'
 TYPE = (
     (USER, 'Пользователь'), (COMMUNITY, 'Сообщество'),
     (MUSIC_LIST, 'Плейлист'), (MUSIC, 'Трек'),
-    (POST_LIST, 'Список записей'), (POST, 'Запись'), (POST_COMMENT, 'Коммент к записи'),
+    (SURVEY_LIST, 'Список опросов'), (SURVEY, 'Опрос'),
+    (ELECT_NEW_LIST, 'Список активностей депутатов'), (ELECT_NEW, 'Активность депутата'), (ELECT_NEW_COMMENT, 'Коммент к активности депутата'),
     (DOC_LIST, 'Список документов'), (DOC, 'документ'),
     (PHOTO_LIST, 'Список фотографий'), (PHOTO, 'Фотография'), (PHOTO_COMMENT, 'Коммент к фотографии'),
     (VIDEO_LIST, 'Список роликов'), (VIDEO, 'Ролик'), (VIDEO_COMMENT, 'Коммент к ролику'),
@@ -386,14 +417,14 @@ class Moderated(models.Model):
         return cls.objects.filter(type="COM", verified=False)
 
     @classmethod
-    def get_moderation_post_lists(cls):
-        return cls.objects.filter(verified=False, type="POL")
+    def get_moderation_elect_new_lists(cls):
+        return cls.objects.filter(verified=False, type="ENL")
     @classmethod
-    def get_moderation_posts(cls):
-        return cls.objects.filter(verified=False, type="POS")
+    def get_moderation_elect_news(cls):
+        return cls.objects.filter(verified=False, type="ELE")
     @classmethod
-    def get_moderation_post_comments(cls):
-        return cls.objects.filter(verified=False, type="POSC")
+    def get_moderation_elect_new_comments(cls):
+        return cls.objects.filter(verified=False, type="ELEC")
 
     @classmethod
     def get_moderation_photo_lists(cls):
@@ -421,6 +452,13 @@ class Moderated(models.Model):
     @classmethod
     def get_moderation_audios(cls):
         return cls.objects.filter(verified=False, type="MUS")
+
+    @classmethod
+    def get_moderation_survey_lists(cls):
+        return cls.objects.filter(verified=False, type="SUL")
+    @classmethod
+    def get_moderation_survey(cls):
+        return cls.objects.filter(verified=False, type="SUR")
 
     @classmethod
     def get_moderation_survey_lists(cls):

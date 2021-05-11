@@ -6,7 +6,7 @@ from managers.forms import ModeratedForm
 from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
-from common.template.user import get_detect_platform_template
+from common.templates import get_detect_platform_template
 
 
 class UserAdminCreate(View):
@@ -156,7 +156,21 @@ class UserWorkerAdvertiserDelete(View):
         else:
             raise Http404
 
-class UserSuspensionCreate(View):
+class UserSuspensionCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        if request.user.is_user_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/user_suspend.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(UserSuspensionCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(UserSuspensionCreate,self).get_context_data(**kwargs)
+        context["user"] = User.objects.get(pk=self.kwargs["pk"])
+        return context
+
     def post(self,request,*args,**kwargs):
         form, user = UserModeratedForm(request.POST), User.objects.get(pk=self.kwargs["pk"])
 
@@ -182,7 +196,21 @@ class UserSuspensionDelete(View):
         else:
             raise Http404
 
-class UserCloseCreate(View):
+class UserCloseCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        if request.user.is_user_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/user_close.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(UserCloseCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(UserCloseCreate,self).get_context_data(**kwargs)
+        context["user"] = User.objects.get(pk=self.kwargs["pk"])
+        return context
+
     def post(self,request,*args,**kwargs):
         user, form = User.objects.get(pk=self.kwargs["pk"]), ModeratedForm(request.POST)
         if request.is_ajax() and form.is_valid() and (request.user.is_user_manager() or request.user.is_superuser):
@@ -203,7 +231,21 @@ class UserCloseDelete(View):
         else:
             raise Http404
 
-class UserWarningBannerCreate(View):
+class UserWarningBannerCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        if request.user.is_user_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/user_warning_banner.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(UserWarningBannerCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(UserWarningBannerCreate,self).get_context_data(**kwargs)
+        context["user"] = User.objects.get(pk=self.kwargs["pk"])
+        return context
+
     def post(self,request,*args,**kwargs):
         user, form = User.objects.get(pk=self.kwargs["pk"]), ModeratedForm(request.POST)
         if request.is_ajax() and form.is_valid() and (request.user.is_user_manager() or request.user.is_superuser):
@@ -217,7 +259,18 @@ class UserWarningBannerCreate(View):
         else:
             return HttpResponseBadRequest()
 
-class UserClaimCreate(View):
+class UserClaimCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/user_claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(UserClaimCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(UserClaimCreate,self).get_context_data(**kwargs)
+        context["user"] = User.objects.get(pk=self.kwargs["pk"])
+        return context
+
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
@@ -249,64 +302,6 @@ class UserRejectedCreate(View):
             return HttpResponse()
         else:
             raise Http404
-
-class UserSuspendWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        if request.user.is_user_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/user_suspend.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(UserSuspendWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserSuspendWindow,self).get_context_data(**kwargs)
-        context["user"] = User.objects.get(pk=self.kwargs["pk"])
-        return context
-
-class UserCloseWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        if request.user.is_user_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/user_close.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(UserCloseWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserCloseWindow,self).get_context_data(**kwargs)
-        context["user"] = User.objects.get(pk=self.kwargs["pk"])
-        return context
-
-class UserWarningBannerdWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        if request.user.is_user_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/user_warning_banner.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(UserWarningBannerdWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserWarningBannerdWindow,self).get_context_data(**kwargs)
-        context["user"] = User.objects.get(pk=self.kwargs["pk"])
-        return context
-
-class UserClaimWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.template_name = get_detect_platform_template("managers/manage_create/user_claim.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(UserClaimWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(UserClaimWindow,self).get_context_data(**kwargs)
-        context["user"] = User.objects.get(pk=self.kwargs["pk"])
-        return context
-
 
 class UserUnverify(View):
     def get(self,request,*args,**kwargs):

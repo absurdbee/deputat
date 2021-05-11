@@ -7,7 +7,7 @@ from managers.forms import ModeratedForm
 from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
-from common.template.user import get_detect_platform_template
+from common.templates import get_detect_platform_template
 
 
 class PhotoAdminCreate(View):
@@ -118,7 +118,21 @@ class PhotoWorkerEditorDelete(View):
         else:
             raise Http404
 
-class PhotoCloseCreate(View):
+class PhotoCloseCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        if request.user.is_photo_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_close", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(PhotoCloseCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(PhotoCloseCreate,self).get_context_data(**kwargs)
+        context["object"] = Photo.objects.get(uuid=self.kwargs["uuid"])
+        return context
+
     def post(self,request,*args,**kwargs):
         photo, form = Photo.objects.get(uuid=self.kwargs["uuid"]), ModeratedForm(request.POST)
         if request.is_ajax() and form.is_valid() and (request.user.is_photo_manager() or request.user.is_superuser):
@@ -139,7 +153,18 @@ class PhotoCloseDelete(View):
         else:
             raise Http404
 
-class PhotoClaimCreate(View):
+class PhotoClaimCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_claim", request.user, request.META['HTTP_USER_AGENT'])
+        return super(PhotoClaimCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(PhotoClaimCreate,self).get_context_data(**kwargs)
+        context["object"] = Photo.objects.get(uuid=self.kwargs["uuid"])
+        return context
+
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
@@ -170,115 +195,3 @@ class PhotoUnverify(View):
             return HttpResponse()
         else:
             raise Http404
-
-class CommentPhotoUnverify(View):
-    def get(self,request,*args,**kwargs):
-        comment, obj = PhotoComment.objects.get(pk=self.kwargs["pk"]), Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
-            obj.unverify_moderation(manager_id=request.user.pk)
-            return HttpResponse()
-        else:
-            raise Http404
-
-class CommentPhotoCloseCreate(View):
-    def post(self,request,*args,**kwargs):
-        comment, form = PhotoComment.objects.get(pk=self.kwargs["pk"]), ModeratedForm(request.POST)
-        if request.is_ajax() and form.is_valid() and (request.user.is_photo_manager() or request.user.is_superuser):
-            mod = form.save(commit=False)
-            moderate_obj = Moderated.get_or_create_moderated_object(object_id=comment.pk, type="PHOC")
-            moderate_obj.create_close(object=comment, description=mod.description, manager_id=request.user.pk)
-            return HttpResponse()
-        else:
-            return HttpResponseBadRequest()
-
-class CommentPhotoCloseDelete(View):
-    def get(self,request,*args,**kwargs):
-        comment = PhotoComment.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
-            moderate_obj = Moderated.objects.get(object_id=comment.pk, type="PHOC")
-            moderate_obj.delete_close(object=comment, manager_id=request.user.pk)
-            return HttpResponse()
-        else:
-            raise Http404
-
-class CommentPhotoClaimCreate(View):
-    def post(self,request,*args,**kwargs):
-        from managers.models import ModerationReport
-
-        if request.is_ajax() and request.is_ajax():
-            description, type = request.POST.get('description'), request.POST.get('type')
-            comment = PhotoComment.objects.get(pk=self.kwargs["pk"])
-            Moderation.create_moderation_report(reporter_id=request.user.pk, _type="PHOС", object_id=comment.pk, description=description, type=type)
-            return HttpResponse()
-        else:
-            return HttpResponseBadRequest()
-
-class CommentPhotoRejectedCreate(View):
-    def get(self,request,*args,**kwargs):
-        if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
-            moderate_obj = Moderated.objects.get(object_id=self.kwargs["pk"], type="PHOC")
-            moderate_obj.reject_moderation(manager_id=request.user.pk)
-            return HttpResponse()
-        else:
-            raise Http404
-
-class PhotoCloseWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        if request.user.is_photo_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_close", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(PhotoCloseWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(PhotoCloseWindow,self).get_context_data(**kwargs)
-        context["object"] = Photo.objects.get(uuid=self.kwargs["uuid"])
-        return context
-
-class PhotoClaimWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_claim", request.user, request.META['HTTP_USER_AGENT'])
-        return super(PhotoClaimWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(PhotoClaimWindow,self).get_context_data(**kwargs)
-        context["object"] = Photo.objects.get(uuid=self.kwargs["uuid"])
-        return context
-
-
-class PhotoCommentCloseWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        if request.user.is_photo_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_comment_close", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(PhotoCommentCloseWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(PhotoCommentCloseWindow,self).get_context_data(**kwargs)
-        context["comment"] = PhotoComment.objects.get(pk=self.kwargs["pk"])
-        return context
-
-class PhotoCommentClaimWindow(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.comment = PhotoComment.objects.get(pk=self.kwargs["pk"])
-        try:
-            self.photo = self.comment.parent.photo
-        except:
-            self.photo = self.comment.photo
-        self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_comment_claim", request.user, request.META['HTTP_USER_AGENT'])
-        return super(PhotoCommentClaimWindow,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(PhotoCommentClaimWindow,self).get_context_data(**kwargs)
-        context["comment"] = self.comment
-        context["photo"] = self.photo
-        return context

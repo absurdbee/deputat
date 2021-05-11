@@ -12,17 +12,21 @@ from city.models import City
 """
 
 class User(AbstractUser):
-    DELETED, SUSPENDED, BLOCKED, PHONE_NO_VERIFIED, STANDART, MANAGER, SUPERMANAGER = 'DE', 'SU', 'BL', 'PV', 'ST', 'MA', 'SM'
-    MALE, FEMALE, DESCTOP, PHONE = 'Man', 'Fem', 'De', 'Ph'
-    PERM = (
-        (DELETED, 'Удален'),
-        (BLOCKED, 'Заблокирован'),
-        (PHONE_NO_VERIFIED, 'Телефон не подтвержден'),
-        (STANDART, 'Обычные права'),
-        (MANAGER, 'Менеджер'),
-        (SUPERMANAGER, 'Суперменеджер'),
+    PHONE_NO_VERIFIED, STANDART, VERIFIED_SEND, VERIFIED, IDENTIFIED_SEND, IDENTIFIED, MANAGER, SUPERMANAGER = '_PV', 'CHI', 'STA', 'VES', 'VER', 'IDS', 'IDE', 'MAN', 'SUP'
+    CLOSED_STANDART, CLOSED_VERIFIED_SEND, CLOSED_VERIFIED, CLOSED_IDENTIFIED_SEND, CLOSED_IDENTIFIED, CLOSED_MANAGER = '_CLOC', '_CLOS', '_CLOVS', '_CLOV', '_CLOIS', '_CLOI', '_CLOM'
+    DELETED_STANDART, DELETED_VERIFIED_SEND, DELETED_VERIFIED, DELETED_IDENTIFIED_SEND, DELETED_IDENTIFIED, DELETED_MANAGER = '_DELC', '_DELS', '_DELVS', '_DELV', '_DELIS', '_DELI', '_DELM'
+    SUSPENDED_STANDART, SUSPENDED_VERIFIED_SEND, SUSPENDED_VERIFIED, SUSPENDED_IDENTIFIED_SEND, SUSPENDED_IDENTIFIED, SUSPENDED_MANAGER = '_SUSC', '_SUSS', '_SUSVS', '_SUSV', '_SUSIS', '_SUSI', '_SUSM'
+    BANNER_STANDART, BANNER_VERIFIED_SEND, BANNER_VERIFIED, BANNER_IDENTIFIED_SEND, BANNER_IDENTIFIED, BANNER_MANAGER = '_BANC', '_BANS', '_BANVS', '_BANV', '_BANIS', '_BANI', '_BANM'
+    TYPE = (
+        (PHONE_NO_VERIFIED, 'Телефон не подтвержден'),(STANDART, 'Обычные права'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Проверенный'),(IDENTIFIED_SEND, 'Запрос на идентификацию'),(IDENTIFIED, 'Идентифицированный'),(MANAGER, 'Менеджер'),(SUPERMANAGER, 'Суперменеджер'),
+        (DELETED_STANDART, 'Удален'),(DELETED_VERIFIED_SEND, 'Удален подавший на верификацию'),(DELETED_VERIFIED, 'Удален верифицированный'),(DELETED_IDENTIFIED_SEND, 'Удален подавший на идентификацию'),(DELETED_IDENTIFIED, 'Удален идентифиированный'),(DELETED_MANAGER, 'Удален менеджер'),
+        (CLOSED_STANDART, 'Закрыт'),(CLOSED_VERIFIED_SEND, 'Удален подавший на верификацию'),(CLOSED_VERIFIED, 'Закрыт верифицированный'),(CLOSED_IDENTIFIED_SEND, 'Закрыт подавший на идентификацию'),(CLOSED_IDENTIFIED, 'Закрыт идентифиированный'),(CLOSED_MANAGER, 'Закрыт менеджер'),
+        (SUSPENDED_STANDART, 'Заморожен'),(SUSPENDED_VERIFIED_SEND, 'Заморожен подавший на верификацию'),(SUSPENDED_VERIFIED, 'Заморожен верифицированный'),(SUSPENDED_IDENTIFIED_SEND, 'Заморожен подавший на идентификацию'),(SUSPENDED_IDENTIFIED, 'Заморожен идентифиированный'),(SUSPENDED_MANAGER, 'Заморожен менеджер'),
+        (BANNER_STANDART, 'Баннер'),(BANNER_VERIFIED_SEND, 'Баннер подавший на верификацию'),(BANNER_VERIFIED, 'Баннер верифицированный'),(BANNER_IDENTIFIED_SEND, 'Баннер подавший на идентификацию'),(BANNER_IDENTIFIED, 'Баннер идентифиированный'),(BANNER_MANAGER, 'Баннер менеджер'),
     )
-    GENDER, DEVICE = ((MALE, 'Мужской'),(FEMALE, 'Женский'),), ((DESCTOP, 'Комп'),(PHONE, 'Телефон'),)
+    MALE, FEMALE, DESCTOP, PHONE = 'Man', 'Fem', 'De', 'Ph'
+    GENDER = ((MALE, 'Мужской'),(FEMALE, 'Женский'),)
+    DEVICE = ((DESCTOP, 'Комп'),(PHONE, 'Телефон'),)
 
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     phone = models.CharField(max_length=17, unique=True, verbose_name='Телефон')

@@ -23,15 +23,4 @@ urlpatterns = [
     url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', login_required(VideoRejectedCreate.as_view())),
     url(r'^create_claim/(?P<uuid>[0-9a-f-]+)/$', login_required(VideoClaimCreate.as_view())),
     url(r'^unverify/(?P<video_uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', login_required(VideoUnverify.as_view())),
-
-    url(r'^comment_create_close/(?P<pk>\d+)/$', login_required(CommentVideoCloseCreate.as_view())),
-    url(r'^comment_delete_close/(?P<pk>\d+)/$', login_required(CommentVideoCloseDelete.as_view())),
-    url(r'^comment_create_rejected/(?P<pk>\d+)/$', login_required(CommentVideoRejectedCreate.as_view())),
-    url(r'^comment_create_claim/(?P<pk>\d+)/$', login_required(CommentVideoClaimCreate.as_view())),
-    url(r'^comment_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', login_required(CommentVideoUnverify.as_view())),
-
-    url(r'^close_window/(?P<uuid>[0-9a-f-]+)/$', login_required(VideoCloseWindow.as_view())),
-    url(r'^claim_window/(?P<uuid>[0-9a-f-]+)/$', login_required(VideoClaimWindow.as_view())),
-    url(r'^close_comment_window/(?P<pk>\d+)/$', login_required(VideoCommentCloseWindow.as_view())),
-    url(r'^claim_comment_window/(?P<pk>\d+)/$', login_required(VideoCommentClaimWindow.as_view())),
 ]

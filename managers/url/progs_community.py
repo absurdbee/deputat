@@ -30,10 +30,5 @@ urlpatterns = [
     url(r'^delete_warning_banner/(?P<pk>\d+)/$', login_required(CommunityWarningBannerDelete.as_view())),
     url(r'^create_rejected/(?P<pk>\d+)/$', login_required(CommunityRejectedCreate.as_view())),
     url(r'^create_claim/(?P<pk>\d+)/$', login_required(CommunityClaimCreate.as_view())),
-    url(r'^unverify/(?P<community_pk>\d+)/(?P<obj_pk>\d+)/$', login_required(CommunityUnverify.as_view())),
-
-    url(r'^suspend_window/(?P<pk>\d+)/$', login_required(CommunitySuspendWindow.as_view())),
-    url(r'^close_window/(?P<pk>\d+)/$', login_required(CommunityCloseWindow.as_view())),
-    url(r'^warning_banner_window/(?P<pk>\d+)/$', login_required(CommunityWarningBannerdWindow.as_view())),
-    url(r'^claim_window/(?P<pk>\d+)/$', login_required(CommunityClaimWindow.as_view())),
+    url(r'^unverify/(?P<community_pk>\d+)/(?P<obj_pk>\d+)/$', login_required(CommunityUnverify.as_view()))
 ]

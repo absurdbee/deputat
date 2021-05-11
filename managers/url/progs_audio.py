@@ -22,8 +22,5 @@ urlpatterns = [
     url(r'^delete_close/(?P<pk>\d+)/$', login_required(AudioCloseDelete.as_view())),
     url(r'^create_rejected/(?P<pk>\d+)/$', login_required(AudioRejectedCreate.as_view())),
     url(r'^create_claim/(?P<pk>\d+)/$', login_required(AudioClaimCreate.as_view())),
-    url(r'^unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', login_required(AudioUnverify.as_view())),
-
-    url(r'^close_window/(?P<pk>\d+)/$', login_required(AudioCloseWindow.as_view())),
-    url(r'^claim_window/(?P<pk>\d+)/$', login_required(AudioClaimWindow.as_view()))
+    url(r'^unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', login_required(AudioUnverify.as_view()))
 ]

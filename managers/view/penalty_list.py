@@ -34,31 +34,31 @@ class PenaltyCommunityList(ListView):
         list = self.user.get_penalty_communities()
         return list
 
-class PenaltyPostList(ListView):
+class PenaltyElectNewList(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_post_manager() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/penalty_list/post_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        if self.user.is_elect_new_manager() or self.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/penalty_list/elect_new_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
-        return super(PenaltyPostList,self).get(request,*args,**kwargs)
+        return super(PenaltyElectNewList,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
         list = self.user.get_penalty_posts()
         return list
 
-class PenaltyPostCommentList(ListView):
+class PenaltySurveyList(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_post_manager() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/penalty_list/post_comment_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        if self.user.is_survey_manager() or self.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/penalty_list/survey_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
-        return super(PenaltyPostCommentList,self).get(request,*args,**kwargs)
+        return super(PenaltySurveyList,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
         list = self.user.get_penalty_post_comments()

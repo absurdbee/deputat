@@ -34,31 +34,31 @@ class ModerationCommunityList(ListView):
         list = self.user.get_moderation_communities()
         return list
 
-class ModerationPostList(ListView):
+class ModerationElectNewList(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_post_manager() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/moderation_list/post_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        if self.user.is_elect_new_manager() or self.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/moderation_list/elect_new_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
-        return super(ModerationPostList,self).get(request,*args,**kwargs)
+        return super(ModerationElectNewList,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
         list = self.user.get_moderation_posts()
         return list
 
-class ModerationPostCommentList(ListView):
+class ModerationSurveyList(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_post_manager() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/moderation_list/post_comment_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        if self.user.is_survey_manager() or self.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/moderation_list/survey_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
-        return super(ModerationPostCommentList,self).get(request,*args,**kwargs)
+        return super(ModerationSurveyList,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
         list = self.user.get_moderation_post_comments()

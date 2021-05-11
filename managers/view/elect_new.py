@@ -2,7 +2,8 @@ from django.views import View
 from users.models import User
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.staff_progs.elect_new import *
-from blog.models import ElectNew, ElectNewComment
+from common.model.comments import ElectNewComment
+from blog.models import ElectNew
 from managers.forms import ModeratedForm
 from django.views.generic.base import TemplateView
 from managers.models import Moderated

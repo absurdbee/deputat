@@ -93,7 +93,7 @@ class Blog(models.Model):
         else:
             return ''
 
-    def count_reposts(self):
+    def reposts_count(self):
         if self.repost > 0:
             return self.repost > 0
         else:

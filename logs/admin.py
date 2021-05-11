@@ -1,6 +1,5 @@
 from django.contrib import admin
 from logs.model.manage_audio import *
-from logs.model.manage_goods import *
 from logs.model.manage_photo import *
 from logs.model.manage_user_community import *
 from logs.model.manage_video import *

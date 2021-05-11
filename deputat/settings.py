@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'communities',
     'managers',
     'survey',
+    'logs',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

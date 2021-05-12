@@ -70,6 +70,6 @@ def get_folder(user_agent):
     import re
     MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
     if MOBILE_AGENT_RE.match(user_agent):
-        return "mobile/"
+        return ""
     else:
-        return "desctop/"
+        return ""

@@ -1,5 +1,3 @@
-import re
-MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 from django.shortcuts import render
 from rest_framework.exceptions import PermissionDenied
 from common.utils import update_activity, get_folder
@@ -17,6 +15,8 @@ def get_detect_platform_template(template, request_user, user_agent):
 
 
 def render_for_platform(request, template, data):
+    import re
+    MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
     if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
         return render(request, template, data)
     else:
@@ -36,10 +36,6 @@ def get_full_template(template, request_user, user_agent):
             template_name = template
     elif request_user.is_anonymous:
         template_name = template
-    if MOBILE_AGENT_RE.match(user_agent):
-        template_name = template_name
-    else:
-        template_name = template_name
     return get_folder(user_agent) + template_name
 
 
@@ -54,10 +50,6 @@ def get_small_template(template, request_user, user_agent):
             template_name = template
     elif request_user.is_anonymous:
         template_name = template
-    if MOBILE_AGENT_RE.match(user_agent):
-        template_name = template_name
-    else:
-        template_name = template_name
     return get_folder(user_agent) + template_name
 
 
@@ -149,8 +141,4 @@ def get_item_template(item, folder, template, request_user, user_agent):
             template_name = folder + "anon_private_" + template
         else:
             template_name = folder + "anon_" + template
-    if MOBILE_AGENT_RE.match(user_agent):
-        template_name = template_name
-    else:
-        template_name = template_name
     return get_folder(user_agent) + template_name

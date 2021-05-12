@@ -205,7 +205,7 @@ class User(AbstractUser):
     def is_child(self):
         return self.type == User.CHILD
     def is_no_phone_verified(self):
-        return self.type == User.THIS_PHONE_NO_VERIFIED
+        return self.type == User.PHONE_NO_VERIFIED
 
     def is_man(self):
         return self.gender == User.MALE

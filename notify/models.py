@@ -254,4 +254,4 @@ class UserProfileNotify(models.Model):
 
 def get_user_managers_ids():
     from users.models import User
-    return [i['pk'] for i in User.objects.filter(perm=User.MANAGER).values("pk")]
+    return [i['pk'] for i in User.objects.filter(type=User.MANAGER).values("pk")]

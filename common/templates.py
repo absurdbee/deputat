@@ -2,6 +2,7 @@ import re
 MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 from django.shortcuts import render
 from rest_framework.exceptions import PermissionDenied
+from common.utils import update_activity, get_folder
 
 
 def get_detect_platform_template(template, request_user, user_agent):
@@ -11,6 +12,7 @@ def get_detect_platform_template(template, request_user, user_agent):
     elif request_user.is_no_phone_verified():
         template = "main/phone_verification.html"
 
+    update_activity(request_user, user_agent)
     return get_folder(user_agent) + template
 
 
@@ -23,6 +25,7 @@ def render_for_platform(request, template, data):
 
 def get_full_template(template, request_user, user_agent):
     if request_user.is_authenticated:
+        update_activity(request_user, user_agent)
         if request_user.is_no_phone_verified():
             template_name = "generic/phone_verification.html"
         elif request_user.is_closed():
@@ -37,11 +40,12 @@ def get_full_template(template, request_user, user_agent):
         template_name = template_name
     else:
         template_name = template_name
-    return template_name
+    return get_folder(user_agent) + template_name
 
 
 def get_small_template(template, request_user, user_agent):
     if request_user.is_authenticated:
+        update_activity(request_user, user_agent)
         if request_user.is_no_phone_verified():
             template_name = "generic/phone_verification.html"
         elif request_user.is_closed():
@@ -54,34 +58,29 @@ def get_small_template(template, request_user, user_agent):
         template_name = template_name
     else:
         template_name = template_name
-    return template_name
+    return get_folder(user_agent) + template_name
 
 
 def get_managers_template(template, request_user, user_agent):
     if request_user.is_authenticated and (request_user.is_manager() or request_user.is_superuser):
         template_name = template
+        update_activity(request_user, user_agent)
     else:
         raise PermissionDenied("Permission denied...")
-    if MOBILE_AGENT_RE.match(user_agent):
-        template_name = template_name
-    else:
-        template_name = template_name
-    return template_name
+    return get_folder(user_agent) + template_name
 
 def get_my_template(template, request_user, user_agent):
     if request_user.is_authenticated:
         template_name = template
+        update_activity(request_user, user_agent)
     else:
         raise PermissionDenied("Permission denied...")
-    if MOBILE_AGENT_RE.match(user_agent):
-        template_name = template_name
-    else:
-        template_name = template_name
-    return template_name
+    return get_folder(user_agent) + template_name
 
 def get_list_template(list, folder, template, request_user, user_agent):
     user = list.creator
     if request_user.is_authenticated:
+        update_activity(request_user, user_agent)
         if request_user.is_no_phone_verified():
             template_name = "generic/phone_verification.html"
         elif user.pk == request_user.pk:
@@ -113,15 +112,12 @@ def get_list_template(list, folder, template, request_user, user_agent):
             template_name = folder + "anon_private_" + template
         else:
             template_name = folder + "anon_" + template
-    if MOBILE_AGENT_RE.match(user_agent):
-        template_name = template_name
-    else:
-        template_name = template_name
-    return template_name
+    return get_folder(user_agent) + template_name
 
 def get_item_template(item, folder, template, request_user, user_agent):
     user = item.creator
     if request_user.is_authenticated:
+        update_activity(request_user, user_agent)
         if request_user.is_no_phone_verified():
             template_name = "generic/phone_verification.html"
         elif user.pk == request_user.pk:
@@ -157,4 +153,4 @@ def get_item_template(item, folder, template, request_user, user_agent):
         template_name = template_name
     else:
         template_name = template_name
-    return template_name
+    return get_folder(user_agent) + template_name

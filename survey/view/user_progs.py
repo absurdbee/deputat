@@ -4,7 +4,7 @@ from survey.models import Survey, Answer, SurveyList
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.views import View
 from common.check.user import check_user_can_get_list
-from common.template.user import get_settings_template, render_for_platform, get_detect_platform_template
+from common.templates import get_my_template, render_for_platform, get_detect_platform_template
 
 
 class SurveyUserCreate(TemplateView):

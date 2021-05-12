@@ -182,18 +182,30 @@ class User(AbstractUser):
         from common.model.votes import ElectNewVotes2
         return ElectNewVotes2.objects.filter(user_id=self.pk, vote=ElectNewVotes2.DISLIKE).values("new_id").count()
 
-    def is_deleted(self):
-        return self.perm == User.DELETED
-    def is_blocked(self):
-        return self.perm == User.BLOCKED
-    def is_manager(self):
-        return self.perm == User.MANAGER
-    def is_supermanager(self):
-        return self.perm == User.SUPERMANAGER
-    def is_no_phone_verified(self):
-        return self.perm == User.PHONE_NO_VERIFIED
     def is_suspended(self):
-        return self.perm == User.SUSPENDED
+        return self.type[:4] == "_SUS"
+    def is_have_warning_banner(self):
+        return self.type[:4] == "_BAN"
+    def is_deleted(self):
+        return self.type[:4] == "_DEL"
+    def is_closed(self):
+        return self.type[:4] == "_CLO"
+    def is_manager(self):
+        return self.type == User.MANAGER
+    def is_supermanager(self):
+        return self.type == User.SUPERMANAGER
+    def is_verified_send(self):
+        return self.type == User.VERIFIED_SEND
+    def is_verified(self):
+        return self.type == User.VERIFIED
+    def is_identified_send(self):
+        return self.type == User.IDENTIFIED_SEND
+    def is_identified(self):
+        return self.type == User.IDENTIFIED
+    def is_child(self):
+        return self.type == User.CHILD
+    def is_no_phone_verified(self):
+        return self.type == User.THIS_PHONE_NO_VERIFIED
 
     def is_man(self):
         return self.gender == User.MALE

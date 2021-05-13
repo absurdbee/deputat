@@ -46,7 +46,7 @@ class VideoAlbum(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     name = models.CharField(max_length=250, verbose_name="Название")
     order = models.PositiveIntegerField(default=0)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_creator', verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_list_creator', verbose_name="Создатель")
     type = models.CharField(max_length=6, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
     description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
     community = models.ForeignKey('communities.Community', related_name='video_lists_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")

@@ -101,9 +101,7 @@ class Blog(models.Model):
 
     def get_comments(self):
         from common.model.comments import BlogComment
-
-        comments_query = Q(blog_id=self.pk, status=BlogComment.PUBLISHED, parent__isnull=True)
-        return BlogComment.objects.filter(comments_query)
+        return BlogComment.objects.filter(blog_id=self.pk, status=BlogComment.PUBLISHED, parent__isnull=True)
 
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
@@ -151,23 +149,130 @@ class Blog(models.Model):
                     query.append(item[3:])
         return Video.objects.filter(id__in=query)
 
+    def send_like(self, user, community):
+        import json
+        from common.model.votes import ElectNewVotes2
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = BlogVotes.objects.get(parent=self, user=user)
+            if item.vote == BlogVotes.DISLIKE:
+                item.vote = BlogVotes.LIKE
+                item.save(update_fields=['vote'])
+                self.like += 1
+                self.dislike -= 1
+                self.save(update_fields=['like', 'dislike'])
+            elif item.vote == BlogVotes.INERT:
+                item.vote = BlogVotes.LIKE
+                item.save(update_fields=['vote'])
+                self.inert -= 1
+                self.like += 1
+                self.save(update_fields=['inert', 'like'])
+            else:
+                item.delete()
+                self.like -= 1
+                self.save(update_fields=['like'])
+        except BlogVotes.DoesNotExist:
+            BlogVotes.objects.create(parent=self, user=user, vote=BlogVotes.LIKE)
+            self.like += 1
+            self.save(update_fields=['like'])
+            if community:
+                from common.notify.notify import community_notify, community_wall
+                community_notify(user, community, None, self.pk, "BLO", "c_blog_notify", "LIK")
+                community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "LIK")
+            else:
+                from common.notify.notify import user_notify, user_wall
+                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "LIK")
+                user_wall(user, None, self.pk, "BLO", "u_blog_notify", "LIK")
+        return HttpResponse(json.dumps({"like_count": str("like_count": self.like,"dislike_count": self.dislike,"inert_count": self.inert}),content_type="application/json")
+
+    def send_dislike(self, user, community):
+        import json
+        from common.model.votes import BlogVotes
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = BlogVotes.objects.get(parent=self, user=user)
+            if item.vote == BlogVotes.LIKE:
+                item.vote = BlogVotes.DISLIKE
+                item.save(update_fields=['vote'])
+                self.like -= 1
+                self.dislike += 1
+                self.save(update_fields=['like', 'dislike'])
+            elif item.vote == BlogVotes.INERT:
+                item.vote = BlogVotes.DISLIKE
+                item.save(update_fields=['vote'])
+                self.inert -= 1
+                self.dislike += 1
+                self.save(update_fields=['inert', 'dislike'])
+            else:
+                item.delete()
+                self.dislike -= 1
+                self.save(update_fields=['dislike'])
+        except BlogVotes.DoesNotExist:
+            BlogVotes.objects.create(parent=self, user=user, vote=BlogVotes.DISLIKE)
+            self.dislike += 1
+            self.save(update_fields=['dislike'])
+            if community:
+                from common.notify.notify import community_notify, community_wall
+                community_notify(user, community, None, self.pk, "BLO", "c_blog_notify", "DIS")
+                community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "DIS")
+            else:
+                from common.notify.notify import user_notify, user_wall
+                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "DIS")
+                user_wall(user, None, self.pk, "BLO", "u_blog_notify", "DIS")
+        return HttpResponse(json.dumps({"like_count": str("like_count": self.like,"dislike_count": self.dislike,"inert_count": self.inert}),content_type="application/json")
+
+    def send_inert(self, user, community):
+        import json
+        from common.model.votes import BlogVotes
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = BlogVotes.objects.get(parent=self, user=user)
+            if item.vote == BlogVotes.LIKE:
+                item.vote = BlogVotes.INERT
+                item.save(update_fields=['vote'])
+                self.like -= 1
+                self.inert += 1
+                self.save(update_fields=['like', 'inert'])
+            elif item.vote == BlogVotes.DISLIKE:
+                item.vote = BlogVotes.INERT
+                item.save(update_fields=['vote'])
+                self.inert += 1
+                self.dislike -= 1
+                self.save(update_fields=['inert', 'dislike'])
+            else:
+                item.delete()
+                self.inert -= 1
+                self.save(update_fields=['inert'])
+        except BlogVotes.DoesNotExist:
+            BlogVotes.objects.create(parent=self, user=user, vote=BlogVotes.INERT)
+            self.inert += 1
+            self.save(update_fields=['inert'])
+            if community:
+                from common.notify.notify import community_notify, community_wall
+                community_notify(user, community, None, self.pk, "BLO", "c_blog_notify", "INE")
+                community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "INE")
+            else:
+                from common.notify.notify import user_notify, user_wall
+                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "INE")
+                user_wall(user, None, self.pk, "BLO", "u_blog_notify", "INE")
+        return HttpResponse(json.dumps({"like_count": str("like_count": self.like,"dislike_count": self.dislike,"inert_count": self.inert}),content_type="application/json")
+
 
 class ElectNew(models.Model):
-    DRAFT = '_DRA'
-    PROCESSING = '_PRO'
-    SUGGESTED = '_SUG'
-    PUBLISHED = 'PUB'
-    DELETED = '_DEL'
-    CLOSED = '_CLO'
-    MANAGER = 'MAN'
-    STATUSES = (
-        (DRAFT, 'Черновик'),
-        (PROCESSING, 'В процессе'),
-        (PUBLISHED, 'Опубликованый'),
-        (DELETED, 'Удаленый'),
-        (CLOSED, 'Закрытый'),
-        (MANAGER, 'Менеджерский'),
-        (SUGGESTED, 'Предложенный'),
+    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = '_PRO','PUB','PRI','MAN','_DEL','_CLO'
+    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = '_DELP','_DELM','_CLOP','_CLOM'
+    STATUS = (
+        (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
+        (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
@@ -305,3 +410,174 @@ class ElectNew(models.Model):
                 if item[:3] == "vid":
                     query.append(item[3:])
         return Video.objects.filter(id__in=query)
+
+    def send_like(self, user, community): 
+        import json
+        from common.model.votes import ElectNewVotes2
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = ElectNewVotes2.objects.get(parent=self, user=user)
+            if item.vote == ElectNewVotes2.DISLIKE:
+                item.vote = ElectNewVotes2.LIKE
+                item.save(update_fields=['vote'])
+                self.like += 1
+                self.dislike -= 1
+                self.save(update_fields=['like', 'dislike'])
+            elif item.vote == ElectNewVotes2.INERT:
+                item.vote = ElectNewVotes2.LIKE
+                item.save(update_fields=['vote'])
+                self.inert -= 1
+                self.like += 1
+                self.save(update_fields=['inert', 'like'])
+            else:
+                item.delete()
+                self.like -= 1
+                self.save(update_fields=['like'])
+        except ElectNewVotes2.DoesNotExist:
+            ElectNewVotes2.objects.create(parent=self, user=user, vote=ElectNewVotes2.LIKE)
+            self.like += 1
+            self.save(update_fields=['like'])
+            if community:
+                from common.notify.notify import community_notify, community_wall
+                community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
+                community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
+            else:
+                from common.notify.notify import user_notify, user_wall
+                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
+                user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
+        return HttpResponse(json.dumps({"like_count": str("like_count": self.like,"dislike_count": self.dislike,"inert_count": self.inert}),content_type="application/json")
+
+    def send_dislike(self, user, community):
+        import json
+        from common.model.votes import ElectNewVotes2
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = ElectNewVotes2.objects.get(parent=self, user=user)
+            if item.vote == ElectNewVotes2.LIKE:
+                item.vote = ElectNewVotes2.DISLIKE
+                item.save(update_fields=['vote'])
+                self.like -= 1
+                self.dislike += 1
+                self.save(update_fields=['like', 'dislike'])
+            elif item.vote == ElectNewVotes2.INERT:
+                item.vote = ElectNewVotes2.DISLIKE
+                item.save(update_fields=['vote'])
+                self.inert -= 1
+                self.dislike += 1
+                self.save(update_fields=['inert', 'dislike'])
+            else:
+                item.delete()
+                self.dislike -= 1
+                self.save(update_fields=['dislike'])
+        except ElectNewVotes2.DoesNotExist:
+            ElectNewVotes2.objects.create(parent=self, user=user, vote=ElectNewVotes2.DISLIKE)
+            self.dislike += 1
+            self.save(update_fields=['dislike'])
+            if community:
+                from common.notify.notify import community_notify, community_wall
+                community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
+                community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
+            else:
+                from common.notify.notify import user_notify, user_wall
+                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
+                user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
+        return HttpResponse(json.dumps({"like_count": str("like_count": self.like,"dislike_count": self.dislike,"inert_count": self.inert}),content_type="application/json")
+
+    def send_inert(self, user, community):
+        import json
+        from common.model.votes import ElectNewVotes2
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = ElectNewVotes2.objects.get(parent=self, user=user)
+            if item.vote == ElectNewVotes2.LIKE:
+                item.vote = ElectNewVotes2.INERT
+                item.save(update_fields=['vote'])
+                self.like -= 1
+                self.inert += 1
+                self.save(update_fields=['like', 'inert'])
+            elif item.vote == ElectNewVotes2.DISLIKE:
+                item.vote = ElectNewVotes2.INERT
+                item.save(update_fields=['vote'])
+                self.inert += 1
+                self.dislike -= 1
+                self.save(update_fields=['inert', 'dislike'])
+            else:
+                item.delete()
+                self.inert -= 1
+                self.save(update_fields=['inert'])
+        except ElectNewVotes2.DoesNotExist:
+            ElectNewVotes2.objects.create(parent=self, user=user, vote=ElectNewVotes2.INERT)
+            self.inert += 1
+            self.save(update_fields=['inert'])
+            if community:
+                from common.notify.notify import community_notify, community_wall
+                community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "INE")
+                community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "INE")
+            else:
+                from common.notify.notify import user_notify, user_wall
+                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
+                user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
+        return HttpResponse(json.dumps({"like_count": str("like_count": self.like,"dislike_count": self.dislike,"inert_count": self.inert}),content_type="application/json")
+
+    def delete_elect_new(self):
+        from notify.models import Notify, Wall
+        if self.status == "PUB":
+            self.status = ElectNew.DELETED
+        elif self.status == "PRI":
+            self.status = ElectNew.DELETED_PRIVATE
+        elif self.status == "MAN":
+            self.status = ElectNew.DELETED_MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_delete_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "_DEL":
+            self.status = ElectNew.PUBLISHED
+        elif self.status == "_DELP":
+            self.status = ElectNew.PRIVATE
+        elif self.status == "_DELM":
+            self.status = ElectNew.MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
+
+    def close_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "PUB":
+            self.status = ElectNew.CLOSED
+        elif self.status == "PRI":
+            self.status = ElectNew.CLOSED_PRIVATE
+        elif self.status == "MAN":
+            self.status = ElectNew.CLOSED_MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_close_doc(self):
+        from notify.models import Notify, Wall
+        if self.status == "_CLO":
+            self.status = ElectNew.PUBLISHED
+        elif self.status == "_CLOP":
+            self.status = ElectNew.PRIVATE
+        elif self.status == "_CLOM":
+            self.status = ElectNew.MANAGER
+        self.save(update_fields=['status'])
+        if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")

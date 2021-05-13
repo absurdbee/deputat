@@ -7,6 +7,7 @@ from pilkit.processors import ResizeToFill, ResizeToFit
 from imagekit.models import ProcessedImageField
 from video.helpers import upload_to_video_directory, validate_file_extension
 from django.db.models import Q
+from communities.models import Community
 
 
 class VideoCategory(models.Model):
@@ -43,11 +44,13 @@ class VideoAlbum(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     name = models.CharField(max_length=250, verbose_name="Название")
     order = models.PositiveIntegerField(default=0)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_user_creator', verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='video_creator', verbose_name="Создатель")
     type = models.CharField(max_length=6, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
     description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
+    community = models.ForeignKey('communities.Community', related_name='video_lists_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
-    users = models.ManyToManyField("users.User", blank=True, related_name='users_video_album')
+    users = models.ManyToManyField("users.User", blank=True, related_name='+')
+    communities = models.ManyToManyField('communities.Community', blank=True, related_name='+')
 
     class Meta:
         verbose_name = 'Видеоальбом'
@@ -55,7 +58,16 @@ class VideoAlbum(models.Model):
         ordering = ['order']
 
     def __str__(self):
-        return self.title
+        return self.name
+
+    @receiver(post_save, sender=Community)
+    def create_c_model(sender, instance, created, **kwargs):
+        if created:
+            VideoAlbum.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            VideoAlbum.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
 
     @classmethod
     def create_list(cls, creator, name, description, order, is_public):
@@ -271,6 +283,7 @@ class Video(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="video_creator", on_delete=models.CASCADE, verbose_name="Создатель")
     status = models.CharField(choices=STATUS, default=PROCESSING, max_length=5)
     file = models.FileField(upload_to=upload_to_video_directory, validators=[validate_file_extension], verbose_name="Видеозапись")
+    community = models.ForeignKey('communities.Community', related_name='video_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     class Meta:
         verbose_name = "Видео-ролики"

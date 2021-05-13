@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.conf import settings
 from gallery.helpers import upload_to_photo_directory
 from django.utils import timezone
+from communities.models import Community
 
 
 class Album(models.Model):
@@ -31,8 +32,10 @@ class Album(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     order = models.PositiveIntegerField(default=0)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_album_creator', null=False, blank=False, verbose_name="Создатель")
+    community = models.ForeignKey('communities.Community', related_name='photo_lists_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
-    users = models.ManyToManyField("users.User", blank=True, related_name='users_photolist')
+    users = models.ManyToManyField("users.User", blank=True, related_name='+')
+    communities = models.ManyToManyField('communities.Community', blank=True, related_name='+')
 
     class Meta:
         indexes = (
@@ -43,6 +46,15 @@ class Album(models.Model):
 
     def __str__(self):
         return self.title
+
+    @receiver(post_save, sender=Community)
+    def create_c_model(sender, instance, created, **kwargs):
+        if created:
+            Album.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            Album.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
 
     def get_users_ids(self):
         users = self.users.exclude(type__contains="_").values("pk")
@@ -265,6 +277,7 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
     status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип изображения")
+    community = models.ForeignKey('communities.Community', related_name='photo_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     class Meta:
         indexes = (BrinIndex(fields=['created']),)

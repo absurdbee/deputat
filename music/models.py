@@ -9,6 +9,7 @@ from music.helpers import upload_to_music_directory, validate_file_extension
 from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from imagekit.models import ProcessedImageField
 from django.db.models import Q
+from communities.models import Community
 
 
 class SoundList(models.Model):
@@ -25,13 +26,15 @@ class SoundList(models.Model):
         (CLOSED, 'Закрытый менеджером'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MAIN, 'Закрытый основной'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     name = models.CharField(max_length=255)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user_playlist', db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='playlist_creator', db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
     type = models.CharField(max_length=6, choices=TYPE, default=PROCESSING, verbose_name="Тип")
     order = models.PositiveIntegerField(default=0)
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_music_directory, processors=[Transpose(), ResizeToFit(width=400, height=400)])
+    community = models.ForeignKey('communities.Community', related_name='playlist_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
-    users = models.ManyToManyField("users.User", blank=True, related_name='user_soundlist')
+    users = models.ManyToManyField("users.User", blank=True, related_name='+')
+    communities = models.ManyToManyField('communities.Community', blank=True, related_name='+')
 
     def __str__(self):
         return self.name + " " + self.creator.get_full_name()
@@ -40,6 +43,15 @@ class SoundList(models.Model):
         verbose_name = "список треков"
         verbose_name_plural = "списки треков"
         ordering = ['order']
+
+    @receiver(post_save, sender=Community)
+    def create_c_model(sender, instance, created, **kwargs):
+        if created:
+            SoundList.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            SoundList.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
 
     def is_item_in_list(self, item_id):
         return self.playlist.filter(pk=item_id).exists()
@@ -256,6 +268,7 @@ class Music(models.Model):
     list = models.ManyToManyField(SoundList, related_name='playlist', blank="True")
     status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
+    community = models.ForeignKey('communities.Community', related_name='track_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     def __str__(self):
         return self.title

@@ -4,6 +4,7 @@ import uuid
 from django.conf import settings
 from docs.helpers import upload_to_doc_directory, validate_file_extension
 from django.db.models import Q
+from communities.models import Community
 
 
 class DocList(models.Model):
@@ -25,8 +26,10 @@ class DocList(models.Model):
     order = models.PositiveIntegerField(default=1)
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
+    community = models.ForeignKey('communities.Community', related_name='doc_lists_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
-    users = models.ManyToManyField("users.User", blank=True, related_name='users_doclist')
+    users = models.ManyToManyField("users.User", blank=True, related_name='+')
+    communities = models.ManyToManyField('communities.Community', blank=True, related_name='+')
 
     def __str__(self):
         return self.name + " " + self.creator.get_full_name()
@@ -35,6 +38,15 @@ class DocList(models.Model):
         verbose_name = "список документов"
         verbose_name_plural = "списки документов"
         ordering = ['order']
+
+    @receiver(post_save, sender=Community)
+    def create_c_model(sender, instance, created, **kwargs):
+        if created:
+            DocList.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            DocList.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
 
     @classmethod
     def create_list(cls, creator, name, description, order, is_public):
@@ -231,6 +243,7 @@ class Doc(models.Model):
     list = models.ManyToManyField(DocList, related_name='doc_list', blank=True)
     status = models.CharField(choices=STATUS, default=PROCESSING, max_length=5)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
+    community = models.ForeignKey('communities.Community', related_name='doc_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     class Meta:
         ordering = ["-created"]

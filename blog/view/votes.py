@@ -11,199 +11,73 @@ class ElectNewLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectVotes
 
-        new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
-        try:
-            likedislike = ElectVotes.objects.get(new=new, user=request.user)
-            if likedislike.vote != ElectVotes.LIKE:
-                likedislike.vote = ElectVotes.LIKE
-                likedislike.save(update_fields=['vote'])
-                result = True
-            else:
-                likedislike.delete()
-                result = False
-        except ElectVotes.DoesNotExist:
-            ElectVotes.objects.create(new=new, user=request.user, vote=ElectVotes.LIKE)
-            result = True
-            user_wall(request.user, "ELN", new.pk, "new_wall", "LIK")
-            user_notify(request.user, "ELN", new.pk, "new_notify", "LIK")
-        return HttpResponse(json.dumps({
-                "like_count": str(new.likes_count()),
-                "inert_count": str(new.inerts_count()),
-                "dislike_count": str(new.dislikes_count())}),
-                content_type="application/json")
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        return new.send_like(request.user, None)
 
 class ElectNewDislike(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectVotes
 
-        new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
-        try:
-            likedislike = ElectVotes.objects.get(new=new, user=request.user)
-            if likedislike.vote != ElectVotes.DISLIKE:
-                likedislike.vote = ElectVotes.DISLIKE
-                likedislike.save(update_fields=['vote'])
-                result = True
-            else:
-                likedislike.delete()
-                result = False
-        except ElectVotes.DoesNotExist:
-            ElectVotes.objects.create(new=new, user=request.user, vote=ElectVotes.DISLIKE)
-            result = True
-            user_wall(request.user, "ELN", new.pk, "new_wall", "DIS")
-            user_notify(request.user, "ELN", new.pk, "new_notify", "DIS")
-        return HttpResponse(json.dumps({
-                "like_count": str(new.likes_count()),
-                "inert_count": str(new.inerts_count()),
-                "dislike_count": str(new.dislikes_count())}),
-                content_type="application/json")
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        return new.send_dislike(request.user, None)
 
 class ElectNewInert(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectVotes
 
-        new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
-        try:
-            likedislike = ElectVotes.objects.get(new=new, user=request.user)
-            if likedislike.vote != ElectVotes.INERT:
-                likedislike.vote = ElectVotes.INERT
-                likedislike.save(update_fields=['vote'])
-            else:
-                likedislike.delete()
-        except ElectVotes.DoesNotExist:
-            ElectVotes.objects.create(new=new, user=request.user, vote=ElectVotes.INERT)
-            user_wall(request.user, "ELN", new.pk, "new_notify", "INE")
-            user_notify(request.user, "ELN", new.pk, "new_notify", "INE")
-        return HttpResponse(json.dumps({
-                    "like_count": str(new.likes_count()),
-                    "inert_count": str(new.inerts_count()),
-                    "dislike_count": str(new.dislikes_count())}),
-                    content_type="application/json")
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        return new.send_inert(request.user, None)
 
 
 class ElectNewCommentLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectNewCommentVotes
 
-        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
-        try:
-            likedislike = ElectNewCommentVotes.objects.get(comment=comment, user=request.user)
-            if likedislike.vote != ElectNewCommentVotes.LIKE:
-                likedislike.vote = ElectNewCommentVotes.LIKE
-                likedislike.save(update_fields=['vote'])
-                result = True
-            else:
-                likedislike.delete()
-                result = False
-        except ElectNewCommentVotes.DoesNotExist:
-            ElectNewCommentVotes.objects.create(comment=comment, user=request.user, vote=ElectNewCommentVotes.LIKE)
-            result = True
-            user_wall(request.user, "ELNC", comment.pk, "new_comment", "LCO")
-            user_notify(request.user, "ELNC", comment.pk, "new_comment", "LRE")
-        likes = comment.likes_count()
-        return HttpResponse(json.dumps({"result": result,"like_count": str(likes)}),content_type="application/json")
+        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
+        return comment.send_like(request.user, None)
 
 
 class BlogLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import BlogVotes
 
-        blog = Blog.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
-        try:
-            likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
-            if likedislike.vote == BlogVotes.LIKE:
-                likedislike.delete()
-            else:
-                likedislike.vote = BlogVotes.LIKE
-                likedislike.save(update_fields=['vote'])
-        except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.LIKE)
-            user_wall(request.user, "BLO", blog.pk, "new_notify", "LIK")
-            user_notify(request.user, "BLO", blog.pk, "new_notify", "LIK")
-        return HttpResponse(json.dumps({
-                "like_count": str(blog.likes_count()),
-                "inert_count": str(blog.inerts_count()),
-                "dislike_count": str(blog.dislikes_count())}),
-                content_type="application/json")
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        return blog.send_like(request.user, None)
 
 class BlogDislike(View):
     def get(self, request, **kwargs):
         from common.model.votes import BlogVotes
 
-        blog = Blog.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
-        try:
-            likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
-            if likedislike.vote != BlogVotes.DISLIKE:
-                likedislike.vote = BlogVotes.DISLIKE
-                likedislike.save(update_fields=['vote'])
-            else:
-                likedislike.delete()
-        except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.DISLIKE)
-            user_wall(request.user, "BLO", blog.pk, "new_notify", "DIS")
-            user_notify(request.user, "BLO", blog.pk, "new_notify", "DIS")
-        return HttpResponse(json.dumps({
-                    "like_count": str(blog.likes_count()),
-                    "inert_count": str(blog.inerts_count()),
-                    "dislike_count": str(blog.dislikes_count())}),
-                    content_type="application/json")
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        return blog.send_dislike(request.user, None)
 
 class BlogInert(View):
     def get(self, request, **kwargs):
         from common.model.votes import BlogVotes
 
-        blog = Blog.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
-        try:
-            likedislike = BlogVotes.objects.get(blog=blog, user=request.user)
-            if likedislike.vote != BlogVotes.INERT:
-                likedislike.vote = BlogVotes.INERT
-                likedislike.save(update_fields=['vote'])
-            else:
-                likedislike.delete()
-        except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(blog=blog, user=request.user, vote=BlogVotes.INERT)
-            user_wall(request.user, "BLO", blog.pk, "new_notify", "INE")
-            user_notify(request.user, "BLO", blog.pk, "new_notify", "INE")
-        return HttpResponse(json.dumps({
-                    "like_count": str(blog.likes_count()),
-                    "inert_count": str(blog.inerts_count()),
-                    "dislike_count": str(blog.dislikes_count())}),
-                    content_type="application/json")
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        return blog.send_inert(request.user, None)
 
 
 class BlogCommentLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import BlogCommentVotes
 
-        comment = BlogComment.objects.get(pk=self.kwargs["pk"])
         if not request.is_ajax():
             raise Http404
-        try:
-            likedislike = BlogCommentVotes.objects.get(comment=comment, user=request.user)
-            if likedislike.vote != BlogCommentVotes.LIKE:
-                likedislike.vote = BlogCommentVotes.LIKE
-                likedislike.save(update_fields=['vote'])
-                result = True
-            else:
-                likedislike.delete()
-                result = False
-        except BlogCommentVotes.DoesNotExist:
-            BlogCommentVotes.objects.create(comment=comment, user=request.user, vote=BlogCommentVotes.LIKE)
-            result = True
-            user_wall(request.user, "BLOC", comment.pk, "blog_comment", "LCO")
-            user_notify(request.user, "BLOC", comment.pk, "blog_comment", "LRE")
-        likes = comment.likes_count()
-        return HttpResponse(json.dumps({"result": result,"like_count": str(likes)}),content_type="application/json")
+        comment = BlogComment.objects.get(pk=self.kwargs["pk"])
+        return comment.send_like(request.user, None)

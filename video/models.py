@@ -8,6 +8,8 @@ from imagekit.models import ProcessedImageField
 from video.helpers import upload_to_video_directory, validate_file_extension
 from django.db.models import Q
 from communities.models import Community
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class VideoCategory(models.Model):

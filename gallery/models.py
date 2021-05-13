@@ -8,6 +8,8 @@ from django.conf import settings
 from gallery.helpers import upload_to_photo_directory
 from django.utils import timezone
 from communities.models import Community
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Album(models.Model):

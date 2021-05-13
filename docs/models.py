@@ -5,6 +5,8 @@ from django.conf import settings
 from docs.helpers import upload_to_doc_directory, validate_file_extension
 from django.db.models import Q
 from communities.models import Community
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class DocList(models.Model):

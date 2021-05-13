@@ -7,7 +7,6 @@ from imagekit.models import ProcessedImageField
 from django.db.models import Q
 from ckeditor_uploader.fields import RichTextUploadingField
 from users.helpers import upload_to_user_directory
-from taggit.managers import TaggableManager
 from elect.models import Elect
 from lists.models import ElectNewsCategory
 from autoslug import AutoSlugField

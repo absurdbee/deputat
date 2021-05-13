@@ -57,8 +57,12 @@ class SoundList(models.Model):
         return queryset
 
     def get_users_ids(self):
-        users = self.users.exclude(Q(perm="DE")|Q(perm="BL")).values("pk")
+        users = self.users.exclude(type__contains="_").values("pk")
         return [i['pk'] for i in users]
+
+    def get_communities_ids(self):
+        communities = self.communities.exclude(type__contains="_").values("pk")
+        return [i['pk'] for i in communities]
 
     def is_user_can_add_list(self, user_id):
         return self.creator.pk != user_id and user_id not in self.get_users_ids() and self.is_open()

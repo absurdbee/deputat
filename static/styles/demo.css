@@ -1,7 +1,11 @@
 .audio-player:focus {
   outline : 0;
 }
-
+.menu_svg {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 .plyr__controls {
   -webkit-box-pack : start;
   -webkit-justify-content : flex-start;

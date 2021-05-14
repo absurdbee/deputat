@@ -25,6 +25,7 @@ class BlogDetailView(ListView, CategoryListMixin):
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=1)
 				else:
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
+				self.blog.plus_views(1)
 			return super(BlogDetailView,self).get(request,*args,**kwargs)
 		else:
 			if not self.blog.slug in request.COOKIES:
@@ -36,6 +37,7 @@ class BlogDetailView(ListView, CategoryListMixin):
 					BlogNumbers.objects.create(user=0, new=self.blog.pk, platform=1)
 				else:
 					BlogNumbers.objects.create(user=0, new=self.blog.pk, platform=0)
+				self.blog.plus_views(1)
 				return response
 			else:
 				return super(BlogDetailView,self).get(request,*args,**kwargs)

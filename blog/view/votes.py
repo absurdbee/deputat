@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from blog.models import ElectNew, Blog
 from common.model.comments import ElectNewComment, BlogComment
 from django.http import Http404
-from common.notify import user_wall, user_notify
 
 
 class ElectNewLike(View):

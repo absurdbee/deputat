@@ -10,8 +10,8 @@
                 <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
                     <div class="card-img-top file-logo-wrapper">
                       {% if object.creator.pk == request.user.pk %}
-                        <div class="dropdown float-right">
-                            <svg class="pointer menu_svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical toggle-dropdown mt-n25"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                        <div class="dropdown float-right menu_svg">
+                            <svg class="pointer" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical toggle-dropdown mt-n25"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                             <div class="dropdown-menu" style="left: -100px;top: 15px;">
                                 <span class="dropdown-item pointer u_playlist_edit">Изменить</span>
                                 <span class="dropdown-item pointer u_playlist_remove">Удалить</span>

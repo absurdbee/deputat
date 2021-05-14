@@ -515,8 +515,7 @@ class Community(models.Model):
     def delete_news_subscriber(self, user_id):
         from notify.models import CommunityNewsNotify
         if CommunityNewsNotify.objects.filter(community=self.pk, user=user_id).exists():
-            notify = CommunityNewsNotify.objects.get(community=self.pk, user=user_id)
-            notify.delete()
+            notify = CommunityNewsNotify.objects.get(community=self.pk, user=user_id).delete()
 
     def add_notify_subscriber(self, user_id):
         from notify.models import CommunityProfileNotify
@@ -525,8 +524,7 @@ class Community(models.Model):
     def delete_notify_subscriber(self, user_id):
         from notify.models import CommunityProfileNotify
         if CommunityProfileNotify.objects.filter(community=self.pk, user=user_id).exists():
-            notify = CommunityProfileNotify.objects.get(community=self.pk, user=user_id)
-            notify.delete()
+            notify = CommunityProfileNotify.objects.get(community=self.pk, user=user_id).delete()
 
     def is_community_playlist(self):
         from music.models import UserTempSoundList
@@ -737,3 +735,23 @@ class CommunityMembership(models.Model):
             ]
         verbose_name = 'подписчик сообщества'
         verbose_name_plural = 'подписчики сообщества'
+
+
+class CommunityFollow(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=False, on_delete=models.CASCADE, related_name='community_follows', verbose_name="Подписчик")
+    community = models.ForeignKey(Community, db_index=False, on_delete=models.CASCADE, related_name='community', null=False, verbose_name="На какое сообщество подписывается")
+    view = models.BooleanField(default=False, verbose_name="Просмотрено")
+
+    class Meta:
+        unique_together = ('user', 'community')
+        verbose_name = 'Подписчик группы'
+        verbose_name_plural = 'Подписчики группы'
+
+
+    @classmethod
+    def create_follow(cls, user_id, community_pk):
+        return cls.objects.create(user_id=user_id, community_pk=community_pk)
+
+    @classmethod
+    def get_community_with(cls, community_pk):
+        return cls.objects.filter(community__pk=community_pk, view=False)

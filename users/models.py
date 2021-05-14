@@ -213,6 +213,23 @@ class User(AbstractUser):
     def is_women(self):
         return self.gender == User.FEMALE
 
+    def is_blocked_with_user_with_id(self, user_id):
+        from users.model.list import UserBlock
+        return UserBlock.users_are_blocked(user_a_id=self.pk, user_b_id=user_id)
+
+    def is_connected_with_user_with_id(self, user_id):
+        return self.connections.filter(target_connection__user_id=user_id).exists()
+
+    def is_following_user_with_id(self, user_id):
+        return self.follows.filter(followed_user__id=user_id).exists()
+    def is_followers_user_with_id(self, user_id):
+        return self.followers.filter(user__id=user_id).exists()
+    def is_followers_user_view(self, user_id):
+        return self.followers.filter(user__id=user_id, view=True).exists()
+
+    def has_blocked_user_with_id(self, user_id):
+        return self.user_blocks.filter(blocked_user_id=user_id).exists()
+
     def create_s_avatar(self, photo_input):
         from easy_thumbnails.files import get_thumbnailer
 
@@ -295,8 +312,7 @@ class User(AbstractUser):
     def delete_news_subscriber(self, user_id):
         from notify.models import UserNewsNotify
         if UserNewsNotify.objects.filter(user=self.pk, target=user_id).exists():
-            notify = UserNewsNotify.objects.get(user=self.pk, target=user_id)
-            notify.delete()
+            notify = UserNewsNotify.objects.get(user=self.pk, target=user_id).delete()
 
     def add_notify_subscriber(self, user_id):
         from notify.models import UserProfileNotify
@@ -305,8 +321,7 @@ class User(AbstractUser):
     def delete_notify_subscriber(self, user_id):
         from notify.models import UserProfileNotify
         if UserProfileNotify.objects.filter(user=self.pk, target=user_id).exists():
-            notify = UserProfileNotify.objects.get(user=self.pk, target=user_id)
-            notify.delete()
+            notify = UserProfileNotify.objects.get(user=self.pk, target=user_id).delete()
 
     def plus_carma(self, value, reason):
         from users.model.profile import UserTransaction
@@ -430,29 +445,25 @@ class User(AbstractUser):
         return UserLocation.objects.filter(user_id=self.pk).last().phone
 
     def get_my_albums(self):
-        # это все альбомы их создателя - приватные и пользовательские. Кроме основного.
+        # это все альбомы пользователя для перемещения объектов в них
         from gallery.models import Album
-        albums_query = ~Q(type="CLO") | ~Q(type="DEL")
-        albums_query.add(Q(creator_id=self.pk), Q.AND)
-        return Album.objects.filter(albums_query)
+        return Album.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
     def get_my_doc_lists(self):
         from docs.models import DocList
-        query = ~Q(type="CLO") | ~Q(type="DEL")
-        query.add(Q(creator_id=self.id), Q.AND)
-        return DocList.objects.filter(query)
+        return DocList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
     def get_my_playlists(self):
         from music.models import SoundList
-        query = ~Q(type="CLO") | ~Q(type="DEL")
-        query.add(Q(creator_id=self.id), Q.AND)
-        return SoundList.objects.filter(query)
+        return SoundList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
     def get_my_video_lists(self):
         from video.models import VideoAlbum
-        query = ~Q(type="CLO") | ~Q(type="DEL")
-        query.add(Q(Q(creator_id=self.id)|Q(users__id=self.pk)), Q.AND)
-        return VideoAlbum.objects.filter(query)
+        return VideoAlbum.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
+
+    def get_my_survey_lists(self):
+        from survey.models import SurveyList
+        return SurveyList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
     def get_unread_notify_count(self):
         count = self.notifications.filter(status="U").values("pk").count()
@@ -460,3 +471,103 @@ class User(AbstractUser):
             return count
         else:
             return''
+
+    def get_blocked_users(self):
+        return User.objects.filter(blocked_by_users__blocker_id=self.pk).distinct()
+
+    def get_staffed_communities(self):
+        from communities.models import Community
+
+        query = Q(Q(memberships__user=self, memberships__is_administrator=True) | Q(memberships__user=self, memberships__is_editor=True))
+        return Community.objects.filter(query)
+
+    def unblock_user_with_pk(self, pk):
+        user = User.objects.get(pk=pk)
+        self.get_or_create_possible_friend(user)
+        return self.unblock_user_with_id(user_id=user.pk)
+
+    def unblock_user_with_id(self, user_id):
+        check_can_unblock_user(user=self, user_id=user_id)
+        self.user_blocks.filter(blocked_user_id=user_id).delete()
+        return User.objects.get(pk=user_id)
+
+    def block_user_with_pk(self, pk):
+        user = User.objects.get(pk=pk)
+        return self.block_user_with_id(user_id=user.pk)
+
+    def block_user_with_id(self, user_id):
+        from users.model.profile import UserBlock
+        from common.check.user import check_can_block_user
+        check_can_block_user(user=self, user_id=user_id)
+
+        if self.is_connected_with_user_with_id(user_id=user_id):
+            self.disconnect_from_user_with_id(user_id=user_id)
+        if self.is_following_user_with_id(user_id=user_id):
+            self.unfollow_user_with_id(user_id=user_id)
+
+        user_to_block = User.objects.get(pk=user_id)
+        if user_to_block.is_following_user_with_id(user_id=self.pk):
+            user_to_block.unfollow_user_with_id(self.pk)
+
+        UserBlock.create_user_block(blocker_id=self.pk, blocked_user_id=user_id)
+        self.remove_possible_friend(user_id)
+        self.delete_news_subscriber(user_id)
+        self.delete_profile_subscriber(user_id)
+        return user_to_block
+
+    def disconnect_from_user_with_id(self, user_id):
+        from common.check.user import check_is_connected
+        check_is_connected(user=self, user_id=user_id)
+        if self.is_following_user_with_id(user_id):
+            self.unfollow_user_with_id(user_id)
+        connection = self.connections.get(target_connection__user_id=user_id)
+        connection.delete()
+
+    def unfollow_user(self, user):
+        self.unfollow_user_with_id(user.pk)
+        return user.minus_follows(1)
+
+    def unfollow_user_with_id(self, user_id):
+        from users.model.profile import Follow
+        from common.check.user import check_not_can_follow_user
+        check_not_can_follow_user(user=self, user_id=user_id)
+        follow = Follow.objects.get(user=self,followed_user_id=user_id).delete()
+        self.delete_news_subscriber(user_id)
+
+    def follow_user(self, user):
+        self.follow_user_with_id(user.pk)
+        user.plus_follows(1)
+
+    def follow_user_with_id(self, user_id):
+        from users.model.profile import Follow
+        from common.check.user import check_can_follow_user
+
+        check_can_follow_user(user_id=user_id, user=self)
+        if self.pk == user_id:
+            raise ValidationError('Вы не можете подписаться сами на себя',)
+        #elif not self.is_closed_profile():
+        self.add_news_subscriber(user_id)
+        return Follow.create_follow(user_id=self.pk, followed_user_id=user_id)
+
+    def community_follow_user(self, community_pk):
+        return self.follow_community(community_pk)
+
+    def follow_community(self, community):
+        from communities.models import CommunityFollow
+        from common.check.user import check_can_join_community
+
+        check_can_join_community(user=self, community_pk=community.pk)
+        if community.is_public():
+            community.add_news_subscriber(self.pk)
+        return CommunityFollow.create_follow(user_id=self.pk, community_pk=community_pk)
+
+    def community_unfollow_user(self, community):
+        return self.unfollow_community(community)
+
+    def unfollow_community(self, community):
+        from communities.models import CommunityFollow
+        from common.check.user import check_can_join_community
+
+        check_can_join_community(user=self, community_pk=community.pk)
+        follow = CommunityFollow.objects.get(user=self,community__pk=community.pk).delete()
+        community.delete_news_subscriber(self.pk)

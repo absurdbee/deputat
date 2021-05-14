@@ -72,19 +72,29 @@ class VideoAlbum(models.Model):
             VideoAlbum.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
 
     @classmethod
-    def create_list(cls, creator, name, description, order, is_public):
+    def create_list(cls, creator, name, description, order, community, is_public):
         from notify.models import Notify, Wall
         from common.processing import get_video_list_processing
         if not order:
             order = 1
-        list = cls.objects.create(creator=creator,name=name,description=description, order=order)
-        if is_public:
-            from common.notify import user_notify, user_wall
-            Wall.objects.create(creator_id=creator.pk, type="VIL", object_id=list.pk, verb="ITE")
-            user_wall(list.pk, None, "create_u_video_list_wall")
-            for user_id in creator.get_user_news_notify_ids():
-                Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VIL", object_id=list.pk, verb="ITE")
-                user_notify(list.pk, creator.pk, user_id, None, "create_u_video_list_notify")
+        if community:
+            list = cls.objects.create(creator=creator,name=name,description=description, order=order, community=community)
+            if is_public:
+                from common.notify.progs import community_send_notify, community_send_wall
+                Wall.objects.create(creator_id=creator.pk, community_id=community.pk, type="VIL", object_id=list.pk, verb="ITE")
+                community_send_wall(list.pk, creator.pk, community.pk, None, "create_c_video_list_wall")
+                for user_id in community.get_member_for_notify_ids():
+                    Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="VIL", object_id=list.pk, verb="ITE")
+                    community_send_notify(list.pk, creator.pk, user_id, community.pk, None, "create_c_video_list_notify")
+        else:
+            list = cls.objects.create(creator=creator,name=name,description=description, order=order)
+            if is_public:
+                from common.notify.progs import user_send_notify, user_send_wall
+                Wall.objects.create(creator_id=creator.pk, type="VIL", object_id=list.pk, verb="ITE")
+                user_send_wall(list.pk, None, "create_u_video_list_wall")
+                for user_id in creator.get_user_news_notify_ids():
+                    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VIL", object_id=list.pk, verb="ITE")
+                    user_send_notify(list.pk, creator.pk, user_id, None, "create_u_video_list_notify")
         get_video_list_processing(list, VideoAlbum.LIST)
         return list
 
@@ -297,24 +307,45 @@ class Video(models.Model):
         return self.title
 
     @classmethod
-    def create_video(cls, creator, title, file, lists, is_public):
-        #from notify.models import Notify, Wall, get_user_managers_ids
-        #from common.notify import send_notify_socket
+    def create_video(cls, creator, title, file, uri, description, lists, comments_enabled, votes_on, is_public, community):
         from common.processing import get_video_processing
 
-        video = cls.objects.create(creator=creator,title=title,file=file)
-        if is_public:
-            get_video_processing(video, Video.PUBLISHED)
-            #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VID", object_id=video.pk, verb="ITE")
-                #send_notify_socket(object_id, user_id, "create_video_notify")
-            #Wall.objects.create(creator_id=creator.pk, type="VID", object_id=video.pk, verb="ITE")
-            #send_notify_socket(object_id, user_id, "create_video_wall")
+        if not lists:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового документа")
+        private = 0
+        video = cls.objects.create(creator=creator,title=title,file=file,uri=uri,description=description, comments_enabled=comments_enabled, votes_on=votes_on)
+        if community:
+            community.plus_videos(1)
         else:
-            get_video_processing(video, VIDEO.PRIVATE)
+            creator.plus_videos(1)
         for list_id in lists:
-            video_list = VIDEO.objects.get(pk=list_id)
+            video_list = VideoList.objects.get(pk=list_id)
             video_list.video_list.add(video)
+            if video_list.is_private():
+                private = 1
+        if not private and is_public:
+            get_video_processing(video, Video.PUBLISHED)
+            if community:
+                from common.notify.progs import community_send_notify, community_send_wall
+                from notify.models import Notify, Wall
+
+                Wall.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="VID", object_id=video.pk, verb="ITE")
+                community_send_wall(video.pk, creator.pk, community.pk, None, "create_c_video_wall")
+                for user_id in community.get_member_for_notify_ids():
+                    Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="VID", object_id=video.pk, verb="ITE")
+                    community_send_notify(video.pk, creator.pk, user_id, community.pk, None, "create_c_video_notify")
+            else:
+                from common.notify.progs import user_send_notify, user_send_wall
+                from notify.models import Notify, Wall
+
+                Wall.objects.create(creator_id=creator.pk, type="VID", object_id=video.pk, verb="ITE")
+                user_send_wall(video.pk, None, "create_u_video_wall")
+                for user_id in creator.get_user_news_notify_ids():
+                    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VID", object_id=video.pk, verb="ITE")
+                    user_send_notify(video.pk, creator.pk, user_id, None, "create_u_video_notify")
+        else:
+            get_video_processing(video, Video.PRIVATE)
         return video
 
     def edit_video(self, title, file, lists, is_public):
@@ -381,7 +412,7 @@ class Video(models.Model):
         if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
 
-    def delete_video(self):
+    def delete_video(self, community):
         from notify.models import Notify, Wall
         if self.status == "PUB":
             self.status = Video.DELETED
@@ -390,11 +421,15 @@ class Video(models.Model):
         elif self.status == "MAN":
             self.status = Video.DELETED_MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.minus_videos(1)
+        else:
+            self.creator.minus_videos(1)
         if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_delete_video(self):
+    def abort_delete_video(self, community):
         from notify.models import Notify, Wall
         if self.status == "_DEL":
             self.status = Video.PUBLISHED
@@ -403,12 +438,16 @@ class Video(models.Model):
         elif self.status == "_DELM":
             self.status = Video.MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.plus_videos(1)
+        else:
+            self.creator.plus_videos(1)
         if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_video(self):
+    def close_video(self, community):
         from notify.models import Notify, Wall
         if self.status == "PUB":
             self.status = Video.CLOSED
@@ -417,11 +456,15 @@ class Video(models.Model):
         elif self.status == "MAN":
             self.status = Video.CLOSED_MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.minus_videos(1)
+        else:
+            self.creator.minus_videos(1)
         if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_video(self):
+    def abort_close_video(self, community):
         from notify.models import Notify, Wall
         if self.status == "_CLO":
             self.status = Video.PUBLISHED
@@ -430,6 +473,10 @@ class Video(models.Model):
         elif self.status == "_CLOM":
             self.status = Video.MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.plus_videos(1)
+        else:
+            self.creator.plus_videos(1)
         if Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VID", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="VID", object_id=self.pk, verb="ITE").exists():

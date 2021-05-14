@@ -84,6 +84,18 @@ class UserInfo(models.Model):
     employment = models.CharField(max_length=5, choices=EMPLOYMENT, default=NO_VALUE, verbose_name="Сфера занятости")
     birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
 
+    elect_news = models.PositiveIntegerField(default=0, verbose_name="Кол-во постов")
+    views = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров постов")
+    friends = models.PositiveIntegerField(default=0, verbose_name="Кол-во друзей")
+    follows = models.PositiveIntegerField(default=0, verbose_name="Кол-во подписчиков")
+    communities = models.PositiveIntegerField(default=0, verbose_name="Кол-во групп")
+    photos = models.PositiveIntegerField(default=0, verbose_name="Кол-во фотографий")
+    surveys = models.PositiveIntegerField(default=0, verbose_name="Кол-во опросов")
+    docs = models.PositiveIntegerField(default=0, verbose_name="Кол-во документов")
+    tracks = models.PositiveIntegerField(default=0, verbose_name="Кол-во аудиозаписей")
+    videos = models.PositiveIntegerField(default=0, verbose_name="Кол-во видеозаписей")
+    comments = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
+
     class Meta:
         verbose_name = "Информация о пользователе"
         verbose_name_plural = "Информация о пользователях"

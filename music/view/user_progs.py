@@ -64,7 +64,7 @@ class UserTrackRemove(View):
         track = Music.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and track.creator.pk == request.user.pk:
             track.delete_track()
-            return HttpResponse()
+            return HttpResponse(None)
         else:
             raise Http404
 class UserTrackAbortRemove(View):
@@ -72,7 +72,7 @@ class UserTrackAbortRemove(View):
         track = Music.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and track.creator == request.user:
             track.abort_delete_track()
-            return HttpResponse()
+            return HttpResponse(None)
         else:
             raise Http404
 
@@ -114,11 +114,8 @@ class UserPlaylistCreate(TemplateView):
         form_post = PlaylistForm(request.POST)
 
         if request.is_ajax() and form_post.is_valid():
-            new_list = form_post.save(commit=False)
-            new_list.creator = request.user
-            if not new_list.order:
-                new_list.order = 0
-            new_list.save()
+            list = form_post.save(commit=False)
+            new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order, community=None,is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_music/list/my_list.html',{'list': new_list, 'user': request.user})
         else:
             return HttpResponseBadRequest()
@@ -144,7 +141,7 @@ class UserPlaylistEdit(TemplateView):
         self.form = PlaylistForm(request.POST,instance=self.list)
         if request.is_ajax() and self.form.is_valid():
             list = self.form.save(commit=False)
-            self.form.save()
+            new_list = list.create_list(name=list.name, description=list.description, order=list.order, is_public=request.POST.get("is_public"))
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -186,7 +183,7 @@ class UserTrackCreate(TemplateView):
 
         if request.is_ajax() and form_post.is_valid():
             track = form_post.save(commit=False)
-            new_track = Music.create_track(creator=request.user, title=track.title, file=track.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            new_track = track.create_track(creator=request.user, title=track.title, file=track.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"), community=None)
             return render_for_platform(request, 'user_music/new_track.html',{'object': new_track})
         else:
             return HttpResponseBadRequest()
@@ -211,7 +208,7 @@ class UserTrackEdit(TemplateView):
 
         if request.is_ajax() and form_post.is_valid():
             _track = form_post.save(commit=False)
-            new_doc = self.track.edit_track(title=_track.title, file=_track.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            new_doc = _track.edit_track(title=_track.title, file=_track.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_music/new_track.html',{'object': self.track})
         else:
             return HttpResponseBadRequest()

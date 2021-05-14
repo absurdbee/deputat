@@ -354,47 +354,63 @@ class Survey(models.Model):
     def is_have_votes(self):
         return SurveyVote.objects.filter(answer__survey_id=self.pk).values("id").exists()
 
-    def delete_survey(self):
+    def delete_survey(self, community):
         from notify.models import Notify, Wall
         if self.status == "PUB":
             self.status = Survey.THIS_DELETED
         elif self.status == "MAN":
             self.status = Survey.THIS_DELETED_MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.minus_surveys(1)
+        else:
+            self.creator.minus_surveys(1)
         if Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
-    def restore_survey(self):
+    def restore_survey(self, community):
         from notify.models import Notify, Wall
         if self.status == "TDEL":
             self.status = Survey.PUBLISHED
         elif self.status == "TDELM":
             self.status = Survey.MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.plus_surveys(1)
+        else:
+            self.creator.plus_surveys(1)
         if Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_item(self):
+    def close_item(self, community):
         from notify.models import Notify, Wall
         if self.status == "PUB":
             self.status = Survey.THIS_CLOSED
         elif self.status == "MAN":
             self.status = Survey.THIS_CLOSED_MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.minus_surveys(1)
+        else:
+            self.creator.minus_surveys(1)
         if Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_item(self):
+    def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.status == "TCLO":
             self.status = Survey.PUBLISHED
         elif self.status == "TCLOM":
             self.status = Survey.MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.plus_surveys(1)
+        else:
+            self.creator.plus_surveys(1)
         if Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():

@@ -27,7 +27,7 @@ def get_photo_processing(photo, status):
     photo.status = status
     photo.save(update_fields=['status'])
     return photo
-def get_photo_album_processing(album, status):
+def get_photo_list_processing(album, status):
     album.type = status
     album.save(update_fields=['type'])
     return album

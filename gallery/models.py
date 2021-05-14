@@ -121,36 +121,46 @@ class Album(models.Model):
         return self.photo_album.filter(pk=item_id).exists()
 
     @classmethod
-    def create_list(cls, creator, name, description, order, is_public):
+    def create_list(cls, creator, name, description, order, community, is_public):
         from notify.models import Notify, Wall
-        from common.processing import get_photo_album_processing
+        from common.processing.photo import get_photo_list_processing
         if not order:
             order = 1
-        list = cls.objects.create(creator=creator,name=name,description=description, order=order)
-        if is_public:
-            from common.notify import user_notify, user_wall
-            Wall.objects.create(creator_id=creator.pk, type="PHL", object_id=list.pk, verb="ITE")
-            user_wall(list.pk, None, "create_u_photo_list_wall")
-            for user_id in creator.get_user_news_notify_ids():
-                Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="PHL", object_id=list.pk, verb="ITE")
-                user_notify(list.pk, creator.pk, user_id, None, "create_u_photo_list_notify")
-        get_photo_album_processing(list, Album.LIST)
+        if community:
+            list = cls.objects.create(creator=creator,name=name,description=description, order=order, community=community)
+            if is_public:
+                from common.notify.progs import community_send_notify, community_send_wall
+                Wall.objects.create(creator_id=creator.pk, community_id=community.pk, type="PHL", object_id=list.pk, verb="ITE")
+                community_send_wall(list.pk, creator.pk, community.pk, None, "create_c_photo_list_wall")
+                for user_id in community.get_member_for_notify_ids():
+                    Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="PHL", object_id=list.pk, verb="ITE")
+                    community_send_notify(list.pk, creator.pk, user_id, community.pk, None, "create_c_photo_list_notify")
+        else:
+            list = cls.objects.create(creator=creator,name=name,description=description, order=order)
+            if is_public:
+                from common.notify.progs import user_send_notify, user_send_wall
+                Wall.objects.create(creator_id=creator.pk, type="PHL", object_id=list.pk, verb="ITE")
+                user_send_wall(list.pk, None, "create_u_photo_list_wall")
+                for user_id in creator.get_user_news_notify_ids():
+                    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="PHL", object_id=list.pk, verb="ITE")
+                    user_send_notify(list.pk, creator.pk, user_id, None, "create_u_photo_list_notify")
+        get_photo_list_processing(list, Album.LIST)
         return list
 
-    def edit_list(self, name, description, order, is_public):
-        from common.processing import get_photo_album_processing
+    def edit_list(self, title, description, order, is_public):
+        from common.processing import get_photo_list_processing
 
         if not order:
             order = 1
-        self.name = name
+        self.title = name
         self.description = description
         self.order = order
         self.save()
         if is_public:
-            get_photo_album_processing(self, Album.LIST)
+            get_photo_list_processing(self, Album.LIST)
             self.make_publish()
         else:
-            get_photo_album_processing(self, Album.PRIVATE)
+            get_photo_list_processing(self, Album.PRIVATE)
             self.make_private()
         return self
 
@@ -292,22 +302,34 @@ class Photo(models.Model):
         return naturaltime(self.created)
 
     @classmethod
-    def create_photo(cls, creator, image, album):
-        #from notify.models import Notify, Wall, get_user_managers_ids
-        #from common.notify import send_notify_socket
-        from common.processing import get_photo_processing
+    def create_photo(cls, creator, image, list):
+        from common.processing.photo import get_photo_processing
 
-        photo = cls.objects.create(creator=creator,file=image,preview=image)
-        if album.is_private_album():
-            get_photo_processing(photo, Photo.PRIVATE)
-        else:
+        photo = cls.objects.create(creator=creator,preview=image,file=image)
+        list.photo_album.add(photo)
+        if not list.is_private():
             get_photo_processing(photo, Photo.PUBLISHED)
-            #for user_id in creator.get_user_news_notify_ids():
-            #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="PHO", object_id=photo.pk, verb="ITE")
-                #send_notify_socket(object_id, user_id, "create_photo_notify")
-            #Wall.objects.create(creator_id=creator.pk, type="PHO", object_id=photo.pk, verb="ITE")
-            #send_notify_socket(object_id, user_id, "create_photo_wall")
-        album.photo_album.add(photo)
+            if list.community:
+                from common.notify.progs import community_send_notify, community_send_wall
+                from notify.models import Notify, Wall
+
+                community_id = community.pk
+                Wall.objects.create(creator_id=creator.pk, community_id=community_id, recipient_id=user_id, type=type, object_id=photo.pk, verb="ITE")
+                community_send_wall(photo.pk, creator.pk, community_id, None, "create_c_photo_wall")
+                for user_id in list.community.get_member_for_notify_ids():
+                    Notify.objects.create(creator_id=creator.pk, community_id=community_id, recipient_id=user_id, type=type, object_id=photo.pk, verb="ITE")
+                    community_send_notify(photo.pk, creator.pk, user_id, community_id, None, "create_c_photo_notify")
+            else:
+                from common.notify.progs import user_send_notify, user_send_wall
+                from notify.models import Notify, Wall
+
+                Wall.objects.create(creator_id=creator.pk, type=type, object_id=photo.pk, verb="ITE")
+                user_send_wall(photo.pk, None, "create_u_photo_wall")
+                for user_id in creator.get_user_news_notify_ids():
+                    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type=type, object_id=photo.pk, verb="ITE")
+                    user_send_notify(photo.pk, creator.pk, user_id, None, "create_u_photo_notify")
+        else:
+            get_photo_processing(photo, Photo.PRIVATE)
         return photo
 
     def is_album_exists(self):
@@ -330,7 +352,7 @@ class Photo(models.Model):
         if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
 
-    def delete_photo(self):
+    def delete_photo(self, community):
         from notify.models import Notify, Wall
         if self.status == "PUB":
             self.status = Photo.DELETED
@@ -339,11 +361,15 @@ class Photo(models.Model):
         elif self.status == "MAN":
             self.status = Photo.DELETED_MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.minus_photos(1)
+        else:
+            self.creator.minus_photos(1)
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_delete_photo(self):
+    def abort_delete_photo(self, community):
         from notify.models import Notify, Wall
         if self.status == "_DEL":
             self.status = Photo.PUBLISHED
@@ -352,12 +378,16 @@ class Photo(models.Model):
         elif self.status == "_DELM":
             self.status = Photo.MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.plus_photos(1)
+        else:
+            self.creator.plus_photos(1)
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_doc(self):
+    def close_doc(self, community):
         from notify.models import Notify, Wall
         if self.status == "PUB":
             self.status = Photo.CLOSED
@@ -366,11 +396,15 @@ class Photo(models.Model):
         elif self.status == "MAN":
             self.status = Photo.CLOSED_MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.minus_photos(1)
+        else:
+            self.creator.minus_photos(1)
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_doc(self):
+    def abort_close_doc(self, community):
         from notify.models import Notify, Wall
         if self.status == "_CLO":
             self.status = Photo.PUBLISHED
@@ -379,6 +413,10 @@ class Photo(models.Model):
         elif self.status == "_CLOM":
             self.status = Photo.MANAGER
         self.save(update_fields=['status'])
+        if community:
+            community.plus_photos(1)
+        else:
+            self.creator.plus_photos(1)
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():

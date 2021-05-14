@@ -154,6 +154,24 @@ class User(AbstractUser):
         from users.model.profile import UserBlock
         return UserBlock.users_are_blocked(user_a_id=self.pk, user_b_id=user_id)
 
+    def is_staff_of_community(self, community_pk):
+        return self.is_administrator_of_community(community_pk=community_pk) or self.is_moderator_of_community(community_pk=community_pk) or self.is_editor_of_community(community_pk=community_pk)
+
+    def is_member_of_community(self, community_pk):
+        return self.communities_memberships.filter(community__pk=community_pk).exists()
+
+    def is_voted_of_survey(self, survey_pk):
+        return self.user_voter.filter(survey__pk=survey_pk).exists()
+
+    def is_banned_from_community(self, community_pk):
+        return self.banned_of_communities.filter(pk=community_pk).exists()
+
+    def is_follow_from_community(self, community_pk):
+        return self.community_follows.filter(community__pk=community_pk).exists()
+
+    def is_creator_of_community(self, community_pk):
+        return self.created_communities.filter(pk=community_pk).exists()
+
     def get_elect_subscribers_count(self):
         from elect.models import SubscribeElect
         return SubscribeElect.objects.filter(user_id=self.pk).values("pk").count()
@@ -209,13 +227,25 @@ class User(AbstractUser):
 
     def is_man(self):
         return self.gender == User.MALE
-
     def is_women(self):
         return self.gender == User.FEMALE
 
-    def is_blocked_with_user_with_id(self, user_id):
-        from users.model.list import UserBlock
-        return UserBlock.users_are_blocked(user_a_id=self.pk, user_b_id=user_id)
+    def is_staffed_user(self):
+        return self.communities_memberships.filter(Q(is_administrator=True) | Q(is_moderator=True) | Q(is_editor=True)).exists()
+    def is_administrator_of_community(self, community_pk):
+        return self.communities_memberships.filter(community__pk=community_pk, is_administrator=True).exists()
+    def is_moderator_of_community(self, community_pk):
+        return self.communities_memberships.filter(community__pk=community_pk, is_moderator=True).exists()
+    def is_advertiser_of_community(self, community_pk):
+        return self.communities_memberships.filter(community__pk=community_pk, is_advertiser=True).exists()
+    def is_editor_of_community(self, community_pk):
+        return self.communities_memberships.filter(community__pk=community_pk, is_editor=True).exists()
+
+    def has_blocked_user_with_id(self, user_id):
+        return self.user_blocks.filter(blocked_user_id=user_id).exists()
+
+    def is_blocked_user_with_id(self, user_id):
+        return self.blocked_by_users.filter(blocked_user_id=user_id).exists()
 
     def is_connected_with_user_with_id(self, user_id):
         return self.connections.filter(target_connection__user_id=user_id).exists()
@@ -402,7 +432,7 @@ class User(AbstractUser):
         from blog.models import ElectNew
         from common.model.comments import ElectNewComment
         from common.model.votes import ElectNewVotes2
-        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.STATUS_PUBLISHED)
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.PUBLISHED)
         for i in posts:
             views = ElectNewNumbers.objects.filter(new=i.pk, created__day=day)
             auth_count += views.exclude(user=0).values('pk').count()
@@ -571,3 +601,306 @@ class User(AbstractUser):
         check_can_join_community(user=self, community_pk=community.pk)
         follow = CommunityFollow.objects.get(user=self,community__pk=community.pk).delete()
         community.delete_news_subscriber(self.pk)
+
+    def join_community(self, community):
+        from communities.models import Community, CommunityFollow
+        from common.check.user import check_can_join_community
+
+        check_can_join_community(user=self, community_id=community.pk)
+        community_to_join = Community.objects.get(pk=community.pk)
+        community_to_join.add_member(self)
+        if community_to_join.is_private():
+            CommunityInvite.objects.filter(community_pk=community.pk, invited_user__id=self.id).delete()
+        elif community_to_join.is_closed():
+            CommunityFollow.objects.filter(community__pk=community.pk, user__id=self.id).delete()
+        return community_to_join
+
+    def leave_community(self, community):
+        from common.check.user import check_can_join_community
+
+        check_can_leave_community(user=self, community_id=community.pk)
+        return community.remove_member(self)
+
+    def get_vote_of_survey(self, survey_pk):
+        return self.user_voter.filter(survey__pk=survey_pk)[0]
+
+    def is_user_administrator(self):
+        return try_except(self.user_staff.level == "A")
+    def is_user_moderator(self):
+        return try_except(self.user_staff.level == "M")
+    def is_user_editor(self):
+        return try_except(self.user_staff.level == "E")
+    def is_user_advertiser(self):
+        return try_except(self.user_staff.level == "R")
+    def is_user_manager(self):
+        try:
+            return self.user_staff.level and self.user_staff.level != "R"
+        except:
+            return False
+
+    def is_community_administrator(self):
+        return try_except(self.user_community_staff.level == "A")
+    def is_community_moderator(self):
+        return try_except(self.user_community_staff.level == "M")
+    def is_community_editor(self):
+        return try_except(self.user_community_staff.level == "E")
+    def is_community_advertiser(self):
+        return try_except(self.user_community_staff.level == "R")
+    def is_community_manager(self):
+        try:
+            return self.user_community_staff.level and self.user_community_staff.level != "R"
+        except:
+            return False
+
+    def is_elect_new_administrator(self):
+        return try_except(self.elect_new_user_staff.level == "A")
+    def is_elect_new_moderator(self):
+        return try_except(self.elect_new_user_staff.level == "M")
+    def is_elect_new_editor(self):
+        return try_except(self.elect_new_user_staff.level == "E")
+    def is_elect_new_manager(self):
+        try:
+            return self.elect_new_user_staff.level
+        except:
+            return False
+
+    def is_survey_administrator(self):
+        return try_except(self.survey_user_staff.level == "A")
+    def is_survey_moderator(self):
+        return try_except(self.survey_user_staff.level == "M")
+    def is_survey_editor(self):
+        return try_except(self.survey_user_staff.level == "E")
+    def is_survey_manager(self):
+        try:
+            return self.survey_user_staff.level
+        except:
+            return False
+
+    def is_doc_administrator(self):
+        return try_except(self.doc_user_staff.level == "A")
+    def is_doc_moderator(self):
+        return try_except(self.doc_user_staff.level == "M")
+    def is_doc_editor(self):
+        return try_except(self.doc_user_staff.level == "E")
+    def is_doc_manager(self):
+        try:
+            return self.doc_user_staff.level
+        except:
+            return False
+
+
+    def is_photo_administrator(self):
+        return try_except(self.photo_user_staff.level == "A")
+    def is_photo_moderator(self):
+        return try_except(self.photo_user_staff.level == "M")
+    def is_photo_editor(self):
+        return try_except(self.photo_user_staff.level == "E")
+    def is_photo_manager(self):
+        try:
+            return self.photo_user_staff.level
+        except:
+            return False
+
+    def is_video_administrator(self):
+        return try_except(self.video_user_staff.level == "A")
+    def is_video_moderator(self):
+        return try_except(self.video_user_staff.level == "M")
+    def is_video_editor(self):
+        return try_except(self.video_user_staff.level == "E")
+    def is_video_manager(self):
+        try:
+            return self.video_user_staff.level
+        except:
+            return False
+
+    def is_audio_administrator(self):
+        return try_except(self.music_user_staff.level == "A")
+    def is_audio_moderator(self):
+        return try_except(self.music_user_staff.level == "M")
+    def is_audio_editor(self):
+        return try_except(self.music_user_staff.level == "E")
+    def is_audio_manager(self):
+        try:
+            return self.music_user_staff.level
+        except:
+            return False
+
+    def is_work_administrator(self):
+        return try_except(self.can_work_staff_user.can_work_administrator)
+    def is_work_moderator(self):
+        return try_except(self.can_work_staff_user.can_work_moderator)
+    def is_work_editor(self):
+        return try_except(self.can_work_staff_user.can_work_editor)
+    def is_work_advertiser(self):
+        return try_except(self.can_work_staff_user.can_work_advertiser)
+    def is_user_supermanager(self):
+        return self.is_work_administrator() or self.is_work_moderator() or is_work_editor() or is_work_advertiser()
+
+    def is_work_community_administrator(self):
+        return try_except(self.can_work_staff_community.can_work_administrator)
+    def is_work_community_moderator(self):
+        return try_except(self.can_work_staff_community.can_work_moderator)
+    def is_work_community_editor(self):
+        return try_except(self.can_work_staff_community.can_work_editor)
+    def is_work_community_advertiser(self):
+        return try_except(self.can_work_staff_community.can_work_advertiser)
+    def is_community_supermanager(self):
+        return self.is_work_community_administrator() or self.is_work_community_moderator() or is_work_community_editor() or is_work_community_advertiser()
+
+    def is_work_elect_new_administrator(self):
+        return try_except(self.can_work_staff_elect_new_user.can_work_administrator)
+    def is_work_elect_new_moderator(self):
+        return try_except(self.can_work_staff_elect_new_user.can_work_moderator)
+    def is_work_elect_new_editor(self):
+        return try_except(self.can_work_staff_elect_new_user.can_work_editor)
+    def is_work_supermanager(self):
+        return self.is_work_elect_new_administrator() or self.is_work_elect_new_moderator() or is_work_elect_new_editor()
+
+    def is_work_survey_administrator(self):
+        return try_except(self.can_work_staff_survey_user.can_work_administrator)
+    def is_work_survey_moderator(self):
+        return try_except(self.can_work_staff_survey_user.can_work_moderator)
+    def is_work_survey_editor(self):
+        return try_except(self.can_work_staff_survey_user.can_work_editor)
+    def is_work_supermanager(self):
+        return self.is_work_survey_administrator() or self.is_work_survey_moderator() or is_work_survey_editor()
+
+    def is_work_doc_administrator(self):
+        return try_except(self.can_work_staff_doc_user.can_work_administrator)
+    def is_work_doc_moderator(self):
+        return try_except(self.can_work_staff_doc_user.can_work_moderator)
+    def is_work_doc_editor(self):
+        return try_except(self.can_work_staff_doc_user.can_work_editor)
+    def is_work_doc_supermanager(self):
+        return self.is_work_doc_administrator() or self.is_doc_good_moderator() or is_work_doc_editor()
+
+    def is_work_photo_administrator(self):
+        return try_except(self.can_work_staff_photo_user.can_work_administrator)
+    def is_work_photo_moderator(self):
+        return try_except(self.can_work_staff_photo_user.can_work_moderator)
+    def is_work_photo_editor(self):
+        return try_except(self.can_work_staff_photo_user.can_work_editor)
+    def is_work_photo_supermanager(self):
+        return self.is_work_photo_administrator() or self.is_work_photo_moderator() or is_work_photo_editor()
+
+    def is_work_video_administrator(self):
+        return try_except(self.can_work_staff_video_user.can_work_administrator)
+    def is_work_video_moderator(self):
+        return try_except(self.can_work_staff_video_user.can_work_moderator)
+    def is_work_video_editor(self):
+        return try_except(self.can_work_staff_video_user.can_work_editor)
+    def is_work_video_supermanager(self):
+        return self.is_work_video_administrator() or self.is_work_video_moderator() or is_work_video_editor()
+
+    def is_work_music_administrator(self):
+        return try_except(self.can_work_staff_music_user.can_work_administrator)
+    def is_work_music_moderator(self):
+        return try_except(self.can_work_staff_music_user.can_work_moderator)
+    def is_work_music_editor(self):
+        return try_except(self.can_work_staff_music_user.can_work_editor)
+    def is_music_supermanager(self):
+        return self.is_work_music_administrator() or self.is_work_music_moderator() or is_work_music_editor()
+
+    def is_no_view_followers(self):
+        return self.followers.filter(view=False).exists()
+
+    def is_have_followers(self):
+        return self.profile.follows > 0
+    def is_have_followings(self):
+        return self.follows.values('pk').exists()
+    def is_have_blacklist(self):
+        return self.user_blocks.values('pk').exists()
+    def is_have_friends(self):
+        return self.profile.friends > 0
+    def is_have_communities(self):
+        return self.profile.communities > 0
+    def is_have_music(self):
+        return self.profile.tracks > 0
+
+    def count_no_view_followers(self):
+        return self.followers.filter(view=False).values('pk').count()
+    def count_following(self):
+        return self.follows.values('pk').count()
+    def count_followers(self):
+        return self.user_info.follows
+    def count_blacklist(self):
+        return self.user_blocks.values('pk').count()
+    def count_photos(self):
+        return self.user_info.photos
+    def count_docs(self):
+        return self.user_info.docs
+    def count_surveys(self):
+        return self.user_info.surveys
+    def count_elect_news(self):
+        return self.user_info.elect_news
+    def count_communities(self):
+        return self.user_info.communities
+    def count_tracks(self):
+        return self.user_info.tracks
+    def count_videos(self):
+        return self.user_info.videos
+    def count_friends(self):
+        return self.user_info.friends
+
+    def plus_photos(self, count):
+        self.user_info.photos += count
+        return self.user_info.save(update_fields=['photos'])
+    def minus_photos(self, count):
+        self.user_info.photos -= count
+        return self.user_info.save(update_fields=['photos'])
+    def plus_elect_news(self, count):
+        self.user_info.goods += count
+        return self.user_info.save(update_fields=['elect_news'])
+    def minus_elect_news(self, count):
+        self.user_info.goods += count
+        return self.user_info.save(update_fields=['elect_news'])
+    def plus_surveys(self, count):
+        self.user_info.surveys += count
+        return self.user_info.save(update_fields=['surveys'])
+    def minus_surveys(self, count):
+        self.user_info.surveys -= count
+        return self.user_info.save(update_fields=['surveys'])
+    def plus_videos(self, count):
+        self.user_info.videos += count
+        return self.user_info.save(update_fields=['videos'])
+    def minus_videos(self, count):
+        self.user_info.videos -= count
+        return self.user_info.save(update_fields=['videos'])
+    def plus_docs(self, count):
+        self.user_info.docs += count
+        return self.user_info.save(update_fields=['docs'])
+    def minus_docs(self, count):
+        self.user_info.docs -= count
+        return self.user_info.save(update_fields=['docs'])
+    def plus_tracks(self, count):
+        self.user_info.tracks += count
+        return self.user_info.save(update_fields=['tracks'])
+    def minus_tracks(self, count):
+        self.user_info.tracks -= count
+        return self.user_info.save(update_fields=['tracks'])
+    def plus_communities(self, count):
+        self.user_info.communities += count
+        return self.user_info.save(update_fields=['communities'])
+    def minus_communities(self, count):
+        self.user_info.communities -= count
+        return self.user_info.save(update_fields=['communities'])
+    def plus_friends(self, count):
+        self.user_info.friends += count
+        return self.user_info.save(update_fields=['friends'])
+    def minus_friends(self, count):
+        self.user_info.friends -= count
+        return self.user_info.save(update_fields=['friends'])
+    def plus_follows(self, count):
+        self.user_info.follows += count
+        return self.user_info.save(update_fields=['follows'])
+    def minus_follows(self, count):
+        self.user_info.follows -= count
+        return self.user_info.save(update_fields=['follows'])
+
+    def get_default_communities(self):
+        from communities.models import Community
+        return Community.objects.filter(memberships__user_id=self.pk)
+
+    def get_6_default_communities(self):
+        from communities.models import Community
+        return Community.objects.filter(memberships__user=self)[0:6]

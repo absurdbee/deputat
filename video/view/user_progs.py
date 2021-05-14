@@ -27,7 +27,7 @@ class UserVideoRemove(View):
         video = Video.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and video.creator.pk == request.user.pk:
             video.delete_video()
-            return HttpResponse()
+            return HttpResponse(None)
         else:
             raise Http404
 
@@ -35,7 +35,7 @@ class UseVideoAbortRemove(View):
     def get(self, request, *args, **kwargs):
         video = Video.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and video.creator.pk == request.user.pk:
-            video.abort_delete_video()
+            video.abort_delete_video(None)
             return HttpResponse()
         else:
             raise Http404
@@ -74,7 +74,7 @@ class UserVideolistCreate(TemplateView):
         form_post= VideoAlbumForm(request.POST)
         if request.is_ajax() and form_post.is_valid():
             new_list = form_post.save(commit=False)
-            new_list.create_list(creator=request.user, name=new_list.name, description=new_list.description, order=new_list.order, is_public=request.POST.get("is_public"))
+            new_list.create_list(creator=request.user, name=new_list.name, description=new_list.description, order=new_list.order, community=None, is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_video/list/my_list.html',{'list': new_list})
         else:
             return HttpResponseBadRequest()
@@ -121,7 +121,7 @@ class UserVideoCreate(TemplateView):
 
         if request.is_ajax() and form_post.is_valid():
             video = form_post.save(commit=False)
-            new_video = Video.create_video(creator=request.user, title=video.title, file=video.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            new_video = Video.create_video(creator=request.user, title=video.title, file=video.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"), community=None)
             return render_for_platform(request, 'user_video/new_video.html',{'video': new_video})
         else:
             return HttpResponseBadRequest()

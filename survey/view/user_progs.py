@@ -86,7 +86,7 @@ class SurveyUserDelete(View):
     def get(self, request, *args, **kwargs):
         survey = Survey.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.pk == survey.creator.pk:
-            survey.delete_survey()
+            survey.delete_survey(None)
             return HttpResponse()
         else:
             raise Http404
@@ -95,7 +95,7 @@ class SurveyUserRecover(View):
     def get(self, request, *args, **kwargs):
         survey = Survey.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.pk == survey.creator.pk:
-            survey.restore_survey()
+            survey.restore_survey(None)
             return HttpResponse()
         else:
             raise Http404

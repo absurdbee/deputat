@@ -26,7 +26,7 @@ class UserDocRemove(View):
     def get(self, request, *args, **kwargs):
         doc = Doc.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and doc.creator.pk == request.user.pk:
-            doc.delete_doc()
+            doc.delete_doc(None)
             return HttpResponse()
         else:
             raise Http404
@@ -35,7 +35,7 @@ class UserDocAbortRemove(View):
     def get(self, request, *args, **kwargs):
         doc = Doc.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and doc.creator.pk == request.user.pk:
-            doc.abort_delete_doc()
+            doc.abort_delete_doc(None)
             return HttpResponse()
         else:
             raise Http404
@@ -74,7 +74,7 @@ class UserDoclistCreate(TemplateView):
         form_post= DoclistForm(request.POST)
         if request.is_ajax() and form_post.is_valid():
             new_list = form_post.save(commit=False)
-            new_list.create_list(creator=request.user, name=new_list.name, description=new_list.description, order=new_list.order, is_public=request.POST.get("is_public"))
+            new_list.create_list(creator=request.user, name=new_list.name, description=new_list.description, order=new_list.order, community=None, is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_docs/list/my_list.html',{'list': new_list})
         else:
             return HttpResponseBadRequest()
@@ -121,7 +121,7 @@ class UserDocCreate(TemplateView):
 
         if request.is_ajax() and form_post.is_valid():
             doc = form_post.save(commit=False)
-            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
+            new_doc = Doc.create_doc(creator=request.user, title=doc.title, file=doc.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"), community=None)
             return render_for_platform(request, 'user_docs/new_doc.html',{'doc': new_doc})
         else:
             return HttpResponseBadRequest()

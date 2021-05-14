@@ -56,7 +56,7 @@ class UserPhotoDelete(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and photo.creator.pk == request.user.pk:
-            photo.delete_photo()
+            photo.delete_photo(None)
             return HttpResponse()
         else:
             raise Http404
@@ -65,7 +65,7 @@ class UserPhotoAbortDelete(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and photo.creator.pk == request.user.pk:
-            photo.abort_delete_photo()
+            photo.abort_delete_photo(None)
             return HttpResponse()
         else:
             raise Http404
@@ -108,11 +108,7 @@ class AlbumUserCreate(TemplateView):
             album = self.form.save(commit=False)
             if not album.description:
                 album.description = "Без описания"
-            if request.POST.get("is_public"):
-                album.type = Album.LIST
-            else:
-                album.type = Album.PRIVATE
-            new_album = Album.objects.create(title=album.title, description=album.description, type=album.type, order=album.order, creator=request.user)
+            new_album = album.create_list(creator=request.user, name=album.title, description=album.description, order=album.order, community=None, is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_gallery/album/my_a.html',{'album': new_album})
         else:
             return HttpResponseBadRequest()
@@ -139,11 +135,7 @@ class AlbumUserEdit(TemplateView):
             album = self.form.save(commit=False)
             if not album.description:
                 album.description = "Без описания"
-            if request.POST.get("is_public"):
-                album.type = Album.LIST
-            else:
-                album.type = Album.PRIVATE
-            self.form.save()
+            album.edit_list(name=album.title, description=album.description, order=album.order, is_public=request.POST.get("is_public"))
             return HttpResponse()
         else:
             return HttpResponseBadRequest()

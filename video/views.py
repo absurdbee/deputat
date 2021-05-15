@@ -10,29 +10,29 @@ class AllVideoView(TemplateView):
 
 
 class UserLoadVideoAlbum(ListView):
-	template_name, paginate_by = None, 15
+    template_name, paginate_by = None, 15
 
-	def get(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         from common.templates import get_template_user_window, get_template_anon_user_window
 
-		self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
         if self.user.pk == request.user.pk:
-			self.video_list = self.list.get_my_videos()
-		else:
-			self.video_list = self.list.get_videos()
+            self.video_list = self.list.get_my_videos()
+        else:
+            self.video_list = self.list.get_videos()
         if request.user.is_authenticated:
-			self.template_name = get_template_user_item(self.list, "user_video/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
-		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_video/load/anon_list.html", request.META['HTTP_USER_AGENT'])
-		return super(UserLoadVideoAlbum,self).get(request,*args,**kwargs)
+            self.template_name = get_template_user_item(self.list, "user_video/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
+        else:
+            self.template_name = get_template_anon_user_item(self.list, "user_video/load/anon_list.html", request.META['HTTP_USER_AGENT'])
+        return super(UserLoadVideoAlbum,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		c = super(UserLoadVideoAlbum,self).get_context_data(**kwargs)
-		c['user'], c['album'] = self.list.creator, self.list
-		return c
+    def get_context_data(self,**kwargs):
+        c = super(UserLoadVideoAlbum,self).get_context_data(**kwargs)
+        c['user'], c['album'] = self.list.creator, self.list
+        return c
 
-	def get_queryset(self):
-		return self.video_list
+    def get_queryset(self):
+        return self.video_list
 
 
 class UserVideo(ListView):
@@ -69,29 +69,29 @@ class UserVideo(ListView):
 
 
 class UserVideoList(ListView):
-	template_name, paginate_by = None, 15
+    template_name, paginate_by = None, 15
 
-	def get(self,request,*args,**kwargs):
-		from video.models import VideoAlbum
+    def get(self,request,*args,**kwargs):
+        from video.models import VideoAlbum
         from common.templates import get_template_user_window, get_template_anon_user_window
 
-		self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
-		self.user = User.objects.get(pk=self.kwargs["pk"])
-		if self.user.pk == request.user.pk:
-			self.video_list = self.list.get_my_videos()
-		else:
-			self.video_list = self.list.get_videos()
-		if request.user.is_authenticated:
-			self.template_name = get_template_user_item(self.list, "user_video/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
-		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_video/list/anon_list.html", request.META['HTTP_USER_AGENT'])
-		return super(UserVideoList,self).get(request,*args,**kwargs)
+        self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        self.user = User.objects.get(pk=self.kwargs["pk"])
+        if self.user.pk == request.user.pk:
+            self.video_list = self.list.get_my_videos()
+        else:
+            self.video_list = self.list.get_videos()
+        if request.user.is_authenticated:
+            self.template_name = get_template_user_item(self.list, "user_video/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
+        else:
+            self.template_name = get_template_anon_user_item(self.list, "user_video/list/anon_list.html", request.META['HTTP_USER_AGENT'])
+        return super(UserVideoList,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(UserVideoList,self).get_context_data(**kwargs)
-		context['user'] = self.user
-		context['list'] = self.list
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(UserVideoList,self).get_context_data(**kwargs)
+        context['user'] = self.user
+        context['list'] = self.list
+        return context
 
-	def get_queryset(self):
-		return self.video_list
+    def get_queryset(self):
+        return self.video_list

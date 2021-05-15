@@ -36,9 +36,9 @@ class UserMusic(ListView):
             self.get_lists = self.list.get_lists(pk)
         self.count_lists = self.list.get_lists_count(pk)
         if request.user.is_authenticated:
-			self.template_name = get_template_user_item(self.list, "user_music/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
-		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_music/main/anon_list.html", request.META['HTTP_USER_AGENT'])
+            self.template_name = get_template_user_item(self.list, "user_music/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
+        else:
+            self.template_name = get_template_anon_user_item(self.list, "user_music/main/anon_list.html", request.META['HTTP_USER_AGENT'])
         return super(UserMusic,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -51,31 +51,31 @@ class UserMusic(ListView):
 
 
 class UserMusicList(ListView):
-	template_name, paginate_by = None, 15
+    template_name, paginate_by = None, 15
 
-	def get(self,request,*args,**kwargs):
-		from music.models import SoundList
+    def get(self,request,*args,**kwargs):
+        from music.models import SoundList
         from common.templates import get_template_user_window, get_template_anon_user_window
 
-		self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-		if self.list.creator.pk == request.user.pk:
-			self.music_list = self.list.get_my_playlist()
-		else:
-			self.music_list = self.list.get_playlist()
+        self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
+        if self.list.creator.pk == request.user.pk:
+            self.music_list = self.list.get_my_playlist()
+        else:
+            self.music_list = self.list.get_playlist()
         if request.user.is_authenticated:
-			self.template_name = get_template_user_item(self.list, "user_music/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
-		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_music/list/anon_list.html", request.META['HTTP_USER_AGENT'])
-		return super(UserMusicList,self).get(request,*args,**kwargs)
+            self.template_name = get_template_user_item(self.list, "user_music/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
+        else:
+            self.template_name = get_template_anon_user_item(self.list, "user_music/list/anon_list.html", request.META['HTTP_USER_AGENT'])
+        return super(UserMusicList,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(UserMusicList,self).get_context_data(**kwargs)
-		context['user'] = self.list.creator
-		context['playlist'] = self.list
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(UserMusicList,self).get_context_data(**kwargs)
+        context['user'] = self.list.creator
+        context['playlist'] = self.list
+        return context
 
-	def get_queryset(self):
-		return self.music_list
+    def get_queryset(self):
+        return self.music_list
 
 
 class UserLoadPlaylist(ListView):
@@ -90,9 +90,9 @@ class UserLoadPlaylist(ListView):
         else:
             self.music_list = self.list.get_playlist()
         if request.user.is_authenticated:
-			self.template_name = get_template_user_item(self.list, "user_music/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
-		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_music/load/anon_list.html", request.META['HTTP_USER_AGENT'])
+            self.template_name = get_template_user_item(self.list, "user_music/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
+        else:
+            self.template_name = get_template_anon_user_item(self.list, "user_music/load/anon_list.html", request.META['HTTP_USER_AGENT'])
         return super(UserLoadPlaylist,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

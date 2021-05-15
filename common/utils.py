@@ -54,22 +54,3 @@ def get_location(request, user):
     loc.country_en = country['name_en']
     loc.phone = country['phone']
     loc.save()
-
-def update_activity(user, user_agent):
-    from datetime import datetime
-    import re
-    MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
-    if MOBILE_AGENT_RE.match(user_agent):
-        user.last_activity, user.device = datetime.now(), "Ph"
-        user.save(update_fields=['last_activity', 'device'])
-    else:
-        user.last_activity, user.device = datetime.now(), "De"
-        user.save(update_fields=['last_activity', 'device'])
-
-def get_folder(user_agent):
-    import re
-    MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
-    if MOBILE_AGENT_RE.match(user_agent):
-        return ""
-    else:
-        return ""

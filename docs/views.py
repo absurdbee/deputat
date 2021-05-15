@@ -1,6 +1,6 @@
 from django.views.generic import ListView
 from docs.models import Doc, DocList
-from common.templates import get_small_template, get_list_template
+from common.templates import get_small_template
 from users.models import User
 
 
@@ -15,6 +15,8 @@ class UserDocs(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
+		from common.templates import get_template_user_item, get_template_anon_user_item
+
 		pk = self.kwargs["pk"]
 		self.user = User.objects.get(pk=pk)
 		self.list = self.user.get_or_create_main_doclist()
@@ -27,7 +29,10 @@ class UserDocs(ListView):
 			self.doc_list = self.list.get_docs()
 			self.is_have_lists = self.list.is_have_lists(pk)
 			self.get_lists = self.list.get_lists(pk)
-		self.template_name = get_list_template(self.list, "user_docs/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_item(self.list, "user_docs/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		else:
+			self.template_name = get_template_anon_user_item(self.list, "user_docs/main/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserDocs,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -48,13 +53,17 @@ class UserDocsList(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from docs.models import DocList
+		from common.templates import get_template_user_item, get_template_anon_user_item
 
 		self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
 		if self.list.creator.pk == request.user.pk:
 			self.doc_list = self.list.get_my_docs()
 		else:
 			self.doc_list = self.list.get_docs()
-		self.template_name = get_list_template(self.list, "user_docs/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_item(self.list, "user_docs/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		else:
+			self.template_name = get_template_anon_user_item(self.list, "user_docs/list/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserDocsList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -71,12 +80,17 @@ class UserLoadDoclist(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
+		from common.templates import get_template_user_window, get_template_anon_user_window
+
 		self.list = DocList.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_list_template(self.list, "user_docs/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		if self.list.creator.pk == request.user.pk:
 			self.doc_list = self.list.get_my_docs()
 		else:
 			self.doc_list = self.list.get_docs()
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_item(self.list, "user_docs/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		else:
+			self.template_name = get_template_anon_user_item(self.list, "user_docs/load/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserLoadDoclist,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

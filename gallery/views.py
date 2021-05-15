@@ -7,19 +7,26 @@ class UserLoadAlbum(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_list_template
+		from common.templates import get_template_user_window, get_template_anon_user_window
 
-		self.album = Album.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_list_template(self.album, "user_gallery/load_list/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.list = Album.objects.get(pk=self.kwargs["pk"])
+		if self.list.creator.pk == request.user.pk:
+			self.photo_list = self.list.get_staff_photos()
+		else:
+			self.photo_list = self.list.get_photos()
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_item(self.list, "user_gallery/load/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+		else:
+			self.template_name = get_template_anon_user_item(self.list, "user_gallery/load/anon_a.html", request.META['HTTP_USER_AGENT'])
 		return super(UserLoadAlbum,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		c = super(UserLoadAlbum,self).get_context_data(**kwargs)
-		c['user'], c['album'] = self.album.creator, self.album
+		c['user'], c['album'] = self.list.creator, self.list
 		return c
 
 	def get_queryset(self):
-		list = self.album.get_photos()
+		list = self.photo_list
 		return list
 
 
@@ -27,28 +34,31 @@ class UserGallery(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_list_template
+		from common.templates import get_template_user_window, get_template_anon_user_window
 		from users.models import User
 
 		pk = self.kwargs["pk"]
 		self.user = User.objects.get(pk=pk)
-		self.album = self.user.get_or_create_main_album()
+		self.list = self.user.get_or_create_main_album()
 		self.count_albums = self.album.get_albums_count(pk)
 		if pk == request.user.pk:
-			self.photo_list = self.album.get_staff_photos()
-			self.is_have_albums = self.album.is_have_my_albums(pk)
-			self.get_albums = self.album.get_my_albums(pk)
+			self.photo_list = self.list.get_staff_photos()
+			self.is_have_albums = self.list.is_have_my_albums(pk)
+			self.get_albums = self.list.get_my_albums(pk)
 		else:
-			self.photo_list = self.album.get_photos()
-			self.is_have_albums = self.album.is_have_albums(pk)
-			self.get_albums = self.album.get_albums(pk)
-		self.template_name = get_list_template(self.album, "user_gallery/gallery/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.photo_list = self.list.get_photos()
+			self.is_have_albums = self.list.is_have_albums(pk)
+			self.get_albums = self.list.get_albums(pk)
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_item(self.list, "user_gallery/gallery/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+		else:
+			self.template_name = get_template_anon_user_item(self.list, "user_gallery/gallery/anon_a.html", request.META['HTTP_USER_AGENT'])
 		return super(UserGallery,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserGallery,self).get_context_data(**kwargs)
 		context['user'] = self.user
-		context['album'] = self.album
+		context['album'] = self.list
 		context['is_have_albums'] = self.is_have_albums
 		context['get_albums'] = self.get_albums
 		context['count_albums'] = self.count_albums
@@ -61,20 +71,23 @@ class UserAlbum(ListView):
 	template_name, paginate_by = None, 12
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_list_template
+		from common.templates import get_template_user_window, get_template_anon_user_window
 
-		self.album = Album.objects.get(uuid=self.kwargs["uuid"])
-		if self.album.creator.pk == request.user.pk:
-			self.photo_list = self.album.get_staff_photos()
+		self.list = Album.objects.get(uuid=self.kwargs["uuid"])
+		if self.list.creator.pk == request.user.pk:
+			self.photo_list = self.list.get_staff_photos()
 		else:
-			self.photo_list = self.album.get_photos()
-		self.template_name = get_list_template(self.album, "user_gallery/album/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.photo_list = self.list.get_photos()
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_item(self.list, "user_gallery/album/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+		else:
+			self.template_name = get_template_anon_user_item(self.list, "user_gallery/album/anon_a.html", request.META['HTTP_USER_AGENT'])
 		return super(UserAlbum,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserAlbum,self).get_context_data(**kwargs)
-		context['user'] = self.album.creator
-		context['album'] = self.album
+		context['user'] = self.list.creator
+		context['album'] = self.list
 		return context
 
 	def get_queryset(self):

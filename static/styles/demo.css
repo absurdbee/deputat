@@ -6,6 +6,9 @@
   right: 10px;
   top: 10px;
 }
+.thumb_big{
+  width: 100px;height: 100px;
+}
 .plyr__controls {
   -webkit-box-pack : start;
   -webkit-justify-content : flex-start;

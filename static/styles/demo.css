@@ -1,6 +1,11 @@
 .audio-player:focus {
   outline : 0;
 }
+.centered{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .menu_svg {
   position: absolute;
   right: 10px;

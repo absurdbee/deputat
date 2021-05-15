@@ -34,7 +34,7 @@ class UserGallery(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_template_user_window, get_template_anon_user_window
+		from common.templates import get_template_user_item, get_template_anon_user_item
 		from users.models import User
 
 		pk = self.kwargs["pk"]
@@ -71,7 +71,7 @@ class UserAlbum(ListView):
 	template_name, paginate_by = None, 12
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_template_user_window, get_template_anon_user_window
+		from common.templates import get_template_user_item, get_template_anon_user_item
 
 		self.list = Album.objects.get(uuid=self.kwargs["uuid"])
 		if self.list.creator.pk == request.user.pk:

@@ -39,7 +39,7 @@ class UserVideo(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
-        from common.templates import get_template_user_window, get_template_anon_user_window
+        from common.templates import get_template_user_item, get_template_anon_user_item
 
         pk = self.kwargs["pk"]
         self.user = User.objects.get(pk=pk)
@@ -73,7 +73,7 @@ class UserVideoList(ListView):
 
     def get(self,request,*args,**kwargs):
         from video.models import VideoAlbum
-        from common.templates import get_template_user_window, get_template_anon_user_window
+        from common.templates import get_template_user_item, get_template_anon_user_item
 
         self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
         self.user = User.objects.get(pk=self.kwargs["pk"])

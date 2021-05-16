@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
-from gallery.models import UserPhotoList, Photo
+from gallery.models import PhotoList, Photo
 
 
 class UserLoadPhotoList(ListView):

@@ -110,10 +110,7 @@ class User(AbstractUser):
 
         now = datetime.now()
         onl = self.last_activity + timedelta(minutes=5)
-        if now < onl:
-            return True
-        else:
-            return False
+        return now < onl
 
     def get_news(self):
         from blog.models import ElectNew
@@ -461,24 +458,23 @@ class User(AbstractUser):
         from users.model.profile import UserLocation
         return UserLocation.objects.filter(user_id=self.pk).last().phone
 
-    def get_my_albums(self):
-        # это все альбомы пользователя для перемещения объектов в них
+    def get_albums(self):
         from gallery.models import Album
         return Album.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
-    def get_my_doc_lists(self):
+    def get_doc_lists(self):
         from docs.models import DocList
         return DocList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
-    def get_my_playlists(self):
+    def get_playlists(self):
         from music.models import SoundList
         return SoundList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
-    def get_my_video_lists(self):
+    def get_video_lists(self):
         from video.models import VideoAlbum
         return VideoAlbum.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
-    def get_my_survey_lists(self):
+    def get_survey_lists(self):
         from survey.models import SurveyList
         return SurveyList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 

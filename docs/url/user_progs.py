@@ -16,5 +16,5 @@ urlpatterns = [
     url(r'^abort_remove_doc/(?P<pk>\d+)/$', UserDocAbortRemove.as_view()),
 
     url(r'^add_doc_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserDocListAdd.as_view()),
-    url(r'^remove_doc_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserDocListRemove.as_view()),
+    url(r'^remove_doc_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserDocListRemove.as_view()),
 ]

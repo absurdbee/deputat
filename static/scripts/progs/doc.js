@@ -99,42 +99,10 @@ on('body', 'click', '#u_edit_doc_list_btn', function() {
 });
 
 on('body', 'click', '.u_add_doc_in_list', function() {
-  _this = this;
-  parent = _this.parentElement;
-  uuid = parent.getAttribute("data-uuid");
-  pk = parent.parentElement.parentElement.parentElement.getAttribute("data-pk");
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', '/docs/user_progs/add_doc_in_list/' + pk + "/" + uuid + "/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    list = parent.querySelector(".u_add_doc_in_list");
-    list.style.paddingLeft = "14px";
-    list.classList.add("u_remove_doc_in_list");
-    list.classList.remove("u_add_doc_in_list");
-    span = document.createElement("span");
-    span.innerHTML = '<svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> ';
-    list.prepend(span)
-  }};
-  link.send( null );
+  add_item_in_list(this, '/docs/user_progs/add_doc_in_list/', '.u_add_doc_in_list', 'u_remove_doc_from_list')
 })
-on('body', 'click', '.u_remove_doc_in_list', function() {
-  _this = this;
-  parent = _this.parentElement;
-  uuid = parent.getAttribute("data-uuid");
-  pk = parent.parentElement.parentElement.parentElement.getAttribute("data-pk");
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', '/docs/user_progs/remove_doc_in_list/' + pk + "/" + uuid + "/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    list = parent.querySelector(".u_remove_doc_in_list");
-    list.style.paddingLeft = "30px";
-    list.classList.add("u_add_doc_in_list");
-    list.classList.remove("u_remove_doc_in_list");
-    list.querySelector("svg").remove();
-  }};
-  link.send( null );
+on('body', 'click', '.u_remove_doc_from_list', function() {
+  remove_item_from_list(this, '/docs/user_progs/remove_doc_from_list/', 'u_remove_doc_from_list', '.u_add_doc_in_list')
 })
 
 on('body', 'click', '#u_create_doc_btn', function() {

@@ -67,6 +67,40 @@ function on_off_list_in_collections(_this, url, new_class, old_class, text) {
 }}
 link.send( null );
 };
+function add_item_in_list(_this, url, old_class, new_class) {
+  parent = _this.parentElement;
+  uuid = parent.getAttribute("data-uuid");
+  pk = _this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk");
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', url + pk + "/" + uuid + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    _this.style.paddingLeft = "14px";
+    _this.classList.add(new_class);
+    _this.classList.remove(old_class);
+    span = document.createElement("span");
+    span.innerHTML = '<svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> ';
+    _this.prepend(span)
+  }};
+  link.send( null );
+}
+function remove_item_from_list(_this, url, old_class, new_class) {
+  parent = _this.parentElement;
+  uuid = parent.getAttribute("data-uuid");
+  pk = _this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk");
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', url + pk + "/" + uuid + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    _this.style.paddingLeft = "30px";
+    _this.classList.add(new_class);
+    _this.classList.remove(old_class);
+    _this.querySelector("svg").remove();
+  }};
+  link.send( null );
+}
 
 function mob_send_change(span, _link, new_class, html) {
     parent = span.parentElement;

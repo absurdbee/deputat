@@ -18,5 +18,5 @@ urlpatterns = [
     url(r'^delete_track/(?P<pk>\d+)/$', UserTrackRemove.as_view()),
     url(r'^abort_delete_track/(?P<pk>\d+)/$', UserTrackAbortRemove.as_view()),
     url(r'^add_track_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserTrackListAdd.as_view()),
-    url(r'^remove_track_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserTrackListRemove.as_view()),
+    url(r'^remove_track_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserTrackListRemove.as_view()),
 ]

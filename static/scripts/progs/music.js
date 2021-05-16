@@ -103,42 +103,10 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
 });
 
 on('body', 'click', '.u_add_track_in_list', function() {
-  _this = this;
-  parent = _this.parentElement;
-  uuid = parent.getAttribute("data-uuid");
-  pk = parent.parentElement.parentElement.parentElement.getAttribute("data-pk");
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', '/music/user_progs/add_track_in_list/' + pk + "/" + uuid + "/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    list = parent.querySelector(".u_add_track_in_list");
-    list.style.paddingLeft = "14px";
-    list.classList.add("u_remove_track_in_list");
-    list.classList.remove("u_add_track_in_list");
-    span = document.createElement("span");
-    span.innerHTML = '<svg fill="currentColor" style="width:12px;height:12px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg> ';
-    list.prepend(span)
-  }};
-  link.send( null );
+  add_item_in_list(this, '/music/user_progs/add_track_in_list/', '.u_add_track_in_list', 'u_remove_track_from_list')
 })
-on('body', 'click', '.u_remove_track_in_list', function() {
-  _this = this;
-  parent = _this.parentElement;
-  uuid = parent.getAttribute("data-uuid");
-  pk = parent.parentElement.parentElement.parentElement.getAttribute("data-pk");
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', '/music/user_progs/remove_track_in_list/' + pk + "/" + uuid + "/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    list = parent.querySelector(".u_remove_track_in_list");
-    list.style.paddingLeft = "30px";
-    list.classList.add("u_add_track_in_list");
-    list.classList.remove("u_remove_track_in_list");
-    list.querySelector("svg").remove();
-  }};
-  link.send( null );
+on('body', 'click', '.u_remove_doc_from_list', function() {
+  remove_item_from_list(this, '/music/user_progs/remove_track_from_list/', 'u_remove_track_from_list', '.u_add_track_in_list')
 })
 
 on('body', 'click', '#u_create_track_btn', function() {
@@ -178,7 +146,7 @@ on('body', 'click', '#u_create_track_btn', function() {
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
       document.body.querySelector(".track_empty") ? document.body.querySelector(".track_empty").style.display = "none" : null) : get_preview(response, "track");
     toast_info("Аудиозапись создана!")
-    close_create_window(); 
+    close_create_window();
   }};
 
   link_.send(form_data);

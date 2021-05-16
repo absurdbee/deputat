@@ -56,4 +56,5 @@ loadScripts('/static/scripts/progs/photo.js');
 loadScripts('/static/scripts/progs/doc.js');
 loadScripts('/static/scripts/progs/video.js');
 loadScripts('/static/scripts/progs/music.js');
+loadScripts('/static/scripts/progs/survey.js');
 loadScripts('/static/scripts/auth.js');

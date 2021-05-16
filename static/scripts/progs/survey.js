@@ -1,21 +1,21 @@
-on('body', 'click', '.u_video_list_add', function() {
+on('body', 'click', '.u_survey_list_add', function() {
   loader = document.getElementById("create_loader");
-  open_fullscreen("/video/user_progs/add_list/", loader)
+  open_fullscreen("/survey/user_progs/add_list/", loader)
 });
-on('body', 'click', '.u_video_add', function() {
+on('body', 'click', '.u_survey_add', function() {
   loader = document.getElementById("create_loader");
-  open_fullscreen("/video/user_progs/create_video/", loader)
+  open_fullscreen("/survey/user_progs/create_survey/", loader)
 });
-on('body', 'click', '.u_video_edit', function() {
+on('body', 'click', '.u_survey_edit', function() {
   parent = this.parentElement.parentElement.parentElement;
   blocks = document.body.querySelectorAll('.col-sm-12');
-  for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_video")}
+  for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_survey")}
 
-  parent.parentElement.parentElement.parentElement.classList.add("edited_video")
+  parent.parentElement.parentElement.parentElement.classList.add("edited_survey")
   loader = document.getElementById("create_loader");
-  open_fullscreen("/video/user_progs/edit_video/" + parent.getAttribute("data-pk") +"/", loader)
+  open_fullscreen("/survey/user_progs/edit_survey/" + parent.getAttribute("data-pk") +"/", loader)
 });
-on('body', 'click', '.u_video_list_edit', function() {
+on('body', 'click', '.u_survey_list_edit', function() {
   list = document.body.querySelectorAll('.cover_block');
   for (var i = 0; i < list.length; i++) {
     list[i].classList.remove("list_active")
@@ -24,55 +24,55 @@ on('body', 'click', '.u_video_list_edit', function() {
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
   loader = document.getElementById("create_loader");
-  open_fullscreen("/video/user_progs/edit_list/" + uuid + "/", loader)
+  open_fullscreen("/survey/user_progs/edit_list/" + uuid + "/", loader)
 });
-on('body', 'click', '.u_video_list_remove', function() {
+on('body', 'click', '.u_survey_list_remove', function() {
   block = this.parentElement.parentElement.parentElement.parentElement;
   this.parentElement.parentElement.style.display = "none";
 
   uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/video/user_progs/delete_list/" + uuid + "/", true );
+  link_.open( 'GET', "/survey/user_progs/delete_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     a = block.querySelector(".content-wrapper");
     e = a.querySelector(".file-name");
-    e.classList.add("u_video_list_abort_remove", "pointer");
+    e.classList.add("u_survey_list_abort_remove", "pointer");
     e.innerHTML = "Восстановить";
     a.nextElementSibling.innerHTML = "Удалённый"
   }}
   link_.send();
 });
-on('body', 'click', '.u_video_list_abort_remove', function() {
+on('body', 'click', '.u_survey_list_abort_remove', function() {
   _this = this;
   block = this.parentElement.parentElement.parentElement.parentElement;
   block.querySelector(".dropdown").style.display = "block";
   uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/video/user_progs/abort_delete_list/" + uuid + "/", true );
+  link_.open( 'GET', "/survey/user_progs/abort_delete_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    _this.classList.remove("u_video_list_abort_remove", "pointer");
+    _this.classList.remove("u_survey_list_abort_remove", "pointer");
     _this.innerHTML = _this.getAttribute("data-name");
     _this.parentElement.nextElementSibling.innerHTML = "Приватный"
   }}
   link_.send();
 });
 
-on('body', 'click', '#u_create_video_list_btn', function() {
+on('body', 'click', '#u_create_survey_list_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   if (!form.querySelector("#id_name").value){
     form.querySelector("#id_name").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!");
   } else { this.disabled = true }
-  post_and_load_object_page(form, "/video/user_progs/add_list/", "/video/list/", "/");
+  post_and_load_object_page(form, "/survey/user_progs/add_list/", "/survey/list/", "/");
 });
 
-on('body', 'click', '#u_edit_video_list_btn', function() {
+on('body', 'click', '#u_edit_survey_list_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   if (!form.querySelector("#id_name").value){
@@ -82,7 +82,7 @@ on('body', 'click', '#u_edit_video_list_btn', function() {
   uuid = form.getAttribute("data-uuid")
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/video/user_progs/edit_list/" + uuid + "/", true );
+  link_.open( 'POST', "/survey/user_progs/edit_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
@@ -91,21 +91,21 @@ on('body', 'click', '#u_edit_video_list_btn', function() {
     title = form.querySelector('#id_name').value;
 
     album = document.body.querySelector(".list_active");
-    album.querySelector(".videoname").innerHTML = title;
+    album.querySelector(".survey_name").innerHTML = title;
     album.classList.remove("album_active");
-    toast_success("Видеоальбом изменен")
+    toast_success("Список изменен")
   }}
   link_.send(form_data);
 });
 
-on('body', 'click', '.u_add_video_in_list', function() {
-  add_item_in_list(this, '/video/user_progs/add_track_in_list/', '.u_add_video_in_list', 'u_remove_video_in_list')
+on('body', 'click', '.u_add_survey_in_list', function() {
+  add_item_in_list(this, '/survey/user_progs/add_survey_in_list/', '.u_add_survey_in_list', 'u_remove_survey_from_list')
 })
-on('body', 'click', '.u_remove_video_in_list', function() {
-  remove_item_from_list(this, '/video/user_progs/remove_track_from_list/', 'u_remove_video_in_list', '.u_add_video_in_list')
+on('body', 'click', '.u_remove_survey_from_list', function() {
+  remove_item_from_list(this, '/survey/user_progs/remove_survey_from_list/', 'u_remove_survey_from_list', '.u_add_survey_in_list')
 })
 
-on('body', 'click', '#u_create_video_btn', function() {
+on('body', 'click', '#u_create_survey_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
@@ -126,11 +126,11 @@ on('body', 'click', '#u_create_video_btn', function() {
   }
   else if (!form.querySelector("#id_file").value){
     form.querySelector("#id_file").style.border = "1px #FF0000 solid";
-    toast_error("Загрузите видеозапись!")
+    toast_error("Загрузите документ!")
   } else { _this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/video/user_progs/create_video/", true );
+  link_.open( 'POST', "/survey/user_progs/create_survey/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
@@ -141,15 +141,15 @@ on('body', 'click', '#u_create_video_btn', function() {
     document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
       uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
-      document.body.querySelector(".video_empty") ? document.body.querySelector(".video_empty").style.display = "none" : null) : get_preview(response, "video");
-    toast_info("Видеозапись создана!")
+      document.body.querySelector(".survey_empty") ? document.body.querySelector(".survey_empty").style.display = "none" : null) : get_preview(response, "survey");
+    toast_info("Опрос создан!")
     close_create_window();
   }};
 
   link_.send(form_data);
 });
 
-on('body', 'click', '#u_edit_video_btn', function() {
+on('body', 'click', '#u_edit_survey_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   pk = form.getAttribute("data-pk");
   form_data = new FormData(form);
@@ -170,32 +170,32 @@ on('body', 'click', '#u_edit_video_btn', function() {
   }
   else if (!form.querySelector("#id_file").value){
     form.querySelector("#id_file").style.border = "1px #FF0000 solid";
-    toast_error("Загрузите видеозапись!")
+    toast_error("Загрузите документ!")
   } else { this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/video/user_progs/edit_video/" + pk + "/", true );
+  link_.open( 'POST', "/survey/user_progs/edit_survey/" + pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    toast_info("Видеозапись изменена!")
+    toast_info("Документ изменен!")
     close_create_window();
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    video = document.body.querySelector(".edited_video");
-    video.innerHTML = response.querySelector(".pag").innerHTML;
+    doc = document.body.querySelector(".edited_survey");
+    doc.innerHTML = response.querySelector(".pag").innerHTML;
   }};
 
   link_.send(form_data);
 });
 
-on('body', 'click', '.u_video_remove', function() {
+on('body', 'click', '.u_survey_remove', function() {
   saver = this.parentElement.parentElement.parentElement;
   pk = saver.getAttribute("data-pk")
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/video/user_progs/remove_video/" + pk + "/", true );
+  link.open( 'GET', "/survey/user_progs/remove_survey/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {
@@ -204,17 +204,17 @@ on('body', 'click', '.u_video_remove', function() {
     div.classList.add("col-md-6", "col-sm-12");
     div.style.padding = "20px";
     div.style.display =  "block";
-    div.innerHTML = "Видеоапись удалена. <span class='u_videoabort_remove pointer underline' data-pk='" + pk + "'>Восстановить</span>";
+    div.innerHTML = "Опрос удален. <span class='u_survey_abort_remove pointer underline' data-pk='" + pk + "'>Восстановить</span>";
     item = saver.parentElement.parentElement.parentElement;
     item.style.display = "none"; item.parentElement.insertBefore(div, item)
   }};
   link.send( );
 });
-on('body', 'click', '.u_video_abort_remove', function() {
+on('body', 'click', '.u_survey_abort_remove', function() {
   pk = this.getAttribute("data-pk");
   block = this.parentElement; next = block.nextElementSibling;
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/video/user_progs/abort_remove_video/" + pk + "/", true );
+  link.open( 'GET', "/survey/user_progs/abort_remove_survey/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {
@@ -225,9 +225,9 @@ on('body', 'click', '.u_video_abort_remove', function() {
   link.send();
 });
 
-on('body', 'click', '.u_load_video_list', function() {
+on('body', 'click', '.u_load_survey_list', function() {
   parent = this.parentElement.parentElement.parentElement;
-  pk = parent.getAttribute("videolist-pk");
+  pk = parent.getAttribute("surveylist-pk");
   loader = document.getElementById("window_loader");
-  open_fullscreen("/video/load/" + pk + "/", loader)
+  open_fullscreen("/survey/load/" + pk + "/", loader)
 });

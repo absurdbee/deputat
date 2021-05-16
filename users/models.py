@@ -85,7 +85,7 @@ class User(AbstractUser):
         return VideoAlbum.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
     def get_survey_list(self):
         from survey.models import SurveyList
-        return SurveyList.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
+        return SurveyList.objects.get(creator_id=self.pk, type=SurveyList.MAIN)
 
     def get_full_name(self):
         return self.first_name + " " + self.last_name

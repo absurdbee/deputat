@@ -1,0 +1,32 @@
+
+    <form data-pk="{{ doc.pk }}">
+      {% csrf_token %}
+        <div class="card mb-3">
+            <div class="card-header border-bottom">
+                <h5 class="content-color-primary mb-0">Изменение документа</h5>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                  <label>Название</label>
+                  <input type="text" value="{{ doc.title }}" name="title" class="form-control" id="id_title">
+                </div>
+                <div class="form-group">
+                  <label>Файл</label>
+                  {{ form_post.file }}
+                </div>
+                <div class="form-group">
+                  {{ form_post.list }}
+                </div>
+                <div class="form-group ">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="is_public" class="custom-control-input" {% if not doc.is_private %}checked{% endif %} id="id_is_public">
+                    <label class="custom-control-label" for="id_is_public">Виден всем</label>
+                  </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn border create_fullscreen_hide_2" style="position: absolute;">Отмена</button>
+                <button id="u_edit_doc_btn" type="button" class="btn btn-success float-right">Изменить</button>
+            </div>
+        </div>
+    </form>

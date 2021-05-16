@@ -43,7 +43,7 @@ class UserVideo(ListView):
 
         pk = self.kwargs["pk"]
         self.user = User.objects.get(pk=pk)
-        self.list = self.user.get_or_create_main_videolist()
+        self.list = self.user.get_or_video_list()
         if self.user.pk == request.user.pk:
             self.video_list = self.list.get_my_videos()
             self.is_have_lists = self.list.is_have_my_lists(pk)

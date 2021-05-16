@@ -1,0 +1,27 @@
+{% load filters %}
+
+<div class="container mt-3">
+  <div class="row no-gutters">
+    <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
+      <a class="btn btn-sm border photo_fullscreen_hide_2" style="width: -webkit-fill-available;">
+        <svg fill="currentColor" class="svg_default" style="width: 17px;" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="media mt-3" style="display:flex;align-items: flex-start">
+    <h5 class="mt-1" style="flex: 1;">{{ list.name }} ({{ list.count_items }}) - мой список опросов</h5>
+  </div>
+
+<div class="row is_load_paginate no-gutters" data-link="/survey/load/{{ list.pk }}/">
+{% for object in object_list %}
+  {% include 'user_survey/survey.html' %}
+{% empty %}
+    <div class="card centered item_empty">
+      <div class="card-body">
+      <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+      </div>
+      <h6>В списке нет опросов.</h6>
+    </div>
+{% endfor %}
+</div>

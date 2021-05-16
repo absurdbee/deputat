@@ -71,34 +71,21 @@ class User(AbstractUser):
             last_name = v2.word.title()
         return first_name + " " + last_name
 
-    def get_or_create_main_album(self):
+    def get_photo_list(self):
         from gallery.models import Album
-        try:
-            album = Album.objects.get(creator_id=self.pk, type=Album.MAIN)
-        except:
-            album = Album.objects.create(creator_id=self.pk, type=Album.MAIN, title="Прикреплённые фото", description="Прикреплённые фото", order=0)
-        return album
-    def get_or_create_main_doclist(self):
+        return Album.objects.get(creator_id=self.pk, type=Album.MAIN)
+    def get_doc_list(self):
         from docs.models import DocList
-        try:
-            album = DocList.objects.get(creator_id=self.pk, type=DocList.MAIN)
-        except:
-            album = DocList.objects.create(creator_id=self.pk, type=DocList.MAIN, name="Основной список", order=0)
-        return album
-    def get_or_create_main_playlist(self):
+        return DocList.objects.get(creator_id=self.pk, type=DocList.MAIN)
+    def get_playlist(self):
         from music.models import SoundList
-        try:
-            list = SoundList.objects.get(creator_id=self.pk, type=SoundList.MAIN)
-        except:
-            list = SoundList.objects.create(creator_id=self.pk, type=SoundList.MAIN, name="Основной список", order=0)
-        return list
-    def get_or_create_main_videolist(self):
+        return SoundList.objects.get(creator_id=self.pk, type=SoundList.MAIN)
+    def get_video_list(self):
         from video.models import VideoAlbum
-        try:
-            list = VideoAlbum.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
-        except:
-            list = VideoAlbum.objects.create(creator_id=self.pk, type=VideoAlbum.MAIN, name="Основной список", order=0)
-        return list
+        return VideoAlbum.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
+    def get_survey_list(self):
+        from survey.models import SurveyList
+        return SurveyList.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
 
     def get_full_name(self):
         return self.first_name + " " + self.last_name

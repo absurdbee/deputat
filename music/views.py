@@ -25,7 +25,7 @@ class UserMusic(ListView):
 
         pk = self.kwargs["pk"]
         self.user = User.objects.get(pk=pk)
-        self.list = self.user.get_or_create_main_playlist()
+        self.list = self.user.get_playlist()
         if self.user.pk == request.user.pk:
             self.music_list = self.list.get_my_playlist()
             self.is_have_lists = self.list.is_have_my_lists(pk)

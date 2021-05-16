@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ list.name }} | Опросы {{ user.get_full_name_genitive }}{% endblock %}
+{% block content %}
+
+<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
+        <div class="row no-gutters">
+            <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
+                {% include 'generic/user/user_back.html' %}
+            </div>
+        </div>
+
+    {% include 'user_survey/main/lists.html' %}
+
+    <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
+        <h5 class="mt-1" style="flex: 1;">Опросы {{ user.get_full_name_genitive }} ({{ list.count_items }})</h5>
+    </div>
+
+    <div class="row is_paginate no-gutters">
+        {% if object_list %}
+
+        {% for object in object_list %}
+          {% include 'user_survey/anon_survey.html' %}
+        {% endfor %}
+
+        {% else %}
+        <div class="card centered item_empty">
+          <div class="card-body">
+          <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          </div>
+          <h6>В списке нет опросов.</h6>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

@@ -94,7 +94,7 @@ class UserPhotoList(ListView):
 		return self.photo_list
 
 
-class UserPhotoListPhoto(TemplateView):
+class UserListPhoto(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -115,10 +115,10 @@ class UserPhotoListPhoto(TemplateView):
 			self.photos = self.list.get_staff_photos()
 		self.next = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
 		self.prev = self.photos.filter(query, pk__lt=self.photo.pk).order_by('pk').first()
-		return super(UserPhotoListPhoto,self).get(request,*args,**kwargs)
+		return super(UserListPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		context = super(UserPhotoListPhoto,self).get_context_data(**kwargs)
+		context = super(UserListPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["list"] = self.list
 		context["next"] = self.next

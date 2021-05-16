@@ -1,12 +1,12 @@
-{% if is_have_albums %}
+{% if is_have_lists %}
 <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-  <h5 class="mt-1" style="flex: 1;">Альбомы ({{ count_albums }})</h5>
+  <h5 class="mt-1" style="flex: 1;">Альбомы ({{ count_lists }})</h5>
 </div>
 <div class="row no-gutters" style="overflow-x: auto;">
   <div class="col-12">
   <ul style="width:max-content;list-style: none;">
-    {% for object in get_albums %}
-        <li class="album_item">
+    {% for object in get_lists %}
+        <li class="list_item">
           <div class="cover_block" data-pk="{{ user.pk }}" data-uuid="{{ object.uuid }}">
               <div class="card rounded-0 border-0">
                   <div class="card-header">
@@ -17,7 +17,7 @@
                       </div>
                   </div>
                   <div class="card-body">
-                    <a href="{% url 'user_album' uuid=object.uuid %}" class="ajax">
+                    <a href="{% url 'user_photo_list' uuid=object.uuid %}" class="ajax">
                       <img style="object-fit: cover;height: 150px;width: 170px;" src="{{ object.get_cover_photo }}" />
                     </a>
                   </div>

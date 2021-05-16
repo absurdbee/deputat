@@ -27,10 +27,10 @@ def get_photo_processing(photo, status):
     photo.status = status
     photo.save(update_fields=['status'])
     return photo
-def get_photo_list_processing(album, status):
-    album.type = status
-    album.save(update_fields=['type'])
-    return album
+def get_photo_list_processing(list, status):
+    list.type = status
+    list.save(update_fields=['type'])
+    return list
 
 def get_music_processing(music, status):
     music.status = status

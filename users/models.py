@@ -72,8 +72,8 @@ class User(AbstractUser):
         return first_name + " " + last_name
 
     def get_photo_list(self):
-        from gallery.models import Album
-        return Album.objects.get(creator_id=self.pk, type=Album.MAIN)
+        from gallery.models import PhotoList
+        return PhotoList.objects.get(creator_id=self.pk, type=PhotoList.MAIN)
     def get_doc_list(self):
         from docs.models import DocList
         return DocList.objects.get(creator_id=self.pk, type=DocList.MAIN)
@@ -81,8 +81,8 @@ class User(AbstractUser):
         from music.models import SoundList
         return SoundList.objects.get(creator_id=self.pk, type=SoundList.MAIN)
     def get_video_list(self):
-        from video.models import VideoAlbum
-        return VideoAlbum.objects.get(creator_id=self.pk, type=VideoAlbum.MAIN)
+        from video.models import VideoList
+        return VideoList.objects.get(creator_id=self.pk, type=VideoList.MAIN)
     def get_survey_list(self):
         from survey.models import SurveyList
         return SurveyList.objects.get(creator_id=self.pk, type=SurveyList.MAIN)
@@ -458,9 +458,9 @@ class User(AbstractUser):
         from users.model.profile import UserLocation
         return UserLocation.objects.filter(user_id=self.pk).last().phone
 
-    def get_albums(self):
-        from gallery.models import Album
-        return Album.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
+    def get_photo_lists(self):
+        from gallery.models import PhotoList
+        return PhotoList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
     def get_doc_lists(self):
         from docs.models import DocList
@@ -471,8 +471,8 @@ class User(AbstractUser):
         return SoundList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
     def get_video_lists(self):
-        from video.models import VideoAlbum
-        return VideoAlbum.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
+        from video.models import VideoList
+        return VideoList.objects.filter(~Q(type__contains="_")&Q(creator_id=self.pk))
 
     def get_survey_lists(self):
         from survey.models import SurveyList

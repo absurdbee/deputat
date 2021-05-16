@@ -146,7 +146,7 @@ a {
   flex-basis: 50%;
 }
 
-.album_item {
+.list_item {
   float: left;
   line-height: 1em;
   user-select: none;

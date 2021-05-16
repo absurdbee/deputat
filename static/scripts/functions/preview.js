@@ -7,8 +7,8 @@ function check_photo_in_block(block, _this, pk) {
         return false
     }
 }
-function check_photo_album_in_block(block, _this, pk) {
-    if (block.querySelector('[photoalbum-pk=' + '"' + pk + '"' + ']')) {
+function check_photo_list_in_block(block, _this, pk) {
+    if (block.querySelector('[photolist-pk=' + '"' + pk + '"' + ']')) {
         toats_info("Альбом уже прикреплён")
         return true
     } else {
@@ -109,10 +109,10 @@ function create_preview_photo(img_src, photo_pk){
   $div.append($img);
   return $div
 }
-function create_preview_photo_album(src, title, pk, count){
+function create_preview_photo_list(src, title, pk, count){
   $div = document.createElement("div");
   $div.classList.add("col-sm-6", "col-md-4", "bg-dark", "position-relative", "text-center", "big_mobile_element", "col-md-6");
-  $div.setAttribute("photoalbum-pk", pk);
+  $div.setAttribute("photolist-pk", pk);
 
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="lph' + pk + '">';
@@ -126,17 +126,17 @@ function create_preview_photo_album(src, title, pk, count){
 
   $h6 = document.createElement("h6");
   $h6.innerHTML = title;
-  $h6.classList.add("u_load_photo_album", "text-white", "pointer", "mb-2", "nowrap");
+  $h6.classList.add("u_load_photo_list", "text-white", "pointer", "mb-2", "nowrap");
 
   $span = document.createElement("span");
-  $span.classList.add("photo_attach_album_remove", "underline", "pointer", "text-white");
+  $span.classList.add("photo_attach_list_remove", "underline", "pointer", "text-white");
   $span.innerHTML = "Открепить";
 
   $hr = document.createElement("hr");
   $hr.classList.add("my-3");
 
   $a = document.createElement("a");
-  $a.classList.add("u_load_photo_album", "pointer", "text-white");
+  $a.classList.add("u_load_photo_list", "pointer", "text-white");
   $a.innerHTML = count;
 
   $container = document.createElement("div");
@@ -308,18 +308,18 @@ on('body', 'click', '.photo_load_several', function() {
     check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, src), this.classList.add("active_svg"))
   }
 });
-on('body', 'click', '.photo_attach_album', function() {
+on('body', 'click', '.photo_attach_list', function() {
   _this = this;
   src = _this.parentElement.previousElementSibling.querySelector("img").getAttribute("src");
   title = _this.parentElement.querySelector(".nowrap").innerHTML;
   pk = _this.getAttribute('data-pk');
   count = _this.parentElement.querySelector(".count").innerHTML;
   if (document.body.querySelector(".current_file_dropdown")){
-    check_photo_album_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_album_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_create_window())
+    check_photo_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_create_window())
   } else if (document.body.querySelector(".attach_block")){
-    check_photo_album_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (photo_album_post_attach(document.body.querySelector(".attach_block"), src, title, pk, count), close_create_window())
+    check_photo_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (photo_list_post_attach(document.body.querySelector(".attach_block"), src, title, pk, count), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_photo_album_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (photo_album_message_attach(document.body.querySelector(".message_attach_block"), src, title, pk, count), close_create_window())
+    check_photo_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (photo_list_message_attach(document.body.querySelector(".message_attach_block"), src, title, pk, count), close_create_window())
   }
 });
 

@@ -90,9 +90,9 @@ on('body', 'click', '#u_edit_video_list_btn', function() {
     close_create_window();
     title = form.querySelector('#id_name').value;
 
-    album = document.body.querySelector(".list_active");
-    album.querySelector(".videoname").innerHTML = title;
-    album.classList.remove("album_active");
+    list = document.body.querySelector(".list_active");
+    list.querySelector(".videoname").innerHTML = title;
+    list.classList.remove("list_active");
     toast_success("Видеоальбом изменен")
   }}
   link_.send(form_data);

@@ -20,7 +20,7 @@
       <ul style="width:max-content;list-style: none;">
         {% for object in get_lists %}
             {% if object.is_not_empty %}
-            <li class="album_item">
+            <li class="list_item">
                 <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
                     <div class="card-img-top file-logo-wrapper" style="padding: 2rem;">
                       <a class="create_ajax nowrap" data-href="{% url 'u_music_list_load' uuid=object.uuid %}">

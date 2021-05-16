@@ -30,7 +30,7 @@ class VideoCategory(models.Model):
         verbose_name_plural = "Категории ролика"
 
 
-class VideoAlbum(models.Model):
+class VideoList(models.Model):
     MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
 
     DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
@@ -65,11 +65,11 @@ class VideoAlbum(models.Model):
     @receiver(post_save, sender=Community)
     def create_c_model(sender, instance, created, **kwargs):
         if created:
-            VideoAlbum.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
+            VideoList.objects.create(community=instance, type=VideoList.MAIN, name="Основной список", order=0, creator=instance.creator)
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_u_model(sender, instance, created, **kwargs):
         if created:
-            VideoAlbum.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
+            VideoList.objects.create(creator=instance, type=VideoList.MAIN, name="Основной список", order=0)
 
     @classmethod
     def create_list(cls, creator, name, description, order, community, is_public):
@@ -95,7 +95,7 @@ class VideoAlbum(models.Model):
                 for user_id in creator.get_user_news_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VIL", object_id=list.pk, verb="ITE")
                     user_send_notify(list.pk, creator.pk, user_id, None, "create_u_video_list_notify")
-        get_video_list_processing(list, VideoAlbum.LIST)
+        get_video_list_processing(list, VideoList.LIST)
         return list
 
     def edit_list(self, name, description, order, is_public):
@@ -108,32 +108,32 @@ class VideoAlbum(models.Model):
         self.order = order
         self.save()
         if is_public:
-            get_video_list_processing(self, VideoAlbum.LIST)
+            get_video_list_processing(self, VideoList.LIST)
             self.make_publish()
         else:
-            get_video_list_processing(self, VideoAlbum.PRIVATE)
+            get_video_list_processing(self, VideoList.PRIVATE)
             self.make_private()
         return self
 
     def count_video(self):
-        return self.video_album.filter(status="PUB").values("pk").count()
+        return self.video_list.filter(status="PUB").values("pk").count()
 
     def get_my_videos(self):
         query = Q(status="PUB") | Q(status="PRI")
-        return self.video_album.filter(query)
+        return self.video_list.filter(query)
 
     def get_videos(self):
         query = Q(status="PUB")
-        queryset = self.video_album.filter(status="PUB")
+        queryset = self.video_list.filter(status="PUB")
         return queryset
 
     def get_video_count(self):
         query = Q(status="PUB") | Q(status="PRI")
-        return self.video_album.filter(query).values("pk").count()
+        return self.video_list.filter(query).values("pk").count()
 
-    def is_main_album(self):
+    def is_main(self):
         return self.type == self.MAIN
-    def is_user_album(self):
+    def is_list(self):
         return self.type == self.LIST
     def is_private(self):
         return self.type == self.PRIVATE
@@ -142,7 +142,7 @@ class VideoAlbum(models.Model):
 
 
     def is_not_empty(self):
-        return self.video_album.filter(album=self).values("pk").exists()
+        return self.video_list.filter(list=self).values("pk").exists()
 
     def get_users_ids(self):
         users = self.users.exclude(type__contains="_").values("pk")
@@ -159,11 +159,11 @@ class VideoAlbum(models.Model):
         return self.creator.pk != user_id and user_id in self.get_users_ids()
 
     def is_item_in_list(self, item_id):
-        return self.video_album.filter(pk=item_id).exists()
+        return self.video_list.filter(pk=item_id).exists()
 
     def make_private(self):
         from notify.models import Notify, Wall
-        self.type = VideoAlbum.PRIVATE
+        self.type = VideoList.PRIVATE
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
@@ -171,7 +171,7 @@ class VideoAlbum(models.Model):
             Wall.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.type = VideoAlbum.LIST
+        self.type = VideoList.LIST
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
@@ -181,11 +181,11 @@ class VideoAlbum(models.Model):
     def delete_list(self):
         from notify.models import Notify, Wall
         if self.type == "LIS":
-            self.type = VideoAlbum.DELETED
+            self.type = VideoList.DELETED
         elif self.type == "PRI":
-            self.type = VideoAlbum.DELETED_PRIVATE
+            self.type = VideoList.DELETED_PRIVATE
         elif self.type == "MAN":
-            self.type = VideoAlbum.DELETED_MANAGER
+            self.type = VideoList.DELETED_MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
@@ -194,11 +194,11 @@ class VideoAlbum(models.Model):
     def abort_delete_list(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
-            self.type = VideoAlbum.LIST
+            self.type = VideoList.LIST
         elif self.type == "_DELP":
-            self.type = VideoAlbum.PRIVATE
+            self.type = VideoList.PRIVATE
         elif self.type == "_DELM":
-            self.type = VideoAlbum.MANAGER
+            self.type = VideoList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
@@ -208,13 +208,13 @@ class VideoAlbum(models.Model):
     def close_list(self):
         from notify.models import Notify, Wall
         if self.type == "LIS":
-            self.type = VideoAlbum.CLOSED
+            self.type = VideoList.CLOSED
         elif self.type == "MAI":
-            self.type = VideoAlbum.CLOSED_MAIN
+            self.type = VideoList.CLOSED_MAIN
         elif self.type == "PRI":
-            self.type = VideoAlbum.CLOSED_PRIVATE
+            self.type = VideoList.CLOSED_PRIVATE
         elif self.type == "MAN":
-            self.type = VideoAlbum.CLOSED_MANAGER
+            self.type = VideoList.CLOSED_MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="C")
@@ -223,13 +223,13 @@ class VideoAlbum(models.Model):
     def abort_close_list(self):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
-            self.type = VideoAlbum.LIST
+            self.type = VideoList.LIST
         elif self.type == "_CLOM":
-            self.type = VideoAlbum.MAIN
+            self.type = VideoList.MAIN
         elif self.type == "_CLOP":
-            self.type = VideoAlbum.PRIVATE
+            self.type = VideoList.PRIVATE
         elif self.type == "_CLOM":
-            self.type = VideoAlbum.MANAGER
+            self.type = VideoList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="VIL", object_id=self.pk, verb="ITE").update(status="R")
@@ -291,7 +291,7 @@ class Video(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
     uri = models.CharField(max_length=255, verbose_name="Ссылка на видео")
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
-    list = models.ManyToManyField(VideoAlbum, related_name="video_album", blank=True, verbose_name="Альбом")
+    list = models.ManyToManyField(VideoList, related_name="video_list", blank=True, verbose_name="Альбом")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="video_creator", on_delete=models.CASCADE, verbose_name="Создатель")
     status = models.CharField(choices=STATUS, default=PROCESSING, max_length=5)
     file = models.FileField(upload_to=upload_to_video_directory, validators=[validate_file_extension], verbose_name="Видеозапись")
@@ -390,10 +390,10 @@ class Video(models.Model):
         from stst.models import VideoNumbers
         return VideoNumbers.objects.filter(video=self.pk).values('pk').count()
 
-    def get_albums_for_video(self):
-        return self.album.all()
-    def get_album_uuid(self):
-        return self.album.all()[0].uuid
+    def get_lists_for_video(self):
+        return self.list.all()
+    def get_list_uuid(self):
+        return self.list.all()[0].uuid
 
     def make_private(self):
         from notify.models import Notify, Wall

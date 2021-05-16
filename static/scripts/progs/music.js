@@ -94,9 +94,9 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
     close_create_window();
     title = form.querySelector('#id_name').value;
 
-    album = document.body.querySelector(".list_active");
-    album.querySelector(".playlist_name").innerHTML = title;
-    album.classList.remove("album_active");
+    list = document.body.querySelector(".list_active");
+    list.querySelector(".playlist_name").innerHTML = title;
+    list.classList.remove("list_active");
     toast_success("Список изменен")
   }}
   link_.send(form_data);

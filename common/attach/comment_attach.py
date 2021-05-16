@@ -131,22 +131,22 @@ def get_u_blog_comment_attach(comment, user):
                 pass
         elif item[:3] == "lph":
             try:
-                from gallery.models import Album
-                album = Album.objects.get(pk=item[3:])
-                creator = album.creator
+                from gallery.models import PhotoList
+                list = PhotoList.objects.get(pk=item[3:])
+                creator = PhotoList.creator
                 add = ''
                 if user.is_authenticated:
-                    if album.is_user_can_add_list(user.pk):
-                        add = '<a class="col pointer u_add_photo_album text-white">Добавить</a>'
-                    elif user.pk in album.get_users_ids():
-                        add = '<a class="col pointer u_remove_photo_album text-white">Удалить</a>'
-                block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" photoalbum-pk="', str(album.pk), '"><figure class="background-img"><img src="', album.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_album text-white pointer"><a class="nowrap">', album.title, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(album.creator), '</a></p><hr class="my-3"><a class="u_load_photo_album text-white pointer">', album.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
+                    if list.is_user_can_add_list(user.pk):
+                        add = '<a class="col pointer u_add_photo_list text-white">Добавить</a>'
+                    elif user.pk in list.get_users_ids():
+                        add = '<a class="col pointer u_remove_photo_list text-white">Удалить</a>'
+                block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" photolist-pk="', str(list.pk), '"><figure class="background-img"><img src="', list.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_list text-white pointer"><a class="nowrap">', list.name, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(list.creator), '</a></p><hr class="my-3"><a class="u_load_photo_list text-white pointer">', list.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
             except:
                 pass
         elif item[:3] == "lvi":
             try:
-                from video.models import VideoAlbum
-                list = VideoAlbum.objects.get(list_query, pk=item[3:])
+                from video.models import VideoList
+                list = VideoList.objects.get(list_query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
                 add_svg = ''
@@ -155,7 +155,7 @@ def get_u_blog_comment_attach(comment, user):
                         add_svg = '<span title="Добавить список видеозаписей" class="u_add_video_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'
                     elif user.pk in list.get_users_ids():
                         add_svg = '<span title="Удалить список видеозаписей" class="u_remove_video_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>'
-                block = ''.join([block, '<div style="flex-basis: 100%;" class="card border"><div class="card-body" videoalbum-pk="', str(creator.pk), '" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_video_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_video_list pointer">', list.title, '</h6><p>Список видеозаписей <a class="ajax underline" href="/users/', creator.pk, '">', str(creator.get_full_name_genitive()), '</a><br>Видеозаписей: ', str(list.count_video()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
+                block = ''.join([block, '<div style="flex-basis: 100%;" class="card border"><div class="card-body" videolist-pk="', str(creator.pk), '" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_video_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_video_list pointer">', list.name, '</h6><p>Список видеозаписей <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Видеозаписей: ', str(list.count_video()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
             except:
                 pass
     return ''.join(["<div class='items_container'>", block, "</div>"])
@@ -280,22 +280,22 @@ def get_u_elect_new_comment_attach(comment, user):
                 pass
         elif item[:3] == "lph":
             try:
-                from gallery.models import Album
-                album = Album.objects.get(pk=item[3:])
-                creator = album.creator
+                from gallery.models import PhotoList
+                list = PhotoList.objects.get(pk=item[3:])
+                creator = list.creator
                 add = ''
                 if user.is_authenticated:
-                    if album.is_user_can_add_list(user.pk):
-                        add = '<a class="col pointer u_add_photo_album text-white">Добавить</a>'
-                    elif user.pk in album.get_users_ids():
-                        add = '<a class="col pointer u_remove_photo_album text-white">Удалить</a>'
-                block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" photoalbum-pk="', str(album.pk), '"><figure class="background-img"><img src="', album.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_album text-white pointer"><a class="nowrap">', album.title, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(album.creator), '</a></p><hr class="my-3"><a class="u_load_photo_album text-white pointer">', album.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
+                    if list.is_user_can_add_list(user.pk):
+                        add = '<a class="col pointer u_add_photo_list text-white">Добавить</a>'
+                    elif user.pk in list.get_users_ids():
+                        add = '<a class="col pointer u_remove_photo_list text-white">Удалить</a>'
+                block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" photolist-pk="', str(list.pk), '"><figure class="background-img"><img src="', list.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_list text-white pointer"><a class="nowrap">', list.name, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(list.creator), '</a></p><hr class="my-3"><a class="u_load_photo_list text-white pointer">', list.count_photo_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
             except:
                 pass
         elif item[:3] == "lvi":
             try:
-                from video.models import VideoAlbum
-                list = VideoAlbum.objects.get(list_query, pk=item[3:])
+                from video.models import VideoList
+                list = VideoList.objects.get(list_query, pk=item[3:])
                 creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
                 add_svg = ''
@@ -304,7 +304,7 @@ def get_u_elect_new_comment_attach(comment, user):
                         add_svg = '<span title="Добавить список видеозаписей" class="u_add_video_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'
                     elif user.pk in list.get_users_ids():
                         add_svg = '<span title="Удалить список видеозаписей" class="u_remove_video_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>'
-                block = ''.join([block, '<div style="flex-basis: 100%;" class="card border"><div class="card-body" videoalbum-pk="', str(list.pk), '" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_video_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_video_list pointer">', list.title, '</h6><p>Список видеозаписей <a class="ajax underline" href="/users/', creator.pk, '">', str(creator.get_full_name_genitive()), '</a><br>Видеозаписей: ', str(list.count_video()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
+                block = ''.join([block, '<div style="flex-basis: 100%;" class="card border"><div class="card-body" videolist-pk="', str(list.pk), '" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_video_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_video_list pointer">', list.name, '</h6><p>Список видеозаписей <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Видеозаписей: ', str(list.count_video()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
             except:
                 pass
     return ''.join(["<div class='items_container'>", block, "</div>"])

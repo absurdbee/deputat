@@ -2,13 +2,13 @@
 {% block title %}Моя галерея{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" list-pk="{{ album.pk }}" data-uuid="{{ album.uuid }}">
+<div class="container mt-3 pk_saver" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
     <div class="row no-gutters">
       <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
         {% include 'generic/user/user_back.html' %}
       </div>
       <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-        <a class="btn btn-sm border u_album_add" style="width: -webkit-fill-available;font-size: 19px;">+ альбом</a>
+        <a class="btn btn-sm border u_photo_list_add" style="width: -webkit-fill-available;font-size: 19px;">+ альбом</a>
       </div>
       <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
         <form id="add_photos">
@@ -19,10 +19,10 @@
       </div>
     </div>
 
-{% include 'user_gallery/gallery/my_albums.html' %}
+{% include 'user_gallery/gallery/my_lists.html' %}
 
 <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-  <h5 class="mt-1" style="flex: 1;">Мои фото ({{ album.count_photo }})</h5>
+  <h5 class="mt-1" style="flex: 1;">Мои фото ({{ list.count_photo }})</h5>
 </div>
 
 <div class="row is_paginate no-gutters" id="photos_container"">

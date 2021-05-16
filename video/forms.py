@@ -1,11 +1,11 @@
-from video.models import VideoAlbum, Video
+from video.models import VideoList, Video
 from django import forms
 
 
-class VideoAlbumForm(forms.ModelForm):
+class VideoListForm(forms.ModelForm):
 
 	class Meta:
-		model = VideoAlbum
+		model = VideoList
 		fields = ['name', 'order']
 
 class VideoForm(forms.ModelForm):

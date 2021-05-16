@@ -1,23 +1,23 @@
-on('body', 'click', '.u_album_add', function() {
+on('body', 'click', '.u_photo_list_add', function() {
   loader = document.getElementById("create_loader");
-  open_fullscreen("/gallery/user_progs/add_album/", loader)
+  open_fullscreen("/gallery/user_progs/add_list/", loader)
 });
-on('body', 'click', '.u_album_edit', function() {
+on('body', 'click', '.u_photo_list_edit', function() {
   list = document.body.querySelectorAll('.cover_block');
   for (var i = 0; i < list.length; i++) {
-    list[i].classList.remove("album_active")
+    list[i].classList.remove("list_active")
   }
   block = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-  block.classList.add("album_active");
+  block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
   loader = document.getElementById("create_loader");
-  open_fullscreen("/gallery/user_progs/edit_album/" + uuid + "/", loader)
+  open_fullscreen("/gallery/user_progs/edit_list/" + uuid + "/", loader)
 });
-on('body', 'click', '.u_album_remove', function() {
+on('body', 'click', '.u_photo_list_remove', function() {
   block = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/gallery/user_progs/delete_album/" + uuid + "/", true );
+  link_.open( 'GET', "/gallery/user_progs/delete_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
@@ -25,16 +25,16 @@ on('body', 'click', '.u_album_remove', function() {
     block.querySelector(".card").style.display = "none";
     $block = document.createElement("div");
     $block.classList.add("card", "delete_card");
-    $block.innerHTML = '<div class="card-header"><div class="media"><div class="media-body"><h6 class="mb-0 u_album_abort_remove pointer">Восстановить</h6></div></div></div><div class="card-body"><a><img style="object-fit: cover;height: 150px;width: 170px;" src="/static/images/album.jpg" /></a></div>'
+    $block.innerHTML = '<div class="card-header"><div class="media"><div class="media-body"><h6 class="mb-0 u_list_abort_remove pointer">Восстановить</h6></div></div></div><div class="card-body"><a><img style="object-fit: cover;height: 150px;width: 170px;" src="/static/images/list.jpg" /></a></div>'
     block.append($block);
   }}
   link_.send();
 });
-on('body', 'click', '.u_album_abort_remove', function() {
+on('body', 'click', '.u_photo_list_abort_remove', function() {
   block = this.parentElement.parentElement.parentElement.parentElement.parentElement;
   uuid = block.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/gallery/user_progs/abort_delete_album/" + uuid + "/", true );
+  link_.open( 'GET', "/gallery/user_progs/abort_delete_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
@@ -45,17 +45,17 @@ on('body', 'click', '.u_album_abort_remove', function() {
   link_.send();
 });
 
-on('body', 'click', '#u_create_album_btn', function() {
+on('body', 'click', '#u_create_photo_list_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!");
   } else { this.disabled = true }
-  post_and_load_object_page(form, "/gallery/user_progs/add_album/", "/gallery/album/", "/");
+  post_and_load_object_page(form, "/gallery/user_progs/add_list/", "/gallery/list/", "/");
 });
 
-on('body', 'click', '#u_edit_album_btn', function() {
+on('body', 'click', '#u_edit_photo_list_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   if (!form.querySelector("#id_title").value){
@@ -65,16 +65,16 @@ on('body', 'click', '#u_edit_album_btn', function() {
   uuid = form.getAttribute("data-uuid")
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/gallery/user_progs/edit_album/" + uuid + "/", true );
+  link_.open( 'POST', "/gallery/user_progs/edit_list/" + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     title = form.querySelector('#id_title').value;
 
-    album = document.body.querySelector(".album_active");
-    album.querySelector("h6").innerHTML = title;
-    album.classList.remove("album_active");
+    list = document.body.querySelector(".list_active");
+    list.querySelector("h6").innerHTML = title;
+    list.classList.remove("list_active");
     close_create_window();
     toast_success("Альбом изменен")
   }}
@@ -118,11 +118,11 @@ on('body', 'click', '.mob_u_photo_on_private', function() {
   mob_send_change(this, "/gallery/user_progs/on_private/", "mob_u_photo_off_private", "Выкл. приватность")
 })
 
-on('body', 'click', '.u_add_photo_in_album', function() {
-  add_item_in_list(this, '/gallery/user_progs/add_track_in_list/', '.u_add_photo_in_album', 'u_remove_photo_in_album')
+on('body', 'click', '.u_add_photo_in_list', function() {
+  add_item_in_list(this, '/gallery/user_progs/add_track_in_list/', '.u_add_photo_in_list', 'u_remove_photo_in_list')
 })
-on('body', 'click', '.u_remove_photo_in_album', function() {
-  remove_item_from_list(this, '/gallery/user_progs/remove_track_from_list/', 'u_remove_photo_in_album', '.u_add_photo_in_album')
+on('body', 'click', '.u_remove_photo_in_photo_list', function() {
+  remove_item_from_list(this, '/gallery/user_progs/remove_track_from_list/', 'u_remove_photo_in_list', '.u_add_photo_in_list')
 })
 
 on('body', 'click', '.u_photo_detail', function() {
@@ -160,18 +160,18 @@ on('body', 'click', '.u_elect_new_comment_photo', function() {
   loader = document.getElementById("photo_loader");
   open_fullscreen("/gallery/elect_new_comment_photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });
-on('body', 'click', '.u_load_photo_album', function() {
+on('body', 'click', '.u_load_photo_list', function() {
   parent = this.parentElement.parentElement;
-  pk = parent.getAttribute("photoalbum-pk");
+  pk = parent.getAttribute("photolist-pk");
   loader = document.getElementById("window_loader");
-  open_fullscreen("/gallery/load_album/" + pk + "/", loader)
+  open_fullscreen("/gallery/load_list/" + pk + "/", loader)
 });
 
-on('body', 'click', '.u_add_photo_album', function() {
-  on_off_list_in_collections(this, "/gallery/user_progs/add_list/", "u_remove_photo_album", "u_add_photo_album", "Удалить")
+on('body', 'click', '.u_add_photo_list', function() {
+  on_off_list_in_collections(this, "/gallery/user_progs/add_list/", "u_remove_photo_list", "u_add_photo_list", "Удалить")
 });
-on('body', 'click', '.u_remove_photo_album', function() {
-  on_off_list_in_collections(this, "/gallery/user_progs/remove_list/", "u_add_photo_album", "u_remove_photo_album", "Добавить")
+on('body', 'click', '.u_remove_photo_list', function() {
+  on_off_list_in_collections(this, "/gallery/user_progs/remove_list/", "u_add_photo_list", "u_remove_photo_list", "Добавить")
 });
 on('body', 'click', '.u_copy_playlist', function() {
   on_off_list_in_collections(this, "/music/user_progs/add_list/", "u_uncopy_playlist", "u_copy_playlist", "Удалить")

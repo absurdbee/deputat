@@ -9,13 +9,13 @@ class AllVideoView(TemplateView):
     template_name="all_video.html"
 
 
-class UserLoadVideoAlbum(ListView):
+class UserLoadVideoList(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
         from common.templates import get_template_user_window, get_template_anon_user_window
 
-        self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if self.user.pk == request.user.pk:
             self.video_list = self.list.get_my_videos()
         else:
@@ -24,11 +24,11 @@ class UserLoadVideoAlbum(ListView):
             self.template_name = get_template_user_item(self.list, "user_video/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
         else:
             self.template_name = get_template_anon_user_item(self.list, "user_video/load/anon_list.html", request.META['HTTP_USER_AGENT'])
-        return super(UserLoadVideoAlbum,self).get(request,*args,**kwargs)
+        return super(UserLoadVideoList,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        c = super(UserLoadVideoAlbum,self).get_context_data(**kwargs)
-        c['user'], c['album'] = self.list.creator, self.list
+        c = super(UserLoadVideoList,self).get_context_data(**kwargs)
+        c['user'], c['list'] = self.list.creator, self.list
         return c
 
     def get_queryset(self):
@@ -72,10 +72,10 @@ class UserVideoList(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
-        from video.models import VideoAlbum
+        from video.models import VideoList
         from common.templates import get_template_user_item, get_template_anon_user_item
 
-        self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         self.user = User.objects.get(pk=self.kwargs["pk"])
         if self.user.pk == request.user.pk:
             self.video_list = self.list.get_my_videos()

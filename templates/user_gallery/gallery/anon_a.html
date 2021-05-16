@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{% block title %}{{ album.title }} | Галерея {{ user.get_full_name_genitive }}{% endblock %}
+{% block title %}{{ list.name }} | Галерея {{ user.get_full_name_genitive }}{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" list-pk="{{ album.pk }}" data-uuid="{{ album.uuid }}">
+<div class="container mt-3 pk_saver" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
     <div class="row no-gutters">
       <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
         {% include 'generic/user/user_back.html' %}
       </div>
     </div>
 
-  {% include 'user_gallery/gallery/albums.html' %}
+  {% include 'user_gallery/gallery/lists.html' %}
 
   <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-    <h5 class="mt-1" style="flex: 1;">Фото {{ user.get_full_name_genitive }} ({{ album.count_photo }})</h5>
+    <h5 class="mt-1" style="flex: 1;">Фото {{ user.get_full_name_genitive }} ({{ listlist.count_photo }})</h5>
   </div>
 
   <div class="row is_paginate no-gutters">

@@ -1,18 +1,18 @@
-{% if request.user.is_have_albums %}
+{% if request.user.is_have_lists %}
 
 <div class="row overflow-x-auto no-gutters">
   <div class="col-12">
   <ul style="width:max-content;list-style: none;">
-    {% for object in request.user.get_albums %}
+    {% for object in request.user.get_lists %}
         {% if object.is_not_empty %}
-        <li class="album_item">
+        <li class="list_item">
           <div class="cover_block" data-pk="{{ user.pk }}" data-uuid="{{ object.uuid }}" style="padding:5px;">
               <div class="card rounded-0 border-0 mb-3">
                   <div class="card-header">
                       <div class="media">
                           <div class="media-body" style="white-space:nowrap;overflow:hidden;">
-                              <h6 class="mb-0">{{ object.title }}</h6>
-                              <p class="pointer photo_attach_album" data-pk="{{ object.pk }}">Прикрепить альбом</p>
+                              <h6 class="mb-0">{{ object.name }}</h6>
+                              <p class="pointer photo_attach_list" data-pk="{{ object.pk }}">Прикрепить альбом</p>
                           </div>
                       </div>
                   </div>

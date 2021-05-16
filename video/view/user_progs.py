@@ -1,8 +1,8 @@
-from video.models import Video, VideoAlbum
+from video.models import Video, VideoList
 from users.models import User
 from django.views import View
 from django.views.generic.base import TemplateView
-from video.forms import VideoAlbumForm, VideoForm
+from video.forms import VideoListForm, VideoForm
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.http import Http404
 from common.templates import render_for_platform, get_small_template
@@ -10,14 +10,14 @@ from common.templates import render_for_platform, get_small_template
 
 class UserVideolistAdd(View):
     def get(self,request,*args,**kwargs):
-        list = VideoAlbum.objects.get(pk=self.kwargs["pk"])
+        list = VideoList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_add_list(request.user.pk):
             list.users.add(request.user)
         return HttpResponse()
 
 class UserVideolistRemove(View):
     def get(self,request,*args,**kwargs):
-        list = VideoAlbum.objects.get(pk=self.kwargs["pk"])
+        list = VideoList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_delete_list(request.user.pk):
             list.users.remove(request.user)
         return HttpResponse()
@@ -42,16 +42,16 @@ class UseVideoAbortRemove(View):
 
 class UserVideoListAdd(View):
     def get(self, request, *args, **kwargs):
-        video, list = Video.objects.get(pk=self.kwargs["pk"]), VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        video, list = Video.objects.get(pk=self.kwargs["pk"]), VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and not list.is_item_in_list(video.pk) and list.creator.pk == request.user.pk :
-            list.video_album.add(video)
+            list.video_list.add(video)
             return HttpResponse()
         else:
             raise Http404
 
 class UserVideoListRemove(View):
     def get(self, request, *args, **kwargs):
-        video, list = Video.objects.get(pk=self.kwargs["pk"]), VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        video, list = Video.objects.get(pk=self.kwargs["pk"]), VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_item_in_list(video.pk) and list.creator.pk == request.user.pk:
             list.video_list.remove(video)
             return HttpResponse()
@@ -67,11 +67,11 @@ class UserVideolistCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(UserVideolistCreate,self).get_context_data(**kwargs)
-        context["form_post"] = VideoAlbumForm()
+        context["form_post"] = VideoListForm()
         return context
 
     def post(self,request,*args,**kwargs):
-        form_post= VideoAlbumForm(request.POST)
+        form_post= VideoListForm(request.POST)
         if request.is_ajax() and form_post.is_valid():
             new_list = form_post.save(commit=False)
             new_list.create_list(creator=request.user, name=new_list.name, description=new_list.description, order=new_list.order, community=None, is_public=request.POST.get("is_public"))
@@ -89,12 +89,12 @@ class UserVideolistEdit(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(UserVideoistEdit,self).get_context_data(**kwargs)
-        context["list"] = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        context["list"] = VideoList.objects.get(uuid=self.kwargs["uuid"])
         return context
 
     def post(self,request,*args,**kwargs):
-        self.list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
-        self.form = VideoAlbumForm(request.POST,instance=self.list)
+        self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
+        self.form = VideoListForm(request.POST,instance=self.list)
         if request.is_ajax() and self.form.is_valid():
             list = self.form.save(commit=False)
             list.edit_list(name=list.name, description=list.description, order=list.order, is_public=request.POST.get("is_public"))
@@ -154,8 +154,8 @@ class UserVideoEdit(TemplateView):
 
 class UserVideolistDelete(View):
     def get(self,request,*args,**kwargs):
-        list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.creator.pk == request.user.pk and list.type != VideoAlbum.MAIN:
+        list = VideoList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and list.creator.pk == request.user.pk and list.type != VideoList.MAIN:
             list.delete_list()
             return HttpResponse()
         else:
@@ -163,7 +163,7 @@ class UserVideolistDelete(View):
 
 class UserVideolistAbortDelete(View):
     def get(self,request,*args,**kwargs):
-        list = VideoAlbum.objects.get(uuid=self.kwargs["uuid"])
+        list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.creator.pk == request.user.pk:
             list.abort_delete_list()
             return HttpResponse()

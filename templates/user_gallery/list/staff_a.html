@@ -1,31 +1,31 @@
 {% extends "base.html" %}
-{% block title %}{{ album.title }} | Галерея {{ user.get_full_name_genitive }}{% endblock %}
+{% block title %}{{ list.name }} | Галерея {{ user.get_full_name_genitive }}{% endblock %}
 {% load filters %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" list-pk="{{ album.pk }}" data-uuid="{{ album.uuid }}">
+<div class="container mt-3 pk_saver" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
       <div class="row no-gutters">
           <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
             <a class="btn btn-sm btn_default border ajax" href="{% url 'user_gallery' pk=user.pk %}" style="width: -webkit-fill-available;">
               <svg fill="currentColor" class="svg_default" style="width: 19px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/></svg>
             </a>
           </div>
-            {% if album|is_user_can_add_list:request.user.pk %}
+            {% if list|is_user_can_add_list:request.user.pk %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border u_add_photo_album" style="width: -webkit-fill-available;font-size: 17px;">Добавить</a>
+                <a class="btn btn-sm border u_add_photo_list" style="width: -webkit-fill-available;font-size: 17px;">Добавить</a>
             </div>
-            {% elif request.user.pk in album.get_users_ids %}
+            {% elif request.user.pk in list.get_users_ids %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border u_remove_photo_album" style="width: -webkit-fill-available;font-size: 17px;">Удалить</a>
+                <a class="btn btn-sm border u_remove_photo_list" style="width: -webkit-fill-available;font-size: 17px;">Удалить</a>
             </div>
             {% endif %}
             <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border manage_remove_photo_album" style="width: -webkit-fill-available;font-size: 17px;">♦ Закрыть</a>
+                <a class="btn btn-sm border manage_remove_photo_list" style="width: -webkit-fill-available;font-size: 17px;">♦ Закрыть</a>
             </div>
           </div>
 
   <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-    <h5 class="mt-1" style="flex: 1;">Фото {{ user.get_full_name_genitive }} ({{ album.count_photo }})</h5>
+    <h5 class="mt-1" style="flex: 1;">Фото {{ user.get_full_name_genitive }} ({{ list.count_photo }})</h5>
   </div>
 
   <div class="row is_paginate no-gutters">

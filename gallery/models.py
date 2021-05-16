@@ -12,7 +12,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class Album(models.Model):
+class PhotoList(models.Model):
     MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
 
     DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
@@ -27,13 +27,13 @@ class Album(models.Model):
     )
 
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
-    title = models.CharField(max_length=250, verbose_name="Название")
+    name = models.CharField(max_length=250, verbose_name="Название")
     description = models.TextField(blank=True, verbose_name="Описание")
     cover_photo = models.ForeignKey('Photo', on_delete=models.SET_NULL, related_name='+', blank=True, null=True, verbose_name="Обожка")
     type = models.CharField(max_length=6, choices=TYPE, default=PROCESSING, verbose_name="Тип альбома")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     order = models.PositiveIntegerField(default=0)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_album_creator', null=False, blank=False, verbose_name="Создатель")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_list_creator', null=False, blank=False, verbose_name="Создатель")
     community = models.ForeignKey('communities.Community', related_name='photo_lists_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     users = models.ManyToManyField("users.User", blank=True, related_name='+')
@@ -52,11 +52,11 @@ class Album(models.Model):
     @receiver(post_save, sender=Community)
     def create_c_model(sender, instance, created, **kwargs):
         if created:
-            Album.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
+            PhotoList.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_u_model(sender, instance, created, **kwargs):
         if created:
-            Album.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
+            PhotoList.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
 
     def get_users_ids(self):
         users = self.users.exclude(type__contains="_").values("pk")
@@ -71,11 +71,11 @@ class Album(models.Model):
     def is_user_can_delete_list(self, user_id):
         return self.creator.pk != user_id and user_id in self.get_users_ids()
 
-    def is_main_album(self):
+    def is_main(self):
         return self.type == self.MAIN
-    def is_user_album(self):
+    def is_user(self):
         return self.type == self.LIST
-    def is_private_album(self):
+    def is_private(self):
         return self.type == self.PRIVATE
     def is_open(self):
         return self.type == self.LIST or self.type == self.MAIN or self.type == self.MANAGER
@@ -83,17 +83,17 @@ class Album(models.Model):
     def get_cover_photo(self):
         if self.cover_photo:
             return self.cover_photo.file.url
-        elif self.photo_album.filter(status="PUB").exists():
-            return self.photo_album.filter(status="PUB").last().file.url
+        elif self.photo_list.filter(status="PUB").exists():
+            return self.photo_list.filter(status="PUB").last().file.url
         else:
-            return "/static/images/album.jpg"
+            return "/static/images/list.jpg"
 
     def get_first_photo(self):
-        return self.photo_album.filter(status="PUB").first()
+        return self.photo_list.filter(status="PUB").first()
 
     def count_photo(self):
         try:
-            return self.photo_album.filter(status="PUB").values("pk").count()
+            return self.photo_listm.filter(status="PUB").values("pk").count()
         except:
             return 0
     def count_photo_ru(self):
@@ -108,17 +108,17 @@ class Album(models.Model):
             return str(count) + " фотографий"
 
     def get_photos(self):
-        return self.photo_album.filter(status="PUB")
+        return self.photo_list.filter(status="PUB")
 
     def get_staff_photos(self):
         query = Q(status="PUB") | Q(status="PRI")
-        return self.photo_album.filter(query)
+        return self.photo_list.filter(query)
 
     def is_not_empty(self):
-        return self.photo_album.filter(album=self, status="PUB").values("pk").exists()
+        return self.photo_list.filter(list=self, status="PUB").values("pk").exists()
 
     def is_item_in_list(self, item_id):
-        return self.photo_album.filter(pk=item_id).exists()
+        return self.photo_list.filter(pk=item_id).exists()
 
     @classmethod
     def create_list(cls, creator, name, description, order, community, is_public):
@@ -144,7 +144,7 @@ class Album(models.Model):
                 for user_id in creator.get_user_news_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="PHL", object_id=list.pk, verb="ITE")
                     user_send_notify(list.pk, creator.pk, user_id, None, "create_u_photo_list_notify")
-        get_photo_list_processing(list, Album.LIST)
+        get_photo_list_processing(list, PhotoList.LIST)
         return list
 
     def edit_list(self, title, description, order, is_public):
@@ -157,16 +157,16 @@ class Album(models.Model):
         self.order = order
         self.save()
         if is_public:
-            get_photo_list_processing(self, Album.LIST)
+            get_photo_list_processing(self, PhotoList.LIST)
             self.make_publish()
         else:
-            get_photo_list_processing(self, Album.PRIVATE)
+            get_photo_list_processing(self, PhotoList.PRIVATE)
             self.make_private()
         return self
 
     def make_private(self):
         from notify.models import Notify, Wall
-        self.type = Album.PRIVATE
+        self.type = PhotoList.PRIVATE
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
@@ -174,7 +174,7 @@ class Album(models.Model):
             Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.type = Album.LIST
+        self.type = PhotoList.LIST
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
@@ -184,11 +184,11 @@ class Album(models.Model):
     def delete_list(self):
         from notify.models import Notify, Wall
         if self.type == "LIS":
-            self.type = Album.DELETED
+            self.type = PhotoList.DELETED
         elif self.type == "PRI":
-            self.type = Album.DELETED_PRIVATE
+            self.type = PhotoList.DELETED_PRIVATE
         elif self.type == "MAN":
-            self.type = Album.DELETED_MANAGER
+            self.type = PhotoList.DELETED_MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
@@ -197,11 +197,11 @@ class Album(models.Model):
     def abort_delete_list(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
-            self.type = Album.LIST
+            self.type = PhotoList.LIST
         elif self.type == "_DELP":
-            self.type = Album.PRIVATE
+            self.type = PhotoList.PRIVATE
         elif self.type == "_DELM":
-            self.type = Album.MANAGER
+            self.type = PhotoList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
@@ -211,13 +211,13 @@ class Album(models.Model):
     def close_list(self):
         from notify.models import Notify, Wall
         if self.type == "LIS":
-            self.type = Album.CLOSED
+            self.type = PhotoList.CLOSED
         elif self.type == "MAI":
-            self.type = Album.CLOSED_MAIN
+            self.type = PhotoList.CLOSED_MAIN
         elif self.type == "PRI":
-            self.type = Album.CLOSED_PRIVATE
+            self.type = PhotoList.CLOSED_PRIVATE
         elif self.type == "MAN":
-            self.type = Album.CLOSED_MANAGER
+            self.type = PhotoList.CLOSED_MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
@@ -226,13 +226,13 @@ class Album(models.Model):
     def abort_close_list(self):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
-            self.type = Album.LIST
+            self.type = PhotoList.LIST
         elif self.type == "_CLOM":
-            self.type = Album.MAIN
+            self.type = PhotoList.MAIN
         elif self.type == "_CLOP":
-            self.type = Album.PRIVATE
+            self.type = PhotoList.PRIVATE
         elif self.type == "_CLOM":
-            self.type = Album.MANAGER
+            self.type = PhotoList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
@@ -240,35 +240,35 @@ class Album(models.Model):
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
-    def get_my_albums(cls, user_pk):
+    def get_my_lists(cls, user_pk):
         # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
         query = Q(type="LIS") | Q(type="PRI")
         query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
         return cls.objects.filter(query)
 
     @classmethod
-    def is_have_my_albums(cls, user_pk):
+    def is_have_my_lists(cls, user_pk):
         # есть ли альбомы у request пользователя, кроме основного. И все добавленные альбомы.
         query = Q(type="LIS") | Q(type="PRI")
         query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
         return cls.objects.filter(query).exists()
 
     @classmethod
-    def get_albums(cls, user_pk):
+    def get_lists(cls, user_pk):
         # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
         query = Q(type="LIS")
         query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
         return cls.objects.filter(query).order_by("order")
 
     @classmethod
-    def is_have_albums(cls, user_pk):
+    def is_have_lists(cls, user_pk):
         # есть ли альбомы пользователя - пользовательские. И все добавленные им альбомы.
         query = Q(type="LIS")
         query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
         return cls.objects.filter(query).exists()
 
     @classmethod
-    def get_albums_count(cls, user_pk):
+    def get_lists_count(cls, user_pk):
         # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
         query = Q(type="LIS")
         query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
@@ -283,7 +283,7 @@ class Photo(models.Model):
         (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
-    album = models.ManyToManyField(Album, related_name="photo_album", blank=True)
+    list = models.ManyToManyField(PhotoList, related_name="photo_list", blank=True)
     file = ProcessedImageField(format='JPEG', options={'quality': 100}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
@@ -306,7 +306,7 @@ class Photo(models.Model):
         from common.processing.photo import get_photo_processing
 
         photo = cls.objects.create(creator=creator,preview=image,file=image)
-        list.photo_album.add(photo)
+        list.photo_list.add(photo)
         if not list.is_private():
             get_photo_processing(photo, Photo.PUBLISHED)
             if list.community:
@@ -332,8 +332,8 @@ class Photo(models.Model):
             get_photo_processing(photo, Photo.PRIVATE)
         return photo
 
-    def is_album_exists(self):
-        return self.photo_album.filter(creator=self.creator).exists()
+    def is_list_exists(self):
+        return self.photo_list.filter(creator=self.creator).exists()
 
     def make_private(self):
         from notify.models import Notify, Wall
@@ -423,7 +423,7 @@ class Photo(models.Model):
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_type(self):
-        return self.album.all()[0].type
+        return self.list.all()[0].type
 
     def is_private(self):
         return self.type == self.PRIVATE

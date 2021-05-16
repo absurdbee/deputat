@@ -208,7 +208,7 @@ on('body', 'click', '.music_preview_delete', function() {
   }
   parent.remove();
 });
-on('body', 'click', '.photo_attach_album_remove', function() {
+on('body', 'click', '.photo_attach_list_remove', function() {
   block = this.parentElement.parentElement;
   if (block.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()

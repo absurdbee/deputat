@@ -13,5 +13,6 @@ class SurveyAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 
+admin.site.register(SurveyList)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(SurveyVote)

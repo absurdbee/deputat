@@ -15,9 +15,9 @@ class UserLoadPhotoList(ListView):
 		else:
 			self.photo_list = self.list.get_photos()
 		if request.user.is_authenticated:
-			self.template_name = get_template_user_item(self.list, "user_gallery/load/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+			self.template_name = get_template_user_item(self.list, "user_gallery/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_gallery/load/anon_a.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_item(self.list, "user_gallery/load/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPhotoList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -50,9 +50,9 @@ class UserGallery(ListView):
 			self.is_have_lists = self.list.is_have_user_lists(pk)
 			self.get_lists = self.list.get_user_lists(pk)
 		if request.user.is_authenticated:
-			self.template_name = get_template_user_item(self.list, "user_gallery/gallery/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+			self.template_name = get_template_user_item(self.list, "user_gallery/gallery/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_gallery/gallery/anon_a.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_item(self.list, "user_gallery/gallery/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserGallery,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -79,9 +79,9 @@ class UserPhotoList(ListView):
 		else:
 			self.photo_list = self.list.get_photos()
 		if request.user.is_authenticated:
-			self.template_name = get_template_user_item(self.list, "user_gallery/list/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+			self.template_name = get_template_user_item(self.list, "user_gallery/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_gallery/list/anon_a.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_item(self.list, "user_gallery/list/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserPhotoList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -103,7 +103,7 @@ class UserListPhoto(TemplateView):
 
 		self.photo, self.list = Photo.objects.get(pk=self.kwargs["pk"]), PhotoList.objects.get(uuid=self.kwargs["uuid"])
 		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
 			from django.http import Http404
 			raise Http404
@@ -137,7 +137,7 @@ class UserElectNewPhoto(TemplateView):
 		self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.elect_new.get_attach_photos()
 		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
 			from django.http import Http404
 			raise Http404
@@ -163,7 +163,7 @@ class UserBlogCommentPhoto(TemplateView):
 		self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.comment.get_attach_photos()
 		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/blog_comment_photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_item_template(self.photo, "user_gallery/blog_comment_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
 			from django.http import Http404
 			raise Http404
@@ -189,7 +189,7 @@ class UserElectNewCommentPhoto(TemplateView):
 		self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.comment.get_attach_photos()
 		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/elect_new_comment_photo/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_item_template(self.photo, "user_gallery/elect_new_comment_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
 			from django.http import Http404
 			raise Http404

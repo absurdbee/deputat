@@ -237,5 +237,5 @@ on('body', 'click', '.u_load_playlist', function() {
 });
 
 on('body', 'click', '.u_load_profile_playlist', function() {
-  list_block_load(".is_paginate", ".is_paginate", "/music/list/" + this.parentElement.parentElement.getAttribute("data-uuid") + "/")
+  list_block_load(".is_paginate", ".is_paginate", "/music/list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/")
 });

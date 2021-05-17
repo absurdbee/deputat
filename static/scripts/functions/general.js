@@ -26,8 +26,8 @@ function profile_list_block_load(_this, target_block, response_block, link, acti
          class_to_add[i].classList.add(actions_class, "pointer");
        };
        parent = _this.parentElement.parentElement.parentElement;
-       parent.querySector("svg").classList.remove(actions_class, "pointer");
-       parent.querySector(".list_name").classList.remove(actions_class, "pointer");
+       parent.querySelector("svg").classList.remove(actions_class, "pointer");
+       parent.querySelector(".list_name").classList.remove(actions_class, "pointer");
        parent.classList.remove("border");
        parent.classList.add("active_border");
     }};

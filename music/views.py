@@ -28,11 +28,9 @@ class UserMusic(ListView):
         self.list = self.user.get_playlist()
         if self.user.pk == request.user.pk:
             self.music_list = self.list.get_my_playlist()
-            self.is_have_lists = self.list.is_have_user_staff_lists(pk)
             self.get_lists = self.list.get_user_staff_lists(pk)
         else:
             self.music_list = self.list.get_playlist()
-            self.is_have_lists = self.list.is_have_user_lists(pk)
             self.get_lists = self.list.get_user_lists(pk)
         self.count_lists = self.list.get_user_lists_count(pk)
         if request.user.is_authenticated:
@@ -43,7 +41,7 @@ class UserMusic(ListView):
 
     def get_context_data(self,**kwargs):
         c = super(UserMusic,self).get_context_data(**kwargs)
-        c['user'], c['playlist'], c['is_have_lists'], c['get_lists'], c['count_lists'] = self.user, self.list, self.is_have_lists, self.get_lists, self.count_lists
+        c['user'], c['playlist'], c['get_lists'], c['count_lists'] = self.user, self.list, self.get_lists, self.count_lists
         return c
 
     def get_queryset(self):

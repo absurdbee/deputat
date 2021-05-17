@@ -238,5 +238,4 @@ on('body', 'click', '.u_load_playlist', function() {
 
 on('body', 'click', '.u_load_profile_playlist', function() {
   list_block_load(".is_paginate", ".is_paginate", "/music/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/");
-  init_music(document.body.querySelector(".is_paginate"))
 });

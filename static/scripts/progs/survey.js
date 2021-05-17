@@ -99,10 +99,10 @@ on('body', 'click', '#u_edit_survey_list_btn', function() {
 });
 
 on('body', 'click', '.u_add_survey_in_list', function() {
-  add_item_in_list(this, '/survey/user_progs/add_survey_in_list/', '.u_add_survey_in_list', 'u_remove_survey_from_list')
+  add_item_in_list(this, '/survey/user_progs/add_survey_in_list/', '.u_add_survey_in_list', '.u_remove_survey_from_list')
 })
 on('body', 'click', '.u_remove_survey_from_list', function() {
-  remove_item_from_list(this, '/survey/user_progs/remove_survey_from_list/', 'u_remove_survey_from_list', '.u_add_survey_in_list')
+  remove_item_from_list(this, '/survey/user_progs/remove_survey_from_list/', '.u_remove_survey_from_list', '.u_add_survey_in_list')
 })
 
 on('body', 'click', '#u_create_survey_btn', function() {

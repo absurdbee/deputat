@@ -34,6 +34,7 @@ class SoundList(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_music_directory, processors=[Transpose(), ResizeToFit(width=400, height=400)])
     community = models.ForeignKey('communities.Community', related_name='playlist_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
+    description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
 
     users = models.ManyToManyField("users.User", blank=True, related_name='+')
     communities = models.ManyToManyField('communities.Community', blank=True, related_name='+')

@@ -20,13 +20,12 @@
                         </div>
                       {% endif %}
                         <div class="d-flex align-items-center justify-content-center w-100">
-                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            <svg width="50" height="50" class="u_load_profile_playlist" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                         </div>
                     </div>
-                    <a href="{% url 'user_playlist' uuid=object.uuid %}" class="ajax">
                     <div class="card-body pt-0">
                         <div class="content-wrapper">
-                            <p class="card-text file-name mb-0 playlist_name" style="text-align: left;" data-name="{{ object.name }}">{{ object.name }}</p>
+                            <p class="card-text file-name mb-0 playlist_name u_load_profile_playlist" style="text-align: left;" data-name="{{ object.name }}">{{ object.name }}</p>
                             <p class="card-text file-size mb-0">{{ object.count_tracks }}</p>
                         </div>
                         <small class="file-accessed text-muted">
@@ -37,7 +36,6 @@
                           {% endif %}
                         </small>
                     </div>
-                    </a>
                 </div>
             </li>
             {% endfor %}

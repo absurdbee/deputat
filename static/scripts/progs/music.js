@@ -6,6 +6,8 @@ on('body', 'click', '.u_track_add', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen("/music/user_progs/create_track/", loader)
 });
+
+
 on('body', 'click', '.u_track_edit', function() {
   parent = this.parentElement.parentElement.parentElement;
   blocks = document.body.querySelectorAll('.col-sm-12');
@@ -103,10 +105,10 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
 });
 
 on('body', 'click', '.u_add_track_in_list', function() {
-  add_item_in_list(this, '/music/user_progs/add_track_in_list/', '.u_add_track_in_list', 'u_remove_track_from_list')
+  add_item_in_list(this, '/music/user_progs/add_track_in_list/', '.u_add_track_in_list', '.u_remove_track_from_list')
 })
 on('body', 'click', '.u_remove_doc_from_list', function() {
-  remove_item_from_list(this, '/music/user_progs/remove_track_from_list/', 'u_remove_track_from_list', '.u_add_track_in_list')
+  remove_item_from_list(this, '/music/user_progs/remove_track_from_list/', '.u_remove_track_from_list', '.u_add_track_in_list')
 })
 
 on('body', 'click', '#u_create_track_btn', function() {
@@ -232,4 +234,8 @@ on('body', 'click', '.u_load_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
   console.log(parent.getAttribute("playlist-pk"))
   open_fullscreen("/music/load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
+});
+
+on('body', 'click', '.u_load_profile_playlist', function() {
+  list_block_load(".is_paginate", ".is_paginate", "/music/list/" + this.parentElement.parentElement.getAttribute("data-uuid") + "/")
 });

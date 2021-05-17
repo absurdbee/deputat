@@ -21,10 +21,10 @@ function profile_list_block_load(_this, target_block, response_block, link, acti
         elem_.innerHTML = request.responseText;
        document.body.querySelector(target_block).innerHTML = elem_.querySelector(response_block).innerHTML;
        init_music(document.body.querySelector(response_block));
-       class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_item")
+       class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
        for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add(actions_class, "pointer");
-         class_to_add[i].classList.remove("active_border");
+         class_to_add[i].parentElement.parentElement.parentElement.classList.remove("active_border");
        };
        parent = _this.parentElement.parentElement.parentElement;
        parent.querySelector(".list_svg").classList.remove(actions_class, "pointer");

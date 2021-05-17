@@ -28,13 +28,13 @@ class UserMusic(ListView):
         self.list = self.user.get_playlist()
         if self.user.pk == request.user.pk:
             self.music_list = self.list.get_my_playlist()
-            self.is_have_lists = self.list.is_have_my_lists(pk)
-            self.get_lists = self.list.get_my_lists(pk)
+            self.is_have_lists = self.list.is_have_user_staff_lists(pk)
+            self.get_lists = self.list.get_user_staff_lists(pk)
         else:
             self.music_list = self.list.get_playlist()
-            self.is_have_lists = self.list.is_have_lists(pk)
-            self.get_lists = self.list.get_lists(pk)
-        self.count_lists = self.list.get_lists_count(pk)
+            self.is_have_lists = self.list.is_have_user_lists(pk)
+            self.get_lists = self.list.get_user_lists(pk)
+        self.count_lists = self.list.get_user_lists_count(pk)
         if request.user.is_authenticated:
             self.template_name = get_template_user_item(self.list, "user_music/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
         else:

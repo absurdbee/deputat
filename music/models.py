@@ -184,38 +184,55 @@ class SoundList(models.Model):
             Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
-    def get_my_lists(cls, user_pk):
-        # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
-        query = Q(type="LIS") | Q(type="PRI")
-        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+    def get_user_staff_lists(cls, user_pk):
+        query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
+        query.add(~Q(Q(type__contains="_")|Q(type="MAI")), Q.AND)
         return cls.objects.filter(query)
-
     @classmethod
-    def is_have_my_lists(cls, user_pk):
-        # есть ли альбомы у request пользователя, кроме основного. И все добавленные альбомы.
-        query = Q(type="LIS") | Q(type="PRI")
-        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+    def is_have_user_staff_lists(cls, user_pk):
+        query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
+        query.add(~Q(Q(type__contains="_")|Q(type="MAI")), Q.AND)
         return cls.objects.filter(query).exists()
-
     @classmethod
-    def get_lists(cls, user_pk):
-        # это все альбомы пользователя - пользовательские. И все добавленные им альбомы.
-        query = Q(type="LIS")
-        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+    def get_user_lists(cls, user_pk):
+        query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
+        query.add(Q(type="LIS"), Q.AND)
         return cls.objects.filter(query).order_by("order")
-
     @classmethod
-    def is_have_lists(cls, user_pk):
-        # есть ли альбомы пользователя - пользовательские. И все добавленные им альбомы.
-        query = Q(type="LIS")
-        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+    def is_have_user_lists(cls, user_pk):
+        query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
+        query.add(Q(type="LIS"), Q.AND)
         return cls.objects.filter(query).exists()
+    @classmethod
+    def get_user_lists_count(cls, user_pk):
+        query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
+        query.add(Q(type="LIS"), Q.AND)
+        return cls.objects.filter(query).values("pk").count()
 
     @classmethod
-    def get_lists_count(cls, user_pk):
-        # это все альбомы у request пользователя, кроме основного. И все добавленные альбомы.
-        query = Q(type="LIS") | Q(type="PRI")
-        query.add(Q(Q(creator_id=user_pk)|Q(users__id=user_pk)), Q.AND)
+    def get_community_staff_lists(cls, community_pk):
+        query = Q(community_id=user_pk)|Q(communities__id=community_pk)
+        query.add(~Q(Q(type__contains="_")|Q(type="MAI")), Q.AND)
+        return cls.objects.filter(query)
+    @classmethod
+    def is_have_community_staff_lists(cls, community_pk):
+        query = Q(community_id=user_pk)|Q(communities__id=community_pk)
+        query.add(~Q(Q(type__contains="_")|Q(type="MAI")), Q.AND)
+        return cls.objects.filter(query).exists()
+    @classmethod
+    def get_community_lists(cls, community_pk):
+        query = Q(community_id=user_pk)|Q(communities__id=community_pk)
+        query.add(Q(type="LIS"), Q.AND)
+        return cls.objects.filter(query).order_by("order")
+    @classmethod
+    def is_have_community_lists(cls, community_pk):
+        query = Q(community_id=user_pk)|Q(communities__id=community_pk)
+        query.add(Q(type="LIS"), Q.AND)
+        return cls.objects.filter(query).exists()
+    @classmethod
+    def get_community_lists_count(cls, community_pk):
+        query = Q(community_id=user_pk)|Q(communities__id=community_pk)
+        query.add(Q(type="LIS"), Q.AND)
         return cls.objects.filter(query).values("pk").count()
 
     @classmethod

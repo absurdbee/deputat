@@ -20,15 +20,15 @@ class UserDocs(ListView):
 		pk = self.kwargs["pk"]
 		self.user = User.objects.get(pk=pk)
 		self.list = self.user.get_doc_list()
-		self.count_lists = self.list.get_lists_count(pk)
+		self.count_lists = self.list.get_user_lists_count(pk)
 		if self.user.pk == request.user.pk:
 			self.doc_list = self.list.get_my_docs()
-			self.is_have_lists = self.list.is_have_my_lists(pk)
-			self.get_lists = self.list.get_my_lists(pk)
+			self.is_have_lists = self.list.is_have_user_staff_lists(pk)
+			self.get_lists = self.list.get_user_staff_lists(pk)
 		else:
 			self.doc_list = self.list.get_docs()
-			self.is_have_lists = self.list.is_have_lists(pk)
-			self.get_lists = self.list.get_lists(pk)
+			self.is_have_lists = self.list.is_have_user_lists(pk)
+			self.get_lists = self.list.get_user_lists(pk)
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_docs/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
 		else:

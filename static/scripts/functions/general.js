@@ -19,7 +19,9 @@ function list_block_load(target_block, response_block, link) {
     if ( request.readyState == 4 && request.status == 200 ){
         elem_ = document.createElement('span');
         elem_.innerHTML = request.responseText;
-       target_block.innerHTML = elem_.querySelector(response_block).innerHTML
+       target_block.innerHTML = elem_.querySelector(response_block).innerHTML;
+       console.log("грузим блок " + target_block)
+       console.log("в блок " + target_block)
     }};
     request.send( null );
 }

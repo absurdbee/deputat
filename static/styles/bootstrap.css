@@ -6078,80 +6078,11 @@ a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {
 .border {
   border : 1px solid #D8D6DE !important;
 }
-.border:hover {
+.active_border {
   border : 1px solid #6B6D70 !important;
 }
-
-.border-top {
-  border-top : 1px solid #EBE9F1 !important;
-}
-
-.border-right {
-  border-right : 1px solid #EBE9F1 !important;
-}
-
-.border-bottom {
-  border-bottom : 1px solid #EBE9F1 !important;
-}
-
-.border-left {
-  border-left : 1px solid #EBE9F1 !important;
-}
-
-.border-0 {
-  border : 0 !important;
-}
-
-.border-top-0 {
-  border-top : 0 !important;
-}
-
-.border-right-0 {
-  border-right : 0 !important;
-}
-
-.border-bottom-0 {
-  border-bottom : 0 !important;
-}
-
-.border-left-0 {
-  border-left : 0 !important;
-}
-
-.border-primary {
-  border-color : #7367F0 !important;
-}
-
-.border-secondary {
-  border-color : #82868B !important;
-}
-
-.border-success {
-  border-color : #28C76F !important;
-}
-
-.border-info {
-  border-color : #00CFE8 !important;
-}
-
-.border-warning {
-  border-color : #FF9F43 !important;
-}
-
-.border-danger {
-  border-color : #EA5455 !important;
-}
-
-.border-light {
-  border-color : #F6F6F6 !important;
-}
-
-.border-dark {
-  border-color : #4B4B4B !important;
-}
-
-.border-white {
-  border-color : #FFFFFF !important;
+.border:hover {
+  border : 1px solid #6B6D70 !important;
 }
 
 .rounded-sm {

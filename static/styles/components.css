@@ -906,12 +906,6 @@ footer.footer-border {
   background : -webkit-linear-gradient(#FFFFFF 41%, rgba(255, 255, 255, 0.11) 95%, rgba(255, 255, 255, 0));
   background :         linear-gradient(#FFFFFF 41%, rgba(255, 255, 255, 0.11) 95%, rgba(255, 255, 255, 0));
 }
-
-.bordered-layout .main-menu .shadow-bottom {
-  background : -webkit-linear-gradient(#F8F8F8 41%, rgba(255, 255, 255, 0.11) 95%, rgba(255, 255, 255, 0));
-  background :         linear-gradient(#F8F8F8 41%, rgba(255, 255, 255, 0.11) 95%, rgba(255, 255, 255, 0));
-}
-
 .main-menu.menu-native-scroll .main-menu-content {
   overflow-y : scroll !important;
 }

@@ -22,8 +22,8 @@ function profile_list_block_load(_this, target_block, response_block, link, acti
        document.body.querySelector(target_block).innerHTML = elem_.querySelector(response_block).innerHTML;
        init_music(document.body.querySelector(response_block));
        class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll("." + actions_class)
-       for (var i = 0; i < actions_class.length; i++) {
-         actions_class[i].classList.add(actions_class, "pointer");
+       for (var i = 0; i < class_to_add.length; i++) {
+         class_to_add[i].classList.add(actions_class, "pointer");
        };
        parent = _this.parentElement.parentElement.parentElement;
        parent.querySector("svg").classList.remove(actions_class, "pointer");

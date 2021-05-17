@@ -100,9 +100,9 @@ class SoundList(models.Model):
         query = Q(status="PUB") | Q(status="MAN")
         return self.playlist.filter(query).values("pk").count()
 
-    def is_main_list(self):
+    def is_main(self):
         return self.type == self.MAIN
-    def is_user_list(self):
+    def is_list(self):
         return self.type == self.LIST
     def is_private(self):
         return self.type == self.PRIVATE

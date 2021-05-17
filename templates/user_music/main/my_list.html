@@ -18,7 +18,9 @@
     {% include 'user_music/main/my_lists.html' %}
 
     <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">Мои аудиозаписи ({{ playlist.count_tracks }})</h5>
+        <h5 class="mt-1" style="flex: 1;">Мои аудиозаписи ({{ playlist.count_tracks }}) -
+          <a class="pointer underline u_track_add">Добавить</a>
+        </h5>
     </div>
 
     <div class="row is_paginate no-gutters">

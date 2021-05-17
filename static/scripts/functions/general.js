@@ -10,7 +10,7 @@ function list_load(block, link) {
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   request.onreadystatechange = function () {if ( request.readyState == 4 && request.status == 200 ) {block.innerHTML = request.responseText;}};request.send( null );
 }
-function list_block_load(target_block, response_block, link) {
+function profile_list_block_load(_this, target_block, response_block, link, actions_class) {
   // грузим блок response_block по ссылке link в блок target_block
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   request.open( 'GET', link, true );
@@ -20,7 +20,16 @@ function list_block_load(target_block, response_block, link) {
         elem_ = document.createElement('span');
         elem_.innerHTML = request.responseText;
        document.body.querySelector(target_block).innerHTML = elem_.querySelector(response_block).innerHTML;
-       init_music(document.body.querySelector(response_block))
+       init_music(document.body.querySelector(response_block));
+       class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll("." + actions_class)
+       for (var i = 0; i < actions_class.length; i++) {
+         actions_class[i].classList.add(actions_class, "pointer");
+       };
+       parent = _this.parentElement.parentElement.parentElement;
+       parent.querySector("svg").classList.remove(actions_class, "pointer");
+       parent.querySector(".list_name").classList.remove(actions_class, "pointer");
+       parent.classList.remove("border");
+       parent.classList.add("active_border");
     }};
     request.send( null );
 }

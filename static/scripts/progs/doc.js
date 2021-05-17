@@ -91,7 +91,7 @@ on('body', 'click', '#u_edit_doc_list_btn', function() {
     title = form.querySelector('#id_name').value;
 
     list = document.body.querySelector(".list_active");
-    list.querySelector(".doc_name").innerHTML = title;
+    list.querySelector(".list_name").innerHTML = title;
     list.classList.remove("list_active");
     toast_success("Список изменен")
   }}

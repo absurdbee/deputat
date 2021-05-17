@@ -97,7 +97,7 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
     title = form.querySelector('#id_name').value;
 
     list = document.body.querySelector(".list_active");
-    list.querySelector(".playlist_name").innerHTML = title;
+    list.querySelector(".list_name").innerHTML = title;
     list.classList.remove("list_active");
     toast_success("Список изменен")
   }}
@@ -237,5 +237,6 @@ on('body', 'click', '.u_load_playlist', function() {
 });
 
 on('body', 'click', '.u_load_profile_playlist', function() {
-  list_block_load(".is_paginate", ".is_paginate", "/music/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/");
+  profile_list_block_load(this, ".is_paginate", ".is_paginate", "/music/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
+
 });

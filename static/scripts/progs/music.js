@@ -233,9 +233,9 @@ on('body', 'click', '.u_track_abort_remove', function() {
 on('body', 'click', '.u_load_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
   console.log(parent.getAttribute("playlist-pk"))
-  open_fullscreen("/music/load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/music/user_list/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
 });
 
 on('body', 'click', '.u_load_profile_playlist', function() {
-  list_block_load(".is_paginate", ".is_paginate", "/music/list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/")
+  list_block_load(".is_paginate", ".is_paginate", "/music/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/")
 });

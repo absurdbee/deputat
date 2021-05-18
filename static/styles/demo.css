@@ -1,6 +1,34 @@
 .audio-player:focus {
   outline : 0;
 }
+.badge.badge-light-danger {
+    background-color: rgba(234, 84, 85, 0.12);
+    color: #EA5455 !important;
+}
+.badge.badge-light-primary {
+    background-color: rgba(115, 103, 240, 0.12);
+    color: #7367F0 !important;
+}
+.badge.badge-light-secondary {
+    background-color: rgba(130, 134, 139, 0.12);
+    color: #82868B !important;
+}
+.badge.badge-light-success {
+    background-color: rgba(40, 199, 111, 0.12);
+    color: #28C76F !important;
+}
+.badge.badge-light-warning {
+    background-color: rgba(255, 159, 67, 0.12);
+    color: #FF9F43 !important;
+}
+.badge.badge-light-info {
+    background-color: rgba(0, 207, 232, 0.12);
+    color: #00CFE8 !important;
+}
+.badge.badge-light-dark {
+    background-color: rgba(75, 75, 75, 0.12);
+    color: #4B4B4B !important;
+}
 .centered{
   display: flex;
   align-items: center;

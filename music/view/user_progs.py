@@ -150,7 +150,7 @@ class UserPlaylistEdit(TemplateView):
 class UserPlaylistDelete(View):
     def get(self,request,*args,**kwargs):
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and list.creator.pk == request.user.pk and not list.type == SoundList.LIST:
+        if request.is_ajax() and list.creator.pk == request.user.pk and not list.type == SoundList.MAIN:
             list.delete_list()
             return HttpResponse()
         else:

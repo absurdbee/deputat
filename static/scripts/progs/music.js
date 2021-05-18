@@ -22,13 +22,7 @@ on('body', 'click', '.u_playlist_add', function() {
   open_fullscreen("/music/user_progs/create_list/", loader)
 });
 on('body', 'click', '.u_playlist_edit', function() {
-  list = document.body.querySelectorAll('.cover_block');
-  for (var i = 0; i < list.length; i++) {
-    list[i].classList.remove("list_active")
-  }
-  block = this.parentElement.parentElement.parentElement.parentElement;
-  block.classList.add("list_active");
-  uuid = block.getAttribute('data-uuid');
+  uuid = this.parentElement.parentElement.getAttribute('data-uuid');
   loader = document.getElementById("create_loader");
   open_fullscreen("/music/user_progs/edit_list/" + uuid + "/", loader)
 });
@@ -94,11 +88,10 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     close_create_window();
-    title = form.querySelector('#id_name').value;
-
-    list = document.body.querySelector(".list_active");
-    list.querySelector(".list_name").innerHTML = title;
-    list.classList.remove("list_active");
+    name = form.querySelector('#id_name').value;
+    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
+    list.querySelector('list_name').innerHTML = name;
+    document.body.querySelector('second_list_name').innerHTML = name;
     toast_success("Список изменен")
   }}
   link_.send(form_data);

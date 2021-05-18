@@ -54,8 +54,8 @@ on('body', 'click', '.u_playlist_abort_remove', function() {
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    _this.previousElementSibling.style.display = "block";
-    _this.previousElementSibling.previousElementSibling.style.display = "block";
+    _this.previousElementSibling.style.display = "unset";
+    _this.previousElementSibling.previousElementSibling.style.display = "unset";
     list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
     name = list.querySelector('.list_name').getAttribute("data-name");
     _this.parentElement.querySelector(".second_list_name").innerHTML = name;

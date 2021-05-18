@@ -5,7 +5,7 @@
 
 <div class="container mt-3 pk_saver" list-pk="{{ playlist.pk }}" data-uuid="{{ playlist.uuid }}">
     {% include 'user_music/main/lists.html' %}
-
+    <span class="load_block">
     <div class="media mt-3" style="padding-left: 7px;">
         <h5 class="mt-1">
           {{ playlist.name }} ({{ playlist.count_tracks }})
@@ -18,7 +18,6 @@
           <span class="pointer badge badge-light-warning u_playlist_claim">Пожаловаться</span>
         </h5>
     </div>
-
     <div class="row is_paginate no-gutters">
         {% if object_list %}
 
@@ -35,7 +34,7 @@
         </div>
         {% endif %}
     </div>
-
+    </span>
 </div>
 
 {% endblock %}

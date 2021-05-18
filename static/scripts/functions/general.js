@@ -84,7 +84,7 @@ on('body', 'click', '.menu_drop', function() {
 });
 
 function on_off_list_in_collections(_this, url, new_class, old_class, text) {
-  pk = _this.parentElement.parentElement.parentElement.getAttribute("list-pk");
+  pk = _this.parentElement.parentElement.parentElement.parentElement.getAttribute("list-pk");
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', url + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

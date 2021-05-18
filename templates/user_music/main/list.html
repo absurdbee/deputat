@@ -4,30 +4,19 @@
 {% block content %}
 
 <div class="container mt-3 pk_saver" list-pk="{{ playlist.pk }}" data-uuid="{{ playlist.uuid }}">
-      <div class="row no-gutters">
-          <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
-            <a class="btn btn-sm btn_default border ajax" href="{% url 'user' pk=user.pk %}" style="width: -webkit-fill-available;">
-              <svg fill="currentColor" class="svg_default" style="width: 19px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/></svg>
-            </a>
-          </div>
-            {% if playlist|is_user_can_add_list:request.user.pk %}
-            <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border u_copy_playlist" style="width: -webkit-fill-available;font-size: 19px;">Добавить</a>
-            </div>
-            {% elif request.user.pk in playlist.get_users_ids %}
-            <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border u_uncopy_playlist" style="width: -webkit-fill-available;font-size: 19px;">Удалить</a>
-            </div>
-            {% endif %}
-            <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border playlist_claim" style="width: -webkit-fill-available;font-size: 19px;">Жалоба</a>
-            </div>
-          </div>
-
     {% include 'user_music/main/lists.html' %}
 
-    <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">{{ playlist.name }} ({{ playlist.count_tracks }})</h5>
+    <div class="media mt-3" style="padding-left: 7px;">
+        <h5 class="mt-1">
+          {{ playlist.name }} ({{ playlist.count_tracks }})
+
+          {% if playlist|is_user_can_add_list:request.user.pk %}
+            <span class="pointer badge badge-light-success u_copy_playlist">Добавить список в коллекцию</span>
+          {% elif request.user.pk in playlist.get_users_ids %}
+            <span class="pointer badge badge-light-danger u_uncopy_playlist">Удалить список из коллекции</span>
+          {% endif %}
+          <span class="pointer badge badge-light-warning u_playlist_claim">Пожаловаться</span>
+        </h5>
     </div>
 
     <div class="row is_paginate no-gutters">
@@ -38,7 +27,7 @@
         {% endfor %}
 
         {% else %}
-        <div class="card centered item_empty"  style="width:100%;">
+        <div class="card centered item_empty">
           <div class="card-body">
           <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path fill='none' d='M0 0h24v24H0z'/><path d='M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z'/></svg>
           </div>

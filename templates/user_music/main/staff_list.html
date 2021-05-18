@@ -26,8 +26,17 @@
 
     {% include 'user_music/main/lists.html' %}
 
-    <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">Аудиозаписи {{ user.get_full_name_genitive }} ({{ playlist.count_tracks }})</h5>
+    <div class="media mt-3" style="padding-left: 7px;">
+        <h5 class="mt-1">
+          {{ playlist.name }} ({{ playlist.count_tracks }})
+
+          {% if playlist|is_user_can_add_list:request.user.pk %}
+            <span class="pointer badge badge-light-success u_copy_playlist">Добавить список в коллекцию</span>
+          {% elif request.user.pk in playlist.get_users_ids %}
+            <span class="pointer badge badge-light-danger u_uncopy_playlist">Удалить список из коллекции</span>
+          {% endif %}
+          <span class="pointer badge badge-light-warning u_close_playlist">♦ Закрыть</span>
+        </h5>
     </div>
 
     <div class="row is_paginate no-gutters">

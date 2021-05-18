@@ -31,7 +31,7 @@ on('body', 'click', '.u_playlist_remove', function() {
   media_list_delete(this, "/music/user_progs/delete_list/", "u_playlist_remove", "u_playlist_abort_remove")
 });
 on('body', 'click', '.u_playlist_abort_remove', function() {
-  media_list_recover(this, "/music/user_progs/delete_list/", "u_playlist_abort_remove", "u_playlist_remove")
+  media_list_recover(this, "/music/user_progs/abort_delete_list/", "u_playlist_abort_remove", "u_playlist_remove")
 });
 
 on('body', 'click', '#u_create_playlist_btn', function() {

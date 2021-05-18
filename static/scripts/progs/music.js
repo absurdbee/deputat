@@ -90,8 +90,8 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
     close_create_window();
     name = form.querySelector('#id_name').value;
     list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
-    list.querySelector('list_name').innerHTML = name;
-    document.body.querySelector('second_list_name').innerHTML = name;
+    list.querySelector('.list_name').innerHTML = name;
+    document.body.querySelector('.second_list_name').innerHTML = name;
     toast_success("Список изменен")
   }}
   link_.send(form_data);

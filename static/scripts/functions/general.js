@@ -29,8 +29,7 @@ function profile_list_block_load(_this, target_block, response_block, link, acti
        parent = _this.parentElement.parentElement.parentElement;
        parent.querySelector(".list_svg").classList.remove(actions_class, "pointer");
        parent.querySelector(".list_name").classList.remove(actions_class, "pointer");
-       parent.classList.remove("border");
-       parent.classList.add("active_border");
+       parent.classList.replace("border", "active_border");
     }};
     request.send( null );
 }

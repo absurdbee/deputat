@@ -111,7 +111,7 @@ a {
     margin-bottom: 0rem;
 }
 .underline {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 .nowrap {
   white-space: nowrap;

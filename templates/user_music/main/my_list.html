@@ -3,23 +3,11 @@
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ playlist.uuid }}">
-        <div class="row no-gutters">
-            <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
-                {% include 'generic/user/user_back.html' %}
-            </div>
-            <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border u_playlist_add" style="width: -webkit-fill-available;font-size: 19px;">+ список</a>
-            </div>
-            <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-                <a class="btn btn-sm border u_track_add" style="width: -webkit-fill-available;font-size: 19px;">+ трек</a>
-            </div>
-        </div>
-
     {% include 'user_music/main/my_lists.html' %}
 
-    <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-        <h5 class="mt-1" style="flex: 1;">Мои аудиозаписи ({{ playlist.count_tracks }}) -
-          <a class="pointer underline u_track_add">Добавить</a>
+    <div class="media mt-3" style="padding-left: 7px;">
+        <h5 class="mt-1" style="flex: 1;">{{ playlist.name }} ({{ playlist.count_tracks }}) -
+          <a class="pointer underline u_track_add">Добавить аудиозапись</a>
         </h5>
     </div>
 

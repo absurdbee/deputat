@@ -43,11 +43,9 @@ class UserGallery(ListView):
 		self.count_lists = self.list.get_user_lists_count(pk)
 		if pk == request.user.pk:
 			self.photo_list = self.list.get_staff_photos()
-			self.is_have_lists = self.list.is_have_user_staff_lists(pk)
 			self.get_lists = self.list.get_user_staff_lists(pk)
 		else:
 			self.photo_list = self.list.get_photos()
-			self.is_have_lists = self.list.is_have_user_lists(pk)
 			self.get_lists = self.list.get_user_lists(pk)
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_gallery/gallery/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
@@ -59,7 +57,6 @@ class UserGallery(ListView):
 		context = super(UserGallery,self).get_context_data(**kwargs)
 		context['user'] = self.user
 		context['list'] = self.list
-		context['is_have_lists'] = self.is_have_lists
 		context['get_lists'] = self.get_lists
 		context['count_lists'] = self.count_lists
 		return context

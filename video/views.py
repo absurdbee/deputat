@@ -46,11 +46,9 @@ class UserVideo(ListView):
         self.list = self.user.get_video_list()
         if self.user.pk == request.user.pk:
             self.video_list = self.list.get_my_videos()
-            self.is_have_lists = self.list.is_have_user_staff_lists(pk)
             self.get_lists = self.list.get_user_staff_lists(pk)
         else:
             self.video_list = self.list.get_videos()
-            self.is_have_lists = self.list.is_have_user_lists(pk)
             self.get_lists = self.list.get_user_lists(pk)
         self.count_lists = self.list.get_user_lists_count(pk)
         if request.user.is_authenticated:
@@ -61,7 +59,7 @@ class UserVideo(ListView):
 
     def get_context_data(self,**kwargs):
         c = super(UserVideo,self).get_context_data(**kwargs)
-        c['user'], c['list'], c['is_have_lists'], c['get_lists'], c['count_lists'] = self.user, self.list, self.is_have_lists, self.get_lists, self.count_lists
+        c['user'], c['list'], c['get_lists'], c['count_lists'] = self.user, self.list, self.get_lists, self.count_lists
         return c
 
     def get_queryset(self):

@@ -194,11 +194,11 @@ class SurveyList(models.Model):
             Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_item(self):
         from notify.models import Notify, Wall
-        if self.type == "TCLO":
+        if self.type == "_CLO":
             self.type = SurveyList.LIST
-        elif self.type == "TCLOM":
+        elif self.type == "_CLOM":
             self.type = SurveyList.MAIN
-        elif self.type == "TCLOM":
+        elif self.type == "_CLOM":
             self.type = SurveyList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
@@ -362,9 +362,9 @@ class Survey(models.Model):
             Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
     def restore_survey(self, community):
         from notify.models import Notify, Wall
-        if self.status == "TDEL":
+        if self.status == "_DEL":
             self.status = Survey.PUBLISHED
-        elif self.status == "TDELM":
+        elif self.status == "_DELM":
             self.status = Survey.MANAGER
         self.save(update_fields=['status'])
         if community:
@@ -393,9 +393,9 @@ class Survey(models.Model):
             Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
-        if self.status == "TCLO":
+        if self.status == "_CLO":
             self.status = Survey.PUBLISHED
-        elif self.status == "TCLOM":
+        elif self.status == "_CLOM":
             self.status = Survey.MANAGER
         self.save(update_fields=['status'])
         if community:

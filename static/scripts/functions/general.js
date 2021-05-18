@@ -10,6 +10,44 @@ function list_load(block, link) {
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   request.onreadystatechange = function () {if ( request.readyState == 4 && request.status == 200 ) {block.innerHTML = request.responseText;}};request.send( null );
 }
+
+function media_list_delete(_this, url, old_class, new_class) {
+  uuid = _this.parentElement.parentElement.getAttribute('data-uuid');
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', url + uuid + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    _this.previousElementSibling.style.display = "none";
+    _this.previousElementSibling.previousElementSibling.style.display = "none";
+    _this.parentElement.querySelector(".second_list_name").innerHTML = "Плейлист удален";
+    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
+    list.querySelector('.list_name').innerHTML = "Плейлист удален";
+    _this.classList.replace(old_class, new_class);
+    _this.innerHTML = "Восстановить список";
+  }}
+  link_.send();
+}
+function media_list_recover(_this, url, old_class, new_class) {
+  uuid = _this.parentElement.parentElement.getAttribute('data-uuid');
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', url + uuid + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    _this.previousElementSibling.style.display = "unset";
+    _this.previousElementSibling.previousElementSibling.style.display = "unset";
+    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
+    name = list.querySelector('.list_name').getAttribute("data-name");
+    _this.parentElement.querySelector(".second_list_name").innerHTML = name;
+    list.querySelector('.list_name').innerHTML = name;
+    _this.classList.replace(old_class, new_class);
+    _this.innerHTML = "Удалить список";
+  }}
+  link_.send();
+}
+
 function profile_list_block_load(_this, target_block, response_block, link, actions_class) {
   // грузим блок response_block по ссылке link в блок target_block
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

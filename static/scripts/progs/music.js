@@ -26,44 +26,12 @@ on('body', 'click', '.u_playlist_edit', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen("/music/user_progs/edit_list/" + uuid + "/", loader)
 });
+
 on('body', 'click', '.u_playlist_remove', function() {
-  _this = this;
-
-  uuid = _this.parentElement.parentElement.getAttribute('data-uuid');
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/music/user_progs/delete_list/" + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    _this.previousElementSibling.style.display = "none";
-    _this.previousElementSibling.previousElementSibling.style.display = "none";
-    _this.parentElement.querySelector(".second_list_name").innerHTML = "Плейлист удален";
-    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
-    list.querySelector('.list_name').innerHTML = "Плейлист удален";
-    _this.classList.replace("u_playlist_remove", "u_playlist_abort_remove");
-    _this.innerHTML = "Восстановить список";
-  }}
-  link_.send();
+  media_list_delete(this, "/music/user_progs/delete_list/", ".u_playlist_remove", ".u_playlist_abort_remove")
 });
 on('body', 'click', '.u_playlist_abort_remove', function() {
-  _this = this;
-  uuid = _this.parentElement.parentElement.getAttribute('data-uuid');
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/music/user_progs/abort_delete_list/" + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    _this.previousElementSibling.style.display = "unset";
-    _this.previousElementSibling.previousElementSibling.style.display = "unset";
-    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
-    name = list.querySelector('.list_name').getAttribute("data-name");
-    _this.parentElement.querySelector(".second_list_name").innerHTML = name;
-    list.querySelector('.list_name').innerHTML = name;
-    _this.classList.replace("u_playlist_abort_remove", "u_playlist_remove");
-    _this.innerHTML = "Удалить список";
-  }}
-  link_.send();
+  media_list_delete(this, "/music/user_progs/delete_list/", ".u_playlist_abort_remove", ".u_playlist_remove")
 });
 
 on('body', 'click', '#u_create_playlist_btn', function() {

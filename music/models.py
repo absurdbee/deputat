@@ -141,11 +141,11 @@ class SoundList(models.Model):
             Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
-        if self.type == "DEL":
+        if self.type == "_DEL":
             self.type = SoundList.LIST
-        elif self.type == "DELP":
+        elif self.type == "_DELP":
             self.type = SoundList.PRIVATE
-        elif self.type == "DELM":
+        elif self.type == "_DELM":
             self.type = SoundList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
@@ -170,13 +170,13 @@ class SoundList(models.Model):
             Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_list(self):
         from notify.models import Notify, Wall
-        if self.type == "CLO":
+        if self.type == "_CLO":
             self.type = SoundList.LIST
-        elif self.type == "CLOM":
+        elif self.type == "_CLOM":
             self.type = SoundList.MAIN
-        elif self.type == "CLOP":
+        elif self.type == "_CLOP":
             self.type = SoundList.PRIVATE
-        elif self.type == "CLOM":
+        elif self.type == "_CLOM":
             self.type = SoundList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():

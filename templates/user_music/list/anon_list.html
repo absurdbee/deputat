@@ -3,6 +3,13 @@
 {% block content %}
 
 <div class="container mt-3">
+  <div class="breadcrumb-wrapper">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>
+        <li class="breadcrumb-item"><a class="ajax" href="{% url 'user_music' pk=list.creator.pk %}">Аудиозаписи</a></li>
+        <li class="breadcrumb-item active">{{ list.name }} ({{ list.count_tracks }})</li>
+    </ol>
+  </div>
     <span class="load_block">
     <div class="media mt-3" style="padding-left: 7px;">
         <h5 class="mt-1">

@@ -45,7 +45,7 @@ on('body', 'click', '#u_create_playlist_btn', function() {
 });
 
 on('body', 'click', '#u_edit_playlist_btn', function() {
-  media_list_edit("/music/user_progs/edit_list/")
+  media_list_edit(this, "/music/user_progs/edit_list/")
 });
 
 on('body', 'click', '.u_add_track_in_list', function() {

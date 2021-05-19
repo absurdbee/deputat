@@ -11,7 +11,7 @@ function list_load(block, link) {
   request.onreadystatechange = function () {if ( request.readyState == 4 && request.status == 200 ) {block.innerHTML = request.responseText;}};request.send( null );
 }
 
-function media_list_edit(url) {
+function media_list_edit(_this, url) {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   if (!form.querySelector("#id_name").value){

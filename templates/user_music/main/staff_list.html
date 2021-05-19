@@ -8,7 +8,7 @@
     <span class="load_block">
     <div class="media mt-3" style="padding-left: 7px;">
         <h5 class="mt-1">
-          {{ list.name }} ({{ list.count_tracks }})
+          {{ list.name }} ({{ list.count_items }})
 
           {% if list|is_user_can_add_list:request.user.pk %}
             <span class="pointer badge badge-light-success u_copy_playlist">Добавить список в коллекцию</span>

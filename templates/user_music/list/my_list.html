@@ -7,13 +7,13 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>
         <li class="breadcrumb-item"><a class="ajax" href="{% url 'user_music' pk=list.creator.pk %}">Аудиозаписи</a></li>
-        <li class="breadcrumb-item active">{{ list.name }} ({{ list.count_tracks }})</li>
+        <li class="breadcrumb-item active">{{ list.name }} ({{ list.count_items }})</li>
     </ol>
   </div>
     <span class="load_block">
     <div class="media mt-3" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
         <h5 class="mt-1">
-          <span class="second_list_name">{{ list.name }}</span> ({{ list.count_tracks }})
+          <span class="second_list_name">{{ list.name }}</span> ({{ list.count_items }})
           <span class="pointer badge badge-light-success u_track_add">Добавить трек</span>
           {% if request.user.pk == list.creator.pk and not list.is_main %}
             <span class="pointer badge badge-light-secondary u_playlist_edit">Изменить список</span>

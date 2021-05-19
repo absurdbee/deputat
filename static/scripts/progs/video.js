@@ -15,16 +15,8 @@ on('body', 'click', '.u_video_edit', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen("/video/user_progs/edit_video/" + parent.getAttribute("data-pk") +"/", loader)
 });
-on('body', 'click', '.u_video_list_edit', function() {
-  list = document.body.querySelectorAll('.cover_block');
-  for (var i = 0; i < list.length; i++) {
-    list[i].classList.remove("list_active")
-  }
-  block = this.parentElement.parentElement.parentElement.parentElement;
-  block.classList.add("list_active");
-  uuid = block.getAttribute('data-uuid');
-  loader = document.getElementById("create_loader");
-  open_fullscreen("/video/user_progs/edit_list/" + uuid + "/", loader)
+on('body', 'click', '#u_edit_video_list_btn', function() {
+  media_list_edit(this, "/video/user_progs/edit_list/")
 });
 
 on('body', 'click', '.u_video_list_remove', function() {

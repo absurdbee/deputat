@@ -119,7 +119,7 @@ class DocList(models.Model):
     def is_user_can_delete_list(self, user_id):
         return self.creator.pk != user_id and user_id in self.get_users_ids()
 
-    def count_docs(self):
+    def count_items(self):
         return self.doc_list.filter(Q(status="PUB")|Q(status="PRI")).values("pk").count()
 
     def is_main_list(self):

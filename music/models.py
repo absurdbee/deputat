@@ -96,7 +96,7 @@ class SoundList(models.Model):
         )
         self.save()
 
-    def count_tracks(self):
+    def count_items(self):
         query = Q(status="PUB") | Q(status="MAN")
         return self.playlist.filter(query).values("pk").count()
 

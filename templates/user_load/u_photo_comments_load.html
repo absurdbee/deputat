@@ -33,7 +33,7 @@
                   <h6 class="u_load_photo_list text-white pointer">
                     <a class="create_ajax nowrap" data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}">{{ object.name }}</a>
                   </h6>
-                  <a data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}" class="text-white create_ajax count">{{ object.count_photo_ru }}</a>
+                  <a data-href="{% url 'u_photo_list_comment_load' uuid=object.uuid %}" class="text-white create_ajax count">{{ object.count_items }}</a>
 
                   <hr class="my-3">
                   <span class="photo_attach_list pointer text-white underline nowrap" data-pk="{{ object.pk }}">

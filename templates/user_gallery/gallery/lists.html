@@ -1,31 +1,57 @@
-{% if is_have_lists %}
-<div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-  <h5 class="mt-1" style="flex: 1;">Альбомы ({{ count_lists }})</h5>
+
+<div class="media mt-3" style="padding-left: 7px;">
+    <h5 class="mt-1" style="flex: 1;">Фотоальбомы
+      <a class="underline ajax" href="{% url 'user' pk=user.pk %}">
+        {{ user.get_full_name_genitive }}
+      </a>
+      ({{ count_lists }})
+    </h5>
 </div>
 <div class="row no-gutters" style="overflow-x: auto;">
-  <div class="col-12">
-  <ul style="width:max-content;list-style: none;">
-    {% for object in get_lists %}
-        <li class="list_item">
-          <div class="cover_block" data-pk="{{ user.pk }}" data-uuid="{{ object.uuid }}">
-              <div class="card rounded-0 border-0">
-                  <div class="card-header">
-                      <div class="media">
-                          <div class="media-body" style="white-space:nowrap;overflow:hidden;">
-                              <h6 class="mb-0">{{ object.name }}</h6>
-                          </div>
+    <div class="col-12">
+        <ul style="width:max-content;list-style: none;">
+          <li class="list_item">
+              <div class="card file-manager-item folder cover_block active_border" data-uuid="{{ list.uuid }}">
+                  <div class="card-img-top file-logo-wrapper">
+                      <div class="d-flex align-items-center justify-content-center w-100">
+                          <svg class="list_toggle list_svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
                       </div>
                   </div>
-                  <div class="card-body">
-                    <a href="{% url 'user_photo_list' uuid=object.uuid %}" class="ajax">
-                      <img style="object-fit: cover;height: 150px;width: 170px;" src="{{ object.get_cover_photo }}" />
-                    </a>
+                  <div class="card-body pt-0">
+                      <div class="content-wrapper">
+                          <p class="card-text file-name mb-0 list_name list_toggle" style="text-align: left;" data-name="{{ object.name }}">{{ list.name }}</p>
+                          <p class="card-text file-size mb-0">{{ list.count_items }}</p>
+                      </div>
+                      <small class="file-accessed">
+                        <a class="ajax underline" href="{% url 'user' pk=list.creator.pk %}">
+                          {{ list.creator.get_full_name }}
+                        </a>
+                      </small>
                   </div>
               </div>
-          </div>
-        </li>
-    {% endfor %}
-  </ul>
-  </div>
+          </li>
+            {% for object in get_lists %}
+            <li class="list_item">
+                <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
+                    <div class="card-img-top file-logo-wrapper">
+                        <div class="d-flex align-items-center justify-content-center w-100">
+                            <svg width="50" height="50" class="u_load_profile_photo_list pointer list_svg list_toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="content-wrapper">
+                            <p class="card-text file-name mb-0 list_name u_load_profile_photo_list pointer list_toggle" style="text-align: left;" data-name="{{ object.name }}">{{ object.name }}</p>
+                            <p class="card-text file-size mb-0">{{ object.count_items }}</p>
+                        </div>
+                        <small class="file-accessed">
+                          <a class="ajax underline" href="{% url 'user' pk=list.creator.pk %}">
+                            {{ object.creator.get_full_name }}
+                          </a>
+                        </small>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
-{% endif %}

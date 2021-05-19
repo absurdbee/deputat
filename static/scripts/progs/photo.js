@@ -32,28 +32,7 @@ on('body', 'click', '#u_create_photo_list_btn', function() {
 });
 
 on('body', 'click', '#u_edit_photo_list_btn', function() {
-  form = this.parentElement.parentElement.parentElement;
-  form_data = new FormData(form);
-  if (!form.querySelector("#id_name").value){
-    form.querySelector("#id_name").style.border = "1px #FF0000 solid";
-    toast_error("Название - обязательное поле!");
-  } else { this.disabled = true }
-  uuid = form.getAttribute("data-uuid")
-
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/gallery/user_progs/edit_list/" + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    close_create_window();
-    name = form.querySelector('#id_name').value;
-    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
-    list.querySelector('.list_name').innerHTML = name;
-    document.body.querySelector('.second_list_name').innerHTML = name;
-    toast_success("Список изменен")
-  }}
-  link_.send(form_data);
+  media_list_edit(this, "/gallery/user_progs/edit_list/")
 });
 
 on('body', 'change', '#u_photo_add', function() {

@@ -90,13 +90,13 @@ class PhotoList(models.Model):
     def get_first_photo(self):
         return self.photo_list.filter(status="PUB").first()
 
-    def count_photo(self):
+    def count_items(self):
         try:
             return self.photo_listm.filter(status="PUB").values("pk").count()
         except:
             return 0
-    def count_photo_ru(self):
-        count = self.count_photo()
+    def count_items_ru(self):
+        count = self.count_items()
         a = count % 10
         b = count % 100
         if (a == 1) and (b != 11):

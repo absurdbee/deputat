@@ -180,3 +180,7 @@ on('body', 'click', '.u_load_doc_list', function() {
   loader = document.getElementById("window_loader");
   open_fullscreen("/docs/load/" + pk + "/", loader)
 });
+
+on('body', 'click', '.u_load_profile_doc_list', function() {
+  profile_list_block_load(this, ".load_block", ".load_block", "/doc/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
+});

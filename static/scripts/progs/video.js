@@ -194,3 +194,7 @@ on('body', 'click', '.u_load_video_list', function() {
   loader = document.getElementById("window_loader");
   open_fullscreen("/video/load/" + pk + "/", loader)
 });
+
+on('body', 'click', '.u_load_profile_video_list', function() {
+  profile_list_block_load(this, ".load_block", ".load_block", "/video/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
+});

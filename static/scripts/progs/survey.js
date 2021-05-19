@@ -182,3 +182,7 @@ on('body', 'click', '.u_load_survey_list', function() {
   loader = document.getElementById("window_loader");
   open_fullscreen("/survey/load/" + pk + "/", loader)
 });
+
+on('body', 'click', '.u_load_profile_survey_list', function() {
+  profile_list_block_load(this, ".load_block", ".load_block", "/survey/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
+});

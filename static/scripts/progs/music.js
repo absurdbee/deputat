@@ -182,5 +182,4 @@ on('body', 'click', '.u_load_playlist', function() {
 
 on('body', 'click', '.u_load_profile_playlist', function() {
   profile_list_block_load(this, ".load_block", ".load_block", "/music/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
-
 });

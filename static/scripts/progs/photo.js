@@ -127,16 +127,7 @@ on('body', 'click', '.u_copy_photo_list', function() {
 on('body', 'click', '.u_uncopy_photo_list', function() {
   on_off_list_in_collections(this, "/gallery/user_progs/remove_list/", "u_add_photo_list", "u_remove_photo_list", "Добавить")
 });
-on('body', 'click', '.u_copy_playlist', function() {
-  on_off_list_in_collections(this, "/music/user_progs/add_list/", "u_uncopy_playlist", "u_copy_playlist", "Удалить")
-});
-on('body', 'click', '.u_uncopy_playlist', function() {
-  on_off_list_in_collections(this, "/music/user_progs/remove_list/", "u_copy_playlist", "u_uncopy_playlist", "Добавить")
-});
 
-on('body', 'click', '.u_copy_doc_list', function() {
-  on_off_list_in_collections(this, "/docs/user_progs/add_list/", "u_uncopy_doc_list", "u_copy_doc_list", "Удалить")
-});
-on('body', 'click', '.u_uncopy_doc_list', function() {
-  on_off_list_in_collections(this, "/docs/user_progs/remove_list/", "u_copy_doc_list", "u_uncopy_doc_list", "Добавить")
+on('body', 'click', '.u_load_profile_photo_list', function() {
+  profile_list_block_load(this, ".load_block", ".load_block", "/gallery/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
 });

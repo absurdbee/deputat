@@ -12,12 +12,12 @@ function list_load(block, link) {
 }
 
 function media_list_edit(_this, url) {
-  form = this.parentElement.parentElement.parentElement;
+  form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   if (!form.querySelector("#id_name").value){
     form.querySelector("#id_name").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!");
-  } else { this.disabled = true }
+  } else { _this.disabled = true }
   uuid = form.getAttribute("data-uuid")
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

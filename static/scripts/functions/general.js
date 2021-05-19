@@ -29,6 +29,7 @@ function media_list_edit(_this, url) {
     close_create_window();
     name = form.querySelector('#id_name').value;
     list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
+    list.querySelector('.list_name') ? list.querySelector('.list_name').innerHTML = name : null;
     list.querySelector('.list_name').innerHTML = name;
     document.body.querySelector('.second_list_name').innerHTML = name;
     toast_success("Список изменен")

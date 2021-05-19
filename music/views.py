@@ -55,11 +55,9 @@ class UserMusicList(ListView):
         from music.models import SoundList
         from common.templates import get_template_user_item, get_template_anon_user_item
 
-        self.list, self.not_is_main = SoundList.objects.get(uuid=self.kwargs["uuid"]), None
+        self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
         if self.list.creator.pk == request.user.pk:
             self.music_list = self.list.get_my_playlist()
-            if not self.list.is_main:
-                self.not_is_main = 1
         else:
             self.music_list = self.list.get_playlist()
         if request.user.is_authenticated:
@@ -70,7 +68,7 @@ class UserMusicList(ListView):
 
     def get_context_data(self,**kwargs):
         context = super(UserMusicList,self).get_context_data(**kwargs)
-        context['user'], context['playlist'], context['not_is_main'] = self.list.creator, self.list, self.not_is_main
+        context['user'], context['playlist'] = self.list.creator, self.list
         return context
 
     def get_queryset(self):

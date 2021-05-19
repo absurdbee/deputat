@@ -1,14 +1,20 @@
 {% extends "base.html" %}
-{% block title %}{{ playlist.name }} | Мои аудиозаписи{% endblock %}
+{% block title %}{{ list.name }} | Мои аудиозаписи{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ playlist.uuid }}">
+<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
+  <div class="breadcrumb-wrapper">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>
+        <li class="breadcrumb-item"><a class="ajax" href="{% url 'user_music' pk=list.creator.pk %}">Аудиозаписи</a></li>
+        <li class="breadcrumb-item active">{{ list.name }} ({{ list.count_tracks }})</li>
+    </ol>
+  </div>
     <span class="load_block">
-    <div class="media mt-3" data-uuid="{{ playlist.uuid }}" style="padding-left: 7px;">
+    <div class="media mt-3" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
         <h5 class="mt-1">
-          <span class="second_list_name">{{ playlist.name }}</span> ({{ playlist.count_tracks }})
           <span class="pointer badge badge-light-success u_track_add">Добавить трек</span>
-          {% if request.user.pk == playlist.creator.pk and not list.is_main %}
+          {% if request.user.pk == list.creator.pk and not list.is_main %}
             <span class="pointer badge badge-light-secondary u_playlist_edit">Изменить список</span>
             <span class="pointer badge badge-light-danger u_playlist_remove">Удалить список</span>
           {% endif %}

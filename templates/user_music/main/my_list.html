@@ -2,12 +2,12 @@
 {% block title %}Мои аудиозаписи{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ playlist.uuid }}">
+<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
     {% include 'user_music/main/my_lists.html' %}
 
     <span class="load_block">
     <div class="media mt-3" style="padding-left: 7px;">
-        <h5 class="mt-1">{{ playlist.name }} ({{ playlist.count_tracks }})
+        <h5 class="mt-1">{{ list.name }} ({{ list.count_tracks }})
           <span class="pointer badge badge-light-success u_track_add">Добавить трек</span>
         </h5>
     </div>

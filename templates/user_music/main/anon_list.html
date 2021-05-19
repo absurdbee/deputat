@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ playlist.name }} | Аудиозаписи {{ user.get_full_name_genitive }}{% endblock %}
+{% block title %}{{ list.name }} | Аудиозаписи {{ user.get_full_name_genitive }}{% endblock %}
 {% block content %}
 
 <div class="container mt-3">
@@ -8,7 +8,7 @@
     <span class="load_block">
     <div class="media mt-3" style="padding-left: 7px;">
         <h5 class="mt-1">
-          {{ playlist.name }} ({{ playlist.count_tracks }})
+          {{ list.name }} ({{ list.count_tracks }})
           <span class="pointer badge badge-light-primary copy_link">Копировать ссылку</span>
         </h5>
     </div>

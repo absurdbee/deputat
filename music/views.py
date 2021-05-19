@@ -41,7 +41,7 @@ class UserMusic(ListView):
 
     def get_context_data(self,**kwargs):
         c = super(UserMusic,self).get_context_data(**kwargs)
-        c['user'], c['playlist'], c['get_lists'], c['count_lists'] = self.user, self.list, self.get_lists, self.count_lists
+        c['user'], c['list'], c['get_lists'], c['count_lists'] = self.user, self.list, self.get_lists, self.count_lists
         return c
 
     def get_queryset(self):
@@ -68,7 +68,7 @@ class UserMusicList(ListView):
 
     def get_context_data(self,**kwargs):
         context = super(UserMusicList,self).get_context_data(**kwargs)
-        context['user'], context['playlist'] = self.list.creator, self.list
+        context['user'], context['list'] = self.list.creator, self.list
         return context
 
     def get_queryset(self):
@@ -94,7 +94,7 @@ class UserLoadPlaylist(ListView):
 
     def get_context_data(self,**kwargs):
         context = super(UserLoadPlaylist,self).get_context_data(**kwargs)
-        context['playlist'] = self.list
+        context['list'] = self.list
         return context
 
     def get_queryset(self):

@@ -122,7 +122,7 @@ class PhotoList(models.Model):
     @classmethod
     def create_list(cls, creator, name, description, order, community, is_public):
         from notify.models import Notify, Wall
-        from common.processing.photo import get_photo_list_processing
+        from common.processing import get_photo_list_processing
         if not order:
             order = 1
         if community:
@@ -299,7 +299,7 @@ class Photo(models.Model):
 
     @classmethod
     def create_photo(cls, creator, image, list):
-        from common.processing.photo import get_photo_processing
+        from common.processing import get_photo_processing
 
         photo = cls.objects.create(creator=creator,preview=image,file=image)
         list.photo_list.add(photo)

@@ -220,7 +220,7 @@ class SoundList(models.Model):
     @classmethod
     def create_list(cls, creator, name, description, order, community, is_public):
         from notify.models import Notify, Wall
-        from common.processing.music import get_playlist_processing
+        from common.processing import get_playlist_processing
         if not order:
             order = 1
         if community:
@@ -340,7 +340,7 @@ class Music(models.Model):
 
     @classmethod
     def create_track(cls, creator, title, file, lists, is_public, community):
-        from common.processing.music import get_music_processing
+        from common.processing import get_music_processing
 
         if not lists:
             from rest_framework.exceptions import ValidationError

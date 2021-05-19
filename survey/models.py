@@ -117,7 +117,7 @@ class SurveyList(models.Model):
     @classmethod
     def create_list(cls, creator, name, description, order, community, is_public):
         from notify.models import Notify, Wall
-        from common.processing.survey import get_survey_list_processing
+        from common.processing import get_survey_list_processing
         if not order:
             order = 1
         if community:
@@ -141,7 +141,7 @@ class SurveyList(models.Model):
         get_survey_list_processing(list, SurveyList.LIST)
         return list
     def edit_list(self, name, description, order, is_public):
-        from common.processing.survey import get_survey_list_processing
+        from common.processing import get_survey_list_processing
         if not order:
             order = 1
         self.name = name
@@ -262,7 +262,7 @@ class Survey(models.Model):
 
     @classmethod
     def create_survey(cls, title, image, lists, creator, order, is_anonymous, is_multiple, is_no_edited, time_end, answers, community):
-        from common.processing.survey import get_survey_processing
+        from common.processing import get_survey_processing
 
         if not lists:
             from rest_framework.exceptions import ValidationError
@@ -296,7 +296,7 @@ class Survey(models.Model):
         return survey
 
     def edit_survey(self, title, image, lists, order, is_anonymous, is_multiple, is_no_edited, time_end, answers):
-        from common.processing.survey  import get_survey_processing
+        from common.processing  import get_survey_processing
 
         get_survey_processing(self, Survey.PUBLISHED)
         self.title = title

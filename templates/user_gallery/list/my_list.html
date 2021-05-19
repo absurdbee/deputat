@@ -12,18 +12,18 @@
   </div>
 <span class="load_block">
 <div class="media mt-3" style="padding-left: 7px;">
-  <h5 class="mt-1" style="flex: 1;">
+  <form id="add_photos">
+    {% csrf_token %}
+  <h5 class="mt-1">
     {{ list.name }} ({{ list.count_items }})
-    <form id="add_photos">
-      {% csrf_token %}
       <input type="file" id="u_photo_add" name="file" style="display:none" multiple="multiple">
       <span class="pointer badge badge-light-success previous_click">Добавить фото</span>
       {% if request.user.pk == list.creator.pk and not list.is_main %}
       <span class="pointer badge badge-light-secondary u_photo_list_edit">Изменить список</span>
       <span class="pointer badge badge-light-danger u_photo_list_remove">Удалить список</span>
       {% endif %}
-    </form>
   </h5>
+  </form>
 </div>
 
 <div class="row is_paginate no-gutters" id="photos_container"">

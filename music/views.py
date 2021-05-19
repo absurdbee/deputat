@@ -59,7 +59,7 @@ class UserMusicList(ListView):
         if self.list.creator.pk == request.user.pk:
             self.music_list = self.list.get_my_playlist()
             if not self.list.is_main:
-                self.not_is_main = True
+                self.not_is_main = 1
         else:
             self.music_list = self.list.get_playlist()
         if request.user.is_authenticated:

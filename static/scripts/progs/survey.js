@@ -26,40 +26,12 @@ on('body', 'click', '.u_survey_list_edit', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen("/survey/user_progs/edit_list/" + uuid + "/", loader)
 });
+
 on('body', 'click', '.u_survey_list_remove', function() {
-  block = this.parentElement.parentElement.parentElement.parentElement;
-  this.parentElement.parentElement.style.display = "none";
-
-  uuid = block.getAttribute('data-uuid');
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/survey/user_progs/delete_list/" + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    a = block.querySelector(".content-wrapper");
-    e = a.querySelector(".file-name");
-    e.classList.add("u_survey_list_abort_remove", "pointer");
-    e.innerHTML = "Восстановить";
-    a.nextElementSibling.innerHTML = "Удалённый"
-  }}
-  link_.send();
+  media_list_delete(this, "/survey/user_progs/delete_list/", "u_survey_list_remove", "u_survey_list_abort_remove")
 });
 on('body', 'click', '.u_survey_list_abort_remove', function() {
-  _this = this;
-  block = this.parentElement.parentElement.parentElement.parentElement;
-  block.querySelector(".dropdown").style.display = "block";
-  uuid = block.getAttribute('data-uuid');
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/survey/user_progs/abort_delete_list/" + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    _this.classList.remove("u_survey_list_abort_remove", "pointer");
-    _this.innerHTML = _this.getAttribute("data-name");
-    _this.parentElement.nextElementSibling.innerHTML = "Приватный"
-  }}
-  link_.send();
+  media_list_recover(this, "/survey/user_progs/abort_delete_list/", "u_survey_list_abort_remove", "u_survey_list_remove")
 });
 
 on('body', 'click', '#u_create_survey_list_btn', function() {
@@ -88,11 +60,10 @@ on('body', 'click', '#u_edit_survey_list_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     close_create_window();
-    title = form.querySelector('#id_name').value;
-
-    list = document.body.querySelector(".list_active");
-    list.querySelector(".survey_name").innerHTML = title;
-    list.classList.remove("list_active");
+    name = form.querySelector('#id_name').value;
+    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
+    list.querySelector('.list_name').innerHTML = name;
+    document.body.querySelector('.second_list_name').innerHTML = name;
     toast_success("Список изменен")
   }}
   link_.send(form_data);

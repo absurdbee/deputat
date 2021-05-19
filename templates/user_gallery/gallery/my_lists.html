@@ -13,19 +13,8 @@
                   <div class="card-header">
                       <div class="media">
                           <div class="media-body" style="white-space:nowrap;overflow:hidden;">
-                              <h6 class="mb-0">{{ object.title }}</h6>
+                              <h6 class="mb-0">{{ object.name }}</h6>
                           </div>
-                          {% if object.creator.pk == request.user.pk %}
-                          <div class="dropdown" style="right: 35px;position: absolute;top: 20px;">
-                              <a style="cursor:pointer;width:18px;position: absolute;right: -25px;">
-                                <svg class="svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                              </a>
-                              <div class="dropdown-menu" style="left: -100px;top: 15px;">
-                                  <span class="dropdown-item pointer u_photo_list_edit">Изменить</span>
-                                  <span class="dropdown-item pointer u_photo_list_remove">Удалить</span>
-                              </div>
-                          </div>
-                          {% endif %}
                       </div>
                   </div>
                   <div class="card-body">

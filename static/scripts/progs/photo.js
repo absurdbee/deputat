@@ -13,36 +13,12 @@ on('body', 'click', '.u_photo_list_edit', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen("/gallery/user_progs/edit_list/" + uuid + "/", loader)
 });
-on('body', 'click', '.u_photo_list_remove', function() {
-  block = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-  uuid = block.getAttribute('data-uuid');
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/gallery/user_progs/delete_list/" + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    block.querySelector(".card").style.display = "none";
-    $block = document.createElement("div");
-    $block.classList.add("card", "delete_card");
-    $block.innerHTML = '<div class="card-header"><div class="media"><div class="media-body"><h6 class="mb-0 u_list_abort_remove pointer">Восстановить</h6></div></div></div><div class="card-body"><a><img style="object-fit: cover;height: 150px;width: 170px;" src="/static/images/list.jpg" /></a></div>'
-    block.append($block);
-  }}
-  link_.send();
+on('body', 'click', '.u_photo_list_remove', function() {
+  media_list_delete(this, "/gallery/user_progs/delete_list/", "u_photo_list_remove", "u_photo_list_abort_remove")
 });
 on('body', 'click', '.u_photo_list_abort_remove', function() {
-  block = this.parentElement.parentElement.parentElement.parentElement.parentElement;
-  uuid = block.getAttribute('data-uuid');
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/gallery/user_progs/abort_delete_list/" + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    block.querySelector(".delete_card").remove();
-    block.querySelector(".card").style.display = "block";
-  }}
-  link_.send();
+  media_list_recover(this, "/gallery/user_progs/abort_delete_list/", "u_photo_list_abort_remove", "u_photo_list_remove")
 });
 
 on('body', 'click', '#u_create_photo_list_btn', function() {
@@ -70,13 +46,12 @@ on('body', 'click', '#u_edit_photo_list_btn', function() {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    title = form.querySelector('#id_name').value;
-
-    list = document.body.querySelector(".list_active");
-    list.querySelector("h6").innerHTML = title;
-    list.classList.remove("list_active");
     close_create_window();
-    toast_success("Альбом изменен")
+    name = form.querySelector('#id_name').value;
+    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
+    list.querySelector('.list_name').innerHTML = name;
+    document.body.querySelector('.second_list_name').innerHTML = name;
+    toast_success("Список изменен")
   }}
   link_.send(form_data);
 });

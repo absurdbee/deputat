@@ -11,6 +11,30 @@ function list_load(block, link) {
   request.onreadystatechange = function () {if ( request.readyState == 4 && request.status == 200 ) {block.innerHTML = request.responseText;}};request.send( null );
 }
 
+function media_list_edit(url) {
+  form = this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+  if (!form.querySelector("#id_name").value){
+    form.querySelector("#id_name").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!");
+  } else { this.disabled = true }
+  uuid = form.getAttribute("data-uuid")
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', url + uuid + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    close_create_window();
+    name = form.querySelector('#id_name').value;
+    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
+    list.querySelector('.list_name').innerHTML = name;
+    document.body.querySelector('.second_list_name').innerHTML = name;
+    toast_success("Список изменен")
+  }}
+  link_.send(form_data);
+}
 function media_list_delete(_this, url, old_class, new_class) {
   uuid = _this.parentElement.parentElement.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

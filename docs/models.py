@@ -11,15 +11,11 @@ from django.dispatch import receiver
 
 class DocList(models.Model):
     MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
-
     DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
-
     CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CLOM', '_CLOMA'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
-
         (DELETED, 'Удалённый'),(DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),
-
         (CLOSED, 'Закрытый менеджером'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MAIN, 'Закрытый основной'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     name = models.CharField(max_length=255)
@@ -210,6 +206,7 @@ class DocList(models.Model):
     def get_user_staff_lists(cls, user_pk):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         query.add(~Q(type__contains="_"), Q.AND)
+        query.add(~Q(Q(type="MAI")&Q(creator_id=user_pk)), Q.AND)
         return cls.objects.filter(query)
     @classmethod
     def get_user_lists(cls, user_pk):
@@ -224,17 +221,18 @@ class DocList(models.Model):
 
     @classmethod
     def get_community_staff_lists(cls, community_pk):
-        query = Q(community_id=user_pk)|Q(communities__id=community_pk)
+        query = Q(community_id=community_pk)|Q(communities__id=community_pk)
         query.add(~Q(type__contains="_"), Q.AND)
+        query.add(~Q(Q(type="MAI")&Q(community_id=community_id)), Q.AND)
         return cls.objects.filter(query)
     @classmethod
     def get_community_lists(cls, community_pk):
-        query = Q(community_id=user_pk)|Q(communities__id=community_pk)
+        query = Q(community_id=community_pk)|Q(communities__id=community_pk)
         query.add(Q(Q(type="MAI")|Q(type="LIS")), Q.AND)
         return cls.objects.filter(query).order_by("order")
     @classmethod
     def get_community_lists_count(cls, community_pk):
-        query = Q(community_id=user_pk)|Q(communities__id=community_pk)
+        query = Q(community_id=community_pk)|Q(communities__id=community_pk)
         query.add(Q(Q(type="MAI")|Q(type="LIS")), Q.AND)
         return cls.objects.filter(query).values("pk").count()
 

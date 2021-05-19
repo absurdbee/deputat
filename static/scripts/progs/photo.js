@@ -121,10 +121,10 @@ on('body', 'click', '.u_load_photo_list', function() {
   open_fullscreen("/gallery/load_list/" + pk + "/", loader)
 });
 
-on('body', 'click', '.u_add_photo_list', function() {
+on('body', 'click', '.u_copy_photo_list', function() {
   on_off_list_in_collections(this, "/gallery/user_progs/add_list/", "u_remove_photo_list", "u_add_photo_list", "Удалить")
 });
-on('body', 'click', '.u_remove_photo_list', function() {
+on('body', 'click', '.u_uncopy_photo_list', function() {
   on_off_list_in_collections(this, "/gallery/user_progs/remove_list/", "u_add_photo_list", "u_remove_photo_list", "Добавить")
 });
 on('body', 'click', '.u_copy_playlist', function() {

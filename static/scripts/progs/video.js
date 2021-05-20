@@ -33,7 +33,7 @@ on('body', 'click', '#u_create_video_list_btn', function() {
     form.querySelector("#id_name").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!");
   } else { this.disabled = true }
-  post_and_load_object_page(form, "/video/user_progs/add_list/", "/video/list/", "/");
+  post_and_load_object_page(form, "/video/user_progs/add_list/", "/video/user_list/", "/");
 });
 
 on('body', 'click', '#u_edit_video_list_btn', function() {

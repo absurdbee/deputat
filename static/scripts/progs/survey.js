@@ -41,7 +41,7 @@ on('body', 'click', '#u_create_survey_list_btn', function() {
     form.querySelector("#id_name").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!");
   } else { this.disabled = true }
-  post_and_load_object_page(form, "/survey/user_progs/add_list/", "/survey/list/", "/");
+  post_and_load_object_page(form, "/survey/user_progs/add_list/", "/survey/user_list/", "/");
 });
 
 

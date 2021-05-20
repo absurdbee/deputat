@@ -194,7 +194,12 @@ class SoundList(models.Model):
     def get_user_lists(cls, user_pk):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         query.add(Q(type="LIS"), Q.AND)
-        return cls.objects.filter(query).order_by("order")
+        return cls.objects.filter(query)
+    @classmethod
+    def is_have_user_lists(cls, user_pk):
+        query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
+        query.add(Q(type="LIS"), Q.AND)
+        return cls.objects.filter(query).exists()
     @classmethod
     def get_user_lists_count(cls, user_pk):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)

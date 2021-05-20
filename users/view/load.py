@@ -3,16 +3,17 @@ from common.templates import get_my_template
 
 
 class UserLoadPhoto(ListView):
-	template_name, paginate_by = None, 15
+	template_name, paginate_by, get_lists, is_have_lists = None, 15, None, None
 
 	def get(self,request,*args,**kwargs):
 		self.list, self.template_name = request.user.get_photo_list(), get_my_template("user_load/u_photo_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.get_lists = self.list.get_user_lists(request.user.pk)
+		if self.list.is_have_user_lists(request.user.pk):
+			self.get_lists, self.is_have_lists = self.list.get_user_lists(request.user.pk), True
 		return super(UserLoadPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadPhoto,self).get_context_data(**kwargs)
-		context['get_list'] = self.get_lists
+		context['get_list'], context['is_have_lists'] = self.get_list, self.is_have_lists
 		return context
 
 	def get_queryset(self):
@@ -35,16 +36,17 @@ class UserLoadPhotoList(ListView):
 		return self.list.get_photos()
 
 class UserLoadPhotoComment(ListView):
-	template_name, paginate_by = None, 15
+	template_name, paginate_by, get_lists, is_have_lists = None, 15, None, None
 
 	def get(self,request,*args,**kwargs):
 		self.list, self.template_name = request.user.get_photo_list(), get_my_template("user_load/u_photo_comments_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.get_lists = self.list.get_user_lists(request.user.pk)
+		if self.list.is_have_user_lists(request.user.pk):
+			self.get_lists, self.is_have_lists = self.list.get_user_lists(request.user.pk), True
 		return super(UserLoadPhotoComment,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadPhotoComment,self).get_context_data(**kwargs)
-		context['get_lists'] = self.get_lists
+		context['get_list'], context['is_have_lists'] = self.get_list, self.is_have_lists
 		return context
 
 	def get_queryset(self):
@@ -102,16 +104,17 @@ class UserLoadVideoList(ListView):
 
 
 class UserLoadMusic(ListView):
-	template_name, paginate_by = None, 15
+	template_name, paginate_by, get_lists, is_have_lists = None, 15, None, None
 
 	def get(self,request,*args,**kwargs):
 		self.playlist, self.template_name = request.user.get_playlist(), get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.get_lists = self.playlist.get_user_lists(request.user.pk)
+		if self.list.is_have_user_lists(request.user.pk):
+			self.get_lists, self.is_have_lists = self.list.get_user_lists(request.user.pk), True
 		return super(UserLoadMusic,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadMusic,self).get_context_data(**kwargs)
-		context['get_lists'] = self.get_lists
+		context['get_list'], context['is_have_lists'] = self.get_list, self.is_have_lists
 		return context
 
 	def get_queryset(self):
@@ -136,16 +139,17 @@ class UserLoadMusicList(ListView):
 
 
 class UserLoadDoc(ListView):
-	template_name, paginate_by = None, 15
+	template_name, paginate_by, get_lists, is_have_lists = None, 15, None, None
 
 	def get(self,request,*args,**kwargs):
 		self.list, self.template_name = request.user.get_doc_list(), get_my_template("user_load/u_doc_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.get_lists = self.list.get_user_lists(request.user.pk)
+		if self.list.is_have_user_lists(request.user.pk):
+			self.get_lists, self.is_have_lists = self.list.get_user_lists(request.user.pk), True
 		return super(UserLoadDoc,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadDoc,self).get_context_data(**kwargs)
-		context['get_lists'] = self.get_lists
+		context['get_list'], context['is_have_lists'] = self.get_list, self.is_have_lists
 		return context
 
 	def get_queryset(self):

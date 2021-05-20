@@ -13,7 +13,7 @@ class UserLoadPhoto(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadPhoto,self).get_context_data(**kwargs)
-		context['get_list'], context['is_have_lists'] = self.get_list, self.is_have_lists
+		context['get_lists'], context['is_have_lists'] = self.get_lists, self.is_have_lists
 		return context
 
 	def get_queryset(self):
@@ -46,7 +46,7 @@ class UserLoadPhotoComment(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadPhotoComment,self).get_context_data(**kwargs)
-		context['get_list'], context['is_have_lists'] = self.get_list, self.is_have_lists
+		context['get_lists'], context['is_have_lists'] = self.get_lists, self.is_have_lists
 		return context
 
 	def get_queryset(self):
@@ -114,7 +114,7 @@ class UserLoadMusic(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadMusic,self).get_context_data(**kwargs)
-		context['get_list'], context['is_have_lists'] = self.get_list, self.is_have_lists
+		context['get_lists'], context['is_have_lists'] = self.get_lists, self.is_have_lists
 		return context
 
 	def get_queryset(self):
@@ -149,7 +149,7 @@ class UserLoadDoc(ListView):
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadDoc,self).get_context_data(**kwargs)
-		context['get_list'], context['is_have_lists'] = self.get_list, self.is_have_lists
+		context['get_lists'], context['is_have_lists'] = self.get_lists, self.is_have_lists
 		return context
 
 	def get_queryset(self):

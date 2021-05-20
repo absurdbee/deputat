@@ -107,7 +107,7 @@ class UserLoadMusic(ListView):
 	template_name, paginate_by, get_lists, is_have_lists = None, 15, None, None
 
 	def get(self,request,*args,**kwargs):
-		self.playlist, self.template_name = request.user.get_playlist(), get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.list, self.template_name = request.user.get_playlist(), get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		if self.list.is_have_user_lists(request.user.pk):
 			self.get_lists, self.is_have_lists = self.list.get_user_lists(request.user.pk), True
 		return super(UserLoadMusic,self).get(request,*args,**kwargs)
@@ -118,24 +118,24 @@ class UserLoadMusic(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.playlist.get_playlist().order_by('-created')
+		return self.list.get_playlist().order_by('-created')
 
 class UserLoadMusicList(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
 		from music.models import SoundList
-		self.playlist = SoundList.objects.get(uuid=self.kwargs["uuid"])
+		self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
 		self.template_name = get_my_template("user_load/u_music_list_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadMusicList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadMusicList,self).get_context_data(**kwargs)
-		context["playlist"] = self.playlist
+		context["playlist"] = self.list
 		return context
 
 	def get_queryset(self):
-		return self.playlist.get_playlist()
+		return self.list.get_playlist()
 
 
 class UserLoadDoc(ListView):

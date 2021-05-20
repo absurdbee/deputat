@@ -178,9 +178,9 @@ on('body', 'click', '.u_load_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("doclist-pk");
   loader = document.getElementById("window_loader");
-  open_fullscreen("/docs/load/" + pk + "/", loader)
+  open_fullscreen("/docs/user_load/" + pk + "/", loader)
 });
 
 on('body', 'click', '.u_load_profile_doc_list', function() {
-  profile_list_block_load(this, ".load_block", ".load_block", "/doc/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
+  profile_list_block_load(this, ".load_block", ".load_block", "/doc/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_doc_list");
 });

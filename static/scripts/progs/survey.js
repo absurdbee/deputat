@@ -180,9 +180,9 @@ on('body', 'click', '.u_load_survey_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("surveylist-pk");
   loader = document.getElementById("window_loader");
-  open_fullscreen("/survey/load/" + pk + "/", loader)
+  open_fullscreen("/survey/user_load/" + pk + "/", loader)
 });
 
 on('body', 'click', '.u_load_profile_survey_list', function() {
-  profile_list_block_load(this, ".load_block", ".load_block", "/survey/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
+  profile_list_block_load(this, ".load_block", ".load_block", "/survey/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_survey_list");
 });

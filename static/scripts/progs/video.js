@@ -192,9 +192,9 @@ on('body', 'click', '.u_load_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("videolist-pk");
   loader = document.getElementById("window_loader");
-  open_fullscreen("/video/load/" + pk + "/", loader)
+  open_fullscreen("/video/user_load/" + pk + "/", loader)
 });
 
 on('body', 'click', '.u_load_profile_video_list', function() {
-  profile_list_block_load(this, ".load_block", ".load_block", "/video/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
+  profile_list_block_load(this, ".load_block", ".load_block", "/video/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_video_list");
 });

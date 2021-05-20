@@ -118,7 +118,7 @@ on('body', 'click', '.u_load_photo_list', function() {
   parent = this.parentElement.parentElement;
   pk = parent.getAttribute("photolist-pk");
   loader = document.getElementById("window_loader");
-  open_fullscreen("/gallery/load_list/" + pk + "/", loader)
+  open_fullscreen("/gallery/user_load/" + pk + "/", loader)
 });
 
 on('body', 'click', '.u_copy_photo_list', function() {

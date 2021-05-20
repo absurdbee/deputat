@@ -72,8 +72,8 @@ function media_list_recover(_this, url, old_class, new_class) {
   link_.send();
 }
 
-function profile_list_block_load(_this, target_block, response_block, link, actions_class) {
-  // грузим блок response_block по ссылке link в блок target_block
+function profile_list_block_load(_this, block, link, actions_class) {
+  // подгрузка списков в профиле пользователя
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   request.open( 'GET', link, true );
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -81,8 +81,8 @@ function profile_list_block_load(_this, target_block, response_block, link, acti
     if ( request.readyState == 4 && request.status == 200 ){
         elem_ = document.createElement('span');
         elem_.innerHTML = request.responseText;
-       document.body.querySelector(target_block).innerHTML = elem_.querySelector(response_block).innerHTML;
-       init_music(document.body.querySelector(response_block));
+       document.body.querySelector(block).innerHTML = elem_.querySelector(block).innerHTML;
+       init_music(document.body.querySelector(block));
        class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
        for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add(actions_class, "pointer");

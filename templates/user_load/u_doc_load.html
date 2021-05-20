@@ -12,44 +12,7 @@
   </div>
 
   <div class="card-body">
-
-    {% if is_have_lists %}
-
-    <div class="row no-gutters mb-3" style="overflow-x: auto;">
-      <div class="col-12 mb-1">
-      <ul style="width:max-content;list-style: none;">
-        {% for object in get_lists %}
-            {% if object.is_not_empty %}
-            <li class="list_item">
-                <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
-                    <div class="card-img-top file-logo-wrapper" style="padding: 2rem;">
-                      <a class="create_ajax nowrap" data-href="{% url 'u_doc_list_load' uuid=object.uuid %}">
-                        <div class="d-flex align-items-center justify-content-center w-100">
-                          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
-                              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                          </svg>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="card-body pt-0">
-                        <div class="content-wrapper">
-                            <p class="card-text file-name mb-0">
-                              <a class="create_ajax nowrap list_name" data-href="{% url 'u_doc_list_load' uuid=object.uuid %}">
-                                {{ object.name }}
-                              </a>
-                            </p>
-                            <p class="card-text file-size mb-0 count">{{ object.count_items }}</p>
-                        </div>
-                        <small class="file-accessed pointer doc_attach_list" data-pk="{{ object.pk }}">Прикрепить список</small>
-                    </div>
-                </div>
-            </li>
-            {% endif %}
-        {% endfor %}
-      </ul>
-      </div>
-    </div>
-    {% endif %}
+    {% include 'user_docs/main/lists' %}
 
 {% if object_list %}
 <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_doc_load/">

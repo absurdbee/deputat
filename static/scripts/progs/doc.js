@@ -182,5 +182,9 @@ on('body', 'click', '.u_load_doc_list', function() {
 });
 
 on('body', 'click', '.u_load_profile_doc_list', function() {
-  profile_list_block_load(this, ".load_block", ".load_block", "/doc/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_doc_list");
+  profile_list_block_load(this, ".load_block", "/doc/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_doc_list");
+});
+
+on('body', 'click', '.u_load_attach_doc_list', function() {
+  profile_list_block_load(this, ".load_block", "/users/load/u_doc_list_load/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_attach_doc_list");
 });

@@ -1,0 +1,102 @@
+
+<div class="card mb-4">
+  <div class="row">
+    <div style="flex: 0 0 80%;max-width:80%;padding:5px;">
+      <form class="btn btn-sm border" style="width: -webkit-fill-available;">
+        {% csrf_token %}
+        <input type="file" id="u_photo_attach" name="file" style="display:none" multiple="multiple">
+        <h5 class="mb-0 previous_click">загрузить (до 10)</h5>
+      </form>
+    </div>
+    <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
+      <a class="btn btn-sm border create_fullscreen_hide_2" style="width: -webkit-fill-available;">
+        <svg fill="currentColor" class="svg_default" style="width: 17px;" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+
+    <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
+        <h5 class="mt-1" style="flex: 1;">Плейлисты
+          <a class="underline ajax" href="{% url 'user' pk=user.pk %}">
+            {{ user.get_full_name_genitive }}
+          </a>
+          ({{ count_lists }})
+        </h5>
+    </div>
+    <div class="row no-gutters" style="overflow-x: auto;">
+        <div class="col-12">
+            <ul style="width:max-content;list-style: none;">
+              <li class="list_item">
+                  <div class="card file-manager-item folder cover_block active_border" data-uuid="{{ list.uuid }}">
+                      <div class="card-img-top file-logo-wrapper">
+                          <div class="d-flex align-items-center justify-content-center w-100">
+                              <svg class="list_toggle list_svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                          </div>
+                      </div>
+                      <div class="card-body pt-0">
+                          <div class="content-wrapper">
+                              <p class="card-text file-name mb-0 list_name list_toggle" style="text-align: left;" data-name="{{ object.name }}">{{ list.name }}</p>
+                              <p class="card-text file-size mb-0">{{ list.count_items }}</p>
+                          </div>
+                          <small class="file-accessed">
+                            <a class="ajax underline" href="{% url 'user' pk=list.creator.pk %}">
+                              {{ list.creator.get_full_name }}
+                            </a>
+                          </small>
+                      </div>
+                  </div>
+              </li>
+                {% for object in get_lists %}
+                <li class="list_item">
+                    <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
+                        <div class="card-img-top file-logo-wrapper">
+                            <div class="d-flex align-items-center justify-content-center w-100">
+                                <svg width="50" height="50" class="u_load_attach_playlist pointer list_svg list_toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            </div>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="content-wrapper">
+                                <p class="card-text file-name mb-0 list_name u_load_attach_playlist pointer list_toggle" style="text-align: left;" data-name="{{ object.name }}">{{ object.name }}</p>
+                                <p class="card-text file-size mb-0">{{ object.count_items }}</p>
+                            </div>
+                            <small class="file-accessed">
+                              <a class="ajax underline" href="{% url 'user' pk=list.creator.pk %}">
+                                {{ object.creator.get_full_name }}
+                              </a>
+                            </small>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% if object_list %}
+<div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_img_load/">
+{% for object in object_list %}
+<div class="load_pag u_load_photo_detail {% if forloop.last %}load_last{% endif %}" style="position: relative;">
+  <div class="progressive replace" data-href="{{ object.file.url }}" photo-pk="{{ object.pk }}" data-pk="{{ request.user.pk }}">
+      <img class="image_fit_small photo_load_one preview pointer" src="{{ object.preview.url }}" alt="img">
+  </div>
+    <span class="item_attach_circle photo_load_several"
+         tooltip="Выбрать несколько"
+         flow="up">
+        <svg fill="currentColor" viewBox="0 0 24 24">
+          <path d="M24 24H0V0h24v24z" fill="none"/><circle cx="12" cy="12" r="8"/>
+        </svg>
+    </span>
+</div>
+  {% endfor %}
+
+</div>
+{% else %}
+<div class="card mb-3 centered">
+  <h5 style="text-align: center;margin: 20px;"> Основной плейлист пустой.</h5>
+</div>
+{% endif %}
+</div>
+</div>

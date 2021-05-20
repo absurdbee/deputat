@@ -1,49 +1,72 @@
-{% if is_have_lists %}
+
 <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
-    <h5 class="mt-1" style="flex: 1;">Мои списки ({{ count_lists }})</h5>
+    <h5 class="mt-1" style="flex: 1;">Списки опросов
+      <a class="underline ajax" href="{% url 'user' pk=user.pk %}">
+        {{ user.get_full_name_genitive }}
+      </a>
+      ({{ count_lists }})
+    </h5>
 </div>
 <div class="row no-gutters" style="overflow-x: auto;">
     <div class="col-12">
         <ul style="width:max-content;list-style: none;">
+          <li class="list_item">
+              <div class="card file-manager-item folder cover_block active_border" data-uuid="{{ list.uuid }}">
+                  <div class="card-img-top file-logo-wrapper">
+                    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </div>
+                  <div class="card-body pt-0">
+                      <div class="content-wrapper">
+                          <p class="card-text file-name mb-0 list_name list_toggle" style="text-align: left;" data-name="{{ object.name }}">{{ list.name }}</p>
+                          <p class="card-text file-size mb-0">{{ list.count_items }}</p>
+                      </div>
+                      <small class="file-accessed">
+                          {{ user.get_full_name }}
+                      </small>
+                  </div>
+              </div>
+          </li>
             {% for object in get_lists %}
             <li class="list_item">
                 <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
                     <div class="card-img-top file-logo-wrapper">
-                      {% if object.creator.pk == request.user.pk %}
-                        <div class="dropdown float-right menu_svg">
-                            <svg class="pointer" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical toggle-dropdown mt-n25"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                            <div class="dropdown-menu" style="left: -100px;top: 15px;">
-                                <span class="dropdown-item pointer u_survey_list_edit">Изменить</span>
-                                <span class="dropdown-item pointer u_survey_list_remove">Удалить</span>
-                                <span class="dropdown-item copy_link">Копировать ссылку</span>
-                            </div>
-                        </div>
-                      {% endif %}
-                        <div class="d-flex align-items-center justify-content-center w-100">
-                          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
-                              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                          </svg>
-                        </div>
+                      <svg class="u_load_profile_survey_list pointer list_toggle" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                      </svg>
                     </div>
-                    <a href="{% url 'user_survey_list' uuid=object.uuid %}" class="ajax">
                     <div class="card-body pt-0">
                         <div class="content-wrapper">
-                            <p class="card-text file-name mb-0" data-name="{{ object.name }}">{{ object.name }}</p>
+                            <p class="card-text file-name mb-0 list_name u_load_profile_survey_list pointer list_toggle" style="text-align: left;" data-name="{{ object.name }}">{{ object.name }}</p>
                             <p class="card-text file-size mb-0">{{ object.count_items }}</p>
                         </div>
-                        <small class="file-accessed text-muted">
-                          {% if object.creator.pk == request.user.pk %}
-                            {{ object.get_type_display }}
-                          {% else %}
-                            {{ user.get_full_name }}
-                          {% endif %}
+                        <small class="file-accessed">
+                          <a class="ajax underline" href="{% url 'user' pk=list.creator.pk %}">
+                            {{ object.creator.get_full_name }}
+                          </a>
                         </small>
                     </div>
-                    </a>
                 </div>
             </li>
             {% endfor %}
+            <li class="list_item">
+                <div class="card file-manager-item folder border u_survey_list_add pointer">
+                    <div class="card-img-top file-logo-wrapper">
+                        <div class="d-flex align-items-center justify-content-center w-100">
+                            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="content-wrapper">
+                            <p class="card-text file-name mb-0" style="text-align: left;">Создать список</p>
+                        </div>
+                        <small class="file-accessed">
+                          текст
+                        </small>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
 </div>
-{% endif %}

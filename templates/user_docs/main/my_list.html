@@ -6,8 +6,12 @@
 
     {% include 'user_docs/main/my_lists.html' %}
 
+    <span class="load_block">
+
     <div class="media mt-3" style="padding-left: 7px;">
-        <h5 class="mt-1" style="flex: 1;">Мои документы ({{ list.count_items }})</h5>
+      <h5 class="mt-1">{{ list.name }} ({{ list.count_items }})
+        <span class="pointer badge badge-light-success u_doc_add">Добавить документ</span>
+      </h5>
     </div>
 
     <div class="row is_paginate no-gutters">
@@ -26,7 +30,7 @@
         </div>
         {% endif %}
     </div>
-
+    </span>
 </div>
 
 {% endblock %}

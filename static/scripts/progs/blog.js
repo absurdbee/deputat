@@ -162,7 +162,7 @@ on('#ajax', 'click', '.u_load_comment_photo', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");
-  open_fullscreen('/users/load/u_img_comment_load/', loader)
+  open_fullscreen('/users/load/u_photo_comment_load/', loader)
 });
 on('#ajax', 'click', '.u_load_doc', function() {
   check_attach_block_message_post();

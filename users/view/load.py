@@ -50,23 +50,6 @@ class UserLoadPhotoComment(ListView):
 	def get_queryset(self):
 		return self.list.get_photos()
 
-class UserLoadPhotoListComment(ListView):
-	template_name, paginate_by = None, 15
-
-	def get(self,request,*args,**kwargs):
-		from gallery.models import PhotoList
-
-		self.list, self.template_name = PhotoList.objects.get(uuid=self.kwargs["uuid"]), get_my_template("user_load/u_photo_list_comments_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(UserLoadPhotoListComment,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		context = super(UserLoadPhotoListComment,self).get_context_data(**kwargs)
-		context["list"] = self.list
-		return context
-
-	def get_queryset(self):
-		return self.list.get_photos()
-
 
 class UserLoadVideo(ListView):
 	template_name, paginate_by = None, 15

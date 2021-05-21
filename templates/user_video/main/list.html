@@ -3,7 +3,7 @@
 {% load filters %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
+<div class="container mt-3 pk_saver" list-pk="{{ list.pk }}">
 
     {% include 'user_video/main/lists.html' %}
     <span class="load_block">
@@ -21,7 +21,7 @@
       </h5>
     </div>
 
-    <div class="row is_paginate no-gutters">
+    <div class="row is_paginate no-gutters" data-uuid="{{ list.uuid }}">
         {% if object_list %}
 
         {% for object in object_list %}

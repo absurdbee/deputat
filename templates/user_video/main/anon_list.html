@@ -2,7 +2,7 @@
 {% block title %}{{ list.name }} | Видеозаписи {{ user.get_full_name_genitive }}{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
+<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}">
 
     {% include 'user_video/main/lists.html' %}
     <span class="load_block">
@@ -14,7 +14,7 @@
       </h5>
     </div>
 
-    <div class="row is_paginate no-gutters">
+    <div class="row is_paginate no-gutters" data-uuid="{{ list.uuid }}">
         {% if object_list %}
 
         {% for object in object_list %}

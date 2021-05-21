@@ -29,7 +29,7 @@ on('body', 'click', '.prev_video', function(event) {
 
 on('body', 'click', '.u_video_detail', function() {
   video_pk = this.getAttribute('video-pk');
-  uuid = this.parentElement.parentElement.parentElement;
+  uuid = this.parentElement.getAttribute("data-uuid");
   loader = document.getElementById("window_loader");
   open_fullscreen("/video/user_detail/" + video_pk + "/" + uuid + "/", loader)
 });

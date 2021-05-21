@@ -30,7 +30,7 @@
     </h5>
   </div>
 
-<div class="row is_load_paginate no-gutters" data-link="/video/load/{{ list.pk }}/">
+<div class="row is_load_paginate no-gutters" data-link="/video/load/{{ list.pk }}/" data-uuid="{{ list.uuid }}">
 {% for object in object_list %}
   {% include 'user_video/video.html' %}
 {% empty %}

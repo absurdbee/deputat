@@ -29,8 +29,9 @@ on('body', 'click', '.prev_video', function(event) {
 
 on('body', 'click', '.u_video_detail', function() {
   video_pk = this.getAttribute('video-pk');
+  uuid = this.parentElement.parentElement.parentElement;
   loader = document.getElementById("window_loader");
-  open_fullscreen("/video/user_detail/" + video_pk + "/", loader)
+  open_fullscreen("/video/user_detail/" + video_pk + "/" + uuid + "/", loader)
 });
 
 on('body', 'click', '#u_edit_video_list_btn', function() {

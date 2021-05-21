@@ -17,6 +17,7 @@ class UserVideoDetail(TemplateView):
         from video.models import Video
 
         self.video = Video.objects.get(pk=self.kwargs["pk"])
+        self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.user.pk == self.video.creator.pk:
             self.videos = self.list.get_staff_items()
         else:

@@ -73,10 +73,10 @@ on('body', 'click', '.mob_u_photo_on_private', function() {
 })
 
 on('body', 'click', '.u_add_photo_in_list', function() {
-  add_item_in_list(this, '/gallery/user_progs/add_track_in_list/', '.u_add_photo_in_list', '.u_remove_photo_in_list')
+  add_item_in_list(this, '/gallery/user_progs/add_track_in_list/', 'u_add_photo_in_list', 'u_remove_photo_in_list')
 })
 on('body', 'click', '.u_remove_photo_in_photo_list', function() {
-  remove_item_from_list(this, '/gallery/user_progs/remove_track_from_list/', '.u_remove_photo_in_list', '.u_add_photo_in_list')
+  remove_item_from_list(this, '/gallery/user_progs/remove_track_from_list/', 'u_remove_photo_in_list', 'u_add_photo_in_list')
 })
 
 on('body', 'click', '.u_photo_detail', function() {

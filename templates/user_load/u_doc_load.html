@@ -14,6 +14,7 @@
   <div class="card-body">
     {% include 'user_docs/main/lists' %}
 
+<span class="load_block">
 {% if object_list %}
 <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_doc_load/">
 {% for object in object_list %}
@@ -42,5 +43,6 @@
   <h5 style="text-align: center;margin: 20px;"> Список документов пустой.</h5>
 </div>
 {% endif %}
+</span>
 </div>
 </div>

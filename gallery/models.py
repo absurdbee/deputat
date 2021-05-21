@@ -241,13 +241,8 @@ class PhotoList(models.Model):
     @classmethod
     def get_user_lists(cls, user_pk):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
-        query.add(Q(Q(type="MAI")|Q(type="LIS")), Q.AND)
-        return cls.objects.filter(query)
-    @classmethod
-    def is_have_user_lists(cls, user_pk):
-        query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         query.add(Q(type="LIS"), Q.AND)
-        return cls.objects.filter(query).exists()
+        return cls.objects.filter(query)
     @classmethod
     def get_user_lists_count(cls, user_pk):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
@@ -263,7 +258,7 @@ class PhotoList(models.Model):
     @classmethod
     def get_community_lists(cls, community_pk):
         query = Q(community_id=community_pk)|Q(communities__id=community_pk)
-        query.add(Q(Q(type="MAI")|Q(type="LIS")), Q.AND)
+        query.add(Q(type="LIS"), Q.AND)
         return cls.objects.filter(query)
     @classmethod
     def get_community_lists_count(cls, community_pk):

@@ -23,10 +23,10 @@ class UserMusic(ListView):
     def get(self,request,*args,**kwargs):
         from common.templates import get_template_user_item, get_template_anon_user_item
 
-        pk = self.kwargs["pk"]
+        pk = int(self.kwargs["pk"])
         self.user = User.objects.get(pk=pk)
         self.list = self.user.get_playlist()
-        if self.user.pk == request.user.pk:
+        if pk == request.user.pk:
             self.music_list = self.list.get_my_playlist()
             self.get_lists = self.list.get_user_staff_lists(pk)
         else:

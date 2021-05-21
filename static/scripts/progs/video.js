@@ -36,29 +36,8 @@ on('body', 'click', '#u_create_video_list_btn', function() {
   post_and_load_object_page(form, "/video/user_progs/add_list/", "/video/user_list/", "/");
 });
 
-on('body', 'click', '#u_edit_video_list_btn', function() {
-  form = this.parentElement.parentElement.parentElement;
-  form_data = new FormData(form);
-  if (!form.querySelector("#id_name").value){
-    form.querySelector("#id_name").style.border = "1px #FF0000 solid";
-    toast_error("Название - обязательное поле!");
-  } else { this.disabled = true }
-  uuid = form.getAttribute("data-uuid")
-
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/video/user_progs/edit_list/" + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    close_create_window();
-    name = form.querySelector('#id_name').value;
-    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
-    list.querySelector('.list_name').innerHTML = name;
-    document.body.querySelector('.second_list_name').innerHTML = name;
-    toast_success("Список изменен")
-  }}
-  link_.send(form_data);
+on('body', 'click', '#u_edit_playlist_btn', function() {
+  media_list_edit(this, "/video/user_progs/edit_list/")
 });
 
 on('body', 'click', '.u_add_video_in_list', function() {
@@ -104,7 +83,7 @@ on('body', 'click', '#u_create_video_btn', function() {
     document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
       uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
-      document.body.querySelector(".video_empty") ? document.body.querySelector(".video_empty").style.display = "none" : null) : get_preview(response, "video");
+      document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null) : get_preview(response, "video");
     toast_info("Видеозапись создана!")
     close_create_window();
   }};

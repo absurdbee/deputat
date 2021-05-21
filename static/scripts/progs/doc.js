@@ -90,7 +90,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
     document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
       uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
-      document.body.querySelector(".doc_empty") ? document.body.querySelector(".doc_empty").style.display = "none" : null) : get_preview(response, "doc");
+      document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null) : get_preview(response, "doc");
     toast_info("Документ создан!")
     close_create_window();
   }};

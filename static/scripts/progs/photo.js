@@ -36,7 +36,7 @@ on('body', 'click', '#u_edit_photo_list_btn', function() {
 });
 
 on('body', 'change', '#u_photo_add', function() {
-  uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid");
+  uuid = this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-uuid");
   form_data = new FormData(document.body.querySelector("#add_photos"));
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/gallery/user_progs/add_photo/" + uuid + "/", true );
@@ -48,7 +48,7 @@ on('body', 'change', '#u_photo_add', function() {
     response = document.createElement("span");
     response.innerHTML = elem;
     document.body.querySelector("#photos_container").insertAdjacentHTML('afterBegin', response.innerHTML);
-    document.body.querySelector(".photos_empty") ? document.body.querySelector(".photos_empty").style.display = "none" : null
+    document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null
   }}
   link_.send(form_data);
 });

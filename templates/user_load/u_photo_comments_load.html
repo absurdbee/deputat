@@ -23,13 +23,13 @@
         <div class="col-12">
             <ul style="width:max-content;list-style: none;">
               <li class="list_item">
-              <div class="text-center bg-dark position-relative active_border" data-uuid="{{ object.uuid }}">
+              <div class="text-center bg-dark position-relative active_border" data-uuid="{{ list.uuid }}">
                 <figure class="background-img">
                   <img src="{{ list.get_cover_photo }}">
                 </figure>
                 <div class="container p-3">
                   <h6 class="text-white pointer">
-                    <span class="nowrap pointer list_toggle">{{ list.name }}</span>
+                    <span class="nowrap list_toggle">{{ list.name }}</span>
                   </h6>
                   <a class="text-white count">{{ list.count_items_ru }}</a>
 

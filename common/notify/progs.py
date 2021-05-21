@@ -60,12 +60,12 @@ def community_send_wall(id, creator_id, community_id, action_community_id, socke
 def get_news():
     # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
     query = Q(object_set__isnull=True)&Q(user_set__isnull=True)
-    return Wall.objects.filter(query)
+    return Wall.objects.filter(query, verb="ITE")
 
 def get_region_news(name):
     # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
     query = Q(object_set__isnull=True) & Q(options__icontains=name)
-    return Wall.objects.filter(query)
+    return Wall.objects.filter(query, verb="ITE")
 
 
 def get_my_news(user):

@@ -302,12 +302,14 @@ class Video(models.Model):
         return self.title
 
     @classmethod
-    def create_video(cls, creator, title, file, uri, description, lists, comments_enabled, votes_on, is_public, community):
+    def create_video(cls, creator, title, file, image, uri, description, lists, comments_enabled, votes_on, is_public, community):
         from common.processing import get_video_processing
 
         if not lists:
             from rest_framework.exceptions import ValidationError
             raise ValidationError("Не выбран список для нового документа")
+        elif not file and uri:
+            raise ValidationError("Не выбран файл для ссылка")
         private = 0
         video = cls.objects.create(creator=creator,title=title,file=file,uri=uri,description=description, comments_enabled=comments_enabled, votes_on=votes_on)
         if community:

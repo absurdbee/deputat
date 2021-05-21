@@ -86,7 +86,7 @@ class PhotoList(models.Model):
 
     def count_items(self):
         try:
-            return self.photo_listm.filter(status="PUB").values("pk").count()
+            return self.photo_list.filter(status="PUB").values("pk").count()
         except:
             return 0
     def count_items_ru(self):

@@ -302,7 +302,7 @@ class Video(models.Model):
         return self.title
 
     @classmethod
-    def create_video(cls, creator, title, file, image, uri, description, lists, comments_enabled, votes_on, is_public, community):
+    def create_video(cls, creator, title, file, image, uri, lists, is_public, community):
         from common.processing import get_video_processing
 
         if not lists:
@@ -311,7 +311,7 @@ class Video(models.Model):
         elif not file and uri:
             raise ValidationError("Не выбран файл для ссылка")
         private = 0
-        video = cls.objects.create(creator=creator,title=title,file=file,uri=uri,description=description, comments_enabled=comments_enabled, votes_on=votes_on)
+        video = cls.objects.create(creator=creator,title=title,file=file,uri=uri,community=community)
         if community:
             community.plus_videos(1)
         else:

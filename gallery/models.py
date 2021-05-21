@@ -280,7 +280,7 @@ class Photo(models.Model):
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
-    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип изображения")
+    status = models.CharField(max_length=6, choices=STATUS, default=PROCESSING, verbose_name="Тип изображения")
     community = models.ForeignKey('communities.Community', related_name='photo_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     class Meta:

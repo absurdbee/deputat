@@ -91,7 +91,7 @@ function profile_list_block_load(_this, block, link, actions_class) {
          class_to_add[i].parentElement.parentElement.parentElement.classList.replace("active_border", "border");
        };
        parent = _this.parentElement.parentElement.parentElement;
-       parent.querySelector(".list_svg").classList.remove(actions_class, "pointer");
+       parent.querySelector(".list_svg")? parent.querySelector(".list_svg").classList.remove(actions_class, "pointer") : null;
        parent.querySelector(".list_name").classList.remove(actions_class, "pointer");
        parent.classList.replace("border", "active_border");
     }};
@@ -126,6 +126,9 @@ function get_preview(response, type) {
       media_body = response.querySelector(".media-body");
       media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
       doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), pk)
+    } else if (type == "track") {
+      response.querySelector(".span_btn").remove(); response.querySelector(".small").remove();
+      track_post_attach(document.body.querySelector(".attach_block"), response)
     }
   } else if (document.body.querySector(".message_attach_block")){
     if (type == "doc") {

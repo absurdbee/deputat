@@ -4,15 +4,15 @@
   <div class="row no-gutters">
     {% if list|is_user_can_add_list:request.user.pk %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-        <a class="btn btn-sm border u_copy_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Добавить</a>
+        <a class="btn btn-sm border u_copy_video_list" style="width: -webkit-fill-available;font-size: 19px;">Добавить</a>
     </div>
     {% elif request.user.pk in list.get_users_ids %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-        <a class="btn btn-sm border u_uncopy_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Удалить</a>
+        <a class="btn btn-sm border u_uncopy_video_list" style="width: -webkit-fill-available;font-size: 19px;">Удалить</a>
     </div>
     {% endif %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-        <a class="btn btn-sm border claim_doc_list" style="width: -webkit-fill-available;font-size: 19px;">Жалоба</a>
+        <a class="btn btn-sm border u_claim_video_list" style="width: -webkit-fill-available;font-size: 19px;">Жалоба</a>
     </div>
     <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
       <a class="btn btn-sm border photo_fullscreen_hide_2" style="width: -webkit-fill-available;">
@@ -34,7 +34,7 @@
 {% for object in object_list %}
   {% include 'user_video/video.html' %}
 {% empty %}
-  <div class="card centered item_empty"  style="width:100%;">
+  <div class="card centered item_empty">
     <div class="card-body">
       <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'>
         <path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/><path d="M0 0h24v24H0z" fill="none"/>

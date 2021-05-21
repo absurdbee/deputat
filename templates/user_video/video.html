@@ -1,25 +1,13 @@
-<div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
-    <div class="media border p-1">
-        <div class="media-body doc_media_body">
-            <h6 class="pointer" style="width: 84%;overflow: hidden;">
-                <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
-            </h6>
-            <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
-            <span class='span_btn' data-pk="{{ doc.pk }}">
-                {% include 'user_docs/add_dropdown.html' %}
-                <div class="dropdown" style="position: inherit;">
-                    <a class="btn_default drop pointer">
-                        <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M0 0h24v24H0z" fill="none" />
-                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                        </svg>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" style="top: 42px;">
-                        <span class="dropdown-item doc_claim">Пожаловаться</span>
-                        <span class="dropdown-item copy_link">Копировать ссылку</span>
-                    </div>
-                </div>
-            </span>
-        </div>
-    </div>
+<div class="col-12 col-md-6 u_video_list_detail pointer pag {% if forloop.last %}last{% endif %}"  video-pk="{{ object.pk }}">
+  <div class="blog-header-img">
+    {% if object.image %}
+      <img style="width: 100%;object-fit: cover;height: 200px;" src="{{ object.image.url }}" alt="">
+    {% else %}
+      <svg class="svg_default" style="width: 100%;object-fit: cover;height: 200px;" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <h5 class="text-truncate w-100">{{ object.title }}</h5>
+    <span class="small">{{ object.get_created }} | {{ object.visits_count_ru }}</span>
+  </div>
 </div>

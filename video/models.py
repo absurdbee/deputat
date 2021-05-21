@@ -111,7 +111,7 @@ class VideoList(models.Model):
             self.make_private()
         return self
 
-    def count_video(self):
+    def count_items(self):
         return self.video_list.filter(status="PUB").values("pk").count()
 
     def get_my_videos(self):

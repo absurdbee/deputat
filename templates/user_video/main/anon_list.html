@@ -17,8 +17,8 @@
     <div class="row is_paginate no-gutters">
         {% if object_list %}
 
-        {% for doc in object_list %}
-          {% include 'user_video/anon_video.html' %}
+        {% for object in object_list %}
+          {% include 'user_video/video.html' %}
         {% endfor %}
 
         {% else %}

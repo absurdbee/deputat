@@ -72,29 +72,29 @@ class Blog(models.Model):
 
     def likes_count(self):
         if self.like > 0:
-            return self.like > 0
+            return self.like
         else:
             return ''
     def dislikes_count(self):
         if self.dislike > 0:
-            return self.like > 0
+            return self.like
         else:
             return ''
     def inerts_count(self):
         if self.inert > 0:
-            return self.like > 0
+            return self.like
         else:
             return ''
 
     def count_comments(self):
         if self.comment > 0:
-            return self.comment > 0
+            return self.comment
         else:
             return ''
 
     def reposts_count(self):
         if self.repost > 0:
-            return self.repost > 0
+            return self.repost
         else:
             return ''
 
@@ -350,23 +350,23 @@ class ElectNew(models.Model):
 
     def likes_count(self):
         if self.like > 0:
-            return self.like > 0
+            return self.like
         else:
             return ''
     def dislikes_count(self):
         if self.dislike > 0:
-            return self.like > 0
+            return self.like
         else:
             return ''
     def inerts_count(self):
         if self.inert > 0:
-            return self.like > 0
+            return self.inert
         else:
             return ''
 
     def count_reposts(self):
         if self.repost > 0:
-            return self.repost > 0
+            return self.repost
         else:
             return ''
 

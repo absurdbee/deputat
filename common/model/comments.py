@@ -71,11 +71,11 @@ class BlogComment(models.Model):
         blog.comment += 1
         blog.save(update_fields=["comment"])
         if comment.parent:
-            user_comment_notify(comment.commenter, None, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
-            user_comment_wall(comment.commenter, None, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
+            user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
+            user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
         else:
-            user_comment_notify(comment.commenter, None, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
-            user_comment_wall(comment.commenter, None, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
+            user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
+            user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
         return comment
 
     def count_replies_ru(self):
@@ -197,7 +197,7 @@ class BlogComment(models.Model):
         from django.http import HttpResponse
         from common.notify.notify import user_notify, user_wall
         try:
-            item = BlogCommentVotes.objects.get(item=self, user=user)
+            item = BlogCommentVotes.objects.get(comment=self, user=user)
             if item.vote != BlogCommentVotes.LIKE:
                 item.vote = BlogCommentVotes.LIKE
                 item.save(update_fields=['vote'])
@@ -209,7 +209,7 @@ class BlogComment(models.Model):
                 self.like -= 1
                 self.save(update_fields=['like'])
         except BlogCommentVotes.DoesNotExist:
-            BlogCommentVotes.objects.create(item=self, user=user, vote=BlogCommentVotes.LIKE)
+            BlogCommentVotes.objects.create(comment=self, user=user, vote=BlogCommentVotes.LIKE)
             self.like += 1
             self.save(update_fields=['like'])
             if self.parent:
@@ -291,11 +291,11 @@ class ElectNewComment(models.Model):
         new.comment += 1
         new.save(update_fields=["comment"])
         if comment.parent:
-            user_comment_notify(comment.commenter, None, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
-            user_comment_wall(comment.commenter, None, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
+            user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
+            user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
         else:
-            user_comment_notify(comment.commenter, None, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
-            user_comment_wall(comment.commenter, None, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
+            user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
+            user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
         return comment
 
     def count_replies_ru(self):
@@ -417,7 +417,7 @@ class ElectNewComment(models.Model):
         from django.http import HttpResponse
         from common.notify.notify import user_notify, user_wall
         try:
-            item = ElectNewCommentVotes.objects.get(item=self, user=user)
+            item = ElectNewCommentVotes.objects.get(comment=self, user=user)
             if item.vote != ElectNewCommentVotes.LIKE:
                 item.vote = ElectNewCommentVotes.LIKE
                 item.save(update_fields=['vote'])
@@ -429,7 +429,7 @@ class ElectNewComment(models.Model):
                 self.like -= 1
                 self.save(update_fields=['like'])
         except ElectNewCommentVotes.DoesNotExist:
-            ElectNewCommentVotes.objects.create(item=self, user=user, vote=ElectNewCommentVotes.LIKE)
+            ElectNewCommentVotes.objects.create(comment=self, user=user, vote=ElectNewCommentVotes.LIKE)
             self.like += 1
             self.save(update_fields=['like'])
             if self.parent:

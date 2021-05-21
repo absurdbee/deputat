@@ -23,7 +23,7 @@ class UserLoadPhotoList(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from gallsy.models import PhotoList
+		from gallery.models import PhotoList
 		self.list, self.template_name = PhotoList.objects.get(uuid=self.kwargs["uuid"]), get_my_template("user_load/u_photo_list_load.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPhotoList,self).get(request,*args,**kwargs)
 

@@ -15,6 +15,24 @@ on('body', 'click', '.u_video_edit', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen("/video/user_progs/edit_video/" + parent.getAttribute("data-pk") +"/", loader)
 });
+
+on('body', 'click', '.next_video', function(event) {
+  event.preventDefault();
+  this.style.display = "none";
+  open_fullscreen(this.getAttribute('href'), document.getElementById('window_loader'));
+})
+on('body', 'click', '.prev_video', function(event) {
+  event.preventDefault();
+  this.style.display = "none";
+  open_fullscreen(this.getAttribute('href'), document.getElementById('window_loader'));
+})
+
+on('body', 'click', '.u_video_detail', function() {
+  video_pk = this.getAttribute('video-pk');
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/video/user_detail/" + video_pk + "/", loader)
+});
+
 on('body', 'click', '#u_edit_video_list_btn', function() {
   media_list_edit(this, "/video/user_progs/edit_list/")
 });

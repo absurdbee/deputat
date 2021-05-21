@@ -9,6 +9,30 @@ class AllVideoView(TemplateView):
     template_name="all_video.html"
 
 
+class UserVideoDetail(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        from common.templates import get_template_user_window, get_template_anon_user_window
+
+        self.video = Video.objects.get(pk=self.kwargs["pk"])
+        if request.user.pk == self.video.creator.pk:
+			self.videos = self.list.get_staff_items()
+		else:
+			self.videos = self.list.get_items()
+		self.next = self.videos.filter(query, pk__gt=self.video.pk).order_by('pk').first()
+		self.prev = self.videos.filter(query, pk__lt=self.video.pk).order_by('pk').first()
+        if request.user.is_authenticated:
+            self.template_name = get_template_user_window(self.list, "user_video/detail/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
+        else:
+            self.template_name = get_template_anon_user_window(self.list, "user_video/detail/anon_a.html", request.META['HTTP_USER_AGENT'])
+        return super(UserVideoDetail,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        c = super(UserVideoDetail,self).get_context_data(**kwargs)
+        c['object'], c['next'], c['prev'] = self.video, self.next, self.prev
+        return c
+
 class UserLoadVideoList(ListView):
     template_name, paginate_by = None, 15
 

@@ -105,11 +105,9 @@ class UserListPhoto(TemplateView):
 			from django.http import Http404
 			raise Http404
 		if request.user.pk == self.photo.creator.pk:
-			query = Q(status="PUB") | Q(status="PRI")
-			self.photos = self.list.get_photos()
+			self.photos = self.list.get_staff_items()
 		else:
-			query = Q(status="PUB")
-			self.photos = self.list.get_staff_photos()
+			self.photos = self.list.get_items()
 		self.next = self.photos.filter(query, pk__gt=self.photo.pk).order_by('pk').first()
 		self.prev = self.photos.filter(query, pk__lt=self.photo.pk).order_by('pk').first()
 		return super(UserListPhoto,self).get(request,*args,**kwargs)

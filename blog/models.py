@@ -185,7 +185,7 @@ class Blog(models.Model):
                 from common.notify.notify import user_notify, user_wall
                 user_notify(user, None, self.pk, "BLO", "u_blog_notify", "LIK")
                 user_wall(user, None, self.pk, "BLO", "u_blog_notify", "LIK")
-        return HttpResponse(json.dumps({"like_count": str(self.like),"dislike_count": str(self.dislike),"inert_count": str(self.inert)}),content_type="application/json")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def send_dislike(self, user, community):
         import json
@@ -224,7 +224,7 @@ class Blog(models.Model):
                 from common.notify.notify import user_notify, user_wall
                 user_notify(user, None, self.pk, "BLO", "u_blog_notify", "DIS")
                 user_wall(user, None, self.pk, "BLO", "u_blog_notify", "DIS")
-        return HttpResponse(json.dumps({"like_count": str(self.like),"dislike_count": str(self.dislike),"inert_count": str(self.inert)}),content_type="application/json")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def send_inert(self, user, community):
         import json
@@ -263,7 +263,7 @@ class Blog(models.Model):
                 from common.notify.notify import user_notify, user_wall
                 user_notify(user, None, self.pk, "BLO", "u_blog_notify", "INE")
                 user_wall(user, None, self.pk, "BLO", "u_blog_notify", "INE")
-        return HttpResponse(json.dumps({"like_count": str(self.like),"dislike_count": str(self.dislike),"inert_count": str(self.inert)}),content_type="application/json")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
 
 class ElectNew(models.Model):
@@ -447,7 +447,7 @@ class ElectNew(models.Model):
                 from common.notify.notify import user_notify, user_wall
                 user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
                 user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
-        return HttpResponse(json.dumps({"like_count": str(self.like),"dislike_count": str(self.dislike),"inert_count": str(self.inert)}),content_type="application/json")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def send_dislike(self, user, community):
         import json
@@ -486,7 +486,7 @@ class ElectNew(models.Model):
                 from common.notify.notify import user_notify, user_wall
                 user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
                 user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
-        return HttpResponse(json.dumps({"like_count": str(self.like),"dislike_count": str(self.dislike),"inert_count": str(self.inert)}),content_type="application/json")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def send_inert(self, user, community):
         import json
@@ -525,7 +525,7 @@ class ElectNew(models.Model):
                 from common.notify.notify import user_notify, user_wall
                 user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
                 user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
-        return HttpResponse(json.dumps({"like_count": str(self.like),"dislike_count": str(self.dislike),"inert_count": str(self.inert)}),content_type="application/json")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def delete_elect_new(self):
         from notify.models import Notify, Wall

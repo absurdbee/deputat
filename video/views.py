@@ -14,7 +14,7 @@ class UserVideoDetail(TemplateView):
 
     def get(self,request,*args,**kwargs):
         from common.templates import get_template_user_window, get_template_anon_user_window
-        from video.models import Video
+        from video.models import Video, VideoList
 
         self.video = Video.objects.get(pk=self.kwargs["pk"])
         self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])

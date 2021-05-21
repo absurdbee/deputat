@@ -114,11 +114,11 @@ class VideoList(models.Model):
     def count_items(self):
         return self.video_list.filter(status="PUB").values("pk").count()
 
-    def get_my_videos(self):
+    def get_staff_items(self):
         query = Q(status="PUB") | Q(status="PRI")
         return self.video_list.filter(query)
 
-    def get_videos(self):
+    def get_items(self):
         query = Q(status="PUB")
         queryset = self.video_list.filter(status="PUB")
         return queryset

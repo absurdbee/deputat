@@ -44,9 +44,9 @@ class UserLoadVideoList(ListView):
 
         self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if self.user.pk == request.user.pk:
-            self.video_list = self.list.get_my_videos()
+            self.video_list = self.list.get_staff_items()
         else:
-            self.video_list = self.list.get_videos()
+            self.video_list = self.list.get_items()
         if request.user.is_authenticated:
             self.template_name = get_template_user_item(self.list, "user_video/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
         else:
@@ -72,10 +72,10 @@ class UserVideo(ListView):
         self.user = User.objects.get(pk=pk)
         self.list = self.user.get_video_list()
         if pk == request.user.pk:
-            self.video_list = self.list.get_my_videos()
+            self.video_list = self.list.get_staff_items()
             self.get_lists = self.list.get_user_staff_lists(pk)
         else:
-            self.video_list = self.list.get_videos()
+            self.video_list = self.list.get_items()
             self.get_lists = self.list.get_user_lists(pk)
         self.count_lists = self.list.get_user_lists_count(pk)
         if request.user.is_authenticated:
@@ -102,9 +102,9 @@ class UserVideoList(ListView):
 
         self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if self.list.creator.pk == request.user.pk:
-            self.video_list = self.list.get_my_videos()
+            self.video_list = self.list.get_staff_items()
         else:
-            self.video_list = self.list.get_videos()
+            self.video_list = self.list.get_items()
         if request.user.is_authenticated:
             self.template_name = get_template_user_item(self.list, "user_video/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
         else:

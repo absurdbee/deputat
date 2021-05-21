@@ -1,9 +1,9 @@
 <div class="col-12 col-md-6 u_video_list_detail pointer pag {% if forloop.last %}last{% endif %}"  video-pk="{{ object.pk }}">
   <div class="blog-header-img">
     {% if object.image %}
-      <img style="width: 100%;object-fit: cover;height: 200px;" src="{{ object.image.url }}" alt="">
+      <img style="width: 100%;object-fit: cover;height: 200px;" src="{{ object.image.url }}" alt="img">
     {% else %}
-      <svg class="svg_default" style="width: 100%;object-fit: cover;height: 200px;" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+      <img style="width: 100%;object-fit: cover;height: 200px;" src="/static/images/list.jpg" alt="img">
     {% endif %}
   </div>
   <div class="card-body">

@@ -37,7 +37,7 @@ class UserGallery(ListView):
 		from common.templates import get_template_user_item, get_template_anon_user_item
 		from users.models import User
 
-		pk = str(self.kwargs["pk"])
+		pk = int(self.kwargs["pk"])
 		self.user = User.objects.get(pk=pk)
 		self.list = self.user.get_photo_list()
 		self.count_lists = self.list.get_user_lists_count(pk)

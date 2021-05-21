@@ -66,9 +66,14 @@ on('body', 'click', '#u_create_video_btn', function() {
     form.querySelector("#id_list").style.border = "1px #FF0000 solid";
     toast_error("Выберите список!")
   }
-  else if (!form.querySelector("#id_file").value){
+  else if (!form.querySelector("#id_file").value && !form.querySelector("#id_uri").value){
     form.querySelector("#id_file").style.border = "1px #FF0000 solid";
-    toast_error("Загрузите видеозапись!")
+    form.querySelector("#id_uri").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите файл или вставьте ссылку!")
+  }
+  else if (!form.querySelector("#id_file").value && form.querySelector("#id_uri").value && !form.querySelector("#id_image")){
+    form.querySelector("#id_image").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите обложку к видео!")
   } else { _this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

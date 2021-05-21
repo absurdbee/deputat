@@ -22,8 +22,8 @@ class UserVideoDetail(TemplateView):
             self.videos = self.list.get_staff_items()
         else:
             self.videos = self.list.get_items()
-        self.next = self.videos.filter(query, pk__gt=self.video.pk).order_by('pk').first()
-        self.prev = self.videos.filter(query, pk__lt=self.video.pk).order_by('pk').first()
+        self.next = self.videos.filter(pk__gt=self.video.pk).order_by('pk').first()
+        self.prev = self.videos.filter(pk__lt=self.video.pk).order_by('pk').first()
         if request.user.is_authenticated:
             self.template_name = get_template_user_window(self.list, "user_video/detail/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
         else:

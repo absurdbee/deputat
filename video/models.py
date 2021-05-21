@@ -279,17 +279,17 @@ class Video(models.Model):
                                 options={'quality': 90},
                                 upload_to=upload_to_video_directory,
                                 processors=[ResizeToFit(width=500, upscale=False)],
-                                verbose_name="Обложка")
+                                verbose_name="Обложка",blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     category = models.ForeignKey(VideoCategory, blank=True, null=True, related_name='video_category', on_delete=models.CASCADE, verbose_name="Категория")
     title = models.CharField(max_length=255, verbose_name="Название")
-    uri = models.CharField(max_length=255, verbose_name="Ссылка на видео")
+    uri = models.CharField(max_length=255, blank=True, null=True, verbose_name="Ссылка на видео")
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     list = models.ManyToManyField(VideoList, related_name="video_list", blank=True, verbose_name="Альбом")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="video_creator", on_delete=models.CASCADE, verbose_name="Создатель")
     status = models.CharField(choices=STATUS, default=PROCESSING, max_length=5)
-    file = models.FileField(upload_to=upload_to_video_directory, validators=[validate_file_extension], verbose_name="Видеозапись")
+    file = models.FileField(upload_to=upload_to_video_directory, blank=True, null=True, validators=[validate_file_extension], verbose_name="Видеозапись")
     community = models.ForeignKey('communities.Community', related_name='video_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     class Meta:

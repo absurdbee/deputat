@@ -1,6 +1,7 @@
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
-
+from django.db.models import Q
+from notify.models import Notify, Wall
 
 def user_send_notify(id, creator_id, recipient_id, action_community_id, socket_name):
     # посылаем сокет с переменными: id-id объекта, recipient_id - id получателя, socket_name-имя, по которому следует назначать событие в скрипте js
@@ -55,3 +56,33 @@ def community_send_wall(id, creator_id, community_id, action_community_id, socke
         'name': socket_name,
     }
     async_to_sync(channel_layer.group_send)('notification', payload)
+
+def get_news():
+    # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
+    query = Q(object_set__isnull=True)&Q(user_set__isnull=True)
+    return Wall.objects.filter(query)
+
+def get_region_news(name):
+    # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
+    query = Q(object_set__isnull=True) & Q(options__icontains=name)
+    return Wall.objects.filter(query)
+
+
+def get_my_news(user):
+    query = Q(creator_id__in=user.get_user_news_notify_ids())|\
+            Q(creator_id__in=user.get_user_profile_notify_ids())
+    query.add(Q(user_set__isnull=True, object_set__isnull=True), Q.AND)
+    return Wall.objects.filter(query)
+
+def get_draft_news(user):
+    query = Q(verb="SIT") & Q(user_set__isnull=True, object_set__isnull=True)
+    return Wall.objects.filter(query)
+
+def get_notify(user, notify):
+    type = notify.type
+    if type == "BLO":
+        from common.items.blog import get_blog
+        return get_blog(user, notify)
+    elif type == "BLOC":
+        from common.items.blog import get_comment_blog
+        return get_comment_blog(user, notify)

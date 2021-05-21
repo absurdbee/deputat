@@ -302,7 +302,7 @@ class ElectNew(models.Model):
 
     @classmethod
     def create_suggested_new(cls, creator, description, category, comments_enabled, votes_on, status):
-        from common.notify import user_wall, user_notify
+        from common.notify.notify import user_wall, user_notify
 
         elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=ElectNew.SUGGESTED,)
         user_wall(creator, "ELN", elect_new.pk, "draft_news_wall", "SIT")
@@ -310,7 +310,7 @@ class ElectNew(models.Model):
         return elect_new
 
     def make_publish_new(self):
-        from common.notify import user_wall, user_notify
+        from common.notify.notify import user_wall, user_notify
 
         self.status = ElectNew.PUBLISHED
         self.save(update_fields=['status'])

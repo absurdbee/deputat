@@ -20,7 +20,7 @@ class MainPageView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		from common.notify import get_news
+		from common.notify.progs import get_news
 		return get_news()
 
 class MainRegionView(ListView, CategoryListMixin):
@@ -39,7 +39,7 @@ class MainRegionView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		from common.notify import get_region_news
+		from common.notify.progs import get_region_news
 		return get_region_news(self.region.name)
 
 class MainMapView(TemplateView, CategoryListMixin):
@@ -83,7 +83,7 @@ class MyNewsView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		from common.notify import get_my_news
+		from common.notify.progs import get_my_news
 		if self.request.user.is_authenticated:
 			return get_my_news(self.request.user)
 		else:
@@ -101,7 +101,7 @@ class DraftNewsView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		from common.notify import get_draft_news
+		from common.notify.progs import get_draft_news
 		if self.request.user.is_authenticated and (self.request.user.is_manager() or self.request.user.is_supermanager()):
 			return get_draft_news(self.request.user)
 		else:

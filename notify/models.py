@@ -133,7 +133,7 @@ class Notify(models.Model):
         return self.status is "U"
 
     def get_notify(self, user):
-        from common.notify import get_notify
+        from common.notify.progs import get_notify
         return get_notify(user, self)
 
 
@@ -232,7 +232,7 @@ class Wall(models.Model):
         return naturaltime(self.created)
 
     def get_notify(self, user):
-        from common.notify import get_notify
+        from common.notify.progs import get_notify
         return get_notify(user, self)
 
 

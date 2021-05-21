@@ -140,12 +140,12 @@ class PhotoList(models.Model):
         get_photo_list_processing(list, PhotoList.LIST)
         return list
 
-    def edit_list(self, title, description, order, is_public):
+    def edit_list(self, name, description, order, is_public):
         from common.processing import get_photo_list_processing
 
         if not order:
             order = 1
-        self.title = name
+        self.name = name
         self.description = description
         self.order = order
         self.save()

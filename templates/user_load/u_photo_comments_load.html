@@ -64,6 +64,7 @@
         </div>
     </div>
 
+<span class="load_block">
 {% if object_list %}
 <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_img_load/">
 {% for object in object_list %}
@@ -80,12 +81,12 @@
     </span>
 </div>
   {% endfor %}
-
 </div>
 {% else %}
 <div class="card mb-3 centered">
   <h5 style="text-align: center;margin: 20px;"> Ваш плейлист пустой.</h5>
 </div>
 {% endif %}
+</span>
 </div>
 </div>

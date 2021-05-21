@@ -74,8 +74,7 @@ class UserVideoList(ListView):
         from common.templates import get_template_user_item, get_template_anon_user_item
 
         self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
-        self.user = User.objects.get(pk=self.kwargs["pk"])
-        if self.user.pk == request.user.pk:
+        if self.list.creator.pk == request.user.pk:
             self.video_list = self.list.get_my_videos()
         else:
             self.video_list = self.list.get_videos()

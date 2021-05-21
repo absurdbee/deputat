@@ -14,6 +14,7 @@ class UserVideoDetail(TemplateView):
 
     def get(self,request,*args,**kwargs):
         from common.templates import get_template_user_window, get_template_anon_user_window
+        from video.models import Video
 
         self.video = Video.objects.get(pk=self.kwargs["pk"])
         if request.user.pk == self.video.creator.pk:

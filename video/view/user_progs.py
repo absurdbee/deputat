@@ -122,7 +122,7 @@ class UserVideoCreate(TemplateView):
         if request.is_ajax() and form_post.is_valid():
             video = form_post.save(commit=False)
             new_video = Video.create_video(creator=request.user, title=video.title, file=video.file, image=video.image, uri=video.uri, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"), community=None)
-            return render_for_platform(request, 'user_video/new_video.html',{'video': new_video})
+            return render_for_platform(request, 'user_video/new_video.html',{'object': new_video})
         else:
             return HttpResponseBadRequest()
 

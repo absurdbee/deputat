@@ -36,7 +36,7 @@ on('body', 'click', '#u_edit_photo_list_btn', function() {
 });
 
 on('body', 'change', '#u_photo_add', function() {
-  uuid = this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-uuid");
+  uuid = this.parentElement.parentElement.parentElement.getAttribute("data-uuid");
   form_data = new FormData(document.body.querySelector("#add_photos"));
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/gallery/user_progs/add_photo/" + uuid + "/", true );

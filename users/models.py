@@ -73,19 +73,19 @@ class User(AbstractUser):
 
     def get_photo_list(self):
         from gallery.models import PhotoList
-        return PhotoList.objects.get(creator_id=self.pk, type=PhotoList.MAIN)
+        return PhotoList.objects.get(creator_id=self.pk, community_isnull=True, type=PhotoList.MAIN)
     def get_doc_list(self):
         from docs.models import DocList
-        return DocList.objects.get(creator_id=self.pk, type=DocList.MAIN)
+        return DocList.objects.get(creator_id=self.pk, community_isnull=True, type=DocList.MAIN)
     def get_playlist(self):
         from music.models import SoundList
-        return SoundList.objects.get(creator_id=self.pk, type=SoundList.MAIN)
+        return SoundList.objects.get(creator_id=self.pk, community_isnull=True, type=SoundList.MAIN)
     def get_video_list(self):
         from video.models import VideoList
-        return VideoList.objects.get(creator_id=self.pk, type=VideoList.MAIN)
+        return VideoList.objects.get(creator_id=self.pk, community_isnull=True, type=VideoList.MAIN)
     def get_survey_list(self):
         from survey.models import SurveyList
-        return SurveyList.objects.get(creator_id=self.pk, type=SurveyList.MAIN)
+        return SurveyList.objects.get(creator_id=self.pk, community_isnull=True, type=SurveyList.MAIN)
 
     def get_full_name(self):
         return self.first_name + " " + self.last_name

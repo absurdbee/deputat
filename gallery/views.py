@@ -43,7 +43,7 @@ class UserGallery(ListView):
 		self.count_lists = self.list.get_user_lists_count(pk)
 		if pk == request.user.pk:
 			self.photo_list = self.list.get_staff_photos()
-			self.get_lists = self.list.get_user_staff_lists(pk)
+			self.get_lists = self.list.get_user_staff_lists(pk) 
 		else:
 			self.photo_list = self.list.get_photos()
 			self.get_lists = self.list.get_user_lists(pk)

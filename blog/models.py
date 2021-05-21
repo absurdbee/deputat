@@ -150,13 +150,13 @@ class Blog(models.Model):
 
     def send_like(self, user, community):
         import json
-        from common.model.votes import ElectNewVotes2
+        from common.model.votes import BlogVotes
         from django.http import HttpResponse
         if not self.votes_on:
             from django.http import Http404
             raise Http404
         try:
-            item = BlogVotes.objects.get(parent=self, user=user)
+            item = BlogVotes.objects.get(blog=self, user=user)
             if item.vote == BlogVotes.DISLIKE:
                 item.vote = BlogVotes.LIKE
                 item.save(update_fields=['vote'])
@@ -174,7 +174,7 @@ class Blog(models.Model):
                 self.like -= 1
                 self.save(update_fields=['like'])
         except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(parent=self, user=user, vote=BlogVotes.LIKE)
+            BlogVotes.objects.create(blog=self, user=user, vote=BlogVotes.LIKE)
             self.like += 1
             self.save(update_fields=['like'])
             if community:
@@ -195,7 +195,7 @@ class Blog(models.Model):
             from django.http import Http404
             raise Http404
         try:
-            item = BlogVotes.objects.get(parent=self, user=user)
+            item = BlogVotes.objects.get(blog=self, user=user)
             if item.vote == BlogVotes.LIKE:
                 item.vote = BlogVotes.DISLIKE
                 item.save(update_fields=['vote'])
@@ -213,7 +213,7 @@ class Blog(models.Model):
                 self.dislike -= 1
                 self.save(update_fields=['dislike'])
         except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(parent=self, user=user, vote=BlogVotes.DISLIKE)
+            BlogVotes.objects.create(blog=self, user=user, vote=BlogVotes.DISLIKE)
             self.dislike += 1
             self.save(update_fields=['dislike'])
             if community:
@@ -234,7 +234,7 @@ class Blog(models.Model):
             from django.http import Http404
             raise Http404
         try:
-            item = BlogVotes.objects.get(parent=self, user=user)
+            item = BlogVotes.objects.get(blog=self, user=user)
             if item.vote == BlogVotes.LIKE:
                 item.vote = BlogVotes.INERT
                 item.save(update_fields=['vote'])
@@ -252,7 +252,7 @@ class Blog(models.Model):
                 self.inert -= 1
                 self.save(update_fields=['inert'])
         except BlogVotes.DoesNotExist:
-            BlogVotes.objects.create(parent=self, user=user, vote=BlogVotes.INERT)
+            BlogVotes.objects.create(blog=self, user=user, vote=BlogVotes.INERT)
             self.inert += 1
             self.save(update_fields=['inert'])
             if community:
@@ -418,7 +418,7 @@ class ElectNew(models.Model):
             from django.http import Http404
             raise Http404
         try:
-            item = ElectNewVotes2.objects.get(parent=self, user=user)
+            item = ElectNewVotes2.objects.get(new=self, user=user)
             if item.vote == ElectNewVotes2.DISLIKE:
                 item.vote = ElectNewVotes2.LIKE
                 item.save(update_fields=['vote'])
@@ -436,7 +436,7 @@ class ElectNew(models.Model):
                 self.like -= 1
                 self.save(update_fields=['like'])
         except ElectNewVotes2.DoesNotExist:
-            ElectNewVotes2.objects.create(parent=self, user=user, vote=ElectNewVotes2.LIKE)
+            ElectNewVotes2.objects.create(new=self, user=user, vote=ElectNewVotes2.LIKE)
             self.like += 1
             self.save(update_fields=['like'])
             if community:
@@ -457,7 +457,7 @@ class ElectNew(models.Model):
             from django.http import Http404
             raise Http404
         try:
-            item = ElectNewVotes2.objects.get(parent=self, user=user)
+            item = ElectNewVotes2.objects.get(new=self, user=user)
             if item.vote == ElectNewVotes2.LIKE:
                 item.vote = ElectNewVotes2.DISLIKE
                 item.save(update_fields=['vote'])
@@ -475,7 +475,7 @@ class ElectNew(models.Model):
                 self.dislike -= 1
                 self.save(update_fields=['dislike'])
         except ElectNewVotes2.DoesNotExist:
-            ElectNewVotes2.objects.create(parent=self, user=user, vote=ElectNewVotes2.DISLIKE)
+            ElectNewVotes2.objects.create(new=self, user=user, vote=ElectNewVotes2.DISLIKE)
             self.dislike += 1
             self.save(update_fields=['dislike'])
             if community:
@@ -496,7 +496,7 @@ class ElectNew(models.Model):
             from django.http import Http404
             raise Http404
         try:
-            item = ElectNewVotes2.objects.get(parent=self, user=user)
+            item = ElectNewVotes2.objects.get(new=self, user=user)
             if item.vote == ElectNewVotes2.LIKE:
                 item.vote = ElectNewVotes2.INERT
                 item.save(update_fields=['vote'])
@@ -514,7 +514,7 @@ class ElectNew(models.Model):
                 self.inert -= 1
                 self.save(update_fields=['inert'])
         except ElectNewVotes2.DoesNotExist:
-            ElectNewVotes2.objects.create(parent=self, user=user, vote=ElectNewVotes2.INERT)
+            ElectNewVotes2.objects.create(new=self, user=user, vote=ElectNewVotes2.INERT)
             self.inert += 1
             self.save(update_fields=['inert'])
             if community:

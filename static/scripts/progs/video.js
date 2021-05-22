@@ -212,3 +212,22 @@ on('body', 'click', '.u_load_profile_video_list', function() {
 on('body', 'click', '.u_load_attach_video_list', function() {
   profile_list_block_load(this, ".load_block", "/users/load/u_video_list_load/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_attach_video_list");
 });
+
+on('body', 'click', '.mob_user_video_remove', function() {
+  mob_send_change(this, "/video/user_progs/delete/", "mob_user_video_abort_remove", "Отмена");
+  post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  post.querySelector(".content_block").style.display = "none";
+  post.querySelector(".image_card").style.opacity = "0.5";
+})
+on('body', 'click', '.mob_user_video_abort_remove', function() {
+  mob_send_change(this, "/video/user_progs/abort_delete/", "mob_user_video_remove", "Удалить");
+  post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  post.querySelector(".content_block").style.display = "unset";
+  post.querySelector(".image_card").style.opacity = "1";
+})
+on('body', 'click', '.mob_u_video_off_private', function() {
+  mob_send_change(this, "/video/user_progs/off_private/", "mob_u_video_on_private", "Вкл. приватность")
+})
+on('body', 'click', '.mob_u_video_on_private', function() {
+  mob_send_change(this, "/video/user_progs/on_private/", "mob_u_video_off_private", "Выкл. приватность")
+})

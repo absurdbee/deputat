@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class UserNotifications(models.Model):
@@ -18,6 +20,11 @@ class UserNotifications(models.Model):
         verbose_name_plural = 'Настройки уведомдений пользователя'
         index_together = [('id', 'user'),]
 
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            UserNotifications.objects.create(user=instance)
+
 
 class UserPrivate(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_private', verbose_name="Пользователь")
@@ -34,3 +41,8 @@ class UserPrivate(models.Model):
         verbose_name = 'Настройка приватности пользователя'
         verbose_name_plural = 'Настройки приватности пользователя'
         index_together = [('id', 'user'),]
+
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            UserPrivate.objects.create(user=instance)

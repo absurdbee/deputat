@@ -3,7 +3,7 @@
 {% load filters %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" data-uuid="{{ list.uuid }}">
+<div class="container mt-3 pk_saver" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
   <div class="breadcrumb-wrapper">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>

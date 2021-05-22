@@ -100,15 +100,14 @@ class PhotoList(models.Model):
         else:
             return str(count) + " фотографий"
 
-    def get_photos(self):
+    def get_items(self):
         return self.photo_list.filter(status="PUB")
 
-    def get_staff_photos(self):
-        query = Q(status="PUB") | Q(status="PRI")
-        return self.photo_list.filter(query)
+    def get_staff_items(self):
+        return self.photo_list.filter(Q(status="PUB") | Q(status="PRI"))
 
     def is_not_empty(self):
-        return self.photo_list.filter(list=self, status="PUB").values("pk").exists()
+        return self.photo_list.filter(status="PUB").values("pk").exists()
 
     def is_item_in_list(self, item_id):
         return self.photo_list.filter(pk=item_id).exists()
@@ -421,6 +420,6 @@ class Photo(models.Model):
         return self.type == self.PRIVATE
     def is_open(self):
         return self.type == self.MANAGER or self.type == self.PUBLISHED
-        
+
     def get_lists(self):
         return self.list.all()

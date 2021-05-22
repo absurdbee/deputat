@@ -180,7 +180,7 @@ class RemovePhotoInUserPhotoList(View):
     """
     def get(self, request, *args, **kwargs):
         photo = Photo.objects.get(pk=self.kwargs["pk"])
-        list = UserPhoto.objects.get(uuid=self.kwargs["uuid"])
+        list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_item_in_list(photo.pk) and list.creator.pk == request.user.pk:
             list.photo_list.remove(photo)
             return HttpResponse()

@@ -108,7 +108,7 @@ class UserVideolistEdit(TemplateView):
         return super(UserVideolistEdit,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        context = super(UserVideoistEdit,self).get_context_data(**kwargs)
+        context = super(UserVideolistEdit,self).get_context_data(**kwargs)
         context["list"] = VideoList.objects.get(uuid=self.kwargs["uuid"])
         return context
 

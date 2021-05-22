@@ -269,7 +269,7 @@ class Blog(models.Model):
 class ElectNew(models.Model):
     PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = '_PRO','PUB','PRI','MAN','_DEL','_CLO'
     DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = '_DELP','_DELM','_CLOP','_CLOM'
-    STATUS = (
+    TYPE = (
         (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
         (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
@@ -278,7 +278,7 @@ class ElectNew(models.Model):
     description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
     elect = models.ForeignKey(Elect, on_delete=models.SET_NULL, blank=True, null=True, related_name="new_elect", verbose_name="Чиновник")
     category = models.ForeignKey(ElectNewsCategory, on_delete=models.SET_NULL, related_name="elect_cat", blank=True, null=True, verbose_name="Категория активности")
-    status = models.CharField(choices=STATUS, default=PROCESSING, max_length=5, verbose_name="Статус записи")
+    type = models.CharField(choices=TYPE, default=PROCESSING, max_length=5, verbose_name="Статус записи")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="elect_new_creator", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Создатель")
     content = RichTextUploadingField(config_name='default',)
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
@@ -301,10 +301,10 @@ class ElectNew(models.Model):
         return self.title
 
     @classmethod
-    def create_suggested_new(cls, creator, description, category, comments_enabled, votes_on, status):
+    def create_suggested_new(cls, creator, description, category, comments_enabled, votes_on, type):
         from common.notify.notify import user_wall, user_notify
 
-        elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=ElectNew.SUGGESTED,)
+        elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,type=ElectNew.SUGGESTED,)
         user_wall(creator, "ELN", elect_new.pk, "draft_news_wall", "SIT")
         user_notify(creator, "ELN", elect_new.pk, "draft_news_notify", "SIT")
         return elect_new
@@ -312,26 +312,26 @@ class ElectNew(models.Model):
     def make_publish_new(self):
         from common.notify.notify import user_wall, user_notify
 
-        self.status = ElectNew.PUBLISHED
-        self.save(update_fields=['status'])
+        self.type = ElectNew.PUBLISHED
+        self.save(update_fields=['type'])
         user_wall(self.manager, "ELN", elect_new.pk, "news_wall", "ITE")
         user_notify(self.manager, "ELN", elect_new.pk, "news_notify", "ITE")
         return self
 
     def is_draft(self):
-        return self.status == ElectNew.DRAFT
+        return self.type == ElectNew.DRAFT
     def is_published(self):
-        return self.status == ElectNew.PUBLISHED
+        return self.type == ElectNew.PUBLISHED
     def is_manager(self):
-        return self.status == ElectNew.MANAGER
+        return self.type == ElectNew.MANAGER
     def is_suggested(self):
-        return self.status == ElectNew.SUGGESTED
+        return self.type == ElectNew.SUGGESTED
     def is_deleted(self):
-        return self.status == ElectNew.DELETED
+        return self.type == ElectNew.DELETED
     def is_suggested(self):
-        return self.status == ElectNew.SUGGESTED
+        return self.type == ElectNew.SUGGESTED
     def is_closed(self):
-        return self.status == ElectNew.CLOSED
+        return self.type == ElectNew.CLOSED
 
     def likes(self):
         from common.model.votes import ElectNewVotes2
@@ -531,26 +531,26 @@ class ElectNew(models.Model):
 
     def delete_elect_new(self):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = ElectNew.DELETED
-        elif self.status == "PRI":
-            self.status = ElectNew.DELETED_PRIVATE
-        elif self.status == "MAN":
-            self.status = ElectNew.DELETED_MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = ElectNew.DELETED
+        elif self.type == "PRI":
+            self.type = ElectNew.DELETED_PRIVATE
+        elif self.type == "MAN":
+            self.type = ElectNew.DELETED_MANAGER
+        self.save(update_fields=['type'])
         if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_doc(self):
         from notify.models import Notify, Wall
-        if self.status == "_DEL":
-            self.status = ElectNew.PUBLISHED
-        elif self.status == "_DELP":
-            self.status = ElectNew.PRIVATE
-        elif self.status == "_DELM":
-            self.status = ElectNew.MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "_DEL":
+            self.type = ElectNew.PUBLISHED
+        elif self.type == "_DELP":
+            self.type = ElectNew.PRIVATE
+        elif self.type == "_DELM":
+            self.type = ElectNew.MANAGER
+        self.save(update_fields=['type'])
         if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
@@ -558,26 +558,26 @@ class ElectNew(models.Model):
 
     def close_doc(self):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = ElectNew.CLOSED
-        elif self.status == "PRI":
-            self.status = ElectNew.CLOSED_PRIVATE
-        elif self.status == "MAN":
-            self.status = ElectNew.CLOSED_MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = ElectNew.CLOSED
+        elif self.type == "PRI":
+            self.type = ElectNew.CLOSED_PRIVATE
+        elif self.type == "MAN":
+            self.type = ElectNew.CLOSED_MANAGER
+        self.save(update_fields=['type'])
         if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_doc(self):
         from notify.models import Notify, Wall
-        if self.status == "_CLO":
-            self.status = ElectNew.PUBLISHED
-        elif self.status == "_CLOP":
-            self.status = ElectNew.PRIVATE
-        elif self.status == "_CLOM":
-            self.status = ElectNew.MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "_CLO":
+            self.type = ElectNew.PUBLISHED
+        elif self.type == "_CLOP":
+            self.type = ElectNew.PRIVATE
+        elif self.type == "_CLOM":
+            self.type = ElectNew.MANAGER
+        self.save(update_fields=['type'])
         if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():

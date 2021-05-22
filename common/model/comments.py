@@ -15,7 +15,7 @@ class BlogComment(models.Model):
     EDITED, PUBLISHED, PROCESSING = 'EDI', 'PUB', '_PRO'
     DELETED, EDITED_DELETED = '_DEL', '_DELE'
     CLOSED, EDITED_CLOSED = '_CLO', '_CLOE'
-    STATUS = (
+    TYPE = (
         (PUBLISHED, 'Опубликовано'),(EDITED, 'Изменённый'),(PROCESSING, 'Обработка'),
         (DELETED, 'Удалённый'), (DELETED, 'Удалённый изменённый'),
         (CLOSED, 'Закрытый менеджером'), (CLOSED, 'Закрытый изменённый'),
@@ -26,7 +26,7 @@ class BlogComment(models.Model):
     text = models.TextField(blank=True)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, blank=True, null=True)
     attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
-    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип комментария")
+    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип комментария")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
 
     class Meta:
@@ -46,7 +46,7 @@ class BlogComment(models.Model):
         return naturaltime(self.created)
 
     def get_replies(self):
-        return self.blog_comment_replies.filter(Q(status="PUB")|Q(status="EDI"))
+        return self.blog_comment_replies.filter(Q(type="PUB")|Q(type="EDI"))
 
     def count_replies(self):
         return self.get_replies().values("pk").count()
@@ -118,11 +118,11 @@ class BlogComment(models.Model):
 
     def delete_comment(self):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = BlogComment.DELETED
-        elif self.status == "EDI":
-            self.status = BlogComment.DELETED
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = BlogComment.DELETED
+        elif self.type == "EDI":
+            self.type = BlogComment.DELETED
+        self.save(update_fields=['type'])
         if self.parent:
             self.parent.blog.comment -= 1
             self.parent.blog.save(update_fields=["comment"])
@@ -137,11 +137,11 @@ class BlogComment(models.Model):
             Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="C")
     def restore_comment(self):
         from notify.models import Notify, Wall
-        if self.status == "_DEL":
-            self.status = BlogComment.PUBLISHED
-        elif self.status == "_DELE":
-            self.status = BlogComment.EDITED
-        self.save(update_fields=['status'])
+        if self.type == "_DEL":
+            self.type = BlogComment.PUBLISHED
+        elif self.type == "_DELE":
+            self.type = BlogComment.EDITED
+        self.save(update_fields=['type'])
         if self.parent:
             self.parent.blog.comment += 1
             self.parent.blog.save(update_fields=["comment"])
@@ -157,11 +157,11 @@ class BlogComment(models.Model):
 
     def close_item(self):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = BlogComment.CLOSED
-        elif self.status == "EDI":
-            self.status = BlogComment.EDITED_CLOSED
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = BlogComment.CLOSED
+        elif self.type == "EDI":
+            self.type = BlogComment.EDITED_CLOSED
+        self.save(update_fields=['type'])
         if self.parent:
             self.parent.blog.comment -= 1
             self.parent.blog.save(update_fields=["comment"])
@@ -176,11 +176,11 @@ class BlogComment(models.Model):
             Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="C")
     def abort_close_item(self):
         from notify.models import Notify, Wall
-        if self.status == "_CLO":
-            self.status = BlogComment.PUBLISHED
-        elif self.status == "_CLOE":
-            self.status = BlogComment.EDITED
-        self.save(update_fields=['status'])
+        if self.type == "_CLO":
+            self.type = BlogComment.PUBLISHED
+        elif self.type == "_CLOE":
+            self.type = BlogComment.EDITED
+        self.save(update_fields=['type'])
         if self.parent:
             self.parent.blog.comment += 1
             self.parent.blog.save(update_fields=["comment"])
@@ -241,7 +241,7 @@ class ElectNewComment(models.Model):
     EDITED, PUBLISHED, PROCESSING = 'EDI', 'PUB', '_PRO'
     DELETED, EDITED_DELETED = '_DEL', '_DELE'
     CLOSED, EDITED_CLOSED = '_CLO', '_CLOE'
-    STATUS = (
+    TYPE = (
         (PUBLISHED, 'Опубликовано'),(EDITED, 'Изменённый'),(PROCESSING, 'Обработка'),
         (DELETED, 'Удалённый'), (DELETED, 'Удалённый изменённый'),
         (CLOSED, 'Закрытый менеджером'), (CLOSED, 'Закрытый изменённый'),
@@ -252,7 +252,7 @@ class ElectNewComment(models.Model):
     text = models.TextField(blank=True)
     new = models.ForeignKey(ElectNew, on_delete=models.CASCADE, blank=True, null=True)
     attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
-    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип комментария")
+    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип комментария")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
 
     class Meta:
@@ -269,7 +269,7 @@ class ElectNewComment(models.Model):
         return naturaltime(self.created)
 
     def get_replies(self):
-        return self.elect_new_comment_replies.filter(Q(status="PUB")|Q(status="EDI"))
+        return self.elect_new_comment_replies.filter(Q(type="PUB")|Q(type="EDI"))
 
     def count_replies(self):
         return self.get_replies().values("pk").count()
@@ -341,11 +341,11 @@ class ElectNewComment(models.Model):
 
     def delete_comment(self):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = ElectNewComment.DELETED
-        elif self.status == "EDI":
-            self.status = ElectNewComment.DELETED
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = ElectNewComment.DELETED
+        elif self.type == "EDI":
+            self.type = ElectNewComment.DELETED
+        self.save(update_fields=['type'])
         if self.parent:
             self.parent.new.comment -= 1
             self.parent.new.save(update_fields=["comment"])
@@ -360,11 +360,11 @@ class ElectNewComment(models.Model):
             Wall.objects.filter(type="PHOC", object_id=self.pk, verb="COM").update(status="C")
     def restore_comment(self):
         from notify.models import Notify, Wall
-        if self.status == "_DEL":
-            self.status = ElectNewComment.PUBLISHED
-        elif self.status == "_DELE":
-            self.status = ElectNewComment.EDITED
-        self.save(update_fields=['status'])
+        if self.type == "_DEL":
+            self.type = ElectNewComment.PUBLISHED
+        elif self.type == "_DELE":
+            self.type = ElectNewComment.EDITED
+        self.save(update_fields=['type'])
         if self.parent:
             self.parent.new.comment += 1
             self.parent.new.save(update_fields=["comment"])
@@ -380,11 +380,11 @@ class ElectNewComment(models.Model):
 
     def close_item(self):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = ElectNewComment.CLOSED
-        elif self.status == "EDI":
-            self.status = ElectNewComment.EDITED_CLOSED
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = ElectNewComment.CLOSED
+        elif self.type == "EDI":
+            self.type = ElectNewComment.EDITED_CLOSED
+        self.save(update_fields=['type'])
         if self.parent:
             self.parent.new.comment -= 1
             self.parent.new.save(update_fields=["comment"])
@@ -399,11 +399,11 @@ class ElectNewComment(models.Model):
             Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="C")
     def abort_close_item(self):
         from notify.models import Notify, Wall
-        if self.status == "_CLO":
-            self.status = ElectNewComment.PUBLISHED
-        elif self.status == "_CLOE":
-            self.status = ElectNewComment.EDITED
-        self.save(update_fields=['status'])
+        if self.type == "_CLO":
+            self.type = ElectNewComment.PUBLISHED
+        elif self.type == "_CLOE":
+            self.type = ElectNewComment.EDITED
+        self.save(update_fields=['type'])
         if self.parent:
             self.parent.new.comment += 1
             self.parent.new.save(update_fields=["comment"])

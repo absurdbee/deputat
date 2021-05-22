@@ -78,17 +78,17 @@ class PhotoList(models.Model):
     def get_cover_photo(self):
         if self.cover_photo:
             return self.cover_photo.file.url
-        elif self.photo_list.filter(status="PUB").exists():
-            return self.photo_list.filter(status="PUB").last().file.url
+        elif self.photo_list.filter(type="PUB").exists():
+            return self.photo_list.filter(type="PUB").last().file.url
         else:
             return "/static/images/list.jpg"
 
     def get_first_photo(self):
-        return self.photo_list.filter(status="PUB").first()
+        return self.photo_list.filter(type="PUB").first()
 
     def count_items(self):
         try:
-            return self.photo_list.filter(status="PUB").values("pk").count()
+            return self.photo_list.filter(type="PUB").values("pk").count()
         except:
             return 0
     def count_items_ru(self):
@@ -103,13 +103,13 @@ class PhotoList(models.Model):
             return str(count) + " фотографий"
 
     def get_items(self):
-        return self.photo_list.filter(status="PUB")
+        return self.photo_list.filter(type="PUB")
 
     def get_staff_items(self):
-        return self.photo_list.filter(Q(status="PUB") | Q(status="PRI"))
+        return self.photo_list.filter(Q(type="PUB") | Q(type="PRI"))
 
     def is_not_empty(self):
-        return self.photo_list.filter(status="PUB").values("pk").exists()
+        return self.photo_list.filter(type="PUB").values("pk").exists()
 
     def is_item_in_list(self, item_id):
         return self.photo_list.filter(pk=item_id).exists()
@@ -271,7 +271,7 @@ class PhotoList(models.Model):
 class Photo(models.Model):
     PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = '_PRO','PUB','PRI', 'MAN', '_DEL', '_CLO'
     DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = '_DELP', '_DELM', '_CLOP', '_CLOM'
-    STATUS = (
+    TYPE = (
         (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
         (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
@@ -281,7 +281,7 @@ class Photo(models.Model):
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
-    status = models.CharField(max_length=6, choices=STATUS, default=PROCESSING, verbose_name="Тип изображения")
+    type = models.CharField(max_length=6, choices=TYPE, default=PROCESSING, verbose_name="Тип изображения")
     community = models.ForeignKey('communities.Community', related_name='photo_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     class Meta:
@@ -332,16 +332,16 @@ class Photo(models.Model):
 
     def make_private(self):
         from notify.models import Notify, Wall
-        self.status = Photo.PRIVATE
-        self.save(update_fields=['status'])
+        self.type = Photo.PRIVATE
+        self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.status = Photo.PUBLISHED
-        self.save(update_fields=['status'])
+        self.type = Photo.PUBLISHED
+        self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
@@ -349,13 +349,13 @@ class Photo(models.Model):
 
     def delete_photo(self, community):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = Photo.DELETED
-        elif self.status == "PRI":
-            self.status = Photo.DELETED_PRIVATE
-        elif self.status == "MAN":
-            self.status = Photo.DELETED_MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = Photo.DELETED
+        elif self.type == "PRI":
+            self.type = Photo.DELETED_PRIVATE
+        elif self.type == "MAN":
+            self.type = Photo.DELETED_MANAGER
+        self.save(update_fields=['type'])
         if community:
             community.minus_photos(1)
         else:
@@ -366,13 +366,13 @@ class Photo(models.Model):
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_photo(self, community):
         from notify.models import Notify, Wall
-        if self.status == "_DEL":
-            self.status = Photo.PUBLISHED
-        elif self.status == "_DELP":
-            self.status = Photo.PRIVATE
-        elif self.status == "_DELM":
-            self.status = Photo.MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "_DEL":
+            self.type = Photo.PUBLISHED
+        elif self.type == "_DELP":
+            self.type = Photo.PRIVATE
+        elif self.type == "_DELM":
+            self.type = Photo.MANAGER
+        self.save(update_fields=['type'])
         if community:
             community.plus_photos(1)
         else:
@@ -384,13 +384,13 @@ class Photo(models.Model):
 
     def close_doc(self, community):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = Photo.CLOSED
-        elif self.status == "PRI":
-            self.status = Photo.CLOSED_PRIVATE
-        elif self.status == "MAN":
-            self.status = Photo.CLOSED_MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = Photo.CLOSED
+        elif self.type == "PRI":
+            self.type = Photo.CLOSED_PRIVATE
+        elif self.type == "MAN":
+            self.type = Photo.CLOSED_MANAGER
+        self.save(update_fields=['type'])
         if community:
             community.minus_photos(1)
         else:
@@ -401,13 +401,13 @@ class Photo(models.Model):
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_doc(self, community):
         from notify.models import Notify, Wall
-        if self.status == "_CLO":
-            self.status = Photo.PUBLISHED
-        elif self.status == "_CLOP":
-            self.status = Photo.PRIVATE
-        elif self.status == "_CLOM":
-            self.status = Photo.MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "_CLO":
+            self.type = Photo.PUBLISHED
+        elif self.type == "_CLOP":
+            self.type = Photo.PRIVATE
+        elif self.type == "_CLOM":
+            self.type = Photo.MANAGER
+        self.save(update_fields=['type'])
         if community:
             community.plus_photos(1)
         else:
@@ -421,11 +421,11 @@ class Photo(models.Model):
         return self.list.all()[0].type
 
     def is_private(self):
-        return self.status == self.PRIVATE
+        return self.type == self.PRIVATE
     def is_open(self):
-        return self.status == self.MANAGER or self.type == self.PUBLISHED
+        return self.type == self.MANAGER or self.type == self.PUBLISHED
     def is_deleted(self):
-        return self.status == self.DELETED
+        return self.type == self.DELETED
 
     def get_lists(self):
         return self.list.all()

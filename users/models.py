@@ -365,7 +365,7 @@ class User(AbstractUser):
         from blog.models import ElectNew
         from common.model.comments import ElectNewComment
         from common.model.votes import ElectNewVotes2
-        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.STATUS_PUBLISHED)
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, type=ElectNew.PUBLISHED)
         for i in posts:
             views = ElectNewNumbers.objects.filter(new=i.pk, created__year=year)
             auth_count += views.exclude(user=0).values('pk').count()
@@ -382,7 +382,7 @@ class User(AbstractUser):
         from blog.models import ElectNew
         from common.model.comments import ElectNewComment
         from common.model.votes import ElectNewVotes2
-        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.STATUS_PUBLISHED)
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, type=ElectNew.PUBLISHED)
         for i in posts:
             views = ElectNewNumbers.objects.filter(new=i.pk, created__month=month)
             auth_count += views.exclude(user=0).values('pk').count()
@@ -399,7 +399,7 @@ class User(AbstractUser):
         from blog.models import ElectNew
         from common.model.comments import ElectNewComment
         from common.model.votes import ElectNewVotes2
-        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.STATUS_PUBLISHED)
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, type=ElectNew.PUBLISHED)
         for i in posts:
             views = ElectNewNumbers.objects.filter(new=i.pk, created__day__in=week)
             auth_count += views.exclude(user=0).values('pk').count()
@@ -416,7 +416,7 @@ class User(AbstractUser):
         from blog.models import ElectNew
         from common.model.comments import ElectNewComment
         from common.model.votes import ElectNewVotes2
-        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, status=ElectNew.PUBLISHED)
+        comments, likes, dislikes, inerts, auth_count, anon_count, posts = 0, 0, 0, 0, 0, ElectNew.objects.filter(creator_id=self.pk, type=ElectNew.PUBLISHED)
         for i in posts:
             views = ElectNewNumbers.objects.filter(new=i.pk, created__day=day)
             auth_count += views.exclude(user=0).values('pk').count()

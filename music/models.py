@@ -63,12 +63,12 @@ class SoundList(models.Model):
         return self.playlist.filter(list=self).values("pk").exists()
 
     def get_staff_items(self):
-        query = Q(status="PUB")|Q(status="PRI")
+        query = Q(type="PUB")|Q(type="PRI")
         queryset = self.playlist.filter(query)
         return queryset
 
     def get_items(self):
-        query = Q(status="PUB")
+        query = Q(type="PUB")
         queryset = self.playlist.filter(query)
         return queryset
 
@@ -98,7 +98,7 @@ class SoundList(models.Model):
         self.save()
 
     def count_items(self):
-        query = Q(status="PUB") | Q(status="MAN")
+        query = Q(type="PUB") | Q(type="MAN")
         return self.playlist.filter(query).values("pk").count()
 
     def is_main(self):
@@ -269,7 +269,7 @@ class SoundList(models.Model):
 class Music(models.Model):
     PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = '_PRO','PUB','PRI', 'MAN', '_DEL', '_CLO'
     DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = '_DELP', '_DELM', '_CLOP', '_CLOM'
-    STATUS = (
+    TYPE = (
         (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
         (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
@@ -281,7 +281,7 @@ class Music(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
     uri = models.CharField(max_length=255, blank=True, null=True)
     list = models.ManyToManyField(SoundList, related_name='playlist', blank="True")
-    status = models.CharField(max_length=5, choices=STATUS, default=PROCESSING, verbose_name="Тип")
+    type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
     community = models.ForeignKey('communities.Community', related_name='track_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
@@ -324,23 +324,23 @@ class Music(models.Model):
 
     def make_private(self):
         from notify.models import Notify, Wall
-        self.status = Music.PRIVATE
-        self.save(update_fields=['status'])
+        self.type = Music.PRIVATE
+        self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
-        self.status = Music.PUBLISHED
-        self.save(update_fields=['status'])
+        self.type = Music.PUBLISHED
+        self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
     def is_private(self):
-        return self.status == self.PRIVATE
+        return self.type == self.PRIVATE
 
     @classmethod
     def create_track(cls, creator, title, file, lists, is_public, community):
@@ -400,13 +400,13 @@ class Music(models.Model):
 
     def delete_track(self, community):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = Music.DELETED
-        elif self.status == "PRI":
-            self.status = Music.DELETED_PRIVATE
-        elif self.status == "MAN":
-            self.status = Music.DELETED_MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = Music.DELETED
+        elif self.type == "PRI":
+            self.type = Music.DELETED_PRIVATE
+        elif self.type == "MAN":
+            self.type = Music.DELETED_MANAGER
+        self.save(update_fields=['type'])
         if community:
             community.minus_tracks(1)
         else:
@@ -417,13 +417,13 @@ class Music(models.Model):
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_track(self, community):
         from notify.models import Notify, Wall
-        if self.status == "_DEL":
-            self.status = Music.PUBLISHED
-        elif self.status == "_DELP":
-            self.status = Music.PRIVATE
-        elif self.status == "_DELM":
-            self.status = Music.MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "_DEL":
+            self.type = Music.PUBLISHED
+        elif self.type == "_DELP":
+            self.type = Music.PRIVATE
+        elif self.type == "_DELM":
+            self.type = Music.MANAGER
+        self.save(update_fields=['type'])
         if community:
             community.plus_tracks(1)
         else:
@@ -435,13 +435,13 @@ class Music(models.Model):
 
     def close_track(self, community):
         from notify.models import Notify, Wall
-        if self.status == "PUB":
-            self.status = Music.CLOSED
-        elif self.status == "PRI":
-            self.status = Music.CLOSED_PRIVATE
-        elif self.status == "MAN":
-            self.status = Music.CLOSED_MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "PUB":
+            self.type = Music.CLOSED
+        elif self.type == "PRI":
+            self.type = Music.CLOSED_PRIVATE
+        elif self.type == "MAN":
+            self.type = Music.CLOSED_MANAGER
+        self.save(update_fields=['type'])
         if community:
             community.minus_tracks(1)
         else:
@@ -452,13 +452,13 @@ class Music(models.Model):
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_track(self, community):
         from notify.models import Notify, Wall
-        if self.status == "_CLO":
-            self.status = Music.PUBLISHED
-        elif self.status == "_CLOP":
-            self.status = Music.PRIVATE
-        elif self.status == "_CLOM":
-            self.status = Music.MANAGER
-        self.save(update_fields=['status'])
+        if self.type == "_CLO":
+            self.type = Music.PUBLISHED
+        elif self.type == "_CLOP":
+            self.type = Music.PRIVATE
+        elif self.type == "_CLOM":
+            self.type = Music.MANAGER
+        self.save(update_fields=['type'])
         if community:
             community.plus_tracks(1)
         else:
@@ -472,8 +472,8 @@ class Music(models.Model):
         return self.list.all()
 
     def is_private(self):
-        return self.status == self.PRIVATE
+        return self.type == self.PRIVATE
     def is_open(self):
-        return self.status == self.MANAGER or self.status == self.PUBLISHED
+        return self.type == self.MANAGER or self.type == self.PUBLISHED
     def is_deleted(self):
-        return self.status == self.DELETED
+        return self.type == self.DELETED

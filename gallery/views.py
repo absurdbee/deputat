@@ -140,8 +140,8 @@ class UserElectNewPhoto(TemplateView):
 		context["object"] = self.photo
 		context["elect_new"] = self.elect_new
 		context["user"] = self.request.user
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, status="PUB").order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, status="PUB").order_by('-pk').first()
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
 		return context
 
 class UserBlogCommentPhoto(TemplateView):
@@ -164,8 +164,8 @@ class UserBlogCommentPhoto(TemplateView):
 		context = super(UserBlogCommentPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["user"] = self.request.user
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, status="PUB").order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, status="PUB").order_by('-pk').first()
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
 		context["comment"] = self.comment
 		return context
 
@@ -189,8 +189,8 @@ class UserElectNewCommentPhoto(TemplateView):
 		context = super(UserElectNewCommentPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["user"] = self.request.user
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, status="PUB").order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, status="PUB").order_by('-pk').first()
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
 		context["comment"] = self.comment
 		return context
 

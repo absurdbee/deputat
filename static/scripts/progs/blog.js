@@ -170,6 +170,12 @@ on('#ajax', 'click', '.u_load_doc', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen('/users/load/u_doc_load/', loader)
 });
+on('#ajax', 'click', '.u_load_video', function() {
+  check_attach_block_message_post();
+  this.classList.add("current_file_dropdown");
+  loader = document.getElementById("create_loader");
+  open_fullscreen('/users/load/u_video_load/', loader)
+});
 on('#ajax', 'click', '.u_load_music', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");

@@ -826,8 +826,10 @@ class User(AbstractUser):
         return self.user_info.friends
 
     def plus_photos(self, count):
-        self.user_info.photos += count
-        return self.user_info.save(update_fields=['photos'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.photos += count
+        return profile.save(update_fields=['photos'])
     def minus_photos(self, count):
         self.user_info.photos -= count
         return self.user_info.save(update_fields=['photos'])

@@ -1,3 +1,6 @@
+.video {
+  position: relative;
+}
 .video_icon_play_v2{
   position: absolute;
     top: 0;

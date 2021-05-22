@@ -485,3 +485,9 @@ class Video(models.Model):
         return self.status == self.PRIVATE
     def is_open(self):
         return self.status == self.MANAGER or self.status == self.PUBLISHED
+
+    def get_images(self):
+        if self.image:
+            return self.image.url
+        else:
+            return "/static/images/list.jpg"

@@ -62,11 +62,12 @@ class SoundList(models.Model):
     def is_not_empty(self):
         return self.playlist.filter(list=self).values("pk").exists()
 
-    def get_my_playlist(self):
+    def get_staff_items(self):
         query = Q(status="PUB")|Q(status="PRI")
-        return self.playlist.filter(query)
+        queryset = self.playlist.filter(query)
+        return queryset
 
-    def get_playlist(self):
+    def get_items(self):
         query = Q(status="PUB")
         queryset = self.playlist.filter(query)
         return queryset

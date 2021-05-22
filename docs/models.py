@@ -96,10 +96,10 @@ class DocList(models.Model):
     def is_not_empty(self):
         return self.doc_list.filter(list=self).values("pk").exists()
 
-    def get_my_docs(self):
+    def get_staff_items(self):
         return self.doc_list.filter(Q(status="PUB")|Q(status="PRI"))
 
-    def get_docs(self):
+    def get_items(self):
         return self.doc_list.filter(status="PUB")
 
     def get_users_ids(self):

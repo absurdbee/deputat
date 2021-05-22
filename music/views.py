@@ -27,10 +27,10 @@ class UserMusic(ListView):
         self.user = User.objects.get(pk=pk)
         self.list = self.user.get_playlist()
         if pk == request.user.pk:
-            self.music_list = self.list.get_my_playlist()
+            self.music_list = self.list.get_staff_items()
             self.get_lists = self.list.get_user_staff_lists(pk)
         else:
-            self.music_list = self.list.get_playlist()
+            self.music_list = self.list.get_items()
             self.get_lists = self.list.get_user_lists(pk)
         self.count_lists = self.list.get_user_lists_count(pk)
         if request.user.is_authenticated:
@@ -57,9 +57,9 @@ class UserMusicList(ListView):
 
         self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
         if self.list.creator.pk == request.user.pk:
-            self.music_list = self.list.get_my_playlist()
+            self.music_list = self.list.get_staff_items()
         else:
-            self.music_list = self.list.get_playlist()
+            self.music_list = self.list.get_items()
         if request.user.is_authenticated:
             self.template_name = get_template_user_item(self.list, "user_music/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
         else:
@@ -83,9 +83,9 @@ class UserLoadPlaylist(ListView):
 
         self.list = SoundList.objects.get(pk=self.kwargs["pk"])
         if self.list.creator.pk == request.user.pk:
-            self.music_list = self.list.get_my_playlist()
+            self.music_list = self.list.get_staff_items()
         else:
-            self.music_list = self.list.get_playlist()
+            self.music_list = self.list.get_items()
         if request.user.is_authenticated:
             self.template_name = get_template_user_window(self.list, "user_music/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
         else:

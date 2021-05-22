@@ -16,7 +16,7 @@ class UserLoadPhoto(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_photos()
+		return self.list.get_items()
 
 
 class UserLoadPhotoList(ListView):
@@ -33,7 +33,7 @@ class UserLoadPhotoList(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_photos()
+		return self.list.get_items()
 
 class UserLoadPhotoComment(ListView):
 	template_name, paginate_by = None, 15
@@ -49,7 +49,7 @@ class UserLoadPhotoComment(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_photos()
+		return self.list.get_items()
 
 
 class UserLoadVideo(ListView):
@@ -100,7 +100,7 @@ class UserLoadMusic(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_playlist().order_by('-created')
+		return self.list.get_items()
 
 class UserLoadMusicList(ListView):
 	template_name, paginate_by = None, 15
@@ -117,7 +117,7 @@ class UserLoadMusicList(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_playlist()
+		return self.list.get_items()
 
 
 class UserLoadDoc(ListView):
@@ -134,7 +134,7 @@ class UserLoadDoc(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_docs()
+		return self.list.get_items()
 
 class UserLoadDocList(ListView):
 	template_name, paginate_by = None, 15
@@ -151,4 +151,4 @@ class UserLoadDocList(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_docs()
+		return self.list.get_items()

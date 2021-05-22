@@ -22,10 +22,10 @@ class UserDocs(ListView):
 		self.list = self.user.get_doc_list()
 		self.count_lists = self.list.get_user_lists_count(pk)
 		if pk == request.user.pk:
-			self.doc_list = self.list.get_my_docs()
+			self.doc_list = self.list.get_staff_items()
 			self.get_lists = self.list.get_user_staff_lists(pk)
 		else:
-			self.doc_list = self.list.get_docs()
+			self.doc_list = self.list.get_items()
 			self.get_lists = self.list.get_user_lists(pk)
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_docs/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
@@ -54,9 +54,9 @@ class UserDocsList(ListView):
 
 		self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
 		if self.list.creator.pk == request.user.pk:
-			self.doc_list = self.list.get_my_docs()
+			self.doc_list = self.list.get_staff_items()
 		else:
-			self.doc_list = self.list.get_docs()
+			self.doc_list = self.list.get_items()
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_docs/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
 		else:
@@ -81,9 +81,9 @@ class UserLoadDoclist(ListView):
 
 		self.list = DocList.objects.get(pk=self.kwargs["pk"])
 		if self.list.creator.pk == request.user.pk:
-			self.doc_list = self.list.get_my_docs()
+			self.doc_list = self.list.get_staff_items()
 		else:
-			self.doc_list = self.list.get_docs()
+			self.doc_list = self.list.get_items()
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.list, "user_docs/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
 		else:

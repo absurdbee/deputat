@@ -151,7 +151,7 @@ on('#ajax', 'click', '.blogReplyComment', function() {
 });
 
 on('#ajax', 'click', '.blogReplyParentComment', function() {
-  form = this.parentElement.parentElement.parentElement;
+  form = this.parentElement.parentElement;
   block = form.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   send_comment(form, block.parentElement, '/blog/blog_reply/', "append")
   form.parentElement.style.display = "none";

@@ -319,7 +319,7 @@ class Video(models.Model):
         else:
             current_uri = ""
         private = 0
-        video = cls.objects.create(creator=creator,title=title,file=file,uri=current_uri,community=community)
+        video = cls.objects.create(creator=creator,title=title,image=image,file=file,uri=current_uri,community=community)
         if community:
             community.plus_videos(1)
         else:

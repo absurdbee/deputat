@@ -2,7 +2,7 @@
 {% block title %}{{ list.name }} | Мои видеозаписи{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}">
+<div class="container mt-3 pk_saver" data-uuid="{{ list.uuid }}">
   <div class="breadcrumb-wrapper">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>
@@ -11,7 +11,7 @@
     </ol>
   </div>
   <span class="load_block">
-    <div class="media mt-3" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
+    <div class="media mt-3 pk_saver" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
       <h5 class="mt-1">
         <span class="second_list_name">{{ list.name }}</span> ({{ list.count_items }})
         <span class="pointer badge badge-light-success u_video_add">Добавить видеозапись</span>

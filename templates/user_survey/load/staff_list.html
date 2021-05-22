@@ -4,15 +4,21 @@
   <div class="row no-gutters">
     {% if list|is_user_can_add_list:request.user.pk %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
+      <span>
         <a class="btn btn-sm border u_copy_survey_list" style="width: -webkit-fill-available;font-size: 19px;">Добавить</a>
+      </span>
     </div>
     {% elif request.user.pk in list.get_users_ids %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
+      <span>
         <a class="btn btn-sm border u_uncopy_survey_list" style="width: -webkit-fill-available;font-size: 19px;">Удалить</a>
+      </span>
     </div>
     {% endif %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
+      <span>
         <a class="btn btn-sm border manage_remove_survey_list" style="width: -webkit-fill-available;font-size: 19px;">♦ Удалить</a>
+      </span>
     </div>
     <div style="flex: 0 0 20%;max-width:20%;padding:5px;">
       <a class="btn btn-sm border photo_fullscreen_hide_2" style="width: -webkit-fill-available;">

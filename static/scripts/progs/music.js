@@ -51,7 +51,7 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
 on('body', 'click', '.u_add_track_in_list', function() {
   add_item_in_list(this, '/music/user_progs/add_track_in_list/', 'u_add_track_in_list', 'u_remove_track_from_list')
 })
-on('body', 'click', '.u_remove_doc_from_list', function() {
+on('body', 'click', '.u_remove_track_from_list', function() {
   remove_item_from_list(this, '/music/user_progs/remove_track_from_list/', 'u_remove_track_from_list', 'u_add_track_in_list')
 })
 
@@ -123,7 +123,7 @@ on('body', 'click', '#u_edit_track_btn', function() {
   } else { this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/docs/user_progs/edit_doc/" + pk + "/", true );
+  link_.open( 'POST', "/music/user_progs/edit_track/" + pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
@@ -133,8 +133,8 @@ on('body', 'click', '#u_edit_track_btn', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    doc = document.body.querySelector(".edited_track");
-    doc.innerHTML = response.querySelector(".pag").innerHTML;
+    track = document.body.querySelector(".edited_track");
+    track.innerHTML = response.querySelector(".pag").innerHTML;
   }};
 
   link_.send(form_data);

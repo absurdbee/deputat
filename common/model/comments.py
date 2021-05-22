@@ -72,7 +72,7 @@ class BlogComment(models.Model):
         blog.comment += 1
         blog.save(update_fields=["comment"])
         commenter.plus_comments(1)
-        get_blog_comment_processing(comment, BlogComment.PRIVATE)
+        get_blog_comment_processing(comment, BlogComment.PUBLISHED)
         if comment.parent:
             user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
             user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")

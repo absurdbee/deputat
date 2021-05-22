@@ -51,7 +51,7 @@ class UserVideoRemove(View):
         else:
             raise Http404
 
-class UseVideoAbortRemove(View):
+class UserVideoAbortRemove(View):
     def get(self, request, *args, **kwargs):
         video = Video.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and video.creator.pk == request.user.pk:

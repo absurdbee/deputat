@@ -101,7 +101,7 @@ def user_comment_notify(creator, object_id, type, socket_name, verb):
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
         else:
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb)
-            send_notify_socket(object_id, user_id, socket_name)
+        user_send_notify(object_id, creator.pk, user_id, None, socket_name)
 
 def user_comment_wall(creator, object_id, type, socket_name, verb):
     from notify.models import Wall
@@ -116,10 +116,10 @@ def user_comment_wall(creator, object_id, type, socket_name, verb):
         wall = Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
     else:
         wall = Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb=current_verb)
-    send_wall_socket(object_id, socket_name)
+    user_send_wall(object_id, None, socket_name)
 
 
-def community_comment_notify(creator, community, object_id, type, socket_name, verb):
+def community_comment_notify(creator, community, action_community_id, object_id, type, socket_name, verb):
     from notify.models import Notify
     from datetime import date
 
@@ -133,7 +133,7 @@ def community_comment_notify(creator, community, object_id, type, socket_name, v
             Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
         else:
             Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb)
-            send_notify_socket(object_id, user_id, socket_name)
+            community_send_notify(object_id, creator.pk, user_id, community.pk, action_community_id, socket_name)
 
 def community_comment_wall(creator, community, object_id, type, socket_name, verb):
     from notify.models import Wall
@@ -148,4 +148,4 @@ def community_comment_wall(creator, community, object_id, type, socket_name, ver
         wall = Wall.objects.create(creator_id=creator.pk, community_id=community.pk, object_id=object_id, type=type, verb="G"+verb, object_set=notify)
     else:
         wall = Wall.objects.create(creator_id=creator.pk, community_id=community.pk, object_id=object_id, type=type, verb=current_verb)
-    send_wall_socket(object_id, socket_name)
+    community_send_wall(object_id, creator.pk, community.pk, None, socket_name)

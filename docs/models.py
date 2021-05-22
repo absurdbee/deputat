@@ -127,7 +127,7 @@ class DocList(models.Model):
     def is_deleted(self):
         return self.type == self.DELETED
     def is_open(self):
-        return self.is_main_list() or self.is_user_list() or self.type == self.MANAGER
+        return self.is_main() or self.is_list() or self.type == self.MANAGER
 
     def make_private(self):
         from notify.models import Notify, Wall

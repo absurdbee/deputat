@@ -469,6 +469,6 @@ class Music(models.Model):
         return self.list.all()
 
     def is_private(self):
-        return self.type == self.PRIVATE
+        return self.status == self.PRIVATE
     def is_open(self):
-        return self.type == self.MANAGER or self.type == self.PUBLISHED
+        return self.status == self.MANAGER or self.status == self.PUBLISHED

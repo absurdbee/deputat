@@ -405,9 +405,9 @@ class Doc(models.Model):
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
 
     def is_private(self):
-        return self.type == self.PRIVATE
+        return self.status == self.PRIVATE
     def is_open(self):
-        return self.type == self.MANAGER or self.type == self.PUBLISHED
+        return self.status == self.MANAGER or self.status == self.PUBLISHED
 
     def get_mime_type(self):
         import magic

@@ -36,7 +36,7 @@ def get_fine_request_user(request_user):
     elif request_user.is_suspended():
         return "generic/u_template/you_suspended.html"
 
-def get_fine_community_item(request_user, community, item, folder):
+def get_fine_community_item(request_user, community, item, folder, template):
     if item.is_deleted():
         if request_user.is_administrator_of_community(community.pk) and item.community.pk == community.pk:
             return folder + "admin_deleted_" + template
@@ -63,7 +63,7 @@ def get_anon_fine_community_item(community, item):
         return "generic/c_template/anon_closed.html"
     elif item.is_suspended():
         return "generic/c_template/anon_suspended.html"
-def get_fine_user_item(request_user, item, folder):
+def get_fine_user_item(request_user, item, folder, template):
     if item.is_deleted():
         if item.creator.pk == request_user.pk:
             return folder + "my_deleted_" + template
@@ -180,7 +180,7 @@ def get_template_community_item(item, folder, template, request_user, user_agent
     elif community.type[0] == "_":
         template_name = get_fine_community(request_user, community)
     elif item.type[0] == "_":
-        template_name = get_fine_community_item(request_user, community, item, folder)
+        template_name = get_fine_community_item(request_user, community, item, folder, template)
     elif request_user.is_member_of_community(community.pk):
         if request_user.is_administrator_of_community(community.pk):
             template_name = folder + "admin_" + template
@@ -234,7 +234,7 @@ def get_template_user_item(item, folder, template, request_user, user_agent, sta
     if request_user.type[0] == "_":
         template_name = get_fine_request_user(request_user)
     elif item.type[0] == "_":
-        template_name = get_fine_user_item(request_user, item, folder)
+        template_name = get_fine_user_item(request_user, item, folder, template)
     elif user.pk == request_user.pk:
             template_name = folder + "my_" + template
     elif request_user.pk != user.pk:

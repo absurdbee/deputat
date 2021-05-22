@@ -3,6 +3,8 @@ from django.conf import settings
 from common.model.comments import BlogComment, ElectNewComment
 from blog.models import Blog, ElectNew
 from django.contrib.postgres.indexes import BrinIndex
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class UserLocation(models.Model):
@@ -103,6 +105,11 @@ class UserInfo(models.Model):
     def __str__(self):
         return self.user.get_full_name()
 
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            UserInfo.objects.create(user=instance)
+
 class UserCheck(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_check', verbose_name="Пользователь")
     email = models.BooleanField(default=False, verbose_name="Почта указана")
@@ -118,6 +125,11 @@ class UserCheck(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            UserInfo.objects.create(user=instance)
 
 
 class UserTransaction(models.Model):

@@ -19,18 +19,18 @@ on('body', 'click', '.u_video_edit', function() {
 on('body', 'click', '.next_video', function(event) {
   event.preventDefault();
   this.style.display = "none";
-  open_fullscreen(this.getAttribute('href'), document.getElementById('window_loader'));
+  open_fullscreen(this.getAttribute('href'), document.getElementById('photo_loader'));
 })
 on('body', 'click', '.prev_video', function(event) {
   event.preventDefault();
   this.style.display = "none";
-  open_fullscreen(this.getAttribute('href'), document.getElementById('window_loader'));
+  open_fullscreen(this.getAttribute('href'), document.getElementById('photo_loader'));
 })
 
 on('body', 'click', '.u_video_detail', function() {
   video_pk = this.getAttribute('video-pk');
   uuid = this.parentElement.getAttribute("data-uuid");
-  loader = document.getElementById("window_loader");
+  loader = document.getElementById("photo_loader");
   open_fullscreen("/video/user_detail/" + video_pk + "/" + uuid + "/", loader)
 });
 
@@ -60,10 +60,10 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
 });
 
 on('body', 'click', '.u_add_video_in_list', function() {
-  add_item_in_list(this, '/video/user_progs/add_track_in_list/', 'u_add_video_in_list', 'u_remove_video_in_list')
+  add_item_in_list(this, '/video/user_progs/add_video_in_list/', 'u_add_video_in_list', 'u_remove_video_in_list')
 })
 on('body', 'click', '.u_remove_video_in_list', function() {
-  remove_item_from_list(this, '/video/user_progs/remove_track_from_list/', 'u_remove_video_in_list', 'u_add_video_in_list')
+  remove_item_from_list(this, '/video/user_progs/remove_video_from_list/', 'u_remove_video_in_list', 'u_add_video_in_list')
 })
 
 on('body', 'click', '#u_create_video_btn', function() {

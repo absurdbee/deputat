@@ -124,6 +124,8 @@ class DocList(models.Model):
         return self.type == self.LIST
     def is_private(self):
         return self.type == self.PRIVATE
+    def is_deleted(self):
+        return self.type == self.DELETED
     def is_open(self):
         return self.is_main_list() or self.is_user_list() or self.type == self.MANAGER
 
@@ -408,6 +410,8 @@ class Doc(models.Model):
         return self.status == self.PRIVATE
     def is_open(self):
         return self.status == self.MANAGER or self.status == self.PUBLISHED
+    def is_deleted(self):
+        return self.status == self.DELETED
 
     def get_mime_type(self):
         import magic

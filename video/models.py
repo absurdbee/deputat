@@ -133,6 +133,8 @@ class VideoList(models.Model):
         return self.type == self.LIST
     def is_private(self):
         return self.type == self.PRIVATE
+    def is_deleted(self):
+        return self.type == self.DELETED
     def is_open(self):
         return self.type == self.LIST or self.type == self.MAIN or self.type == self.MANAGER
 
@@ -489,6 +491,8 @@ class Video(models.Model):
         return self.status == self.PRIVATE
     def is_open(self):
         return self.status == self.MANAGER or self.status == self.PUBLISHED
+    def is_deleted(self):
+        return self.status == self.DELETED
 
     def get_image(self):
         if self.image:

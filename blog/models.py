@@ -330,6 +330,8 @@ class ElectNew(models.Model):
         return self.status == ElectNew.DELETED
     def is_suggested(self):
         return self.status == ElectNew.SUGGESTED
+    def is_closed(self):
+        return self.status == ElectNew.CLOSED
 
     def likes(self):
         from common.model.votes import ElectNewVotes2

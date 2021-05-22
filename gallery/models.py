@@ -70,6 +70,8 @@ class PhotoList(models.Model):
         return self.type == self.LIST
     def is_private(self):
         return self.type == self.PRIVATE
+    def is_deleted(self):
+        return self.type == self.DELETED
     def is_open(self):
         return self.type == self.LIST or self.type == self.MAIN or self.type == self.MANAGER
 
@@ -422,6 +424,8 @@ class Photo(models.Model):
         return self.status == self.PRIVATE
     def is_open(self):
         return self.status == self.MANAGER or self.type == self.PUBLISHED
+    def is_deleted(self):
+        return self.status == self.DELETED
 
     def get_lists(self):
         return self.list.all()

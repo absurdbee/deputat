@@ -168,7 +168,7 @@ link.send( null );
 function add_item_in_list(_this, url, old_class, new_class) {
   parent = _this.parentElement;
   uuid = parent.getAttribute("data-uuid");
-  pk = _this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk");
+  pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', url + pk + "/" + uuid + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -186,7 +186,7 @@ function add_item_in_list(_this, url, old_class, new_class) {
 function remove_item_from_list(_this, url, old_class, new_class) {
   parent = _this.parentElement;
   uuid = parent.getAttribute("data-uuid");
-  pk = _this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk");
+  pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk");
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', url + pk + "/" + uuid + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

@@ -82,7 +82,7 @@
   </form>
 </div>
 
-<div class="row is_paginate no-gutters" id="photos_container"">
+<div class="row is_paginate no-gutters" id="photos_container" data-uuid="{{ list.uuid }}">
   {% if object_list %}
 
   {% for object in object_list %}

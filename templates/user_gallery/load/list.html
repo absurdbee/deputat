@@ -30,7 +30,7 @@
     </h5>
   </div>
 
-<div class="row is_load_paginate no-gutters" data-link="/gallery/load_list/{{ list.pk }}/">
+<div class="row is_load_paginate no-gutters" data-link="/gallery/load_list/{{ list.pk }}/" data-uuid="{{ list.uuid }}">
 {% for object in object_list %}
 <div class="u_photo_detail pag {% if forloop.last %}last{% endif %}" photo-pk="{{ object.pk }}">
   <div class="progressive replace" data-href="{{ object.file.url }}">

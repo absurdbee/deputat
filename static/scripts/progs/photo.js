@@ -81,7 +81,7 @@ on('body', 'click', '.u_remove_photo_from_list', function() {
 
 on('body', 'click', '.u_photo_detail', function() {
   pk = this.getAttribute('photo-pk');
-  this.parentElement.parentElement.parentElement.getAttribute('data-uuid') ? uuid = this.parentElement.parentElement.parentElement.getAttribute('data-uuid') : uuid = document.body.querySelector(".pk_saver").getAttribute('data-uuid')
+  this.parentElement.getAttribute('data-uuid') ? uuid = this.parentElement.getAttribute('data-uuid') : uuid = document.body.querySelector(".pk_saver").getAttribute('data-uuid')
   loader = document.getElementById("photo_loader");
   open_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", loader)
 });

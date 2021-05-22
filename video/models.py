@@ -498,3 +498,6 @@ class Video(models.Model):
 
     def get_lists(self):
         return self.list.all()
+
+    def get_list_uuid(self):
+        return self.list.all()[0].uuid

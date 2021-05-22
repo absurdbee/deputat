@@ -38,6 +38,12 @@ on('body', 'click', '#u_edit_video_list_btn', function() {
   media_list_edit(this, "/video/user_progs/edit_list/")
 });
 
+on('body', 'click', '.u_video_list_edit', function() {
+  uuid = this.parentElement.parentElement.getAttribute('data-uuid');
+  loader = document.getElementById("create_loader");
+  open_fullscreen("/video/user_progs/edit_list/" + uuid + "/", loader)
+});
+
 on('body', 'click', '.u_video_list_remove', function() {
   media_list_delete(this, "/video/user_progs/delete_list/", "u_video_list_remove", "u_video_list_abort_remove")
 });

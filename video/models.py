@@ -312,8 +312,12 @@ class Video(models.Model):
         elif not file and not uri:
             from rest_framework.exceptions import ValidationError
             raise ValidationError("Не выбран файл для ссылка")
+        if uri:
+            current_uri = uri.replace("watch?v=", "embed/")
+        else:
+            current_uri = ""
         private = 0
-        video = cls.objects.create(creator=creator,title=title,file=file,uri=uri,community=community)
+        video = cls.objects.create(creator=creator,title=title,file=file,uri=current_uri,community=community)
         if community:
             community.plus_videos(1)
         else:

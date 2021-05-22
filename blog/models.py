@@ -77,12 +77,12 @@ class Blog(models.Model):
             return ''
     def dislikes_count(self):
         if self.dislike > 0:
-            return self.like
+            return self.dislike
         else:
             return ''
     def inerts_count(self):
         if self.inert > 0:
-            return self.like
+            return self.inert
         else:
             return ''
 

@@ -831,56 +831,100 @@ class User(AbstractUser):
         profile.photos += count
         return profile.save(update_fields=['photos'])
     def minus_photos(self, count):
-        self.user_info.photos -= count
-        return self.user_info.save(update_fields=['photos'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.photos -= count
+        return profile.save(update_fields=['photos'])
     def plus_elect_news(self, count):
-        self.user_info.goods += count
-        return self.user_info.save(update_fields=['elect_news'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.goods += count
+        return profile.save(update_fields=['elect_news'])
     def minus_elect_news(self, count):
-        self.user_info.goods += count
-        return self.user_info.save(update_fields=['elect_news'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.goods += count
+        return profile.save(update_fields=['elect_news'])
     def plus_surveys(self, count):
-        self.user_info.surveys += count
-        return self.user_info.save(update_fields=['surveys'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.surveys += count
+        return profile.save(update_fields=['surveys'])
     def minus_surveys(self, count):
-        self.user_info.surveys -= count
-        return self.user_info.save(update_fields=['surveys'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.surveys -= count
+        return profile.save(update_fields=['surveys'])
     def plus_videos(self, count):
-        self.user_info.videos += count
-        return self.user_info.save(update_fields=['videos'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.videos += count
+        return profile.save(update_fields=['videos'])
     def minus_videos(self, count):
-        self.user_info.videos -= count
-        return self.user_info.save(update_fields=['videos'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.videos -= count
+        return profile.save(update_fields=['videos'])
     def plus_docs(self, count):
-        self.user_info.docs += count
-        return self.user_info.save(update_fields=['docs'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.docs += count
+        return profile.save(update_fields=['docs'])
     def minus_docs(self, count):
-        self.user_info.docs -= count
-        return self.user_info.save(update_fields=['docs'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.docs -= count
+        return profile.save(update_fields=['docs'])
     def plus_tracks(self, count):
-        self.user_info.tracks += count
-        return self.user_info.save(update_fields=['tracks'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.tracks += count
+        return profile.save(update_fields=['tracks'])
     def minus_tracks(self, count):
-        self.user_info.tracks -= count
-        return self.user_info.save(update_fields=['tracks'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.tracks -= count
+        return profile.save(update_fields=['tracks'])
     def plus_communities(self, count):
-        self.user_info.communities += count
-        return self.user_info.save(update_fields=['communities'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.communities += count
+        return profile.save(update_fields=['communities'])
     def minus_communities(self, count):
-        self.user_info.communities -= count
-        return self.user_info.save(update_fields=['communities'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.communities -= count
+        return profile.save(update_fields=['communities'])
     def plus_friends(self, count):
-        self.user_info.friends += count
-        return self.user_info.save(update_fields=['friends'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.friends += count
+        return profile.save(update_fields=['friends'])
     def minus_friends(self, count):
-        self.user_info.friends -= count
-        return self.user_info.save(update_fields=['friends'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.friends -= count
+        return profile.save(update_fields=['friends'])
     def plus_follows(self, count):
-        self.user_info.follows += count
-        return self.user_info.save(update_fields=['follows'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.follows += count
+        return profile.save(update_fields=['follows'])
     def minus_follows(self, count):
-        self.user_info.follows -= count
-        return self.user_info.save(update_fields=['follows'])
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.follows -= count
+        return profile.save(update_fields=['follows'])
+    def plus_comments(self, count):
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.comments += count
+        return profile.save(update_fields=['comments'])
+    def minus_comments(self, count):
+        from users.model.profile import UserInfo
+        profile = UserInfo.objects.get(user=self)
+        profile.comments -= count
+        return profile.save(update_fields=['comments'])
 
     def get_default_communities(self):
         from communities.models import Community

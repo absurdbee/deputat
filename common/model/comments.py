@@ -64,12 +64,15 @@ class BlogComment(models.Model):
     @classmethod
     def create_comment(cls, commenter, attach, blog, parent, text):
         from common.notify.notify import user_comment_notify, user_comment_wall
+        from common.processing import get_blog_comment_processing
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         comment = BlogComment.objects.create(commenter=commenter, attach=_attach, parent=parent, blog=blog, text=text)
         blog.comment += 1
         blog.save(update_fields=["comment"])
+        commenter.plus_comments(1)
+        get_blog_comment_processing(comment, BlogComment.PRIVATE)
         if comment.parent:
             user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
             user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
@@ -284,18 +287,21 @@ class ElectNewComment(models.Model):
     @classmethod
     def create_comment(cls, commenter, attach, new, parent, text):
         from common.notify.notify import user_comment_notify, user_comment_wall
+        from common.processing import get_elect_new_comment_processing
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         comment = ElectNewComment.objects.create(commenter=commenter, attach=_attach, parent=parent, new=new, text=text)
         new.comment += 1
         new.save(update_fields=["comment"])
+        commenter.plus_comments(1)
         if comment.parent:
             user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
             user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
         else:
             user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
             user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
+        get_elect_new_comment_processing(comment, ElectNewComment.PUBLISHED)
         return comment
 
     def count_replies_ru(self):

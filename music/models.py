@@ -353,7 +353,7 @@ class Music(models.Model):
         if community:
             community.plus_tracks(1)
         else:
-            user.plus_tracks(1)
+            creator.plus_tracks(1)
         for list_id in lists:
             track_list = SoundList.objects.get(pk=list_id)
             track_list.playlist.add(track)

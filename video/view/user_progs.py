@@ -8,14 +8,14 @@ from django.http import Http404
 from common.templates import render_for_platform, get_small_template
 
 
-class UserVideolistAdd(View):
+class AddVideoListInUserCollections(View):
     def get(self,request,*args,**kwargs):
         list = VideoList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_add_list(request.user.pk):
             list.users.add(request.user)
         return HttpResponse()
 
-class UserVideolistRemove(View):
+class RemoveVideoListFromUserCollections(View):
     def get(self,request,*args,**kwargs):
         list = VideoList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_delete_list(request.user.pk):
@@ -40,7 +40,7 @@ class UseVideoAbortRemove(View):
         else:
             raise Http404
 
-class UserVideoListAdd(View):
+class AddVideoInUserVideoList(View):
     def get(self, request, *args, **kwargs):
         video, list = Video.objects.get(pk=self.kwargs["pk"]), VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and not list.is_item_in_list(video.pk) and list.creator.pk == request.user.pk :
@@ -49,7 +49,7 @@ class UserVideoListAdd(View):
         else:
             raise Http404
 
-class UserVideoListRemove(View):
+class RemoveVideoInUserVideoList(View):
     def get(self, request, *args, **kwargs):
         video, list = Video.objects.get(pk=self.kwargs["pk"]), VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_item_in_list(video.pk) and list.creator.pk == request.user.pk:

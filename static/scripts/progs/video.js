@@ -45,6 +45,13 @@ on('body', 'click', '.u_video_list_abort_remove', function() {
   media_list_recover(this, "/video/user_progs/abort_delete_list/", "u_video_list_abort_remove", "u_video_list_remove")
 });
 
+on('body', 'click', '.u_copy_video_list', function() {
+  on_off_list_in_collections(this, "/video/user_progs/add_list_in_collections/", "u_remove_video_list", "u_add_video_list", "Удалить")
+});
+on('body', 'click', '.u_uncopy_video_list', function() {
+  on_off_list_in_collections(this, "/video/user_progs/remove_list_from_collections/", "u_add_video_list", "u_remove_video_list", "Добавить")
+});
+
 on('body', 'click', '#u_create_video_list_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);

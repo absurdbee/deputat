@@ -8,14 +8,14 @@ from django.http import Http404
 from common.templates import render_for_platform, get_small_template
 
 
-class UserDoclistAdd(View):
+class AddDocListInUserCollections(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_add_list(request.user.pk):
             list.users.add(request.user)
         return HttpResponse()
 
-class UserDoclistRemove(View):
+class RemoveDocListFromUserCollections(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_delete_list(request.user.pk):
@@ -40,7 +40,7 @@ class UserDocAbortRemove(View):
         else:
             raise Http404
 
-class UserDocListAdd(View):
+class AddDocInUserDocList(View):
     def get(self, request, *args, **kwargs):
         doc, list = Doc.objects.get(pk=self.kwargs["pk"]), DocList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and not list.is_item_in_list(doc.pk) and list.creator.pk == request.user.pk :
@@ -49,7 +49,7 @@ class UserDocListAdd(View):
         else:
             raise Http404
 
-class UserDocListRemove(View):
+class RemoveDocInUserDocList(View):
     def get(self, request, *args, **kwargs):
         doc, list = Doc.objects.get(pk=self.kwargs["pk"]), DocList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_item_in_list(doc.pk) and list.creator.pk == request.user.pk:

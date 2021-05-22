@@ -16,9 +16,9 @@ urlpatterns=[
     url(r'^delete_list/(?P<uuid>[0-9a-f-]+)/$', PhotoListUserDelete.as_view()),
     url(r'^abort_delete_list/(?P<uuid>[0-9a-f-]+)/$', PhotoListUserAbortDelete.as_view()),
 
-    url(r'^add_photo_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserPhotoListAdd.as_view()),
-    url(r'^remove_photo_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserPhotoListRemove.as_view()),
+    url(r'^add_photo_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', AddPhotoInUserPhotoList.as_view()),
+    url(r'^remove_photo_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', RemovePhotoInUserPhotoList.as_view()),
 
-    url(r'^add_list/(?P<pk>\d+)/$', UserPhotoListAdd.as_view()),
-    url(r'^remove_list/(?P<pk>\d+)/$', UserPhotoListRemove.as_view()),
+    url(r'^add_list_in_collections/(?P<pk>\d+)/$', AddPhotoListInUserCollections.as_view()),
+    url(r'^remove_list_from_collections/(?P<pk>\d+)/$', RemovePhotoListFromUserCollections.as_view()),
 ]

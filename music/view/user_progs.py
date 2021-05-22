@@ -45,14 +45,14 @@ class UserSoundcloudSet(TemplateView):
         else:
             return HttpResponseBadRequest()
 
-class UserPlaylistAdd(View):
+class AddPlayListInUserCollections(View):
     def get(self,request,*args,**kwargs):
         list = SoundList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_add_list(request.user.pk):
             list.users.add(request.user)
         return HttpResponse()
 
-class UserPlaylistRemove(View):
+class RemovePlayListFromUserCollections(View):
     def get(self,request,*args,**kwargs):
         list = SoundList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and list.is_user_can_delete_list(request.user.pk):
@@ -76,7 +76,7 @@ class UserTrackAbortRemove(View):
         else:
             raise Http404
 
-class UserTrackListAdd(View):
+class AddTrackInUserPlayList(View):
     def get(self, request, *args, **kwargs):
         track = Music.objects.get(pk=self.kwargs["pk"])
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
@@ -87,7 +87,7 @@ class UserTrackListAdd(View):
         else:
             raise Http404
 
-class UserTrackListRemove(View):
+class RemoveTrackInUserPlayList(View):
     def get(self, request, *args, **kwargs):
         track = Music.objects.get(pk=self.kwargs["pk"])
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])

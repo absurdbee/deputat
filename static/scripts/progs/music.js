@@ -7,6 +7,12 @@ on('body', 'click', '.u_track_add', function() {
   open_fullscreen("/music/user_progs/create_track/", loader)
 });
 
+on('body', 'click', '.u_copy_playlist', function() {
+  on_off_list_in_collections(this, "/music/user_progs/add_list_in_collections/", "u_remove_playlist", "u_add_playlist", "Удалить")
+});
+on('body', 'click', '.u_uncopy_playlist', function() {
+  on_off_list_in_collections(this, "/music/user_progs/remove_list_from_collections/", "u_add_playlist", "u_remove_playlist", "Добавить")
+});
 
 on('body', 'click', '.u_track_edit', function() {
   parent = this.parentElement.parentElement.parentElement;

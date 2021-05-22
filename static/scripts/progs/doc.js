@@ -34,6 +34,13 @@ on('body', 'click', '.u_doc_list_abort_remove', function() {
   media_list_recover(this, "/docs/user_progs/abort_delete_list/", "u_doc_list_abort_remove", "u_doc_list_remove")
 });
 
+on('body', 'click', '.u_copy_doc_list', function() {
+  on_off_list_in_collections(this, "/docs/user_progs/add_list_in_collections/", "u_remove_doc_list", "u_add_doc_list", "Удалить")
+});
+on('body', 'click', '.u_uncopy_doc_list', function() {
+  on_off_list_in_collections(this, "/docs/user_progs/remove_list_from_collections/", "u_add_doc_list", "u_remove_doc_list", "Добавить")
+});
+
 on('body', 'click', '#u_create_doc_list_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);

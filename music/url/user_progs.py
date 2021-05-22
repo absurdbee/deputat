@@ -10,13 +10,13 @@ urlpatterns = [
     url(r'^delete_list/(?P<uuid>[0-9a-f-]+)/$', UserPlaylistDelete.as_view()),
     url(r'^abort_delete_list/(?P<uuid>[0-9a-f-]+)/$', UserPlaylistAbortDelete.as_view()),
 
-    url(r'^add_list/(?P<pk>\d+)/$', UserPlaylistAdd.as_view()),
-    url(r'^remove_list/(?P<pk>\d+)/$', UserPlaylistRemove.as_view()),
+    url(r'^add_list_in_collections/(?P<pk>\d+)/$', AddPlayListInUserCollections.as_view()),
+    url(r'^remove_list_from_collections/(?P<pk>\d+)/$', RemovePlayListFromUserCollections.as_view()),
 
     url(r'^create_track/$', UserTrackCreate.as_view()),
     url(r'^edit_track/(?P<pk>\d+)/$', UserTrackEdit.as_view()),
     url(r'^delete_track/(?P<pk>\d+)/$', UserTrackRemove.as_view()),
     url(r'^abort_delete_track/(?P<pk>\d+)/$', UserTrackAbortRemove.as_view()),
-    url(r'^add_track_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserTrackListAdd.as_view()),
-    url(r'^remove_track_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserTrackListRemove.as_view()),
+    url(r'^add_track_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', AddTrackInUserPlayList.as_view()),
+    url(r'^remove_track_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', RemoveTrackInUserPlayList.as_view()),
 ]

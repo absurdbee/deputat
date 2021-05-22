@@ -95,15 +95,13 @@ class UserListPhoto(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_item_template
-		from django.db.models import Q
+		from common.templates import get_template_user_window, get_template_anon_user_window
 
 		self.photo, self.list = Photo.objects.get(pk=self.kwargs["pk"]), PhotoList.objects.get(uuid=self.kwargs["uuid"])
-		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_window(self.list, "user_gallery/photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			from django.http import Http404
-			raise Http404
+			self.template_name = get_template_anon_user_window(self.list, "user_gallery/photo/anon_list.html", request.META['HTTP_USER_AGENT'])
 		if request.user.pk == self.photo.creator.pk:
 			self.photos = self.list.get_staff_items()
 		else:
@@ -126,16 +124,15 @@ class UserElectNewPhoto(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from blog.models import ElectNew
-		from common.templates import get_item_template
+		from common.templates import get_template_user_window, get_template_anon_user_window
 
 		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
 		self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.elect_new.get_attach_photos()
-		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_window(self.list, "user_gallery/photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			from django.http import Http404
-			raise Http404
+			self.template_name = get_template_anon_user_window(self.list, "user_gallery/photo/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserElectNewPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -152,16 +149,15 @@ class UserBlogCommentPhoto(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from common.model.comments import BlogComment
-		from common.templates import get_item_template
+		from common.templates import get_template_user_window, get_template_anon_user_window
 
 		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
 		self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.comment.get_attach_photos()
-		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/blog_comment_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_window(self.list, "user_gallery/blog_comment_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			from django.http import Http404
-			raise Http404
+			self.template_name = get_template_anon_user_window(self.list, "user_gallery/blog_comment_photo/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserBlogCommentPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -178,16 +174,15 @@ class UserElectNewCommentPhoto(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from common.model.comments import ElectNewComment
-		from common.templates import get_item_template
+		from common.templates import get_template_user_window, get_template_anon_user_window
 
 		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
 		self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.comment.get_attach_photos()
-		if request.is_ajax():
-			self.template_name = get_item_template(self.photo, "user_gallery/elect_new_comment_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_window(self.list, "user_gallery/elect_new_comment_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			from django.http import Http404
-			raise Http404
+			self.template_name = get_template_anon_user_window(self.list, "user_gallery/elect_new_comment_photo/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserElectNewCommentPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

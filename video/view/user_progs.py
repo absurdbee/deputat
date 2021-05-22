@@ -22,6 +22,26 @@ class RemoveVideoListFromUserCollections(View):
             list.users.remove(request.user)
         return HttpResponse()
 
+
+class UserOnPrivateVideo(View):
+    def get(self,request,*args,**kwargs):
+        video = Video.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and video.creator.pk == request.user.pk:
+            video.make_private()
+            return HttpResponse()
+        else:
+            raise Http404
+
+class UserOffPrivateVideo(View):
+    def get(self,request,*args,**kwargs):
+        video = Video.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and video.creator.pk == request.user.pk:
+            video.make_publish()
+            return HttpResponse()
+        else:
+            raise Http404
+
+
 class UserVideoRemove(View):
     def get(self, request, *args, **kwargs):
         video = Video.objects.get(pk=self.kwargs["pk"])

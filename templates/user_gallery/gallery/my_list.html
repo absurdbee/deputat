@@ -2,7 +2,10 @@
 {% block title %}Моя галерея{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
+<div class="content-body">
+    <section class="app-user-edit">
+        <div class="card">
+            <div class="card-body">
   <ul class="nav nav-pills">
       <li class="nav-item">
           <a href="{% url 'user' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
@@ -104,6 +107,9 @@
   {% endif %}
 </div>
 </span>
+</div>
+</div>
+</section>
 </div>
 
 {% endblock %}

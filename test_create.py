@@ -10,14 +10,14 @@ from users.model.profile import *
 from users.model.settings import *
 
 try:
-    UserNotifications.objects.create(user_id=1)
+    UserNotifications.objects.create(user_id=2)
 except:
     pass
 try:
-    UserPrivate.objects.create(user_id=1)
+    UserPrivate.objects.create(user_id=2)
 except:
     pass
 try:
-    UserInfo.objects.create(user_id=1)
+    UserInfo.objects.create(user_id=2)
 except:
     pass

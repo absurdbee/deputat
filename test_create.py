@@ -9,6 +9,15 @@ django.setup()
 from users.model.profile import *
 from users.model.settings import *
 
-UserNotifications.objects.create(user_id=1)
-UserPrivate.objects.create(user_id=1)
-UserInfo.objects.create(user_id=1)
+try:
+    UserNotifications.objects.create(user_id=1)
+except:
+    pass
+try:
+    UserPrivate.objects.create(user_id=1)
+except:
+    pass
+try:
+    UserInfo.objects.create(user_id=1)
+except:
+    pass

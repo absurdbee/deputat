@@ -407,6 +407,9 @@ class Survey(models.Model):
         if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
 
+    def get_lists(self):
+        return self.list.all()
+
 
 class Answer(models.Model):
     text = models.CharField(max_length=250, verbose_name="Вариант ответа")

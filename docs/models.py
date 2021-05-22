@@ -258,7 +258,7 @@ class Doc(models.Model):
         verbose_name_plural = "Документы"
         indexes = (BrinIndex(fields=['created']),)
 
-    def get_lists_for_doc(self):
+    def get_lists(self):
         return self.list.all()
 
     @classmethod

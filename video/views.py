@@ -32,7 +32,7 @@ class UserVideoDetail(TemplateView):
 
     def get_context_data(self,**kwargs):
         c = super(UserVideoDetail,self).get_context_data(**kwargs)
-        c['object'], c['next'], c['prev'] = self.video, self.next, self.prev
+        c['object'], c['list'], c['next'], c['prev'] = self.video, self.list, self.next, self.prev
         return c
 
 

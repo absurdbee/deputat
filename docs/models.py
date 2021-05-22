@@ -118,7 +118,7 @@ class DocList(models.Model):
     def count_items(self):
         return self.doc_list.filter(Q(type="PUB")|Q(type="PRI")).values("pk").count()
 
-    def is_maint(self):
+    def is_main(self):
         return self.type == self.MAIN
     def is_list(self):
         return self.type == self.LIST

@@ -12,8 +12,8 @@ urlpatterns = [
 
     url(r'^create_video/$', UserVideoCreate.as_view()),
     url(r'^edit_video/(?P<pk>\d+)/$', UserVideoEdit.as_view()),
-    url(r'^remove_video/(?P<uuid>[0-9a-f-]+)/$', UserVideoRemove.as_view()),
-    url(r'^abort_remove_video/(?P<uuid>[0-9a-f-]+)/$', UserVideoAbortRemove.as_view()),
+    url(r'^delete_video/(?P<uuid>[0-9a-f-]+)/$', UserVideoRemove.as_view()),
+    url(r'^abort_delete_video/(?P<uuid>[0-9a-f-]+)/$', UserVideoAbortRemove.as_view()),
     url(r'^on_private/(?P<uuid>[0-9a-f-]+)/$', UserOnPrivateVideo.as_view()),
     url(r'^off_private/(?P<uuid>[0-9a-f-]+)/$', UserOffPrivateVideo.as_view()),
 

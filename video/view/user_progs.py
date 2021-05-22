@@ -44,7 +44,7 @@ class UserOffPrivateVideo(View):
 
 class UserVideoRemove(View):
     def get(self, request, *args, **kwargs):
-        video = Video.objects.get(pk=self.kwargs["pk"])
+        video = Video.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and video.creator.pk == request.user.pk:
             video.delete_video()
             return HttpResponse(None)
@@ -53,7 +53,7 @@ class UserVideoRemove(View):
 
 class UserVideoAbortRemove(View):
     def get(self, request, *args, **kwargs):
-        video = Video.objects.get(pk=self.kwargs["pk"])
+        video = Video.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and video.creator.pk == request.user.pk:
             video.abort_delete_video(None)
             return HttpResponse()

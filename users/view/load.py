@@ -62,10 +62,11 @@ class UserLoadVideo(ListView):
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadVideo,self).get_context_data(**kwargs)
 		context["list"] = self.list
+		context["get_lists"] = self.list.get_user_lists(request.user.pk)
 		return context
 
 	def get_queryset(self):
-		return self.list.get_queryset()
+		return self.list.get_items()
 
 class UserLoadVideoList(ListView):
 	template_name, paginate_by = None, 15
@@ -82,7 +83,7 @@ class UserLoadVideoList(ListView):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_queryset().order_by('-created')
+		return self.list.get_items()
 
 
 class UserLoadMusic(ListView):

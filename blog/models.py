@@ -46,10 +46,10 @@ class Blog(models.Model):
         return self.title
 
     @classmethod
-    def create_new(cls, creator, description, content, comments_enabled, votes_on, status):
+    def create_new(cls, creator, description, content, comments_enabled, votes_on, type):
         from notify.models import Notify
 
-        blog = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,status=Blog.STATUS_DRAFT,)
+        blog = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on)
         Notify.objects.create(creator_id=creator.pk, type="BLO", object_id=blog.pk, verb="ITE")
         return blog
 
@@ -100,7 +100,7 @@ class Blog(models.Model):
 
     def get_comments(self):
         from common.model.comments import BlogComment
-        return BlogComment.objects.filter(blog_id=self.pk, status=BlogComment.PUBLISHED, parent__isnull=True)
+        return BlogComment.objects.filter(blog_id=self.pk, type=BlogComment.PUBLISHED, parent__isnull=True)
 
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime

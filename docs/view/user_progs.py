@@ -10,14 +10,14 @@ from common.templates import render_for_platform, get_small_template
 
 class AddDocListInUserCollections(View):
     def get(self,request,*args,**kwargs):
-        list = DocList.objects.get(pk=self.kwargs["pk"])
+        list = DocList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_user_can_add_list(request.user.pk):
             list.users.add(request.user)
         return HttpResponse()
 
 class RemoveDocListFromUserCollections(View):
     def get(self,request,*args,**kwargs):
-        list = DocList.objects.get(pk=self.kwargs["pk"])
+        list = DocList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_user_can_delete_list(request.user.pk):
             list.users.remove(request.user)
         return HttpResponse()

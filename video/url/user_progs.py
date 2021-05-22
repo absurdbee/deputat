@@ -7,8 +7,8 @@ urlpatterns = [
     url(r'^edit_list/(?P<uuid>[0-9a-f-]+)/$', UserVideolistEdit.as_view()),
     url(r'^delete_list/(?P<uuid>[0-9a-f-]+)/$', UserVideolistDelete.as_view()),
     url(r'^abort_delete_list/(?P<uuid>[0-9a-f-]+)/$', UserVideolistAbortDelete.as_view()),
-    url(r'^add_list_in_collections/(?P<pk>\d+)/$', AddVideoListInUserCollections.as_view()),
-    url(r'^remove_list_from_collections/(?P<pk>\d+)/$', RemoveVideoListFromUserCollections.as_view()),
+    url(r'^add_list_in_collections/(?P<uuid>[0-9a-f-]+)/$', AddVideoListInUserCollections.as_view()),
+    url(r'^remove_list_from_collections/(?P<uuid>[0-9a-f-]+)/$', RemoveVideoListFromUserCollections.as_view()),
 
     url(r'^create_video/$', UserVideoCreate.as_view()),
     url(r'^edit_video/(?P<pk>\d+)/$', UserVideoEdit.as_view()),

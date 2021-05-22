@@ -66,7 +66,7 @@ on('body', 'click', '#u_edit_playlist_btn', function() {
   media_list_edit(this, "/video/user_progs/edit_list/")
 });
 
-on('body', 'click', '.u_add_video_from_list', function() {
+on('body', 'click', '.u_add_video_in_list', function() {
   add_item_in_list(this, '/video/user_progs/add_video_in_list/', 'u_add_video_in_list', 'u_remove_video_from_list')
 })
 on('body', 'click', '.u_remove_video_from_list', function() {

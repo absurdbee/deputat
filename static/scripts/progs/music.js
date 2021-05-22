@@ -8,10 +8,10 @@ on('body', 'click', '.u_track_add', function() {
 });
 
 on('body', 'click', '.u_copy_playlist', function() {
-  on_off_list_in_collections(this, "/music/user_progs/add_list_in_collections/", "u_remove_playlist", "u_add_playlist", "Удалить")
+  on_off_list_in_collections(this, "/music/user_progs/add_list_in_collections/", "u_uncopy_playlist", "u_copy_playlist", "Удалить")
 });
 on('body', 'click', '.u_uncopy_playlist', function() {
-  on_off_list_in_collections(this, "/music/user_progs/remove_list_from_collections/", "u_add_playlist", "u_remove_playlist", "Добавить")
+  on_off_list_in_collections(this, "/music/user_progs/remove_list_from_collections/", "u_copy_playlist", "u_uncopy_playlist", "Добавить")
 });
 
 on('body', 'click', '.u_track_edit', function() {

@@ -360,7 +360,7 @@ class Music(models.Model):
             if track_list.is_private():
                 private = 1
         if not private and is_public:
-            get_music_processing(track, Track.PUBLISHED)
+            get_music_processing(track, Music.PUBLISHED)
             if community:
                 from common.notify.progs import community_send_notify, community_send_wall
                 from notify.models import Notify, Wall

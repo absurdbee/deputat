@@ -101,7 +101,8 @@ function init_music(block) {
   audios = block.querySelectorAll("audio");
   for (var i = 0; i < audios.length; i++) {
     player = new Plyr(audios[i]);
-  }
+  };
+  block.querySelector("#player") ? video = new Plyr(block.querySelector("#player")) : null
 }
 
 function check_span1(span1, uuid, response) {

@@ -11,9 +11,9 @@ class UserLoadPhotoList(ListView):
 
 		self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
 		if self.list.creator.pk == request.user.pk:
-			self.photo_list = self.list.get_staff_photos()
+			self.photo_list = self.list.get_staff_items()
 		else:
-			self.photo_list = self.list.get_photos()
+			self.photo_list = self.list.get_items()
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.list, "user_gallery/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
@@ -42,10 +42,10 @@ class UserGallery(ListView):
 		self.list = self.user.get_photo_list()
 		self.count_lists = self.list.get_user_lists_count(pk)
 		if pk == request.user.pk:
-			self.photo_list = self.list.get_staff_photos()
+			self.photo_list = self.list.get_staff_items()
 			self.get_lists = self.list.get_user_staff_lists(pk)
 		else:
-			self.photo_list = self.list.get_photos()
+			self.photo_list = self.list.get_items()
 			self.get_lists = self.list.get_user_lists(pk)
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_gallery/gallery/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
@@ -72,9 +72,9 @@ class UserPhotoList(ListView):
 
 		self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
 		if self.list.creator.pk == request.user.pk:
-			self.photo_list = self.list.get_staff_photos()
+			self.photo_list = self.list.get_staff_items()
 		else:
-			self.photo_list = self.list.get_photos()
+			self.photo_list = self.list.get_items()
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_gallery/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:

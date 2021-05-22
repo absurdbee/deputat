@@ -495,29 +495,6 @@ function toast_warning(text){
   var toasts = new ToastManager();
   toasts.showWarning(text);
 }
-function send_comment(form, block, link){
-  if (!form.querySelector(".text-comment").value){
-    form.querySelector(".text-comment").style.border = "1px #FF0000 solid";
-    toast_error("Напишите что-нибудь");
-    return
-  }
-
-  form_comment = new FormData(form);
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', link, true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    form.querySelector(".text-comment").value="";
-    elem = link_.responseText;
-    new_post = document.createElement("span");
-    new_post.innerHTML = elem;
-    block.append(new_post);
-  }};
-
-  link_.send(form_comment);
-}
 
 function comment_delete(_this, _link, _class){
   data = _this.parentElement.parentElement;

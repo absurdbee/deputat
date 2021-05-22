@@ -93,10 +93,10 @@ function photo_comment_upload_attach(photo_list, dropdown){
 close_create_window()
 }
 
-function video_comment_attach(dropdown, pk, counter, src){
+function video_comment_attach(dropdown, pk, src){
   is_full_dropdown(dropdown);
   attach_block = dropdown.parentElement.previousElementSibling;
-  div = create_preview_video(src, pk, counter)
+  div = create_preview_video(src, pk)
   attach_block.append($div);
   add_file_dropdown()
   is_full_dropdown();

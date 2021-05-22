@@ -151,7 +151,7 @@ function create_preview_photo_list(src, title, pk, count){
   return $div
 }
 
-function create_preview_video(img_src, pk, counter){
+function create_preview_video(img_src, pk){
   $div = document.createElement("div");
   $div.classList.add("col-md-4", "video");
   $input = document.createElement("span");
@@ -161,7 +161,6 @@ function create_preview_video(img_src, pk, counter){
   $img.classList.add("image_fit");
   $img.src = img_src;
   $icon_div.classList.add("video_icon_play_v2", "u_video_list_detail");
-  $icon_div.setAttribute("video-counter", counter);
   $icon_div.setAttribute("video-pk", pk);
 
   $div.append(video_preview_delete());
@@ -370,5 +369,46 @@ on('body', 'click', '.music_attach_list', function() {
     check_playlist_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
     check_playlist_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
+  }
+});
+
+on('#ajax', 'click', '.video_load_one', function() {
+  _this = this;
+  pk = _this.getAttribute('video-pk');
+  src = _this.getAttribute('src');
+  if (document.body.querySelector(".current_file_dropdown")){
+    check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, src), close_create_window())
+  } else if (document.body.querySelector(".attach_block")){
+    check_video_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_post_attach(document.body.querySelector(".attach_block"), pk, src), close_create_window())
+  } else if (document.body.querySelector(".message_attach_block")){
+    check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, src), close_create_window())
+  }
+});
+on('#ajax', 'click', '.video_load_several', function() {
+  previous = this.previousElementSibling
+  _this = previous.querySelector("img");
+  pk = _this.getAttribute('video-pk');
+  src = _this.getAttribute('src');
+  if (document.body.querySelector(".current_file_dropdown")){
+    check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, src), this.classList.add("active_svg"))
+  } else if (document.body.querySelector(".attach_block")){
+    check_video_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_post_attach(document.body.querySelector(".attach_block"), pk, src), this.classList.add("active_svg"))
+  } else if (document.body.querySelector(".message_attach_block")){
+    check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, src), this.classList.add("active_svg"))
+  }
+});
+
+on('body', 'click', '.photo_attach_list', function() {
+  _this = this;
+  src = _this.parentElement.previousElementSibling.querySelector("img").getAttribute("src");
+  title = _this.parentElement.querySelector(".nowrap").innerHTML;
+  pk = _this.getAttribute('data-pk');
+  count = _this.parentElement.querySelector(".count").innerHTML;
+  if (document.body.querySelector(".current_file_dropdown")){
+    check_photo_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_create_window())
+  } else if (document.body.querySelector(".attach_block")){
+    check_photo_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (photo_list_post_attach(document.body.querySelector(".attach_block"), src, title, pk, count), close_create_window())
+  } else if (document.body.querySelector(".message_attach_block")){
+    check_photo_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (photo_list_message_attach(document.body.querySelector(".message_attach_block"), src, title, pk, count), close_create_window())
   }
 });

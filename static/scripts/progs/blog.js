@@ -268,7 +268,7 @@ on('body', 'click', '.u_select_video', function() {
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_video_load/', loader)
 });
-on('#body', 'click', '.u_select_music', function() {
+on('body', 'click', '.u_select_music', function() {
   this.parentElement.parentElement.parentElement.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");

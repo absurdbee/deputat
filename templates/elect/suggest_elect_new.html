@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
               <label>Чиновник</label>
-              <input list="data-list">
+              <input list="data-list" class="form-control" name="elect">
               <datalist id="data-list">
                 {% for object in get_elects %}
                 <option value="{{ object.name }}"></option>

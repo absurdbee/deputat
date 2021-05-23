@@ -60,16 +60,12 @@ def check_user_can_get_list(request_user, user):
             return True
         else:
             raise PermissionDenied('Ошибка доступа',)
-    elif request_user.is_child() and not user.is_child_safety():
-        raise PermissionDenied('Это не проверенный профиль, поэтому может навредить ребенку.')
     else:
         return True
 
 def check_anon_user_can_get_list(user):
     if user.is_closed_profile():
         raise PermissionDenied('Это закрытый профиль. Только его друзья могут видеть его информацию.')
-    elif not user.is_child_safety():
-        raise PermissionDenied('Это не проверенный профиль, поэтому может навредить ребенку.')
     else:
         return True
 

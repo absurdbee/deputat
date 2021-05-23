@@ -257,8 +257,6 @@ def get_template_anon_user_item(item, template, user_agent):
         template_name = get_fine_user(user)
     elif item.type[0] == "_":
         template_name = get_anon_fine_user_item(item)
-    elif not user.is_child_safety():
-        template_name = "generic/u_template/anon_no_child_safety.html"
     elif item.is_private():
         template_name = "generic/u_template/anon_private.html"
     else:

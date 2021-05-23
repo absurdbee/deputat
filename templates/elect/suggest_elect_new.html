@@ -18,7 +18,7 @@
               <input list="data-list" class="form-control" name="elect">
               <datalist id="data-list">
                 {% for object in get_elects %}
-                <option value="{{ object.name }}"></option>
+                <option value="{{ object.pk }}">{{ object.name }}</option>
                 {% endfor %}
               </datalist>
             </div>

@@ -52,10 +52,10 @@ class Elect(models.Model):
             return regions
 
     def get_news(self):
-        return self.new_elect.filter(status="PUB")
+        return self.new_elect.filter(type="PUB")
 
     def get_last_news(self):
-        return self.new_elect.filter(status="PUB")[:6]
+        return self.new_elect.filter(type="PUB")[:6]
 
     def get_remote_image(self, image_url):
         import os

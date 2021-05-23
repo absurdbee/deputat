@@ -4,11 +4,8 @@ from django.http import HttpResponse
 from django.http import Http404
 
 
-class SuggestElectNew(View):
+class SuggestElectNew(TemplateView):
     template_name = "elect/suggest_elect_new.html"
-
-    def get(self,request,*args,**kwargs):
-        return super(SuggestElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         from blog.forms import ElectNewForm

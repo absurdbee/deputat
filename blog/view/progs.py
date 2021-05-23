@@ -27,7 +27,7 @@ class SuggestElectNew(TemplateView):
             post = self.form_post.save(commit=False)
             #elect = Elect.objects.get(name=post.elect)
             #new_post = post.create_suggested_new(creator=request.user, title=post.title, description=post.description, elect=elect, attach=request.POST.getlist("attach_items"), category=post.category)
-            return HttpResponse(post.elect)
+            return HttpResponse(request.POST.get("elect"))
             return render_for_platform(request, 'elect/elect_new.html',{'object': new_post})
         else:
             from django.http import HttpResponseBadRequest

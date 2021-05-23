@@ -309,8 +309,8 @@ class ElectNew(models.Model):
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         elect_new = cls.objects.create(creator=creator,title=title,description=description,elect=elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
-        user_wall(creator, None, "ELN", elect_new.pk, "draft_news_wall", "SIT")
-        user_notify(creator, None, "ELN", elect_new.pk, "draft_news_notify", "SIT")
+        user_wall(creator, None, elect_new.pk, "ELN", "draft_news_wall", "SIT")
+        user_notify(creator, None, elect_new.pk, "ELN", "draft_news_notify", "SIT")
         return elect_new
 
     def make_publish_new(self, title, description, elect, attach, category):

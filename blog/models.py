@@ -275,7 +275,7 @@ class ElectNew(models.Model):
     )
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
-    description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
+    description = models.TextField(max_length=1000, blank=True, verbose_name="Описание")
     elect = models.ForeignKey(Elect, on_delete=models.SET_NULL, blank=True, null=True, related_name="new_elect", verbose_name="Чиновник")
     category = models.ForeignKey(ElectNewsCategory, on_delete=models.SET_NULL, related_name="elect_cat", blank=True, null=True, verbose_name="Категория активности")
     type = models.CharField(choices=TYPE, default=PROCESSING, max_length=5, verbose_name="Статус записи")

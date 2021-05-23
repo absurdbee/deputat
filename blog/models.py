@@ -305,16 +305,10 @@ class ElectNew(models.Model):
     @classmethod
     def create_suggested_new(cls, creator, title, description, elect, attach, category):
         from common.notify.notify import user_wall, user_notify
-        from elect.models import Elect
-
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
-        #try:
-        _elect = Elect.objects.get(name=elect)
-        #except Elect.DoesNotExist:
-        #    _elect = None
 
-        elect_new = cls.objects.create(creator=creator,title=title,description=description,elect=_elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
+        elect_new = cls.objects.create(creator=creator,title=title,description=description,elect=elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
         user_wall(creator, None, elect_new.pk, "ELN", "draft_news_wall", "SIT")
         user_notify(creator, None, elect_new.pk, "ELN", "draft_news_notify", "SIT")
         return elect_new

@@ -18,13 +18,15 @@ class SuggestElectNew(TemplateView):
 
     def post(self,request,*args,**kwargs):
         from blog.forms import ElectNewForm
+        from elect.models import Elect
         from common.templates import render_for_platform
 
         self.form_post = ElectNewForm(request.POST)
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
             post = self.form_post.save(commit=False)
-            new_post = post.create_suggested_new(creator=request.user, title=post.title, description=post.description, elect=post.elect, attach=request.POST.getlist("attach_items"), category=post.category)
+            elect = Elect.objects.get(name=post.elect)
+            new_post = post.create_suggested_new(creator=request.user, title=post.title, description=post.description, elect=elect, attach=request.POST.getlist("attach_items"), category=post.category)
             return render_for_platform(request, 'elect/elect_new.html',{'object': new_post})
         else:
             from django.http import HttpResponseBadRequest

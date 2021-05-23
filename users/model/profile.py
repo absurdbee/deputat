@@ -105,10 +105,57 @@ class UserInfo(models.Model):
     def __str__(self):
         return self.user.get_full_name()
 
-    #@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-    #def create_u_model(sender, instance, created, **kwargs):
-    #    if created:
-    #        UserInfo.objects.create(user=instance)
+
+class UserProfile(models.Model):
+    NO_VALUE = "NOV"
+    EDUCATION_HIGH = 'EDH'
+    EDUCATION_MEDIUM = 'EDM'
+    EDUCATION_LOW = 'EDL'
+
+    EDUCATION = 'EDU'
+    MEDICAL = 'MED'
+    IT = 'IT'
+
+    EDUCATIONS = (
+        (NO_VALUE, 'Не выбрано'),
+        (EDUCATION_HIGH, 'Высшее образование'),
+        (EDUCATION_MEDIUM, 'Среднее специальное'),
+        (EDUCATION_LOW, 'Среднее'),
+    )
+    EMPLOYMENT = (
+        (NO_VALUE, 'Не выбрано'),
+        (EDUCATION, 'Образование'),
+        (MEDICAL, 'Медицина'),
+        (IT, 'IT'),
+    )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_info', verbose_name="Пользователь")
+    education = models.CharField(max_length=5, choices=EDUCATIONS, default=NO_VALUE, verbose_name="Образование")
+    employment = models.CharField(max_length=5, choices=EMPLOYMENT, default=NO_VALUE, verbose_name="Сфера занятости")
+    birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
+
+    elect_news = models.PositiveIntegerField(default=0, verbose_name="Кол-во постов")
+    views = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров постов")
+    friends = models.PositiveIntegerField(default=0, verbose_name="Кол-во друзей")
+    follows = models.PositiveIntegerField(default=0, verbose_name="Кол-во подписчиков")
+    communities = models.PositiveIntegerField(default=0, verbose_name="Кол-во групп")
+    photos = models.PositiveIntegerField(default=0, verbose_name="Кол-во фотографий")
+    surveys = models.PositiveIntegerField(default=0, verbose_name="Кол-во опросов")
+    docs = models.PositiveIntegerField(default=0, verbose_name="Кол-во документов")
+    tracks = models.PositiveIntegerField(default=0, verbose_name="Кол-во аудиозаписей")
+    videos = models.PositiveIntegerField(default=0, verbose_name="Кол-во видеозаписей")
+    comments = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
+
+    class Meta:
+        verbose_name = "Информация о пользователе"
+        verbose_name_plural = "Информация о пользователях"
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_u_model(sender, instance, created, **kwargs):
+        if created:
+            UserProfile.objects.create(user=instance)
 
 class UserCheck(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_check', verbose_name="Пользователь")

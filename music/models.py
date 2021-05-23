@@ -50,11 +50,11 @@ class SoundList(models.Model):
     @receiver(post_save, sender=Community)
     def create_c_model(sender, instance, created, **kwargs):
         if created:
-            SoundList.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
+            SoundList.objects.create(community=instance, type=SoundList.MAIN, name="Основной список", order=0, creator=instance.creator)
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_u_model(sender, instance, created, **kwargs):
         if created:
-            SoundList.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
+            SoundList.objects.create(creator=instance, type=SoundList.MAIN, name="Основной список", order=0)
 
     def is_item_in_list(self, item_id):
         return self.playlist.filter(pk=item_id).exists()

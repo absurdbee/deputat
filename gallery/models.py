@@ -45,11 +45,11 @@ class PhotoList(models.Model):
     @receiver(post_save, sender=Community)
     def create_c_model(sender, instance, created, **kwargs):
         if created:
-            PhotoList.objects.create(community=instance, type=DocList.MAIN, name="Основной список", order=0, creator=instance.creator)
+            PhotoList.objects.create(community=instance, type=PhotoList.MAIN, name="Основной список", order=0, creator=instance.creator)
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_u_model(sender, instance, created, **kwargs):
         if created:
-            PhotoList.objects.create(creator=instance, type=DocList.MAIN, name="Основной список", order=0)
+            PhotoList.objects.create(creator=instance, type=PhotoList.MAIN, name="Основной список", order=0)
 
     def get_users_ids(self):
         users = self.users.exclude(type__contains="_").values("pk")

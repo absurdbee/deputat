@@ -24,7 +24,7 @@ class UserPrivateForm(forms.ModelForm):
         fields = ('city','networks','subscribers','old','other',)
 
 from users.model.profile import *
-class UserInfoForm(forms.ModelForm):
+class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = UserInfo
+        model = UserProfile
         fields = ('education','employment',)

@@ -104,13 +104,13 @@ class UserAboutSettings(TemplateView):
 	template_name, form = None, None
 
 	def get(self,request,*args,**kwargs):
-		from users.forms import UserInfoForm
-		from users.model.profile import UserInfo
+		from users.forms import UserProfileForm
+		from users.model.profile import UserProfile
 		try:
-			self.info = UserInfo.objects.get(user=request.user)
+			self.info = UserProfile.objects.get(user=request.user)
 		except:
-			self.info = UserInfo.objects.create(user=request.user)
-		self.form = UserInfoForm(instance=self.info)
+			self.info = UserProfile.objects.create(user=request.user)
+		self.form = UserProfileForm(instance=self.info)
 		self.template_name = get_my_template("profile/settings_about.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserAboutSettings,self).get(request,*args,**kwargs)
 
@@ -122,12 +122,12 @@ class UserAboutSettings(TemplateView):
 		return context
 
 	def post(self,request,*args,**kwargs):
-		from users.forms import UserInfoForm
-		from users.model.profile import UserInfo
+		from users.forms import UserProfileForm
+		from users.model.profile import UserProfile
 		from datetime import datetime
 
-		self.info = UserInfo.objects.get(user=request.user)
-		self.form = UserInfoForm(request.POST, instance=self.info)
+		self.info = UserProfile.objects.get(user=request.user)
+		self.form = UserProfileForm(request.POST, instance=self.info)
 		if request.is_ajax() and self.form.is_valid():
 			new_info = self.form.save(commit=False)
 			try:
@@ -141,7 +141,7 @@ class UserAboutSettings(TemplateView):
 			except:
 				check = UserCheck.objects.create(user_id=request.user.pk)
 			if not check.profile_info:
-				info = UserInfo.objects.get(user_id=request.user.pk)
+				info = UserProfile.objects.get(user_id=request.user.pk)
 				if info.education and info.employment and info.birthday:
 					check.profile_info = True
 					check.save(update_fields=['profile_info'])

@@ -351,11 +351,11 @@ class User(AbstractUser):
 
     def get_age(self):
         from datetime import date
-        from users.model.profile import UserInfo
+        from users.model.profile import UserProfile
         from django.utils.formats import localize
 
         try:
-            user, today = UserInfo.objects.get(user_id=self.pk), date.today()
+            user, today = UserProfile.objects.get(user_id=self.pk), date.today()
             age = today.year - user.birthday.year - ((today.month, today.day) < (user.birthday.month, user.birthday.day))
             return str(localize(user.birthday)) + " (" + str(age) + ")"
         except:
@@ -826,103 +826,103 @@ class User(AbstractUser):
         return self.user_info.friends
 
     def plus_photos(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.photos += count
         return profile.save(update_fields=['photos'])
     def minus_photos(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.photos -= count
         return profile.save(update_fields=['photos'])
     def plus_elect_news(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.goods += count
         return profile.save(update_fields=['elect_news'])
     def minus_elect_news(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.goods += count
         return profile.save(update_fields=['elect_news'])
     def plus_surveys(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.surveys += count
         return profile.save(update_fields=['surveys'])
     def minus_surveys(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.surveys -= count
         return profile.save(update_fields=['surveys'])
     def plus_videos(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.videos += count
         return profile.save(update_fields=['videos'])
     def minus_videos(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.videos -= count
         return profile.save(update_fields=['videos'])
     def plus_docs(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.docs += count
         return profile.save(update_fields=['docs'])
     def minus_docs(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.docs -= count
         return profile.save(update_fields=['docs'])
     def plus_tracks(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.tracks += count
         return profile.save(update_fields=['tracks'])
     def minus_tracks(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.tracks -= count
         return profile.save(update_fields=['tracks'])
     def plus_communities(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.communities += count
         return profile.save(update_fields=['communities'])
     def minus_communities(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.communities -= count
         return profile.save(update_fields=['communities'])
     def plus_friends(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.friends += count
         return profile.save(update_fields=['friends'])
     def minus_friends(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.friends -= count
         return profile.save(update_fields=['friends'])
     def plus_follows(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.follows += count
         return profile.save(update_fields=['follows'])
     def minus_follows(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.follows -= count
         return profile.save(update_fields=['follows'])
     def plus_comments(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.comments += count
         return profile.save(update_fields=['comments'])
     def minus_comments(self, count):
-        from users.model.profile import UserInfo
-        profile = UserInfo.objects.get(user=self)
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.get(user=self)
         profile.comments -= count
         return profile.save(update_fields=['comments'])
 

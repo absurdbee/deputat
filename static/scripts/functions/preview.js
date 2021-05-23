@@ -184,7 +184,7 @@ function create_preview_music(_this){
     $img.style.width = "30px";
   } else {$img = document.createElement("span"); $img.innerHTML = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';}
 
-  $div.classList.add("col-md-6", "col-sm-12", "border");
+  $div.classList.add("col-md-6", "col-sm-12");
   $div.style.display = "flex";
   $div.style.padding = "3px";
   $div.style.display = "flex";
@@ -214,7 +214,7 @@ function create_preview_doc(media_body, pk){
   $media = document.createElement("span");
   $span2 = document.createElement("span");
 
-  $div.classList.add("col-md-6", "col-sm-12", "border");
+  $div.classList.add("col-md-6", "col-sm-12");
   $div.setAttribute("doc-pk", pk);
   $div.style.padding = "3px";
   $div.style.display = "flex";

@@ -38,7 +38,8 @@ class BlogDetailView(ListView, CategoryListMixin):
 					BlogNumbers.objects.create(user=0, new=self.blog.pk, platform=1)
 				else:
 					BlogNumbers.objects.create(user=0, new=self.blog.pk, platform=0)
-				self.blog.plus_views(1)
+				self.blog.view += 1
+				self.blog.save(update_fields=["view"])
 				return response
 			else:
 				return super(BlogDetailView,self).get(request,*args,**kwargs)

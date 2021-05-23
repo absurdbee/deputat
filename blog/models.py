@@ -139,7 +139,7 @@ class Blog(models.Model):
         return Photo.objects.filter(id__in=query)
 
     def get_attach_videos(self):
-        if "pho" in self.attach:
+        if "vid" in self.attach:
             query = []
             from video.models import Video
 
@@ -392,6 +392,10 @@ class ElectNew(models.Model):
         from common.model.comments import ElectNewComment
         return ElectNewComment.objects.filter(new_id=self.pk, parent__isnull=True)
 
+    def get_u_attach(self, user):
+        from common.attach.elect_new_attach import get_u_elect_new_attach
+        return get_u_elect_new_attach(self, user)
+
     def get_attach_photos(self):
         if "pho" in self.attach:
             query = []
@@ -403,7 +407,7 @@ class ElectNew(models.Model):
         return Photo.objects.filter(id__in=query)
 
     def get_attach_videos(self):
-        if "pho" in self.attach:
+        if "vid" in self.attach:
             query = []
             from video.models import Video
 

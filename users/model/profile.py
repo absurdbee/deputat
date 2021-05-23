@@ -105,10 +105,10 @@ class UserInfo(models.Model):
     def __str__(self):
         return self.user.get_full_name()
 
-    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-    def create_u_model(sender, instance, created, **kwargs):
-        if created:
-            UserInfo.objects.create(user=instance)
+    #@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    #def create_u_model(sender, instance, created, **kwargs):
+    #    if created:
+    #        UserInfo.objects.create(user=instance)
 
 class UserCheck(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_check', verbose_name="Пользователь")

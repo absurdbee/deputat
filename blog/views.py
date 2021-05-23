@@ -25,7 +25,8 @@ class BlogDetailView(ListView, CategoryListMixin):
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=1)
 				else:
 					BlogNumbers.objects.create(user=request.user.pk, new=self.blog.pk, platform=0)
-				self.blog.plus_views(1)
+				self.blog.view += 1
+				self.blog.save(update_fields=["view"])
 			return super(BlogDetailView,self).get(request,*args,**kwargs)
 		else:
 			if not self.blog.slug in request.COOKIES:

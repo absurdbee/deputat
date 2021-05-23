@@ -2,7 +2,7 @@ from django.db.models import Q
 query = Q(type="PUB") | Q(type="MAN")
 list_query = Q(type="LIS") | Q(type="MAN") | Q(type="MAI")
 
-def get_u_elect_new_attach(comment, user):
+def get_u_blog_attach(comment, user):
 
     block = ''
     for item in comment.attach.split(","):
@@ -10,7 +10,7 @@ def get_u_elect_new_attach(comment, user):
             try:
                 from gallery.models import Photo
                 photo = Photo.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit_200 u_blog_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+                block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit_200 u_blog_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":
@@ -167,7 +167,7 @@ def get_u_elect_new_attach(comment, user):
             try:
                 from gallery.models import Photo
                 photo = Photo.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit u_elect_new_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+                block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit u_elect_new_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":

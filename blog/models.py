@@ -128,6 +128,10 @@ class Blog(models.Model):
         from users.model.profile import Bookmarks
         return Bookmarks.objects.filter(blog=self, user_id=user_id).exists()
 
+    def get_u_attach(self, user):
+        from common.attach.elect_new_attach import get_u_blog_attach
+        return get_u_blog_attach(self, user)
+
     def get_attach_photos(self):
         if "pho" in self.attach:
             query = []

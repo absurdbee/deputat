@@ -19,7 +19,7 @@ class SuggestElectNew(TemplateView):
     def post(self,request,*args,**kwargs):
         from blog.forms import ElectNewForm
         from elect.models import Elect
-        from common.templates import render_for_platform
+        from common.templates import render_for_platform 
 
         self.form_post = ElectNewForm(request.POST)
 

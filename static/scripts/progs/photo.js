@@ -114,6 +114,19 @@ on('body', 'click', '.u_elect_new_comment_photo', function() {
   loader = document.getElementById("photo_loader");
   open_fullscreen("/gallery/elect_new_comment_photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });
+on('body', 'click', '.u_blog_photo', function() {
+  photo_pk = this.getAttribute('photo-pk');
+  comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
+  loader = document.getElementById("photo_loader");
+  open_fullscreen("/gallery/blog_photo/" + comment_pk + "/" + photo_pk + "/", loader)
+});
+on('body', 'click', '.u_elect_new_photo', function() {
+  photo_pk = this.getAttribute('photo-pk');
+  comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
+  loader = document.getElementById("photo_loader");
+  open_fullscreen("/gallery/elect_new_photo/" + comment_pk + "/" + photo_pk + "/", loader)
+});
+
 on('body', 'click', '.u_load_photo_list', function() {
   parent = this.parentElement.parentElement;
   pk = parent.getAttribute("photolist-pk");

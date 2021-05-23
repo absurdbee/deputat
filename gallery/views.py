@@ -130,15 +130,40 @@ class UserElectNewPhoto(TemplateView):
 		self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
 		self.photos = self.elect_new.get_attach_photos()
 		if request.user.is_authenticated:
-			self.template_name = get_template_user_window(self.photo, "user_gallery/photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+			self.template_name = get_template_user_window(self.photo, "user_gallery/elect_new_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/photo/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/elect_new_photo/anon_list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserElectNewPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(UserElectNewPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["elect_new"] = self.elect_new
+		context["user"] = self.request.user
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()
+		return context
+
+class UserBlogPhoto(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from blog.models import Blog
+		from common.templates import get_template_user_window, get_template_anon_user_window
+
+		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
+		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
+		self.photos = self.blog.get_attach_photos()
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_window(self.photo, "user_gallery/blog_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+		else:
+			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/blog_photo/anon_list.html", request.META['HTTP_USER_AGENT'])
+		return super(UserBlogPhoto,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserBlogPhoto,self).get_context_data(**kwargs)
+		context["object"] = self.photo
+		context["blog"] = self.blog
 		context["user"] = self.request.user
 		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="PUB").order_by('pk').first()
 		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="PUB").order_by('-pk').first()

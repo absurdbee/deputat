@@ -12,7 +12,7 @@
                   <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
                     <div class="event_card publish_elect_new pointer" data-pk="{{ object.pk }}1">
                       <div class="event_img text-center">
-                          <img class="img-fluid card-img-top" src="{{ object.get_images }}" alt="img">
+                          <img class="img-fluid card-img-top" src="{{ object.creator.get_avatar }} }}" alt="img">
                       </div>
                       <div class="card-body event_body">
                         <h4 class="event_name">

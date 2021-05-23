@@ -316,7 +316,7 @@ on('body', 'click', '.music_preview_delete', function() {
 });
 on('body', 'click', '.photo_attach_list_remove', function() {
   block = this.parentElement.parentElement;
-  if (block.classList.parentElement.contains("attach_block")){
+  if (block.parentElement.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()
   } else if (block.classList.contains("comment_attach_block")){
     remove_file_dropdown(); is_full_dropdown()
@@ -327,7 +327,7 @@ on('body', 'click', '.photo_attach_list_remove', function() {
 });
 on('body', 'click', '.doc_attach_list_remove', function() {
   block = this.parentElement.parentElement;
-  if (block.classList.parentElement.contains("attach_block")){
+  if (block.parentElement.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()
   } else if (block.parentElement.classList.contains("comment_attach_block")){
     remove_file_dropdown(); is_full_dropdown()

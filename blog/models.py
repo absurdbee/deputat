@@ -595,3 +595,9 @@ class ElectNew(models.Model):
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
+
+    def get_images(self):
+        if self.images:
+            return self.images.url
+        else:
+            return '/static/images/list.jpg'

@@ -23,7 +23,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!")
-  } else if (!val){
+  } else if (!form.querySelector("#id_description").value){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!")
   } else { _this.disabled = true }

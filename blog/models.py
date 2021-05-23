@@ -310,7 +310,8 @@ class ElectNew(models.Model):
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         #try:
-        _elect = Elect.objects.get(name=elect)
+        _elect = str(elect)
+        _elect = Elect.objects.get(name=_elect)
         #except Elect.DoesNotExist:
         #    _elect = None
 

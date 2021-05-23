@@ -15,7 +15,7 @@
                                     <div class="media">
                                       {% if object.elect %}
                                         <div class="avatar mr-50">
-                                            <img src="{{ object.elect.image }}" alt="Avatar" width="24" height="24">
+                                            <img src="{{ object.elect.image.url }}" alt="Avatar" width="24" height="24">
                                         </div>
                                         <div class="media-body">
                                             <small><a href="{% url 'elect_detail' pk=object.elect.pk %}" class="text-body ajax">{{ object.elect.name }}</a></small>

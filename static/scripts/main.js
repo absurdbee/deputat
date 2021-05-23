@@ -115,7 +115,7 @@ on('body', 'click', '.create_fullscreen_hide', function() {
 );
 
 
-on('#ajax', 'click', '.sel__box__options', function() {
+on('body', 'click', '.sel__box__options', function() {
 
   block = this.parentElement.parentElement.nextElementSibling;
   map = this.parentElement.parentElement.parentElement.previousElementSibling;
@@ -248,10 +248,10 @@ on('body', 'click', '.reply_comment', function() {
   div.style.display = "block";
   input.focus();
 })
-on('#ajax', 'click', '.show_replies', function() {
+on('body', 'click', '.show_replies', function() {
   this.nextElementSibling.classList.toggle("show")
 })
-on('#ajax', 'click', '.hide_comment_form', function() {
+on('body', 'click', '.hide_comment_form', function() {
   this.parentElement.parentElement.parentElement.style.display = "none";
 })
 

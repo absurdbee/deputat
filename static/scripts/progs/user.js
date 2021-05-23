@@ -1,9 +1,9 @@
-on('#ajax', 'click', '#holder_image', function() {
+on('body', 'click', '#holder_image', function() {
   img = this.previousElementSibling.querySelector("input")
   get_image_priview(this, img);
 });
 
-on('#ajax', 'click', '#edit_user_profile_btn', function() {
+on('body', 'click', '#edit_user_profile_btn', function() {
   form = this.parentElement.parentElement;
   if (!form.querySelector("#id_first_name").value){
     form.querySelector("#id_first_name").style.border = "1px #FF0000 solid";
@@ -17,17 +17,17 @@ on('#ajax', 'click', '#edit_user_profile_btn', function() {
   form.querySelector("#id_last_name").style.border = "1px #D8D6DE solid";
 });
 
-on('#ajax', 'click', '#edit_user_about_btn', function() {
+on('body', 'click', '#edit_user_about_btn', function() {
   send_form_and_toast('/users/settings/about/', this.parentElement.parentElement, "Изменения приняты!");
 })
-on('#ajax', 'click', '#edit_user_notify_btn', function() {
+on('body', 'click', '#edit_user_notify_btn', function() {
   send_form_and_toast('/users/settings/notify/', this.parentElement.parentElement, "Изменения приняты!");
 })
-on('#ajax', 'click', '#edit_user_private_btn', function() {
+on('body', 'click', '#edit_user_private_btn', function() {
   send_form_and_toast('/users/settings/private/', this.parentElement.parentElement, "Изменения приняты!");
 })
 
-on('#ajax', 'click', '#edit_user_password_btn', function() {
+on('body', 'click', '#edit_user_password_btn', function() {
   form = document.body.querySelector("#edit_user_password_form")
   field1 = form.querySelector("#password1"); field2 = form.querySelector("#password2");
   if (!field1.value){

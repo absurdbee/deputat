@@ -132,12 +132,12 @@ on('body', 'click', '.blog_comment_like', function() {
 });
 
 
-on('#ajax', 'click', '.blogComment', function() {
+on('body', 'click', '.blogComment', function() {
   form = this.parentElement.parentElement;
   send_comment(form, form.parentElement.parentElement.parentElement.nextElementSibling, '/blog/blog_comment/', "prepend");
 });
 
-on('#ajax', 'click', '.blogReplyComment', function() {
+on('body', 'click', '.blogReplyComment', function() {
   form = this.parentElement.parentElement;
   block = form.parentElement.parentElement.parentElement.nextElementSibling.nextElementSibling;
   send_comment(form, block, '/blog/blog_reply/', "append")
@@ -145,7 +145,7 @@ on('#ajax', 'click', '.blogReplyComment', function() {
   block.classList.add("show");
 });
 
-on('#ajax', 'click', '.blogReplyParentComment', function() {
+on('body', 'click', '.blogReplyParentComment', function() {
   form = this.parentElement.parentElement;
   block = form.parentElement.parentElement.parentElement.parentElement.parentElement;
   send_comment(form, block.parentElement, '/blog/blog_reply/', "append")
@@ -153,12 +153,12 @@ on('#ajax', 'click', '.blogReplyParentComment', function() {
 });
 
 
-on('#ajax', 'click', '.electnewComment', function() {
+on('body', 'click', '.electnewComment', function() {
   form = this.parentElement.parentElement;
   send_comment(form, form.parentElement.parentElement.parentElement.nextElementSibling, '/blog/add_new_comment/', "prepend");
 });
 
-on('#ajax', 'click', '.electnewReplyComment', function() {
+on('body', 'click', '.electnewReplyComment', function() {
   form = this.parentElement.parentElement;
   block = form.parentElement.parentElement.parentElement.nextElementSibling.nextElementSibling;
   send_comment(form, block, '/blog/reply_new_comment/', "append")
@@ -166,32 +166,32 @@ on('#ajax', 'click', '.electnewReplyComment', function() {
   block.classList.add("show");
 });
 
-on('#ajax', 'click', '.electnewReplyParentComment', function() {
+on('body', 'click', '.electnewReplyParentComment', function() {
   form = this.parentElement.parentElement;
   block = form.parentElement.parentElement.parentElement.parentElement.parentElement;
   send_comment(form, block.parentElement, '/blog/reply_new_comment/', "append")
   form.parentElement.style.display = "none";
 });
 
-on('#ajax', 'click', '.u_load_comment_photo', function() {
+on('body', 'click', '.u_load_comment_photo', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");
   open_fullscreen('/users/load/u_photo_comment_load/', loader)
 });
-on('#ajax', 'click', '.u_load_doc', function() {
+on('body', 'click', '.u_load_doc', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");
   open_fullscreen('/users/load/u_doc_load/', loader)
 });
-on('#ajax', 'click', '.u_load_video', function() {
+on('body', 'click', '.u_load_video', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");
   open_fullscreen('/users/load/u_video_load/', loader)
 });
-on('#ajax', 'click', '.u_load_music', function() {
+on('body', 'click', '.u_load_music', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
   loader = document.getElementById("create_loader");
@@ -249,32 +249,32 @@ on('body', 'change', '#u_photo_attach', function() {
   link_.send(form_data);
 });
 
-on('#ajax', 'click', '.u_select_photo', function() {
+on('body', 'click', '.u_select_photo', function() {
   this.parentElement.parentElement.parentElement.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_photo_load/', loader)
 });
-on('#ajax', 'click', '.u_select_survey', function() {
+on('body', 'click', '.u_select_survey', function() {
   this.parentElement.parentElement.parentElement.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_survey_load/', loader)
 });
 
-on('#ajax', 'click', '.u_select_video', function() {
+on('body', 'click', '.u_select_video', function() {
   this.parentElement.parentElement.parentElement.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_video_load/', loader)
 });
-on('#ajax', 'click', '.u_select_music', function() {
+on('#body', 'click', '.u_select_music', function() {
   this.parentElement.parentElement.parentElement.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_music_load/', loader)
 });
-on('#ajax', 'click', '.u_select_doc', function() {
+on('body', 'click', '.u_select_doc', function() {
   this.parentElement.parentElement.parentElement.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");

@@ -155,7 +155,7 @@ function phone_check() {
     document.getElementById("code_send").setAttribute("disabled", "true");
   }
 
-  on('#ajax', 'click', '#code_send', function() {
+  on('body', 'click', '#code_send', function() {
       form = document.querySelector('.verify_form');
       user_pk = form.getAttribute("data-pk");
       var phone = form.querySelector('#phone').value;
@@ -175,7 +175,7 @@ function phone_check() {
       };
       request.send(null)
   });
-  on('#ajax', 'change', '.select_region', function() {
+  on('body', 'change', '.select_region', function() {
     _this = this;
     var val = _this.value;
     if (val == '') {

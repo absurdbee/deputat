@@ -322,7 +322,7 @@ on('body', 'click', '.photo_attach_list', function() {
   }
 });
 
-on('#ajax', 'click', '.doc_load_several', function() {
+on('body', 'click', '.doc_load_several', function() {
   _this = this.previousElementSibling;
   pk = _this.getAttribute('data-pk');
   media_block = _this.querySelector(".media-body")
@@ -334,7 +334,7 @@ on('#ajax', 'click', '.doc_load_several', function() {
     check_doc_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_message_attach(document.body.querySelector(".message_attach_block"), media_block, pk), this.classList.add("active_svg"))
   }
 });
-on('#ajax', 'click', '.track_load_several', function() {
+on('body', 'click', '.track_load_several', function() {
   _this = this.previousElementSibling;
   pk = _this.getAttribute('data-pk');
   if (document.body.querySelector(".current_file_dropdown")){
@@ -372,7 +372,7 @@ on('body', 'click', '.music_attach_list', function() {
   }
 });
 
-on('#ajax', 'click', '.video_load_one', function() {
+on('body', 'click', '.video_load_one', function() {
   _this = this;
   pk = _this.getAttribute('video-pk');
   src = _this.getAttribute('src');
@@ -384,7 +384,7 @@ on('#ajax', 'click', '.video_load_one', function() {
     check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, src), close_create_window())
   }
 });
-on('#ajax', 'click', '.video_load_several', function() {
+on('body', 'click', '.video_load_several', function() {
   previous = this.previousElementSibling
   _this = previous.querySelector("img");
   pk = _this.getAttribute('video-pk');

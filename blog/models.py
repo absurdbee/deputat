@@ -283,6 +283,7 @@ class ElectNew(models.Model):
     content = RichTextUploadingField(config_name='default',)
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
+    attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
 
     comment = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")

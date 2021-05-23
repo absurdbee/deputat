@@ -10,7 +10,10 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <img src="{{ object.get_image }}" class="img-fluid card-img-top" alt="img">
+                              {% if object.attach %}
+                                {{ object|get_attach:request.user|safe }}
+                              {% endif %}
+
                                 <div class="card-body" data-pk="{{ object.pk }}">
                                     <h1 class="card-title">{{ object.title }}</h1>
                                     <div class="media">

@@ -22,7 +22,7 @@
             <div class="row no-gutters">
 
               {% if reply.attach %}
-                {{ comment|get_comment_attach:request.user|safe }}
+                {{ comment|get_attach:request.user|safe }}
               {% endif %}
             </div>
 

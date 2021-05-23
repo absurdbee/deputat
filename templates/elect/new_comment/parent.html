@@ -21,7 +21,7 @@
         <div class="comment_footer" data-pk="{{ comment.pk }}">
             <span class="card-text">{{ comment.text }}</span>
             {% if comment.attach %}
-              {{ comment|get_comment_attach:request.user|safe }}
+              {{ comment|get_attach:request.user|safe }}
             {% endif %}
 
             <div class="align-items-center pointer">

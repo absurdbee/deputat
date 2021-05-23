@@ -250,32 +250,32 @@ on('body', 'change', '#u_photo_attach', function() {
 });
 
 on('body', 'click', '.u_select_photo', function() {
-  this.parentElement.parentElement.parentElement.classList.add("attach_block");
+  this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_photo_load/', loader)
 });
 on('body', 'click', '.u_select_survey', function() {
-  this.parentElement.parentElement.parentElement.classList.add("attach_block");
+  this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_survey_load/', loader)
 });
 
 on('body', 'click', '.u_select_video', function() {
-  this.parentElement.parentElement.parentElement.classList.add("attach_block");
+  this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_video_load/', loader)
 });
 on('body', 'click', '.u_select_music', function() {
-  this.parentElement.parentElement.parentElement.classList.add("attach_block");
+  this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_music_load/', loader)
 });
 on('body', 'click', '.u_select_doc', function() {
-  this.parentElement.parentElement.parentElement.classList.add("attach_block");
+  this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
   loader = document.getElementById("create_loader");
   open_load_fullscreen('/users/load/u_doc_load/', loader)

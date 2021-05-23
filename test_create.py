@@ -8,16 +8,6 @@ django.setup()
 
 from users.model.profile import *
 from users.model.settings import *
+from elect.models import Elect
 
-try:
-    UserNotifications.objects.create(user_id=2)
-except:
-    pass
-try:
-    UserPrivate.objects.create(user_id=2)
-except:
-    pass
-try:
-    UserInfo.objects.create(user_id=2)
-except:
-    pass
+print(Elect.objects.get(name="Куринный Алексей Владимирович"))

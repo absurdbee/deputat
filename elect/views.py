@@ -26,21 +26,37 @@ class ElectDetailView(TemplateView, CategoryListMixin):
         from common.templates import get_full_template
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_authenticated:
-            current_pk = request.user.pk
-        else:
-            current_pk = 0
-        if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-            ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=0)
-        else:
-            ElectNumbers.objects.create(user=current_pk, elect=self.elect.pk, platform=1)
         self.template_name = get_full_template("elect/elect_2.html", request.user, request.META['HTTP_USER_AGENT'])
+        if request.user.is_authenticated:
+			if not ElectNumbers.objects.filter(user=request.user.pk, elect=self.elect.pk).exists():
+				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+					ElectNumbers.objects.create(user=request.user.pk, elect=self.elect.pk, platform=1)
+				else:
+					ElectNumbers.objects.create(user=request.user.pk, elect=self.elect.pk, platform=0)
+				self.elect.view += 1
+				self.elect.save(update_fields=["view"])
+			return super(ElectDetailView,self).get(request,*args,**kwargs)
+		else:
+			if not self.elect.slug in request.COOKIES:
+				from django.shortcuts import redirect
+
+				response = redirect('elect_detail', pk=self.elect.pk)
+				response.set_cookie(self.elect.pk, "elect_view")
+				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+					ElectNumbers.objects.create(user=0, elect=self.elect.pk, platform=1)
+				else:
+					ElectNumbers.objects.create(user=0, elect=self.elect.pk, platform=0)
+				self.elect.view += 1
+				self.elect.save(update_fields=["view"])
+				return response
+			else:
+				return super(ElectDetailView,self).get(request,*args,**kwargs)
         return super(ElectDetailView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context=super(ElectDetailView,self).get_context_data(**kwargs)
         context["object"] = self.elect
-        context["last_articles"] = ElectNew.objects.only("pk")[:6]
+        context["last_articles"] = ElectNew.objects.filter(type="PUB")[:6]
         return context
 
 

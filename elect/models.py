@@ -27,6 +27,12 @@ class Elect(models.Model):
     election_information = models.CharField(max_length=200, blank=True, verbose_name="Сведения об избрании")
     fraction = models.ForeignKey('lists.Fraction', null=True, on_delete=models.SET_NULL, blank=True, verbose_name="Фракции")
 
+    view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
+    like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
+    dislike = models.PositiveIntegerField(default=0, verbose_name="Кол-во дизлайков")
+    inert = models.PositiveIntegerField(default=0, verbose_name="Кол-во inert")
+    repost = models.PositiveIntegerField(default=0, verbose_name="Кол-во репостов")
+
     class Meta:
         verbose_name = "Чиновник"
         verbose_name_plural = "Чиновники"

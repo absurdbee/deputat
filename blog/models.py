@@ -310,12 +310,11 @@ class ElectNew(models.Model):
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         #try:
-        _elect = str(elect)
-        _elect = Elect.objects.get(name=_elect)
+        #_elect = Elect.objects.get(name=elect)
         #except Elect.DoesNotExist:
         #    _elect = None
 
-        elect_new = cls.objects.create(creator=creator,title=title,description=description,elect=_elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
+        elect_new = cls.objects.create(creator=creator,title=title,description=description,elect__name=elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
         user_wall(creator, None, elect_new.pk, "ELN", "draft_news_wall", "SIT")
         user_notify(creator, None, elect_new.pk, "ELN", "draft_news_notify", "SIT")
         return elect_new

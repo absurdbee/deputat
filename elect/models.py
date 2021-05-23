@@ -70,24 +70,26 @@ class Elect(models.Model):
         self.save()
 
     def visits_count(self):
-        from stst.models import ElectNumbers
-        return ElectNumbers.objects.filter(elect=self.pk).values('pk').count()
+        if self.view > 0:
+            return self.view
+        else:
+            return ''
 
     def likes_count(self):
-        from blog.models import ElectNew
-        from common.model.votes import ElectNewVotes2
-
-        news = ElectNew.objects.filter(elect=self).values("id")
-        news_ids = [new['id'] for new in news]
-        return ElectNewVotes2.objects.filter(new_id__in=news_ids, vote__gt=0).count()
-
+        if self.like > 0:
+            return self.like
+        else:
+            return ''
     def dislikes_count(self):
-        from blog.models import ElectNew
-        from common.model.votes import ElectNewVotes2
-
-        news = ElectNew.objects.filter(elect=self).values("pk")
-        news_ids = [new['pk'] for new in news]
-        return ElectNewVotes2.objects.filter(new_id__in=news_ids, vote__lt=0).values("pk").count()
+        if self.dislike > 0:
+            return self.dislike
+        else:
+            return ''
+    def inerts_count(self):
+        if self.inert > 0:
+            return self.inert
+        else:
+            return ''
 
     def get_avatar(self):
         try:

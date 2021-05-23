@@ -353,7 +353,7 @@ on('body', 'click', '.doc_attach_list', function() {
   if (document.body.querySelector(".current_file_dropdown")){
     check_doc_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_create_window())
   } else if (document.body.querySelector(".attach_block")){
-    check_doc_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_list_comment_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
+    check_doc_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_list_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
     check_doc_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_list_comment_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
   }
@@ -366,7 +366,7 @@ on('body', 'click', '.music_attach_list', function() {
   if (document.body.querySelector(".current_file_dropdown")){
     check_playlist_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_create_window())
   } else if (document.body.querySelector(".attach_block")){
-    check_playlist_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
+    check_playlist_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (playlist_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
     check_playlist_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
   }

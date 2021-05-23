@@ -47,6 +47,7 @@ function loadScripts( src ) {
 loadScripts('/static/scripts/lib/progressive-image.js');
 loadScripts('/static/scripts/functions/general.js');
 loadScripts('/static/scripts/functions/comment_attach.js');
+loadScripts('/static/scripts/functions/elect_new_attach.js');
 loadScripts('/static/scripts/functions/preview.js');
 loadScripts('/static/scripts/main.js');
 loadScripts('/static/scripts/progs/blog.js');

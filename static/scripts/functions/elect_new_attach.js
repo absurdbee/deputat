@@ -89,21 +89,21 @@ function doc_post_attach(block, media_block, pk) {
 }
 
 function photo_list_post_attach(block, src, title, pk, count) {
-  is_full_dropdown();
+  is_full_attach();
   div = create_preview_photo_list(src, title, pk, count);
   block.append(div);
   add_file_attach()
   is_full_attach();
 }
 function doc_list_post_attach(block, title, pk, count) {
-  is_full_dropdown();
+  is_full_attach();
   div = create_preview_doc_list(title, pk, count);
   block.append(div);
   add_file_attach()
   is_full_attach();
 }
 function playlist_post_attach(block, title, pk, count) {
-  is_full_dropdown();
+  is_full_attach();
   div = create_preview_playlist(title, pk, count);
   block.append(div);
   add_file_attach()

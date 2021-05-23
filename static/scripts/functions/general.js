@@ -305,7 +305,7 @@ on('body', 'click', '.video_preview_delete', function() {
 on('body', 'click', '.music_preview_delete', function() {
   parent = this.parentElement;
   block = parent.parentElement;
-  if (block.classList.contains("attach_block")){
+  if (block.parentElement.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()
   } else if (block.classList.contains("comment_attach_block")){
     remove_file_dropdown(); is_full_dropdown()
@@ -316,9 +316,9 @@ on('body', 'click', '.music_preview_delete', function() {
 });
 on('body', 'click', '.photo_attach_list_remove', function() {
   block = this.parentElement.parentElement;
-  if (block.classList.contains("attach_block")){
+  if (block.classList.parentElement.contains("attach_block")){
     remove_file_attach(), is_full_attach()
-  } else if (block.parentElement.classList.contains("comment_attach_block")){
+  } else if (block.classList.contains("comment_attach_block")){
     remove_file_dropdown(); is_full_dropdown()
   } else if (block.classList.contains("message_attach_block")){
     remove_file_message_attach(); is_full_message_attach()
@@ -327,7 +327,7 @@ on('body', 'click', '.photo_attach_list_remove', function() {
 });
 on('body', 'click', '.doc_attach_list_remove', function() {
   block = this.parentElement.parentElement;
-  if (block.classList.contains("attach_block")){
+  if (block.classList.parentElement.contains("attach_block")){
     remove_file_attach(), is_full_attach()
   } else if (block.parentElement.classList.contains("comment_attach_block")){
     remove_file_dropdown(); is_full_dropdown()

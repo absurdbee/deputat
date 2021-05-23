@@ -40,6 +40,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
     def get_context_data(self,**kwargs):
         context=super(ElectDetailView,self).get_context_data(**kwargs)
         context["object"] = self.elect
+        context["last_articles"] = ElectNew.objects.only("pk")[:6]
         return context
 
 

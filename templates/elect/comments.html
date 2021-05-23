@@ -1,0 +1,45 @@
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <form class="form">
+              {% csrf_token %}
+                  <div class="row comment_attach_block no-gutters"></div>
+                  <span style="display:flex">
+                      {% include 'blog/dropdown.html' %}
+                      <input name="text" placeholder="Напишите комментарий" class="form-control text-comment" style="margin-bottom:5px">
+                  </span>
+                    <input type="hidden" name="elect_new" value="{{ object.pk }}">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary btn-sm float-right electnewComment">Комментировать</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 comments_block_container is_paginate">
+    {% for comment in object_list %}
+
+    {% if comment.is_deleted %}
+      <div class="card pag {% if forloop.last %}last{% endif %}" style="margin-bottom: .5rem;">
+        <div class="card-body">
+          <p style="display: flex; padding-left:10px;margin: 0;text-decoration:underline">Комментарий удален</p>
+        </div>
+      </div>
+      <span style="cursor:pointer;" class="show_replies content-color-primary">
+          {% if comment.count_replies %}
+          ---- {{ comment.count_replies_ru }} ----
+          {% endif %}
+      </span>
+      <span class="stream_reply_comments">
+          {% for reply in comment.get_replies %}
+            {% include 'elect/comment/reply.html' %}
+          {% endfor %}
+      </span>
+
+      {% else %}
+        {% include 'elect/comment/parent.html' %}
+      {% endif %}
+    {% endfor %}
+</div>

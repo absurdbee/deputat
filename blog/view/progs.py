@@ -25,7 +25,6 @@ class SuggestElectNew(TemplateView):
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
             post = self.form_post.save(commit=False)
             new_post = post.create_suggested_new(creator=request.user, title=post.title, description=post.description, elect=post.elect, attach=request.POST.getlist("attach_items"), category=post.category)
-            return render(request, 'elect/elect_new.html', {'object': new_post})
             return render_for_platform(request, 'elect/elect_new.html',{'object': new_post})
         else:
             from django.http import HttpResponseBadRequest

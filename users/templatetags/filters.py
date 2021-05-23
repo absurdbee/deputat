@@ -41,7 +41,7 @@ def item_in_list(list, item_id):
     return list.is_item_in_list(item_id)
 
 @register.filter
-def get_blog_comment_attach(comment, request_user):
+def get_comment_attach(comment, request_user):
     return comment.get_u_attach(request_user)
 
 @register.filter

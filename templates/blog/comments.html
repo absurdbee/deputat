@@ -34,12 +34,12 @@
       </span>
       <span class="stream_reply_comments">
           {% for reply in comment.get_replies %}
-            {% include 'blog/blog_comment/reply.html' %}
+            {% include 'blog/comment/reply.html' %}
           {% endfor %}
       </span>
 
       {% else %}
-        {% include 'blog/blog_comment/parent.html' %}
+        {% include 'blog/comment/parent.html' %}
       {% endif %}
     {% endfor %}
 </div>

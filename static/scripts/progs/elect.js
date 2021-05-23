@@ -1,13 +1,4 @@
-on('body', 'click', '.elect_comment_like', function() {
-  item = this.parentElement;
-  pk = item.getAttribute("data-pk");
-  send_like(item, "/elect/votes/elect_comment_like/" + pk + "/");
-});
-on('body', 'click', '.elect_comment_dislike', function() {
-  item = this.parentElement;
-  pk = item.getAttribute("data-pk");
-  send_dislike(item, "/elect/votes/elect_comment_dislike/" + pk + "/");
-});
+
 
 on('body', 'click', '.u_suggested_elect_new_create', function() {
   loader = document.getElementById("create_loader");
@@ -18,7 +9,6 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
-
 
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";

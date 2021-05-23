@@ -25,7 +25,7 @@
             {% endif %}
 
             <div class="align-items-center pointer">
-                <span class="like blog_comment_like {% if comment.likes|user_in:request.user %}btn_success{% else %}btn_default{% endif %} pointer" title="Нравится">
+                <span class="like elect_new_comment_like {% if comment.likes|user_in:request.user %}btn_success{% else %}btn_default{% endif %} pointer" title="Нравится">
                     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"></path>
                         <path d="M9 21h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9V9zM1 9h4v12H1z"></path>
@@ -51,7 +51,7 @@
 
                         <input type="hidden" name="post_comment" value="{{ comment.pk }}">
                         <button type="button" class="btn btn-danger btn-sm hide_comment_form float-right" style="margin-left:5px">x</button>
-                        <button type="button" class="btn btn-primary btn-sm blogReplyComment float-right">Комментировать</button>
+                        <button type="button" class="btn btn-primary btn-sm electnewReplyComment float-right">Комментировать</button>
                     </div>
                 </form>
             </div>
@@ -73,7 +73,7 @@
             </div>
         </div>
         {% else %}
-        {% include 'blog/blog_comment/reply.html' %}
+        {% include 'elect/new_comment/reply.html' %}
         {% endif %}
         {% endfor %}
     </span>

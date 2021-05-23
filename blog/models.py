@@ -456,20 +456,38 @@ class ElectNew(models.Model):
                 self.like += 1
                 self.dislike -= 1
                 self.save(update_fields=['like', 'dislike'])
+                if self.elect:
+                    elect = self.elect
+                    self.like += 1
+                    self.dislike -= 1
+                    elect.save(update_fields=['like', 'dislike'])
             elif item.vote == ElectNewVotes2.INERT:
                 item.vote = ElectNewVotes2.LIKE
                 item.save(update_fields=['vote'])
                 self.inert -= 1
                 self.like += 1
                 self.save(update_fields=['inert', 'like'])
+                if self.elect:
+                    elect = self.elect
+                    elect.inert -= 1
+                    elect.like += 1
+                    elect.save(update_fields=['inert', 'like'])
             else:
                 item.delete()
                 self.like -= 1
                 self.save(update_fields=['like'])
+                if self.elect:
+                    elect = self.elect
+                    elect.like -= 1
+                    elect.save(update_fields=['like'])
         except ElectNewVotes2.DoesNotExist:
             ElectNewVotes2.objects.create(new=self, user=user, vote=ElectNewVotes2.LIKE)
             self.like += 1
             self.save(update_fields=['like'])
+            if self.elect:
+                elect = self.elect
+                elect.like += 1
+                elect.save(update_fields=['like'])
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
@@ -495,20 +513,38 @@ class ElectNew(models.Model):
                 self.like -= 1
                 self.dislike += 1
                 self.save(update_fields=['like', 'dislike'])
+                if self.elect:
+                    elect = self.elect
+                    elect.like -= 1
+                    elect.dislike += 1
+                    elect.save(update_fields=['like', 'dislike'])
             elif item.vote == ElectNewVotes2.INERT:
                 item.vote = ElectNewVotes2.DISLIKE
                 item.save(update_fields=['vote'])
                 self.inert -= 1
                 self.dislike += 1
                 self.save(update_fields=['inert', 'dislike'])
+                if self.elect:
+                    elect = self.elect
+                    elect.inert -= 1
+                    elect.dislike += 1
+                    elect.save(update_fields=['inert', 'dislike'])
             else:
                 item.delete()
                 self.dislike -= 1
                 self.save(update_fields=['dislike'])
+                if self.elect:
+                    elect = self.elect
+                    elect.dislike -= 1
+                    elect.save(update_fields=['dislike'])
         except ElectNewVotes2.DoesNotExist:
             ElectNewVotes2.objects.create(new=self, user=user, vote=ElectNewVotes2.DISLIKE)
             self.dislike += 1
             self.save(update_fields=['dislike'])
+            if self.elect:
+                elect = self.elect
+                elect.dislike += 1
+                elect.save(update_fields=['dislike'])
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
@@ -534,20 +570,38 @@ class ElectNew(models.Model):
                 self.like -= 1
                 self.inert += 1
                 self.save(update_fields=['like', 'inert'])
+                if self.elect:
+                    elect = self.elect
+                    elect.like -= 1
+                    elect.inert += 1
+                    elect.save(update_fields=['like', 'inert'])
             elif item.vote == ElectNewVotes2.DISLIKE:
                 item.vote = ElectNewVotes2.INERT
                 item.save(update_fields=['vote'])
                 self.inert += 1
                 self.dislike -= 1
                 self.save(update_fields=['inert', 'dislike'])
+                if self.elect:
+                    elect = self.elect
+                    elect.inert += 1
+                    elect.dislike -= 1
+                    elect.save(update_fields=['inert', 'dislike'])
             else:
                 item.delete()
                 self.inert -= 1
                 self.save(update_fields=['inert'])
+                if self.elect:
+                    elect = self.elect
+                    elect.inert -= 1
+                    elect.save(update_fields=['inert'])
         except ElectNewVotes2.DoesNotExist:
             ElectNewVotes2.objects.create(new=self, user=user, vote=ElectNewVotes2.INERT)
             self.inert += 1
             self.save(update_fields=['inert'])
+            if self.elect:
+                elect = self.elect
+                elect.inert += 1
+                elect.save(update_fields=['inert'])
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "INE")

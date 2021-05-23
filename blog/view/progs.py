@@ -9,9 +9,11 @@ class SuggestElectNew(TemplateView):
 
     def get_context_data(self,**kwargs):
         from blog.forms import ElectNewForm
+        from elect.models import Elect
 
         context=super(SuggestElectNew,self).get_context_data(**kwargs)
         context["form"] = ElectNewForm()
+        context["get_elects"] = Elect.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):

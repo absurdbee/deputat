@@ -88,7 +88,7 @@ class SurveyList(models.Model):
     def is_list(self):
         return self.type == self.LIST
     def is_private(self):
-        return self.type == self.PRIVATE
+        return False
     def is_deleted(self):
         return self.type == self.DELETED
     def is_open(self):
@@ -416,6 +416,8 @@ class Survey(models.Model):
 
     def is_deleted(self):
         return self.type == self.DELETED
+    def is_private(self):
+        return False
 
 
 class Answer(models.Model):

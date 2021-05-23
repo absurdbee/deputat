@@ -30,8 +30,6 @@ function case_news_wall(pk) {
           document.body.querySelector(".news_empty") ? document.body.querySelector(".news_empty").style.display = "none" : null}}
   link_.send()
 }
-
-notify = document.body.querySelector(".resent_notify");
 function show_badge() {
   notify.classList.contains("badge-danger") ? null : notify.classList.add("badge-danger");
   notify.style.display = "grid";
@@ -40,6 +38,10 @@ function hide_badge() {
   notify.classList.contains("badge-danger") ? notify.classList.remove("badge-danger") : null;
   notify.style.display = "none";
 }
+
+if (!document.body.querySelector(".anon_avatar")){
+  // подключаем сокеты только для зарегистрированных пользователей
+notify = document.body.querySelector(".resent_notify");
 
 document.body.querySelector(".userpic") ? request_user_id = document.body.querySelector(".userpic").getAttribute("data-pk") : request_user_id = 0
 notify.classList.contains("badge-danger") ? (notify_count = notify.innerHTML.replace(/\s+/g, ''), notify_count = notify_count*1): notify_count = 0;
@@ -94,3 +96,4 @@ webSocket.listen(function (event) {
       break;
   }
 })
+}

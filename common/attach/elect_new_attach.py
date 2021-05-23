@@ -55,7 +55,7 @@ def get_u_blog_attach(comment, user):
                     else:
                         options = '<span class="dropdown-item doc_claim">Пожаловаться</span>'
                     opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 42px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
-                    for list in user.get_my_all_doc_lists():
+                    for list in user.get_doc_lists():
                         if list.is_item_in_list(doc.pk):
                             lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_remove_doc_in_list"><svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>', list.name, '</span></span>'])
                         else:
@@ -206,7 +206,7 @@ def get_u_elect_new_attach(comment, user):
                 span_btn = ''
                 if user.is_authenticated:
                     lists = ''
-                    for list in user.get_docs_lists():
+                    for list in user.get_doc_lists():
                         if list.is_item_in_list(doc.pk):
                             lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_remove_doc_in_list"><svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>', list.name, '</span></span>'])
                         else:

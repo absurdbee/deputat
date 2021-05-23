@@ -8,7 +8,7 @@ from django.http import Http404
 
 class ElectNewLike(View):
     def get(self, request, **kwargs):
-        from common.model.votes import ElectVotes
+        from common.model.votes import ElectNewVotes2
 
         if not request.is_ajax():
             raise Http404
@@ -17,7 +17,7 @@ class ElectNewLike(View):
 
 class ElectNewDislike(View):
     def get(self, request, **kwargs):
-        from common.model.votes import ElectVotes
+        from common.model.votes import ElectNewVotes2
 
         if not request.is_ajax():
             raise Http404
@@ -26,7 +26,7 @@ class ElectNewDislike(View):
 
 class ElectNewInert(View):
     def get(self, request, **kwargs):
-        from common.model.votes import ElectVotes
+        from common.model.votes import ElectNewVotes2
 
         if not request.is_ajax():
             raise Http404

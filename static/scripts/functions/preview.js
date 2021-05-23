@@ -307,20 +307,6 @@ on('body', 'click', '.photo_load_several', function() {
     check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, src), this.classList.add("active_svg"))
   }
 });
-on('body', 'click', '.photo_attach_list', function() {
-  _this = this;
-  src = _this.parentElement.previousElementSibling.querySelector("img").getAttribute("src");
-  title = _this.parentElement.querySelector(".nowrap").innerHTML;
-  pk = _this.getAttribute('data-pk');
-  count = _this.parentElement.querySelector(".count").innerHTML;
-  if (document.body.querySelector(".current_file_dropdown")){
-    check_photo_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_create_window())
-  } else if (document.body.querySelector(".attach_block")){
-    check_photo_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (photo_list_post_attach(document.body.querySelector(".attach_block"), src, title, pk, count), close_create_window())
-  } else if (document.body.querySelector(".message_attach_block")){
-    check_photo_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (photo_list_message_attach(document.body.querySelector(".message_attach_block"), src, title, pk, count), close_create_window())
-  }
-});
 
 on('body', 'click', '.doc_load_several', function() {
   _this = this.previousElementSibling;

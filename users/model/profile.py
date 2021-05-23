@@ -128,7 +128,7 @@ class UserProfile(models.Model):
         (MEDICAL, 'Медицина'),
         (IT, 'IT'),
     )
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_info', verbose_name="Пользователь")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile', verbose_name="Пользователь")
     education = models.CharField(max_length=5, choices=EDUCATIONS, default=NO_VALUE, verbose_name="Образование")
     employment = models.CharField(max_length=5, choices=EMPLOYMENT, default=NO_VALUE, verbose_name="Сфера занятости")
     birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')

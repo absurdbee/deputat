@@ -597,7 +597,7 @@ class ElectNew(models.Model):
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_images(self):
-        if self.images:
-            return self.images.url
+        if self.image:
+            return self.image.url
         else:
             return '/static/images/list.jpg'

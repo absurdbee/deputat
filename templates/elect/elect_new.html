@@ -13,14 +13,25 @@
                                 <div class="card-body" data-pk="{{ object.pk }}">
                                     <h1 class="card-title">{{ object.title }}</h1>
                                     <div class="media">
+                                      {% if object.elect %}
                                         <div class="avatar mr-50">
-                                            <img src="{{ object.creator.get_avatar }}" alt="Avatar" width="24" height="24">
+                                            <img src="{{ object.elect.image }}" alt="Avatar" width="24" height="24">
                                         </div>
                                         <div class="media-body">
-                                            <small><a href="{% url 'user' pk=object.creator.pk %}" class="text-body ajax">{{ object.creator.get_full_name }}</a></small>
+                                            <small><a href="{% url 'elect_detail' pk=object.elect.pk %}" class="text-body ajax">{{ object.elect.name }}</a></small>
                                             <span class="text-muted ml-50 mr-25">|</span>
                                             <small class="text-muted">{{ object.get_created }}</small>
                                         </div>
+                                      {% else %}
+                                      <div class="avatar mr-50">
+                                          <img src="{{ object.creator.get_avatar }}" alt="Avatar" width="24" height="24">
+                                      </div>
+                                      <div class="media-body">
+                                          <small><a href="{% url 'user' pk=object.creator.pk %}" class="text-body ajax">{{ object.creator.get_full_name }}</a></small>
+                                          <span class="text-muted ml-50 mr-25">|</span>
+                                          <small class="text-muted">{{ object.get_created }}</small>
+                                      </div>
+                                      {% endif %}
                                     </div>
                                     <div class="my-1 py-25">
                                         {% for name in post.get_manager_tags %}

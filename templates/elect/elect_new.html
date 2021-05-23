@@ -10,10 +10,6 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                              {% if object.attach %}
-                                {{ object|get_attach:request.user|safe }}
-                              {% endif %}
-
                                 <div class="card-body" data-pk="{{ object.pk }}">
                                     <h1 class="card-title">{{ object.title }}</h1>
                                     <div class="media">
@@ -36,6 +32,9 @@
                                     <p class="card-text mb-2">
                                         {{ object.description|safe }}
                                     </p>
+                                    {% if object.attach %}
+                                      {{ object|get_attach:request.user|safe }}
+                                    {% endif %}
                                     <hr class="my-2">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="d-flex align-items-center">

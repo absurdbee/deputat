@@ -82,17 +82,17 @@ function send_inert(item, url){
 }
 
 on('body', 'click', '.elect_new_like', function() {
-  item = this.parentElement;
+  item = this.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
   send_like(item, "/blog/votes/elect_new_like/" + pk + "/");
 });
 on('body', 'click', '.elect_new_dislike', function() {
-  item = this.parentElement;
+  item = this.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
   send_dislike(item, "/blog/votes/elect_new_dislike/" + pk + "/");
 });
 on('body', 'click', '.elect_new_comment_like', function() {
-  item = this.parentElement;
+  item = this.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
   send_like(item, "/blog/votes/elect_new_comment_like/" + pk + "/");
 });

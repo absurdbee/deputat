@@ -838,12 +838,12 @@ class User(AbstractUser):
     def plus_elect_news(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.goods += count
+        profile.elect_news += count
         return profile.save(update_fields=['elect_news'])
     def minus_elect_news(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.goods += count
+        profile.elect_news += count
         return profile.save(update_fields=['elect_news'])
     def plus_surveys(self, count):
         from users.model.profile import UserProfile

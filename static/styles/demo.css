@@ -1,5 +1,11 @@
-.video {
+.photo, .video {
+  margin-bottom: 10px;
+  flex-grow: 1;
+  max-width: 100%;
+  flex-basis: 20%;
   position: relative;
+  padding-left:7px;
+  padding-right:7px;
 }
 .video_icon_play_v2{
   position: absolute;

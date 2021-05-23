@@ -28,4 +28,5 @@ class FractionAdmin(admin.ModelAdmin):
 
 admin.site.register(AuthorityList, AuthorityListAdmin)
 admin.site.register(BlogCategory, BlogCategoryAdmin)
+admin.site.register(ElectNewsCategory)
 admin.site.register(Fraction, FractionAdmin)

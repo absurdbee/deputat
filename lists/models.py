@@ -49,8 +49,8 @@ class ElectNewsCategory(models.Model):
 
 	class Meta:
 		ordering = ["order", "name"]
-		verbose_name = "Список депутатов"
-		verbose_name_plural = "Списки депутатов"
+		verbose_name = "категория активностей"
+		verbose_name_plural = "категория активностей"
 
 
 class BlogCategory(models.Model):

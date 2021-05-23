@@ -178,25 +178,27 @@ def get_u_elect_new_attach(comment, user):
             except:
                 pass
         elif item[:3] == "mus":
-            #try:
-            from music.models import Music
-            music = Music.objects.get(query, pk=item[3:])
-            if music.artwork_url:
-                figure = ''.join(['<figure><a class="music_list_comment music_thumb pointer"><img style="width:30px;heigth:auto" src="', music.artwork_url.url, '" alt="img" /></a></figure>'])
-            else:
-                figure = '<figure><a class="music_list_comment music_thumb pointer"><svg fill="currentColor" style="width:30px;heigth:30px" class="svg_default" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 5h-3v5.5c0 1.38-1.12 2.5-2.5 2.5S10 13.88 10 12.5s1.12-2.5 2.5-2.5c.57 0 1.08.19 1.5.51V5h4v2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/></svg></a></figure>'
-            span_btn = ''
-            if user.is_authenticated:
-                lists = ''
-                for list in user.get_playlists():
-                    if list.is_item_in_list(music.pk):
-                        lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_remove_track_in_list"><svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>', list.name, '</span></span>'])
+            try:
+                from music.models import Music
+                music = Music.objects.get(query, pk=item[3:])
+                span_btn, lists = '', ''
+                if user.is_authenticated:
+                    if user.pk == music.creator.pk:
+                        options = '<span class="dropdown-item u_track_edit">Изменить</span><span class="dropdown-item u_track_remove">Удалить</span>'
+                    elif user.is_manager():
+                        options = '<a class="dropdown-item track_manager_remove pointer">♦ Удалить</a>'
                     else:
-                        lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_add_track_in_list" style="padding-left: 30px;">', list.name, '</span></span>'])
-                span_btn = ''.join([span_btn, '<span class="span_btn" style="margin-left:auto;display:flex" data-pk="', str(music.pk), '"><span class="dropdown" style="position: inherit;"><span class="btn_default pointer drop"><svg fill="currentColor" style="width:25px;height:25px;" class="svg_default" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span><div class="dropdown-menu dropdown-menu-right" style="top: 25px;">', lists, '<span class="dropdown-item u_create_music_list_track_add" style="padding-left: 30px;">В новый плейлист</span></div></span></span>'])
-            block = ''.join([block, '<div class="music" data-path="', music.uri, '" data-duration="', music.duration, '" style="width: 100%;position: relative;"><div class="media" music-counter="0">', figure, '<div class="media-body" style="display: flex;"><h6 class="music_list_comment music_title"><a>', music.title, '</a></h6>', span_btn, '</div></div></div>'])
-            #except:
-            #    pass
+                        options = '<span class="dropdown-item track_claim">Пожаловаться</span>'
+                    opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg style="width: 17px;padding-top:3px" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 60px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
+                    for list in user.get_my_playlists():
+                        if list.is_item_in_list(music.pk):
+                            lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_remove_track_in_list"><svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>', list.name, '</span></span>'])
+                        else:
+                            lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_add_track_in_list" style="padding-left: 30px;">', list.name, '</span></span>'])
+                    span_btn = ''.join([span_btn, '<span class="span_btn" data-pk="', str(music.pk), '"><span class="dropdown" style="position: inherit;"><span class="btn_default pointer drop"><svg fill="currentColor" style="width:25px;height:25px;" class="svg_default" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span><div class="dropdown-menu dropdown-menu-right" style="top: 60px;">', lists, '</div></span>', opt_drop, '</span>'])
+                block = ''.join([block, '<div class="col-md-12" style="flex-basis: 100%;"><div class="media border p-1"><div class="media-body doc_media_body" style="line-height: 8px;"><span>', music.title, '</span><div class="audio_div"><audio id="player" class="audio_player"><source src="', music.get_uri(), '" type="audio/mp3" /></audio></div>', span_btn, '</div></div></div>'])
+            except:
+                pass
         elif item[:3] == "doc":
             try:
                 from docs.models import Doc

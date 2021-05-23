@@ -54,15 +54,27 @@ class BlogDetailView(ListView, CategoryListMixin):
 		return self.blog.get_comments()
 
 
-class ProectNewsView(ListView, CategoryListMixin):
-	template_name, paginate_by = "blog/blog_news.html", 15
+class BlogListView(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_small_template("blog/blog_news.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(ProectNewsView,self).get(request,*args,**kwargs)
+		return super(BlogListView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
 		return Blog.objects.only("pk")
+
+
+class SuggestedElectNews(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_managers_template
+		self.template_name = get_managers_template("blog/suggested_elect_news.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(SuggestedElectNews,self).get(request,*args,**kwargs)
+
+	def get_queryset(self):
+		return ElectNew.objects.filter(type=ElectNew.SUGGESTED)
 
 
 class BlogCommentList(ListView):

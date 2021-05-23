@@ -6,7 +6,7 @@ from django import forms
 class ElectNewForm(forms.ModelForm):
 	class Meta:
 		model = ElectNew
-		fields = ['title', 'description', ]
+		fields = ['title', 'description', 'category', ]
 
 
 class BlogCommentForm(forms.ModelForm):

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Предложка{% endblock %}
+{% block content %}
+
+<div class="content-body">
+    <section class="app-user-edit">
+        <div class="card">
+          <h3>Предложка</h3>
+            <div class="card-body is_paginate">
+                {% for object in object_list %}
+                  <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
+                    <div class="event_card publish_elect_new pointer" data-pk="{{ object.pk }}1">
+                      <div class="event_img text-center">
+                          <img class="img-fluid card-img-top" src="{{ object.get_images }}" alt="img">
+                      </div>
+                      <div class="card-body event_body">
+                        <h4 class="event_name">
+                          <div style="display: flex;">
+                            <a class="text-body">{{ object.title }}</a>
+                          </div>
+                          <span class="card-text item-company">1&nbsp;{{ object.get_created }} | </span>
+                        </h4>
+                        <div class="card-text event_description">{{ object.description }}</div>
+                      </div>
+                    </div>
+                  </div>
+                {% empty %}
+                  Предложенных активностей пока нет ...
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

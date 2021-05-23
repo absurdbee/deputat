@@ -88,7 +88,11 @@
                                                           <a href="{% url 'user_cuberture_week' %}" class="card-text user-info-title font-weight-bold mb-0 ajax">Статистика</a>
                                                           &nbsp;&nbsp;
                                                           <a href="{% url 'user_transactions' %}" class="card-text user-info-title font-weight-bold mb-0 ajax">Движения кармы</a>
-                                                        {% endif %}
+                                                          {% if user.is_elect_new_manager %}
+                                                            <a href="{% url 'suggested_elect_news' %}" class="card-text user-info-title font-weight-bold mb-0 ajax">Новые активности</a>
+                                                          {% endif %}
+                                                        {% endif %} 
+
                                                     </div>
                                                 </div>
                                             </div>

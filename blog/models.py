@@ -267,11 +267,11 @@ class Blog(models.Model):
 
 
 class ElectNew(models.Model):
-    PROCESSING, PUBLISHED, PRIVATE, MANAGER, DELETED, CLOSED = '_PRO','PUB','PRI','MAN','_DEL','_CLO'
-    DELETED_PRIVATE, DELETED_MANAGER, CLOSED_PRIVATE, CLOSED_MANAGER = '_DELP','_DELM','_CLOP','_CLOM'
+    PROCESSING, SUGGESTED, PUBLISHED, MANAGER, DELETED, CLOSED = '_PRO', '_SUG', 'PUB', 'MAN','_DEL','_CLO'
+    DELETED_MANAGER, CLOSED_MANAGER = '_DELM','_CLOM'
     TYPE = (
-        (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(PRIVATE, 'Приватно'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
-        (DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_PRIVATE, 'Закрытый приватный'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
+        (PROCESSING, 'Обработка'),(PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
+        (DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
     )
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
@@ -301,25 +301,33 @@ class ElectNew(models.Model):
         return self.title
 
     @classmethod
-    def create_suggested_new(cls, creator, description, category, comments_enabled, votes_on, type):
+    def create_suggested_new(cls, creator, title, description, elect, attach, category):
         from common.notify.notify import user_wall, user_notify
 
-        elect_new = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on,type=ElectNew.SUGGESTED,)
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
+        elect_new = cls.objects.create(creator=creator,title=title,description=description,elect=elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
         user_wall(creator, "ELN", elect_new.pk, "draft_news_wall", "SIT")
         user_notify(creator, "ELN", elect_new.pk, "draft_news_notify", "SIT")
         return elect_new
 
-    def make_publish_new(self):
-        from common.notify.notify import user_wall, user_notify
-
+    def make_publish_new(self, title, description, elect, attach, category):
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         self.type = ElectNew.PUBLISHED
-        self.save(update_fields=['type'])
-        user_wall(self.manager, "ELN", elect_new.pk, "news_wall", "ITE")
-        user_notify(self.manager, "ELN", elect_new.pk, "news_notify", "ITE")
+        self.title = title
+        self.description = description
+        self.elect = elect
+        self.attach = _attach
+        self.category = category
+        self.save()
+        if Notify.objects.filter(type="ELN", object_id=self.pk, verb="SIT").exists():
+            Notify.objects.filter(type="ELN", object_id=self.pk, verb="SIT").update(verb="ITE")
+        if Wall.objects.filter(type="ELN", object_id=self.pk, verb="SIT").exists():
+            Wall.objects.filter(type="ELN", object_id=self.pk, verb="SIT").update(verb="ITE")
+        self.creator.plus_elect_news(1)
         return self
 
-    def is_draft(self):
-        return self.type == ElectNew.DRAFT
     def is_published(self):
         return self.type == ElectNew.PUBLISHED
     def is_manager(self):
@@ -357,7 +365,7 @@ class ElectNew(models.Model):
             return ''
     def dislikes_count(self):
         if self.dislike > 0:
-            return self.like
+            return self.dislike
         else:
             return ''
     def inerts_count(self):
@@ -546,7 +554,7 @@ class ElectNew(models.Model):
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_delete_doc(self):
+    def abort_delete_elect_new(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
             self.type = ElectNew.PUBLISHED
@@ -560,7 +568,7 @@ class ElectNew(models.Model):
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_doc(self):
+    def close_elect_new(self):
         from notify.models import Notify, Wall
         if self.type == "PUB":
             self.type = ElectNew.CLOSED
@@ -573,7 +581,7 @@ class ElectNew(models.Model):
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_doc(self):
+    def abort_close_elect_new(self):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = ElectNew.PUBLISHED

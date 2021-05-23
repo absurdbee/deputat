@@ -10,7 +10,7 @@
             <div class="card-body is_paginate">
                 {% for object in object_list %}
                   <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
-                    <div class="event_card publish_elect_new pointer" data-pk="{{ object.pk }}">
+                    <div class="event_card pointer">
                       <div class="event_img text-center">
                           <img class="img-fluid card-img-top" src="{{ object.creator.get_avatar }}" alt="img">
                       </div>
@@ -21,7 +21,14 @@
                           </div>
                           <span class="card-text item-company">&nbsp;{{ object.get_created }} | </span>
                         </h4>
-                        <div class="card-text event_description">{{ object.description }}</div>
+                        <div class="card-text event_description">
+                          {{ object.description }}
+                          <div class="mt-2" data-pk="{{ object.pk }}">
+                            <span class="publish_elect_new">Одобрить</span>
+                            &nbsp;&nbsp;
+                            <span class="reject_elect_new">Отклонить</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

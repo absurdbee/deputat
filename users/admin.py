@@ -22,6 +22,7 @@ class UserAdmin(admin.ModelAdmin):
     model = User
 
 
+admin.site.register(UserInfo)
 admin.site.register(User, UserAdmin)
 admin.site.register(UserLocation)
 admin.site.register(UserTransaction)

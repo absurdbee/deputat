@@ -309,10 +309,10 @@ class ElectNew(models.Model):
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
-        try:
-            _elect = Elect.objects.get(name=elect)
-        except Elect.DoesNotExist:
-            _elect = None
+        #try:
+        _elect = Elect.objects.get(name=elect)
+        #except Elect.DoesNotExist:
+        #    _elect = None
 
         elect_new = cls.objects.create(creator=creator,title=title,description=description,elect=_elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
         user_wall(creator, None, elect_new.pk, "ELN", "draft_news_wall", "SIT")

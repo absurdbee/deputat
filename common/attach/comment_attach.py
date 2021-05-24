@@ -253,7 +253,7 @@ def get_u_elect_new_comment_attach(comment, user):
                 if playlist.image:
                     image = '<img src="' + playlist.image.url + '" style="width:60px;height:88px;" alt="image">'
                 else:
-                    image = '<svg fill="currentColor" class="svg_default" style="width:120px;height:120px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/></svg>'
+                    image = '<svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/></svg>'
                 add_svg = ''
                 if user.is_authenticated:
                     if playlist.is_user_can_add_list(user.pk):

@@ -5,7 +5,7 @@ from django.http import Http404
 
 
 class SuggestElectNew(TemplateView):
-    template_name = "elect/suggest_elect_new.html"
+    template_name = "elect/add_suggest_elect_new.html"
 
     def get_context_data(self,**kwargs):
         from blog.forms import ElectNewForm
@@ -19,7 +19,7 @@ class SuggestElectNew(TemplateView):
     def post(self,request,*args,**kwargs):
         from blog.forms import ElectNewForm
         from elect.models import Elect
-        from common.templates import render_for_platform 
+        from common.templates import render_for_platform
 
         self.form_post = ElectNewForm(request.POST)
 
@@ -32,7 +32,7 @@ class SuggestElectNew(TemplateView):
             return HttpResponseBadRequest()
 
 class PublishElectNew(View):
-    template_name = "elect/publish_elect_new.html"
+    template_name = "elect/make_publish_elect_new.html"
 
     def get(self,request,*args,**kwargs):
         self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])

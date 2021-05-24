@@ -1,7 +1,7 @@
 <div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
   <span class="span1 {% for list in object.get_lists %}{{ list.uuid }}{% endfor %}"></span>
   <div class="media border p-1">
-      <div class="media-body doc_media_body" style="line-height: 8px;">
+      <div class="media-body music_media_body" style="line-height: 8px;">
         <span>{{ object.title }}</span>
         <div class="audio_div">
           <audio id="player" class="audio_player">

@@ -113,6 +113,14 @@
     margin-top: -17px;
     display: flex;
 }
+.music_media_body {
+    line-height: initial;
+}
+.music_media_body .span_btn {
+    float: right;
+    margin-top: -40px;
+    display: flex;
+}
 a {
   color: #5E5873;
 }

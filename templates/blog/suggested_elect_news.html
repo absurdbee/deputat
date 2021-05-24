@@ -17,12 +17,12 @@
                       <div class="card-body event_body">
                         <h4 class="event_name">
                           <div style="display: flex;">
-                            <a class="text-body">{{ object.title|truncatechars:100 }}</a>
+                            <a class="text-body">{{ object.title }}</a>
                           </div>
                           <span class="card-text item-company">&nbsp;{{ object.get_created }} </span>
                         </h4>
                         <div class="card-text event_description">
-                          {{ object.description| }}
+                          {{ object.description|truncatechars:100 }}
                           <div class="mt-2" data-pk="{{ object.pk }}">
                             <span class="publish_elect_new pointer underline">Подготовить к публикации</span>
                             &nbsp;&nbsp;

@@ -1,7 +1,7 @@
 <div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
   <span class="span1 {% for list in doc.get_lists %}{{ list.uuid }}{% endfor %}"></span>
     <div class="media border p-1">
-        <div class="media-body doc_media_body">
+        <div class="media-body music_media_body">
             <h6 class="pointer" style="width: 84%;overflow: hidden;">
                 <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
             </h6>

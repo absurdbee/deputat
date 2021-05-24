@@ -18,6 +18,9 @@ urlpatterns = [
     url(r'^add_worker_editor/(?P<pk>\d+)/$', login_required(ElectNewWorkerEditorCreate.as_view())),
     url(r'^delete_worker_editor/(?P<pk>\d+)/$', login_required(ElectNewWorkerEditorDelete.as_view())),
 
+    url(r'^create_publish/(?P<uuid>[0-9a-f-]+)/$', login_required(PublishElectNew.as_view())),
+    url(r'^suggest_rejected/(?P<uuid>[0-9a-f-]+)/$', login_required(RejectElectNew.as_view())),
+
     url(r'^create_close/(?P<uuid>[0-9a-f-]+)/$', login_required(ElectNewCloseCreate.as_view())),
     url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', login_required(ElectNewCloseDelete.as_view())),
     url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', login_required(ElectNewRejectedCreate.as_view())),

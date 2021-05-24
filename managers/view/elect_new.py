@@ -243,6 +243,69 @@ class CommentElectNewCloseCreate(TemplateView):
         else:
             return HttpResponseBadRequest()
 
+class PublishElectNew(View):
+    template_name = "elect/make_publish_elect_new.html"
+
+    def get(self,request,*args,**kwargs):
+        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        return super(PublishElectNew,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from blog.forms import ElectNewForm
+
+        context=super(PublishElectNew,self).get_context_data(**kwargs)
+        context["form"] = ElectNewForm()
+        context["object"] = self.elect_new
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from blog.forms import ElectNewForm
+        from common.templates import render_for_platform
+
+        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        self.form_post = ElectNewForm(request.POST, instance=self.elect_new)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
+            post = self.form_post.save(commit=False)
+            new_post = post.make_publish_new(title=post.title, description=post.description, elect=post.elect, attach=request.POST.getlist("attach_items"), category=post.category)
+            return render_for_platform(request, 'elect/elect_new.html',{'object': new_post})
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()
+
+class RejectElectNew(View):
+    template_name = "elect/reject_elect_new.html"
+
+    def get(self,request,*args,**kwargs):
+        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        return super(RejectElectNew,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from managers.forms import ModeratedForm
+
+        context=super(RejectElectNew,self).get_context_data(**kwargs)
+        context["form"] = ModeratedForm()
+        context["object"] = self.elect_new
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from managers.forms import ModeratedForm
+
+        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        self.form_post = ModeratedForm(request.POST)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager() and request.user.is_superuser:
+            post = self.form_post.save(commit=False)
+            obj = post.get_or_create_moderated_object("ELE", self.elect_new.pk)
+            obj.description = post.description
+            obj.save(update_fields=["description"])
+            self.elect_new.type = "REJ"
+            self.elect_new.save(update_fields=["type"])
+            return HttpResponse()
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()
+
 class CommentElectNewCloseDelete(View):
     def get(self,request,*args,**kwargs):
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])

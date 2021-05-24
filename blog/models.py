@@ -272,10 +272,10 @@ class Blog(models.Model):
 
 class ElectNew(models.Model):
     PROCESSING, SUGGESTED, PUBLISHED, MANAGER, DELETED, CLOSED = '_PRO', '_SUG', 'PUB', 'MAN','_DEL','_CLO'
-    DELETED_MANAGER, CLOSED_MANAGER = '_DELM','_CLOM'
+    DELETED_MANAGER, CLOSED_MANAGER, REJECTED = '_DELM','_CLOM','_REJ'
     TYPE = (
         (PROCESSING, 'обрабатывается'),(SUGGESTED, 'на рассмотрении'), (PUBLISHED, 'опубликована'),(DELETED, 'удалена'),(CLOSED, 'закрыта модератором'),(MANAGER, 'создана персоналом'),
-        (DELETED_MANAGER, 'удалена менеджерский'),(CLOSED_MANAGER, 'закрыта менеджерский'),
+        (DELETED_MANAGER, 'удалена менеджерский'),(CLOSED_MANAGER, 'закрыта менеджерский'),(REJECTED, 'отклонена модератором')
     )
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")

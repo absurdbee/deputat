@@ -12,12 +12,14 @@
                   <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
                     <div class="event_card border">
                       <div class="event_img text-center">
+                        <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
                           <img class="img-fluid card-img-top image_fit_150" src="{{ object.creator.get_avatar }}" alt="img">
+                        </a>
                       </div>
                       <div class="card-body event_body">
                         <h4 class="event_name">
                           <div style="display: flex;">
-                            <a class="text-body">{{ object.title }}</a>
+                            <a href="{% url 'elect_new_detail' pk=object.pk %}" class="text-body ajax">{{ object.title }}</a>
                           </div>
                           <span class="card-text item-company">&nbsp;{{ object.get_created }} </span>
                         </h4>

@@ -274,8 +274,8 @@ class ElectNew(models.Model):
     PROCESSING, SUGGESTED, PUBLISHED, MANAGER, DELETED, CLOSED = '_PRO', '_SUG', 'PUB', 'MAN','_DEL','_CLO'
     DELETED_MANAGER, CLOSED_MANAGER = '_DELM','_CLOM'
     TYPE = (
-        (PROCESSING, 'Обработка'),(SUGGESTED, 'Предложенный'), (PUBLISHED, 'Опубликовано'),(DELETED, 'Удалено'),(CLOSED, 'Закрыто модератором'),(MANAGER, 'Созданный персоналом'),
-        (DELETED_MANAGER, 'Удалённый менеджерский'),(CLOSED_MANAGER, 'Закрытый менеджерский'),
+        (PROCESSING, 'обрабатывается'),(SUGGESTED, 'на рассмотрении'), (PUBLISHED, 'опубликована'),(DELETED, 'удалена'),(CLOSED, 'закрыта модератором'),(MANAGER, 'создана персоналом'),
+        (DELETED_MANAGER, 'удалена менеджерский'),(CLOSED_MANAGER, 'закрыта менеджерский'),
     )
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")

@@ -10,7 +10,7 @@
             <div class="card-body is_paginate">
                 {% for object in object_list %}
                   <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
-                    <div class="event_card">
+                    <div class="event_card border">
                       <div class="event_img text-center">
                           <img class="img-fluid card-img-top image_fit_150" src="{{ object.creator.get_avatar }}" alt="img">
                       </div>

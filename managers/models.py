@@ -318,7 +318,6 @@ class Moderated(models.Model):
     def get_or_create_moderated_object(cls, type, object_id):
         return cls._get_or_create_moderated_object(type=type, object_id=object_id)
 
-    @property
     def reports_count(self):
         # кол-во жалоб на пользователя
         return self.reports.count()

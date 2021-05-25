@@ -409,9 +409,6 @@ class Moderated(models.Model):
     @classmethod
     def get_moderation_photos(cls):
         return cls.objects.filter(verified=False, type="PHO")
-    @classmethod
-    def get_moderation_photos_comments(cls):
-        return cls.objects.filter(verified=False, type="PHOC")
 
     @classmethod
     def get_moderation_video_lists(cls):
@@ -419,9 +416,6 @@ class Moderated(models.Model):
     @classmethod
     def get_moderation_videos(cls):
         return cls.objects.filter(verified=False, type="VID")
-    @classmethod
-    def get_moderation_videos_comments(cls):
-        return cls.objects.filter(verified=False, type="VIDC")
 
     @classmethod
     def get_moderation_playlists(cls):
@@ -438,11 +432,11 @@ class Moderated(models.Model):
         return cls.objects.filter(verified=False, type="SUR")
 
     @classmethod
-    def get_moderation_survey_lists(cls):
-        return cls.objects.filter(verified=False, type="SUL")
+    def get_moderation_doc_lists(cls):
+        return cls.objects.filter(verified=False, type="DOL")
     @classmethod
-    def get_moderation_surveys(cls):
-        return cls.objects.filter(verified=False, type="SUR")
+    def get_moderation_docs(cls):
+        return cls.objects.filter(verified=False, type="DOC")
 
 
 class ModerationReport(models.Model):

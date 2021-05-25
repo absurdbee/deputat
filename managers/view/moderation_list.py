@@ -2,6 +2,7 @@ from users.models import User
 from django.views.generic import ListView
 from django.http import Http404
 from common.templates import get_detect_platform_template
+from managers.models import Moderated
 
 
 class ModerationUser(ListView):
@@ -16,7 +17,7 @@ class ModerationUser(ListView):
         return super(ModerationUser,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return self.user.get_moderation_users()
+        return Moderated.get_moderation_users()
 
 
 class ModerationDoc(ListView):

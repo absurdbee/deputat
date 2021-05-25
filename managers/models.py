@@ -294,7 +294,7 @@ class Moderated(models.Model):
     object_id = models.PositiveIntegerField(default=0, verbose_name="id объекта")
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.type
 
     class Meta:
         verbose_name = 'Проверяемый объект'
@@ -503,7 +503,7 @@ class ModerationPenalty(models.Model):
     )
 
     manager = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='manager_penalties', verbose_name="Менеджер")
-    expiration = models.DateTimeField(null=True, verbose_name="Окончание")
+    expiration = models.DateTimeField(null=True, blank=True, verbose_name="Окончание")
     moderated_object = models.ForeignKey(Moderated, on_delete=models.CASCADE, related_name='moderated_object', verbose_name="Объект")
     type = models.CharField(max_length=5, choices=TYPE, verbose_name="Класс объекта")
     object_id = models.PositiveIntegerField(default=0, verbose_name="id объекта")

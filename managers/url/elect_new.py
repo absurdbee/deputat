@@ -31,10 +31,4 @@ urlpatterns = [
     url(r'^comment_create_rejected/(?P<pk>\d+)/$', CommentElectNewRejectedCreate.as_view()),
     url(r'^comment_create_claim/(?P<pk>\d+)/$', CommentElectNewClaimCreate.as_view()),
     url(r'^comment_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', CommentElectNewUnverify.as_view()),
-
-    url(r'^list_create_close/(?P<pk>\d+)/$', ListElectNewCloseCreate.as_view()),
-    url(r'^list_delete_close/(?P<pk>\d+)/$', ListElectNewCloseDelete.as_view()),
-    url(r'^list_create_rejected/(?P<pk>\d+)/$', ListElectNewRejectedCreate.as_view()),
-    url(r'^list_create_claim/(?P<pk>\d+)/$', ListElectNewClaimCreate.as_view()),
-    url(r'^list_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', ListElectNewUnverify.as_view()),
 ]

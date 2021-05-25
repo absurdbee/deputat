@@ -2,7 +2,7 @@ from django.views import View
 from users.models import User
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.staff_progs.video import *
-from video.models import Video
+from video.models import Video, VideoList
 from managers.forms import ModeratedForm
 from django.views.generic.base import TemplateView
 from managers.models import Moderated
@@ -197,6 +197,94 @@ class VideoUnverify(View):
         if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
             VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.UNVERIFY)
+            return HttpResponse()
+        else:
+            raise Http404
+
+
+class ListVideoClaimCreate(View):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.list = VideoList.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_detect_platform_template("managers/manage_create/video/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(ListVideoClaimCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(ListVideoClaimCreate,self).get_context_data(**kwargs)
+        context["list"] = self.list
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
+        self.list = VideoList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax():
+            description = request.POST.get('description')
+            type = request.POST.get('type')
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="VIL", object_id=list.pk, description=description, type=type)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+
+class ListVideoRejectedCreate(View):
+    def get(self,request,*args,**kwargs):
+        list = VideoList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
+            moderate_obj = Moderated.objects.get(object_id=list.pk, type="VIL")
+            moderate_obj.reject_moderation(manager_id=request.user.pk)
+            VideoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=VideoManageLog.LIST_REJECT)
+            return HttpResponse()
+        else:
+            raise Http404
+
+
+class ListVideoUnverify(View):
+    def get(self,request,*args,**kwargs):
+        list = VideoList.objects.get(pk=self.kwargs["pk"])
+        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
+            obj.unverify_moderation(manager_id=request.user.pk)
+            VideoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=VideoManageLog.LIST_UNVERIFY)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class ListVideoCloseCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.list = VideoList.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_video_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/video/list_close.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(ListVideoCloseCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(ListVideoCloseCreate,self).get_context_data(**kwargs)
+        context["list"] = self.list
+        return context
+
+    def post(self,request,*args,**kwargs):
+        list = VideoList.objects.get(pk=self.kwargs["pk"])
+        form = ModeratedForm(request.POST)
+        if form.is_valid() and (request.user.is_video_manager() or request.user.is_superuser):
+            mod = form.save(commit=False)
+            moderate_obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="VIL")
+            moderate_obj.create_close(object=list, description=mod.description, manager_id=request.user.pk)
+            VideoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=VideoManageLog.LIST_CLOSED)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+
+class ListVideoCloseDelete(View):
+    def get(self,request,*args,**kwargs):
+        list = VideoList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
+            moderate_obj = Moderated.objects.get(object_id=list.pk, type="VIL")
+            moderate_obj.delete_close(object=list, manager_id=request.user.pk)
+            VideoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=VideoManageLog.LIST_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404

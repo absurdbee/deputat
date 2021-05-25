@@ -2,7 +2,7 @@ from django.views import View
 from users.models import User
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.staff_progs.survey import *
-from survey.models import Survey
+from survey.models import Survey, SurveyList
 from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
@@ -204,6 +204,94 @@ class SurveyUnverify(View):
         if request.is_ajax() and (request.user.is_survey_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
             SurveyManageLog.objects.create(item=obj.object_id, manager=request.user.pk, action_type=SurveyManageLog.ITEM_UNVERIFY)
+            return HttpResponse()
+        else:
+            raise Http404
+
+
+class ListSurveyClaimCreate(View):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.list = SurveyList.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_detect_platform_template("managers/manage_create/survey/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(ListSurveyClaimCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(ListSurveyClaimCreate,self).get_context_data(**kwargs)
+        context["list"] = self.list
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
+        self.list = SurveyList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax():
+            description = request.POST.get('description')
+            type = request.POST.get('type')
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="SUL", object_id=list.pk, description=description, type=type)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+
+class ListSurveyRejectedCreate(View):
+    def get(self,request,*args,**kwargs):
+        list = SurveyList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and (request.user.is_survey_manager() or request.user.is_superuser):
+            moderate_obj = Moderated.objects.get(object_id=list.pk, type="SUL")
+            moderate_obj.reject_moderation(manager_id=request.user.pk)
+            SurveyManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=SurveyManageLog.LIST_REJECT)
+            return HttpResponse()
+        else:
+            raise Http404
+
+
+class ListSurveyUnverify(View):
+    def get(self,request,*args,**kwargs):
+        list = SurveyList.objects.get(pk=self.kwargs["pk"])
+        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        if request.is_ajax() and (request.user.is_survey_manager() or request.user.is_superuser):
+            obj.unverify_moderation(manager_id=request.user.pk)
+            SurveyManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=SurveyManageLog.LIST_UNVERIFY)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class ListSurveyCloseCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.list = SurveyList.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_survey_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/survey/list_close.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(ListSurveyCloseCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(ListSurveyCloseCreate,self).get_context_data(**kwargs)
+        context["list"] = self.list
+        return context
+
+    def post(self,request,*args,**kwargs):
+        list = SurveyList.objects.get(pk=self.kwargs["pk"])
+        form = ModeratedForm(request.POST)
+        if form.is_valid() and (request.user.is_survey_manager() or request.user.is_superuser):
+            mod = form.save(commit=False)
+            moderate_obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="SUL")
+            moderate_obj.create_close(object=list, description=mod.description, manager_id=request.user.pk)
+            SurveyManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=SurveyManageLog.LIST_CLOSED)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+
+class ListSurveyCloseDelete(View):
+    def get(self,request,*args,**kwargs):
+        list = SurveyList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and (request.user.is_survey_manager() or request.user.is_superuser):
+            moderate_obj = Moderated.objects.get(object_id=list.pk, type="SUL")
+            moderate_obj.delete_close(object=list, manager_id=request.user.pk)
+            SurveyManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=SurveyManageLog.LIST_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404

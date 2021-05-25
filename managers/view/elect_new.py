@@ -204,44 +204,6 @@ class ElectNewUnverify(View):
         else:
             raise Http404
 
-class CommentElectNewUnverify(View):
-    def get(self,request,*args,**kwargs):
-        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
-            obj.unverify_moderation(manager_id=request.user.pk)
-            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_UNVERIFY)
-            return HttpResponse()
-        else:
-            raise Http404
-
-class CommentElectNewCloseCreate(TemplateView):
-    template_name = None
-
-    def get(self,request,*args,**kwargs):
-        self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_elect_new_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/elect_new/comment_close.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(CommentElectNewCloseCreate,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        context = super(CommentElectNewCloseCreate,self).get_context_data(**kwargs)
-        context["comment"] = self.comment
-        return context
-
-    def post(self,request,*args,**kwargs):
-        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        form = ModeratedForm(request.POST)
-        if form.is_valid() and (request.user.is_elect_new_manager() or request.user.is_superuser):
-            mod = form.save(commit=False)
-            moderate_obj = Moderated.get_or_create_moderated_object(object_id=comment.pk, type="POSC")
-            moderate_obj.create_close(object=comment, description=mod.description, manager_id=request.user.pk)
-            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED)
-            return HttpResponse()
-        else:
-            return HttpResponseBadRequest()
 
 class PublishElectNew(View):
     template_name = "elect/make_publish_elect_new.html"
@@ -306,16 +268,6 @@ class RejectElectNew(View):
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
 
-class CommentElectNewCloseDelete(View):
-    def get(self,request,*args,**kwargs):
-        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
-            moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
-            moderate_obj.delete_close(object=comment, manager_id=request.user.pk)
-            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED_HIDE)
-            return HttpResponse()
-        else:
-            raise Http404
 
 class CommentElectNewClaimCreate(View):
     template_name = None
@@ -354,6 +306,57 @@ class CommentElectNewRejectedCreate(View):
             moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_REJECT)
+            return HttpResponse()
+        else:
+            raise Http404
+
+
+class CommentElectNewUnverify(View):
+    def get(self,request,*args,**kwargs):
+        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
+        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+            obj.unverify_moderation(manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_UNVERIFY)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class CommentElectNewCloseCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_elect_new_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/elect_new/comment_close.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(CommentElectNewCloseCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(CommentElectNewCloseCreate,self).get_context_data(**kwargs)
+        context["comment"] = self.comment
+        return context
+
+    def post(self,request,*args,**kwargs):
+        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
+        form = ModeratedForm(request.POST)
+        if form.is_valid() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+            mod = form.save(commit=False)
+            moderate_obj = Moderated.get_or_create_moderated_object(object_id=comment.pk, type="POSC")
+            moderate_obj.create_close(object=comment, description=mod.description, manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+
+class CommentElectNewCloseDelete(View):
+    def get(self,request,*args,**kwargs):
+        comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+            moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
+            moderate_obj.delete_close(object=comment, manager_id=request.user.pk)
+            ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404

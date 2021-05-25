@@ -2,7 +2,7 @@ from django.views import View
 from users.models import User
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.staff_progs.photo import *
-from gallery.models import Photo
+from gallery.models import Photo. PhotoList
 from managers.forms import ModeratedForm
 from django.views.generic.base import TemplateView
 from managers.models import Moderated
@@ -197,6 +197,94 @@ class PhotoUnverify(View):
         if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
             obj.unverify_moderation(manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_UNVERIFY)
+            return HttpResponse()
+        else:
+            raise Http404
+
+
+class ListPhotoClaimCreate(View):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_detect_platform_template("managers/manage_create/photo/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(ListPhotoClaimCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(ListPhotoClaimCreate,self).get_context_data(**kwargs)
+        context["list"] = self.list
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
+        self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax():
+            description = request.POST.get('description')
+            type = request.POST.get('type')
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="PHL", object_id=list.pk, description=description, type=type)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+
+class ListPhotoRejectedCreate(View):
+    def get(self,request,*args,**kwargs):
+        list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
+            moderate_obj = Moderated.objects.get(object_id=list.pk, type="PHL")
+            moderate_obj.reject_moderation(manager_id=request.user.pk)
+            PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_REJECT)
+            return HttpResponse()
+        else:
+            raise Http404
+
+
+class ListPhotoUnverify(View):
+    def get(self,request,*args,**kwargs):
+        list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
+            obj.unverify_moderation(manager_id=request.user.pk)
+            PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_UNVERIFY)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class ListPhotoCloseCreate(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        if request.user.is_photo_manager() or request.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/manage_create/photo/list_close.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(ListPhotoCloseCreate,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(ListPhotoCloseCreate,self).get_context_data(**kwargs)
+        context["list"] = self.list
+        return context
+
+    def post(self,request,*args,**kwargs):
+        list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        form = ModeratedForm(request.POST)
+        if form.is_valid() and (request.user.is_photo_manager() or request.user.is_superuser):
+            mod = form.save(commit=False)
+            moderate_obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="PHL")
+            moderate_obj.create_close(object=list, description=mod.description, manager_id=request.user.pk)
+            PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_CLOSED)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+
+class ListPhotoCloseDelete(View):
+    def get(self,request,*args,**kwargs):
+        list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
+            moderate_obj = Moderated.objects.get(object_id=list.pk, type="PHL")
+            moderate_obj.delete_close(object=list, manager_id=request.user.pk)
+            PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404

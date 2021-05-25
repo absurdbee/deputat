@@ -26,13 +26,13 @@
                   {% for object in object_list %}
                   <li class="list-group-item pag {% if forloop.last %}last{% endif %}" user-pk="{{ object.user.pk }}" data-pk="{{ object.moderated_object.pk }}">
                       <div class="media">
-                        <a href="{% url 'user' pk=object.user.pk %}" class="ajax">
+                        <a href="{% url 'user' pk=object.object_id" class="ajax">
                             <figure>
                                 <img src="{{ object.user.get_avatar }}" style="border-radius:50px;width:50px;" alt="image">
                             </figure>
                         </a>
                         <div class="media-body btn_console">
-                          <a href="{% url 'user' pk=object.user.pk %}" class="ajax">
+                          <a href="{% url 'user' pk=object.object_id %}" class="ajax">
                               <h6 class="my-0 mt-1">{{ object.user.get_full_name }}</h6>
                           </a>
                             {% if object.is_suspend %}

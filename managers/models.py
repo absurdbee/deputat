@@ -321,7 +321,18 @@ class Moderated(models.Model):
     @property
     def reports_count(self):
         # кол-во жалоб на пользователя
-        return self.reports.count()
+        return self.reports.values("pk").count()
+
+    def reports_count_ru(self):
+        count = self.reports_count()
+        a = count % 10
+        b = count % 100
+        if (a == 1) and (b != 11):
+            return str(count) + " жалоба"
+        elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
+            return str(count) + " жалобы"
+        else:
+            return str(count) + " жалоб"
 
     def is_verified(self):
         # проверен ли пользователь

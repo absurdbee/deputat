@@ -30,7 +30,7 @@
                       <div class="media">
                         {% include 'desctop/generic/user/user_figure.html' %}
                         <div class="media-body">
-                            <h6 class="my-0 mt-1">{% include 'desctop/generic/user/user_user.html' %} ({{ object.reports_count }} {{ object.reports_count|rupluralize:"жалоба,жалобы,жалоб" }})</h6>
+                            <h6 class="my-0 mt-1">{% include 'desctop/generic/user/user_user.html' %} ({{ object.reports_count_ru }}</h6>
                             {% for report in object.user_reports.all %}
                               <p class="mb-1">{{ forloop.counter }}. {{ report.get_type_display }}</p>
                               <p class="mb-2">{{ report.description }}</p>

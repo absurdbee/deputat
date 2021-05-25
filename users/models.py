@@ -608,181 +608,181 @@ class User(AbstractUser):
         return self.user_voter.filter(survey__pk=survey_pk)[0]
 
     def is_user_administrator(self):
-        return try_except(self.user_staff.level == "A")
+        return try_except(self.user_staff.level == "A") or self.is_superuser
     def is_user_moderator(self):
-        return try_except(self.user_staff.level == "M")
+        return try_except(self.user_staff.level == "M") or self.is_superuser
     def is_user_editor(self):
-        return try_except(self.user_staff.level == "E")
+        return try_except(self.user_staff.level == "E") or self.is_superuser
     def is_user_advertiser(self):
-        return try_except(self.user_staff.level == "R")
+        return try_except(self.user_staff.level == "R") or self.is_superuser
     def is_user_manager(self):
         try:
-            return self.user_staff.level and self.user_staff.level != "R"
+            return (self.user_staff.level and self.user_staff.level != "R") or self.is_superuser
         except:
             return False
 
     def is_community_administrator(self):
-        return try_except(self.user_community_staff.level == "A")
+        return try_except(self.user_community_staff.level == "A") or self.is_superuser
     def is_community_moderator(self):
-        return try_except(self.user_community_staff.level == "M")
+        return try_except(self.user_community_staff.level == "M") or self.is_superuser
     def is_community_editor(self):
-        return try_except(self.user_community_staff.level == "E")
+        return try_except(self.user_community_staff.level == "E") or self.is_superuser
     def is_community_advertiser(self):
-        return try_except(self.user_community_staff.level == "R")
+        return try_except(self.user_community_staff.level == "R") or self.is_superuser
     def is_community_manager(self):
         try:
-            return self.user_community_staff.level and self.user_community_staff.level != "R"
+            return (self.user_community_staff.level and self.user_community_staff.level != "R") or self.is_superuser
         except:
             return False
 
     def is_elect_new_administrator(self):
-        return try_except(self.elect_new_user_staff.level == "A")
+        return try_except(self.elect_new_user_staff.level == "A") or self.is_superuser
     def is_elect_new_moderator(self):
-        return try_except(self.elect_new_user_staff.level == "M")
+        return try_except(self.elect_new_user_staff.level == "M") or self.is_superuser
     def is_elect_new_editor(self):
-        return try_except(self.elect_new_user_staff.level == "E")
+        return try_except(self.elect_new_user_staff.level == "E") or self.is_superuser
     def is_elect_new_manager(self):
         try:
-            return self.elect_new_user_staff.level
+            return self.elect_new_user_staff.level or self.is_superuser
         except:
             return False
 
     def is_survey_administrator(self):
-        return try_except(self.survey_user_staff.level == "A")
+        return try_except(self.survey_user_staff.level == "A") or self.is_superuser
     def is_survey_moderator(self):
-        return try_except(self.survey_user_staff.level == "M")
+        return try_except(self.survey_user_staff.level == "M") or self.is_superuser
     def is_survey_editor(self):
-        return try_except(self.survey_user_staff.level == "E")
+        return try_except(self.survey_user_staff.level == "E") or self.is_superuser
     def is_survey_manager(self):
         try:
-            return self.survey_user_staff.level
+            return self.survey_user_staff.level or self.is_superuser
         except:
             return False
 
     def is_doc_administrator(self):
-        return try_except(self.doc_user_staff.level == "A")
+        return try_except(self.doc_user_staff.level == "A") or self.is_superuser
     def is_doc_moderator(self):
-        return try_except(self.doc_user_staff.level == "M")
+        return try_except(self.doc_user_staff.level == "M") or self.is_superuser
     def is_doc_editor(self):
-        return try_except(self.doc_user_staff.level == "E")
+        return try_except(self.doc_user_staff.level == "E") or self.is_superuser
     def is_doc_manager(self):
         try:
-            return self.doc_user_staff.level
+            return self.doc_user_staff.level or self.is_superuser
         except:
             return False
 
 
     def is_photo_administrator(self):
-        return try_except(self.photo_user_staff.level == "A")
+        return try_except(self.photo_user_staff.level == "A") or self.is_superuser
     def is_photo_moderator(self):
-        return try_except(self.photo_user_staff.level == "M")
+        return try_except(self.photo_user_staff.level == "M") or self.is_superuser
     def is_photo_editor(self):
-        return try_except(self.photo_user_staff.level == "E")
+        return try_except(self.photo_user_staff.level == "E") or self.is_superuser
     def is_photo_manager(self):
         try:
-            return self.photo_user_staff.level
+            return self.photo_user_staff.level or self.is_superuser
         except:
             return False
 
     def is_video_administrator(self):
-        return try_except(self.video_user_staff.level == "A")
+        return try_except(self.video_user_staff.level == "A") or self.is_superuser
     def is_video_moderator(self):
-        return try_except(self.video_user_staff.level == "M")
+        return try_except(self.video_user_staff.level == "M") or self.is_superuser
     def is_video_editor(self):
-        return try_except(self.video_user_staff.level == "E")
+        return try_except(self.video_user_staff.level == "E") or self.is_superuser
     def is_video_manager(self):
         try:
-            return self.video_user_staff.level
+            return self.video_user_staff.level or self.is_superuser
         except:
             return False
 
     def is_audio_administrator(self):
-        return try_except(self.music_user_staff.level == "A")
+        return try_except(self.music_user_staff.level == "A") or self.is_superuser
     def is_audio_moderator(self):
-        return try_except(self.music_user_staff.level == "M")
+        return try_except(self.music_user_staff.level == "M") or self.is_superuser
     def is_audio_editor(self):
-        return try_except(self.music_user_staff.level == "E")
+        return try_except(self.music_user_staff.level == "E") or self.is_superuser
     def is_audio_manager(self):
         try:
-            return self.music_user_staff.level
+            return self.music_user_staff.level or self.is_superuser
         except:
             return False
 
     def is_work_administrator(self):
-        return try_except(self.can_work_staff_user.can_work_administrator)
+        return try_except(self.can_work_staff_user.can_work_administrator) or self.is_superuser
     def is_work_moderator(self):
-        return try_except(self.can_work_staff_user.can_work_moderator)
+        return try_except(self.can_work_staff_user.can_work_moderator) or self.is_superuser
     def is_work_editor(self):
-        return try_except(self.can_work_staff_user.can_work_editor)
+        return try_except(self.can_work_staff_user.can_work_editor) or self.is_superuser
     def is_work_advertiser(self):
-        return try_except(self.can_work_staff_user.can_work_advertiser)
+        return try_except(self.can_work_staff_user.can_work_advertiser) or self.is_superuser
     def is_user_supermanager(self):
-        return self.is_work_administrator() or self.is_work_moderator() or is_work_editor() or is_work_advertiser()
+        return self.is_work_administrator() or self.is_work_moderator() or is_work_editor() or is_work_advertiser() or self.is_superuser
 
     def is_work_community_administrator(self):
-        return try_except(self.can_work_staff_community.can_work_administrator)
+        return try_except(self.can_work_staff_community.can_work_administrator) or self.is_superuser
     def is_work_community_moderator(self):
-        return try_except(self.can_work_staff_community.can_work_moderator)
+        return try_except(self.can_work_staff_community.can_work_moderator) or self.is_superuser
     def is_work_community_editor(self):
-        return try_except(self.can_work_staff_community.can_work_editor)
+        return try_except(self.can_work_staff_community.can_work_editor) or self.is_superuser
     def is_work_community_advertiser(self):
-        return try_except(self.can_work_staff_community.can_work_advertiser)
+        return try_except(self.can_work_staff_community.can_work_advertiser) or self.is_superuser
     def is_community_supermanager(self):
-        return self.is_work_community_administrator() or self.is_work_community_moderator() or is_work_community_editor() or is_work_community_advertiser()
+        return self.is_work_community_administrator() or self.is_work_community_moderator() or is_work_community_editor() or is_work_community_advertiser() or self.is_superuser
 
     def is_work_elect_new_administrator(self):
-        return try_except(self.can_work_staff_elect_new_user.can_work_administrator)
+        return try_except(self.can_work_staff_elect_new_user.can_work_administrator) or self.is_superuser
     def is_work_elect_new_moderator(self):
-        return try_except(self.can_work_staff_elect_new_user.can_work_moderator)
+        return try_except(self.can_work_staff_elect_new_user.can_work_moderator) or self.is_superuser
     def is_work_elect_new_editor(self):
-        return try_except(self.can_work_staff_elect_new_user.can_work_editor)
+        return try_except(self.can_work_staff_elect_new_user.can_work_editor) or self.is_superuser
     def is_work_supermanager(self):
-        return self.is_work_elect_new_administrator() or self.is_work_elect_new_moderator() or is_work_elect_new_editor()
+        return self.is_work_elect_new_administrator() or self.is_work_elect_new_moderator() or is_work_elect_new_editor() or self.is_superuser
 
     def is_work_survey_administrator(self):
-        return try_except(self.can_work_staff_survey_user.can_work_administrator)
+        return try_except(self.can_work_staff_survey_user.can_work_administrator) or self.is_superuser
     def is_work_survey_moderator(self):
-        return try_except(self.can_work_staff_survey_user.can_work_moderator)
+        return try_except(self.can_work_staff_survey_user.can_work_moderator) or self.is_superuser
     def is_work_survey_editor(self):
-        return try_except(self.can_work_staff_survey_user.can_work_editor)
+        return try_except(self.can_work_staff_survey_user.can_work_editor) or self.is_superuser
     def is_work_supermanager(self):
-        return self.is_work_survey_administrator() or self.is_work_survey_moderator() or is_work_survey_editor()
+        return self.is_work_survey_administrator() or self.is_work_survey_moderator() or is_work_survey_editor() or self.is_superuser
 
     def is_work_doc_administrator(self):
-        return try_except(self.can_work_staff_doc_user.can_work_administrator)
+        return try_except(self.can_work_staff_doc_user.can_work_administrator) or self.is_superuser
     def is_work_doc_moderator(self):
-        return try_except(self.can_work_staff_doc_user.can_work_moderator)
+        return try_except(self.can_work_staff_doc_user.can_work_moderator) or self.is_superuser
     def is_work_doc_editor(self):
-        return try_except(self.can_work_staff_doc_user.can_work_editor)
+        return try_except(self.can_work_staff_doc_user.can_work_editor) or self.is_superuser
     def is_work_doc_supermanager(self):
-        return self.is_work_doc_administrator() or self.is_doc_good_moderator() or is_work_doc_editor()
+        return self.is_work_doc_administrator() or self.is_doc_good_moderator() or is_work_doc_editor() or self.is_superuser
 
     def is_work_photo_administrator(self):
-        return try_except(self.can_work_staff_photo_user.can_work_administrator)
+        return try_except(self.can_work_staff_photo_user.can_work_administrator) or self.is_superuser
     def is_work_photo_moderator(self):
-        return try_except(self.can_work_staff_photo_user.can_work_moderator)
+        return try_except(self.can_work_staff_photo_user.can_work_moderator) or self.is_superuser
     def is_work_photo_editor(self):
-        return try_except(self.can_work_staff_photo_user.can_work_editor)
+        return try_except(self.can_work_staff_photo_user.can_work_editor) or self.is_superuser
     def is_work_photo_supermanager(self):
-        return self.is_work_photo_administrator() or self.is_work_photo_moderator() or is_work_photo_editor()
+        return self.is_work_photo_administrator() or self.is_work_photo_moderator() or is_work_photo_editor() or self.is_superuser
 
     def is_work_video_administrator(self):
-        return try_except(self.can_work_staff_video_user.can_work_administrator)
+        return try_except(self.can_work_staff_video_user.can_work_administrator) or self.is_superuser
     def is_work_video_moderator(self):
-        return try_except(self.can_work_staff_video_user.can_work_moderator)
+        return try_except(self.can_work_staff_video_user.can_work_moderator) or self.is_superuser
     def is_work_video_editor(self):
-        return try_except(self.can_work_staff_video_user.can_work_editor)
+        return try_except(self.can_work_staff_video_user.can_work_editor) or self.is_superuser
     def is_work_video_supermanager(self):
-        return self.is_work_video_administrator() or self.is_work_video_moderator() or is_work_video_editor()
+        return self.is_work_video_administrator() or self.is_work_video_moderator() or is_work_video_editor() or self.is_superuser
 
     def is_work_music_administrator(self):
-        return try_except(self.can_work_staff_music_user.can_work_administrator)
+        return try_except(self.can_work_staff_music_user.can_work_administrator) or self.is_superuser
     def is_work_music_moderator(self):
-        return try_except(self.can_work_staff_music_user.can_work_moderator)
+        return try_except(self.can_work_staff_music_user.can_work_moderator) or self.is_superuser
     def is_work_music_editor(self):
-        return try_except(self.can_work_staff_music_user.can_work_editor)
+        return try_except(self.can_work_staff_music_user.can_work_editor) or self.is_superuser
     def is_music_supermanager(self):
-        return self.is_work_music_administrator() or self.is_work_music_moderator() or is_work_music_editor()
+        return self.is_work_music_administrator() or self.is_work_music_moderator() or is_work_music_editor() or self.is_superuser
 
     def is_no_view_followers(self):
         return self.followers.filter(view=False).exists()

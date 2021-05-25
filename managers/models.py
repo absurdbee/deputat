@@ -261,7 +261,7 @@ class ModerationCategory(models.Model):
 
 
 USER, COMMUNITY = 'USE', 'COM'
-ELECT_NEW_LIST, ELECT_NEW, ELECT_NEW_COMMENT = 'ENL', 'ELE', 'ELEC'
+ELECT_NEW, ELECT_NEW_COMMENT = 'ELE', 'ELEC'
 PHOTO_LIST, PHOTO, PHOTO_COMMENT = 'PHL', 'PHO', 'PHOC'
 DOC_LIST, DOC = 'DOL', 'DOC'
 MUSIC_LIST, MUSIC = 'MUL', 'MUS'
@@ -405,49 +405,28 @@ class Moderated(models.Model):
         return cls.objects.filter(type="COM", verified=False)
 
     @classmethod
-    def get_moderation_elect_new_lists(cls):
-        return cls.objects.filter(verified=False, type="ENL")
-    @classmethod
     def get_moderation_elect_news(cls):
-        return cls.objects.filter(verified=False, type="ELE")
-    @classmethod
-    def get_moderation_elect_new_comments(cls):
-        return cls.objects.filter(verified=False, type="ELEC")
+        return cls.objects.filter(verified=False, type__contains="EL")
 
-    @classmethod
-    def get_moderation_photo_lists(cls):
-        return cls.objects.filter(verified=False, type="PHL")
     @classmethod
     def get_moderation_photos(cls):
-        return cls.objects.filter(verified=False, type="PHO")
+        return cls.objects.filter(verified=False, type__contains="PH")
 
-    @classmethod
-    def get_moderation_video_lists(cls):
-        return cls.objects.filter(verified=False, type="VIL")
     @classmethod
     def get_moderation_videos(cls):
-        return cls.objects.filter(verified=False, type="VID")
+        return cls.objects.filter(verified=False, type__contains="VI")
 
-    @classmethod
-    def get_moderation_playlists(cls):
-        return cls.objects.filter(verified=False, type="MUL")
     @classmethod
     def get_moderation_audios(cls):
-        return cls.objects.filter(verified=False, type="MUS")
+        return cls.objects.filter(verified=False, type__contains="MU")
 
-    @classmethod
-    def get_moderation_survey_lists(cls):
-        return cls.objects.filter(verified=False, type="SUL")
     @classmethod
     def get_moderation_survey(cls):
-        return cls.objects.filter(verified=False, type="SUR")
+        return cls.objects.filter(verified=False, type__contains="SU")
 
     @classmethod
-    def get_moderation_doc_lists(cls):
-        return cls.objects.filter(verified=False, type="DOL")
-    @classmethod
     def get_moderation_docs(cls):
-        return cls.objects.filter(verified=False, type="DOC")
+        return cls.objects.filter(verified=False, type__contains="DO")
 
 
 class ModerationReport(models.Model):
@@ -510,7 +489,7 @@ class ModerationPenalty(models.Model):
     status = models.CharField(max_length=5, choices=STATUSES, verbose_name="Тип")
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.type
 
     class Meta:
         verbose_name = 'Оштрафованный объект'
@@ -559,44 +538,25 @@ class ModerationPenalty(models.Model):
         return cls.objects.filter(manager__id=user_id, type="COM")
 
     @classmethod
-    def get_penalty_post_lists(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="POL")
-    @classmethod
-    def get_penalty_posts(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="POS")
-    def get_penalty_post_comments(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="POSC")
+    def get_penalty_elect_news(cls, user_id):
+        return cls.objects.filter(manager__id=user_id, type__contains="EL")
 
-    @classmethod
-    def get_penalty_photo_lists(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="PHL")
     @classmethod
     def get_penalty_photos(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="PHO")
-    @classmethod
-    def get_penalty_photos_comments(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="PHOC")
+        return cls.objects.filter(manager__id=user_id, type__contains="PH")
 
-    @classmethod
-    def get_penalty_video_lists(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="VIL")
     @classmethod
     def get_penalty_videos(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="VID")
-    @classmethod
-    def get_penalty_videos_comments(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="VIDC")
+        return cls.objects.filter(manager__id=user_id, type__contains="VI")
 
-    @classmethod
-    def get_penalty_playlists(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="MUL")
     @classmethod
     def get_penalty_audios(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="MUS")
+        return cls.objects.filter(manager__id=user_id, type__contains="MU")
 
     @classmethod
-    def get_penalty_survey_lists(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="SUL")
-    @classmethod
     def get_penalty_surveys(cls, user_id):
-        return cls.objects.filter(manager__id=user_id, type="SUR")
+        return cls.objects.filter(manager__id=user_id, type__contains="SU")
+
+    @classmethod
+    def get_penalty_docs(cls, user_id):
+        return cls.objects.filter(manager__id=user_id, type__contains="DO")

@@ -17,7 +17,7 @@ class PenaltyUser(ListView):
         return super(PenaltyUser,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return ModerationPenalty.get_penalty_users()
+        return ModerationPenalty.get_penalty_users(self.request.user.pk) 
 
 class PenaltyDoc(ListView):
     template_name, paginate_by = None, 15

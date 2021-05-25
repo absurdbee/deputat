@@ -321,7 +321,7 @@ class Moderated(models.Model):
     @property
     def reports_count(self):
         # кол-во жалоб на пользователя
-        return self.reports.values("pk").count()
+        return self.reports.count()
 
     def reports_count_ru(self):
         count = self.reports_count()

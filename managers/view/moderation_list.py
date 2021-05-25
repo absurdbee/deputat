@@ -9,7 +9,7 @@ class ModerationUser(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_user_manager() or self.user.is_superuser:
+        if self.user.is_user_manager():
             self.template_name = get_detect_platform_template("managers/moderation_list/user.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -18,12 +18,28 @@ class ModerationUser(ListView):
     def get_queryset(self):
         return self.user.get_moderation_users()
 
+
+class ModerationDoc(ListView):
+    template_name, paginate_by = None, 15
+
+    def get(self,request,*args,**kwargs):
+        self.user = request.user
+        if self.user.is_doc_manager():
+            self.template_name = get_detect_platform_template("managers/moderation_list/doc.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(ModerationDoc,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        return self.user.get_moderation_docs()
+
+
 class ModerationCommunity(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_community_manager() or self.user.is_superuser:
+        if self.user.is_community_manager():
             self.template_name = get_detect_platform_template("managers/moderation_list/community.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -37,25 +53,11 @@ class ModerationElectNew(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_elect_new_manager() or self.user.is_superuser:
+        if self.user.is_elect_new_manager():
             self.template_name = get_detect_platform_template("managers/moderation_list/elect_new.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
         return super(ModerationElectNew,self).get(request,*args,**kwargs)
-
-    def get_queryset(self):
-        return self.user.get_moderation_posts()
-
-class ModerationElectNewComment(ListView):
-    template_name, paginate_by = None, 15
-
-    def get(self,request,*args,**kwargs):
-        self.user = request.user
-        if self.user.is_elect_new_manager() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/moderation_list/elect_new_comment.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(ModerationElectNewComment,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
         return self.user.get_moderation_posts()
@@ -65,7 +67,7 @@ class ModerationSurvey(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_survey_manager() or self.user.is_superuser:
+        if self.user.is_survey_manager():
             self.template_name = get_detect_platform_template("managers/moderation_list/survey.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -80,7 +82,7 @@ class ModerationPhoto(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_photo_manager() or self.user.is_superuser:
+        if self.user.is_photo_manager():
             self.template_name = get_detect_platform_template("managers/moderation_list/photo.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -94,7 +96,7 @@ class ModerationAudio(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_audio_manager() or self.user.is_superuser:
+        if self.user.is_audio_manager():
             self.template_name = get_detect_platform_template("managers/moderation_list/audio.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -109,7 +111,7 @@ class ModerationVideo(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_video_manager() or self.user.is_superuser:
+        if self.user.is_video_manager():
             self.template_name = get_detect_platform_template("managers/moderation_list/video.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -117,32 +119,3 @@ class ModerationVideo(ListView):
 
     def get_queryset(self):
         return self.user.get_moderation_videos()
-
-
-class ModerationUserAdvertiser(ListView):
-    template_name, paginate_by = None, 15
-
-    def get(self,request,*args,**kwargs):
-        self.user = request.user
-        if self.user.is_user_advertiser() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/moderation_list/user_advertiser.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(ModerationUserAdvertiser,self).get(request,*args,**kwargs)
-
-    def get_queryset(self):
-        return []
-
-class ModerationCommunityAdvertiser(ListView):
-    template_name, paginate_by = None, 15
-
-    def get(self,request,*args,**kwargs):
-        self.user = request.user
-        if self.user.is_community_advertiser() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/moderation_list/community_advertiser.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(ModerationCommunityAdvertiser,self).get(request,*args,**kwargs)
-
-    def get_queryset(self):
-        return []

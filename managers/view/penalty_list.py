@@ -18,6 +18,20 @@ class PenaltyUser(ListView):
     def get_queryset(self):
         return self.user.get_penalty_users()
 
+class PenaltyDoc(ListView):
+    template_name, paginate_by = None, 15
+
+    def get(self,request,*args,**kwargs):
+        self.user = request.user
+        if self.user.is_doc_manager() or self.user.is_superuser:
+            self.template_name = get_detect_platform_template("managers/penalty_list/doc.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(PenaltyDoc,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        return self.user.get_penalty_docs()
+
 class PenaltyCommunity(ListView):
     template_name, paginate_by = None, 15
 
@@ -42,20 +56,6 @@ class PenaltyElectNew(ListView):
         else:
             raise Http404
         return super(PenaltyElectNew,self).get(request,*args,**kwargs)
-
-    def get_queryset(self):
-        return self.user.get_penalty_posts()
-
-class PenaltyElectNewComment(ListView):
-    template_name, paginate_by = None, 15
-
-    def get(self,request,*args,**kwargs):
-        self.user = request.user
-        if self.user.is_elect_new_manager() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/penalty_list/elect_new_comment.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(PenaltyElectNewComment,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
         return self.user.get_penalty_posts()
@@ -117,31 +117,3 @@ class PenaltyVideo(ListView):
 
     def get_queryset(self):
         return self.user.get_penalty_videos()
-
-class PenaltyUserAdvertiser(ListView):
-    template_name, paginate_by = None, 15
-
-    def get(self,request,*args,**kwargs):
-        self.user = request.user
-        if self.user.is_user_advertiser() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/penalty_list/user_advertiser.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(PenaltyUserAdvertiser,self).get(request,*args,**kwargs)
-
-    def get_queryset(self):
-        return []
-
-class PenaltyCommunityAdvertiser(ListView):
-    template_name, paginate_by = None, 15
-
-    def get(self,request,*args,**kwargs):
-        self.user = request.user
-        if self.user.is_community_advertiser() or self.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/penalty_list/community_advertiser.html", request.user, request.META['HTTP_USER_AGENT'])
-        else:
-            raise Http404
-        return super(PenaltyCommunityAdvertiser,self).get(request,*args,**kwargs)
-
-    def get_queryset(self):
-        return []

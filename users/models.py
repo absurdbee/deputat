@@ -608,7 +608,7 @@ class User(AbstractUser):
         return self.user_voter.filter(survey__pk=survey_pk)[0]
 
     def is_user_administrator(self):
-        return try_except(self.user_staff.level == "A") or self.is_superuser
+        return self.is_superuser or try_except(self.user_staff.level == "A")
     def is_user_moderator(self):
         return try_except(self.user_staff.level == "M") or self.is_superuser
     def is_user_editor(self):

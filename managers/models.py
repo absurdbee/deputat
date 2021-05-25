@@ -476,7 +476,7 @@ class ModerationReport(models.Model):
 
 class ModerationPenalty(models.Model):
     # сами санкции против объекта.
-    SUSPENSION, CLOSE, BANNER = 'S', 'B', 'BA'
+    SUSPENSION, CLOSE, BANNER = 'S', 'C', 'BA'
     STATUSES = (
         (SUSPENSION, 'Приостановлено'), (CLOSE, 'Закрыто'), (BANNER, 'Вывешен баннер'),
     )
@@ -522,13 +522,13 @@ class ModerationPenalty(models.Model):
 
     def is_suspend(self):
         # Объект заморожен
-        return self.status == SUSPENSION
+        return self.status == 'S'
     def is_closed(self):
         # Объект блокирован
-        return self.status == CLOSE
+        return self.status == 'C'
     def is_banner(self):
         # Объект блокирован
-        return self.status == BANNER
+        return self.status == 'BA'
 
     @classmethod
     def get_penalty_users(cls, user_id):

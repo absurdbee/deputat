@@ -2,7 +2,7 @@ from users.models import User
 from django.views.generic import ListView
 from django.http import Http404
 from common.templates import get_detect_platform_template
-from managers.models import Moderated
+from managers.models import ModerationPenalty
 
 
 class PenaltyUser(ListView):
@@ -17,7 +17,7 @@ class PenaltyUser(ListView):
         return super(PenaltyUser,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return Moderated.get_penalty_users()
+        return ModerationPenalty.get_penalty_users()
 
 class PenaltyDoc(ListView):
     template_name, paginate_by = None, 15

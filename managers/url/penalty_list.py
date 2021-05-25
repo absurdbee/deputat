@@ -1,6 +1,5 @@
 from django.conf.urls import url
 from managers.view.penalty_list import *
-from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
@@ -11,4 +10,5 @@ urlpatterns = [
     url(r'^audio/$', PenaltyAudio.as_view()),
     url(r'^video/$', PenaltyVideo.as_view()),
     url(r'^survey/$', PenaltySurvey.as_view()),
+    url(r'^doc/$', PenaltyDoc.as_view()),
 ]

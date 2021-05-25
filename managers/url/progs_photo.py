@@ -23,12 +23,6 @@ urlpatterns = [
     url(r'^create_claim/(?P<uuid>[0-9a-f-]+)/$', PhotoClaimCreate.as_view()),
     url(r'^unverify/(?P<photo_uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', PhotoUnverify.as_view()),
 
-    url(r'^comment_create_close/(?P<pk>\d+)/$', CommentPhotoCloseCreate.as_view()),
-    url(r'^comment_delete_close/(?P<pk>\d+)/$', CommentPhotoCloseDelete.as_view()),
-    url(r'^comment_create_rejected/(?P<pk>\d+)/$', CommentPhotoRejectedCreate.as_view()),
-    url(r'^comment_create_claim/(?P<pk>\d+)/$', CommentPhotoClaimCreate.as_view()),
-    url(r'^comment_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', CommentPhotoUnverify.as_view()),
-
     url(r'^list_create_close/(?P<pk>\d+)/$', ListPhotoCloseCreate.as_view()),
     url(r'^list_delete_close/(?P<pk>\d+)/$', ListPhotoCloseDelete.as_view()),
     url(r'^list_create_rejected/(?P<pk>\d+)/$', ListPhotoRejectedCreate.as_view()),

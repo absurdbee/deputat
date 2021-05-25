@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^audio/$', ModerationAudio.as_view()),
     url(r'^video/$', ModerationVideo.as_view()),
     url(r'^survey/$', ModerationSurvey.as_view()),
+    url(r'^doc/$', ModerationDoc.as_view()),
 ]

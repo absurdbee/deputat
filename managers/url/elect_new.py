@@ -1,35 +1,40 @@
 from django.conf.urls import url
 from managers.view.elect_new import *
-from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
-    url(r'^add_admin/(?P<pk>\d+)/$', login_required(ElectNewAdminCreate.as_view())),
-    url(r'^delete_admin/(?P<pk>\d+)/$', login_required(ElectNewAdminDelete.as_view())),
-    url(r'^add_moderator/(?P<pk>\d+)/$', login_required(ElectNewModerCreate.as_view())),
-    url(r'^delete_moderator/(?P<pk>\d+)/$', login_required(ElectNewModerDelete.as_view())),
-    url(r'^add_editor/(?P<pk>\d+)/$', login_required(ElectNewEditorCreate.as_view())),
-    url(r'^delete_editor/(?P<pk>\d+)/$', login_required(ElectNewEditorDelete.as_view())),
+    url(r'^add_admin/(?P<pk>\d+)/$', ElectNewAdminCreate.as_view()),
+    url(r'^delete_admin/(?P<pk>\d+)/$', ElectNewAdminDelete.as_view()),
+    url(r'^add_moderator/(?P<pk>\d+)/$', ElectNewModerCreate.as_view()),
+    url(r'^delete_moderator/(?P<pk>\d+)/$', ElectNewModerDelete.as_view()),
+    url(r'^add_editor/(?P<pk>\d+)/$', ElectNewEditorCreate.as_view()),
+    url(r'^delete_editor/(?P<pk>\d+)/$', ElectNewEditorDelete.as_view()),
 
-    url(r'^add_worker_admin/(?P<pk>\d+)/$', login_required(ElectNewWorkerAdminCreate.as_view())),
-    url(r'^delete_worker_admin/(?P<pk>\d+)/$', login_required(ElectNewWorkerAdminDelete.as_view())),
-    url(r'^add_worker_moderator/(?P<pk>\d+)/$', login_required(ElectNewWorkerModerCreate.as_view())),
-    url(r'^delete_worker_moderator/(?P<pk>\d+)/$', login_required(ElectNewWorkerModerDelete.as_view())),
-    url(r'^add_worker_editor/(?P<pk>\d+)/$', login_required(ElectNewWorkerEditorCreate.as_view())),
-    url(r'^delete_worker_editor/(?P<pk>\d+)/$', login_required(ElectNewWorkerEditorDelete.as_view())),
+    url(r'^add_worker_admin/(?P<pk>\d+)/$', ElectNewWorkerAdminCreate.as_view()),
+    url(r'^delete_worker_admin/(?P<pk>\d+)/$', ElectNewWorkerAdminDelete.as_view()),
+    url(r'^add_worker_moderator/(?P<pk>\d+)/$', ElectNewWorkerModerCreate.as_view()),
+    url(r'^delete_worker_moderator/(?P<pk>\d+)/$', ElectNewWorkerModerDelete.as_view()),
+    url(r'^add_worker_editor/(?P<pk>\d+)/$', ElectNewWorkerEditorCreate.as_view()),
+    url(r'^delete_worker_editor/(?P<pk>\d+)/$', ElectNewWorkerEditorDelete.as_view()),
 
-    url(r'^create_publish/(?P<uuid>[0-9a-f-]+)/$', login_required(PublishElectNew.as_view())),
-    url(r'^suggest_rejected/(?P<uuid>[0-9a-f-]+)/$', login_required(RejectElectNew.as_view())),
+    url(r'^create_publish/(?P<uuid>[0-9a-f-]+)/$', PublishElectNew.as_view()),
+    url(r'^suggest_rejected/(?P<uuid>[0-9a-f-]+)/$', RejectElectNew.as_view()),
 
-    url(r'^create_close/(?P<uuid>[0-9a-f-]+)/$', login_required(ElectNewCloseCreate.as_view())),
-    url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', login_required(ElectNewCloseDelete.as_view())),
-    url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', login_required(ElectNewRejectedCreate.as_view())),
-    url(r'^create_claim/(?P<pk>\d+)/$', login_required(ElectNewClaimCreate.as_view())),
-    url(r'^unverify/(?P<post_uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', login_required(ElectNewUnverify.as_view())),
+    url(r'^create_close/(?P<uuid>[0-9a-f-]+)/$', ElectNewCloseCreate.as_view()),
+    url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', ElectNewCloseDelete.as_view()),
+    url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', ElectNewRejectedCreate.as_view()),
+    url(r'^create_claim/(?P<pk>\d+)/$', ElectNewClaimCreate.as_view()),
+    url(r'^unverify/(?P<post_uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', ElectNewUnverify.as_view()),
 
-    url(r'^comment_create_close/(?P<pk>\d+)/$', login_required(CommentElectNewCloseCreate.as_view())),
-    url(r'^comment_delete_close/(?P<pk>\d+)/$', login_required(CommentElectNewCloseDelete.as_view())),
-    url(r'^comment_create_rejected/(?P<pk>\d+)/$', login_required(CommentElectNewRejectedCreate.as_view())),
-    url(r'^comment_create_claim/(?P<pk>\d+)/$', login_required(CommentElectNewClaimCreate.as_view())),
-    url(r'^comment_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', login_required(CommentElectNewUnverify.as_view())),
+    url(r'^comment_create_close/(?P<pk>\d+)/$', CommentElectNewCloseCreate.as_view()),
+    url(r'^comment_delete_close/(?P<pk>\d+)/$', CommentElectNewCloseDelete.as_view()),
+    url(r'^comment_create_rejected/(?P<pk>\d+)/$', CommentElectNewRejectedCreate.as_view()),
+    url(r'^comment_create_claim/(?P<pk>\d+)/$', CommentElectNewClaimCreate.as_view()),
+    url(r'^comment_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', CommentElectNewUnverify.as_view()),
+
+    url(r'^list_create_close/(?P<pk>\d+)/$', ListElectNewCloseCreate.as_view()),
+    url(r'^list_delete_close/(?P<pk>\d+)/$', ListElectNewCloseDelete.as_view()),
+    url(r'^list_create_rejected/(?P<pk>\d+)/$', ListElectNewRejectedCreate.as_view()),
+    url(r'^list_create_claim/(?P<pk>\d+)/$', ListElectNewClaimCreate.as_view()),
+    url(r'^list_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', ListElectNewUnverify.as_view()),
 ]

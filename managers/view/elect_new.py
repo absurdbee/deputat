@@ -15,7 +15,7 @@ from logs.model.manage_elect_new import ElectNewManageLog
 class ElectNewAdminCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_elect_new_administrator()):
+        if request.is_ajax() and request.user.is_work_elect_new_administrator():
             add_elect_new_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -24,7 +24,7 @@ class ElectNewAdminCreate(View):
 class ElectNewAdminDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_elect_new_administrator()):
+        if request.is_ajax() and request.user.is_work_elect_new_administrator():
             remove_elect_new_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -33,7 +33,7 @@ class ElectNewAdminDelete(View):
 class ElectNewModerCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_elect_new_moderator()):
+        if request.is_ajax() and request.user.is_work_elect_new_moderator():
             add_elect_new_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -42,7 +42,7 @@ class ElectNewModerCreate(View):
 class ElectNewModerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_elect_new_moderator()):
+        if request.is_ajax() and request.user.is_work_elect_new_moderator():
             remove_elect_new_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -51,7 +51,7 @@ class ElectNewModerDelete(View):
 class ElectNewEditorCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_elect_new_editor()):
+        if request.is_ajax() and request.user.is_work_elect_new_editor():
             add_post_editor(user, request.user)
             return HttpResponse()
         else:
@@ -60,7 +60,7 @@ class ElectNewEditorCreate(View):
 class ElectNewEditorDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_elect_new_editor()):
+        if request.is_ajax() and request.user.is_work_elect_new_editor():
             remove_elect_new_editor(user, request.user)
             return HttpResponse()
         else:
@@ -71,7 +71,7 @@ class ElectNewWorkerAdminCreate(View):
         user = User.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_superuser:
             add_elect_new_administrator_worker(user, request.user)
-            return HttpResponse("")
+            return HttpResponse()
         else:
             raise Http404
 
@@ -126,7 +126,7 @@ class ElectNewCloseCreate(View):
     def get(self,request,*args,**kwargs):
         self.post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
         if request.user.is_elect_new_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/elect_new/item_close.html", request.user, request.META['HTTP_USER_AGENT'])
+            self.template_name = get_detect_platform_template("managers/manage_create/elect_new/close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
         return super(ElectNewCloseCreate,self).get(request,*args,**kwargs)
@@ -162,7 +162,7 @@ class ElectNewClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.template_name = get_detect_platform_template("managers/manage_create/elect_new/item_claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_detect_platform_template("managers/manage_create/elect_new/claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ElectNewClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

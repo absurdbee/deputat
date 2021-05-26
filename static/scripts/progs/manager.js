@@ -1,7 +1,7 @@
 function get_sanction_window(_this, url) {
   if(_this.parentElement.classList.contains("btn_console")){
     div = _this.parentElement.parentElement.parentElement.parentElement;
-    pk = div.getAttribute("user-pk");
+    pk = _this.parentElement.getAttribute("data-pk");
     list = document.querySelectorAll('.pag');
     for (var i = 0; i < list.length; i++) {
       list[i].classList.remove("changed");

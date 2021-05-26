@@ -391,6 +391,16 @@ class Moderated(models.Model):
     def unverify_moderation(self, manager_id):
         self.verified = False
         self.moderated_object.all().delete()
+        if self.type == "USE":
+            from users.models import User
+            user = User.objects.get(pk=self.object_id)
+            user.abort_close_item()
+            user.abort_suspend_item()
+        elif self.type == "COM":
+            from communities.models import Community
+            community = Community.objects.get(pk=self.object_id)
+            community.abort_close_item()
+            community.abort_suspend_item()
         self.save()
 
     def reject_moderation(self, manager_id):

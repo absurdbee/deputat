@@ -58,7 +58,7 @@ on('body', 'click', '.user_unverify', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Верификация отменена!");
-    li.remove();
+    item.remove();
   }};
 
   link_.send();

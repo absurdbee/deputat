@@ -27,7 +27,7 @@ on('#ajax', 'click', '.create_user_blocker_btn', function() {
   }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/managers/progs_user/create_create/" + pk + "/", true );
+  link_.open( 'POST', "/managers/progs_user/create_close/" + pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

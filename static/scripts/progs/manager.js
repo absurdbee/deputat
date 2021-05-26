@@ -24,7 +24,7 @@ function send_sanction(_this, form, url, old_class, new_class, toast) {
   }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/managers/progs_user/create_close/" + pk + "/", true );
+  link_.open( 'POST', url + pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

@@ -10,6 +10,10 @@ on('body', 'click', '.create_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
   this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
 });
+on('body', 'click', '.window_fullscreen_hide_2', function() {
+  this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
+  this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
+});
 on('body', 'click', '.previous_click', function(event) {
   this.previousElementSibling.click();
 })

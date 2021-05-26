@@ -182,16 +182,16 @@ class UserSuspensionCreate(TemplateView):
             moderate_obj.status = Moderated.SUSPEND
             moderate_obj.description = mod.description
             moderate_obj.save()
-            if severity_int == '4':
+            if number == '4':
                 duration_of_penalty = timezone.timedelta(days=30)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_CRITICAL)
-            elif severity_int == '3':
+            elif number == '3':
                 duration_of_penalty = timezone.timedelta(days=7)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_HIGH)
-            elif severity_int == '2':
+            elif number == '2':
                 duration_of_penalty = timezone.timedelta(days=3)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_MEDIUM)
-            elif severity_int == '1':
+            elif number == '1':
                 duration_of_penalty = timezone.timedelta(hours=6)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_LOW)
             moderate_obj.create_suspend(manager_id=request.user.pk, duration_of_penalty=duration_of_penalty)

@@ -56,7 +56,7 @@ class User(AbstractUser):
         if self.type == "DEP":
             self.type = User.CLOSED_DEPUTAT
         elif self.type == "STA":
-            self.type = User.CLOSED
+            self.type = User.CLOSED_STANDART
         elif self.type == "MAN":
             self.type = User.CLOSED_MANAGER
         elif self.type == "VES":

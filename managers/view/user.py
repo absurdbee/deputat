@@ -173,7 +173,7 @@ class UserSuspensionCreate(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
-        form, user = UserModeratedForm(request.POST), User.objects.get(pk=self.kwargs["pk"])
+        form, user = ModeratedForm(request.POST), User.objects.get(pk=self.kwargs["pk"])
 
         if request.is_ajax() and form.is_valid() and (request.user.is_user_manager() or request.user.is_superuser):
             mod = form.save(commit=False)

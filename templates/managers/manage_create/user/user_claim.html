@@ -1,17 +1,23 @@
 
-<form id="user_claim_form">
+<form class="mt-4">
   {% csrf_token %}
 
 <div class="row justify-content-center">
   <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="col-lg-2 col-md-4">
-              {% include 'desctop/generic/user/figure.html' %}
-            </div>
+          <div class="col-lg-2 col-md-4">
+            <a href="{% url 'user' pk=user.pk %}" class="ajax">
+              <figure style="width:50px;">
+                  <img src="{{ user.get_avatar }}" alt="image">
+              </figure>
+            </a>
+          </div>
             <div class="col-lg-10 col-md-8">
-              {% include 'desctop/generic/user/user.html' %}
-              <p style="padding-top:10px;">Вы собираетесь пожаловаться на этого пользователя.</p>
+              <h6 class="mb-0 ml-1">
+                <a href="{% url 'user' pk=user.pk %}" class="ajax">{{ user.get_full_name }}</a>
+              </h6>
+              <p class="ml-1" style="padding-top:10px;">Вы собираетесь пожаловаться на этого пользователя.</p>
             </div>
         </div>
         <div class="form-group">

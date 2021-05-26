@@ -1,5 +1,4 @@
-on('body', 'click', '.create_user_close', function() {
-  _this = this;
+function get_sanction_window(_this, url) {
   if(_this.parentElement.classList.contains("btn_console")){
     div = _this.parentElement.parentElement.parentElement.parentElement;
     pk = div.getAttribute("user-pk");
@@ -13,12 +12,10 @@ on('body', 'click', '.create_user_close', function() {
     pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
   }
   loader = document.getElementById("window_loader");
-  open_fullscreen("/managers/progs_user/create_close/" + pk + "/", loader)
-})
-
-on('body', 'click', '.create_user_blocker_btn', function() {
-  parent = this.parentElement.parentElement.parentElement.parentElement;
-  form_data = new FormData(parent);
+  open_fullscreen(url + pk + "/", loader)
+}
+function send_sanction(_this, form, url, old_class, new_class, toast) {
+  form_data = new FormData(form);
   if (document.body.querySelector(".pk_saver")){
     pk = document.body.querySelector(".pk_saver").getAttribute("user-pk")
   }else if (document.body.querySelector(".changed")){
@@ -36,16 +33,31 @@ on('body', 'click', '.create_user_blocker_btn', function() {
     document.querySelector(".window_fullscreen").style.display = "none";
     document.getElementById("window_loader").innerHTML="";
     if (document.body.querySelector(".pk_saver")) {
-      a = document.body.querySelector(".create_user_close");
-      a.innerHTML = "Отменить блокировку";
-      a.classList.replace("create_user_close", "remove_user_close")
+      _this.innerHTML = "Отменить";
+      _this.classList.replace(old_class, new_class)
     }else if (li.classList.contains("changed")){
       li.remove();
     }
   }};
 
   link_.send(form_data);
+}
+
+on('body', 'click', '.create_user_close', function() {
+  get_sanction_window(this, "/managers/progs_user/create_close/")
+})
+on('body', 'click', '.create_user_warning_banner', function() {
+  get_sanction_window(this, "/managers/progs_user/create_warning_banner/")
+})
+on('body', 'click', '.create_user_suspend', function() {
+  get_sanction_window(this, "/managers/progs_user/create_suspension/")
+})
+
+on('body', 'click', '.create_user_blocker_btn', function() {
+  parent = this.parentElement.parentElement.parentElement.parentElement;
+  send_sanction(_this, parent, "/managers/progs_user/create_close/", "create_user_close", "remove_user_close", "Отменить блокировку")
 });
+
 
 on('body', 'click', '.user_unverify', function() {
   item = this.parentElement.parentElement.parentElement.parentElement;

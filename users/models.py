@@ -938,7 +938,8 @@ class User(AbstractUser):
         return Community.objects.filter(memberships__user=self)[0:6]
 
     def get_longest_user_penalties(self):
-        return self.manager_penalties.filter(object_id=self.pk, type="USE")[0].expiration
+        from managers.models import ModerationPenalty
+        return ModerationPenalty.objects.filter(object_id=self.pk, type="USE")[0].expiration
     def get_moderated_description(self):
         from managers.models import Moderated
         return Moderated.objects.filter(object_id=self.pk, type="USE")[0].description

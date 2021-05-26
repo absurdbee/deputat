@@ -936,3 +936,9 @@ class User(AbstractUser):
     def get_6_default_communities(self):
         from communities.models import Community
         return Community.objects.filter(memberships__user=self)[0:6]
+
+    def get_longest_user_penalties(self):
+        return self.manager_penalties.filter(object_id=self.pk, type="USE")[0].expiration
+    def get_moderated_description(self):
+        from managers.models import Moderated
+        return Moderated.objects.filter(object_id=self.pk, type="USE")[0].description

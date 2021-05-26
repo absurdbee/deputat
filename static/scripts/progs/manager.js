@@ -2,7 +2,7 @@ on('body', 'click', '.create_user_close', function() {
   _this = this;
   if(_this.parentElement.classList.contains("btn_console")){
     div = _this.parentElement.parentElement.parentElement.parentElement;
-    uuid = _this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-uuid");
+    pk = div.getAttribute("user-pk");
     list = document.querySelectorAll('.pag');
     for (var i = 0; i < list.length; i++) {
       list[i].classList.remove("changed");
@@ -39,7 +39,7 @@ on('body', 'click', '.create_user_blocker_btn', function() {
       a = document.body.querySelector(".create_user_close");
       a.innerHTML = "Отменить блокировку";
       a.classList.replace("create_user_close", "remove_user_close")
-    }else if (li.querySelector(".btn_console")){
+    }else if (li.querySelector(".changed")){
       li.remove();
     }
   }};

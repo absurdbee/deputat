@@ -55,15 +55,15 @@ on('body', 'click', '.create_user_suspend', function() {
 
 on('body', 'click', '.create_user_blocker_btn', function() {
   parent = this.parentElement.parentElement.parentElement.parentElement;
-  send_sanction(_this, parent, "/managers/progs_user/create_close/", "create_user_close", "remove_user_close", "Аккаунт блокирован")
+  send_sanction(this, parent, "/managers/progs_user/create_close/", "create_user_close", "remove_user_close", "Аккаунт блокирован")
 });
 on('body', 'click', '.create_user_warning_banner_btn', function() {
   parent = this.parentElement.parentElement.parentElement.parentElement;
-  send_sanction(_this, parent, "/managers/progs_user/create_warning_banner/", "create_user_warning_banner", "remove_user_warning_banner", "Баннер применен")
+  send_sanction(this, parent, "/managers/progs_user/create_warning_banner/", "create_user_warning_banner", "remove_user_warning_banner", "Баннер применен")
 });
 on('body', 'click', '.create_user_suspend_btn', function() {
   parent = this.parentElement.parentElement.parentElement.parentElement;
-  send_sanction(_this, parent, "/managers/progs_user/create_warning_banner/", "create_user_suspend", "куьщму_user_suspend", "Аккаунт заморожен")
+  send_sanction(this, parent, "/managers/progs_user/create_warning_banner/", "create_user_suspend", "куьщму_user_suspend", "Аккаунт заморожен")
 });
 
 on('body', 'click', '.user_unverify', function() {

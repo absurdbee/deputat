@@ -39,7 +39,7 @@ on('body', 'click', '.create_user_blocker_btn', function() {
       a = document.body.querySelector(".create_user_close");
       a.innerHTML = "Отменить блокировку";
       a.classList.replace("create_user_close", "remove_user_close")
-    }else if (li.querySelector(".changed")){
+    }else if (li.classList("changed")){
       li.remove();
     }
   }};

@@ -588,7 +588,7 @@ class ModerationPenalty(models.Model):
         from users.models import User
         user = User.objects.get(pk=user_id)
         if self.is_suspend():
-            span = '<span class="small">До ', str(self.expiration), '</span>(<a class="small remove_user_suspend pointer">Отменить заморозку</a> |<a class="small user_unverify pointer">Отменить проверку</a>)'
+            span = '<span class="small">До ' + str(self.expiration) + '</span>(<a class="small remove_user_suspend pointer">Отменить заморозку</a> |<a class="small user_unverify pointer">Отменить проверку</a>)'
         elif self.is_closed():
             span = '<span class="small">Заблокирован</span>(<a class="small remove_user_bloсk pointer">Отменить блокировку</a> |<a class="small user_unverify pointer">Отменить проверку</a>)'
         elif self.is_banner():

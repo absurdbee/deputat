@@ -396,12 +396,15 @@ class Moderated(models.Model):
         self.status = ModeratedUser.REJECTED
         self.save()
 
+    def get_reports(self):
+        return self.reports.all()
+
     def get_user(self, user_id):
         #try:
         from users.models import User
         user = User.objects.get(pk=user_id)
         reports, count = '', 0
-        for report in self.user_reports():
+        for report in self.reports.all():
             count += 1
             reports = ''.join([reports, '<p class="mb-1">', str(count), '. ', report.get_type_display(), '</p><p class="mb-2">', report.description, '</p>'])
         return ''.join(['<div class="media"><a href="/users/', user_id, ' class="ajax"><figure><img src="', user.get_avatar(), \

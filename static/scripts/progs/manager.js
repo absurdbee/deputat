@@ -98,3 +98,19 @@ on('body', 'click', '.remove_user_close', function() {
 
   link_.send();
 });
+
+on('body', 'click', '.create_user_rejected', function() {
+  item = this.parentElement.parentElement.parentElement.parentElement;
+  user_pk = this.parentElement.getAttribute("user-pk");
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', "/managers/progs_user/create_rejected/" + user_pk + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Верификация отменена!");
+    item.remove();
+  }};
+
+  link_.send();
+});

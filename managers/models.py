@@ -590,7 +590,7 @@ class ModerationPenalty(models.Model):
         if self.is_suspend():
             span = '<span class="small">До ' + str(self.expiration) + '</span> (<a class="small remove_user_suspend pointer">Отменить заморозку</a> | <a class="small user_unverify pointer">Отменить проверку</a>)'
         elif self.is_closed():
-            span = '<span class="small">Заблокирован</span>(<a class="small remove_user_bloсk pointer">Отменить блокировку</a> | <a class="small user_unverify pointer">Отменить проверку</a>)'
+            span = '<span class="small">Заблокирован</span>(<a class="small remove_user_close pointer">Отменить блокировку</a> | <a class="small user_unverify pointer">Отменить проверку</a>)'
         elif self.is_banner():
             span = '<span class="small">Баннер предупреждения</span>(<a class="small remove_user_warning_banner pointer">Убрать баннер</a> | <a class="small user_unverify pointer">Отменить проверку</a>)'
         else:

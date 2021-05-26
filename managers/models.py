@@ -358,7 +358,7 @@ class Moderated(models.Model):
     def create_warning_banner(self, manager_id):
         self.verified = True
         self.save()
-        ModerationPenaltyUser.create_banner_penalty(moderated_object=self, manager_id=manager_id, type=self.type, object_id=self.object_id)
+        ModerationPenalty.create_banner_penalty(moderated_object=self, manager_id=manager_id, type=self.type, object_id=self.object_id)
     def create_close(self, object, description, manager_id):
         self.status = Moderated.CLOSE
         self.description = description

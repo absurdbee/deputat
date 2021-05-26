@@ -16,7 +16,7 @@ on('body', 'click', '.create_user_close', function() {
   open_fullscreen("/managers/progs_user/create_close/" + pk + "/", loader)
 })
 
-on('#ajax', 'click', '.create_user_blocker_btn', function() {
+on('body', 'click', '.create_user_blocker_btn', function() {
   parent = this.parentElement.parentElement.parentElement.parentElement;
   form_data = new FormData(parent);
   if (document.body.querySelector(".pk_saver")){
@@ -45,4 +45,37 @@ on('#ajax', 'click', '.create_user_blocker_btn', function() {
   }};
 
   link_.send(form_data);
+});
+
+on('body', 'click', '.user_unverify', function() {
+  item = this.parentElement.parentElement.parentElement.parentElement;
+  user_pk = item.getAttribute("user-pk");
+  obj_pk = item.getAttribute("data-pk");
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', "/managers/progs_user/unverify/" + user_pk + "/" + obj_pk + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Верификация отменена!");
+    li.remove();
+  }};
+
+  link_.send();
+});
+
+on('body', 'click', '.remove_user_close', function() {
+  item = this.parentElement.parentElement.parentElement.parentElement;
+  user_pk = item.getAttribute("user-pk");
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', "/managers/progs_user/unverify/" + user_pk + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Верификация отменена!");
+    li.remove();
+  }};
+
+  link_.send();
 });

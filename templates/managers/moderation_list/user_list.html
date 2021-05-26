@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Жалобы на пользователей{% endblock %}
+{% load manager_tags %}
 {% block content %}
 
 <div class="row">
@@ -27,31 +28,7 @@
               <ul class="list-group is_paginate">
                   {% for object in object_list %}
                   <li class="list-group-item pag {% if forloop.last %}last{% endif %}" user-pk="{{ object.object_id }}">
-                      <div class="media">
-                        <a href="/users/{{ object.object_id }}" class="ajax">
-                            <figure>
-                                <img src="{{ object.user.get_avatar }}" style="border-radius:50px;width:50px;" alt="image">
-                            </figure>
-                        </a>
-                        <div class="media-body">
-                            <h6 class="my-0 mt-1">
-                              <a href="/users/{{ object.object_id }}" class="ajax">
-                                <h6 class="my-0 mt-1">
-                                  {{ object.user.get_full_name }}
-                                </h6>
-                              </a>  ({{ object.reports_count_ru }}</h6>
-                            {% for report in object.user_reports.all %}
-                              <p class="mb-1">{{ forloop.counter }}. {{ report.get_type_display }}</p>
-                              <p class="mb-2">{{ report.description }}</p>
-                            {% endfor %}
-                              <div class="py-2 border-top btn_console">
-                                <a class="create_user_suspend pointer">Заморозить</a>
-                              | <a class="create_user_close pointer">Заблокировать</a>
-                              | <a class="create_user_warning_banner pointer">Повесить баннер</a>
-                              | <a class="create_user_rejected pointer">Отклонить</a>
-                              </div>
-                        </div>
-                      </div>
+                      {{ object|get_user:object.object_id }}
                   </li>
                   {% endfor %}
               </ul>

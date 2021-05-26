@@ -396,6 +396,20 @@ class Moderated(models.Model):
         self.status = ModeratedUser.REJECTED
         self.save()
 
+    def get_user(self, user_id):
+        try:
+            from users.models import User
+            user = User.objects.get(pk=user_id)
+            reports, count = '', 0
+            for report in self.user_reports():
+                count += 1
+                reports = ''.join([reports, '<p class="mb-1">', str(count), '. ', report.get_type_display(), '</p><p class="mb-2">', report.description, '</p>'])
+            return ''.join(['<div class="media"><a href="/users/', user_id, ' class="ajax"><figure><img src="', user.get_avatar(), '" style="border-radius:50px;width:50px;" alt="image"></figure></a><div class="media-body"><h6 class="my-0 mt-1"><a href="/users/', user_id, ' class="ajax"><h6 class="my-0 mt-1">', user.get_full_name(), '</h6></a> ', self.reports_count_ru(), '</h6><div class="mb-1 mt-1">', reports, '</div><div class="py-2 border-top btn_console"><a class="create_user_suspend pointer">Заморозить</a>| <a class="create_user_close pointer">Заблокировать</a>| <a class="create_user_warning_banner pointer">Повесить баннер</a>| <a class="create_user_rejected pointer">Отклонить</a></div></div></div>'])
+        except:
+            return '<div class="media">Ошибка отображения данных</div>'
+
+
+
     @classmethod
     def get_moderation_users(cls):
         return cls.objects.filter(type="USE", verified=False)

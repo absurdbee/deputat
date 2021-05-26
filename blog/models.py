@@ -271,7 +271,7 @@ class Blog(models.Model):
 
 
 class ElectNew(models.Model):
-    PROCESSING, SUGGESTED, PUBLISHED, MANAGER, DELETED, CLOSED = '_PRO', '_SUG', 'PUB', 'MAN','_DEL','_CLO'
+    PROCESSING, SUGGESTED, PUBLISHED, MANAGER, DELETED, CLOSED = '_PRO', 'SUG', 'PUB', 'MAN','_DEL','_CLO'
     DELETED_MANAGER, CLOSED_MANAGER, REJECTED = '_DELM','_CLOM','_REJ'
     TYPE = (
         (PROCESSING, 'обрабатывается'),(SUGGESTED, 'на рассмотрении'), (PUBLISHED, 'опубликована'),(DELETED, 'удалена'),(CLOSED, 'закрыта модератором'),(MANAGER, 'создана персоналом'),

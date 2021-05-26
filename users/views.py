@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from users.models import User
 from django.views.generic import ListView
-from common.templates import get_small_template
+from common.templates import get_small_template, get_my_template
 from django.http import HttpResponse
 
 
@@ -48,7 +48,15 @@ class UserNewsView(ListView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
+		if self.user.pk == request.user.pk:
+			user_news = self.user.get_my_news()
+		else:
+			user_news = self.user.get_news()
 		self.template_name = get_small_template("profile/user_news.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user(self.user, "profile/news/", "user.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			self.template_name = get_template_anon_user(self.user, "profile/news/anon_user.html", request.META['HTTP_USER_AGENT'])
 		return super(UserNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -57,7 +65,6 @@ class UserNewsView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		user_news = self.user.get_news()
 		return user_news
 
 
@@ -170,7 +177,7 @@ class UserTransactionsView(ListView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.user = request.user
-		self.template_name = get_small_template("profile/transactions.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/transactions.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserTransactionsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

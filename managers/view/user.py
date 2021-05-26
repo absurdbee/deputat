@@ -184,16 +184,16 @@ class UserSuspensionCreate(TemplateView):
             moderate_obj.save()
             if severity_int == '4':
                 duration_of_penalty = timezone.timedelta(days=30)
-                UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_CRITICAL)
+                UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_CRITICAL)
             elif severity_int == '3':
                 duration_of_penalty = timezone.timedelta(days=7)
-                UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_HIGH)
+                UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_HIGH)
             elif severity_int == '2':
                 duration_of_penalty = timezone.timedelta(days=3)
-                UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_MEDIUM)
+                UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_MEDIUM)
             elif severity_int == '1':
                 duration_of_penalty = timezone.timedelta(hours=6)
-                UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_LOW)
+                UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_LOW)
             moderate_obj.create_suspend(manager_id=request.user.pk, duration_of_penalty=duration_of_penalty)
             return HttpResponse()
         else:
@@ -205,7 +205,7 @@ class UserSuspensionDelete(View):
         if request.is_ajax() and request.user.is_user_manager() or request.user.is_superuser:
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.delete_suspend(manager_id=request.user.pk)
-            UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.SUSPENDED_HIDE)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SUSPENDED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -231,7 +231,7 @@ class UserCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")
             moderate_obj.create_close(object=user, description=mod.description, manager_id=request.user.pk)
-            UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.CLOSED)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -242,7 +242,7 @@ class UserCloseDelete(View):
         if request.is_ajax() and (request.user.is_user_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.delete_close(object=user, manager_id=request.user.pk)
-            UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.CLOSED_HIDE)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -271,7 +271,7 @@ class UserWarningBannerCreate(TemplateView):
             moderate_obj.description = mod.description
             moderate_obj.save()
             moderate_obj.create_warning_banner(manager_id=request.user.pk)
-            UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.WARNING_BANNER)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.WARNING_BANNER)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -306,7 +306,7 @@ class UserWarningBannerDelete(View):
         if request.is_ajax() and (request.user.is_user_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.delete_warning_banner(manager_id=request.user.pk)
-            UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.WARNING_BANNER_HIDE)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.WARNING_BANNER_HIDE)
             return HttpResponse()
         else:
             raise Http404
@@ -317,7 +317,7 @@ class UserRejectedCreate(View):
         if request.is_ajax() and (request.user.is_user_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
-            UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.REJECT)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -327,7 +327,7 @@ class UserUnverify(View):
         user, obj = User.objects.get(pk=self.kwargs["user_pk"]), Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_user_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
-            UserManageLog.objects.create(item=user.pk, manager=request.user.pk, action_type=UserManageLog.UNVERIFY)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.UNVERIFY)
             return HttpResponse()
         else:
             raise Http404

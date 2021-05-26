@@ -20,10 +20,10 @@ on('body', 'click', '.create_user_blocker_btn', function() {
   parent = this.parentElement.parentElement.parentElement.parentElement;
   form_data = new FormData(parent);
   if (document.body.querySelector(".pk_saver")){
-    pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
+    pk = document.body.querySelector(".pk_saver").getAttribute("user-pk")
   }else if (document.body.querySelector(".changed")){
     li = document.body.querySelector(".changed");
-    pk = li.getAttribute("data-pk");
+    pk = li.getAttribute("user-pk");
   }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

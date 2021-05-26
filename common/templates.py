@@ -83,9 +83,9 @@ def get_fine_user(user):
     if user.is_suspended():
         return "generic/u_template/user_suspended.html"
     elif user.is_deleted():
-        return "generic/u_template/user_deleted.html"
+        return "generic/u_template/deleted_user.html"
     elif user.is_closed():
-        return "generic/u_template/user_closed.html"
+        return "generic/u_template/closed_user.html"
 def get_fine_anon_user(user):
     if user.is_suspended():
         return "generic/u_template/anon_user_suspended.html"

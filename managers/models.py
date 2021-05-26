@@ -582,3 +582,22 @@ class ModerationPenalty(models.Model):
     @classmethod
     def get_penalty_docs(cls, user_id):
         return cls.objects.filter(manager__id=user_id, type__contains="DO")
+
+    def get_user(self, user_id):
+        try:
+            from users.models import User
+            user = User.objects.get(pk=user_id)
+            if self.is_suspend():
+                span = '<span class="small">До ', object.expiration, '</span>(<a class="small remove_user_suspend pointer">Отменить заморозку</a> |<a class="small user_unverify pointer">Отменить проверку</a>)'
+            elif self.is_bloked():
+                span = '<span class="small">Заблокирован</span>(<a class="small remove_user_bloсk pointer">Отменить блокировку</a> |<a class="small user_unverify pointer">Отменить проверку</a>)'
+            elif self.is_banner():
+                span = '<span class="small">Баннер предупреждения</span>(<a class="small remove_user_warning_banner pointer">Убрать баннер</a> |<a class="small user_unverify pointer">Отменить проверку</a>)'
+            else:
+                span = '<span class="small">Санкции не применены</span>'
+            return ''.join(['<div class="media"><a href="/users/', str(user_id), '" class="ajax"><figure><img src="', user.get_avatar(), \
+            '" style="width: 90px;" alt="image"></figure></a><div class="media-body pl-1"><h6 class="my-0 mt-1"><a href="/users/', \
+            str(user_id), '" class="ajax"><h6 class="mt-1">', user.get_full_name(), '</h6></a> ', self.reports_count_ru(), \
+            '</h6><div class="">', reports, '</div><div class="border-top btn_console" data-pk', str(user_id), '>', span, '</div></div></div>'])
+        except:
+            return '<div class="media">Ошибка отображения данных</div>'

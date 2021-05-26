@@ -405,7 +405,7 @@ class Moderated(models.Model):
 
     def reject_moderation(self, manager_id):
         self.verified = True
-        self.status = ModeratedUser.REJECTED
+        self.status = Moderated.REJECTED
         self.save()
 
     def get_reports(self):

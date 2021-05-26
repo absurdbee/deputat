@@ -176,6 +176,8 @@ class UserSuspensionCreate(TemplateView):
         form, user = ModeratedForm(request.POST), User.objects.get(pk=self.kwargs["pk"])
 
         if request.is_ajax() and form.is_valid() and (request.user.is_user_manager() or request.user.is_superuser):
+            from django.utils import timezone
+            
             mod = form.save(commit=False)
             number = request.POST.get('number')
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")

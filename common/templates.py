@@ -252,6 +252,15 @@ def get_template_user_item(item, folder, template, request_user, user_agent, sta
 
 def get_template_user(user, folder, template, request_user, user_agent):
     # Полная страница пользователя для зарегистрированного пользователя
+    import re
+    MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+    from stst.models import UserNumbers
+
+    if MOBILE_AGENT_RE.match(user_agent):
+        UserNumbers.objects.create(visitor=request_user.pk, target=user_pk, device=UserNumbers.PHONE)
+    else:
+        UserNumbers.objects.create(visitor=request_user.pk, target=user_pk, device=UserNumbers.DESCTOP)
+
     update_activity(request_user, user_agent)
     if request_user.type[0] == "_":
         template_name = get_fine_request_user(request_user)
@@ -265,7 +274,7 @@ def get_template_user(user, folder, template, request_user, user_agent):
         elif request_user.is_blocked_with_user_with_id(user_id=user.pk):
             template_name = "generic/u_template/block_user.html"
         else:
-            template_name = folder + template 
+            template_name = folder + template
     return get_folder(user_agent) + template_name
 
 def get_template_anon_user(user, template, user_agent):

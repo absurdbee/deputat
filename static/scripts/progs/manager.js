@@ -68,7 +68,7 @@ on('body', 'click', '.remove_user_close', function() {
   item = this.parentElement.parentElement.parentElement.parentElement;
   user_pk = item.getAttribute("user-pk");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/managers/progs_user/unverify/" + user_pk + "/", true );
+  link_.open( 'GET', "/managers/progs_user/delete_close/" + user_pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

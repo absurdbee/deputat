@@ -101,7 +101,7 @@ on('body', 'click', '.remove_user_close', function() {
 
 on('body', 'click', '.create_user_rejected', function() {
   item = this.parentElement.parentElement.parentElement.parentElement;
-  user_pk = this.parentElement.getAttribute("user-pk");
+  user_pk = this.parentElement.getAttribute("data-pk");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/managers/progs_user/create_rejected/" + user_pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

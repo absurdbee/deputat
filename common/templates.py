@@ -257,9 +257,9 @@ def get_template_user(user, folder, template, request_user, user_agent):
     from stst.models import UserNumbers
 
     if MOBILE_AGENT_RE.match(user_agent):
-        UserNumbers.objects.create(visitor=request_user.pk, target=user_pk, device=UserNumbers.PHONE)
+        UserNumbers.objects.create(visitor=request_user.pk, target=user.pk, device=UserNumbers.PHONE)
     else:
-        UserNumbers.objects.create(visitor=request_user.pk, target=user_pk, device=UserNumbers.DESCTOP)
+        UserNumbers.objects.create(visitor=request_user.pk, target=user.pk, device=UserNumbers.DESCTOP)
 
     update_activity(request_user, user_agent)
     if request_user.type[0] == "_":

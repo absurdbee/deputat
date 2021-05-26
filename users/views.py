@@ -47,12 +47,13 @@ class UserNewsView(ListView, CategoryListMixin):
 	paginate_by = 15
 
 	def get(self,request,*args,**kwargs):
+		from common.templates import get_template_user, get_template_anon_user
+
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		if self.user.pk == request.user.pk:
 			user_news = self.user.get_my_news()
 		else:
 			user_news = self.user.get_news()
-		self.template_name = get_small_template("profile/user_news.html", request.user, request.META['HTTP_USER_AGENT'])
 		if request.user.is_authenticated:
 			self.template_name = get_template_user(self.user, "profile/news/", "news.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:

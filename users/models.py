@@ -14,15 +14,15 @@ from city.models import City
 class User(AbstractUser):
     PHONE_NO_VERIFIED, STANDART, DEPUTAT, VERIFIED_SEND, VERIFIED, IDENTIFIED_SEND, IDENTIFIED, MANAGER, SUPERMANAGER = '_PV', 'STA', 'DEP', 'VES', 'VER', 'IDS', 'IDE', 'MAN', 'SUP'
     CLOSED_DEPUTAT, CLOSED_STANDART, CLOSED_VERIFIED_SEND, CLOSED_VERIFIED, CLOSED_IDENTIFIED_SEND, CLOSED_IDENTIFIED, CLOSED_MANAGER = '_CLOD', '_CLOS', '_CLOVS', '_CLOV', '_CLOIS', '_CLOI', '_CLOM'
-    DELETED_STANDART, DELETED_VERIFIED_SEND, DELETED_VERIFIED, DELETED_IDENTIFIED_SEND, DELETED_IDENTIFIED, DELETED_MANAGER = '_DELS', '_DELVS', '_DELV', '_DELIS', '_DELI', '_DELM'
-    SUSPENDED_STANDART, SUSPENDED_VERIFIED_SEND, SUSPENDED_VERIFIED, SUSPENDED_IDENTIFIED_SEND, SUSPENDED_IDENTIFIED, SUSPENDED_MANAGER = '_SUSS', '_SUSVS', '_SUSV', '_SUSIS', '_SUSI', '_SUSM'
-    BANNER_STANDART, BANNER_VERIFIED_SEND, BANNER_VERIFIED, BANNER_IDENTIFIED_SEND, BANNER_IDENTIFIED, BANNER_MANAGER = '_BANS', '_BANVS', '_BANV', '_BANIS', '_BANI', '_BANM'
+    DELETED_DEPUTAT, DELETED_STANDART, DELETED_VERIFIED_SEND, DELETED_VERIFIED, DELETED_IDENTIFIED_SEND, DELETED_IDENTIFIED, DELETED_MANAGER = '_DELD', '_DELS', '_DELVS', '_DELV', '_DELIS', '_DELI', '_DELM'
+    SUSPENDED_DEPUTAT, SUSPENDED_STANDART, SUSPENDED_VERIFIED_SEND, SUSPENDED_VERIFIED, SUSPENDED_IDENTIFIED_SEND, SUSPENDED_IDENTIFIED, SUSPENDED_MANAGER = '_SUSD', '_SUSS', '_SUSVS', '_SUSV', '_SUSIS', '_SUSI', '_SUSM'
+    BANNER_DEPUTAT, BANNER_STANDART, BANNER_VERIFIED_SEND, BANNER_VERIFIED, BANNER_IDENTIFIED_SEND, BANNER_IDENTIFIED, BANNER_MANAGER = '_BAND', '_BANS', '_BANVS', '_BANV', '_BANIS', '_BANI', '_BANM'
     TYPE = (
         (PHONE_NO_VERIFIED, 'Телефон не подтвержден'),(STANDART, 'Обычные права'),(DEPUTAT, 'Депутат'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Проверенный'),(IDENTIFIED_SEND, 'Запрос на идентификацию'),(IDENTIFIED, 'Идентифицированный'),(MANAGER, 'Менеджер'),(SUPERMANAGER, 'Суперменеджер'),
-        (DELETED_STANDART, 'Удален'),(DELETED_VERIFIED_SEND, 'Удален подавший на верификацию'),(DELETED_VERIFIED, 'Удален верифицированный'),(DELETED_IDENTIFIED_SEND, 'Удален подавший на идентификацию'),(DELETED_IDENTIFIED, 'Удален идентифиированный'),(DELETED_MANAGER, 'Удален менеджер'),
-        (CLOSED_STANDART, 'Закрыт'),(CLOSED_VERIFIED_SEND, 'Удален подавший на верификацию'),(CLOSED_VERIFIED, 'Закрыт верифицированный'),(CLOSED_IDENTIFIED_SEND, 'Закрыт подавший на идентификацию'),(CLOSED_IDENTIFIED, 'Закрыт идентифиированный'),(CLOSED_MANAGER, 'Закрыт менеджер'),
-        (SUSPENDED_STANDART, 'Заморожен'),(SUSPENDED_VERIFIED_SEND, 'Заморожен подавший на верификацию'),(SUSPENDED_VERIFIED, 'Заморожен верифицированный'),(SUSPENDED_IDENTIFIED_SEND, 'Заморожен подавший на идентификацию'),(SUSPENDED_IDENTIFIED, 'Заморожен идентифиированный'),(SUSPENDED_MANAGER, 'Заморожен менеджер'),
-        (BANNER_STANDART, 'Баннер'),(BANNER_VERIFIED_SEND, 'Баннер подавший на верификацию'),(BANNER_VERIFIED, 'Баннер верифицированный'),(BANNER_IDENTIFIED_SEND, 'Баннер подавший на идентификацию'),(BANNER_IDENTIFIED, 'Баннер идентифиированный'),(BANNER_MANAGER, 'Баннер менеджер'),
+        (DELETED_DEPUTAT, 'Удален депутат'),(DELETED_STANDART, 'Удален'),(DELETED_VERIFIED_SEND, 'Удален подавший на верификацию'),(DELETED_VERIFIED, 'Удален верифицированный'),(DELETED_IDENTIFIED_SEND, 'Удален подавший на идентификацию'),(DELETED_IDENTIFIED, 'Удален идентифиированный'),(DELETED_MANAGER, 'Удален менеджер'),
+        (CLOSED_DEPUTAT, 'Закрыт депутат'),(CLOSED_STANDART, 'Закрыт'),(CLOSED_VERIFIED_SEND, 'Удален подавший на верификацию'),(CLOSED_VERIFIED, 'Закрыт верифицированный'),(CLOSED_IDENTIFIED_SEND, 'Закрыт подавший на идентификацию'),(CLOSED_IDENTIFIED, 'Закрыт идентифиированный'),(CLOSED_MANAGER, 'Закрыт менеджер'),
+        (SUSPENDED_DEPUTAT, 'Заморожен депутат'),(SUSPENDED_STANDART, 'Заморожен'),(SUSPENDED_VERIFIED_SEND, 'Заморожен подавший на верификацию'),(SUSPENDED_VERIFIED, 'Заморожен верифицированный'),(SUSPENDED_IDENTIFIED_SEND, 'Заморожен подавший на идентификацию'),(SUSPENDED_IDENTIFIED, 'Заморожен идентифиированный'),(SUSPENDED_MANAGER, 'Заморожен менеджер'),
+        (BANNER_DEPUTAT, 'Баннер депутат'),(BANNER_STANDART, 'Баннер'),(BANNER_VERIFIED_SEND, 'Баннер подавший на верификацию'),(BANNER_VERIFIED, 'Баннер верифицированный'),(BANNER_IDENTIFIED_SEND, 'Баннер подавший на идентификацию'),(BANNER_IDENTIFIED, 'Баннер идентифиированный'),(BANNER_MANAGER, 'Баннер менеджер'),
     )
     MALE, FEMALE, DESCTOP, PHONE = 'Man', 'Fem', 'De', 'Ph'
     GENDER = ((MALE, 'Мужской'),(FEMALE, 'Женский'),)
@@ -82,6 +82,39 @@ class User(AbstractUser):
         elif self.type == "_CLOIS":
             self.type = User.IDENTIFIED_SEND
         elif self.type == "_CLOI":
+            self.type = User.IDENTIFIED
+        self.save(update_fields=['type'])
+
+    def suspend_item(self):
+        if self.type == "DEP":
+            self.type = User.SUSPENDED_DEPUTAT
+        elif self.type == "STA":
+            self.type = User.SUSPENDED_STANDART
+        elif self.type == "MAN":
+            self.type = User.SUSPENDED_MANAGER
+        elif self.type == "VES":
+            self.type = User.SUSPENDED_VERIFIED_SEND
+        elif self.type == "VER":
+            self.type = User.SUSPENDED_VERIFIED
+        elif self.type == "IDS":
+            self.type = User.SUSPENDED_IDENTIFIED_SEND
+        elif self.type == "IDE":
+            self.type = User.SUSPENDED_IDENTIFIED
+        self.save(update_fields=['type'])
+    def abort_suspend_item(self):
+        if self.type == "_SUSD":
+            self.type = User.DEPUTAT
+        elif self.type == "_SUSS":
+            self.type = User.STANDART
+        elif self.type == "_SUSM":
+            self.type = User.MANAGER
+        elif self.type == "_SUSVS":
+            self.type = User.VERIFIED_SEND
+        elif self.type == "_SUSV":
+            self.type = User.VERIFIED
+        elif self.type == "_SUSIS":
+            self.type = User.IDENTIFIED_SEND
+        elif self.type == "_SUSI":
             self.type = User.IDENTIFIED
         self.save(update_fields=['type'])
 

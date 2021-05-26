@@ -197,6 +197,7 @@ class UserSuspensionCreate(TemplateView):
                 duration_of_penalty = timezone.now() + timezone.timedelta(hours=6)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_LOW)
             moderate_obj.create_suspend(manager_id=request.user.pk, duration_of_penalty=duration_of_penalty)
+            user.suspend_item()
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -208,6 +209,7 @@ class UserSuspensionDelete(View):
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.delete_suspend(manager_id=request.user.pk)
             UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SUSPENDED_HIDE)
+            user.abort_suspend_item()
             return HttpResponse()
         else:
             raise Http404

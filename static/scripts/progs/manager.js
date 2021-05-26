@@ -34,7 +34,7 @@ on('body', 'click', '.create_user_blocker_btn', function() {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Аккаунт заблокирован!");
     document.querySelector(".window_fullscreen").style.display = "none";
-    document.getElementById("worker_loader").innerHTML="";
+    document.getElementById("window_loader").innerHTML="";
     if (document.body.querySelector(".pk_saver")) {
       a = document.body.querySelector(".create_user_close");
       a.innerHTML = "Отменить блокировку";

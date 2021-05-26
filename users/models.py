@@ -12,8 +12,8 @@ from city.models import City
 """
 
 class User(AbstractUser):
-    PHONE_NO_VERIFIED, STANDART, VERIFIED_SEND, VERIFIED, IDENTIFIED_SEND, IDENTIFIED, MANAGER, SUPERMANAGER = '_PV', 'STA', 'VES', 'VER', 'IDS', 'IDE', 'MAN', 'SUP'
-    CLOSED_STANDART, CLOSED_VERIFIED_SEND, CLOSED_VERIFIED, CLOSED_IDENTIFIED_SEND, CLOSED_IDENTIFIED, CLOSED_MANAGER = '_CLOS', '_CLOVS', '_CLOV', '_CLOIS', '_CLOI', '_CLOM'
+    PHONE_NO_VERIFIED, STANDART, DEPUTAT, VERIFIED_SEND, VERIFIED, IDENTIFIED_SEND, IDENTIFIED, MANAGER, SUPERMANAGER = '_PV', 'STA', 'DEP', 'VES', 'VER', 'IDS', 'IDE', 'MAN', 'SUP'
+    CLOSED_DEPUTAT, CLOSED_STANDART, CLOSED_VERIFIED_SEND, CLOSED_VERIFIED, CLOSED_IDENTIFIED_SEND, CLOSED_IDENTIFIED, CLOSED_MANAGER = '_CLOD', '_CLOS', '_CLOVS', '_CLOV', '_CLOIS', '_CLOI', '_CLOM'
     DELETED_STANDART, DELETED_VERIFIED_SEND, DELETED_VERIFIED, DELETED_IDENTIFIED_SEND, DELETED_IDENTIFIED, DELETED_MANAGER = '_DELS', '_DELVS', '_DELV', '_DELIS', '_DELI', '_DELM'
     SUSPENDED_STANDART, SUSPENDED_VERIFIED_SEND, SUSPENDED_VERIFIED, SUSPENDED_IDENTIFIED_SEND, SUSPENDED_IDENTIFIED, SUSPENDED_MANAGER = '_SUSS', '_SUSVS', '_SUSV', '_SUSIS', '_SUSI', '_SUSM'
     BANNER_STANDART, BANNER_VERIFIED_SEND, BANNER_VERIFIED, BANNER_IDENTIFIED_SEND, BANNER_IDENTIFIED, BANNER_MANAGER = '_BANS', '_BANVS', '_BANV', '_BANIS', '_BANI', '_BANM'
@@ -51,6 +51,39 @@ class User(AbstractUser):
             return "W" + verb
         else:
             return verb
+
+    def close_item(self):
+        if self.type == "DEP":
+            self.type = User.CLOSED_DEPUTAT
+        elif self.type == "STA":
+            self.type = User.CLOSED
+        elif self.type == "MAN":
+            self.type = User.CLOSED_MANAGER
+        elif self.type == "VES":
+            self.type = User.CLOSED_VERIFIED_SEND
+        elif self.type == "VER":
+            self.type = User.CLOSED_VERIFIED
+        elif self.type == "IDS":
+            self.type = User.CLOSED_IDENTIFIED_SEND
+        elif self.type == "IDE":
+            self.type = User.CLOSED_IDENTIFIED
+        self.save(update_fields=['type'])
+    def abort_close_item(self):
+        if self.type == "_CLOD":
+            self.type = User.DEPUTAT
+        elif self.type == "_CLOS":
+            self.type = User.STANDART
+        elif self.type == "_CLOM":
+            self.type = User.MANAGER
+        elif self.type == "_CLOVS":
+            self.type = User.VERIFIED_SEND
+        elif self.type == "_CLOV":
+            self.type = User.VERIFIED
+        elif self.type == "_CLOIS":
+            self.type = User.IDENTIFIED_SEND
+        elif self.type == "_CLOI":
+            self.type = User.IDENTIFIED
+        self.save(update_fields=['type'])
 
     def get_full_name_genitive(self):
         import pymorphy2

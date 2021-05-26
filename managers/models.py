@@ -421,7 +421,7 @@ class Moderated(models.Model):
             reports, count = '', 0
             for report in self.reports.all():
                 count += 1
-                reports = ''.join([reports, '<p class="mb-1">', str(count), '. ', report.get_type_display(), ' (', report.description, ')</p>'])
+                reports = ''.join([reports, '<span>', str(count), '. ', report.get_type_display(), ' (', report.description, ')</span><br>'])
             return ''.join(['<div class="media"><a href="/users/', str(user_id), '" class="ajax"><figure><img src="', user.get_avatar(), \
             '" style="width: 90px;" alt="image"></figure></a><div class="media-body pl-1"><h6 class="my-0 mt-1"><a href="/users/', \
             str(user_id), '" class="ajax"><h6 class="mt-1">', user.get_full_name(), '</h6></a> ', self.reports_count_ru(), \

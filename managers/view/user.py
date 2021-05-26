@@ -162,7 +162,7 @@ class UserSuspensionCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         if request.user.is_user_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/user_suspend.html", request.user, request.META['HTTP_USER_AGENT'])
+            self.template_name = get_detect_platform_template("managers/manage_create/user/user_suspend.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
         return super(UserSuspensionCreate,self).get(request,*args,**kwargs)
@@ -215,7 +215,7 @@ class UserCloseCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         if request.user.is_user_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/user_close.html", request.user, request.META['HTTP_USER_AGENT'])
+            self.template_name = get_detect_platform_template("managers/manage_create/user/user_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
         return super(UserCloseCreate,self).get(request,*args,**kwargs)
@@ -252,7 +252,7 @@ class UserWarningBannerCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         if request.user.is_user_manager() or request.user.is_superuser:
-            self.template_name = get_detect_platform_template("managers/manage_create/user_warning_banner.html", request.user, request.META['HTTP_USER_AGENT'])
+            self.template_name = get_detect_platform_template("managers/manage_create/user/user_warning_banner.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
         return super(UserWarningBannerCreate,self).get(request,*args,**kwargs)
@@ -280,7 +280,7 @@ class UserClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.template_name = get_detect_platform_template("managers/manage_create/user_claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_detect_platform_template("managers/manage_create/user/user_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(UserClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

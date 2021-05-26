@@ -17,7 +17,7 @@ function get_sanction_window(_this, url) {
 function send_sanction(_this, form, url, old_class, new_class, toast) {
   form_data = new FormData(form);
   if (document.body.querySelector(".pk_saver")){
-    pk = document.body.querySelector(".pk_saver").getAttribute("user-pk")
+    pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
   }else if (document.body.querySelector(".changed")){
     li = document.body.querySelector(".changed");
     pk = li.getAttribute("user-pk");

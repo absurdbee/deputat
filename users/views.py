@@ -51,9 +51,9 @@ class UserNewsView(ListView, CategoryListMixin):
 
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		if self.user.pk == request.user.pk:
-			user_news = self.user.get_my_news()
+			self.user_news = self.user.get_my_news()
 		else:
-			user_news = self.user.get_news()
+			self.user_news = self.user.get_news()
 		if request.user.is_authenticated:
 			self.template_name = get_template_user(self.user, "profile/news/", "news.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
@@ -66,7 +66,7 @@ class UserNewsView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		return user_news
+		return self.user_news
 
 
 class SubscribeElectsView(ListView, CategoryListMixin):

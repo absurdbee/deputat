@@ -413,7 +413,7 @@ class Moderated(models.Model):
         return ''.join(['<div class="media"><a href="/users/', str(user_id), '" class="ajax"><figure><img src="', user.get_avatar(), \
         '" style="width: 90px;" alt="image"></figure></a><div class="media-body pl-1"><h6 class="my-0 mt-1"><a href="/users/', \
         str(user_id), '" class="ajax"><h6 class="mt-1">', user.get_full_name(), '</h6></a> ', self.reports_count_ru(), \
-        '</h6><div class="">', reports, '</div><div class="border-top btn_console"><a class="create_user_suspend pointer">Заморозить</a>| <a class="create_user_close pointer">Заблокировать</a>| <a class="create_user_warning_banner pointer">Повесить баннер</a>| <a class="create_user_rejected pointer">Отклонить</a></div></div></div>'])
+        '</h6><div class="">', reports, '</div><div class="border-top btn_console"><a class="create_user_suspend pointer">Заморозить</a> | <a class="create_user_close pointer">Заблокировать</a> | <a class="create_user_warning_banner pointer">Повесить баннер</a> | <a class="create_user_rejected pointer">Отклонить</a></div></div></div>'])
         #except:
         #    return '<div class="media">Ошибка отображения данных</div>'
 

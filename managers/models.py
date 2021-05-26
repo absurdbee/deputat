@@ -399,6 +399,9 @@ class Moderated(models.Model):
     def get_reports(self):
         return self.reports.all()
 
+    def get_btn_console(self):
+        return '<div class="border-top btn_console"><a class="create_user_suspend pointer">Заморозить</a>| <a class="create_user_close pointer">Заблокировать</a>| <a class="create_user_warning_banner pointer">Повесить баннер</a>| <a class="create_user_rejected pointer">Отклонить</a></div>'
+
     def get_user(self, user_id):
         #try:
         from users.models import User

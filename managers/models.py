@@ -374,7 +374,9 @@ class Moderated(models.Model):
     def delete_close(self, object, manager_id):
         obj = ModerationPenalty.objects.get(moderated_object=self, type=self.type, object_id=self.object_id)
         obj.delete()
-        if object.community:
+        if self.type == "USE" or self.type == "COM":
+            object.abort_close_item()
+        elif object.community:
             object.abort_close_item(object.community)
         else:
             object.close_item(None)

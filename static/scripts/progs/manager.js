@@ -17,9 +17,8 @@ on('body', 'click', '.create_user_close', function() {
 })
 
 on('#ajax', 'click', '.create_user_blocker_btn', function() {
-  parent = this.parentElement;
-  form_data = new FormData(parent.parentElement.parentElement.parentElement);
-  form_post = document.querySelector(form_data);
+  parent = this.parentElement.parentElement.parentElement.parentElement;
+  form_data = new FormData(parent);
   if (document.body.querySelector(".pk_saver")){
     pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
   }else if (document.body.querySelector(".changed")){

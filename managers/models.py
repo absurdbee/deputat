@@ -351,9 +351,7 @@ class Moderated(models.Model):
 
     def create_suspend(self, manager_id, duration_of_penalty):
         self.verified = True
-
-        moderation_expiration = timezone.now() + duration_of_penalty
-        ModerationPenalty.create_suspension_penalty(moderated_object=self, manager_id=manager_id, type=self.type, object_id=self.object_id, expiration=moderation_expiration)
+        ModerationPenalty.create_suspension_penalty(moderated_object=self, manager_id=manager_id, type=self.type, object_id=self.object_id, expiration=duration_of_penalty)
         self.save()
     def create_warning_banner(self, manager_id):
         self.verified = True

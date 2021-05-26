@@ -177,7 +177,7 @@ class UserSuspensionCreate(TemplateView):
 
         if request.is_ajax() and form.is_valid() and (request.user.is_user_manager() or request.user.is_superuser):
             from django.utils import timezone
-            
+
             mod = form.save(commit=False)
             number = request.POST.get('number')
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")
@@ -185,16 +185,16 @@ class UserSuspensionCreate(TemplateView):
             moderate_obj.description = mod.description
             moderate_obj.save()
             if number == '4':
-                duration_of_penalty = timezone.timedelta(days=30)
+                duration_of_penalty = timezone.now() + timezone.timedelta(days=30)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_CRITICAL)
             elif number == '3':
-                duration_of_penalty = timezone.timedelta(days=7)
+                duration_of_penalty = timezone.now() + timezone.timedelta(days=7)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_HIGH)
             elif number == '2':
-                duration_of_penalty = timezone.timedelta(days=3)
+                duration_of_penalty = timezone.now() + timezone.timedelta(days=3)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_MEDIUM)
             elif number == '1':
-                duration_of_penalty = timezone.timedelta(hours=6)
+                duration_of_penalty = timezone.now() + timezone.timedelta(hours=6)
                 UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SEVERITY_LOW)
             moderate_obj.create_suspend(manager_id=request.user.pk, duration_of_penalty=duration_of_penalty)
             return HttpResponse()

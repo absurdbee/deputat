@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block title %}{{ user.get_full_name }}{% endblock %}
+{% block content %}
+
+<div class="content-body">
+    <section class="app-user-edit">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center active">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span class="d-none d-sm-block">Профиль</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_news' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
+                                <path d="M12 20h9"></path>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                            </svg>
+                            <span class="d-none d-sm-block">Лента</span>
+                        </a>
+                    </li>
+                    {% if user.user_private.subscribers %}
+                    <li class="nav-item">
+                        <a href="{% url 'subscribe_elects' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <polyline points="17 11 19 13 23 9"></polyline>
+                            </svg>
+                            <span class="d-none d-sm-block">Подписки</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a href="{% url 'user_gallery' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                            <span class="d-none d-sm-block">Фото</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_video' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-film"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                            <span class="d-none d-sm-block">Видео</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_music' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-music"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                            <span class="d-none d-sm-block">Аудио</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_docs' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text ficon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>                            <span class="d-none d-sm-block">Файлы</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'user_survey' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
+                          <svg height="14px" viewBox="0 0 24 24" width="14px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M18 9l-1.41-1.42L10 14.17l-2.59-2.58L6 13l4 4zm1-6h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04-.39.08-.74.28-1.01.55-.18.18-.33.4-.43.64-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z"/></svg>
+                          <span class="d-none d-sm-block">Опросы</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="row">
+                    <div class="col-lg-8 col-md-7">
+                        <div class="card user-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-12 d-flex flex-column justify-content-between border-container-lg">
+                                        <div class="user-avatar-section">
+                                            <div class="d-flex justify-content-start">
+                                                <img class="img-fluid" src="{{ user.get_avatar }}" alt="User avatar" style="height: 100px;">
+                                                <div class="d-flex flex-column ml-1">
+                                                    <div class="user-info mb-1">
+                                                        <h4 class="mb-0">{{ user.get_full_name }}</h4>
+                                                        <span class="card-text"></span>
+                                                    </div>
+                                                    <div class="d-flex flex-wrap">
+                                                          <a class="card-text user-info-title font-weight-bold create_user_claim mb-0 pointer">Пожаловаться</a>
+                                                          &nbsp;&nbsp;
+                                                          <a class="card-text user-info-title copy_link font-weight-bold mb-0 pointer">Копировать сссылку</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                                        <div class="user-info-wrapper">
+                                            <div class="d-flex flex-wrap">
+                                                <div class="user-info-title">
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Активность</span>
+                                                </div>
+                                                <p class="card-text mb-0" style="margin-left: auto;">{{ user.get_online_display|safe }}</p>
+                                            </div>
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Регистрация</span>
+                                                </div>
+                                                <p class="card-text mb-0" style="margin-left: auto;">{{ user.date_joined }}</p>
+                                            </div>
+                                            {% if user.user_private.city %}
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Регион</span>
+                                                </div>
+                                                <p class="card-text mb-0" style="margin-left: auto;">{{ user.city.region }}</p>
+                                            </div>
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Город</span>
+                                                </div>
+                                                <p class="card-text mb-0" style="margin-left: auto;">{{ user.city }}</p>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if user.user_private.old %}
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Дата рождения</span>
+                                                </div>
+                                                <p class="card-text mb-0" style="margin-left: auto;">{{ user.get_age }}</p>
+                                            </div>
+                                            {% endif %}
+
+                                            {% if user.user_private.other %}
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Образование</span>
+                                                </div>
+                                                <p class="card-text mb-0" style="margin-left: auto;">{{ user.user_info.get_education_display }}</p>
+                                            </div>
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="user-info-title">
+                                                    <span class="card-text user-info-title font-weight-bold mb-0">Сфера занятости</span>
+                                                </div>
+                                                <p class="card-text mb-0" style="margin-left: auto;">{{ user.user_info.get_employment_display }}</p>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

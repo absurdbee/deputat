@@ -250,8 +250,34 @@ def get_template_user_item(item, folder, template, request_user, user_agent, sta
             template_name = folder + template
     return get_folder(user_agent) + template_name
 
+def get_template_user(user, folder, template, request_user, user_agent):
+    # Полная страница пользователя для зарегистрированного пользователя
+    update_activity(request_user, user_agent)
+    if request_user.type[0] == "_":
+        template_name = get_fine_request_user(request_user)
+    elif user.pk == request_user.pk:
+            template_name = folder + "my_" + template
+    elif request_user.pk != user.pk:
+        if user.type[0] == "_":
+            template_name = get_fine_user(user)
+        elif request_user.is_user_manager():
+            template_name = folder + "staff_" + template
+        elif request_user.is_blocked_with_user_with_id(user_id=user.pk):
+            template_name = "generic/u_template/block_user.html"
+        else:
+            template_name = folder + template 
+    return get_folder(user_agent) + template_name
+
+def get_template_anon_user(user, template, user_agent):
+    # Полная страница пользователя (списка или элемента) для анонимного пользователя
+    if user.type[0] == "_":
+        template_name = get_fine_user(user)
+    else:
+        template_name = template
+    return get_folder(user_agent) + template_name
+
 def get_template_anon_user_item(item, template, user_agent):
-    # Полная страница объекта сообщества (списка или элемента) для анонимного пользователя
+    # Полная страница объекта пользователя (списка или элемента) для анонимного пользователя
     user = item.creator
     if user.type[0] == "_":
         template_name = get_fine_user(user)

@@ -122,7 +122,12 @@ class UserView(TemplateView, CategoryListMixin):
 	template_name = "profile/user.html"
 
 	def get(self,request,*args,**kwargs):
+		from common.templates import get_template_user, get_template_anon_user
 		self.user = User.objects.get(pk=self.kwargs["pk"])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_item(self.user, "profile/user/", "user.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			self.template_name = get_template_anon_user_item(self.user, "profile/user/anon_user.html", request.META['HTTP_USER_AGENT'])
 		return super(UserView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

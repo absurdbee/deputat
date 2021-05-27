@@ -145,16 +145,24 @@ class User(AbstractUser):
 
     def get_doc_list(self):
         from docs.models import DocList
-        return DocList.objects.get(creator_id=self.pk, community__isnull=True, type__contains="MAI")
+        query =  Q(creator_id=self.pk, community__isnull=True)
+        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        return DocList.objects.get(query)
     def get_playlist(self):
         from music.models import SoundList
-        return SoundList.objects.get(creator_id=self.pk, community__isnull=True, type__contains="MAI")
+        query =  Q(creator_id=self.pk, community__isnull=True)
+        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        return SoundList.objects.get(query)
     def get_video_list(self):
         from video.models import VideoList
-        return VideoList.objects.get(creator_id=self.pk, community__isnull=True, type__contains="MAI")
+        query =  Q(creator_id=self.pk, community__isnull=True)
+        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        return VideoList.objects.get(query)
     def get_survey_list(self):
         from survey.models import SurveyList
-        return SurveyList.objects.get(creator_id=self.pk, community__isnull=True, type__contains="MAI")
+        query =  Q(creator_id=self.pk, community__isnull=True)
+        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        return SurveyList.objects.get(query)
 
     def get_full_name(self):
         return self.first_name + " " + self.last_name

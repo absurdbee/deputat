@@ -172,9 +172,10 @@ class PhotoClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         if request.is_ajax():
+            photo = Photo.objects.get(uuid=self.kwargs["uuid"])
             description = request.POST.get('description')
             type = request.POST.get('type')
-            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="PHO", object_id=self.kwargs["pk"], description=description, type=type)
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="PHO", object_id=photo.pk, description=description, type=type)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -206,7 +207,7 @@ class ListPhotoClaimCreate(View):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         self.template_name = get_detect_platform_template("managers/manage_create/photo/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ListPhotoClaimCreate,self).get(request,*args,**kwargs)
 
@@ -218,7 +219,7 @@ class ListPhotoClaimCreate(View):
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
-        self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax():
             description = request.POST.get('description')
             type = request.POST.get('type')
@@ -229,7 +230,7 @@ class ListPhotoClaimCreate(View):
 
 class ListPhotoRejectedCreate(View):
     def get(self,request,*args,**kwargs):
-        list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="PHL")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
@@ -241,7 +242,7 @@ class ListPhotoRejectedCreate(View):
 
 class ListPhotoUnverify(View):
     def get(self,request,*args,**kwargs):
-        list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
@@ -254,7 +255,7 @@ class ListPhotoCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         if request.user.is_photo_manager() or request.user.is_superuser:
             self.template_name = get_detect_platform_template("managers/manage_create/photo/list_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
@@ -267,7 +268,7 @@ class ListPhotoCloseCreate(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
-        list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         form = ModeratedForm(request.POST)
         if form.is_valid() and (request.user.is_photo_manager() or request.user.is_superuser):
             mod = form.save(commit=False)
@@ -280,7 +281,7 @@ class ListPhotoCloseCreate(TemplateView):
 
 class ListPhotoCloseDelete(View):
     def get(self,request,*args,**kwargs):
-        list = PhotoList.objects.get(pk=self.kwargs["pk"])
+        list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="PHL")
             moderate_obj.delete_close(object=list, manager_id=request.user.pk)

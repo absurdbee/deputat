@@ -1,18 +1,14 @@
 {% load filters %}
 
 <div class="container mt-3" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
-  <div class="row no-gutters">
+  <div class="row no-gutters" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
     {% if list|is_user_can_add_list:request.user.pk %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-      <span>
         <a class="btn btn-sm border u_copy_video_list" style="width: -webkit-fill-available;font-size: 19px;">Добавить</a>
-      </span>
     </div>
     {% elif request.user.pk in list.get_users_ids %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">
-      <span>
         <a class="btn btn-sm border u_uncopy_video_list" style="width: -webkit-fill-available;font-size: 19px;">Удалить</a>
-      </span>
     </div>
     {% endif %}
     <div style="flex: 0 0 40%;max-width:40%;padding:5px;">

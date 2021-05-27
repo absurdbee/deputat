@@ -18,14 +18,14 @@ urlpatterns = [
     url(r'^delete_worker_editor/(?P<pk>\d+)/$', AudioWorkerEditorDelete.as_view()),
 
     url(r'^create_close/(?P<uuid>[0-9a-f-]+)/$', AudioCloseCreate.as_view()),
-    url(r'^delete_close/(?P<pk>\d+)/$', AudioCloseDelete.as_view()),
-    url(r'^create_rejected/(?P<pk>\d+)/$', AudioRejectedCreate.as_view()),
-    url(r'^create_claim/(?P<pk>\d+)/$', AudioClaimCreate.as_view()),
-    url(r'^unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', AudioUnverify.as_view()),
+    url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', AudioCloseDelete.as_view()),
+    url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', AudioRejectedCreate.as_view()),
+    url(r'^create_claim/(?P<uuid>[0-9a-f-]+)/$', AudioClaimCreate.as_view()),
+    url(r'^unverify/(?P<uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', AudioUnverify.as_view()),
 
-    url(r'^list_create_close/(?P<pk>\d+)/$', ListAudioCloseCreate.as_view()),
-    url(r'^list_delete_close/(?P<pk>\d+)/$', ListAudioCloseDelete.as_view()),
-    url(r'^list_create_rejected/(?P<pk>\d+)/$', ListAudioRejectedCreate.as_view()),
-    url(r'^list_create_claim/(?P<pk>\d+)/$', ListAudioClaimCreate.as_view()),
-    url(r'^list_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', ListAudioUnverify.as_view()),
+    url(r'^list_create_close/(?P<uuid>[0-9a-f-]+)/$', ListAudioCloseCreate.as_view()),
+    url(r'^list_delete_close/(?P<uuid>[0-9a-f-]+)/$', ListAudioCloseDelete.as_view()),
+    url(r'^list_create_rejected/(?P<uuid>[0-9a-f-]+)/$', ListAudioRejectedCreate.as_view()),
+    url(r'^list_create_claim/(?P<uuid>[0-9a-f-]+)/$', ListAudioClaimCreate.as_view()),
+    url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', ListAudioUnverify.as_view()),
 ]

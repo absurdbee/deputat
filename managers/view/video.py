@@ -173,9 +173,10 @@ class VideoClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         if request.is_ajax() and request.user.is_authenticated:
+            video = Video.objects.get(uuid=self.kwargs["uuid"])
             description = request.POST.get('description')
             type = request.POST.get('type')
-            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="VID", object_id=self.kwargs["pk"], description=description, type=type)
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="VID", object_id=video.pk, description=description, type=type)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -206,7 +207,7 @@ class ListVideoClaimCreate(View):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.list = VideoList.objects.get(pk=self.kwargs["pk"])
+        self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         self.template_name = get_detect_platform_template("managers/manage_create/video/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ListVideoClaimCreate,self).get(request,*args,**kwargs)
 
@@ -218,7 +219,7 @@ class ListVideoClaimCreate(View):
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
-        self.list = VideoList.objects.get(pk=self.kwargs["pk"])
+        self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax():
             description = request.POST.get('description')
             type = request.POST.get('type')
@@ -229,7 +230,7 @@ class ListVideoClaimCreate(View):
 
 class ListVideoRejectedCreate(View):
     def get(self,request,*args,**kwargs):
-        list = VideoList.objects.get(pk=self.kwargs["pk"])
+        list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="VIL")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
@@ -241,7 +242,7 @@ class ListVideoRejectedCreate(View):
 
 class ListVideoUnverify(View):
     def get(self,request,*args,**kwargs):
-        list = VideoList.objects.get(pk=self.kwargs["pk"])
+        list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
         if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
             obj.unverify_moderation(manager_id=request.user.pk)
@@ -254,7 +255,7 @@ class ListVideoCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.list = VideoList.objects.get(pk=self.kwargs["pk"])
+        self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.user.is_video_manager() or request.user.is_superuser:
             self.template_name = get_detect_platform_template("managers/manage_create/video/list_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
@@ -267,7 +268,7 @@ class ListVideoCloseCreate(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
-        list = VideoList.objects.get(pk=self.kwargs["pk"])
+        list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         form = ModeratedForm(request.POST)
         if form.is_valid() and (request.user.is_video_manager() or request.user.is_superuser):
             mod = form.save(commit=False)
@@ -280,7 +281,7 @@ class ListVideoCloseCreate(TemplateView):
 
 class ListVideoCloseDelete(View):
     def get(self,request,*args,**kwargs):
-        list = VideoList.objects.get(pk=self.kwargs["pk"])
+        list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and (request.user.is_video_manager() or request.user.is_superuser):
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="VIL")
             moderate_obj.delete_close(object=list, manager_id=request.user.pk)

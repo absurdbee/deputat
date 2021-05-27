@@ -351,7 +351,7 @@ def get_template_user_window(item, folder, template, request_user, user_agent, s
 def get_template_anon_user_window(item, template, user_agent):
     # Полная страница объекта сообщества (списка или элемента) для анонимного пользователя
     user = item.creator
-    if user.type[0] == "_" or item.type[0] == "_" or item.is_private():
+    if user.type[0] == "_" or item.type == "CLO" or item.is_private():
         template_name = "generic/u_template/permission_window.html"
     else:
         template_name = template

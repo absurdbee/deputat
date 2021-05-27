@@ -3,6 +3,10 @@ on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
 function close_create_window() {
+    document.querySelector(".window_fullscreen").style.display = "none";
+    document.getElementById("window_loader").innerHTML = "";
+}
+function close_default_window() {
     document.querySelector(".create_fullscreen").style.display = "none";
     document.getElementById("create_loader").innerHTML = "";
 }

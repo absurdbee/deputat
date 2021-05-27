@@ -25,7 +25,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Новость предложена!")
-    close_create_window();
+    close_default_window(); 
   }};
 
   link_.send(form_data);

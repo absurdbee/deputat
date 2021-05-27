@@ -32,7 +32,7 @@ class ModerationDoc(ListView):
         return super(ModerationDoc,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return self.user.get_moderation_docs()
+        return Moderated.get_moderation_docs()
 
 
 class ModerationCommunity(ListView):
@@ -47,7 +47,7 @@ class ModerationCommunity(ListView):
         return super(ModerationCommunity,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return self.user.get_moderation_communities()
+        return Moderated.get_moderation_communities()
 
 class ModerationElectNew(ListView):
     template_name, paginate_by = None, 15
@@ -61,7 +61,7 @@ class ModerationElectNew(ListView):
         return super(ModerationElectNew,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return self.user.get_moderation_posts()
+        return Moderated.get_moderation_elect_news()
 
 class ModerationSurvey(ListView):
     template_name, paginate_by = None, 15
@@ -75,7 +75,7 @@ class ModerationSurvey(ListView):
         return super(ModerationSurvey,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return self.user.get_moderation_post_comments()
+        return Moderated.get_moderation_survey()
 
 
 class ModerationPhoto(ListView):
@@ -90,7 +90,7 @@ class ModerationPhoto(ListView):
         return super(ModerationPhoto,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return self.user.get_moderation_photos()
+        return Moderated.get_moderation_photos()
 
 class ModerationAudio(ListView):
     template_name, paginate_by = None, 15
@@ -104,7 +104,7 @@ class ModerationAudio(ListView):
         return super(ModerationAudio,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return self.user.get_moderation_audios()
+        return Moderated.get_moderation_audios()
 
 
 class ModerationVideo(ListView):
@@ -119,4 +119,4 @@ class ModerationVideo(ListView):
         return super(ModerationVideo,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return self.user.get_moderation_videos()
+        return Moderated.get_moderation_videos()

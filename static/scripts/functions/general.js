@@ -64,7 +64,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   form_data = new FormData(form);
 
   if (document.body.querySelector(".load_block")){
-    uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
+    uuid = _this.getAttribute("data-uuid")
   }
   else if (document.body.querySelector(".changed")){
     div = document.body.querySelector(".changed");

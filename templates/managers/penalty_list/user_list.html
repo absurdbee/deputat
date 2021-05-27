@@ -1,47 +1,36 @@
 {% extends "base.html" %}
-{% block title %}Оштрафованные пользователей{% endblock %}
+{% block title %}Оштрафованные пользователи{% endblock %}
 {% load manager_tags %}
 {% block content %}
 
-<div class="container mt-4 main-container">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Поиск по штраф-листу">
-            <div class="input-group-append">
-                <button class="btn custom_color border" type="button">Искать</button>
-            </div>
-        </div>
+<div class="content-body">
+    <section class="app-user-edit">
         <div class="card">
-            <div class="card-header">
-                <div class="media">
-                    <div class="media-body">
-                      <h5 class="mt-1">Оштрафованные пользователи</h5>
-                      <small class="content-color-secondary float-right mr-2 mt-1"></small>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8 col-md-7">
+                        <div class="card user-card">
+                          <h1 class="mb-0">Оштрафованные пользователи</h1>
+                          {% for object in object_list %}
+                          <div class="list-group-item pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
+                              {{ object|get_user:object.object_id|safe }}
+                          </div>
+                          {% empty %}
+                          <div class="card centered">
+                            <div class="card-body">
+                            <svg fill="currentColor" class="thumb_big svg_default" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                            </div>
+                            <h6> Оштрафованных пользователей нет...</h6>
+                          </div>
+                          {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5">
+
                     </div>
                 </div>
             </div>
-            <div class="card-body px-0 py-0">
-
-              {% if object_list %}
-
-              <ul class="list-group is_paginate">
-                  {% for object in object_list %}
-                  <li class="list-group-item pag {% if forloop.last %}last{% endif %}" user-pk="{{ object.object_id }}" data-pk="{{ object.moderated_object.pk }}">
-                      {{ object|get_user:object.object_id|safe }}
-                  </li>
-                  {% endfor %}
-              </ul>
-
-              {% else %}
-              <div class="card centered">
-                <div class="card-body">
-                <svg fill="currentColor" class="thumb_big svg_default" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-                </div>
-                <h6> Оштрафованных пользователей нет...</h6>
-              </div>
-
-              {% endif %}
-
-            </div>
         </div>
+    </section>
 </div>
 {% endblock %}

@@ -141,7 +141,7 @@ class User(AbstractUser):
         from gallery.models import PhotoList
         query =  Q(creator_id=self.pk, community__isnull=True)
         query.add(Q(Q(type="MAI") | Q(reason="_CMAI")), Q.AND)
-        return DocList.objects.get(query)
+        return PhotoList.objects.get(query)
 
     def get_doc_list(self):
         from docs.models import DocList

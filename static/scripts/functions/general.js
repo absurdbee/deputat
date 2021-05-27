@@ -80,7 +80,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
     document.querySelector(".window_fullscreen").style.display = "none";
     document.getElementById("window_loader").innerHTML="";
 
-    if (div.classList.contains("changed")){
+    if (div && div.classList.contains("changed")){
       div.remove();
     } else{
       _this.innerHTML = "Отменить";

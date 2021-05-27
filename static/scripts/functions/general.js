@@ -63,7 +63,7 @@ function send_user_sanction(_this, form, url, old_class, new_class, toast) {
 function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   form_data = new FormData(form);
 
-  if (_this.parentElement.parentElemen.getAttribute("data-uuid")){
+  if (document.body.querySector(".load_block")){
     uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
   }
   else if (document.body.querySelector(".changed")){
@@ -81,7 +81,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
     document.querySelector(".window_fullscreen").style.display = "none";
     document.getElementById("window_loader").innerHTML="";
 
-    if (_this.parentElement.parentElemen.getAttribute("data-uuid")){
+    if (document.body.querySector(".load_block")){
       _this.innerHTML = "Отменить";
       _this.classList.replace(old_class, new_class)
     }

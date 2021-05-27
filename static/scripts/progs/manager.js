@@ -114,3 +114,13 @@ on('body', 'click', '.create_user_rejected', function() {
 
   link_.send();
 });
+
+
+//////////////////////////// CLOSE ////////////////////
+
+on('body', 'click', '.u_close_photo_list', function() {
+  on_off_list_in_collections(this, "/managers/progs_photo/list_create_close/", "u_unclose_photo_list", "u_close_photo_list", "Отменить")
+});
+on('body', 'click', '.u_unclose_photo_list', function() {
+  on_off_list_in_collections(this, "/managers/progs_photo/list_delete_close/", "u_close_photo_list", "u_unclose_photo_list", "♦ Закрыть список")
+});

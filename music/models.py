@@ -156,7 +156,7 @@ class SoundList(models.Model):
         if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_list(self):
+    def close_item(self):
         from notify.models import Notify, Wall
         if self.type == "LIS":
             self.type = SoundList.CLOSED
@@ -171,7 +171,7 @@ class SoundList(models.Model):
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_list(self):
+    def abort_close_item(self):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = SoundList.LIST
@@ -433,7 +433,7 @@ class Music(models.Model):
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_track(self, community):
+    def close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "PUB":
             self.type = Music.CLOSED
@@ -450,7 +450,7 @@ class Music(models.Model):
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_track(self, community):
+    def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = Music.PUBLISHED

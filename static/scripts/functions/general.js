@@ -82,7 +82,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
     document.getElementById("window_loader").innerHTML="";
 
     if (document.body.querySelector(".load_block")){
-      document.body.querySelector(".load_block").innerHTML = '<div class="card mt-3 centered"Ю<div class="card-body" style="margin-top: 10%;"><svg fill="currentColor" class="thumb_big svg_default" viewBox="0 0 24 24"><g><rect fill="none" height="24" width="24"/></g><g><path d="M14,8c0-2.21-1.79-4-4-4S6,5.79,6,8s1.79,4,4,4S14,10.21,14,8z M17,10v2h6v-2H17z M2,18v2h16v-2c0-2.66-5.33-4-8-4 S2,15.34,2,18z"/></g></svg></div><h6>Сущность блокирована.</h6></div>'
+      document.body.querySelector(".load_block").innerHTML = '<div><div class="card mt-3 centered"Ю<div class="card-body" style="margin-top: 10%;">  <svg class="thumb_big svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div><h6>Сущность блокирована.</h6></div></div>'
     }
     else if (div && div.classList.contains("changed")){
       div.remove();

@@ -42,7 +42,7 @@ class PenaltyCommunity(ListView):
             self.template_name = get_detect_platform_template("managers/penalty_list/community_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
-        return super(PenaltyCommunityself).get(request,*args,**kwargs)
+        return super(PenaltyCommunity,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
         return ModerationPenalty.get_penalty_communities()

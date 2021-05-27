@@ -81,7 +81,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
     document.querySelector(".window_fullscreen").style.display = "none";
     document.getElementById("window_loader").innerHTML="";
 
-    if (document.body.querySector(".load_block")){
+    if (document.body.querySelector(".load_block")){
       _this.innerHTML = "Отменить";
       _this.classList.replace(old_class, new_class)
     }

@@ -16,7 +16,7 @@ from django.db.models import Q
 class SurveyList(models.Model):
     MAIN, LIST, MANAGER, THIS_PROCESSING = 'MAI', 'LIS', 'MAN', '_PRO'
     THIS_DELETED, THIS_DELETED_MANAGER = '_DEL', '_DELM'
-    THIS_CLOSED, THIS_CLOSED_MAIN, THIS_CLOSED_MANAGER, THIS_CLOSED_PRIVATE = '_CLO', '_CMAI', '_CLOMA', '_CLOP'
+    THIS_CLOSED, THIS_CLOSED_MAIN, THIS_CLOSED_MANAGER, THIS_CLOSED_PRIVATE = '_CLO', '_CLOM', '_CLOMA', '_CLOP'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(MANAGER, 'Созданный персоналом'),(THIS_PROCESSING, 'Обработка'),
         (THIS_DELETED, 'Удалённый'),(THIS_DELETED_MANAGER, 'Удалённый менеджерский'),
@@ -202,7 +202,7 @@ class SurveyList(models.Model):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = SurveyList.LIST
-        elif self.type == "_CMAI":
+        elif self.type == "_CLOM":
             self.type = SurveyList.MAIN
         elif self.type == "_CLOMA":
             self.type = SurveyList.MANAGER

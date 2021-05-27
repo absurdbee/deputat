@@ -33,7 +33,7 @@ class VideoCategory(models.Model):
 class VideoList(models.Model):
     MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
     DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
-    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CMAI', '_CLOMA'
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CLOM', '_CLOMA'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
         (DELETED, 'Удалённый'),(DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),
@@ -226,7 +226,7 @@ class VideoList(models.Model):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = VideoList.LIST
-        elif self.type == "_CMAI":
+        elif self.type == "_CLOM":
             self.type = VideoList.MAIN
         elif self.type == "_CLOP":
             self.type = VideoList.PRIVATE

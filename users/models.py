@@ -140,28 +140,28 @@ class User(AbstractUser):
     def get_photo_list(self):
         from gallery.models import PhotoList
         query =  Q(creator_id=self.pk, community__isnull=True)
-        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        query.add(Q(Q(type="MAI") | Q(type="_CLOM")), Q.AND)
         return PhotoList.objects.get(query)
 
     def get_doc_list(self):
         from docs.models import DocList
         query =  Q(creator_id=self.pk, community__isnull=True)
-        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        query.add(Q(Q(type="MAI") | Q(type="_CLOM")), Q.AND)
         return DocList.objects.get(query)
     def get_playlist(self):
         from music.models import SoundList
         query =  Q(creator_id=self.pk, community__isnull=True)
-        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        query.add(Q(Q(type="MAI") | Q(type="_CLOM")), Q.AND)
         return SoundList.objects.get(query)
     def get_video_list(self):
         from video.models import VideoList
         query =  Q(creator_id=self.pk, community__isnull=True)
-        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        query.add(Q(Q(type="MAI") | Q(type="_CLOM")), Q.AND)
         return VideoList.objects.get(query)
     def get_survey_list(self):
         from survey.models import SurveyList
         query =  Q(creator_id=self.pk, community__isnull=True)
-        query.add(Q(Q(type="MAI") | Q(type="_CMAI")), Q.AND)
+        query.add(Q(Q(type="MAI") | Q(type="_CLOM")), Q.AND)
         return SurveyList.objects.get(query)
 
     def get_full_name(self):

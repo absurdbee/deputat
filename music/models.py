@@ -17,7 +17,7 @@ from django.dispatch import receiver
 class SoundList(models.Model):
     MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
     DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
-    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CMAI', '_CLOMA'
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CLOM', '_CLOMA'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
         (DELETED, 'Удалённый'),(DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),
@@ -175,7 +175,7 @@ class SoundList(models.Model):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = SoundList.LIST
-        elif self.type == "_CMAI":
+        elif self.type == "_CLOM":
             self.type = SoundList.MAIN
         elif self.type == "_CLOP":
             self.type = SoundList.PRIVATE

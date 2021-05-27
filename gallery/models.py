@@ -71,9 +71,9 @@ class PhotoList(models.Model):
     def is_private(self):
         return self.type == self.PRIVATE
     def is_deleted(self):
-        return self.type == self.DELETED
+        return self.type[:4] == "_DEL"
     def is_closed(self):
-        return self.type == self.CLOSED
+        return self.type[:4] == "_CLO"
     def is_suspended(self):
         return False
     def is_open(self):
@@ -429,9 +429,9 @@ class Photo(models.Model):
     def is_open(self):
         return self.type == self.MANAGER or self.type == self.PUBLISHED
     def is_deleted(self):
-        return self.type == self.DELETED
+        return self.type[:4] == "_DEL"
     def is_closed(self):
-        return self.type == self.CLOSED
+        return self.type[:4] == "_CLO"
     def is_suspended(self):
         return False
 

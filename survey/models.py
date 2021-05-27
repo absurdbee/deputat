@@ -90,11 +90,11 @@ class SurveyList(models.Model):
     def is_private(self):
         return False
     def is_deleted(self):
-        return self.type == self.DELETED
+        return self.type[:4] == "_DEL"
     def is_open(self):
         return self.type[0] != "_"
     def is_closed(self):
-        return self.type == self.CLOSED
+        return self.type[:4] == "_CLO"
     def is_suspended(self):
         return False
 
@@ -419,11 +419,11 @@ class Survey(models.Model):
         return self.list.all()
 
     def is_deleted(self):
-        return self.type == self.DELETED
+        return self.type[:4] == "_DEL"
     def is_private(self):
         return False
     def is_closed(self):
-        return self.type == self.CLOSED
+        return self.type[:4] == "_CLO"
     def is_suspended(self):
         return False
 

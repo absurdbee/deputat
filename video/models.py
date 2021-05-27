@@ -134,9 +134,9 @@ class VideoList(models.Model):
     def is_private(self):
         return self.type == self.PRIVATE
     def is_deleted(self):
-        return self.type == self.DELETED
+        return self.type[:4] == "_DEL"
     def is_closed(self):
-        return self.type == self.CLOSED
+        return self.type[:4] == "_CLO"
     def is_suspended(self):
         return False
     def is_open(self):
@@ -310,7 +310,6 @@ class Video(models.Model):
     @classmethod
     def create_video(cls, creator, title, file, image, uri, lists, is_public, community):
         from common.processing import get_video_processing
-
 
         if not lists:
             from rest_framework.exceptions import ValidationError
@@ -496,9 +495,9 @@ class Video(models.Model):
     def is_open(self):
         return self.type == self.MANAGER or self.type == self.PUBLISHED
     def is_deleted(self):
-        return self.type == self.DELETED
+        return self.type[:4] == "_DEL"
     def is_closed(self):
-        return self.type == self.CLOSED
+        return self.type[:4] == "_CLO"
     def is_suspended(self):
         return False
 

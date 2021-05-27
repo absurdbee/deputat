@@ -235,6 +235,12 @@ class BlogComment(models.Model):
                     user_wall(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
         return HttpResponse(json.dumps({"like_count": str(self.like)}),content_type="application/json")
 
+    def is_closed(self):
+        return self.type[:4] == "_CLO"
+    def is_deleted(self):
+        return self.type[:4] == "_DEL"
+    def is_suspended(self):
+        return False
 
 
 class ElectNewComment(models.Model):
@@ -457,3 +463,10 @@ class ElectNewComment(models.Model):
                     user_notify(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO")
                     user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO")
         return HttpResponse(json.dumps({"like_count": str(self.like)}),content_type="application/json")
+
+    def is_closed(self):
+        return self.type[:4] == "_CLO"
+    def is_deleted(self):
+        return self.type[:4] == "_DEL"
+    def is_suspended(self):
+        return False

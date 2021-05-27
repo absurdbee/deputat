@@ -15,8 +15,8 @@ def get_music_items(object, object_id):
     return object.get_music_items(object_id)
 
 @register.filter
-def get_photo_items(object, object_id):
-    return object.get_photo_items(object_id)
+def get_photo_items(object):
+    return object.get_photo_items()
 
 @register.filter
 def get_video_items(object, object_id):

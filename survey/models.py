@@ -95,6 +95,8 @@ class SurveyList(models.Model):
         return self.type[0] != "_"
     def is_closed(self):
         return self.type == self.CLOSED
+    def is_suspended(self):
+        return False
 
     @classmethod
     def get_user_lists(cls, user_pk):
@@ -422,6 +424,8 @@ class Survey(models.Model):
         return False
     def is_closed(self):
         return self.type == self.CLOSED
+    def is_suspended(self):
+        return False
 
 
 class Answer(models.Model):

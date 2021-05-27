@@ -107,6 +107,8 @@ class SoundList(models.Model):
         return self.type == self.DELETED
     def is_closed(self):
         return self.type == self.CLOSED
+    def is_suspended(self):
+        return False
     def is_open(self):
         return self.type == self.LIST or self.type == self.MAIN or self.type == self.MANAGER
 
@@ -477,3 +479,5 @@ class Music(models.Model):
         return self.type == self.DELETED
     def is_closed(self):
         return self.type == self.CLOSED
+    def is_suspended(self):
+        return False

@@ -70,6 +70,13 @@ class Blog(models.Model):
     def is_have_inerts(self):
         return self.inert > 0
 
+    def is_suspended(self):
+        return False
+    def is_deleted(self):
+        return False
+    def is_closed(self):
+        return False
+
     def likes_count(self):
         if self.like > 0:
             return self.like
@@ -360,6 +367,8 @@ class ElectNew(models.Model):
         return self.type == ElectNew.SUGGESTED
     def is_closed(self):
         return self.type == ElectNew.CLOSED
+    def is_suspended(self):
+        return False
 
     def likes(self):
         from common.model.votes import ElectNewVotes2

@@ -130,6 +130,8 @@ class DocList(models.Model):
         return self.type == self.CLOSED
     def is_open(self):
         return self.is_main() or self.is_list() or self.type == self.MANAGER
+    def is_suspended(self):
+        return False
 
     def make_private(self):
         from notify.models import Notify, Wall
@@ -416,6 +418,8 @@ class Doc(models.Model):
         return self.type == self.DELETED
     def is_closed(self):
         return self.type == self.CLOSED
+    def is_suspended(self):
+        return False
 
     def get_mime_type(self):
         import magic

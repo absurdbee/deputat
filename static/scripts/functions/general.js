@@ -3,6 +3,64 @@ var ready = (callback) => {
   else document.addEventListener("DOMContentLoaded", callback);
 }
 
+function get_profile_sanction_window(_this, url) {
+  if(_this.parentElement.classList.contains("btn_console")){
+    div = _this.parentElement.parentElement.parentElement.parentElement;
+    pk = _this.parentElement.getAttribute("data-pk");
+    list = document.querySelectorAll('.pag');
+    for (var i = 0; i < list.length; i++) {
+      list[i].classList.remove("changed");
+    }
+    div.classList.add("changed")
+  }
+  else if (document.body.querySelector(".pk_saver")){
+    pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
+  }
+  loader = document.getElementById("window_loader");
+  open_fullscreen(url + pk + "/", loader)
+}
+function get_item_sanction_window(_this, block, url) {
+    list = document.querySelectorAll('.pag');
+    for (var i = 0; i < list.length; i++) {
+      list[i].classList.remove("changed");
+    }
+    this.parentElement.parentElement.getAttribute("data-uuid")
+     ?  uuid = this.parentElement.parentElement.getAttribute("data-uuid")
+     : (uuid = _this.getAttribute("data-uuid"), block.classList.add("changed"));
+  }
+  loader = document.getElementById("window_loader");
+  open_fullscreen(url + uuid + "/", loader)
+}
+
+function send_user_sanction(_this, form, url, old_class, new_class, toast) {
+  form_data = new FormData(form);
+  if (document.body.querySelector(".pk_saver")){
+    pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
+  }else if (document.body.querySelector(".changed")){
+    li = document.body.querySelector(".changed");
+    pk = li.getAttribute("user-pk");
+  }
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', url + pk + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info(toast);
+    document.querySelector(".window_fullscreen").style.display = "none";
+    document.getElementById("window_loader").innerHTML="";
+    if (document.body.querySelector(".pk_saver")) {
+      _this.innerHTML = "Отменить";
+      _this.classList.replace(old_class, new_class)
+    }else if (li.classList.contains("changed")){
+      li.remove();
+    }
+  }};
+
+  link_.send(form_data);
+}
+
 function list_load(block, link) {
   // грузим что-то по ссылке link в блок block
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

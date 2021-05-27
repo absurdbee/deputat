@@ -63,7 +63,7 @@ function send_user_sanction(_this, form, url, old_class, new_class, toast) {
 function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   form_data = new FormData(form);
 
-  if (document.body.querySector(".load_block")){
+  if (document.body.querySelector(".load_block")){
     uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
   }
   else if (document.body.querySelector(".changed")){
@@ -229,7 +229,7 @@ function get_preview(response, type) {
       src = response.querySelector("img").getAttribute("src");
       video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, src)
     }
-  } else if (document.body.querySector(".message_attach_block")){
+  } else if (document.body.querySelector(".message_attach_block")){
     if (type == "doc") {
       pk = response.querySelector(".span_btn").getAttribute("data-pk");
       media_body = response.querySelector(".media-body");

@@ -647,7 +647,7 @@ class ModerationPenalty(models.Model):
         try:
             from gallery.models import Photo
             photo = Photo.objects.get(pk=self.object_id)
-            return ''.join(['<div class="col-md-4"><div class="progressive replace image_fit_200 penalty_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+            return ''.join(['<div class=""><div class="progressive replace image_fit_200 penalty_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
         except:
             return ''
 

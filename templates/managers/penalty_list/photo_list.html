@@ -13,7 +13,7 @@
                           <h1 class="mb-0">Оштрафованные фотографии</h1>
                           <div class="row">
                           {% for object in object_list %}
-                          <div class="list-group-item pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
+                          <div class="list-group-item col-md-4 pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
                               {{ object|get_photo_items:object.object_id|safe }}
                           </div>
                           {% empty %}

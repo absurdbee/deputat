@@ -31,7 +31,7 @@ class PenaltyDoc(ListView):
         return super(PenaltyDoc,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return ModerationPenalty.get_penalty_docs()
+        return ModerationPenalty.get_penalty_docs(self.request.user.pk)
 
 class PenaltyCommunity(ListView):
     template_name, paginate_by = None, 15
@@ -45,7 +45,7 @@ class PenaltyCommunity(ListView):
         return super(PenaltyCommunity,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return ModerationPenalty.get_penalty_communities()
+        return ModerationPenalty.get_penalty_communities(self.request.user.pk)
 
 class PenaltyElectNew(ListView):
     template_name, paginate_by = None, 15
@@ -59,7 +59,7 @@ class PenaltyElectNew(ListView):
         return super(PenaltyElectNew,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return ModerationPenalty.get_penalty_elect_news()
+        return ModerationPenalty.get_penalty_elect_news(self.request.user.pk)
 
 class PenaltySurvey(ListView):
     template_name, paginate_by = None, 15
@@ -73,7 +73,7 @@ class PenaltySurvey(ListView):
         return super(PenaltySurvey,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return ModerationPenalty.get_penalty_surveys()
+        return ModerationPenalty.get_penalty_surveys(self.request.user.pk)
 
 
 class PenaltyPhoto(ListView):
@@ -88,7 +88,7 @@ class PenaltyPhoto(ListView):
         return super(PenaltyPhoto,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return ModerationPenalty.get_penalty_photos()
+        return ModerationPenalty.get_penalty_photos(self.request.user.pk)
 
 class PenaltyAudio(ListView):
     template_name, paginate_by = None, 15
@@ -102,7 +102,7 @@ class PenaltyAudio(ListView):
         return super(PenaltyAudio,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return ModerationPenalty.get_penalty_audios()
+        return ModerationPenalty.get_penalty_audios(self.request.user.pk)
 
 
 class PenaltyVideo(ListView):
@@ -117,4 +117,4 @@ class PenaltyVideo(ListView):
         return super(PenaltyVideo,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        return ModerationPenalty.get_penalty_videos()
+        return ModerationPenalty.get_penalty_videos(self.request.user.pk)

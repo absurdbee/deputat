@@ -202,7 +202,7 @@ class PhotoList(models.Model):
         if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_item(self):
+    def close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "LIS":
             self.type = PhotoList.CLOSED
@@ -217,7 +217,7 @@ class PhotoList(models.Model):
             Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_item(self):
+    def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = PhotoList.LIST
@@ -382,7 +382,7 @@ class Photo(models.Model):
         if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_doc(self, community):
+    def close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "PUB":
             self.type = Photo.CLOSED
@@ -399,7 +399,7 @@ class Photo(models.Model):
             Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_doc(self, community):
+    def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = Photo.PUBLISHED

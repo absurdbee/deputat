@@ -173,7 +173,7 @@ class DocList(models.Model):
         if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_item(self):
+    def close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "LIS":
             self.type = DocList.CLOSED
@@ -188,7 +188,7 @@ class DocList(models.Model):
             Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_item(self):
+    def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = DocList.LIST

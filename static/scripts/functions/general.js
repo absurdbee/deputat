@@ -66,8 +66,9 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   if (document.body.querySelector(".changed")){
     div = document.body.querySelector(".changed");
     uuid = div.getAttribute("data-uuid");
-  } else if (document.body.querySelector(".changed")){}
-
+  } else if (document.body.querySelector(".changed")){
+    uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
+  }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', url + uuid + "/", true );

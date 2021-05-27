@@ -663,9 +663,9 @@ class ModerationPenalty(models.Model):
             return self.get_survey(user_id)
     def get_photo_items(self, user_id):
         if self.type == "PHL":
-            return self.get_photo_list(user_id)
+            return self.get_photo_list()
         elif self.type == "PHO":
-            return self.get_photo(user_id)
+            return self.get_photo()
     def get_video_items(self, user_id):
         if self.type == "VIL":
             return self.get_video_list(user_id)

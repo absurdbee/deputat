@@ -651,6 +651,16 @@ class ModerationPenalty(models.Model):
         except:
             return ''
 
+    def get_photo_list(self):
+        try:
+            from gallery.models import PhotoList
+            list = PhotoList.objects.get(pk=self.object_id)
+            creator = PhotoList.creator
+            add = ''
+            block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" photolist-pk="', str(list.pk), '"><figure class="background-img"><img src="', list.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_manager_photo_list text-white pointer"><a class="nowrap">', list.name, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(list.creator), '</a></p><hr class="my-3"><a class="u_load_manager_photo_list text-white pointer">', list.count_items_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
+        except:
+            pass
+
     def get_doc_items(self):
         if self.type == "DOL":
             return self.get_doc_list()

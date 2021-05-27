@@ -296,14 +296,13 @@ def get_template_anon_user_item(item, template, user_agent):
     # Полная страница объекта пользователя (списка или элемента) для анонимного пользователя
     user = item.creator
     if user.type[0] == "_":
-        template_name = get_fine_user(user)
+        return get_folder(user_agent) + get_fine_user(user)
     elif item.type[0] == "_":
-        template_name = get_anon_fine_user_item(item)
+        return get_folder(user_agent) + get_anon_fine_user_item(item)
     elif item.is_private():
-        template_name = "generic/u_template/anon_private.html"
+        return get_folder(user_agent) + "generic/u_template/anon_private.html"
     else:
-        template_name = template
-    return get_folder(user_agent) + template_name
+        return get_folder(user_agent) + template
 
 
 def get_template_community_window(item, folder, template, request_user, user_agent, staff):

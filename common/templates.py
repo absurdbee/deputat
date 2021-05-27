@@ -241,7 +241,7 @@ def get_template_user_item(item, folder, template, request_user, user_agent, sta
     if request_user.type[0] == "_":
         template_name = get_fine_request_user(request_user)
     elif item.type[0] == "_":
-        template_name = get_fine_user_item(request_user, item, folder, template)
+        return get_folder(user_agent) + get_fine_user_item(request_user, item, folder, template)
     elif user.pk == request_user.pk:
             template_name = folder + "my_" + template
     elif request_user.pk != user.pk:

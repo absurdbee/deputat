@@ -63,11 +63,12 @@ function send_user_sanction(_this, form, url, old_class, new_class, toast) {
 function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   form_data = new FormData(form);
 
-  if (document.body.querySelector(".changed")){
+  if (_this.parentElement.parentElemen.getAttribute("data-uuid")){
+    uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
+  }
+  else if (document.body.querySelector(".changed")){
     div = document.body.querySelector(".changed");
     uuid = div.getAttribute("data-uuid");
-  } else if (document.body.querySelector(".changed")){
-    uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
   }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -80,11 +81,12 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
     document.querySelector(".window_fullscreen").style.display = "none";
     document.getElementById("window_loader").innerHTML="";
 
-    if (div && div.classList.contains("changed")){
-      div.remove();
-    } else{
+    if (_this.parentElement.parentElemen.getAttribute("data-uuid")){
       _this.innerHTML = "Отменить";
       _this.classList.replace(old_class, new_class)
+    }
+    else if (div && div.classList.contains("changed")){
+      div.remove();
     }
   }};
 

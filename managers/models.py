@@ -624,10 +624,10 @@ class ModerationPenalty(models.Model):
     def get_penalty_docs(cls, user_id):
         return cls.objects.filter(manager__id=user_id, type__contains="DO")
 
-    def get_user(self, user_id):
+    def get_user(self):
         try:
             from users.models import User
-            user = User.objects.get(pk=user_id)
+            user = User.objects.get(pk=self.object_id)
             if self.is_suspend():
                 span = '<span class="small">До ' + str(self.expiration) + '</span> (<a class="small remove_user_suspend pointer">Отменить заморозку</a> | <a class="small user_unverify pointer">Отменить проверку</a>)'
             elif self.is_closed():
@@ -636,10 +636,10 @@ class ModerationPenalty(models.Model):
                 span = '<span class="small">Баннер предупреждения</span> (<a class="small remove_user_warning_banner pointer">Убрать баннер</a> | <a class="small user_unverify pointer">Отменить проверку</a>)'
             else:
                 span = '<span class="small">Санкции не применены</span>'
-            return ''.join(['<div class="media"><a href="/users/', str(user_id), '" class="ajax"><figure><img src="', user.get_avatar(), \
+            return ''.join(['<div class="media"><a href="/users/', str(self.object_id), '" class="ajax"><figure><img src="', user.get_avatar(), \
             '" style="width: 90px;" alt="image"></figure></a><div class="media-body pl-1"><h6 class="my-0 mt-1"><a href="/users/', \
-            str(user_id), '" class="ajax"><h6 class="mt-1">', user.get_full_name(), \
-            '</h6></a></h6><div class=""></div><div class="border-top btn_console" data-pk', str(user_id), '>', span, '</div></div></div>'])
+            str(self.object_id), '" class="ajax"><h6 class="mt-1">', user.get_full_name(), \
+            '</h6></a></h6><div class=""></div><div class="border-top btn_console" data-pk', str(self.object_id), '>', span, '</div></div></div>'])
         except:
             return '<div class="media">Ошибка отображения данных</div>'
 
@@ -651,33 +651,33 @@ class ModerationPenalty(models.Model):
         except:
             return ''
 
-    def get_doc_items(self, user_id):
+    def get_doc_items(self):
         if self.type == "DOL":
-            return self.get_doc_list(user_id)
+            return self.get_doc_list()
         elif self.type == "DOC":
-            return self.get_doc(user_id)
-    def get_survey_items(self, user_id):
+            return self.get_doc()
+    def get_survey_items(self):
         if self.type == "SUL":
-            return self.get_survey_list(user_id)
+            return self.get_survey_list()
         elif self.type == "SUR":
-            return self.get_survey(user_id)
+            return self.get_survey()
     def get_photo_items(self):
         if self.type == "PHL":
             return self.get_photo_list()
         elif self.type == "PHO":
             return self.get_photo()
-    def get_video_items(self, user_id):
+    def get_video_items(self):
         if self.type == "VIL":
-            return self.get_video_list(user_id)
+            return self.get_video_list()
         elif self.type == "VID":
-            return self.get_video(user_id)
-    def get_music_items(self, user_id):
+            return self.get_video()
+    def get_music_items(self):
         if self.type == "MUL":
-            return self.get_music_list(user_id)
+            return self.get_music_list()
         elif self.type == "MUS":
-            return self.get_music(user_id)
-    def get_elect_new_items(self, user_id):
+            return self.get_music()
+    def get_elect_new_items(self):
         if self.type == "ELE":
-            return self.get_elect_new(user_id)
+            return self.get_elect_new()
         elif self.type == "ELEC":
-            return self.get_elect_new_comment(user_id)
+            return self.get_elect_new_comment()

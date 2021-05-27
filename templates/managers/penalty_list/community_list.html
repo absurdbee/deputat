@@ -13,7 +13,7 @@
                           <h1 class="mb-0">Оштрафованные сообщества</h1>
                           {% for object in object_list %}
                           <div class="list-group-item pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
-                              {{ object|get_community:object.object_id|safe }}
+                              {{ object|get_community|safe }}
                           </div>
                           {% empty %}
                           <div class="card centered">

@@ -11,6 +11,7 @@
                     <div class="col-lg-8 col-md-7">
                         <div class="card user-card">
                           <h1 class="mb-0">Оштрафованные фотографии</h1>
+                          <div class="row">
                           {% for object in object_list %}
                           <div class="list-group-item pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
                               {{ object|get_photo_items:object.object_id|safe }}
@@ -20,6 +21,7 @@
                             <div class="card-body">
                               <svg fill="currentColor" class="svg_default thumb_big" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"></path></svg>
                               <h6> Оштрафованных фотографий нет...</h6>
+                          </div>
                           </div>
                           {% endfor %}
                         </div>

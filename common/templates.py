@@ -63,6 +63,13 @@ def get_anon_fine_community_item(community, item):
         return "generic/c_template/anon_closed.html"
     elif item.is_suspended():
         return "generic/c_template/anon_suspended.html"
+def get_anon_fine_user_item(item):
+    if item.is_deleted():
+        return "generic/u_template/anon_deleted.html"
+    elif item.is_closed():
+        return "generic/u_template/anon_closed.html"
+    elif item.is_suspended():
+        return "generic/u_template/anon_suspended.html"
 def get_fine_user_item(request_user, item, folder, template):
     if item.is_deleted():
         if item.creator.pk == request_user.pk:

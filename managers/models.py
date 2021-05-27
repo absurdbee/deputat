@@ -655,9 +655,9 @@ class ModerationPenalty(models.Model):
         #try:
         from gallery.models import PhotoList
         list = PhotoList.objects.get(pk=self.object_id)
-        creator = PhotoList.creator
+        creator = list.creator
         add = ''
-        return ''.join(['<div class="text-center bg-dark position-relative big_mobile_element" photolist-pk="', str(self.object_id), '"><figure class="background-img"><img src="', list.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_manager_photo_list text-white pointer"><a class="nowrap">', list.name, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(list.creator.pk), '">', str(creator), '</a></p><hr class="my-3"><a class="u_load_manager_photo_list text-white pointer">', list.count_items_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
+        return ''.join(['<div class="text-center bg-dark position-relative big_mobile_element" photolist-pk="', str(self.object_id), '"><figure class="background-img"><img src="', list.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_manager_photo_list text-white pointer"><a class="nowrap">', list.name, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(creator), '</a></p><hr class="my-3"><a class="u_load_manager_photo_list text-white pointer">', list.count_items_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
         #except:
         #    pass
 

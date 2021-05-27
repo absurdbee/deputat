@@ -15,7 +15,7 @@ from django.dispatch import receiver
 class PhotoList(models.Model):
     MAIN, LIST, MANAGER, PROCESSING, PRIVATE = 'MAI', 'LIS', 'MAN', '_PRO', 'PRI'
     DELETED, DELETED_PRIVATE, DELETED_MANAGER = '_DEL', '_DELP', '_DELM'
-    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CLOM', '_CLOMA'
+    CLOSED, CLOSED_PRIVATE, CLOSED_MAIN, CLOSED_MANAGER = '_CLO', '_CLOP', '_CMAI', '_CLOMA'
     TYPE = (
         (MAIN, 'Основной'),(LIST, 'Пользовательский'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PROCESSING, 'Обработка'),
         (DELETED, 'Удалённый'),(DELETED_PRIVATE, 'Удалённый приватный'),(DELETED_MANAGER, 'Удалённый менеджерский'),
@@ -221,11 +221,11 @@ class PhotoList(models.Model):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = PhotoList.LIST
-        elif self.type == "_CLOM":
+        elif self.type == "_CMAI":
             self.type = PhotoList.MAIN
         elif self.type == "_CLOP":
             self.type = PhotoList.PRIVATE
-        elif self.type == "_CLOM":
+        elif self.type == "_CLOMA":
             self.type = PhotoList.MANAGER
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():

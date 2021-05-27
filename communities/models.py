@@ -298,22 +298,22 @@ class Community(models.Model):
 
     def get_good_list(self):
         from goods.models import GoodList
-        return GoodList.objects.get(community_id=self.pk, type=GoodList.MAIN)
+        return GoodList.objects.get(community_id=self.pk, type__contains="MAI")
     def get_post_list(self):
         from posts.models import PostList
-        return PostList.objects.get(community_id=self.pk, type=PostList.MAIN)
+        return PostList.objects.get(community_id=self.pk, type__contains="MAI")
     def get_playlist(self):
         from music.models import SoundList
-        return SoundList.objects.get(community_id=self.pk, type=SoundList.MAIN)
+        return SoundList.objects.get(community_id=self.pk, type__contains="MAI")
     def get_video_list(self):
         from video.models import VideoList
-        return VideoList.objects.get(community_id=self.pk, type=VideoList.MAIN)
+        return VideoList.objects.get(community_id=self.pk, type__contains="MAI")
     def get_photo_list(self):
         from gallery.models import PhotoList
-        return PhotoList.objects.get(community_id=self.pk, type=PhotoList.MAIN)
+        return PhotoList.objects.get(community_id=self.pk, type__contains="MAI")
     def get_doc_list(self):
         from docs.models import DocList
-        return DocList.objects.get(community_id=self.pk, type=DocList.MAIN)
+        return DocList.objects.get(community_id=self.pk, type__contains="MAI")
 
     def get_post_lists(self):
         from posts.models import PostList

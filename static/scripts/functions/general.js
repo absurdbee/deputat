@@ -25,7 +25,7 @@ function get_item_sanction_window(_this, block, url) {
       list[i].classList.remove("changed");
     }
     this.parentElement.parentElement.getAttribute("data-uuid")
-     ?  uuid = this.parentElement.parentElement.getAttribute("data-uuid")
+     ?  uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
      : (uuid = _this.getAttribute("data-uuid"), block.classList.add("changed"));
   loader = document.getElementById("window_loader");
   open_fullscreen(url + uuid + "/", loader)

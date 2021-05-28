@@ -8,6 +8,7 @@ from managers.models import Moderated
 from django.http import Http404
 from common.templates import get_detect_platform_template
 from logs.model.manage_audio import AudioManageLog
+from managers.forms import ModeratedForm, ReportForm
 
 
 class AudioAdminCreate(View):

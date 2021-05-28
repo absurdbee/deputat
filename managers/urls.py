@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^progs_photo/', include('managers.url.progs_photo')),
     url(r'^progs_video/', include('managers.url.progs_video')),
     url(r'^progs_audio/', include('managers.url.progs_audio')),
+    url(r'^progs_doc/', include('managers.url.progs_doc')),
 
     url(r'^moderation_list/', include('managers.url.moderation_list')),
     url(r'^penalty_list/', include('managers.url.penalty_list')),

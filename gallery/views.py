@@ -246,7 +246,7 @@ class UserLoadPenaltyPhotolist(ListView):
 		from common.templates import get_managers_template
 
 		self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_managers_template(self.list, "user_gallery/load/", "penalty_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		self.template_name = get_managers_template("user_gallery/load/penalty_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPenaltyPhotolist,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

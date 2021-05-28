@@ -92,7 +92,7 @@ class UserLoadPenaltySurveyList(ListView):
 		from common.templates import get_managers_template
 
 		self.list = SurveyList.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_managers_template(self.list, "user_survey/load/", "penalty_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		self.template_name = get_managers_template("user_survey/load/penalty_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPenaltySurveyList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -110,7 +110,7 @@ class UserLoadModeratedSurveyList(ListView):
 		from common.templates import get_managers_template
 
 		self.list = SurveyList.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_managers_template(self.list, "user_survey/load/", "moderated_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		self.template_name = get_managers_template("user_survey/load/moderation_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserLoadModeratedSurveyList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

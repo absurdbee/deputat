@@ -102,6 +102,9 @@ class DocList(models.Model):
     def get_items(self):
         return self.doc_list.filter(type="PUB")
 
+    def get_penalty_items(self):
+        return self.doc_list.filter(type__contains="_CLO")
+
     def get_users_ids(self):
         users = self.users.exclude(type__contains="_").values("pk")
         return [i['pk'] for i in users]

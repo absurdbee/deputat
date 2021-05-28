@@ -68,6 +68,9 @@ class SoundList(models.Model):
         queryset = self.playlist.filter(query)
         return queryset
 
+    def get_penalty_items(self):
+        return self.playlist.filter(type__contains="_CLO")
+
     def get_users_ids(self):
         users = self.users.exclude(type__contains="_").values("pk")
         return [i['pk'] for i in users]

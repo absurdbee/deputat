@@ -109,6 +109,9 @@ class PhotoList(models.Model):
     def get_items(self):
         return self.photo_list.filter(type="PUB")
 
+    def get_penalty_items(self):
+        return self.photo_list.filter(type__contains="_CLO")
+
     def get_staff_items(self):
         return self.photo_list.filter(Q(type="PUB") | Q(type="PRI"))
 

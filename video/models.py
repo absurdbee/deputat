@@ -123,6 +123,9 @@ class VideoList(models.Model):
         queryset = self.video_list.filter(type="PUB")
         return queryset
 
+    def get_penalty_items(self):
+        return self.video_list.filter(type__contains="_CLO")
+
     def get_video_count(self):
         query = Q(type="PUB") | Q(type="PRI")
         return self.video_list.filter(query).values("pk").count()

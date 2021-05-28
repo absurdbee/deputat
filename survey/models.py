@@ -62,6 +62,8 @@ class SurveyList(models.Model):
         return self.survey_list.filter(type="MAN")
     def count_items(self):
         return self.survey_list.exclude(type__contains="_").values("pk").count()
+    def get_penalty_items(self):
+        return self.survey_list.filter(type__contains="_CLO")
 
     def get_users_ids(self):
         users = self.users.exclude(type__contains="_").values("pk")

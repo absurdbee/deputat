@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ list.name }} | Видеозаписи {{ user.get_full_name_genitive }}{% endblock %}
+{% load filters %}
+{% block content %}
+
+<div class="container mt-3 pk_saver" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
+  <div class="breadcrumb-wrapper">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>
+        <li class="breadcrumb-item"><a class="ajax" href="{% url 'user_video' pk=list.creator.pk %}">Видеозаписи</a></li>
+        <li class="breadcrumb-item active">{{ list.name }} ({{ list.count_items }})</li>
+    </ol>
+  </div>
+  <span class="load_block">
+    <div class="card mt-3 centered">
+      <div class="card-body" style="margin-top: 10%;">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+      </div>
+      <h6>
+        Список видеозаписей заблокирован за нарушение правил сайта.
+      </h6>
+    </div>
+  </span>
+</div>
+
+{% endblock %}

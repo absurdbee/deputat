@@ -48,7 +48,7 @@ def get_fine_community_item(request_user, community, item, folder, template):
         if request_user.is_administrator_of_community(community.pk) and item.community.pk == community.pk:
             return "generic/c_template/admin_closed.html"
         else:
-            return "generic/c_template/closed.html"
+            return folder + "closed_" + template
     elif item.is_suspended():
         if staff:
             return folder + "staff_suspended_" + template
@@ -67,7 +67,7 @@ def get_anon_fine_user_item(item):
     if item.is_deleted():
         return "generic/u_template/anon_deleted.html"
     elif item.is_closed():
-        return "generic/u_template/anon_closed.html"
+        return folder + "anon_closed_" + template
     elif item.is_suspended():
         return "generic/u_template/anon_suspended.html"
 def get_fine_user_item(request_user, item, folder, template):
@@ -80,7 +80,7 @@ def get_fine_user_item(request_user, item, folder, template):
         if item.creator.pk == request_user.pk:
             return folder + "my_closed_" + template
         else:
-            return "generic/u_template/closed.html"
+            return folder + "closed_" + template
     elif item.is_suspended():
         if item.creator.pk == request_user.pk:
             return folder + "my_suspended_" + template

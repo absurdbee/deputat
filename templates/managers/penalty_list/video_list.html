@@ -11,8 +11,9 @@
                     <div class="col-lg-8 col-md-7">
                         <div class="card user-card">
                           <h1 class="mb-0">Оштрафованные видеозаписи</h1>
+                          <div class="row mt-3">
                           {% for object in object_list %}
-                          <div class="list-group-item pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
+                          <div class="col-md-4 pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
                               {{ object|get_video_items|safe }}
                           </div>
                           {% empty %}
@@ -22,6 +23,7 @@
                               <h6> Оштрафованных видеозаписей нет...</h6>
                           </div>
                           {% endfor %}
+                          </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-5">

@@ -745,7 +745,7 @@ class ModerationPenalty(models.Model):
             return self.get_photo()
     def get_video_items(self):
         if self.type == "VIL":
-            return self.get_video_list()
+            return self.get_video_list() 
         elif self.type == "VID":
             return self.get_video()
     def get_music_items(self):

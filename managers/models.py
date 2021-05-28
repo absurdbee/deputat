@@ -750,7 +750,7 @@ class ModerationPenalty(models.Model):
             return self.get_video()
     def get_music_items(self):
         if self.type == "MUL":
-            return self.get_music_list()
+            return self.get_playlist()
         elif self.type == "MUS":
             return self.get_music()
     def get_elect_new_items(self):

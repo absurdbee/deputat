@@ -10,11 +10,31 @@ on('body', 'click', '.u_load_penalty_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   open_fullscreen("/docs/penalty_load/" + parent.getAttribute("doclist-pk") + "/", document.getElementById("window_loader"))
 });
+on('body', 'click', '.u_load_penalty_survey_list', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  open_fullscreen("/survey/penalty_load/" + parent.getAttribute("surveylist-pk") + "/", document.getElementById("window_loader"))
+});
 on('body', 'click', '.u_load_penalty_photo_list', function() {
   parent = this.parentElement.parentElement;
-  pk = parent.getAttribute("photolist-pk");
-  loader = document.getElementById("window_loader");
-  open_fullscreen("/gallery/penalty_load/" + pk + "/", loader)
+  parent.parentElement.classList.add("changed");
+  open_fullscreen("/gallery/penalty_load/" + parent.getAttribute("photolist-pk") + "/", document.getElementById("window_loader"))
+});
+
+on('body', 'click', '.u_load_moderated_playlist', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  open_fullscreen("/music/moderated_load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
+});
+on('body', 'click', '.u_load_moderated_video_list', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  open_fullscreen("/video/moderated_load/" + parent.getAttribute("videolist-pk") + "/", document.getElementById("window_loader"))
+});
+on('body', 'click', '.u_load_moderated_doc_list', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  open_fullscreen("/docs/moderated_load/" + parent.getAttribute("doclist-pk") + "/", document.getElementById("window_loader"))
+});
+on('body', 'click', '.u_load_penalty_survey_list', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  open_fullscreen("/survey/moderated_load/" + parent.getAttribute("surveylist-pk") + "/", document.getElementById("window_loader"))
 });
 
 on('body', 'click', '.create_user_close', function() {
@@ -123,6 +143,10 @@ on('body', 'click', '#create_survey_List_close_btn', function() {
   send_item_sanction(this, this.parentElement.parentElement.parentElement, "/managers/progs_survey/list_create_close/", "u_unclose_survey_List", "u_close_survey_List", "Список опросов закрыт")
 });
 
-on('body', 'click', '.u_unclose_photo_list', function() {
-  on_off_list_in_collections(this, "/managers/progs_photo/list_delete_close/", "u_close_photo_list", "u_unclose_photo_list", "♦ Закрыть список")
+on('body', 'click', '.remove_photo_list_close', function() {
+  send_item_sanction("/managers/progs_photo/list_delete_close/", "Фотоальбом восстановлен")
+});
+
+on('body', 'click', '.photo_list_unverify', function() {
+  send_item_sanction("/managers/progs_photo/list_unverify/", "Верификация отменена")
 });

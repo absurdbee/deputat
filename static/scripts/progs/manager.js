@@ -144,9 +144,8 @@ on('body', 'click', '#create_survey_List_close_btn', function() {
 });
 
 on('body', 'click', '.remove_photo_list_close', function() {
-  send_item_sanction("/managers/progs_photo/list_delete_close/", "Фотоальбом восстановлен")
+  send_window_sanction("/managers/progs_photo/list_delete_close/", "Фотоальбом восстановлен")
 });
-
 on('body', 'click', '.photo_list_unverify', function() {
-  send_item_sanction("/managers/progs_photo/list_unverify/", "Верификация отменена")
+  send_window_sanction("/managers/progs_photo/list_unverify/", "Верификация отменена")
 });

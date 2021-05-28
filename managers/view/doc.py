@@ -206,7 +206,7 @@ class DocUnverify(View):
         obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="DOC")
         doc = Doc.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and request.user.is_doc_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(doc, manager_id=request.user.pk)
             DocManageLog.objects.create(item=doc.pk, manager=request.user.pk, action_type=DocManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
@@ -255,7 +255,7 @@ class ListDocUnverify(View):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="DOL")
         if request.is_ajax() and request.user.is_doc_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(list, manager_id=request.user.pk)
             DocManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=DocManageLog.LIST_UNVERIFY)
             return HttpResponse()
         else:

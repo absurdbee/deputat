@@ -197,7 +197,7 @@ class VideoUnverify(View):
         video = Video.objects.get(uuid=self.kwargs["video_uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=video.pk, type="VID")
         if request.is_ajax() and request.user.is_video_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(video, manager_id=request.user.pk)
             VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.UNVERIFY)
             return HttpResponse()
         else:
@@ -246,7 +246,7 @@ class ListVideoUnverify(View):
         list = VideoList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="VIL")
         if request.is_ajax() and request.user.is_video_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(list, manager_id=request.user.pk)
             VideoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=VideoManageLog.LIST_UNVERIFY)
             return HttpResponse()
         else:

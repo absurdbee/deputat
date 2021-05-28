@@ -206,7 +206,7 @@ class AudioUnverify(View):
         music = Music.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=music.pk, type="MUS")
         if request.is_ajax() and request.user.is_audio_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(music, manager_id=request.user.pk)
             AudioManageLog.objects.create(item=obj.object_id, manager=manager_id, action_type=AudioManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
@@ -255,7 +255,7 @@ class ListAudioUnverify(View):
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="MUL")
         if request.is_ajax() and request.user.is_audio_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(list, manager_id=request.user.pk)
             AudioManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=AudioManageLog.LIST_UNVERIFY)
             return HttpResponse()
         else:

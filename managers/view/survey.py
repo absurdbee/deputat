@@ -206,7 +206,7 @@ class SurveyUnverify(View):
         survey = Survey.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=survey.pk, type="SUR")
         if request.is_ajax() and request.user.is_survey_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(survey, manager_id=request.user.pk)
             SurveyManageLog.objects.create(item=survey.pk, manager=request.user.pk, action_type=SurveyManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
@@ -255,7 +255,7 @@ class ListSurveyUnverify(View):
         list = SurveyList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="SUL")
         if request.is_ajax() and request.user.is_survey_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(list, manager_id=request.user.pk)
             SurveyManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=SurveyManageLog.LIST_UNVERIFY)
             return HttpResponse()
         else:

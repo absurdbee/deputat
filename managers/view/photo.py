@@ -196,7 +196,7 @@ class PhotoUnverify(View):
         photo = Photo.objects.get(uuid=self.kwargs["photo_uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=photo.pk, type="PHO")
         if request.is_ajax() and request.user.is_photo_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(photo, manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
@@ -245,7 +245,7 @@ class ListPhotoUnverify(View):
         list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="PHL")
         if request.is_ajax() and request.user.is_photo_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(list, manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_UNVERIFY)
             return HttpResponse()
         else:

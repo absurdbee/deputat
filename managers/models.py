@@ -388,7 +388,7 @@ class Moderated(models.Model):
         obj.delete()
         self.delete()
 
-    def unverify_moderation(self, manager_id):
+    def unverify_moderation(self, object, manager_id):
         self.verified = False
         self.moderated_object.all().delete()
         if self.type == "USE":
@@ -401,6 +401,8 @@ class Moderated(models.Model):
             community = Community.objects.get(pk=self.object_id)
             community.abort_close_item()
             community.abort_suspend_item()
+        else:
+            object.abort_close_item()
         self.save()
 
     def reject_moderation(self, manager_id):

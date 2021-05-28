@@ -198,7 +198,7 @@ class ElectNewUnverify(View):
         post = ElectNew.objects.get(uuid=self.kwargs["elect_new_uuid"])
         obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="ELE")
         if request.is_ajax() and request.user.is_elect_new_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(post, manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
@@ -316,7 +316,7 @@ class CommentElectNewUnverify(View):
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
         obj = Moderated.get_or_create_moderated_object(object_id=comment.pk, type="ELEC")
         if request.is_ajax() and request.user.is_elect_new_manager():
-            obj.unverify_moderation(manager_id=request.user.pk)
+            obj.unverify_moderation(comment, manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_UNVERIFY)
             return HttpResponse()
         else:

@@ -129,7 +129,7 @@ class DocCloseCreate(View):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        if request.is_ajax() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_doc_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/doc/doc_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -144,7 +144,7 @@ class DocCloseCreate(View):
         from managers.forms import ModeratedForm
 
         doc, form = Doc.objects.get(uuid=self.kwargs["uuid"]), ModeratedForm(request.POST)
-        if request.is_ajax() and form.is_valid() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_doc_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=doc.pk, type="DOC")
             moderate_obj.create_close(object=doc, description=mod.description, manager_id=request.user.pk)
@@ -156,7 +156,7 @@ class DocCloseCreate(View):
 class DocCloseDelete(View):
     def get(self,request,*args,**kwargs):
         doc = Doc.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_doc_manager():
             moderate_obj = Moderated.objects.get(object_id=doc.pk, type="DOC")
             moderate_obj.delete_close(object=doc, manager_id=request.user.pk)
             DocManageLog.objects.create(item=doc.pk, manager=request.user.pk, action_type=DocManageLog.ITEM_CLOSED_HIDE)
@@ -191,7 +191,7 @@ class DocClaimCreate(TemplateView):
 
 class DocRejectedCreate(View):
     def get(self,request,*args,**kwargs):
-        if request.is_ajax() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_doc_manager():
             doc = Doc.objects.get(uuid=self.kwargs["uuid"])
             moderate_obj = Moderated.objects.get(object_id=doc.pk, type="DOC")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
@@ -204,7 +204,7 @@ class DocRejectedCreate(View):
 class DocUnverify(View):
     def get(self,request,*args,**kwargs):
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_doc_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             DocManageLog.objects.create(item=obj.object_id, manager=request.user.pk, action_type=DocManageLog.ITEM_UNVERIFY)
             return HttpResponse()
@@ -240,7 +240,7 @@ class ListDocClaimCreate(View):
 class ListDocRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_doc_manager():
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="DOL")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             DocManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=DocManageLog.LIST_REJECT)
@@ -253,7 +253,7 @@ class ListDocUnverify(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_doc_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             DocManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=DocManageLog.LIST_UNVERIFY)
             return HttpResponse()
@@ -265,7 +265,7 @@ class ListDocCloseCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.user.is_doc_manager() or request.user.is_superuser:
+        if request.user.is_doc_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/doc/list_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -279,7 +279,7 @@ class ListDocCloseCreate(TemplateView):
     def post(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
         form = ModeratedForm(request.POST)
-        if form.is_valid() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if form.is_valid() and request.user.is_doc_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="DOL")
             moderate_obj.create_close(object=list, description=mod.description, manager_id=request.user.pk)
@@ -291,7 +291,7 @@ class ListDocCloseCreate(TemplateView):
 class ListDocCloseDelete(View):
     def get(self,request,*args,**kwargs):
         list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and (request.user.is_doc_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_doc_manager():
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="DOL")
             moderate_obj.delete_close(object=list, manager_id=request.user.pk)
             DocManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=DocManageLog.LIST_CLOSED_HIDE)

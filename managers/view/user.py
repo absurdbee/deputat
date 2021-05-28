@@ -161,7 +161,7 @@ class UserSuspensionCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        if request.user.is_user_manager() or request.user.is_superuser:
+        if request.user.is_user_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/user/user_suspend.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -175,7 +175,7 @@ class UserSuspensionCreate(TemplateView):
     def post(self,request,*args,**kwargs):
         form, user = ModeratedForm(request.POST), User.objects.get(pk=self.kwargs["pk"])
 
-        if request.is_ajax() and form.is_valid() and (request.user.is_user_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_user_manager():
             from django.utils import timezone
 
             mod = form.save(commit=False)
@@ -205,7 +205,7 @@ class UserSuspensionCreate(TemplateView):
 class UserSuspensionDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and request.user.is_user_manager() or request.user.is_superuser:
+        if request.is_ajax() and request.user.is_user_manager():
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.delete_suspend(manager_id=request.user.pk)
             UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.SUSPENDED_HIDE)
@@ -218,7 +218,7 @@ class UserCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        if request.user.is_user_manager() or request.user.is_superuser:
+        if request.user.is_user_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/user/user_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -231,7 +231,7 @@ class UserCloseCreate(TemplateView):
 
     def post(self,request,*args,**kwargs):
         user, form = User.objects.get(pk=self.kwargs["pk"]), ModeratedForm(request.POST)
-        if request.is_ajax() and form.is_valid() and (request.user.is_user_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_user_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")
             moderate_obj.create_close(object=user, description=mod.description, manager_id=request.user.pk)
@@ -243,7 +243,7 @@ class UserCloseCreate(TemplateView):
 class UserCloseDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_user_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_user_manager():
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.delete_close(object=user, manager_id=request.user.pk)
             UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.CLOSED_HIDE)
@@ -255,7 +255,7 @@ class UserWarningBannerCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        if request.user.is_user_manager() or request.user.is_superuser:
+        if request.user.is_user_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/user/user_warning_banner.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -268,7 +268,7 @@ class UserWarningBannerCreate(TemplateView):
 
     def post(self,request,*args,**kwargs):
         user, form = User.objects.get(pk=self.kwargs["pk"]), ModeratedForm(request.POST)
-        if request.is_ajax() and form.is_valid() and (request.user.is_user_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_user_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")
             moderate_obj.status = Moderated.BANNER_GET
@@ -307,7 +307,7 @@ class UserClaimCreate(TemplateView):
 class UserWarningBannerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_user_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_user_manager():
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.delete_warning_banner(manager_id=request.user.pk)
             UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.WARNING_BANNER_HIDE)
@@ -318,7 +318,7 @@ class UserWarningBannerDelete(View):
 class UserRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_user_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_user_manager():
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.REJECT)
@@ -329,7 +329,7 @@ class UserRejectedCreate(View):
 class UserUnverify(View):
     def get(self,request,*args,**kwargs):
         user, obj = User.objects.get(pk=self.kwargs["user_pk"]), Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and (request.user.is_user_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_user_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.UNVERIFY)
             return HttpResponse()

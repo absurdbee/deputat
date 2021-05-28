@@ -123,7 +123,7 @@ class PhotoCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        if request.user.is_photo_manager() or request.user.is_superuser:
+        if request.user.is_photo_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_close", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -136,7 +136,7 @@ class PhotoCloseCreate(TemplateView):
 
     def post(self,request,*args,**kwargs):
         photo, form = Photo.objects.get(uuid=self.kwargs["uuid"]), ModeratedForm(request.POST)
-        if request.is_ajax() and form.is_valid() and (request.user.is_photo_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_photo_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=photo.pk, type="PHO")
             moderate_obj.create_close(object=photo, description=mod.description, manager_id=request.user.pk)
@@ -148,7 +148,7 @@ class PhotoCloseCreate(TemplateView):
 class PhotoCloseDelete(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
+        if request.is_ajax() and request.user.is_photo_manager():
             moderate_obj = Moderated.objects.get(object_id=photo.pk, type="PHO")
             moderate_obj.delete_close(object=photo, manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_CLOSED_HIDE)
@@ -183,7 +183,7 @@ class PhotoClaimCreate(TemplateView):
 class PhotoRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
+        if request.is_ajax() and request.user.is_photo_manager():
             moderate_obj = Moderated.objects.get(object_id=photo.pk, type="PHO")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_REJECT)
@@ -195,7 +195,7 @@ class PhotoUnverify(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["photo_uuid"])
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and request.user.is_photo_manager() or request.user.is_superuser:
+        if request.is_ajax() and request.user.is_photo_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_UNVERIFY)
             return HttpResponse()
@@ -231,7 +231,7 @@ class ListPhotoClaimCreate(View):
 class ListPhotoRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_photo_manager():
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="PHL")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_REJECT)
@@ -244,7 +244,7 @@ class ListPhotoUnverify(View):
     def get(self,request,*args,**kwargs):
         list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_photo_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_UNVERIFY)
             return HttpResponse()
@@ -256,7 +256,7 @@ class ListPhotoCloseCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
-        if request.user.is_photo_manager() or request.user.is_superuser:
+        if request.user.is_photo_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/photo/list_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -270,7 +270,7 @@ class ListPhotoCloseCreate(TemplateView):
     def post(self,request,*args,**kwargs):
         list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         form = ModeratedForm(request.POST)
-        if form.is_valid() and (request.user.is_photo_manager() or request.user.is_superuser):
+        if form.is_valid() and request.user.is_photo_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="PHL")
             moderate_obj.create_close(object=list, description=mod.description, manager_id=request.user.pk)
@@ -282,7 +282,7 @@ class ListPhotoCloseCreate(TemplateView):
 class ListPhotoCloseDelete(View):
     def get(self,request,*args,**kwargs):
         list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and (request.user.is_photo_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_photo_manager():
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="PHL")
             moderate_obj.delete_close(object=list, manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_CLOSED_HIDE)

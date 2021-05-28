@@ -10,7 +10,7 @@ class PenaltyUser(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_user_manager() or self.user.is_superuser:
+        if self.user.is_user_manager():
             self.template_name = get_detect_platform_template("managers/penalty_list/user_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -24,7 +24,7 @@ class PenaltyDoc(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_doc_manager() or self.user.is_superuser:
+        if self.user.is_doc_manager():
             self.template_name = get_detect_platform_template("managers/penalty_list/doc_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -38,7 +38,7 @@ class PenaltyCommunity(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_community_manager() or self.user.is_superuser:
+        if self.user.is_community_manager():
             self.template_name = get_detect_platform_template("managers/penalty_list/community_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -52,7 +52,7 @@ class PenaltyElectNew(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_elect_new_manager() or self.user.is_superuser:
+        if self.user.is_elect_new_manager():
             self.template_name = get_detect_platform_template("managers/penalty_list/elect_new_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -66,7 +66,7 @@ class PenaltySurvey(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_survey_manager() or self.user.is_superuser:
+        if self.user.is_survey_manager():
             self.template_name = get_detect_platform_template("managers/penalty_list/survey_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -81,7 +81,7 @@ class PenaltyPhoto(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_photo_administrator() or self.user.is_superuser:
+        if self.user.is_photo_administrator():
             self.template_name = get_detect_platform_template("managers/penalty_list/photo_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -95,7 +95,7 @@ class PenaltyAudio(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_audio_manager() or self.user.is_superuser:
+        if self.user.is_audio_manager():
             self.template_name = get_detect_platform_template("managers/penalty_list/audio_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -110,7 +110,7 @@ class PenaltyVideo(ListView):
 
     def get(self,request,*args,**kwargs):
         self.user = request.user
-        if self.user.is_video_manager() or self.user.is_superuser:
+        if self.user.is_video_manager():
             self.template_name = get_detect_platform_template("managers/penalty_list/video_list.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404

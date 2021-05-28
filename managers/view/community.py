@@ -164,7 +164,7 @@ class CommunitySuspensionCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         self.community = Community.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_community_manager() or request.user.is_superuser:
+        if request.user.is_community_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/community_suspend.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -180,7 +180,7 @@ class CommunitySuspensionCreate(TemplateView):
 
         form = ModeratedForm(request.POST)
 
-        if request.is_ajax() and form.is_valid() and (request.user.is_community_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_community_manager():
             mod = form.save(commit=False)
             number = request.POST.get('number')
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=self.kwargs["pk"], type="COM")
@@ -207,7 +207,7 @@ class CommunitySuspensionCreate(TemplateView):
 
 class CommunitySuspensionDelete(View):
     def get(self,request,*args,**kwargs):
-        if request.is_ajax() and request.user.is_community_manager() or request.user.is_superuser:
+        if request.is_ajax() and request.user.is_community_manager():
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.delete_suspend(manager_id=request.user.pk)
             CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.SUSPENDED_HIDE)
@@ -220,7 +220,7 @@ class CommunityCloseCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         self.community = Community.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_community_manager() or request.user.is_superuser:
+        if request.user.is_community_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/community_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -234,7 +234,7 @@ class CommunityCloseCreate(TemplateView):
     def post(self,request,*args,**kwargs):
         community = Community.objects.get(pk=self.kwargs["pk"])
         form = ModeratedForm(request.POST)
-        if request.is_ajax() and form.is_valid() and (request.user.is_community_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_community_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(type="COM", object_id=community.pk)
             moderate_obj.create_close(object=community, description=mod.description, manager_id=request.user.pk)
@@ -246,7 +246,7 @@ class CommunityCloseCreate(TemplateView):
 class CommunityCloseDelete(View):
     def get(self,request,*args,**kwargs):
         community = Community.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_community_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_community_manager():
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.delete_close(object=community, manager_id=request.user.pk)
             CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.CLOSED_HIDE)
@@ -259,7 +259,7 @@ class CommunityWarningBannerCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         self.community = Community.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_community_manager() or request.user.is_superuser:
+        if request.user.is_community_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/community_warning_banner.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -272,7 +272,7 @@ class CommunityWarningBannerCreate(TemplateView):
 
     def post(self,request,*args,**kwargs):
         form = ModeratedForm(request.POST)
-        if request.is_ajax() and form.is_valid() and (request.user.is_community_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_community_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.status = Moderated.BANNER_GET
@@ -309,7 +309,7 @@ class CommunityClaimCreate(TemplateView):
 
 class CommunityWarningBannerDelete(View):
     def get(self,request,*args,**kwargs):
-        if request.is_ajax() and (request.user.is_community_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_community_manager():
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.delete_warning_banner(manager_id=request.user.pk)
             CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.WARNING_BANNER_HIDE)
@@ -319,7 +319,7 @@ class CommunityWarningBannerDelete(View):
 
 class CommunityRejectedCreate(View):
     def get(self,request,*args,**kwargs):
-        if request.is_ajax() and (request.user.is_community_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_community_manager():
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.REJECT)
@@ -330,7 +330,7 @@ class CommunityRejectedCreate(View):
 class CommunityUnverify(View):
     def get(self,request,*args,**kwargs):
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and (request.user.is_community_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_community_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.UNVERIFY)
             return HttpResponse()

@@ -125,7 +125,7 @@ class ElectNewCloseCreate(View):
 
     def get(self,request,*args,**kwargs):
         self.post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
-        if request.user.is_elect_new_manager() or request.user.is_superuser:
+        if request.user.is_elect_new_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/elect_new/close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -138,7 +138,7 @@ class ElectNewCloseCreate(View):
 
     def post(self,request,*args,**kwargs):
         post, form = ElectNew.objects.get(uuid=self.kwargs["uuid"]), ModeratedForm(request.POST)
-        if request.is_ajax() and form.is_valid() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+        if request.is_ajax() and form.is_valid() and request.user.is_elect_new_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="POS")
             moderate_obj.create_close(object=post, description=mod.description, manager_id=request.user.pk)
@@ -150,7 +150,7 @@ class ElectNewCloseCreate(View):
 class ElectNewCloseDelete(View):
     def get(self,request,*args,**kwargs):
         post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_elect_new_manager():
             moderate_obj = Moderated.objects.get(object_id=post.pk, type="POS")
             moderate_obj.delete_close(object=post, manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_CLOSED_HIDE)
@@ -184,7 +184,7 @@ class ElectNewClaimCreate(TemplateView):
 class ElectNewRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_elect_new_manager():
             moderate_obj = Moderated.objects.get(object_id=post.pk, type="POS")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_REJECT)
@@ -197,7 +197,7 @@ class ElectNewUnverify(View):
     def get(self,request,*args,**kwargs):
         post = ElectNew.objects.get(uuid=self.kwargs["elect_new_uuid"])
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_elect_new_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_UNVERIFY)
             return HttpResponse()
@@ -256,7 +256,7 @@ class RejectElectNew(View):
         self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
         self.form_post = ModeratedForm(request.POST)
 
-        if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager() and request.user.is_superuser:
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
             post = self.form_post.save(commit=False)
             obj = post.get_or_create_moderated_object("ELE", self.elect_new.pk)
             obj.description = post.description
@@ -302,7 +302,7 @@ class CommentElectNewClaimCreate(View):
 class CommentElectNewRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_elect_new_manager():
             moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_REJECT)
@@ -315,7 +315,7 @@ class CommentElectNewUnverify(View):
     def get(self,request,*args,**kwargs):
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
         obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
-        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_elect_new_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_UNVERIFY)
             return HttpResponse()
@@ -327,7 +327,7 @@ class CommentElectNewCloseCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        if request.user.is_elect_new_manager() or request.user.is_superuser:
+        if request.user.is_elect_new_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/elect_new/comment_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
@@ -341,7 +341,7 @@ class CommentElectNewCloseCreate(TemplateView):
     def post(self,request,*args,**kwargs):
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
         form = ModeratedForm(request.POST)
-        if form.is_valid() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+        if form.is_valid() and request.user.is_elect_new_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=comment.pk, type="POSC")
             moderate_obj.create_close(object=comment, description=mod.description, manager_id=request.user.pk)
@@ -353,7 +353,7 @@ class CommentElectNewCloseCreate(TemplateView):
 class CommentElectNewCloseDelete(View):
     def get(self,request,*args,**kwargs):
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_elect_new_manager() or request.user.is_superuser):
+        if request.is_ajax() and request.user.is_elect_new_manager():
             moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
             moderate_obj.delete_close(object=comment, manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED_HIDE)

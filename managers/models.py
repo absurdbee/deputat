@@ -401,8 +401,10 @@ class Moderated(models.Model):
             community = Community.objects.get(pk=self.object_id)
             community.abort_close_item()
             community.abort_suspend_item()
+        elif object.community:
+            object.abort_close_item(object.community)
         else:
-            object.abort_close_item()
+            object.abort_close_item(None)
         self.save()
 
     def reject_moderation(self, manager_id):

@@ -99,3 +99,40 @@ class UserLoadPlaylist(ListView):
 
     def get_queryset(self):
         return self.music_list
+
+
+class UserLoadPenaltyPlaylist(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_managers_template
+
+		self.list = SoundList.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_managers_template(self.list, "user_music/load/", "penalty_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		return super(UserLoadPenaltyPlaylist,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserLoadPenaltyPlaylist,self).get_context_data(**kwargs)
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.list.get_penalty_items()
+
+class UserLoadModeratedPlaylist(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_managers_template
+
+		self.list = SoundList.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_managers_template(self.list, "user_music/load/", "moderated_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		return super(UserLoadModeratedPlaylist,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserLoadModeratedPlaylist,self).get_context_data(**kwargs)
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.list.get_items()

@@ -237,3 +237,40 @@ class GetUserPhoto(TemplateView):
 		context = super(GetUserPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		return context
+
+
+class UserLoadPenaltyPhotolist(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_managers_template
+
+		self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_managers_template(self.list, "user_gallery/load/", "penalty_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		return super(UserLoadPenaltyPhotolist,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserLoadPenaltyPhotolist,self).get_context_data(**kwargs)
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.list.get_penalty_items()
+
+class UserLoadModeratedPhotolist(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_managers_template
+
+		self.list = PhotoList.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_managers_template(self.list, "user_gallery/load/", "moderated_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		return super(UserLoadModeratedPhotolist,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserLoadModeratedPhotolist,self).get_context_data(**kwargs)
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.list.get_items()

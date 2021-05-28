@@ -118,3 +118,40 @@ class UserVideoList(ListView):
 
     def get_queryset(self):
         return self.video_list
+
+
+class UserLoadPenaltyVideoList(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_managers_template
+
+		self.list = VideoList.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_managers_template(self.list, "user_video/load/", "penalty_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		return super(UserLoadPenaltyVideoList,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserLoadPenaltyVideoList,self).get_context_data(**kwargs)
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.list.get_penalty_items()
+
+class UserLoadModeratedVideoList(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_managers_template
+
+		self.list = VideoList.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_managers_template(self.list, "user_video/load/", "moderated_list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
+		return super(UserLoadModeratedVideoList,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserLoadModeratedVideoList,self).get_context_data(**kwargs)
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.list.get_items()

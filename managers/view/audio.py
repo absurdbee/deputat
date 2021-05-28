@@ -195,7 +195,7 @@ class AudioRejectedCreate(View):
             music = Music.objects.get(uuid=self.kwargs["uuid"])
             moderate_obj = Moderated.objects.get(object_id=music.pk, type="MUS")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
-            AudioManageLog.objects.create(item=object_id, manager=manager_id, action_type=AudioManageLog.ITEM_REJECT)
+            AudioManageLog.objects.create(item=music.pk, manager=manager_id, action_type=AudioManageLog.ITEM_REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -203,7 +203,8 @@ class AudioRejectedCreate(View):
 
 class AudioUnverify(View):
     def get(self,request,*args,**kwargs):
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        music = Music.objects.get(uuid=self.kwargs["uuid"])
+        obj = Moderated.get_or_create_moderated_object(object_id=music.pk, type="MUS")
         if request.is_ajax() and request.user.is_audio_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             AudioManageLog.objects.create(item=obj.object_id, manager=manager_id, action_type=AudioManageLog.ITEM_UNVERIFY)
@@ -252,7 +253,7 @@ class ListAudioRejectedCreate(View):
 class ListAudioUnverify(View):
     def get(self,request,*args,**kwargs):
         list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="MUL")
         if request.is_ajax() and request.user.is_audio_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             AudioManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=AudioManageLog.LIST_UNVERIFY)

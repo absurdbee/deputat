@@ -21,11 +21,11 @@ urlpatterns = [
     url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', DocCloseDelete.as_view()),
     url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', DocRejectedCreate.as_view()),
     url(r'^create_claim/(?P<uuid>[0-9a-f-]+)/$', DocClaimCreate.as_view()),
-    url(r'^unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', DocUnverify.as_view()),
+    url(r'^unverify/(?P<uuid>[0-9a-f-]+)/$', DocUnverify.as_view()),
 
     url(r'^list_create_close/(?P<uuid>[0-9a-f-]+)/$', ListDocCloseCreate.as_view()),
     url(r'^list_delete_close/(?P<uuid>[0-9a-f-]+)/$', ListDocCloseDelete.as_view()),
     url(r'^list_create_rejected/(?P<uuid>[0-9a-f-]+)/$', ListDocRejectedCreate.as_view()),
     url(r'^list_create_claim/(?P<uuid>[0-9a-f-]+)/$', ListDocClaimCreate.as_view()),
-    url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', ListDocUnverify.as_view()),
+    url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListDocUnverify.as_view()),
 ]

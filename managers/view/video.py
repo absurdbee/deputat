@@ -194,7 +194,8 @@ class VideoRejectedCreate(View):
 
 class VideoUnverify(View):
     def get(self,request,*args,**kwargs):
-        video, obj = Video.objects.get(uuid=self.kwargs["video_uuid"]), Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        video = Video.objects.get(uuid=self.kwargs["video_uuid"])
+        obj = Moderated.get_or_create_moderated_object(object_id=video.pk, type="VID")
         if request.is_ajax() and request.user.is_video_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.UNVERIFY)
@@ -243,7 +244,7 @@ class ListVideoRejectedCreate(View):
 class ListVideoUnverify(View):
     def get(self,request,*args,**kwargs):
         list = VideoList.objects.get(uuid=self.kwargs["uuid"])
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="VIL")
         if request.is_ajax() and request.user.is_video_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             VideoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=VideoManageLog.LIST_UNVERIFY)

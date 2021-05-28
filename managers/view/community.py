@@ -329,10 +329,11 @@ class CommunityRejectedCreate(View):
 
 class CommunityUnverify(View):
     def get(self,request,*args,**kwargs):
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        community = Community.objects.get(pk=self.kwargs["pk"])
+        obj = Moderated.get_or_create_moderated_object(object_id=community.pk, type="COM")
         if request.is_ajax() and request.user.is_community_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
-            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.UNVERIFY)
+            CommunityManageLog.objects.create(item=community.pk, manager=request.user.pk, action_type=CommunityManageLog.UNVERIFY)
             return HttpResponse()
         else:
             raise Http404

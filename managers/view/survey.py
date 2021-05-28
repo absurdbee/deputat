@@ -203,10 +203,11 @@ class SurveyRejectedCreate(View):
 
 class SurveyUnverify(View):
     def get(self,request,*args,**kwargs):
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        survey = Survey.objects.get(uuid=self.kwargs["uuid"])
+        obj = Moderated.get_or_create_moderated_object(object_id=survey.pk, type="SUR")
         if request.is_ajax() and request.user.is_survey_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
-            SurveyManageLog.objects.create(item=obj.object_id, manager=request.user.pk, action_type=SurveyManageLog.ITEM_UNVERIFY)
+            SurveyManageLog.objects.create(item=survey.pk, manager=request.user.pk, action_type=SurveyManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
             raise Http404
@@ -252,7 +253,7 @@ class ListSurveyRejectedCreate(View):
 class ListSurveyUnverify(View):
     def get(self,request,*args,**kwargs):
         list = SurveyList.objects.get(uuid=self.kwargs["uuid"])
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="SUL")
         if request.is_ajax() and request.user.is_survey_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             SurveyManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=SurveyManageLog.LIST_UNVERIFY)

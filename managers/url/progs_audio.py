@@ -21,11 +21,11 @@ urlpatterns = [
     url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', AudioCloseDelete.as_view()),
     url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', AudioRejectedCreate.as_view()),
     url(r'^create_claim/(?P<uuid>[0-9a-f-]+)/$', AudioClaimCreate.as_view()),
-    url(r'^unverify/(?P<uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', AudioUnverify.as_view()),
+    url(r'^unverify/(?P<uuid>[0-9a-f-]+)/$', AudioUnverify.as_view()),
 
     url(r'^list_create_close/(?P<uuid>[0-9a-f-]+)/$', ListAudioCloseCreate.as_view()),
     url(r'^list_delete_close/(?P<uuid>[0-9a-f-]+)/$', ListAudioCloseDelete.as_view()),
     url(r'^list_create_rejected/(?P<uuid>[0-9a-f-]+)/$', ListAudioRejectedCreate.as_view()),
     url(r'^list_create_claim/(?P<uuid>[0-9a-f-]+)/$', ListAudioClaimCreate.as_view()),
-    url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', ListAudioUnverify.as_view()),
+    url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListAudioUnverify.as_view()),
 ]

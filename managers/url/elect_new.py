@@ -24,11 +24,11 @@ urlpatterns = [
     url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', ElectNewCloseDelete.as_view()),
     url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', ElectNewRejectedCreate.as_view()),
     url(r'^create_claim/(?P<pk>\d+)/$', ElectNewClaimCreate.as_view()),
-    url(r'^unverify/(?P<post_uuid>[0-9a-f-]+)/(?P<obj_pk>\d+)/$', ElectNewUnverify.as_view()),
+    url(r'^unverify/(?P<post_uuid>[0-9a-f-]+)/$', ElectNewUnverify.as_view()),
 
     url(r'^comment_create_close/(?P<pk>\d+)/$', CommentElectNewCloseCreate.as_view()),
     url(r'^comment_delete_close/(?P<pk>\d+)/$', CommentElectNewCloseDelete.as_view()),
     url(r'^comment_create_rejected/(?P<pk>\d+)/$', CommentElectNewRejectedCreate.as_view()),
     url(r'^comment_create_claim/(?P<pk>\d+)/$', CommentElectNewClaimCreate.as_view()),
-    url(r'^comment_unverify/(?P<pk>\d+)/(?P<obj_pk>\d+)/$', CommentElectNewUnverify.as_view()),
+    url(r'^comment_unverify/(?P<pk>\d+)/$', CommentElectNewUnverify.as_view()),
 ]

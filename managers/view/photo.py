@@ -194,7 +194,7 @@ class PhotoRejectedCreate(View):
 class PhotoUnverify(View):
     def get(self,request,*args,**kwargs):
         photo = Photo.objects.get(uuid=self.kwargs["photo_uuid"])
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        obj = Moderated.get_or_create_moderated_object(object_id=photo.pk, type="PHO")
         if request.is_ajax() and request.user.is_photo_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=photo.pk, manager=request.user.pk, action_type=PhotoManageLog.ITEM_UNVERIFY)
@@ -243,7 +243,7 @@ class ListPhotoRejectedCreate(View):
 class ListPhotoUnverify(View):
     def get(self,request,*args,**kwargs):
         list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
-        obj = Moderated.objects.get(pk=self.kwargs["obj_pk"])
+        obj = Moderated.get_or_create_moderated_object(object_id=list.pk, type="PHL")
         if request.is_ajax() and request.user.is_photo_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             PhotoManageLog.objects.create(item=list.pk, manager=request.user.pk, action_type=PhotoManageLog.LIST_UNVERIFY)

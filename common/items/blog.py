@@ -28,7 +28,7 @@ def blog(user, blog):
                 user_inert = "btn_inert blog_inert"
         else:
             votes_on = 'style="display:none"'
-        if user.is_supermanager() or user.is_superuser:
+        if user.is_supermanager():
             card_drop += '<span class="dropdown-item blog_force_delete">♦ Удалить</span>'
         else:
             card_drop += '<span class="dropdown-item blog_claim">Пожаловаться</span>'

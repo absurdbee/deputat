@@ -9,7 +9,7 @@ def check_manager_state(user):
         user.save(update_fields=['type'])
 
 def check_supermanager_state(user):
-    if not user.is_superuser_manager() or not user.is_community_supermanager() or not user.is_elect_new_supermanager() \
+    if not user.is_community_supermanager() or not user.is_elect_new_supermanager() \
         or not user.is_good_supermanager() or not user.is_photo_supermanager() or not user.is_audio_supermanager() \
         or not user.is_survey_manager() or not user.is_video_supermanager():
         user.type = 'STA'

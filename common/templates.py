@@ -159,7 +159,7 @@ def get_managers_template(template, request_user, user_agent):
         update_activity(request_user, user_agent)
         if request_user.type[0] == "_":
             template_name = get_fine_request_user(request_user)
-        elif request_user.is_manager() or request_user.is_superuser:
+        elif request_user.is_manager():
             template_name = template
         else:
             raise PermissionDenied("Permission denied...")
@@ -247,7 +247,7 @@ def get_template_user_item(item, folder, template, request_user, user_agent, sta
     elif request_user.pk != user.pk:
         if user.type[0] == "_":
             template_name = get_fine_user(user)
-        elif staff or request_user.is_superuser:
+        elif staff:
             template_name = folder + "staff_" + template
         elif request_user.is_blocked_with_user_with_id(user_id=user.pk):
             template_name = "generic/u_template/block_user.html"
@@ -344,7 +344,7 @@ def get_template_user_window(item, folder, template, request_user, user_agent, s
     elif user.pk == request_user.pk:
             template_name = folder + "my_" + template
     elif request_user.pk != user.pk:
-        if staff or request_user.is_superuser:
+        if staff:
             template_name = folder + "staff_" + template
         elif request_user.is_blocked_with_user_with_id(user_id=user.pk) and item.is_private():
             template_name = "generic/u_template/permission_window.html"

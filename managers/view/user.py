@@ -319,7 +319,7 @@ class UserRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_user_manager():
-            moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
+            moderate_obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.REJECT)
             return HttpResponse()

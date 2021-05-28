@@ -3,6 +3,7 @@ from users.models import User
 from common.templates import get_small_template
 from django.views.generic import ListView
 from django.views.generic.base import TemplateView
+from video.models import Video, VideoList
 
 
 class AllVideoView(TemplateView):
@@ -14,7 +15,6 @@ class UserVideoDetail(TemplateView):
 
     def get(self,request,*args,**kwargs):
         from common.templates import get_template_user_window, get_template_anon_user_window
-        from video.models import Video, VideoList
 
         self.video = Video.objects.get(pk=self.kwargs["pk"])
         self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
@@ -97,7 +97,6 @@ class UserVideoList(ListView):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
-        from video.models import VideoList
         from common.templates import get_template_user_item, get_template_anon_user_item
 
         self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])

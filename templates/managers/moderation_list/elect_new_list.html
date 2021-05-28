@@ -25,7 +25,9 @@
               <div class="is_paginate">
                 {% if object_list %}
                   {% for object in object_list %}
-
+                  <div class="list-group-item pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
+                      {{ object|get_video_items|safe }}
+                  </div>
                   {% endfor %}
                   {% else %}
                   <div class="card centered">

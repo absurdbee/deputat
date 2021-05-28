@@ -5,7 +5,7 @@ var ready = (callback) => {
 
 function get_profile_sanction_window(_this, url) {
   if(_this.parentElement.classList.contains("btn_console")){
-    div = _this.parentElement.parentElement.parentElement.parentElement;
+    div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
     pk = _this.parentElement.getAttribute("data-pk");
     list = document.querySelectorAll('.pag');
     for (var i = 0; i < list.length; i++) {

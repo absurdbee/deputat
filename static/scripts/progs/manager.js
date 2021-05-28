@@ -24,6 +24,12 @@ on('body', 'click', '.u_load_penalty_photo_list', function() {
   open_fullscreen("/gallery/penalty_load/" + parent.getAttribute("photolist-pk") + "/", document.getElementById("window_loader"))
 });
 
+
+on('body', 'click', '.u_load_moderated_photo_list', function() {
+  parent = this.parentElement.parentElement;
+  parent.parentElement.classList.add("changed");
+  open_fullscreen("/gallery/moderated_load/" + parent.getAttribute("photolist-pk") + "/", document.getElementById("window_loader"))
+});
 on('body', 'click', '.u_load_moderated_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");

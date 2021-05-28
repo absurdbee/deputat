@@ -186,3 +186,39 @@ on('body', 'click', '.remove_survey_list_close', function() {
 on('body', 'click', '.survey_list_unverify', function() {
   send_window_sanction("/managers/progs_survey/list_unverify/", "Верификация отменена")
 });
+
+
+on('body', 'click', '.create_photo_list_close', function() {
+  send_window_sanction("/managers/progs_photo/list_create_close/", "Фотоальбом закрыт")
+});
+on('body', 'click', '.create_photo_list_rejected', function() {
+  send_window_sanction("/managers/progs_photo/list_create_rejected/", "Объект отклонен")
+});
+
+on('body', 'click', '.create_playlist_close', function() {
+  send_window_sanction("/managers/progs_audio/list_create_close/", "Плейлист закрыт")
+});
+on('body', 'click', '.create_playlist_rejected', function() {
+  send_window_sanction("/managers/progs_audio/list_create_rejected/", "Объект отклонен")
+});
+
+on('body', 'click', '.create_video_list_close', function() {
+  send_window_sanction("/managers/progs_video/list_create_close/", "Видеоальбом закрыт")
+});
+on('body', 'click', '.create_video_list_rejected', function() {
+  send_window_sanction("/managers/progs_video/list_create_rejected/", "Объект отклонен")
+});
+
+on('body', 'click', '.create_doc_list_close', function() {
+  send_window_sanction("/managers/progs_doc/list_create_close/", "Список документов закрыт")
+});
+on('body', 'click', '.create_doc_list_rejected', function() {
+  send_window_sanction("/managers/progs_doc/list_create_rejected/", "Объект отклонен")
+});
+
+on('body', 'click', '.create_survey_list_close', function() {
+  send_window_sanction("/managers/progs_survey/list_create_close/", "Список опросов закрыт")
+});
+on('body', 'click', '.create_survey_list_rejected', function() {
+  send_window_sanction("/managers/progs_survey/list_create_rejected/", "Объект отклонен")
+});

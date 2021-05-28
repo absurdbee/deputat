@@ -20,7 +20,7 @@ def get_photo_items(object):
 
 @register.filter
 def get_video_items(object):
-    return object.get_music_items()
+    return object.get_video_items()
 
 @register.filter
 def get_survey_items(object):

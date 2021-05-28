@@ -414,10 +414,10 @@ class Moderated(models.Model):
     def get_btn_console(self):
         return '<div class="border-top btn_console"><a class="create_user_suspend pointer">Заморозить</a>| <a class="create_user_close pointer">Заблокировать</a>| <a class="create_user_warning_banner pointer">Повесить баннер</a>| <a class="create_user_rejected pointer">Отклонить</a></div>'
 
-    def get_user(self, user_id):
+    def get_user(self):
         try:
             from users.models import User
-            user = User.objects.get(pk=user_id)
+            user = User.objects.get(pk=self.object_id)
             reports, count = '', 0
             for report in self.reports.all():
                 count += 1
@@ -429,36 +429,36 @@ class Moderated(models.Model):
         except:
             return '<div class="media">Ошибка отображения данных</div>'
 
-    def get_doc_items(self, user_id):
+    def get_doc_items(self):
         if self.type == "DOL":
-            return self.get_doc_list(user_id)
+            return self.get_doc_list()
         elif self.type == "DOC":
-            return self.get_doc(user_id)
-    def get_survey_items(self, user_id):
+            return self.get_doc()
+    def get_survey_items(self):
         if self.type == "SUL":
-            return self.get_survey_list(user_id)
+            return self.get_survey_list()
         elif self.type == "SUR":
-            return self.get_survey(user_id)
-    def get_photo_items(self, user_id):
+            return self.get_survey()
+    def get_photo_items(self):
         if self.type == "PHL":
-            return self.get_photo_list(user_id)
+            return self.get_photo_list()
         elif self.type == "PHO":
-            return self.get_photo(user_id)
-    def get_video_items(self, user_id):
+            return self.get_photo()
+    def get_video_items(self):
         if self.type == "VIL":
-            return self.get_video_list(user_id)
+            return self.get_video_list()
         elif self.type == "VID":
-            return self.get_video(user_id)
-    def get_music_items(self, user_id):
+            return self.get_video()
+    def get_music_items(self):
         if self.type == "MUL":
-            return self.get_music_list(user_id)
+            return self.get_music_list()
         elif self.type == "MUS":
-            return self.get_music(user_id)
-    def get_elect_new_items(self, user_id):
+            return self.get_music()
+    def get_elect_new_items(self):
         if self.type == "ELE":
-            return self.get_elect_new(user_id)
+            return self.get_elect_new()
         elif self.type == "ELEC":
-            return self.get_elect_new_comment(user_id)
+            return self.get_elect_new_comment()
 
     @classmethod
     def get_moderation_users(cls):

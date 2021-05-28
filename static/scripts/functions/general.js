@@ -92,13 +92,13 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   link_.send(form_data);
 }
 
-function send_window_sanction(_this, url, toast) {
+function send_window_sanction(url, toast) {
   // работа санкций при открытом окне списков и элементов
   div = document.body.querySelector(".changed");
   uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid");
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', url + uuid + "/", true );
+  link_.open( 'GET', url + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

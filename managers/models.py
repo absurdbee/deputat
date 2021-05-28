@@ -718,15 +718,15 @@ class ModerationPenalty(models.Model):
         except:
             return ''
     def get_survey_list(self):
-        #try:
-        from survey.models import SurveyList
-        list = SurveyList.objects.get(pk=self.object_id)
-        creator = list.creator
-        image = '<svg height="70px" viewBox="0 0 24 24" width="70px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M18 9l-1.41-1.42L10 14.17l-2.59-2.58L6 13l4 4zm1-6h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04-.39.08-.74.28-1.01.55-.18.18-.33.4-.43.64-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z"></path></svg>'
-        add_svg = ''
-        return ''.join(['<div style="flex-basis: 100%;" class="border"><div class="card-body" surveylist-pk="', str(list.pk), '"style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_manager_survey_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_manager_survey_list pointer">', list.name, '</h6><p>Список опросов <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Треков: ', str(list.count_items()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
-        #except:
-        #    return ''
+        try:
+            from survey.models import SurveyList
+            list = SurveyList.objects.get(pk=self.object_id)
+            creator = list.creator
+            image = '<svg height="70px" viewBox="0 0 24 24" width="70px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M18 9l-1.41-1.42L10 14.17l-2.59-2.58L6 13l4 4zm1-6h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-.14 0-.27.01-.4.04-.39.08-.74.28-1.01.55-.18.18-.33.4-.43.64-.1.23-.16.49-.16.77v14c0 .27.06.54.16.78s.25.45.43.64c.27.27.62.47 1.01.55.13.02.26.03.4.03h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7-.25c.41 0 .75.34.75.75s-.34.75-.75.75-.75-.34-.75-.75.34-.75.75-.75zM19 19H5V5h14v14z"></path></svg>'
+            add_svg = ''
+            return ''.join(['<div style="flex-basis: 100%;" class="border"><div class="card-body" surveylist-pk="', str(list.pk), '"style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_manager_survey_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_manager_survey_list pointer">', list.name, '</h6><p>Список опросов <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Треков: ', str(list.count_items()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
+        except:
+            return ''
 
     def get_doc_items(self):
         if self.type == "DOL":

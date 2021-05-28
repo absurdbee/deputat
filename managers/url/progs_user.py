@@ -29,5 +29,5 @@ urlpatterns = [
     url(r'^delete_warning_banner/(?P<pk>\d+)/$', UserWarningBannerDelete.as_view()),
     url(r'^create_rejected/(?P<pk>\d+)/$', UserRejectedCreate.as_view()),
     url(r'^create_claim/(?P<pk>\d+)/$', UserClaimCreate.as_view()),
-    url(r'^unverify/(?P<user_pk>\d+)/(?P<obj_pk>\d+)/$', UserUnverify.as_view()),
+    url(r'^unverify/(?P<user_pk>\d+)/$', UserUnverify.as_view()),
 ]

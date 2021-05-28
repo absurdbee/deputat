@@ -25,9 +25,8 @@ on('body', 'click', '.create_user_suspend_btn', function() {
 on('body', 'click', '.user_unverify', function() {
   item = this.parentElement.parentElement.parentElement.parentElement;
   user_pk = item.getAttribute("user-pk");
-  obj_pk = item.getAttribute("data-pk");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/managers/progs_user/unverify/" + user_pk + "/" + obj_pk + "/", true );
+  link_.open( 'GET', "/managers/progs_user/unverify/" + user_pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

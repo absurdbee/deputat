@@ -631,7 +631,7 @@ line-height: 1;
   float: right;
 }
 .window_fullscreen, .photo_fullscreen, .create_fullscreen {
-  position: fixed;
+  position: absolute;
   top: 0;
   height: 100vh;
   z-index: 500;

@@ -97,23 +97,23 @@ def get_u_blog_comment_attach(comment, user):
             except:
                 pass
         elif item[:3] == "lmu":
-            #try:
-            from music.models import SoundList
-            playlist = SoundList.objects.get(list_query, pk=item[3:])
-            creator = playlist.creator
-            if playlist.image:
-                image = '<img src="' + playlist.image.url + '" style="width:60px;height:88px;" alt="image">'
-            else:
-                image = '<svg fill="currentColor" class="svg_default" style="width:70px;height:70px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/></svg>'
-            add_svg = ''
-            if user.is_authenticated:
-                if playlist.is_user_can_add_list(user.pk):
-                    add_svg = '<span title="Добавить плейлист" class="u_add_music_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'
-                elif user.pk in playlist.get_users_ids():
-                    add_svg = '<span title="Удалить плейлист" class="u_remove_music_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>'
-            block = ''.join([block, '<div style="flex-basis: 100%;" class="border"><div class="card-body" playlist-pk="', str(playlist.pk), '"style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_playlist pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_playlist pointer">', playlist.name, '</h6><p>Плейлист <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Треков: ', str(playlist.count_items()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
-            #except:
-            #    pass
+            try:
+                from music.models import SoundList
+                playlist = SoundList.objects.get(list_query, pk=item[3:])
+                creator = playlist.creator
+                if playlist.image:
+                    image = '<img src="' + playlist.image.url + '" style="width:60px;height:88px;" alt="image">'
+                else:
+                    image = '<svg fill="currentColor" class="svg_default" style="width:70px;height:70px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/></svg>'
+                add_svg = ''
+                if user.is_authenticated:
+                    if playlist.is_user_can_add_list(user.pk):
+                        add_svg = '<span title="Добавить плейлист" class="u_add_music_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'
+                    elif user.pk in playlist.get_users_ids():
+                        add_svg = '<span title="Удалить плейлист" class="u_remove_music_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>'
+                block = ''.join([block, '<div style="flex-basis: 100%;" class="border"><div class="card-body" playlist-pk="', str(playlist.pk), '"style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_playlist pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_playlist pointer">', playlist.name, '</h6><p>Плейлист <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Треков: ', str(playlist.count_items()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
+            except:
+                pass
         elif item[:3] == "ldo":
             try:
                 from docs.models import DocList

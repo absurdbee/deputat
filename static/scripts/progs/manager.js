@@ -1,3 +1,21 @@
+on('body', 'click', '.u_load_penalty_playlist', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  open_fullscreen("/music/penalty_load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
+});
+on('body', 'click', '.u_load_penalty_video_list', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  open_fullscreen("/video/penalty_load/" + parent.getAttribute("videolist-pk") + "/", document.getElementById("window_loader"))
+});
+on('body', 'click', '.u_load_penalty_doc_list', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  open_fullscreen("/docs/penalty_load/" + parent.getAttribute("doclist-pk") + "/", document.getElementById("window_loader"))
+});
+on('body', 'click', '.u_load_penalty_photo_list', function() {
+  parent = this.parentElement.parentElement;
+  pk = parent.getAttribute("photolist-pk");
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/gallery/penalty_load/" + pk + "/", loader)
+});
 
 on('body', 'click', '.create_user_close', function() {
   get_profile_sanction_window(this, "/managers/progs_user/create_close/")

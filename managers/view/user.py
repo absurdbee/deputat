@@ -328,7 +328,8 @@ class UserRejectedCreate(View):
 
 class UserUnverify(View):
     def get(self,request,*args,**kwargs):
-        user, obj = User.objects.get(pk=self.kwargs["user_pk"]), Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")
+        user = User.objects.get(pk=self.kwargs["user_pk"])
+        obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")
         if request.is_ajax() and request.user.is_user_manager():
             obj.unverify_moderation(manager_id=request.user.pk)
             UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.UNVERIFY)

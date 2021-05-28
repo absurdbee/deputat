@@ -1,17 +1,21 @@
 on('body', 'click', '.u_load_penalty_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
+  parent.parentElement.classList.add("changed");
   open_fullscreen("/music/penalty_load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.u_load_penalty_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
+  parent.parentElement.classList.add("changed");
   open_fullscreen("/video/penalty_load/" + parent.getAttribute("videolist-pk") + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.u_load_penalty_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
+  parent.parentElement.classList.add("changed");
   open_fullscreen("/docs/penalty_load/" + parent.getAttribute("doclist-pk") + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.u_load_penalty_survey_list', function() {
   parent = this.parentElement.parentElement.parentElement;
+  parent.parentElement.classList.add("changed");
   open_fullscreen("/survey/penalty_load/" + parent.getAttribute("surveylist-pk") + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.u_load_penalty_photo_list', function() {
@@ -22,19 +26,18 @@ on('body', 'click', '.u_load_penalty_photo_list', function() {
 
 on('body', 'click', '.u_load_moderated_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
+  parent.parentElement.classList.add("changed");
   open_fullscreen("/music/moderated_load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.u_load_moderated_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
+  parent.parentElement.classList.add("changed");
   open_fullscreen("/video/moderated_load/" + parent.getAttribute("videolist-pk") + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.u_load_moderated_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
+  parent.parentElement.classList.add("changed");
   open_fullscreen("/docs/moderated_load/" + parent.getAttribute("doclist-pk") + "/", document.getElementById("window_loader"))
-});
-on('body', 'click', '.u_load_penalty_survey_list', function() {
-  parent = this.parentElement.parentElement.parentElement;
-  open_fullscreen("/survey/moderated_load/" + parent.getAttribute("surveylist-pk") + "/", document.getElementById("window_loader"))
 });
 
 on('body', 'click', '.create_user_close', function() {
@@ -148,4 +151,32 @@ on('body', 'click', '.remove_photo_list_close', function() {
 });
 on('body', 'click', '.photo_list_unverify', function() {
   send_window_sanction("/managers/progs_photo/list_unverify/", "Верификация отменена")
+});
+
+on('body', 'click', '.remove_playlist_close', function() {
+  send_window_sanction("/managers/progs_audio/list_delete_close/", "Плейлист восстановлен")
+});
+on('body', 'click', '.playlist_unverify', function() {
+  send_window_sanction("/managers/progs_audio/list_unverify/", "Верификация отменена")
+});
+
+on('body', 'click', '.remove_video_list_close', function() {
+  send_window_sanction("/managers/progs_video/list_delete_close/", "Видеоальбом восстановлен")
+});
+on('body', 'click', '.video_list_unverify', function() {
+  send_window_sanction("/managers/progs_video/list_unverify/", "Верификация отменена")
+});
+
+on('body', 'click', '.remove_doc_list_close', function() {
+  send_window_sanction("/managers/progs_doc/list_delete_close/", "Список документов восстановлен")
+});
+on('body', 'click', '.doc_list_unverify', function() {
+  send_window_sanction("/managers/progs_doc/list_unverify/", "Верификация отменена")
+});
+
+on('body', 'click', '.remove_survey_list_close', function() {
+  send_window_sanction("/managers/progs_survey/list_delete_close/", "Список опросов восстановлен")
+});
+on('body', 'click', '.survey_list_unverify', function() {
+  send_window_sanction("/managers/progs_survey/list_unverify/", "Верификация отменена")
 });

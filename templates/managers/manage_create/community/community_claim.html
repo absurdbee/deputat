@@ -1,8 +1,7 @@
 
-<form id="community_claim_form">
+<form class="mt-5" data-uuid="{{ community.pk }}">
   {% csrf_token %}
 
-<div class="row justify-content-center">
   <div class="card">
     <div class="card-body">
       <div class="row">
@@ -40,5 +39,4 @@
         <button type="button" class="btn btn-success float-right create_community_claim_btn">Пожаловаться</button>
     </div>
   </div>
-</div>
 </form>

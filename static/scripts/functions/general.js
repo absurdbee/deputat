@@ -106,10 +106,10 @@ function open_manager_window(url) {
 }
 
 function send_window_sanction_post(form, url, toast) {
-  // работа санкций при открытом окне списков и элементов - отправка формы
+  // отправляем данные формы применеия санкций на странице списка или в модерском отделе модерации
   form_data = new FormData(form);
   div = document.body.querySelector(".changed");
-  uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid");
+  uuid = form.getAttribute("data-uuid");
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', url + uuid + "/", true );

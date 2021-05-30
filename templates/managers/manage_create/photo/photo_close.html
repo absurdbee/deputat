@@ -1,8 +1,7 @@
 
-<form id="photo_delete_form">
+<form class="mt-5" data-uuid="{{ list.uuid }}">
   {% csrf_token %}
 
-  <div class="row justify-content-center">
     <div class="card">
       Закрыть фотографию
       <div class="card-body">
@@ -27,8 +26,7 @@
       </div>
       <div class="card-footer">
         <button class="btn custom_color border window_fullscreen_hide_2" style="position: absolute;">Отмена</button>
-        <button type="button" class="btn btn-success float-right create_photo_close_btn" data-uuid="{{ object.uuid }}">Закрыть</button>
+        <button type="button" class="btn btn-success float-right create_photo_close_btn">Закрыть</button>
     </div>
   </div>
-</div>
 </form>

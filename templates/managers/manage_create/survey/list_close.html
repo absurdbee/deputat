@@ -1,5 +1,5 @@
 
-<form class="mt-5">
+<form class="mt-5" data-uuid="{{ list.uuid }}">
   {% csrf_token %}
 
     <div class="card">
@@ -12,7 +12,7 @@
       </div>
       <div class="card-footer">
         <button class="btn custom_color border window_fullscreen_hide_2" style="position: absolute;">Отмена</button>
-        <button type="button" id="create_survey_List_close_btn" class="btn btn-success float-right" data-uuid="{{ list.uuid }}">Закрыть</button>
+        <button type="button" id="create_survey_List_close_btn" class="btn btn-success float-right">Закрыть</button>
     </div>
   </div>
 </form>

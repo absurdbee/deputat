@@ -103,10 +103,7 @@ function send_window_sanction(url, toast) {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    toast_info(toast);
-    document.querySelector(".window_fullscreen").style.display = "none";
-    document.getElementById("window_loader").innerHTML="";
-    div.remove();
+    console.log("open")
   }};
 
   link_.send();

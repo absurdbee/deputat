@@ -302,7 +302,7 @@ def get_template_anon_user_item(item, template, user_agent):
     elif item.is_private():
         return get_folder(user_agent) + "generic/u_template/anon_private.html"
     else:
-        return get_folder(user_agent) + 
+        return get_folder(user_agent) + template
 
 
 def get_template_community_window(item, folder, template, request_user, user_agent, staff):

@@ -21,9 +21,6 @@ function get_profile_sanction_window(_this, url) {
 }
 function get_item_sanction_window(_this, block, url) {
     list = document.querySelectorAll('.pag');
-    for (var i = 0; i < list.length; i++) {
-      list[i].classList.remove("changed");
-    }
     _this.parentElement.parentElement.getAttribute("data-uuid")
      ?  uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
      : (uuid = _this.getAttribute("data-uuid"), block.classList.add("changed"));

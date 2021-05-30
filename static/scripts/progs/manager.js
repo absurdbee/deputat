@@ -137,19 +137,19 @@ on('body', 'click', '.u_close_doc_list', function() {
 })
 
 on('body', 'click', '#create_photo_List_close_btn', function() {
-  send_item_sanction(this, this.parentElement.parentElement.parentElement, "/managers/progs_photo/list_create_close/", "u_unclose_photo_list", "u_close_photo_list", "Фотоальбом закрыт")
+  send_window_sanction("/managers/progs_photo/list_create_close/", "Фотоальбом закрыт")
 });
 on('body', 'click', '#create_playList_close_btn', function() {
-  send_item_sanction(this, this.parentElement.parentElement.parentElement, "/managers/progs_audio/list_create_close/", "u_unclose_playList", "u_close_playList", "Плейлист закрыт")
+  send_window_sanction("/managers/progs_audio/list_create_close/", "Плейлист закрыт")
 });
 on('body', 'click', '#create_doc_List_close_btn', function() {
-  send_item_sanction(this, this.parentElement.parentElement.parentElement, "/managers/progs_doc/list_create_close/", "u_unclose_doc_List", "u_close_doc_List", "Список документов закрыт")
+  send_window_sanction("/managers/progs_doc/list_create_close/", "Список документов закрыт")
 });
 on('body', 'click', '#create_video_List_close_btn', function() {
-  send_item_sanction(this, this.parentElement.parentElement.parentElement, "/managers/progs_video/list_create_close/", "u_unclose_video_List", "u_close_video_List", "Список видеозаписей закрыт")
+  send_window_sanction("/managers/progs_video/list_create_close/", "Список видеозаписей закрыт")
 });
 on('body', 'click', '#create_survey_List_close_btn', function() {
-  send_item_sanction(this, this.parentElement.parentElement.parentElement, "/managers/progs_survey/list_create_close/", "u_unclose_survey_List", "u_close_survey_List", "Список опросов закрыт")
+  send_window_sanction("/managers/progs_survey/list_create_close/", "Список опросов закрыт")
 });
 
 on('body', 'click', '.remove_photo_list_close', function() {

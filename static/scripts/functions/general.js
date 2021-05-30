@@ -89,13 +89,55 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   link_.send(form_data);
 }
 
-function send_window_sanction(url, toast) {
-  // работа санкций при открытом окне списков и элементов
+function open_manager_window(url) {
+  div = document.body.querySelector(".changed");
+  uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid");
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', url + uuid + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    loader = document.getElementById("photo_loader");
+    open_fullscreen(url + uuid + "/", loader)
+  }}
+
+  link_.send();
+}
+
+function send_window_sanction_post(form, url, toast) {
+  // работа санкций при открытом окне списков и элементов - отправка формы
+  form_data = new FormData(form);
   div = document.body.querySelector(".changed");
   uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid");
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', url + uuid + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info(toast);
+    document.querySelector(".window_fullscreen").style.display = "none";
+    document.getElementById("window_loader").innerHTML="";
+
+    if (document.body.querySelector(".load_block")){
+      document.body.querySelector(".load_block").innerHTML = '<div class="card mt-3 centered"><div class="card-body" style="margin-top: 10%;">  <svg class="thumb_big svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div><h6>Сущность блокирована.</h6></div>'
+    }
+    else if (div.classList.contains("changed")){
+      div.remove();
+    }
+  }};
+
+  link_.send(form_data);
+}
+function send_window_sanction_get(url, toast) {
+  // работа санкций при открытом окне списков и элементов - посылка сигнала без формы
+  div = document.body.querySelector(".changed");
+  uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid");
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', url + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

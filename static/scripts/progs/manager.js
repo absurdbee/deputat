@@ -189,42 +189,42 @@ on('body', 'click', '.survey_list_unverify', function() {
 
 
 on('body', 'click', '.create_photo_list_close', function() {
-  get_item_sanction_window(this, this.parentElement.parentElement.parentElement, "/managers/progs_photo/list_create_close/")
+  open_manager_window("/managers/progs_photo/list_create_close/")
 });
 on('body', 'click', '.create_photo_list_rejected', function() {
-  send_window_sanction("/managers/progs_photo/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get("/managers/progs_photo/list_create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_playlist_close', function() {
-  get_item_sanction_window(this, this.parentElement.parentElement.parentElement.parentElement.parentElement, "/managers/progs_audio/list_create_close/")
+  open_manager_window("/managers/progs_audio/list_create_close/")
 });
 on('body', 'click', '.create_playlist_rejected', function() {
-  send_window_sanction("/managers/progs_audio/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get("/managers/progs_audio/list_create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_video_list_close', function() {
-  get_item_sanction_window(this, this.parentElement.parentElement.parentElement.parentElement.parentElement, "/managers/progs_video/list_create_close/")
+  open_manager_window("/managers/progs_video/list_create_close/")
 });
 on('body', 'click', '.create_video_list_rejected', function() {
-  send_window_sanction(this, this.parentElement.parentElement.parentElement.parentElement.parentElement, "/managers/progs_video/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get(this, this.parentElement.parentElement.parentElement.parentElement.parentElement, "/managers/progs_video/list_create_rejected/", "Жалобы отклонены")
 });
 on('body', 'click', '.create_video_close', function() {
-  get_item_sanction_window(this, this.parentElement.parentElement.parentElement.parentElement.parentElement, "/managers/progs_video/create_close/")
+  open_manager_window("/managers/progs_video/create_close/")
 });
 on('body', 'click', '.create_video_list_rejected', function() {
-  send_window_sanction("/managers/progs_video/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get("/managers/progs_video/list_create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_doc_list_close', function() {
-  get_item_sanction_window(this, this.parentElement.parentElement.parentElement.parentElement.parentElement, "/managers/progs_doc/list_create_close/")
+  open_manager_window("/managers/progs_doc/list_create_close/")
 });
 on('body', 'click', '.create_doc_list_rejected', function() {
-  send_window_sanction("/managers/progs_doc/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get("/managers/progs_doc/list_create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_survey_list_close', function() {
-  get_item_sanction_window(this, this.parentElement.parentElement.parentElement.parentElement.parentElement, "/managers/progs_survey/list_create_close/")
+  open_manager_window("/managers/progs_survey/list_create_close/")
 });
 on('body', 'click', '.create_survey_list_rejected', function() {
-  send_window_sanction("/managers/progs_survey/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get("/managers/progs_survey/list_create_rejected/", "Жалобы отклонены")
 });

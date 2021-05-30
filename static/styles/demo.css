@@ -277,7 +277,7 @@ a {
 }
 .image_fit_200{
   object-fit: cover;
-  height: 100px;
+  height: 200px;
   width:100%
 }
 .image_fit_70{
@@ -442,9 +442,6 @@ select {
   .u_photo_detail, .u_load_photo_detail {
     flex: 0 0 33.3333%;
     max-width:33.3333%;
-  }
-  .image_fit_200{
-    height: 200px;
   }
   .audio_div {
     width:90%

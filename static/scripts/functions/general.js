@@ -95,7 +95,7 @@ function send_window_sanction(url, toast) {
   uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid");
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', url + uuid + "/", true );
+  link_.open( 'POST', url + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

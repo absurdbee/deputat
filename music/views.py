@@ -36,7 +36,7 @@ class UserMusic(ListView):
         if request.user.is_authenticated:
             self.template_name = get_template_user_item(self.list, "user_music/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
         else:
-            self.template_name = get_template_anon_user_item(self.list, "user_music/main/anon_list.html", request.META['HTTP_USER_AGENT'])
+            self.template_name = get_template_anon_user_item(self.list, "user_music/main/", "list.html", request.META['HTTP_USER_AGENT'])
         return super(UserMusic,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -63,7 +63,7 @@ class UserMusicList(ListView):
         if request.user.is_authenticated:
             self.template_name = get_template_user_item(self.list, "user_music/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
         else:
-            self.template_name = get_template_anon_user_item(self.list, "user_music/list/anon_list.html", request.META['HTTP_USER_AGENT'])
+            self.template_name = get_template_anon_user_item(self.list, "user_music/list/", "list.html", request.META['HTTP_USER_AGENT'])
         return super(UserMusicList,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -89,7 +89,7 @@ class UserLoadPlaylist(ListView):
         if request.user.is_authenticated:
             self.template_name = get_template_user_window(self.list, "user_music/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
         else:
-            self.template_name = get_template_anon_user_window(self.list, "user_music/load/anon_list.html", request.META['HTTP_USER_AGENT'])
+            self.template_name = get_template_anon_user_window(self.list, "user_music/load/", "list.html", request.META['HTTP_USER_AGENT'])
         return super(UserLoadPlaylist,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

@@ -50,7 +50,7 @@ class UserGallery(ListView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_gallery/gallery/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_gallery/gallery/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_item(self.list, "user_gallery/gallery/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserGallery,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -78,7 +78,7 @@ class UserPhotoList(ListView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_gallery/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_gallery/list/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_item(self.list, "user_gallery/list/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserPhotoList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -101,7 +101,7 @@ class UserListPhoto(TemplateView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.photo, "user_gallery/photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/photo/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/photo/", "list.html", request.META['HTTP_USER_AGENT'])
 		if request.user.pk == self.photo.creator.pk:
 			self.photos = self.list.get_staff_items()
 		else:
@@ -132,7 +132,7 @@ class UserElectNewPhoto(TemplateView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.photo, "user_gallery/elect_new_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/elect_new_photo/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/elect_new_photo/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserElectNewPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -157,7 +157,7 @@ class UserBlogPhoto(TemplateView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.photo, "user_gallery/blog_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/blog_photo/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/blog_photo/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserBlogPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -182,7 +182,7 @@ class UserBlogCommentPhoto(TemplateView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.photo, "user_gallery/blog_comment_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/blog_comment_photo/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/blog_comment_photo/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserBlogCommentPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -207,7 +207,7 @@ class UserElectNewCommentPhoto(TemplateView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.photo, "user_gallery/elect_new_comment_photo/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/elect_new_comment_photo/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_window(self.photo, "user_gallery/elect_new_comment_photo/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserElectNewCommentPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

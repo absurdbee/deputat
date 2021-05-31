@@ -30,7 +30,7 @@ class UserDocs(ListView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_docs/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
 		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_docs/main/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_item(self.list, "user_docs/main/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserDocs,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -60,7 +60,7 @@ class UserDocsList(ListView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_docs/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
 		else:
-			self.template_name = get_template_anon_user_item(self.list, "user_docs/list/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_item(self.list, "user_docs/list/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserDocsList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -123,7 +123,7 @@ class UserLoadDoclist(ListView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.list, "user_docs/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_doc_manager())
 		else:
-			self.template_name = get_template_anon_user_window(self.list, "user_docs/load/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_window(self.list, "user_docs/load/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserLoadDoclist,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

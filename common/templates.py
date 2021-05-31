@@ -214,7 +214,7 @@ def get_template_community_item(item, folder, template, request_user, user_agent
         template_name = folder + template
     return get_folder(user_agent) + template_name
 
-def get_template_anon_community_item(item, template, user_agent):
+def get_template_anon_community_item(item, folder, template, user_agent):
     # Полная страница объекта сообщества (списка или элемента) для анонимного пользователя
     community = item.community
     if community.type[0] == "_":
@@ -284,7 +284,7 @@ def get_template_user(user, folder, template, request_user, user_agent):
             template_name = folder + template
     return get_folder(user_agent) + template_name
 
-def get_template_anon_user(user, template, user_agent):
+def get_template_anon_user(user, folder , template, user_agent):
     # Полная страница пользователя (списка или элемента) для анонимного пользователя
     if user.type[0] == "_":
         template_name = get_fine_user(user)
@@ -292,7 +292,7 @@ def get_template_anon_user(user, template, user_agent):
         template_name = template
     return get_folder(user_agent) + template_name
 
-def get_template_anon_user_item(item, template, user_agent):
+def get_template_anon_user_item(item, folder, template, user_agent):
     # Полная страница объекта пользователя (списка или элемента) для анонимного пользователя
     user = item.creator
     if user.type[0] == "_":
@@ -329,7 +329,7 @@ def get_template_community_window(item, folder, template, request_user, user_age
         template_name = folder + template
     return get_folder(user_agent) + template_name
 
-def get_template_anon_community_window(item, template, user_agent):
+def get_template_anon_community_window(item, folder, template, user_agent):
     # Полная страница объекта сообщества (списка или элемента) для анонимного пользователя
     community = item.community
     if community.type[0] == "_" or item.type[0] == "_" or community.is_close() or community.is_private() or item.is_private():
@@ -354,7 +354,7 @@ def get_template_user_window(item, folder, template, request_user, user_agent, s
             template_name = folder + template
     return get_folder(user_agent) + template_name
 
-def get_template_anon_user_window(item, template, user_agent):
+def get_template_anon_user_window(item, folder, template, user_agent):
     # Полная страница объекта сообщества (списка или элемента) для анонимного пользователя
     user = item.creator
     if user.type[0] == "_" or item.type[0] == "_" or item.is_private():

@@ -239,8 +239,6 @@ function profile_list_block_load(_this, block, link, actions_class) {
     if ( request.readyState == 4 && request.status == 200 ){
         elem_ = document.createElement('span');
         elem_.innerHTML = request.responseText;
-        console.log(document.querySelector(block));
-        console.log(elem_.querySelector(block));
        document.body.querySelector(block).innerHTML = elem_.querySelector(block).innerHTML;
        init_music(document.body.querySelector(block));
        class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")

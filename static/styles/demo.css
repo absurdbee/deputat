@@ -628,13 +628,13 @@ line-height: 1;
   float: right;
 }
 .window_fullscreen, .photo_fullscreen, .create_fullscreen {
-  position: absolute;
+  position: fixed;
   top: 0;
   height: 100vh;
   z-index: 500;
   padding: 5%;
   overflow: auto;
-  width:100%
+  width: 93.5%;
 }
 @media screen and (min-width: 621px) {
     .window_fullscreen, .photo_fullscreen, .create_fullscreen {left: 20%;width: 60%;padding-left: 5%;padding-right: 5%;}

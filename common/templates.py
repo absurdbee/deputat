@@ -360,5 +360,5 @@ def get_template_anon_user_window(item, folder, template, user_agent):
     if user.type[0] == "_" or item.type[0] == "_" or item.is_private():
         template_name = "generic/u_template/permission_window.html"
     else:
-        template_name = template
+        template_name = folder + "anon_" + template
     return get_folder(user_agent) + template_name

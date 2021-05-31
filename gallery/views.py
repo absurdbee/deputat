@@ -17,7 +17,7 @@ class UserLoadPhotoList(ListView):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_window(self.list, "user_gallery/load/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
-			self.template_name = get_template_anon_user_window(self.list, "user_gallery/load/anon_list.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user_window(self.list, "user_gallery/load/", "list.html", request.META['HTTP_USER_AGENT'])
 		return super(UserLoadPhotoList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

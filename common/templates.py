@@ -289,7 +289,7 @@ def get_template_anon_user(user, folder, template, user_agent):
     if user.type[0] == "_":
         template_name = get_fine_user(user)
     else:
-        template_name = "anon_" + template
+        template_name = folder + "anon_" + template
     return get_folder(user_agent) + template_name
 
 def get_template_anon_user_item(item, folder, template, user_agent):

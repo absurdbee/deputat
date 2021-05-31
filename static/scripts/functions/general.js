@@ -221,7 +221,7 @@ function media_list_recover(_this, url, old_class, new_class) {
     second_list = document.body.querySelector('.second_list_name');
     name = second_list.getAttribute("data-name");
     second_list.innerHTML = name;
-    list.document.body('.file-manager-item') ?
+    document.body.querySelector('.file-manager-item') ?
       (list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' ),
        list.querySelector('.list_name').innerHTML = name) : null;
     _this.classList.replace(old_class, new_class);

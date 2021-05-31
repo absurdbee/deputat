@@ -2,7 +2,7 @@
 {% block title %}{{ list.name }} | Галерея {{ user.get_full_name_genitive }}{% endblock %}
 {% block content %}
 
-<div class="content-body">
+<div class="content-body pk_saver" data-pk="{{ user.pk }}">
     <section class="app-user-edit">
         <div class="card">
             <div class="card-body">

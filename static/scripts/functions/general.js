@@ -218,10 +218,12 @@ function media_list_recover(_this, url, old_class, new_class) {
   if ( this.readyState == 4 && this.status == 200 ) {
     _this.previousElementSibling.style.display = "unset";
     _this.previousElementSibling.previousElementSibling.style.display = "unset";
-    list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
-    name = list.querySelector('.list_name').getAttribute("data-name");
-    _this.parentElement.querySelector(".second_list_name").innerHTML = name;
-    list.querySelector('.list_name') ? list.querySelector('.list_name').innerHTML = name : null;
+    second_list = document.body.querySelector('.second_list_name');
+    name = second_list.getAttribute("data-name");
+    second_list.innerHTML = name;
+    list.document.body('.file-manager-item') ?
+      (list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' ),
+       list.querySelector('.list_name').innerHTML = name) : null;
     _this.classList.replace(old_class, new_class);
     _this.innerHTML = "Удалить список";
   }}

@@ -57,7 +57,7 @@ class UserNewsView(ListView, CategoryListMixin):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user(self.user, "profile/news/", "news.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
-			self.template_name = get_template_anon_user(self.user, "profile/news/anon_news.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user(self.user, "profile/news/", "news.html", request.META['HTTP_USER_AGENT'])
 		return super(UserNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -135,7 +135,7 @@ class UserView(TemplateView, CategoryListMixin):
 		if request.user.is_authenticated:
 			self.template_name = get_template_user(self.user, "profile/user/", "user.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
-			self.template_name = get_template_anon_user(self.user, "profile/user/anon_user.html", request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_anon_user(self.user, "profile/user/", "user.html", request.META['HTTP_USER_AGENT'])
 		return super(UserView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

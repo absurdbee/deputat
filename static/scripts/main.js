@@ -3,12 +3,12 @@ on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
 function close_create_window() {
-    document.querySelector(".window_fullscreen").style.display = "none";
-    document.getElementById("window_loader").innerHTML = "";
+    document.querySelector(".close_fullscreen").style.display = "none";
+    document.getElementById("close_loader").innerHTML = "";
 }
 function close_default_window() {
-    document.querySelector(".create_fullscreen").style.display = "none";
-    document.getElementById("create_loader").innerHTML = "";
+    document.querySelector(".window_fullscreen").style.display = "none";
+    document.getElementById("window_loader").innerHTML = "";
 }
 on('body', 'click', '.create_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";

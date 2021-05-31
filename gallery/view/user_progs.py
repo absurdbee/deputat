@@ -109,7 +109,7 @@ class PhotoListUserCreate(TemplateView):
             if not list.description:
                 list.description = "Без описания"
             new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order, community=None, is_public=request.POST.get("is_public"))
-            return render_for_platform(request, 'user_gallery/list/my_a.html',{'list': new_alist})
+            return render_for_platform(request, 'user_gallery/list/my_a.html',{'list': new_list})
         else:
             return HttpResponseBadRequest()
         return super(PhotoListUserCreate,self).get(request,*args,**kwargs)

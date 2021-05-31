@@ -119,6 +119,8 @@ on('body', 'click', '#u_create_video_btn', function() {
     response.innerHTML = elem;
     document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
       uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
+      console.log(uuid),
+      console.log(response.querySelector('.span1')),
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
       document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null) : get_preview(response, "video");
     toast_info("Видеозапись создана!")

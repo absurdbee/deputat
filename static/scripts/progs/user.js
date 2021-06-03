@@ -115,3 +115,30 @@ on('body', 'click', '.u_survey_list_claim', function() {
 on('body', 'click', '.create_audio_claim_btn', function() {
   send_form_and_toast_and_close_window("/managers/progs_audio/create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
 });
+on('body', 'click', '.create_playlist_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_audio/list_create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.create_doc_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_doc/create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.create_doc_list_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_doc/list_create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.create_video_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_video/create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.create_video_list_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_video/list_create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.create_photo_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_photo/create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.create_photo_list_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_photo/list_create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.create_survey_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_survey/create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.create_survey_list_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_survey/list_create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
+});

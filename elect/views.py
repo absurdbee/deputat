@@ -37,7 +37,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
                 self.elect.save(update_fields=["view"])
             return super(ElectDetailView,self).get(request,*args,**kwargs)
         else:
-            if not self.elect.slug in request.COOKIES:
+            if not self.elect.pk in request.COOKIES:
                 from django.shortcuts import redirect
 
                 response = redirect('elect_detail', pk=self.elect.pk)

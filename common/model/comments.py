@@ -233,7 +233,7 @@ class BlogComment(models.Model):
                     from common.notify.notify import user_notify, user_wall
                     user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
                     user_wall(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
-        return HttpResponse(json.dumps({"like_count": str(self.like)}),content_type="application/json")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count())}),content_type="application/json")
 
     def is_closed(self):
         return self.type[:4] == "_CLO"
@@ -462,7 +462,7 @@ class ElectNewComment(models.Model):
                     from common.notify.notify import user_notify, user_wall
                     user_notify(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO")
                     user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO")
-        return HttpResponse(json.dumps({"like_count": str(self.like)}),content_type="application/json")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count())}),content_type="application/json")
 
     def is_closed(self):
         return self.type[:4] == "_CLO"

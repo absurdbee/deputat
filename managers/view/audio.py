@@ -177,9 +177,12 @@ class AudioClaimCreate(TemplateView):
         return super(AudioClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
+        from managers.forms import ReportForm
+
         context = super(AudioClaimCreate,self).get_context_data(**kwargs)
         context["object"] = self.track
         context["is_reported"] = self.is_reported
+        context["form"] = ReportForm()
         return context
 
     def post(self,request,*args,**kwargs):

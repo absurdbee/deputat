@@ -458,10 +458,9 @@ class Moderated(models.Model):
         #try:
         from music.models import Music
         music = Music.objects.get(pk=self.object_id)
-        span_btn, status = '', ''
         options = '<span class="dropdown-item create_track_close">Заблокировать</span><span class="dropdown-item create_track_rejected">Отклонить</span>'
         opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg style="width: 17px;padding-top:3px" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 60px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
-        span_btn = ''.join([span_btn, '<span class="span_btn"><span class="dropdown uuid_keeper" style="position: inherit;" data-pk="', str(music.pk), '"><span class="btn_default pointer drop"><svg fill="currentColor" style="width:25px;height:25px;" class="svg_default" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span><div class="dropdown-menu dropdown-menu-right" style="top: 60px;"></div></span>', opt_drop, '</span>'])
+        span_btn = ''.join(['<span class="span_btn">', opt_drop, '</span>'])
         return ''.join(['<div class="col-md-12" style="flex-basis: 100%;"><div class="media border p-1"><div class="media-body music_media_body" style="line-height: 8px;"><span>', music.title, '</span><div class="audio_div"><audio id="player" class="audio_player"><source src="', music.get_uri(), '" type="audio/mp3" /></audio></div>', span_btn, '</div></div></div>'])
         #except:
         #    return ''

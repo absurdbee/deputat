@@ -625,7 +625,7 @@ class ModerationReport(models.Model):
 
     @classmethod
     def create_moderation_report(cls, reporter_id, _type, object_id, description, type):
-        moderated_object = Moderated.get_or_create_moderated_object(type=_type, object_id=object_id)
+        moderated_object = Moderated.get_or_create_moderated_object(type=_type, moderated_object_id=object_id)
         return cls.objects.create(reporter_id=reporter_id, type=type, description=description, moderated_object=moderated_object)
 
     @classmethod

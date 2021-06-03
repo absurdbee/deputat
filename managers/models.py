@@ -616,17 +616,21 @@ class ModerationReport(models.Model):
     description = models.CharField(max_length=300, blank=True, verbose_name="Описание")
     type = models.CharField(max_length=5, choices=TYPE, verbose_name="Тип нарушения")
 
-    @classmethod
-    def create_moderation_report(cls, reporter_id, _type, object_id, description, type):
-        moderated_object = Moderated.get_or_create_moderated_object(type=_type, object_id=object_id)
-        return cls.objects.create(reporter_id=reporter_id, type=type, description=description, moderated_object=moderated_object)
-
     def __str__(self):
         return self.reporter.get_full_name()
 
     class Meta:
         verbose_name = 'Жалоба на объект'
         verbose_name_plural = 'Жалобы на объект'
+
+    @classmethod
+    def create_moderation_report(cls, reporter_id, _type, object_id, description, type):
+        moderated_object = Moderated.get_or_create_moderated_object(type=_type, object_id=object_id)
+        return cls.objects.create(reporter_id=reporter_id, type=type, description=description, moderated_object=moderated_object)
+
+    @classmethod
+    def is_user_already_reported(cls, reporter_id, type, object_id):
+        return cls.objects.filter(reporter_id=reporter_id, type=type, object_id=object_id).exists()
 
 
 class ModerationPenalty(models.Model):

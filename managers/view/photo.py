@@ -160,19 +160,24 @@ class PhotoClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
+        self.photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'PHO', self.photo.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_claim", request.user, request.META['HTTP_USER_AGENT'])
         return super(PhotoClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(PhotoClaimCreate,self).get_context_data(**kwargs)
-        context["object"] = Photo.objects.get(uuid=self.kwargs["uuid"])
+        context["object"] = self.photo
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
-        if request.is_ajax():
-            photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'PHO', photo.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="PHO", object_id=photo.pk, description=description, type=type)
@@ -207,20 +212,24 @@ class ListPhotoClaimCreate(View):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
         self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'PHL', self.list.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/photo/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ListPhotoClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(ListPhotoClaimCreate,self).get_context_data(**kwargs)
         context["list"] = self.list
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
         self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax():
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'PHL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="PHL", object_id=list.pk, description=description, type=type)

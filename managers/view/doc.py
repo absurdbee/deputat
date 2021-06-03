@@ -169,19 +169,24 @@ class DocClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
+        self.doc = Doc.objects.get(pk=self.kwargs["pk"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'DOC', self.doc.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/doc/doc_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(DocClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(DocClaimCreate,self).get_context_data(**kwargs)
-        context["object"] = Doc.objects.get(pk=self.kwargs["pk"])
+        context["object"] = self.doc
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
-        if request.is_ajax():
-            doc = Doc.objects.get(pk=self.kwargs["pk"])
+        doc = Doc.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'DOL', doc.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="DOC", object_id=doc.pk, description=description, type=type)
@@ -217,20 +222,24 @@ class ListDocClaimCreate(View):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
         self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'DOL', self.list.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/doc/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ListDocClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(ListDocClaimCreate,self).get_context_data(**kwargs)
         context["list"] = self.list
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
         self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax():
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'DOL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="DOL", object_id=list.pk, description=description, type=type)

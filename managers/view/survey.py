@@ -169,19 +169,24 @@ class SurveyClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
+        self.survey = Survey.objects.get(uuid=self.kwargs["uuid"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'SUR', self.survey.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/survey/survey_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(SurveyClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(SurveyClaimCreate,self).get_context_data(**kwargs)
-        context["object"] = Survey.objects.get(uuid=self.kwargs["uuid"])
+        context["object"] = self.survey
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
-        if request.is_ajax():
-            survey = Survey.objects.get(uuid=self.kwargs["uuid"])
+        survey = Survey.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'SUR', survey.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUS", object_id=survey.pk, description=description, type=type)
@@ -217,20 +222,24 @@ class ListSurveyClaimCreate(View):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
         self.list = SurveyList.objects.get(uuid=self.kwargs["uuid"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'SUL', self.list.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/survey/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ListSurveyClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(ListSurveyClaimCreate,self).get_context_data(**kwargs)
         context["list"] = self.list
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
         self.list = SurveyList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax():
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'SUL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="SUL", object_id=list.pk, description=description, type=type)

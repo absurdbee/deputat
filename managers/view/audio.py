@@ -169,12 +169,17 @@ class AudioClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
+        self.track = Music.objects.get(pk=self.kwargs["pk"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'MUL', self.track.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/audio/audio_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(AudioClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(AudioClaimCreate,self).get_context_data(**kwargs)
-        context["object"] = Music.objects.get(pk=self.kwargs["pk"])
+        context["object"] = self.track
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
@@ -217,13 +222,17 @@ class ListAudioClaimCreate(View):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
         self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'ELEC', self.list.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/audio/list_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ListAudioClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(ListAudioClaimCreate,self).get_context_data(**kwargs)
         context["list"] = self.list
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):

@@ -162,18 +162,26 @@ class ElectNewClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
         self.template_name = get_detect_platform_template("managers/manage_create/elect_new/claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.new = ElectNew.objects.get(uuid=self.kwargs["uuid"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'ELE', self.new.pk)
         return super(ElectNewClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
+        from managers.models import ModerationReport
+
         context = super(ElectNewClaimCreate,self).get_context_data(**kwargs)
-        context["object"] = ElectNew.objects.get(uuid=self.kwargs["uuid"])
+        context["object"] = self.new
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
-        if request.is_ajax():
+        self.new = ElectNew.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'ELE', self.new.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="POS", object_id=self.kwargs["pk"], description=description, type=type)
@@ -273,25 +281,24 @@ class CommentElectNewClaimCreate(View):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
         self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        try:
-            self.post = self.comment.parent.new
-        except:
-            self.post = self.comment.new
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'ELEC', self.comment.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/elect_new/comment_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(CommentPostClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(CommentPostClaimCreate,self).get_context_data(**kwargs)
         context["comment"] = self.comment
-        context["post"] = self.post
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax():
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'ELEC', comment.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="POSС", object_id=comment.pk, description=description, type=type)

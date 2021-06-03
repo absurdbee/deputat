@@ -284,12 +284,17 @@ class UserClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from managers.models import ModerationReport
+
+        self.user = User.objects.get(pk=self.kwargs["pk"])
+        self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'USE', self.user.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/user/user_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(UserClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super(UserClaimCreate,self).get_context_data(**kwargs)
-        context["user"] = User.objects.get(pk=self.kwargs["pk"])
+        context["user"] = self.user
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):
@@ -297,7 +302,7 @@ class UserClaimCreate(TemplateView):
 
         user = User.objects.get(pk=self.kwargs["pk"])
         form = ReportForm(request.POST)
-        if request.is_ajax() and form.is_valid() and request.user.is_authenticated:
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'USE', user.pk):
             mod = form.save(commit=False)
             ModerationReport.create_user_moderation_report(reporter_id=request.user.pk, object_id=user.pk, _type="USE", description=mod.description, type=request.POST.get('type'))
             return HttpResponse()

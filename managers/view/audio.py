@@ -184,12 +184,14 @@ class AudioClaimCreate(TemplateView):
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
+        from managers.forms import ReportForm
 
-        if request.is_ajax():
-            music = Music.objects.get(pk=self.kwargs["pk"])
-            description = request.POST.get('description')
+        form = ReportForm(request.POST)
+        music = Music.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'MUS', music.pk):
+            claim = form.save(commit=False)
             type = request.POST.get('type')
-            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUS", object_id=music.pk, description=description, type=type)
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUS", object_id=music.pk, description=claim.description, type=type)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -232,7 +234,7 @@ class ListAudioClaimCreate(View):
     def get_context_data(self,**kwargs):
         context = super(ListAudioClaimCreate,self).get_context_data(**kwargs)
         context["list"] = self.list
-        context["is_reported"] = self.is_reported 
+        context["is_reported"] = self.is_reported
         return context
 
     def post(self,request,*args,**kwargs):

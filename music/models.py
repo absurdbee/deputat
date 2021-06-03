@@ -287,6 +287,7 @@ class Music(models.Model):
     type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
     community = models.ForeignKey('communities.Community', related_name='track_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
+    uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
 
     def __str__(self):
         return self.title

@@ -10,14 +10,14 @@ def get_u_blog_comment_attach(comment, user):
             try:
                 from gallery.models import Photo
                 photo = Photo.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit_200 u_blog_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+                block = ''.join([block, '<div style="position: relative;"><div class="progressive replace image_fit_200 u_blog_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":
             try:
                 from video.models import Video
                 video = Video.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="video" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
+                block = ''.join([block, '<div style="position: relative;" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
             except:
                 pass
         elif item[:3] == "mus":
@@ -167,14 +167,14 @@ def get_u_elect_new_comment_attach(comment, user):
             try:
                 from gallery.models import Photo
                 photo = Photo.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="photo"><div class="progressive replace image_fit u_elect_new_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+                block = ''.join([block, '<div style="position: relative;"><div class="progressive replace image_fit u_elect_new_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":
             try:
                 from video.models import Video
                 video = Video.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="video" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
+                block = ''.join([block, '<div style="position: relative;" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
             except:
                 pass
         elif item[:3] == "mus":

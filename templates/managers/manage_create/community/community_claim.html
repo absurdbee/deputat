@@ -1,31 +1,25 @@
-
-<form class="mt-5" data-uuid="{{ community.pk }}">
+<form class="mt-4">
   {% csrf_token %}
 
   <div class="card">
+    Создание жалобы на плейлист
     <div class="card-body">
-      <div class="row">
-          <div class="col-lg-2 col-md-4">
-            {% include 'desctop/generic/community/figure.html' %}
-          </div>
-          <div class="col-lg-10 col-md-8">
-            <h6 class="my-0 mt-1">{% include 'desctop/generic/community/community.html' %}</h6>
-            <p style="padding-top:10px;">Вы собираетесь оставить жалобу на это сообщество.</p>
-          </div>
-      </div>
+      <br>
         <div class="form-group">
           <label>Выберите причину жалобы</label>
           <select class="form-control" name="type">
               <option value="P">Порнография</option>
               <option value="NC">Для взрослых</option>
-              <option value="S">Рассылка спама</option>
-              <option value="B">Оскорбительное поведение</option>
-              <option value="U">Неэтичное поведение</option>
+              <option value="B">Оскорбительное содержание</option>
               <option value="F">Мошенничество</option>
-              <option value="K">Клон моей страницы</option>
-              <option value="OP">Моя старая страница</option>
               <option value="D">Наркотики</option>
-              <option value="NM">Не нравственный контент</option>
+              <option value="AS">Продажа оружия</option>
+              <option value="V">Насилие</option>
+              <option value="PE">Призыв к травле</option>
+              <option value="SU">Призыв к суициду</option>
+              <option value="PA">Жестокое обращение c животными</option>
+              <option value="MI">Введение в заблуждение</option>
+              <option value="EX">Экстремизм</option>
               <option value="RH">Риторика ненависти</option>
           </select>
         </div>
@@ -36,7 +30,8 @@
         <br>
     </div>
     <div class="card-footer">
-        <button type="button" class="btn btn-success float-right create_community_claim_btn">Пожаловаться</button>
+        <button class="btn custom_color border window_fullscreen_hide_2" style="position: absolute;">Отмена</button>
+        <button type="button" class="btn btn-success float-right create_community_claim_btn" data-pk="{{ object.pk }}">Пожаловаться</button>
     </div>
   </div>
 </form>

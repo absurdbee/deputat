@@ -147,7 +147,7 @@ on('body', 'click', '#u_edit_track_btn', function() {
 });
 
 on('body', 'click', '.u_track_remove', function() {
-  saver = this.parentElement.parentElement.parentElement;
+  saver = this.parentElement.parentElement.previousElementSibling;
   pk = saver.getAttribute("data-pk")
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/music/user_progs/delete_track/" + pk + "/", true );

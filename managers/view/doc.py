@@ -137,13 +137,13 @@ class DocCloseCreate(View):
 
     def get_context_data(self,**kwargs):
         context = super(DocCloseCreate,self).get_context_data(**kwargs)
-        context["object"] = Doc.objects.get(uuid=self.kwargs["uuid"])
+        context["object"] = Doc.objects.get(pk=self.kwargs["pk"])
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.forms import ModeratedForm
 
-        doc, form = Doc.objects.get(uuid=self.kwargs["uuid"]), ModeratedForm(request.POST)
+        doc, form = Doc.objects.get(pk=self.kwargs["pk"]), ModeratedForm(request.POST)
         if request.is_ajax() and form.is_valid() and request.user.is_doc_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=doc.pk, type="DOC")
@@ -155,7 +155,7 @@ class DocCloseCreate(View):
 
 class DocCloseDelete(View):
     def get(self,request,*args,**kwargs):
-        doc = Doc.objects.get(uuid=self.kwargs["uuid"])
+        doc = Doc.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_doc_manager():
             moderate_obj = Moderated.objects.get(object_id=doc.pk, type="DOC")
             moderate_obj.delete_close(object=doc, manager_id=request.user.pk)
@@ -174,14 +174,14 @@ class DocClaimCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(DocClaimCreate,self).get_context_data(**kwargs)
-        context["object"] = Doc.objects.get(uuid=self.kwargs["uuid"])
+        context["object"] = Doc.objects.get(pk=self.kwargs["pk"])
         return context
 
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
         if request.is_ajax():
-            doc = Doc.objects.get(uuid=self.kwargs["uuid"])
+            doc = Doc.objects.get(pk=self.kwargs["pk"])
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="DOC", object_id=doc.pk, description=description, type=type)
@@ -192,7 +192,7 @@ class DocClaimCreate(TemplateView):
 class DocRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         if request.is_ajax() and request.user.is_doc_manager():
-            doc = Doc.objects.get(uuid=self.kwargs["uuid"])
+            doc = Doc.objects.get(pk=self.kwargs["pk"])
             moderate_obj = Moderated.objects.get(object_id=doc.pk, type="DOC")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             DocManageLog.objects.create(item=doc.pk, manager=request.user.pk, action_type=DocManageLog.ITEM_REJECT)
@@ -204,7 +204,7 @@ class DocRejectedCreate(View):
 class DocUnverify(View):
     def get(self,request,*args,**kwargs):
         obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="DOC")
-        doc = Doc.objects.get(uuid=self.kwargs["uuid"])
+        doc = Doc.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_doc_manager():
             obj.unverify_moderation(doc, manager_id=request.user.pk)
             DocManageLog.objects.create(item=doc.pk, manager=request.user.pk, action_type=DocManageLog.ITEM_UNVERIFY)

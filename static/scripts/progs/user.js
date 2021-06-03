@@ -113,5 +113,5 @@ on('body', 'click', '.u_survey_list_claim', function() {
 
 
 on('body', 'click', '.create_audio_claim_btn', function() {
-  send_form_and_toast_and_close_window("/managers/progs_audio/create_claim/" + this.getAttribute('data-pk') + "/")
+  send_form_and_toast_and_close_window("/managers/progs_audio/create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
 });

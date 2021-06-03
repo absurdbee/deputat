@@ -37,11 +37,11 @@ class ElectDetailView(TemplateView, CategoryListMixin):
                 self.elect.save(update_fields=["view"])
             return super(ElectDetailView,self).get(request,*args,**kwargs)
         else:
-            if not self.elect.pk in request.COOKIES:
+            if not "elect_" + str(self.elect.pk) in request.COOKIES:
                 from django.shortcuts import redirect
 
                 response = redirect('elect_detail', pk=self.elect.pk)
-                response.set_cookie(self.elect.pk, "elect_view")
+                response.set_cookie("elect_" + str(self.elect.pk), "elect_view")
                 if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
                     ElectNumbers.objects.create(user=0, elect=self.elect.pk, platform=1)
                 else:

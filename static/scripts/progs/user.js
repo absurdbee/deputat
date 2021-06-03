@@ -98,8 +98,14 @@ on('body', 'click', '.u_video_list_claim', function() {
 on('body', 'click', '.u_doc_list_claim', function() {
   open_fullscreen("/managers/progs_doc/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("window_loader"))
 });
+on('body', 'click', '.doc_claim', function() {
+  open_fullscreen("/managers/progs_doc/create_claim/" + this.parentElement.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("window_loader"))
+});
 on('body', 'click', '.u_playlist_claim', function() {
   open_fullscreen("/managers/progs_audio/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("window_loader"))
+});
+on('body', 'click', '.track_claim', function() {
+  open_fullscreen("/managers/progs_audio/create_claim/" + this.parentElement.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.u_survey_list_claim', function() {
   open_fullscreen("/managers/progs_survey/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("window_loader"))

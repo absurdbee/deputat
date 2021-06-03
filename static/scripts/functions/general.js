@@ -3,6 +3,20 @@ var ready = (callback) => {
   else document.addEventListener("DOMContentLoaded", callback);
 }
 
+function send_form_and_toast_and_close_window(url, form) {
+    form_data = new FormData(form);
+    ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    ajax_link.open('POST', url, true);
+    ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    ajax_link.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            close_default_window();
+            toast_info("Жалоба отправлена!");
+        }
+    }
+    ajax_link.send(form_data);
+}
+
 function get_profile_sanction_window(_this, url) {
   if(_this.parentElement.classList.contains("btn_console")){
     div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;

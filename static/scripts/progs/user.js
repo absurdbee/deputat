@@ -110,3 +110,8 @@ on('body', 'click', '.track_claim', function() {
 on('body', 'click', '.u_survey_list_claim', function() {
   open_fullscreen("/managers/progs_survey/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("window_loader"))
 });
+
+
+on('body', 'click', '.create_audio_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_audio/create_claim/" + this.getAttribute('data-pk') + "/")
+});

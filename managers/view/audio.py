@@ -232,7 +232,7 @@ class ListAudioClaimCreate(View):
     def get_context_data(self,**kwargs):
         context = super(ListAudioClaimCreate,self).get_context_data(**kwargs)
         context["list"] = self.list
-        context["is_reported"] = self.is_reported
+        context["is_reported"] = self.is_reported 
         return context
 
     def post(self,request,*args,**kwargs):

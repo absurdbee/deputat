@@ -188,11 +188,11 @@ class AudioClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         music = Music.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'MUS', music.pk):
-            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUS", object_id=music.pk, description=request.POST.get('type'), type=request.POST.get('type'))
-            return HttpResponse()
-        else:
-            return HttpResponseBadRequest()
+        #if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'MUS', music.pk):
+        ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUS", object_id=music.pk, description=request.POST.get('type'), type=request.POST.get('type'))
+        return HttpResponse()
+        #else:
+        #    return HttpResponseBadRequest()
 
 class AudioRejectedCreate(View):
     def get(self,request,*args,**kwargs):

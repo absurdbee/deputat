@@ -20,7 +20,7 @@ class BlogCommentCreate(View):
 													text=comment.text,
 													attach = request.POST.getlist("attach_items")
 												)
-			return render(request, 'blog/blog_comment/parent.html',{'comment': new_comment})
+			return render(request, 'blog/comment/parent.html',{'comment': new_comment})
 		else:
 			return HttpResponseBadRequest()
 

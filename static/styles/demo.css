@@ -1,3 +1,9 @@
+.centered h6 {
+  padding-left: 15%;
+  padding-right: 15px;
+  text-align: center;
+}
+
 .photo, .video {
   margin-bottom: 10px;
   flex-grow: 1;

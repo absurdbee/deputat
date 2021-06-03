@@ -47,7 +47,7 @@ class UserVideoRemove(View):
         video = Video.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and video.creator.pk == request.user.pk:
             video.delete_video(None)
-            return HttpResponse(None)
+            return HttpResponse()
         else:
             raise Http404
 

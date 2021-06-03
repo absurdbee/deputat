@@ -63,16 +63,16 @@ class UserTrackRemove(View):
     def get(self, request, *args, **kwargs):
         track = Music.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and track.creator.pk == request.user.pk:
-            track.delete_track()
-            return HttpResponse(None)
+            track.delete_track(None)
+            return HttpResponse()
         else:
             raise Http404
 class UserTrackAbortRemove(View):
     def get(self,request,*args,**kwargs):
         track = Music.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and track.creator == request.user:
-            track.abort_delete_track()
-            return HttpResponse(None)
+            track.abort_delete_track(None)
+            return HttpResponse()
         else:
             raise Http404
 

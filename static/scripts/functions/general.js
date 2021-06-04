@@ -42,7 +42,7 @@ function get_item_sanction_window(_this, block, url) {
 }
 function get_music_doc_sanction_window(_this, block, url) {
     _this.parentElement.parentElement.parentElement.getAttribute("data-pk")
-     ?  pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk")
+     ?  (block = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk"), block.classList.add("changed"))
      : (pk = _this.getAttribute("data-pk"), block.classList.add("changed"));
   loader = document.getElementById("worker_loader");
   open_fullscreen(url + pk + "/", loader)

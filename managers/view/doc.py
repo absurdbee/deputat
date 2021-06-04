@@ -208,8 +208,8 @@ class DocRejectedCreate(View):
 
 class DocUnverify(View):
     def get(self,request,*args,**kwargs):
-        obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="DOC")
         doc = Doc.objects.get(pk=self.kwargs["pk"])
+        obj = Moderated.get_or_create_moderated_object(object_id=doc.pk, type="DOC")
         if request.is_ajax() and request.user.is_doc_manager():
             obj.unverify_moderation(doc, manager_id=request.user.pk)
             DocManageLog.objects.create(item=doc.pk, manager=request.user.pk, action_type=DocManageLog.ITEM_UNVERIFY)

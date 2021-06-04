@@ -126,7 +126,7 @@ function open_manager_window(url) {
 function send_window_sanction_post(form, url, toast) {
   // отправляем данные формы применеия санкций на странице списка или в модерском отделе модерации
   form_data = new FormData(form);
-  div = document.body.querySelector(".changed");
+  div = document.body.querySelector(".changed") ? div = document.body.querySelector(".changed") : div = null;
   uuid = form.getAttribute("data-uuid");
   form.getAttribute("data-uuid") ? uuid = form.getAttribute("data-uuid") : uuid = form.getAttribute("data-pk");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

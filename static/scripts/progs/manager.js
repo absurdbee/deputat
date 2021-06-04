@@ -130,7 +130,7 @@ on('body', 'click', '.u_close_playlist', function() {
   get_item_sanction_window(this, "", "/managers/progs_audio/list_create_close/")
 })
 on('body', 'click', '.u_close_track', function() {
-  get_music_doc_sanction_window(this, "", "/managers/progs_track/create_close/")
+  get_music_doc_sanction_window(this, "", "/managers/progs_audio/create_close/")
 })
 on('body', 'click', '.u_close_video_list', function() {
   get_item_sanction_window(this, "", "/managers/progs_video/list_create_close/")

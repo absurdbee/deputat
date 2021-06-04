@@ -1,11 +1,11 @@
 on('body', 'click', '.penalty_photo', function() {
-  this.classList.add("changed");
+  this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');
   loader = document.getElementById("photo_loader");
   open_fullscreen("/gallery/penalty_photo/" + pk + "/", loader)
 });
 on('body', 'click', '.moderated_photo', function() {
-  this.classList.add("changed");
+  this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');
   loader = document.getElementById("photo_loader");
   open_fullscreen("/gallery/moderated_photo/" + pk + "/", loader)

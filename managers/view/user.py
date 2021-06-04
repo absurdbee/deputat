@@ -302,7 +302,7 @@ class UserClaimCreate(TemplateView):
 
         user = User.objects.get(pk=self.kwargs["pk"])
         form = ReportForm(request.POST)
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'USE', user.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'USE', user.pk):
             mod = form.save(commit=False)
             ModerationReport.create_user_moderation_report(reporter_id=request.user.pk, object_id=user.pk, _type="USE", description=mod.description, type=request.POST.get('type'))
             return HttpResponse()

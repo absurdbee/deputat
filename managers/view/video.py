@@ -178,7 +178,7 @@ class VideoClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         video = Video.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'VID', self.video.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'VID', self.video.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="VID", object_id=video.pk, description=description, type=type)
@@ -209,7 +209,7 @@ class VideoUnverify(View):
             raise Http404
 
 
-class ListVideoClaimCreate(View):
+class ListVideoClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -230,7 +230,7 @@ class ListVideoClaimCreate(View):
         from managers.models import ModerationReport
 
         self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'VIL', self.list.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'VIL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="VIL", object_id=list.pk, description=description, type=type)

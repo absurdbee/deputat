@@ -125,7 +125,7 @@ class DocWorkerEditorDelete(View):
             raise Http404
 
 
-class DocCloseCreate(View):
+class DocCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -186,7 +186,7 @@ class DocClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         doc = Doc.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'DOL', doc.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'DOL', doc.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="DOC", object_id=doc.pk, description=description, type=type)
@@ -239,7 +239,7 @@ class ListDocClaimCreate(View):
         from managers.models import ModerationReport
 
         self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'DOL', self.list.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'DOL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="DOL", object_id=list.pk, description=description, type=type)

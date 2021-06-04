@@ -125,7 +125,7 @@ class SurveyWorkerEditorDelete(View):
             raise Http404
 
 
-class SurveyCloseCreate(View):
+class SurveyCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -186,7 +186,7 @@ class SurveyClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         survey = Survey.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'SUR', survey.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'SUR', survey.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUS", object_id=survey.pk, description=description, type=type)
@@ -218,7 +218,7 @@ class SurveyUnverify(View):
             raise Http404
 
 
-class ListSurveyClaimCreate(View):
+class ListSurveyClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -239,7 +239,7 @@ class ListSurveyClaimCreate(View):
         from managers.models import ModerationReport
 
         self.list = SurveyList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'SUL', self.list.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'SUL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="SUL", object_id=list.pk, description=description, type=type)

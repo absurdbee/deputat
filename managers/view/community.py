@@ -300,7 +300,7 @@ class CommunityClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         form = ReportForm(request.POST)
-        if request.is_ajax() and form.is_valid() and request.user.is_authenticated:
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'COM', self.kwargs["pk"]):
             mod = form.save(commit=False)
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="COM", object_id=self.kwargs["pk"], description=mod.description, type=request.POST.get('type'))
             return HttpResponse()

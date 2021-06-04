@@ -125,7 +125,7 @@ class AudioWorkerEditorDelete(View):
             raise Http404
 
 
-class AudioCloseCreate(View):
+class AudioCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -188,11 +188,11 @@ class AudioClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         music = Music.objects.get(pk=self.kwargs["pk"])
-        #if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'MUS', music.pk):
-        ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUS", object_id=music.pk, description=request.POST.get('description'), type=request.POST.get('type'))
-        return HttpResponse()
-        #else:
-        #    return HttpResponseBadRequest()
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'MUS', music.pk):
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUS", object_id=music.pk, description=request.POST.get('description'), type=request.POST.get('type'))
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
 
 class AudioRejectedCreate(View):
     def get(self,request,*args,**kwargs):
@@ -218,7 +218,7 @@ class AudioUnverify(View):
             raise Http404
 
 
-class ListAudioClaimCreate(View):
+class ListAudioClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -239,7 +239,7 @@ class ListAudioClaimCreate(View):
         from managers.models import ModerationReport
 
         self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax():
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'MUL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUL", object_id=list.pk, description=description, type=type)

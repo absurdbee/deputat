@@ -177,7 +177,7 @@ class PhotoClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         photo = Photo.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'PHO', photo.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'PHO', photo.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="PHO", object_id=photo.pk, description=description, type=type)
@@ -208,7 +208,7 @@ class PhotoUnverify(View):
             raise Http404
 
 
-class ListPhotoClaimCreate(View):
+class ListPhotoClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -229,7 +229,7 @@ class ListPhotoClaimCreate(View):
         from managers.models import ModerationReport
 
         self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'PHL', self.list.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'PHL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="PHL", object_id=list.pk, description=description, type=type)

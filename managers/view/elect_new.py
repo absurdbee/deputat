@@ -120,7 +120,7 @@ class ElectNewWorkerEditorDelete(View):
         else:
             raise Http404
 
-class ElectNewCloseCreate(View):
+class ElectNewCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -181,7 +181,7 @@ class ElectNewClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         self.new = ElectNew.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'ELE', self.new.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'ELE', self.new.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="POS", object_id=self.kwargs["pk"], description=description, type=type)
@@ -213,7 +213,7 @@ class ElectNewUnverify(View):
             raise Http404
 
 
-class PublishElectNew(View):
+class PublishElectNew(TemplateView):
     template_name = "elect/make_publish_elect_new.html"
 
     def get(self,request,*args,**kwargs):
@@ -243,7 +243,7 @@ class PublishElectNew(View):
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
 
-class RejectElectNew(View):
+class RejectElectNew(TemplateView):
     template_name = "elect/reject_elect_new.html"
 
     def get(self,request,*args,**kwargs):
@@ -277,7 +277,7 @@ class RejectElectNew(View):
             return HttpResponseBadRequest()
 
 
-class CommentElectNewClaimCreate(View):
+class CommentElectNewClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -298,7 +298,7 @@ class CommentElectNewClaimCreate(View):
         from managers.models import ModerationReport
 
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and form.is_valid() and not ModerationReport.is_user_already_reported(request.user.pk, 'ELEC', comment.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'ELEC', comment.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="POSС", object_id=comment.pk, description=description, type=type)

@@ -1,10 +1,10 @@
 on('body', 'click', '.show_object_reports', function() {
-  if (this.classList.contains("is_window")) {
-    pk = document.body.querySelector(".changed").getAttribute("obj-pk")
-  } else if (this.getAttribute("obj-pk")) {
+
+  if (this.getAttribute("obj-pk")) {
     pk = this.getAttribute("obj-pk")
-  };
-  parent = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  } else {
+    this.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk")
+  }
   open_fullscreen("/managers/load_claims/" + pk + "/", document.getElementById("window_loader"))
 });
 

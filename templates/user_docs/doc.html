@@ -19,7 +19,7 @@
                         <span class="dropdown-item u_doc_edit">Изменить</span>
                         <span class="dropdown-item u_doc_remove">Удалить</span>
                       {% elif request.user.is_manager %}
-                        <span class="dropdown-item manager_doc_remove">♦ Удалить</span>
+                        <span class="dropdown-item u_close_doc">Закрыть</span>
                       {% else %}
                         <span class="dropdown-item doc_claim">Пожаловаться</span>
                       {% endif %}

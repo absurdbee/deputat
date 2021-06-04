@@ -21,7 +21,7 @@
                   <span class="dropdown-item u_track_edit">Изменить</span>
                   <span class="dropdown-item u_track_remove">Удалить</span>
                 {% elif request.user.is_manager %}
-                  <span class="dropdown-item manager_track_remove">♦ Удалить</span>
+                  <span class="dropdown-item u_close_track">Закрыть</span>
                 {% else %}
                   <span class="dropdown-item track_claim">Пожаловаться</span>
                 {% endif %}

@@ -29,7 +29,7 @@ def blog(user, blog):
         else:
             votes_on = 'style="display:none"'
         if user.is_supermanager():
-            card_drop += '<span class="dropdown-item blog_force_delete">♦ Удалить</span>'
+            card_drop += '<span class="dropdown-item u_close_blog">Закрыть</span>'
         else:
             card_drop += '<span class="dropdown-item blog_claim">Пожаловаться</span>'
             if post.is_blog_in_bookmarks(user.pk):

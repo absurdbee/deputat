@@ -123,11 +123,17 @@ on('body', 'click', '.create_user_rejected', function() {
 on('body', 'click', '.u_close_photo_list', function() {
   get_item_sanction_window(this, "", "/managers/progs_photo/list_create_close/")
 })
+on('body', 'click', '.u_close_photo', function() {
+  get_item_sanction_window(this, "", "/managers/progs_photo/create_close/")
+})
 on('body', 'click', '.u_close_playlist', function() {
   get_item_sanction_window(this, "", "/managers/progs_audio/list_create_close/")
 })
 on('body', 'click', '.u_close_video_list', function() {
   get_item_sanction_window(this, "", "/managers/progs_video/list_create_close/")
+})
+on('body', 'click', '.u_close_video', function() {
+  get_item_sanction_window(this, "", "/managers/progs_video/create_close/")
 })
 on('body', 'click', '.u_close_survey_list', function() {
   get_item_sanction_window(this, "", "/managers/progs_survey/list_create_close/")

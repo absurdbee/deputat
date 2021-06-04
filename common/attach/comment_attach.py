@@ -29,7 +29,7 @@ def get_u_blog_comment_attach(comment, user):
                     if user.pk == music.creator.pk:
                         options = '<span class="dropdown-item u_track_edit">Изменить</span><span class="dropdown-item u_track_remove">Удалить</span>'
                     elif user.is_manager():
-                        options = '<a class="dropdown-item track_manager_remove pointer">♦ Удалить</a>'
+                        options = '<a class="dropdown-item u_close_track pointer">Закрыть</a>'
                     else:
                         options = '<span class="dropdown-item track_claim">Пожаловаться</span>'
                     opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg style="width: 17px;padding-top:3px" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 60px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
@@ -51,7 +51,7 @@ def get_u_blog_comment_attach(comment, user):
                     if user.pk == doc.creator.pk:
                         options = '<span class="dropdown-item u_doc_edit">Изменить</span><span class="dropdown-item u_doc_remove">Удалить</span>'
                     elif user.is_manager():
-                        options = '<a class="dropdown-item doc_manager_remove pointer">♦ Удалить</a>'
+                        options = '<a class="dropdown-item u_close_doc pointer">Закрыть</a>'
                     else:
                         options = '<span class="dropdown-item doc_claim">Пожаловаться</span>'
                     opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg class="svg_info" style="padding-top: 3px;" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 33px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
@@ -186,7 +186,7 @@ def get_u_elect_new_comment_attach(comment, user):
                     if user.pk == music.creator.pk:
                         options = '<span class="dropdown-item u_track_edit">Изменить</span><span class="dropdown-item u_track_remove">Удалить</span>'
                     elif user.is_manager():
-                        options = '<a class="dropdown-item track_manager_remove pointer">♦ Удалить</a>'
+                        options = '<a class="dropdown-item u_close_track pointer">Закрыть</a>'
                     else:
                         options = '<span class="dropdown-item track_claim">Пожаловаться</span>'
                     opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg style="width: 17px;padding-top:3px" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 60px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
@@ -208,7 +208,7 @@ def get_u_elect_new_comment_attach(comment, user):
                     if user.pk == doc.creator.pk:
                         options = '<span class="dropdown-item u_doc_edit">Изменить</span><span class="dropdown-item u_doc_remove">Удалить</span>'
                     elif user.is_manager():
-                        options = '<a class="dropdown-item doc_manager_remove pointer">♦ Удалить</a>'
+                        options = '<a class="dropdown-item u_close_doc pointer">Закрыть</a>'
                     else:
                         options = '<span class="dropdown-item doc_claim">Пожаловаться</span>'
                     opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg class="svg_info" style="padding-top: 3px;" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 33px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'

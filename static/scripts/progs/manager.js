@@ -142,10 +142,10 @@ on('body', 'click', '.u_close_survey_list', function() {
   get_item_sanction_window(this, "", "/managers/progs_survey/list_create_close/")
 })
 on('body', 'click', '.u_close_doc_list', function() {
-  get_music_doc_sanction_window(this, "", "/managers/progs_doc/list_create_close/")
+  get_item_sanction_window(this, "", "/managers/progs_doc/list_create_close/")
 })
 on('body', 'click', '.u_close_doc', function() {
-  get_item_sanction_window(this, "", "/managers/progs_doc/create_close/")
+  get_music_doc_sanction_window(this, "", "/managers/progs_doc/create_close/")
 })
 
 on('body', 'click', '#create_photo_List_close_btn', function() {

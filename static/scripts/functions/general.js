@@ -128,7 +128,7 @@ function send_window_sanction_post(form, url, toast) {
   form_data = new FormData(form);
   div = document.body.querySelector(".changed");
   uuid = form.getAttribute("data-uuid");
-
+  form.getAttribute("data-uuid") ? uuid = form.getAttribute("data-uuid") : uuid = form.getAttribute("data-pk");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', url + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

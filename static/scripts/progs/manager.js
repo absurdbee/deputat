@@ -151,14 +151,26 @@ on('body', 'click', '.u_close_doc', function() {
 on('body', 'click', '#create_photo_List_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_photo/list_create_close/", "Фотоальбом закрыт")
 });
+on('body', 'click', '#create_photo_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_photo/create_close/", "Фото закрыто")
+});
 on('body', 'click', '#create_playList_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_audio/list_create_close/", "Плейлист закрыт")
 });
-on('body', 'click', '#create_doc_List_close_btn', function() {
+on('body', 'click', '#create_track_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_audio/create_close/", "Аудиозапись закрыта")
+});
+on('body', 'click', '#create_doc_list_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_doc/list_create_close/", "Список документов закрыт")
+});
+on('body', 'click', '#create_doc_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_doc/create_close/", "Документ закрыт")
 });
 on('body', 'click', '#create_video_List_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_video/list_create_close/", "Список видеозаписей закрыт")
+});
+on('body', 'click', '#create_video_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_video/create_close/", "Видеозапись закрыта")
 });
 on('body', 'click', '#create_survey_List_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_survey/list_create_close/", "Список опросов закрыт")

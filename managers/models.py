@@ -433,7 +433,7 @@ class Moderated(models.Model):
         try:
             from gallery.models import Photo
             photo = Photo.objects.get(pk=self.object_id)
-            return ''.join(['<div><div data-uuid="', str(photo.uuid), '" class="uuid_keeper progressive replace image_fit_200 u_photo_moderated_detail pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+            return ''.join(['<div><div class="progressive replace image_fit_200 u_photo_moderated_detail pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img data-uuid="', str(photo.uuid), '" class="preview uuid_keeper image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
         except:
             return ''
     def get_video(self):

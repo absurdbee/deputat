@@ -140,7 +140,7 @@ function send_window_sanction_post(form, url, toast) {
     close_default_window();
     close_photo_window();
 
-    if (document.body.querySelector.(".changed")){
+    if (document.body.querySelector(".changed")){
       div.remove();
     }
     else if (document.body.querySelector(".load_block")){

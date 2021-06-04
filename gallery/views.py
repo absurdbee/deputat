@@ -239,6 +239,43 @@ class GetUserPhoto(TemplateView):
 		return context
 
 
+class GetUserPenaltyPhoto(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_small_template
+		self.photo = Photo.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax():
+			self.template_name = get_small_template("user_gallery/penalty_photo.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			from django.http import Http404
+			raise Http404
+		return super(GetUserPenaltyPhoto,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(GetUserPenaltyPhoto,self).get_context_data(**kwargs)
+		context["object"] = self.photo
+		return context
+
+class GetUserModeratedPhoto(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_small_template
+		self.photo = Photo.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax():
+			self.template_name = get_small_template("user_gallery/get_moderated.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			from django.http import Http404
+			raise Http404
+		return super(GetUserModeratedPhoto,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(GetUserModeratedPhoto,self).get_context_data(**kwargs)
+		context["object"] = self.photo
+		return context
+
+
 class UserLoadPenaltyPhotolist(ListView):
 	template_name, paginate_by = None, 15
 

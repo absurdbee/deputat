@@ -1,12 +1,12 @@
 on('body', 'click', '.penalty_photo', function() {
   pk = this.getAttribute('photo-pk');
   loader = document.getElementById("photo_loader");
-  open_fullscreen("/gallery/penalty_load/" + pk + "/", loader)
+  open_fullscreen("/gallery/penalty_photo/" + pk + "/", loader)
 });
 on('body', 'click', '.moderated_photo', function() {
   pk = this.getAttribute('photo-pk');
   loader = document.getElementById("photo_loader");
-  open_fullscreen("/gallery/moderated_load/" + pk + "/", loader)
+  open_fullscreen("/gallery/moderated_photo/" + pk + "/", loader)
 });
 
 on('body', 'click', '.show_object_reports', function() {

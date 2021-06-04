@@ -1,0 +1,31 @@
+
+<div class="data_display pt-4">
+  <div class="row no-gutters" list-pk="{{ list.pk }}" data-uuid="{{ list.uuid }}">
+    <div style="flex: 0 0 45%;max-width:45%;padding:5px;">
+        <a class="btn btn-sm border create_photo_close" style="width: -webkit-fill-available;">Закрыть</a>
+    </div>
+    <div style="flex: 0 0 45%;max-width:45%;padding:5px;">
+        <a class="btn btn-sm border create_photo_rejected" style="width: -webkit-fill-available;">Отклонить</a>
+    </div>
+
+    <div style="flex: 0 0 10%;max-width:10%;padding:5px;">
+      <a class="btn btn-sm border photo_fullscreen_hide_2" style="width: -webkit-fill-available;">х</a>
+    </div>
+  </div>
+
+  {% include 'user_gallery/photo/card_header.html' %}
+  <span class="content_block">
+    <span>
+      <div class="card image_card rounded-0 border-0 mb-3">
+        {% if object.file %}
+          <img style="width: 100%;" src="{{ object.file.url }}" alt="">
+        {% else %}
+          <svg class="svg_default" style="width:100%;height:auto" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        {% endif %}
+    </div>
+
+
+    </span>
+  </span>
+  </div>
+<br><br><br>

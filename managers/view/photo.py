@@ -124,7 +124,7 @@ class PhotoCloseCreate(TemplateView):
 
     def get(self,request,*args,**kwargs):
         if request.user.is_photo_manager():
-            self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_close", request.user, request.META['HTTP_USER_AGENT'])
+            self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
         return super(PhotoCloseCreate,self).get(request,*args,**kwargs)

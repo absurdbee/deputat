@@ -5,6 +5,7 @@ from managers.views import ManagersView, SuperManagersView
 urlpatterns = [
     url(r'^$', ManagersView.as_view(), name='managers'),
     url(r'^high_officer/$', SuperManagersView.as_view(), name='super_managers'),
+    url(r'^load_claims/(?P<pk>\d+)/$', LoadClaims.as_view()),
 
     url(r'^progs_user/', include('managers.url.progs_user')),
     url(r'^progs_community/', include('managers.url.progs_community')),

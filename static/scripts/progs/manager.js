@@ -1,3 +1,8 @@
+on('body', 'click', '.show_object_reports', function() {
+  parent = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  open_fullscreen("/managers/load_claims/" + parent.getAttribute("obj-pk") + "/", document.getElementById("window_loader"))
+});
+
 on('body', 'click', '.u_load_penalty_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");

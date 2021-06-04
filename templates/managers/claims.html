@@ -1,0 +1,46 @@
+
+<div class="container mt-3">
+  <div class="row no-gutters">
+    <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
+      <a class="btn btn-sm border photo_fullscreen_hide_2" style="width: -webkit-fill-available;">
+        <svg fill="currentColor" class="svg_default" style="width: 17px;" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="media mt-3" style="display:flex;align-items: flex-start">
+    <h5 class="mt-1" style="flex: 1;">Жалобы объекта</h5>
+  </div>
+
+  <ul class="list-group is_load_paginate no-gutters" data-link="/managers/load_claims/{{ report.pk }}/">
+  {% for object in object_list %}
+  <li class="list-group-item pag last">
+      <div class="media">
+        <a href="{% url 'user' pk=object.reporter.pk %}" class="ajax">
+          <figure>
+            <img src="{{ object.reporter.get_avatar }}" style="width: 90px;" alt="image">
+          </figure>
+        </a>
+        <div class="media-body pl-1">
+          <h6 class="my-0 mt-1">
+            <a href="{% url 'user' pk=object.reporter.pk %}" class="ajax">
+              {{ object.reporter.get_full_name }}
+            </a>
+          </h6>
+          <p style="font-weight:bold">{{ object.get_type_display }}</p>
+          <p>{{ object.description }}</p>
+        </div>
+      </div>
+  </li>
+  </ul>
+  {% empty %}
+    <div class="card centered item_empty">
+      <div class="card-body">
+        <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'>
+          <path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/><path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+      </div>
+      <h6>Жалоб пока нет.</h6>
+    </div>
+  {% endfor %}
+  </div>

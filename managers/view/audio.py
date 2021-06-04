@@ -159,7 +159,7 @@ class AudioCloseDelete(View):
         if request.is_ajax() and request.user.is_audio_manager():
             moderate_obj = Moderated.objects.get(object_id=audio.pk, type="MUS")
             moderate_obj.delete_close(object=audio, manager_id=request.user.pk)
-            AudioManageLog.objects.create(item=audio.pk, manager=manager_id, action_type=AudioManageLog.ITEM_CLOSED_HIDE)
+            AudioManageLog.objects.create(item=audio.pk, manager=request.user.pk, action_type=AudioManageLog.ITEM_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404

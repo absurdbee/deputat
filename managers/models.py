@@ -433,14 +433,14 @@ class Moderated(models.Model):
         try:
             from gallery.models import Photo
             photo = Photo.objects.get(pk=self.object_id)
-            return ''.join(['<div class="uuid_keeper" data-uuid="', str(photo.uuid), '"><div class="progressive replace image_fit_200 u_photo_moderated_detail pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+            return ''.join(['<div><div data-uuid="', str(photo.uuid), '" class="uuid_keeper progressive replace image_fit_200 u_photo_moderated_detail pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
         except:
             return ''
     def get_video(self):
         try:
             from video.models import Video
             video = Video.objects.get(pk=self.object_id)
-            return ''.join(['<div class="video" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit uuid_keeper" data-uuid="', str(video.uuid), '" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_moderated_detail" video-pk="', str(video.pk), '"></div></div>'])
+            return ''.join(['<div><img class="image_fit uuid_keeper" data-uuid="', str(video.uuid), '" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_moderated_detail" video-pk="', str(video.pk), '"></div></div>'])
         except:
             return ''
     def get_doc(self):

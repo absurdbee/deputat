@@ -141,7 +141,7 @@ class VideoCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=video.pk, type="VID")
             moderate_obj.create_close(object=video, description=mod.description, manager_id=request.user.pk)
-            VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.CLOSED)
+            VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.ITEM_CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -152,7 +152,7 @@ class VideoCloseDelete(View):
         if request.is_ajax() and request.user.is_video_manager():
             moderate_obj = Moderated.objects.get(object_id=video.pk, type="VID")
             moderate_obj.delete_close(object=video, manager_id=request.user.pk)
-            VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.CLOSED_HIDE)
+            VideoManageLog.objects.create(item=video.pk, manager=request.user.pk, action_type=VideoManageLog.ITEM_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404

@@ -238,7 +238,7 @@ class CommunityCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(type="COM", object_id=community.pk)
             moderate_obj.create_close(object=community, description=mod.description, manager_id=request.user.pk)
-            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.CLOSED)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.ITEM_CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -249,7 +249,7 @@ class CommunityCloseDelete(View):
         if request.is_ajax() and request.user.is_community_manager():
             moderate_obj = Moderated.objects.get(type="COM", object_id=self.kwargs["pk"])
             moderate_obj.delete_close(object=community, manager_id=request.user.pk)
-            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.CLOSED_HIDE)
+            CommunityManageLog.objects.create(item=self.kwargs["pk"], manager=request.user.pk, action_type=CommunityManageLog.ITEM_CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404

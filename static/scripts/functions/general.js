@@ -34,12 +34,18 @@ function get_profile_sanction_window(_this, url) {
   open_fullscreen(url + pk + "/", loader)
 }
 function get_item_sanction_window(_this, block, url) {
-    list = document.querySelectorAll('.pag');
     _this.parentElement.parentElement.getAttribute("data-uuid")
      ?  uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
      : (uuid = _this.getAttribute("data-uuid"), block.classList.add("changed"));
   loader = document.getElementById("window_loader");
   open_fullscreen(url + uuid + "/", loader)
+}
+function get_music_doc_sanction_window(_this, block, url) {
+    _this.parentElement.parentElement.parentElement.getAttribute("data-pk")
+     ?  pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk")
+     : (pk = _this.getAttribute("data-pk"), block.classList.add("changed"));
+  loader = document.getElementById("window_loader");
+  open_fullscreen(url + pk + "/", loader)
 }
 
 function send_user_sanction(_this, form, url, old_class, new_class, toast) {

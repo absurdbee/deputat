@@ -12,7 +12,7 @@
                         <div class="card user-card">
                           <h1 class="mb-0">Жалобы на аудиозаписи</h1>
                           {% for object in object_list %}
-                          <div class="pag mt-2 {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}">
+                          <div class="pag mt-2 {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}" style="position: relative;">
                               {{ object|get_music_items|safe }}
                           </div>
                           {% empty %}

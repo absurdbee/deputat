@@ -13,7 +13,7 @@
                           <h1 class="mb-0">Жалобы на видеозаписи</h1>
                           <div class="row mt-3">
                           {% for object in object_list %}
-                          <div class="col-md-12 pag {% if forloop.last %}last{% endif %}" obj-pk="{{ object.object.pk }}" data-pk="{{ object.object_id }}">
+                          <div class="col-md-12 pag {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}">
                               {{ object|get_video_items|safe }}
                           </div>
                           {% empty %}

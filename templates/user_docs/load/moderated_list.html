@@ -19,7 +19,7 @@
       {{ list.name }} ({{ list.count_items }}) - список документов
       <a href="{% url 'user' pk=list.creator.pk %}" class="ajax underline">
         {{ list.creator.get_full_name_genitive }}
-      </a> <a class="show_object_reports">[ смотреть жалобы ]</a>
+      </a> <a class="show_object_reports is_window">[ смотреть жалобы ]</a>
     </h5>
   </div>
 

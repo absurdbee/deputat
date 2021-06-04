@@ -27,7 +27,7 @@
 
               <ul class="list-group is_paginate">
                   {% for object in object_list %}
-                  <li class="list-group-item pag {% if forloop.last %}last{% endif %}" obj-pk="{{ object.object.pk }}" user-pk="{{ object.object_id }}">
+                  <li class="list-group-item pag {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" user-pk="{{ object.object_id }}">
                       {{ object|get_user|safe }}
                   </li>
                   {% endfor %}

@@ -1,6 +1,11 @@
 on('body', 'click', '.show_object_reports', function() {
+  if (this.classList.contains("is_window")) {
+    pk = document.body.querySelector(".changed").getAttribute("obj-pk")
+  } else if (this.getAttribute("obj-pk")) {
+    pk = this.getAttribute("obj-pk")
+  };
   parent = this.parentElement.parentElement.parentElement.parentElement.parentElement;
-  open_fullscreen("/managers/load_claims/" + parent.getAttribute("obj-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/managers/load_claims/" + pk + "/", document.getElementById("window_loader"))
 });
 
 on('body', 'click', '.u_load_penalty_playlist', function() {

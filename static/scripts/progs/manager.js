@@ -256,12 +256,24 @@ on('body', 'click', '.create_photo_list_close', function() {
 on('body', 'click', '.create_photo_list_rejected', function() {
   send_window_sanction_get(this, "/managers/progs_photo/list_create_rejected/", "Жалобы отклонены")
 });
+on('body', 'click', '.create_photo_close', function() {
+  open_manager_window("/managers/progs_photo/create_close/")
+});
+on('body', 'click', '.create_photo_rejected', function() {
+  send_window_sanction_get(this, "/managers/progs_photo/create_rejected/", "Жалобы отклонены")
+});
 
 on('body', 'click', '.create_playlist_close', function() {
   open_manager_window("/managers/progs_audio/list_create_close/")
 });
 on('body', 'click', '.create_playlist_rejected', function() {
   send_window_sanction_get(this, "/managers/progs_audio/list_create_rejected/", "Жалобы отклонены")
+});
+on('body', 'click', '.create_track_close', function() {
+  open_manager_window("/managers/progs_audio/create_close/")
+});
+on('body', 'click', '.create_track_rejected', function() {
+  send_window_sanction_get(this, "/managers/progs_audio/create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_video_list_close', function() {
@@ -282,6 +294,12 @@ on('body', 'click', '.create_doc_list_close', function() {
 });
 on('body', 'click', '.create_doc_list_rejected', function() {
   send_window_sanction_get(this, "/managers/progs_doc/list_create_rejected/", "Жалобы отклонены")
+});
+on('body', 'click', '.create_doc_close', function() {
+  open_manager_window("/managers/progs_doc/create_close/")
+});
+on('body', 'click', '.create_doc_rejected', function() {
+  send_window_sanction_get(this, "/managers/progs_doc/create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_survey_list_close', function() {

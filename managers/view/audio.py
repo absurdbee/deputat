@@ -148,7 +148,7 @@ class AudioCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=audio.pk, type="MUS")
             moderate_obj.create_close(object=audio, description=mod.description, manager_id=request.user.pk)
-            AudioManageLog.objects.create(item=audio.pk, manager=manager_id, action_type=AudioManageLog.ITEM_CLOSED)
+            AudioManageLog.objects.create(item=audio.pk, manager=request.user.pk, action_type=AudioManageLog.ITEM_CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -200,7 +200,7 @@ class AudioRejectedCreate(View):
             music = Music.objects.get(pk=self.kwargs["pk"])
             moderate_obj = Moderated.objects.get(object_id=music.pk, type="MUS")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
-            AudioManageLog.objects.create(item=music.pk, manager=manager_id, action_type=AudioManageLog.ITEM_REJECT)
+            AudioManageLog.objects.create(item=music.pk, manager=request.user.pk, action_type=AudioManageLog.ITEM_REJECT)
             return HttpResponse()
         else:
             raise Http404
@@ -212,7 +212,7 @@ class AudioUnverify(View):
         obj = Moderated.get_or_create_moderated_object(object_id=music.pk, type="MUS")
         if request.is_ajax() and request.user.is_audio_manager():
             obj.unverify_moderation(music, manager_id=request.user.pk)
-            AudioManageLog.objects.create(item=obj.object_id, manager=manager_id, action_type=AudioManageLog.ITEM_UNVERIFY)
+            AudioManageLog.objects.create(item=obj.object_id, manager=request.user.pk, action_type=AudioManageLog.ITEM_UNVERIFY)
             return HttpResponse()
         else:
             raise Http404

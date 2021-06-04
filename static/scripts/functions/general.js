@@ -107,9 +107,9 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   link_.send(form_data);
 }
 
-function open_manager_window(url) {
-  div = document.body.querySelector(".changed");
-  uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid");
+function open_manager_window(_this, url) {
+  document.body.querySelector(".changed") ? (div = document.body.querySelector(".changed"), uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid"))
+  : (div = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, uuid = div.getAttribute("data-pk"), div.classList.add("changed"));
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', url + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

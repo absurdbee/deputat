@@ -12,7 +12,7 @@
                         <div class="card user-card">
                           <h1 class="mb-0">Жалобы на сообщества</h1>
                           {% for object in object_list %}
-                          <div class="list-group-item pag {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}">
+                          <div class="pag {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}">
                               {{ object|get_community|safe }}
                           </div>
                           {% empty %}

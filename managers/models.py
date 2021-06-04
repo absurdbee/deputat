@@ -495,15 +495,15 @@ class Moderated(models.Model):
         except:
             return ''
     def get_playlist(self):
-        #try:
-        from music.models import SoundList
-        playlist = SoundList.objects.get(pk=self.object_id)
-        creator = playlist.creator
-        image = '<svg fill="currentColor" class="svg_default" style="width:70px;height:70px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/></svg>'
-        add_svg = ''
-        return ''.join(['<div style="flex-basis: 100%;" class="border"><div class="card-body uuid_keeper" data-uuid="', str(list.uuid), '" playlist-pk="', str(playlist.pk), '"style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_moderated_playlist pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_moderated_playlist pointer">', playlist.name, '</h6><p>Плейлист <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br><span class="show_object_reports pointer">Жалоб: ', str(self.reports_count()), '</span></p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
-        #except:
-        #    return ''
+        try:
+            from music.models import SoundList
+            playlist = SoundList.objects.get(pk=self.object_id)
+            creator = playlist.creator
+            image = '<svg fill="currentColor" class="svg_default" style="width:70px;height:70px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/></svg>'
+            add_svg = ''
+            return ''.join(['<div style="flex-basis: 100%;" class="border"><div class="card-body uuid_keeper" data-uuid="', str(playlist.uuid), '" playlist-pk="', str(playlist.pk), '"style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_moderated_playlist pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_moderated_playlist pointer">', playlist.name, '</h6><p>Плейлист <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br><span class="show_object_reports pointer">Жалоб: ', str(self.reports_count()), '</span></p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
+        except:
+            return ''
     def get_survey_list(self):
         try:
             from survey.models import SurveyList

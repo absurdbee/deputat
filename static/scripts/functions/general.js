@@ -150,10 +150,13 @@ function send_window_sanction_post(form, url, toast) {
 
   link_.send(form_data);
 }
-function send_window_sanction_get(url, toast) {
+function clean_body_changed_class() {
+  document.body.querySelector(".changed") ? (changed = document.body.querySelector(".changed"), changed.classList.remove("changed")) : null
+}
+function send_window_sanction_get(_this, url, toast) {
   // работа санкций при открытом окне списков и элементов - посылка сигнала без формы
-  div = document.body.querySelector(".changed");
-  uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid");
+  document.body.querySelector(".changed") ? (div = document.body.querySelector(".changed"), uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid"))
+  : (div = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, uuid = div.getAttribute("data-pk"));
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', url + uuid + "/", true );

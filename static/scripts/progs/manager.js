@@ -177,38 +177,66 @@ on('body', 'click', '#create_survey_List_close_btn', function() {
 });
 
 on('body', 'click', '.remove_photo_list_close', function() {
-  send_window_sanction_get("/managers/progs_photo/list_delete_close/", "Фотоальбом восстановлен")
+  send_window_sanction_get(this, "/managers/progs_photo/list_delete_close/", "Фотоальбом восстановлен")
 });
 on('body', 'click', '.photo_list_unverify', function() {
-  send_window_sanction_get("/managers/progs_photo/list_unverify/", "Верификация отменена")
+  send_window_sanction_get(this, "/managers/progs_photo/list_unverify/", "Верификация отменена")
+});
+on('body', 'click', '.remove_photo_close', function() {
+  send_window_sanction_get(this, "/managers/progs_photo/delete_close/", "Фото восстановлено")
+});
+on('body', 'click', '.photo_unverify', function() {
+  send_window_sanction_get(this, "/managers/progs_photo/unverify/", "Верификация отменена")
 });
 
 on('body', 'click', '.remove_playlist_close', function() {
-  send_window_sanction_get("/managers/progs_audio/list_delete_close/", "Плейлист восстановлен")
+  send_window_sanction_get(this, "/managers/progs_audio/list_delete_close/", "Плейлист восстановлен")
 });
 on('body', 'click', '.playlist_unverify', function() {
-  send_window_sanction_get("/managers/progs_audio/list_unverify/", "Верификация отменена")
+  send_window_sanction_get(this, "/managers/progs_audio/list_unverify/", "Верификация отменена")
+});
+on('body', 'click', '.remove_track_close', function() {
+  clean_body_changed_class();
+  send_window_sanction_get(this, "/managers/progs_audio/delete_close/", "Аудиозапись восстановлена")
+});
+on('body', 'click', '.track_unverify', function() {
+  clean_body_changed_class();
+  send_window_sanction_get(this, "/managers/progs_audio/unverify/", "Верификация отменена")
 });
 
 on('body', 'click', '.remove_video_list_close', function() {
-  send_window_sanction_get("/managers/progs_video/list_delete_close/", "Видеоальбом восстановлен")
+  send_window_sanction_get(this, "/managers/progs_video/list_delete_close/", "Видеоальбом восстановлен")
 });
 on('body', 'click', '.video_list_unverify', function() {
-  send_window_sanction_get("/managers/progs_video/list_unverify/", "Верификация отменена")
+  send_window_sanction_get(this, "/managers/progs_video/list_unverify/", "Верификация отменена")
+});
+on('body', 'click', '.remove_video_close', function() {
+  send_window_sanction_get(this, "/managers/progs_video/delete_close/", "Видеоальбом восстановлен")
+});
+on('body', 'click', '.video_unverify', function() {
+  send_window_sanction_get(this, "/managers/progs_video/unverify/", "Верификация отменена")
 });
 
 on('body', 'click', '.remove_doc_list_close', function() {
-  send_window_sanction_get("/managers/progs_doc/list_delete_close/", "Список документов восстановлен")
+  send_window_sanction_get(this, "/managers/progs_doc/list_delete_close/", "Список документов восстановлен")
 });
 on('body', 'click', '.doc_list_unverify', function() {
-  send_window_sanction_get("/managers/progs_doc/list_unverify/", "Верификация отменена")
+  send_window_sanction_get(this, "/managers/progs_doc/list_unverify/", "Верификация отменена")
+});
+on('body', 'click', '.remove_doc_close', function() {
+  clean_body_changed_class();
+  send_window_sanction_get(this, "/managers/progs_doc/delete_close/", "Документ восстановлен")
+});
+on('body', 'click', '.doc_unverify', function() {
+  clean_body_changed_class();
+  send_window_sanction_get(this, "/managers/progs_doc/unverify/", "Верификация отменена")
 });
 
 on('body', 'click', '.remove_survey_list_close', function() {
-  send_window_sanction_get("/managers/progs_survey/list_delete_close/", "Список опросов восстановлен")
+  send_window_sanction_get(this, "/managers/progs_survey/list_delete_close/", "Список опросов восстановлен")
 });
 on('body', 'click', '.survey_list_unverify', function() {
-  send_window_sanction_get("/managers/progs_survey/list_unverify/", "Верификация отменена")
+  send_window_sanction_get(this, "/managers/progs_survey/list_unverify/", "Верификация отменена")
 });
 
 
@@ -216,14 +244,14 @@ on('body', 'click', '.create_photo_list_close', function() {
   open_manager_window("/managers/progs_photo/list_create_close/")
 });
 on('body', 'click', '.create_photo_list_rejected', function() {
-  send_window_sanction_get("/managers/progs_photo/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get(this, "/managers/progs_photo/list_create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_playlist_close', function() {
   open_manager_window("/managers/progs_audio/list_create_close/")
 });
 on('body', 'click', '.create_playlist_rejected', function() {
-  send_window_sanction_get("/managers/progs_audio/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get(this, "/managers/progs_audio/list_create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_video_list_close', function() {
@@ -236,19 +264,19 @@ on('body', 'click', '.create_video_close', function() {
   open_manager_window("/managers/progs_video/create_close/")
 });
 on('body', 'click', '.create_video_list_rejected', function() {
-  send_window_sanction_get("/managers/progs_video/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get(this, "/managers/progs_video/list_create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_doc_list_close', function() {
   open_manager_window("/managers/progs_doc/list_create_close/")
 });
 on('body', 'click', '.create_doc_list_rejected', function() {
-  send_window_sanction_get("/managers/progs_doc/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get(this, "/managers/progs_doc/list_create_rejected/", "Жалобы отклонены")
 });
 
 on('body', 'click', '.create_survey_list_close', function() {
   open_manager_window("/managers/progs_survey/list_create_close/")
 });
 on('body', 'click', '.create_survey_list_rejected', function() {
-  send_window_sanction_get("/managers/progs_survey/list_create_rejected/", "Жалобы отклонены")
+  send_window_sanction_get(this, "/managers/progs_survey/list_create_rejected/", "Жалобы отклонены")
 });

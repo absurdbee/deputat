@@ -1,13 +1,13 @@
 on('body', 'click', '.penalty_photo', function() {
   this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');
-  loader = document.getElementById("photo_loader");
+  loader = document.getElementById("worker_loader");
   open_fullscreen("/gallery/penalty_photo/" + pk + "/", loader)
 });
-on('body', 'click', '.moderated_photo', function() {
+on('body', 'click', '.u_photo_moderated_detail', function() {
   this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');
-  loader = document.getElementById("photo_loader");
+  loader = document.getElementById("worker_loader");
   open_fullscreen("/gallery/moderated_photo/" + pk + "/", loader)
 });
 

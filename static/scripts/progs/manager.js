@@ -1,5 +1,15 @@
-on('body', 'click', '.show_object_reports', function() {
+on('body', 'click', '.penalty_photo', function() {
+  pk = this.getAttribute('photo-pk');
+  loader = document.getElementById("photo_loader");
+  open_fullscreen("/gallery/penalty_load/" + pk + "/", loader)
+});
+on('body', 'click', '.moderated_photo', function() {
+  pk = this.getAttribute('photo-pk');
+  loader = document.getElementById("photo_loader");
+  open_fullscreen("/gallery/moderated_load/" + pk + "/", loader)
+});
 
+on('body', 'click', '.show_object_reports', function() {
   if (this.getAttribute("obj-pk")) {
     pk = this.getAttribute("obj-pk")
   } else {

@@ -10,7 +10,7 @@ function send_form_and_toast_and_close_window(url, form) {
     ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     ajax_link.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            close_default_window();
+            close_worker_window();
             toast_info("Жалоба отправлена!");
         }
     }
@@ -30,21 +30,21 @@ function get_profile_sanction_window(_this, url) {
   else if (document.body.querySelector(".pk_saver")){
     pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
   }
-  loader = document.getElementById("window_loader");
+  loader = document.getElementById("worker_loader");
   open_fullscreen(url + pk + "/", loader)
 }
 function get_item_sanction_window(_this, block, url) {
     _this.parentElement.parentElement.getAttribute("data-uuid")
      ?  uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
      : (uuid = _this.getAttribute("data-uuid"), block.classList.add("changed"));
-  loader = document.getElementById("window_loader");
+  loader = document.getElementById("worker_loader");
   open_fullscreen(url + uuid + "/", loader)
 }
 function get_music_doc_sanction_window(_this, block, url) {
     _this.parentElement.parentElement.parentElement.getAttribute("data-pk")
      ?  pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk")
      : (pk = _this.getAttribute("data-pk"), block.classList.add("changed"));
-  loader = document.getElementById("window_loader");
+  loader = document.getElementById("worker_loader");
   open_fullscreen(url + pk + "/", loader)
 }
 
@@ -64,8 +64,7 @@ function send_user_sanction(_this, form, url, old_class, new_class, toast) {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info(toast);
-    document.querySelector(".window_fullscreen").style.display = "none";
-    document.getElementById("window_loader").innerHTML="";
+    close_worker_window();
     if (document.body.querySelector(".pk_saver")) {
       _this.innerHTML = "Отменить";
       _this.classList.replace(old_class, new_class)
@@ -95,8 +94,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info(toast);
-    document.querySelector(".window_fullscreen").style.display = "none";
-    document.getElementById("window_loader").innerHTML="";
+    close_worker_window();
 
     if (document.body.querySelector(".load_block")){
       document.body.querySelector(".load_block").innerHTML = '<div class="card mt-3 centered"><div class="card-body" style="margin-top: 10%;">  <svg class="thumb_big svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div><h6>Сущность блокирована.</h6></div>'
@@ -138,10 +136,8 @@ function send_window_sanction_post(form, url, toast) {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info(toast);
-    document.querySelector(".photo_fullscreen").style.display = "none";
-    document.getElementById("photo_loader").innerHTML="";
-    document.querySelector(".window_fullscreen").style.display = "none";
-    document.getElementById("window_loader").innerHTML="";
+    close_worker_window()
+    close_default_window()
 
     if (document.body.querySelector(".load_block")){
       document.body.querySelector(".load_block").innerHTML = '<div class="card mt-3 centered"><div class="card-body" style="margin-top: 10%;">  <svg class="thumb_big svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div><h6>Сущность блокирована.</h6></div>'
@@ -165,8 +161,7 @@ function send_window_sanction_get(url, toast) {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info(toast);
-    document.querySelector(".window_fullscreen").style.display = "none";
-    document.getElementById("window_loader").innerHTML="";
+    close_worker_window();
 
     if (document.body.querySelector(".load_block")){
       document.body.querySelector(".load_block").innerHTML = '<div class="card mt-3 centered"><div class="card-body" style="margin-top: 10%;">  <svg class="thumb_big svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div><h6>Сущность блокирована.</h6></div>'

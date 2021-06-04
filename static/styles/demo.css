@@ -1,7 +1,15 @@
 .centered h6 {
   text-align: center;
 }
-
+.open_100 {
+  z-index: 100
+}
+.open_200 {
+  z-index: 200
+}
+.open_300 {
+  z-index: 300
+}
 .photo, .video {
   margin-bottom: 10px;
   flex-grow: 1;
@@ -631,7 +639,7 @@ line-height: 1;
   cursor: pointer;
   float: right;
 }
-.window_fullscreen, .photo_fullscreen, .create_fullscreen {
+.window_fullscreen, .worker_fullscreen, .photo_fullscreen, .create_fullscreen {
   position: fixed;
   top: 0;
   height: 100vh;
@@ -641,7 +649,7 @@ line-height: 1;
   width: 93.5%;
 }
 @media screen and (min-width: 621px) {
-    .window_fullscreen, .photo_fullscreen, .create_fullscreen {left: 20%;width: 60%;padding-left: 5%;padding-right: 5%;}
+    .window_fullscreen, .photo_fullscreen, .worker_fullscreen, .create_fullscreen {left: 20%;width: 60%;padding-left: 5%;padding-right: 5%;}
     .cover_fit {max-height: 300px !important;}
 }
 

@@ -10,6 +10,10 @@ function close_default_window() {
     document.querySelector(".window_fullscreen").style.display = "none";
     document.getElementById("window_loader").innerHTML = "";
 }
+function close_worker_window() {
+    document.querySelector(".worker_fullscreen").style.display = "none";
+    document.getElementById("worker_loader").innerHTML = "";
+}
 on('body', 'click', '.create_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
   this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";

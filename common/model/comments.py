@@ -61,6 +61,14 @@ class BlogComment(models.Model):
         else:
             return ''
 
+    def get_count_attach(self):
+        if self.attach:
+            _attach = self.attach.split(",")
+            if len(_attach) == 1:
+                return "files_one"
+            else:
+                return "files_two"
+
     @classmethod
     def create_comment(cls, commenter, attach, blog, parent, text):
         from common.notify.notify import user_comment_notify, user_comment_wall

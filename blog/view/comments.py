@@ -45,7 +45,8 @@ class BlogCommentEdit(TemplateView):
 		self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
 		self.form = BlogCommentForm(request.POST,instance=self.comment)
 		if request.is_ajax() and self.form.is_valid():
-			_comment = self.form.save(commit=False)new_comment = _comment.edit_comment(text=_comment.text, attach = request.POST.getlist("attach_items"))
+			_comment = self.form.save(commit=False)
+			new_comment = _comment.edit_comment(text=_comment.text, attach = request.POST.getlist("attach_items"))
 			if self.comment.parent:
 				return render_for_platform(request, 'blog/comment/edited_parent.html',{'comment': new_comment})
 			else:

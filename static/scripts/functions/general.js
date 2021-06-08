@@ -848,6 +848,8 @@ function send_comment(form, block, link, prepend) {
     link_.open('POST', link, true);
     link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     if (!form.querySelector(".text-comment").value || !form.querySelector(".comment_attach_block").firstChild){
+      console.log(form.querySelector(".text-comment"));
+      console.log(!form.querySelector(".comment_attach_block").firstChild);
       toast_error("Напишите или прикрепите что-нибудь");
       return
     };

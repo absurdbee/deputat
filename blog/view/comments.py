@@ -26,34 +26,33 @@ class BlogCommentCreate(View):
 
 
 class BlogCommentEdit(TemplateView):
-    template_name = None
+	template_name = None
 
-    def get(self,request,*args,**kwargs):
-        self.template_name = get_small_template("blog/comment/edit.html", request.user, request.META['HTTP_USER_AGENT'])
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("blog/comment/edit.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
-        return super(BlogCommentEdit,self).get(request,*args,**kwargs)
+		return super(BlogCommentEdit,self).get(request,*args,**kwargs)
 
-    def get_context_data(self,**kwargs):
-        context = super(BlogCommentEdit,self).get_context_data(**kwargs)
-        context["comment"] = self.comment
+	def get_context_data(self,**kwargs):
+		context = super(BlogCommentEdit,self).get_context_data(**kwargs)
+		context["comment"] = self.comment
 		context["form_post"] = BlogCommentForm(instance=self.doc)
-        return context
+		return context
 
-    def post(self,request,*args,**kwargs):
+	def post(self,request,*args,**kwargs):
 		from common.templates import render_for_platform
 
-        self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
-        self.form = BlogCommentForm(request.POST,instance=self.comment)
-        if request.is_ajax() and self.form.is_valid():
-            _comment = self.form.save(commit=False)
-            new_comment = _comment.edit_comment(text=_comment.text, attach = request.POST.getlist("attach_items"))
+		self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
+		self.form = BlogCommentForm(request.POST,instance=self.comment)
+		if request.is_ajax() and self.form.is_valid():
+			_comment = self.form.save(commit=False)new_comment = _comment.edit_comment(text=_comment.text, attach = request.POST.getlist("attach_items"))
 			if self.comment.parent:
 				return render_for_platform(request, 'blog/comment/edited_parent.html',{'comment': new_comment})
 			else:
-            	return render_for_platform(request, 'blog/comment/edited_reply.html',{'comment': new_comment})
-        else:
-            return HttpResponseBadRequest()
-        return super(BlogCommentEdit,self).get(request,*args,**kwargs)
+				return render_for_platform(request, 'blog/comment/edited_reply.html',{'comment': new_comment})
+		else:
+			return HttpResponseBadRequest()
+		return super(BlogCommentEdit,self).get(request,*args,**kwargs)
 
 
 class BlogReplyCreate(View):

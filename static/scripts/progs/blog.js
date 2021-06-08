@@ -133,6 +133,7 @@ on('body', 'click', '.blog_comment_like', function() {
 
 on('body', 'click', '.edit_blog_comment', function() {
   _this = this;
+  clear_comment_dropdown();
   //_this.style.display = "none";
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/blog/edit_blog_comment/" + _this.parentElement.parentElement.getAttribute("data-pk") + "/", true );

@@ -64,10 +64,10 @@ class BlogComment(models.Model):
     def get_count_attach(self):
         if self.attach:
             _attach = self.attach.split(",")
-            if len(_attach) == 1:
+            if len(_attach) == 2:
                 return "files_one"
             else:
-                return len(_attach)
+                return "files_two"
 
     @classmethod
     def create_comment(cls, commenter, attach, blog, parent, text):

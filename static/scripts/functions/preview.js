@@ -51,6 +51,15 @@ function check_doc_list_in_block(block, _this, pk) {
         return false
     }
 }
+function check_video_list_in_block(block, _this, pk) {
+    if (block.querySelector('[videolist-pk=' + '"' + pk + '"' + ']')) {
+        _this.parentElement.parentElement.setAttribute("tooltip", "Список уже выбран");
+        _this.parentElement.parentElement.setAttribute("flow", "up");
+        return true
+    } else {
+        return false
+    }
+}
 function check_playlist_in_block(block, _this, pk) {
     if (block.querySelector('[playlist-pk=' + '"' + pk + '"' + ']')) {
         _this.parentElement.parentElement.setAttribute("tooltip", "Плейлист уже выбран");

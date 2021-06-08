@@ -54,9 +54,9 @@ class BlogCommentEdit(TemplateView):
 			_comment = self.form.save(commit=False)
 			new_comment = _comment.edit_comment(text=_comment.text, attach = request.POST.getlist("attach_items"))
 			if self.comment.parent:
-				return render_for_platform(request, 'blog/comment/parent.html',{'reply': new_comment})
+				return render_for_platform(request, 'blog/comment/reply.html',{'reply': new_comment})
 			else:
-				return render_for_platform(request, 'blog/comment/comment.html',{'reply': new_comment})
+				return render_for_platform(request, 'blog/comment/parent.html',{'parent': new_comment})
 		else:
 			return HttpResponseBadRequest()
 		return super(BlogCommentEdit,self).get(request,*args,**kwargs)

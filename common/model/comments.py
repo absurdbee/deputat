@@ -62,11 +62,14 @@ class BlogComment(models.Model):
             return ''
 
     def get_count_attach(self):
-        _attach = self.attach.split(",")
-        if len(_attach) == 1:
-            return "files_one"
-        if len(_attach) == 2:
-            return "files_two"
+        if self.attach:
+            _attach = self.attach.split(",")
+            if len(_attach) == 1:
+                return "files_one"
+            elif len(_attach) == 2:
+                return "files_two"
+            else:
+                return "files_null"
         else:
             return "files_null"
 

@@ -140,7 +140,7 @@ on('body', 'click', '.edit_blog_comment', function() {
 
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    elem = link_.responseText;
+    elem = link.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
     _this.parentElement.append(response);

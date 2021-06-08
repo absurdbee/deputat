@@ -37,6 +37,8 @@ class BlogCommentEdit(TemplateView):
 		return super(BlogCommentEdit,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
+		from blog.forms import BlogCommentForm
+
 		context = super(BlogCommentEdit,self).get_context_data(**kwargs)
 		context["comment"] = self.comment
 		context["form_post"] = BlogCommentForm(instance=self.doc)
@@ -44,7 +46,7 @@ class BlogCommentEdit(TemplateView):
 
 	def post(self,request,*args,**kwargs):
 		from common.templates import render_for_platform
-
+		from blog.forms import BlogCommentForm
 
 		self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
 		self.form = BlogCommentForm(request.POST,instance=self.comment)

@@ -56,7 +56,7 @@ class BlogCommentEdit(TemplateView):
 			if self.comment.parent:
 				return render_for_platform(request, 'blog/comment/reply.html',{'reply': new_comment})
 			else:
-				return render_for_platform(request, 'blog/comment/parent.html',{'parent': new_comment})
+				return render_for_platform(request, 'blog/comment/parent.html',{'comment': new_comment})
 		else:
 			return HttpResponseBadRequest()
 		return super(BlogCommentEdit,self).get(request,*args,**kwargs)

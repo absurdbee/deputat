@@ -71,6 +71,14 @@ function doc_list_comment_attach(dropdown, title, pk, count) {
   add_file_dropdown()
   is_full_dropdown();
 }
+function video_list_comment_attach(dropdown, title, pk, count) {
+  is_full_dropdown();
+  attach_block = dropdown.parentElement.previousElementSibling;
+  div = create_preview_video_list(title, pk, count);
+  attach_block.append(div);
+  add_file_dropdown()
+  is_full_dropdown();
+}
 function playlist_comment_attach(dropdown, title, pk, count) {
   is_full_dropdown();
   attach_block = dropdown.parentElement.previousElementSibling;

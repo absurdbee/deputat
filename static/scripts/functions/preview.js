@@ -264,7 +264,7 @@ function create_preview_video_list(name, pk, count){
   $div.setAttribute("videolist-pk", pk);
 
   $input = document.createElement("span");
-  $input.innerHTML = '<input type="hidden" name="attach_items" value="ldo' + pk + '">';
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="lvi' + pk + '">';
 
   $div_svg = document.createElement("div");
   $div_svg.classList.add("card-img-top", "file-logo-wrapper");

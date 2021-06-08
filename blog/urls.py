@@ -10,6 +10,7 @@ urlpatterns = [
 
     url(r'^blog_comment/$', BlogCommentCreate.as_view()),
     url(r'^blog_reply/$', BlogReplyCreate.as_view()),
+    url(r'^edit_blog_comment/(?P<pk>\d+)/$', BlogCommentEdit.as_view()),
     url(r'^delete_blog_comment/(?P<pk>\d+)/$', BlogCommentDelete.as_view()),
     url(r'^abort_delete_blog_comment/(?P<pk>\d+)/$', BlogCommentAbortDelete.as_view()),
 

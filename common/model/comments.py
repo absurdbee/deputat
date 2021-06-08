@@ -85,6 +85,19 @@ class BlogComment(models.Model):
             user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
         return comment
 
+    def edit_comment(self, attach, text):
+        from common.processing import get_blog_comment_processing
+        if not text and not attach:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для новой записи")
+
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
+        self.attach = _attach
+        self.text = text
+        self.type = BlogComment.EDITED
+        return self.save()
+
     def count_replies_ru(self):
         count = self.get_replies().count()
         a = count % 10

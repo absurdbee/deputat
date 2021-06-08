@@ -131,6 +131,22 @@ on('body', 'click', '.blog_comment_like', function() {
   link.send( null );
 });
 
+on('body', 'click', '.edit_blog_comment', function() {
+  _this = this;
+  _this.style.display = "none";
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/blog/edit_blog_comment/" + _this.parentElement.parentElement.getAttribute("data-pk") + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    _this.parentElement.append(response);
+  }};
+  link.send( null );
+});
 
 on('body', 'click', '.blogComment', function() {
   form = this.parentElement.parentElement;

@@ -1,7 +1,8 @@
+{% load filters %}
 <form class="form mt-1">
   {% csrf_token %}
       <div class="row comment_attach_block no-gutters">
-        {{ comment.get_edited_attach }}
+        {{ comment|edit_attach:request.user|safe }}
       </div>
       <span style="display:flex">
         <span class="dropdown {{ comment.get_count_attach }}" {% if comment.get_count_attach == "files_two" %}style="display: none;"{% endif %}>

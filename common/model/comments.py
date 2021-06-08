@@ -121,6 +121,10 @@ class BlogComment(models.Model):
         from common.attach.comment_attach import get_u_blog_comment_attach
         return get_u_blog_comment_attach(self, user)
 
+    def get_edit_attach(self, user):
+        from common.attach.comment_attach import get_blog_comment_edit
+        return get_blog_comment_edit(self, user)
+
     def get_attach_photos(self):
         if "pho" in self.attach:
             query = []

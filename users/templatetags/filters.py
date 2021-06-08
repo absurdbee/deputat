@@ -43,6 +43,9 @@ def item_in_list(list, item_id):
 @register.filter
 def get_attach(obj, request_user):
     return obj.get_u_attach(request_user)
+@register.filter
+def edit_attach(obj, request_user):
+    return obj.get_edit_attach(request_user)
 
 @register.filter
 def is_user_can_add_list(list, user_id):

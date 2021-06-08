@@ -2,6 +2,7 @@ from blog.models import *
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views import View
 from django.http import Http404
+from django.views.generic.base import TemplateView
 
 
 class BlogCommentCreate(View):

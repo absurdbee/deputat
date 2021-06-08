@@ -66,6 +66,10 @@ class BlogComment(models.Model):
         from common.notify.notify import user_comment_notify, user_comment_wall
         from common.processing import get_blog_comment_processing
 
+        if not text and not attach:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для новой записи")
+
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         comment = BlogComment.objects.create(commenter=commenter, attach=_attach, parent=parent, blog=blog, text=text)
@@ -294,6 +298,10 @@ class ElectNewComment(models.Model):
     def create_comment(cls, commenter, attach, new, parent, text):
         from common.notify.notify import user_comment_notify, user_comment_wall
         from common.processing import get_elect_new_comment_processing
+
+        if not text and not attach:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для новой записи")
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")

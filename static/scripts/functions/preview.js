@@ -257,6 +257,29 @@ function create_preview_doc_list(name, pk, count){
   $div.append($card_body);
   return $div
 }
+function create_preview_video_list(name, pk, count){
+  $div = document.createElement("div");
+  $div.classList.add("col-md-6", "col-sm-12", "folder");
+  $div.style.textAlign = "center";
+  $div.setAttribute("videolist-pk", pk);
+
+  $input = document.createElement("span");
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="ldo' + pk + '">';
+
+  $div_svg = document.createElement("div");
+  $div_svg.classList.add("card-img-top", "file-logo-wrapper");
+  $div_svg.style.padding = "2rem";
+  $div_svg.innerHTML = '<a class="nowrap"><div class="d-flex align-items-center justify-content-center w-100"><svg class="list_toggle list_svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-video"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></div></a>'
+
+  $card_body = document.createElement("div");
+  $card_body.classList.add("card-body", "pt-0");
+  $card_body.innerHTML = '<div class="content-wrapper" style="display: flex;"><p class="card-text file-name mb-0 u_load_video_list pointer"><a class="nowrap">' + name + ' (' + count + ')</a></p></div><small class="file-accessed pointer video_attach_list_remove underline">Открепить</small>'
+
+  $div.append($input);
+  $div.append($div_svg);
+  $div.append($card_body);
+  return $div
+}
 function create_preview_playlist(name, pk, count){
   $div = document.createElement("div");
   $div.classList.add("col-md-6", "col-sm-12", "folder");
@@ -342,6 +365,19 @@ on('body', 'click', '.doc_attach_list', function() {
     check_doc_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_list_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
     check_doc_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_list_comment_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
+  }
+});
+on('body', 'click', '.video_attach_list', function() {
+  _this = this;
+  name = _this.parentElement.querySelector(".list_name").innerHTML;
+  pk = _this.getAttribute('data-pk');
+  count = _this.parentElement.querySelector(".count").innerHTML;
+  if (document.body.querySelector(".current_file_dropdown")){
+    check_video_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_create_window())
+  } else if (document.body.querySelector(".attach_block")){
+    check_video_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_list_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
+  } else if (document.body.querySelector(".message_attach_block")){
+    check_video_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_list_comment_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
   }
 });
 on('body', 'click', '.music_attach_list', function() {

@@ -510,6 +510,17 @@ on('body', 'click', '.doc_attach_list_remove', function() {
   }
   block.remove();
 });
+on('body', 'click', '.video_attach_list_remove', function() {
+  block = this.parentElement.parentElement;
+  if (block.parentElement.classList.contains("attach_block")){
+    remove_file_attach(), is_full_attach()
+  } else if (block.parentElement.classList.contains("comment_attach_block")){
+    remove_file_dropdown(); is_full_dropdown()
+  } else if (block.classList.contains("message_attach_block")){
+    remove_file_message_attach(); is_full_message_attach()
+  }
+  block.remove();
+});
 
 function on(elSelector,eventName,selector,fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while(el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};
 function elementInViewport(el){var bounds = el.getBoundingClientRect();return ((bounds.top + bounds.height > 0) && (window.innerHeight - bounds.top > 0));}

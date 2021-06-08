@@ -41,7 +41,7 @@ class BlogCommentEdit(TemplateView):
 
 		context = super(BlogCommentEdit,self).get_context_data(**kwargs)
 		context["comment"] = self.comment
-		context["form_post"] = BlogCommentForm(instance=self.doc)
+		context["form_post"] = BlogCommentForm(instance=self.comment)
 		return context
 
 	def post(self,request,*args,**kwargs):

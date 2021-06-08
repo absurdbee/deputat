@@ -9,14 +9,14 @@ def get_u_blog_comment_attach(comment, user):
             try:
                 from gallery.models import Photo
                 photo = Photo.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div style="position: relative;"><div class="progressive replace image_fit_200 u_blog_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+                block = ''.join([block, '<div style="position: relative;padding: 5px;"><div class="progressive replace image_fit_200 u_blog_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":
             try:
                 from video.models import Video
                 video = Video.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div style="position: relative;" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
+                block = ''.join([block, '<div style="position: relative;padding: 5px;" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
             except:
                 pass
         elif item[:3] == "mus":
@@ -166,14 +166,14 @@ def get_u_elect_new_comment_attach(comment, user):
             try:
                 from gallery.models import Photo
                 photo = Photo.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div style="position: relative;"><div class="progressive replace image_fit u_elect_new_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+                block = ''.join([block, '<div style="position: relative;padding: 5px;"><div class="progressive replace image_fit u_elect_new_comment_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":
             try:
                 from video.models import Video
                 video = Video.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div style="position: relative;" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
+                block = ''.join([block, '<div style="position: relative;padding: 5px;" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
             except:
                 pass
         elif item[:3] == "mus":
@@ -324,7 +324,7 @@ def get_blog_comment_edit(comment, user):
             try:
                 from gallery.models import Photo
                 photo = Photo.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="col-sm-6 col-md-4"><span class="photo_preview_delete" tooltip="Не прикреплять" flow="up"><svg fill="#FF0000" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span><span><input type="hidden" name="attach_items" value="pho"', str(photo.pk), '"></span><img class="u_preview_photo image_fit pointer" src="', photo.file.url, '" photo-pk="', str(photo.pk), '"></div>'])
+                block = ''.join([block, '<div class="col-md-6"><span class="photo_preview_delete" tooltip="Не прикреплять" flow="up"><svg fill="#FF0000" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span><span><input type="hidden" name="attach_items" value="pho"', str(photo.pk), '"></span><img class="u_preview_photo image_fit pointer" src="', photo.file.url, '" photo-pk="', str(photo.pk), '"></div>'])
             except:
                 pass
         elif item[:3] == "vid":
@@ -338,44 +338,14 @@ def get_blog_comment_edit(comment, user):
             try:
                 from music.models import Music
                 music = Music.objects.get(query, pk=item[3:])
-                span_btn, lists = '', ''
-                if user.is_authenticated:
-                    if user.pk == music.creator.pk:
-                        options = '<span class="dropdown-item u_track_edit">Изменить</span><span class="dropdown-item u_track_remove">Удалить</span>'
-                    elif user.is_manager():
-                        options = '<a class="dropdown-item u_close_track pointer">Закрыть</a>'
-                    else:
-                        options = '<span class="dropdown-item track_claim">Пожаловаться</span>'
-                    opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg style="width: 17px;padding-top:3px" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 60px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
-                    for list in user.get_playlists():
-                        if list.is_item_in_list(music.pk):
-                            lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_remove_track_from_list"><svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>', list.name, '</span></span>'])
-                        else:
-                            lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_add_track_in_list" style="padding-left: 30px;">', list.name, '</span></span>'])
-                    span_btn = ''.join([span_btn, '<span class="span_btn" data-pk="', str(music.pk), '"><span class="dropdown" style="position: inherit;" data-pk="', str(music.pk), '"><span class="btn_default pointer drop"><svg fill="currentColor" style="width:25px;height:25px;" class="svg_default" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span><div class="dropdown-menu dropdown-menu-right" style="top: 60px;">', lists, '</div></span>', opt_drop, '</span>'])
-                block = ''.join([block, '<div class="col-md-12" style="flex-basis: 100%;"><div class="media border p-1"><div class="media-body music_media_body" style="line-height: 8px;"><span>', music.title, '</span><div class="audio_div"><audio id="player" class="audio_player"><source src="', music.get_uri(), '" type="audio/mp3" /></audio></div>', span_btn, '</div></div></div>'])
+                block = ''.join([block, '<div class="col-md-12" data-pk="9" style="display: flex; padding: 3px;"><span class="music_preview_delete" tooltip="Не прикреплять" flow="up"><svg fill="#FF0000" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span><span><input type="hidden" name="attach_items" value="mus', str(music.pk), '"></span><span><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></span><span style="margin-left: 10px; margin-right: 40px; overflow: hidden;"><h6 class="music_list_item pointer music_title" style="padding-top: 4px;"><a>', str(music.pk), '</a></h6></span></div>'])
             except:
                 pass
         elif item[:3] == "doc":
             try:
                 from docs.models import Doc
                 doc = Doc.objects.get(query, pk=item[3:])
-                span_btn, lists = '', ''
-                if user.is_authenticated:
-                    if user.pk == doc.creator.pk:
-                        options = '<span class="dropdown-item u_doc_edit">Изменить</span><span class="dropdown-item u_doc_remove">Удалить</span>'
-                    elif user.is_manager():
-                        options = '<a class="dropdown-item u_close_doc pointer">Закрыть</a>'
-                    else:
-                        options = '<span class="dropdown-item doc_claim">Пожаловаться</span>'
-                    opt_drop = '<div class="dropdown" style="position: inherit;"><a class="btn_default drop pointer"><svg class="svg_info" style="padding-top: 3px;" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top: 33px;">' + options + '<span class="dropdown-item copy_link">Копировать ссылку</span></div></div>'
-                    for list in user.get_doc_lists():
-                        if list.is_item_in_list(doc.pk):
-                            lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_remove_doc_from_list"><svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>', list.name, '</span></span>'])
-                        else:
-                            lists = ''.join([lists, '<span data-uuid="', str(list.uuid), '"><span class="dropdown-item u_add_doc_in_list" style="padding-left: 30px;">', list.name, '</span></span>'])
-                    span_btn = ''.join([span_btn, '<span class="span_btn" data-pk="', str(doc.pk), '"><span class="dropdown" style="position: inherit;" data-pk="', str(doc.pk), '"><span class="btn_default pointer drop" title="Добавить в плейлист"><svg fill="currentColor" style="width:25px;height:25px;margin-top: 2px;" class="svg_default" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span><div class="dropdown-menu dropdown-menu-right" style="top: 33px;">', lists, '</div></span>', opt_drop, '</span>'])
-                block = ''.join([block, '<div class="photo" style="flex-basis: 100%;"><div class="media border"><svg fill="currentColor" class="svg_default" style="width:45px;margin: 0;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg><div class="media-body doc_media_body"><h6 class="pointer" style="padding-top: 5px;width: 84%;overflow: hidden;"><a href="', doc.file.url, '" target="_blank" rel="nofollow">', doc.title, '</a></h6><span class="small" style="bottom: 5px;position: absolute;">', str(doc.file.size), ' | ', doc.get_mime_type(), '</span>', span_btn, '</div></div></div>'])
+                block = ''.join([block, '<div class="col-md-12" doc-pk="8" style="padding: 3px; display: flex;"><span class="doc_preview_delete" tooltip="Не прикреплять" flow="up"><svg fill="#FF0000" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span><span><input type="hidden" name="attach_items" value="doc', str(doc.pk), '"></span><span><span><svg fill="currentColor" style="width:35px;heigth:35px" class="svg_default" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg></span></span><span class="media_title"><h6 style="padding-top: 9px;"><a href="', doc.file.url, '" style="white-space: nowrap;" target="_blank" rel="nofollow">', doc.title, '</a></h6></span></div>'])
             except:
                 pass
         elif item[:3] == "sur":

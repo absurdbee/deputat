@@ -21,7 +21,6 @@
         </span>
           <input name="text" value="{{ comment.text }}" placeholder="Напишите комментарий" class="form-control text-comment" style="margin-bottom:5px">
       </span>
-        <input type="hidden" name="blog" value="{{ object.pk }}">
         <div class="col-12">
             <button type="button" class="btn btn-danger btn-sm hide_comment_form float-right" style="margin-left:5px">x</button>
             <button type="button" class="btn btn-primary btn-sm float-right blogEditComment" data-pk="{{ comment.pk }}">Изменить</button>

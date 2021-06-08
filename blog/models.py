@@ -107,7 +107,9 @@ class Blog(models.Model):
 
     def get_comments(self):
         from common.model.comments import BlogComment
-        return BlogComment.objects.filter(blog_id=self.pk, type=BlogComment.PUBLISHED, parent__isnull=True)
+        query = Q(blog_id=self.pk, parent__isnull=True)
+        query.add(Q(Q(type="PUB")|Q(type="EDI")), Q.AND)
+        return BlogComment.objects.filter(query)
 
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
@@ -427,7 +429,9 @@ class ElectNew(models.Model):
 
     def get_comments(self):
         from common.model.comments import ElectNewComment
-        return ElectNewComment.objects.filter(new_id=self.pk, parent__isnull=True)
+        query = Q(new_id=self.pk, parent__isnull=True)
+        query.add(Q(Q(type="PUB")|Q(type="EDI")), Q.AND)
+        return ElectNewComment.objects.filter(query)
 
     def get_u_attach(self, user):
         from common.attach.elect_new_attach import get_u_elect_new_attach

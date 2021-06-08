@@ -472,4 +472,4 @@ def get_blog_comment_edit(comment, user):
                 block = ''.join([block, '<div style="flex-basis: 100%;" class="border"><div class="card-body" videolist-pk="', str(creator.pk), '" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_video_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_video_list pointer">', list.name, '</h6><p>Список видеозаписей <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Видеозаписей: ', str(list.count_items()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
             except:
                 pass
-    return ''.join(["<div class='items_container'>", block, "</div>"])
+    return ''.join(["<div class='items_container comment_attach_block'>", block, "</div>"])

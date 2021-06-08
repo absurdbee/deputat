@@ -4,6 +4,7 @@ from django.views import View
 from django.http import Http404
 from django.views.generic.base import TemplateView
 from common.templates import get_small_template
+from common.model.comments import *
 
 
 class BlogCommentCreate(View):
@@ -43,6 +44,7 @@ class BlogCommentEdit(TemplateView):
 
 	def post(self,request,*args,**kwargs):
 		from common.templates import render_for_platform
+
 
 		self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
 		self.form = BlogCommentForm(request.POST,instance=self.comment)

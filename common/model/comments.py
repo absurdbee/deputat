@@ -69,7 +69,7 @@ class BlogComment(models.Model):
             if len(_attach) == 3:
                 return "files_two"
             else:
-                return ""
+                return "files_null"
 
     @classmethod
     def create_comment(cls, commenter, attach, blog, parent, text):

@@ -136,7 +136,7 @@ def get_full_template(folder, template, request_user, user_agent):
         if request_user.type[0] == "_":
             template_name = get_fine_request_user(request_user)
         else:
-            template_name = template
+            template_name = folder + template
     elif request_user.is_anonymous:
         template_name = folder + "anon_" + template
     return get_folder(user_agent) + template_name

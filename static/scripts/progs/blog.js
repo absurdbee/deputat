@@ -152,7 +152,7 @@ on('body', 'click', '.edit_blog_comment', function() {
 on('body', 'click', '.blogEditComment', function() {
   form = this.parentElement.parentElement
   span_form = form.parentElement;
-  block = span_form.parentElement.parentElement.parentElement.parentElement;
+  block = span_form.parentElement.parentElement.parentElement;
   form_comment = new FormData(form);
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
   link_.open('POST', "/blog/edit_blog_comment/" + this.getAttribute("data-pk") + "/", true);

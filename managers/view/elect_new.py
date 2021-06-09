@@ -290,7 +290,7 @@ class CommentElectNewClaimCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(CommentElectNewClaimCreate,self).get_context_data(**kwargs)
-        context["comment"] = self.comment
+        context["object"] = self.comment
         context["is_reported"] = self.is_reported
         return context
 
@@ -342,7 +342,7 @@ class CommentElectNewCloseCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(CommentElectNewCloseCreate,self).get_context_data(**kwargs)
-        context["comment"] = self.comment
+        context["object"] = self.comment
         return context
 
     def post(self,request,*args,**kwargs):

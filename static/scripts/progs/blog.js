@@ -171,6 +171,7 @@ on('body', 'click', '.blogEditComment', function() {
           crd.classList.add("card-body");
           crd.style.paddingTop = "0.5rem";
           crd.style.paddingBottom = "0.5rem";
+          crd.style.paddingLeft = "7px";
           span.append(crd);
           crd.innerHTML = new_post.querySelector(".card-body").innerHTML;
           block.innerHTML = span.innerHTML;

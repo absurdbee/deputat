@@ -11,6 +11,7 @@ function send_form_and_toast_and_close_window(url, form) {
     ajax_link.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             close_worker_window();
+            close_default_window(); 
             toast_info("Жалоба отправлена!");
         }
     }

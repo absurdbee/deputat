@@ -117,7 +117,7 @@ on('body', 'click', '.remove_blog_comment', function() {
   comment_delete(this, "/blog/delete_blog_comment/", "restore_blog_comment")
 })
 on('body', 'click', '.restore_blog_comment', function() {
-  comment_delete(this, "/blog/restore_blog_comment/") 
+  comment_abort_delete(this, "/blog/restore_blog_comment/") 
 })
 on('body', 'click', '.blog_comment_like', function() {
   item = this.parentElement.parentElement;

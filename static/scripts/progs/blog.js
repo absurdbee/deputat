@@ -117,7 +117,7 @@ on('body', 'click', '.remove_blog_comment', function() {
   comment_delete(this, "/blog/delete_blog_comment/", "restore_blog_comment")
 })
 on('body', 'click', '.restore_blog_comment', function() {
-  comment_abort_delete(this, "/blog/restore_blog_comment/") 
+  comment_abort_delete(this, "/blog/restore_blog_comment/")
 })
 on('body', 'click', '.blog_comment_like', function() {
   item = this.parentElement.parentElement;
@@ -165,6 +165,8 @@ on('body', 'click', '.blogEditComment', function() {
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   if (!form.querySelector(".text-comment").value && !form.querySelector(".comment_attach_block").firstChild){
     toast_error("Напишите или прикрепите что-нибудь");
+    form.querySelector(".text-comment").style.border = "1px #FF0000 solid";
+    form.querySelector(".dropdown").style.border = "1px #FF0000 solid";
     return
   };
   link_.onreadystatechange = function() {

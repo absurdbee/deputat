@@ -40,7 +40,7 @@ def add_doc_editor(user, request_user):
 def remove_doc_administrator(user, request_user):
     try:
         user.doc_user_staff.level = ""
-        user.adoc_user_staff.save(update_fields=['level'])
+        user.doc_user_staff.save(update_fields=['level'])
         DocWorkerManageLog.objects.create(user=user, manager=request_user, action_type=DELETE_ADMIN)
         check_manager_state()
     except:

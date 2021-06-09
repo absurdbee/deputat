@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^progs_audio/', include('managers.url.progs_audio')),
     url(r'^progs_doc/', include('managers.url.progs_doc')),
     url(r'^elect_new/', include('managers.url.elect_new')),
+    url(r'^progs_blog/', include('managers.url.progs_blog')),
 
     url(r'^moderation_list/', include('managers.url.moderation_list')),
     url(r'^penalty_list/', include('managers.url.penalty_list')),

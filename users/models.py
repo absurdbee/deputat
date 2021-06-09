@@ -727,6 +727,18 @@ class User(AbstractUser):
         except:
             return False
 
+    def is_blog_administrator(self):
+        return self.is_superuser or try_except(self.blog_user_staff.level == "A")
+    def is_blog_moderator(self):
+        return self.is_superuser or try_except(self.blog_user_staff.level == "M")
+    def is_blog_editor(self):
+        return self.is_superuser or try_except(self.blog_user_staff.level == "E")
+    def is_blog_manager(self):
+        try:
+            return self.is_superuser or self.elect_new_user_staff.level
+        except:
+            return False
+
     def is_survey_administrator(self):
         return self.is_superuser or try_except(self.survey_user_staff.level == "A")
     def is_survey_moderator(self):
@@ -818,6 +830,15 @@ class User(AbstractUser):
         return self.is_superuser or try_except(self.can_work_staff_elect_new_user.can_work_editor)
     def is_work_supermanager(self):
         return self.is_work_elect_new_administrator() or self.is_work_elect_new_moderator() or is_work_elect_new_editor()
+
+    def is_work_blog_administrator(self):
+        return self.is_superuser or try_except(self.can_work_staff_blog_user.can_work_administrator)
+    def is_work_blog_moderator(self):
+        return self.is_superuser or try_except(self.can_work_staff_blog_user.can_work_moderator)
+    def is_work_blog_editor(self):
+        return self.is_superuser or try_except(self.can_work_staff_blog_user.can_work_editor)
+    def is_work_supermanager(self):
+        return self.is_work_blog_administrator() or self.is_work_blog_moderator() or is_work_blog_editor()
 
     def is_work_survey_administrator(self):
         return self.is_superuser or try_except(self.can_work_staff_survey_user.can_work_administrator)

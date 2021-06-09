@@ -77,6 +77,21 @@ class DocUserStaff(models.Model):
         verbose_name = 'Полномочия в документах'
         verbose_name_plural = 'Полномочия в документах'
 
+class BlogUserStaff(models.Model):
+    ADMINISTRATOR, MODERATOR, EDITOR, ADVERTISER = 'A', 'M', 'E', 'R'
+    LEVEL = (
+        (ADMINISTRATOR, 'Администратор'),(MODERATOR, 'Модератор'),(EDITOR, 'Редактор'),(ADVERTISER, 'Рекламодатель'),
+    )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_user_staff', verbose_name="Особый пользователь")
+    level = models.CharField(max_length=5, choices=LEVEL, blank=True, verbose_name="Уровень доступа")
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        verbose_name = 'Полномочия в блоге'
+        verbose_name_plural = 'Полномочия в блоге'
+
 class PhotoUserStaff(models.Model):
     ADMINISTRATOR, MODERATOR, EDITOR, ADVERTISER = 'A', 'M', 'E', 'R'
     LEVEL = (
@@ -195,6 +210,20 @@ class CanWorkStaffDocUser(models.Model):
         verbose_name = 'Создатель персонала докуметов'
         verbose_name_plural = 'Создатели персонала докуметов'
 
+class CanWorkStaffBlogUser(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='can_work_staff_blog_user', verbose_name="Создатель персонала в товарах")
+    can_work_administrator = models.BooleanField(default=False, verbose_name="Может добавлять администраторов блога")
+    can_work_moderator = models.BooleanField(default=False, verbose_name="Может добавлять модераторов блога")
+    can_work_editor = models.BooleanField(default=False, verbose_name="Может добавлять редакторов блога")
+    can_work_advertiser = models.BooleanField(default=False, verbose_name="Может добавлять рекламодателей блога")
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        verbose_name = 'Создатель персонала блога'
+        verbose_name_plural = 'Создатели персонала блога'
+
 class CanWorkStaffPhotoUser(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='can_work_staff_photo_user', verbose_name="Создатель персонала в фотографиях")
     can_work_administrator = models.BooleanField(default=False, verbose_name="Может добавлять администраторов фотографий")
@@ -262,6 +291,7 @@ class ModerationCategory(models.Model):
 
 USER, COMMUNITY = 'USE', 'COM'
 ELECT_NEW, ELECT_NEW_COMMENT = 'ELE', 'ELEC'
+BLOG, BLOG_COMMENT = 'BLO', 'BLOC'
 PHOTO_LIST, PHOTO, PHOTO_COMMENT = 'PHL', 'PHO', 'PHOC'
 DOC_LIST, DOC = 'DOL', 'DOC'
 MUSIC_LIST, MUSIC = 'MUL', 'MUS'
@@ -272,6 +302,7 @@ TYPE = (
     (MUSIC_LIST, 'Плейлист'), (MUSIC, 'Трек'),
     (SURVEY_LIST, 'Список опросов'), (SURVEY, 'Опрос'),
     (ELECT_NEW, 'Активность депутата'), (ELECT_NEW_COMMENT, 'Коммент к активности депутата'),
+    (BLOG, 'Блог'), (BLOG_COMMENT, 'Коммент к блогу'),
     (DOC_LIST, 'Список документов'), (DOC, 'документ'),
     (PHOTO_LIST, 'Список фотографий'), (PHOTO, 'Фотография'), (PHOTO_COMMENT, 'Коммент к фотографии'),
     (VIDEO_LIST, 'Список роликов'), (VIDEO, 'Ролик'), (VIDEO_COMMENT, 'Коммент к ролику'),

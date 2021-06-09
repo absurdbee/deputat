@@ -83,6 +83,9 @@ link.send( null );
 })
 
 on('body', 'click', '.claim_blog_comment', function() {
+  open_fullscreen("/managers/blog_progs/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("window_loader"))
+});
+on('body', 'click', '.claim_elect_new_comment', function() {
   open_fullscreen("/managers/elect_new/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.photo_claim', function() {
@@ -114,6 +117,9 @@ on('body', 'click', '.u_survey_list_claim', function() {
 });
 
 on('body', 'click', '.claim_blog_comment_btn', function() {
+  send_form_and_toast_and_close_window("/managers/blog/comment_create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
+});
+on('body', 'click', '.claim_elect_new_comment_btn', function() {
   send_form_and_toast_and_close_window("/managers/elect_new/comment_create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
 });
 on('body', 'click', '.create_audio_claim_btn', function() {

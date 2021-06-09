@@ -26,7 +26,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
         from common.templates import get_full_template
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
-        self.template_name = get_full_template("elect/" , "elect_2.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_full_template("elect/elect/" , "elect.html", request.user, request.META['HTTP_USER_AGENT'])
         if request.user.is_authenticated:
             if not ElectNumbers.objects.filter(user=request.user.pk, elect=self.elect.pk).exists():
                 if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):

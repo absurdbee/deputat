@@ -63,6 +63,20 @@ class ModerationElectNew(ListView):
     def get_queryset(self):
         return Moderated.get_moderation_elect_news()
 
+class ModerationBlog(ListView):
+    template_name, paginate_by = None, 15
+
+    def get(self,request,*args,**kwargs):
+        self.user = request.user
+        if self.user.is_blog_manager():
+            self.template_name = get_detect_platform_template("managers/moderation_list/blog_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(ModerationBlog,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        return Moderated.get_moderation_blog()
+
 class ModerationSurvey(ListView):
     template_name, paginate_by = None, 15
 

@@ -61,6 +61,20 @@ class PenaltyElectNew(ListView):
     def get_queryset(self):
         return ModerationPenalty.get_penalty_elect_news(self.request.user.pk)
 
+class PenaltyBlog(ListView):
+    template_name, paginate_by = None, 15
+
+    def get(self,request,*args,**kwargs):
+        self.user = request.user
+        if self.user.is_elect_new_manager():
+            self.template_name = get_detect_platform_template("managers/penalty_list/blog_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(PenaltyBlog,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        return ModerationPenalty.get_penalty_blog(self.request.user.pk)
+
 class PenaltySurvey(ListView):
     template_name, paginate_by = None, 15
 

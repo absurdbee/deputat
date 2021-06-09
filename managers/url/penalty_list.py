@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^user/$', PenaltyUser.as_view()),
     url(r'^community/$', PenaltyCommunity.as_view()),
     url(r'^elect_new/$', PenaltyElectNew.as_view()),
+    url(r'^blog/$', PenaltyBlog.as_view()),
     url(r'^photo/$', PenaltyPhoto.as_view()),
     url(r'^audio/$', PenaltyAudio.as_view()),
     url(r'^video/$', PenaltyVideo.as_view()),

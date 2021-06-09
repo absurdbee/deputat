@@ -166,7 +166,14 @@ on('body', 'click', '.blogEditComment', function() {
           elem = link_.responseText;
           new_post = document.createElement("span");
           new_post.innerHTML = elem;
-          block.innerHTML = new_post.querySelector(".card-body").innerHTML;
+          crd = document.createElement("div");
+          span = document.createElement("span");
+          crd.classList.add("card-body");
+          crd.paddingTop = "0.5rem";
+          crd.paddingBottom = "0.5rem";
+          span.append(crd);
+          crd.innerHTML = new_post.querySelector(".card-body").innerHTML;
+          block.innerHTML = span.innerHTML;
           toast_success(" Комментарий изменен");
       }
   };

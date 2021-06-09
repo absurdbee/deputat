@@ -268,7 +268,9 @@ on('body', 'click', '.show_replies', function() {
   this.nextElementSibling.classList.toggle("show")
 })
 on('body', 'click', '.hide_comment_form', function() {
-  this.parentElement.parentElement.parentElement.style.display = "none";
+  parent = this.parentElement.parentElement.parentElement;
+  parent.style.display = "none";
+  parent.parentElement.style.display = "block";
 })
 
 on('body', 'click', '.create_ajax', function() {

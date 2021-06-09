@@ -117,7 +117,7 @@ on('body', 'click', '.u_survey_list_claim', function() {
 });
 
 on('body', 'click', '.claim_blog_comment_btn', function() {
-  send_form_and_toast_and_close_window("/managers/blog/comment_create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
+  send_form_and_toast_and_close_window("/managers/progs_blog/comment_create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
 });
 on('body', 'click', '.claim_elect_new_comment_btn', function() {
   send_form_and_toast_and_close_window("/managers/elect_new/comment_create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)

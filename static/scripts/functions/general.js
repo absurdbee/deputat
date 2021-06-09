@@ -697,10 +697,10 @@ function comment_delete(_this, _link, _class){
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    comment = data.parentElement.parentElement.parentElement.parentElement;
+    comment = data.parentElement.parentElement;
     comment.style.display = "none";
     div = document.createElement("div");
-    div.classList.add("media", "comment");
+    div.classList.add("card");
 
     div.innerHTML = "<p class='" + _class + "'style='cursor:pointer;text-decoration:underline;padding:15px' data-pk='" + comment_pk + "'>Комментарий удален. Восстановить</p>";
     comment.parentElement.insertBefore(div, comment);

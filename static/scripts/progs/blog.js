@@ -113,6 +113,12 @@ on('body', 'click', '.blog_inert', function() {
   send_inert(item, "/blog/votes/blog_inert/" + pk + "/");
 });
 
+on('body', 'click', '.remove_blog_comment', function() {
+  comment_delete(this, "/blog/delete_blog_comment/", "restore_blog_comment")
+})
+on('body', 'click', '.restore_blog_comment', function() {
+  comment_delete(this, "/blog/restore_blog_comment/") 
+})
 on('body', 'click', '.blog_comment_like', function() {
   item = this.parentElement.parentElement;
   like = item.querySelector(".like");

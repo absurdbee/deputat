@@ -406,7 +406,7 @@ def get_blog_comment_edit(comment, user):
             try:
                 from video.models import VideoList
                 list = VideoList.objects.get(list_query, pk=item[3:])
-                image = '<svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>'
+                image = '<svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
                 block = ''.join([block, '<div class="folder" videolist-pk="', str(list.pk), '" style="text-align: center;padding: 3px;"><span><input type="hidden" name="attach_items" value="lvi', str(list.pk), '"></span><div class="card-img-top file-logo-wrapper" style="padding: 2rem;"><a class="nowrap"><div class="d-flex align-items-center justify-content-center w-100 u_load_video_list pointer">', image, '</div></a></div><div class="card-body pt-0"><div class="content-wrapper" style="display: flex;"><p class="card-text file-name mb-0 u_load_video_list pointer"><a class="nowrap">', list.name, ' (', str(list.count_items()), ')</a></p></div><small class="file-accessed pointer video_attach_list_remove underline">Открепить</small></div></div>'])
             except:
                 pass

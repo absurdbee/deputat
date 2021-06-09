@@ -270,7 +270,7 @@ on('body', 'click', '.show_replies', function() {
 on('body', 'click', '.hide_comment_form', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.style.display = "none";
-  parent.parentElement.style.display = "block";
+  parent.parentElement.querySelector(".align-items-center").style.display = "block";
 })
 
 on('body', 'click', '.create_ajax', function() {

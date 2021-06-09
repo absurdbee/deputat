@@ -655,7 +655,7 @@ class ModerationReport(models.Model):
 
     @classmethod
     def is_user_already_reported(cls, reporter_id, type, object_id):
-        return cls.objects.filter(reporter_id=reporter_id, type=moderated_type, moderated_object_id=object_id).exists()
+        return cls.objects.filter(reporter_id=reporter_id, type=type, moderated_object_id=object_id).exists()
 
 
 class ModerationPenalty(models.Model):

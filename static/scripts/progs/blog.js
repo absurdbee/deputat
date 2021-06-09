@@ -166,7 +166,7 @@ on('body', 'click', '.blogEditComment', function() {
           elem = link_.responseText;
           new_post = document.createElement("span");
           new_post.innerHTML = elem;
-          block.innerHTML = new_post.innerHTML;
+          block.innerHTML = new_post.querySelector(".card-body").innerHTML;
           toast_success(" Комментарий опубликован");
       }
   };

@@ -25,6 +25,7 @@
             {% endif %}
 
             <div class="align-items-center">
+              {% if comment.like %}
                 <span class="like btn_default" title="Нравится">
                     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"></path>
@@ -32,6 +33,7 @@
                     </svg>
                     <span class="likes_count">{{ comment.likes_count }}</span>
                 </span>
+              {% endif %}
             </div>
         </div>
 

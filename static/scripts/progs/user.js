@@ -116,10 +116,10 @@ on('body', 'click', '.u_survey_list_claim', function() {
   open_fullscreen("/managers/progs_survey/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("window_loader"))
 });
 
-on('body', 'click', '.claim_blog_comment_btn', function() {
+on('body', 'click', '.create_blog_claim_btn', function() {
   send_form_and_toast_and_close_window("/managers/progs_blog/comment_create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
 });
-on('body', 'click', '.claim_elect_new_comment_btn', function() {
+on('body', 'click', '.create_elect_new_claim_btn', function() {
   send_form_and_toast_and_close_window("/managers/elect_new/comment_create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
 });
 on('body', 'click', '.create_audio_claim_btn', function() {

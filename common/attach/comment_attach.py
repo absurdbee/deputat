@@ -391,44 +391,23 @@ def get_blog_comment_edit(comment, user):
             try:
                 from docs.models import DocList
                 list = DocList.objects.get(list_query, pk=item[3:])
-                creator = list.creator
                 image = '<svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>'
-                add_svg = ''
-                if user.is_authenticated:
-                    if list.is_user_can_add_list(user.pk):
-                        add_svg = '<span title="Добавить список" class="u_add_doc_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'
-                    elif user.pk in list.get_users_ids():
-                        add_svg = '<span title="Удалить список" class="u_remove_doc_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>'
-                block = ''.join([block, '<div style="flex-basis: 100%;"><div class="card-body border" doclist-pk="', str(list.pk), '" style="padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_doc_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_doc_list pointer">', list.name, '</h6><p>Список документов <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Документов: ', str(list.count_items()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
+                block = ''.join([block, '<div class="folder" doclist-pk="', str(list.pk), '" style="text-align: center;padding: 3px;"><span><input type="hidden" name="attach_items" value="ldo', str(list.pk), '"></span><div class="card-img-top file-logo-wrapper" style="padding: 2rem;"><a class="nowrap"><div class="d-flex align-items-center justify-content-center w-100 u_load_doc_list pointer">', image, '</div></a></div><div class="card-body pt-0"><div class="content-wrapper" style="display: flex;"><p class="card-text file-name mb-0 u_load_doc_list pointer"><a class="nowrap">', list.name, ' (', str(list.count_items()), ')</a></p></div><small class="file-accessed pointer doc_attach_list_remove underline">Открепить</small></div></div>'])
             except:
                 pass
         elif item[:3] == "lph":
             try:
                 from gallery.models import PhotoList
                 list = PhotoList.objects.get(pk=item[3:])
-                creator = PhotoList.creator
-                add = ''
-                if user.is_authenticated:
-                    if list.is_user_can_add_list(user.pk):
-                        add = '<a class="col pointer u_add_photo_list text-white">Добавить</a>'
-                    elif user.pk in list.get_users_ids():
-                        add = '<a class="col pointer u_remove_photo_list text-white">Удалить</a>'
-                block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" photolist-pk="', str(list.pk), '"><figure class="background-img"><img src="', list.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_list text-white pointer"><a class="nowrap">', list.name, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(list.creator), '</a></p><hr class="my-3"><a class="u_load_photo_list text-white pointer">', list.count_items_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
+                block = ''.join([block, '<div class="col-sm-6 col-md-4 bg-dark position-relative text-center big_mobile_element col-md-6" photolist-pk="', str(list.pk), '"><figure class="background-img"><img src="',list.get_cover_photo(), '"></figure><div class="container p-3"><h6 class="u_load_photo_list text-white pointer mb-2 nowrap">',list.name, '</h6><span class="photo_attach_list_remove underline pointer text-white">Открепить</span><hr class="my-3"><a class="u_load_photo_list pointer text-white">', list.count_items_ru(), '</a></div><span><input type="hidden" name="attach_items" value="lph', str(list.pk), '"></span></div>'])
             except:
                 pass
         elif item[:3] == "lvi":
             try:
                 from video.models import VideoList
                 list = VideoList.objects.get(list_query, pk=item[3:])
-                creator = list.creator
-                image = '<svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"></path></svg>'
-                add_svg = ''
-                if user.is_authenticated:
-                    if list.is_user_can_add_list(user.pk):
-                        add_svg = '<span title="Добавить список видеозаписей" class="u_add_video_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span>'
-                    elif user.pk in list.get_users_ids():
-                        add_svg = '<span title="Удалить список видеозаписей" class="u_remove_video_list btn_default pointer"><svg fill="currentColor" class="svg_default add_svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>'
-                block = ''.join([block, '<div style="flex-basis: 100%;" class="border"><div class="card-body" videolist-pk="', str(creator.pk), '" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="u_load_video_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 u_load_video_list pointer">', list.name, '</h6><p>Список видеозаписей <a class="ajax underline" href="/users/', str(creator.pk), '">', str(creator.get_full_name_genitive()), '</a><br>Видеозаписей: ', str(list.count_items()), '</p></div><span class="list_share">', add_svg, '</span></div></div></div>'])
+                image = '<svg fill="currentColor" class="svg_default" style="width:60px;height:88px;" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>'
+                block = ''.join([block, '<div class="folder" videolist-pk="', str(list.pk), '" style="text-align: center;padding: 3px;"><span><input type="hidden" name="attach_items" value="lvi', str(list.pk), '"></span><div class="card-img-top file-logo-wrapper" style="padding: 2rem;"><a class="nowrap"><div class="d-flex align-items-center justify-content-center w-100 u_load_video_list pointer">', image, '</div></a></div><div class="card-body pt-0"><div class="content-wrapper" style="display: flex;"><p class="card-text file-name mb-0 u_load_video_list pointer"><a class="nowrap">', list.name, ' (', str(list.count_items()), ')</a></p></div><small class="file-accessed pointer video_attach_list_remove underline">Открепить</small></div></div>'])
             except:
                 pass
     return ''.join(["<div class='items_container comment_attach_block'>", block, "</div>"])

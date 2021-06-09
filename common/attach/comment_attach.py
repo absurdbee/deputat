@@ -129,19 +129,19 @@ def get_u_blog_comment_attach(comment, user):
             except:
                 pass
         elif item[:3] == "lph":
-            #try:
-            from gallery.models import PhotoList
-            list = PhotoList.objects.get(pk=item[3:])
-            creator = PhotoList.creator
-            add = ''
-            if user.is_authenticated:
-                if list.is_user_can_add_list(user.pk):
-                    add = '<a class="col pointer u_add_photo_list text-white">Добавить</a>'
-                elif user.pk in list.get_users_ids():
-                    add = '<a class="col pointer u_remove_photo_list text-white">Удалить</a>'
-            block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" photolist-pk="', str(list.pk), '"><figure class="background-img"><img src="', list.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_list text-white pointer"><a class="nowrap">', list.name, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(list.creator), '</a></p><hr class="my-3"><a class="u_load_photo_list text-white pointer">', list.count_items_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
-            #except:
-            #    pass
+            try:
+                from gallery.models import PhotoList
+                list = PhotoList.objects.get(pk=item[3:])
+                creator = list.creator
+                add = ''
+                if user.is_authenticated:
+                    if list.is_user_can_add_list(user.pk):
+                        add = '<a class="col pointer u_add_photo_list text-white">Добавить</a>'
+                    elif user.pk in list.get_users_ids():
+                        add = '<a class="col pointer u_remove_photo_list text-white">Удалить</a>'
+                block = ''.join([block, '<div class="text-center bg-dark position-relative big_mobile_element col-md-6" photolist-pk="', str(list.pk), '"><figure class="background-img"><img src="', list.get_cover_photo(), '">"</figure><div class="container p-3"><h4 class="u_load_photo_list text-white pointer"><a class="nowrap">', list.name, '</a></h4><p><a class="ajax underline text-white nowrap" href="/users/', str(creator.pk), '">', str(list.creator), '</a></p><hr class="my-3"><a class="u_load_photo_list text-white pointer">', list.count_items_ru(), '</a><div class="row">', add, '</div>', '</div></div>'])
+            except:
+                pass
         elif item[:3] == "lvi":
             try:
                 from video.models import VideoList

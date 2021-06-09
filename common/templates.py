@@ -138,7 +138,7 @@ def get_full_template(template, request_user, user_agent):
         else:
             template_name = template
     elif request_user.is_anonymous:
-        template_name = template
+        template_name = "anon_" + template
     return get_folder(user_agent) + template_name
 
 

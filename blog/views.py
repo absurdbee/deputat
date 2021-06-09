@@ -18,7 +18,7 @@ class BlogDetailView(ListView, CategoryListMixin):
 		from common.templates import get_full_template
 
 		self.blog = Blog.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_full_template("blog/blog.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("blog/detail/blog.html", request.user, request.META['HTTP_USER_AGENT'])
 		if request.user.is_authenticated:
 			if not BlogNumbers.objects.filter(user=request.user.pk, new=self.blog.pk).exists():
 				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):

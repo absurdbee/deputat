@@ -255,10 +255,10 @@ class CommentBlogClaimCreate(TemplateView):
         self.comment = BlogComment.objects.get(pk=self.kwargs["pk"])
         self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'BLOC', self.comment.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/blog/comment_claim.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(CommentPostClaimCreate,self).get(request,*args,**kwargs)
+        return super(CommentBlogClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        context = super(CommentPostClaimCreate,self).get_context_data(**kwargs)
+        context = super(CommentBlogClaimCreate,self).get_context_data(**kwargs)
         context["comment"] = self.comment
         context["is_reported"] = self.is_reported
         return context

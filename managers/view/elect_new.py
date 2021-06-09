@@ -140,7 +140,7 @@ class ElectNewCloseCreate(TemplateView):
         post, form = ElectNew.objects.get(uuid=self.kwargs["uuid"]), ModeratedForm(request.POST)
         if request.is_ajax() and form.is_valid() and request.user.is_elect_new_manager():
             mod = form.save(commit=False)
-            moderate_obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="POS")
+            moderate_obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="ELE")
             moderate_obj.create_close(object=post, description=mod.description, manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_CLOSED)
             return HttpResponse()
@@ -151,7 +151,7 @@ class ElectNewCloseDelete(View):
     def get(self,request,*args,**kwargs):
         post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and request.user.is_elect_new_manager():
-            moderate_obj = Moderated.objects.get(object_id=post.pk, type="POS")
+            moderate_obj = Moderated.objects.get(object_id=post.pk, type="ELE")
             moderate_obj.delete_close(object=post, manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_CLOSED_HIDE)
             return HttpResponse()
@@ -184,7 +184,7 @@ class ElectNewClaimCreate(TemplateView):
         if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'ELE', self.new.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
-            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="POS", object_id=self.kwargs["pk"], description=description, type=type)
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="ELE", object_id=self.kwargs["pk"], description=description, type=type)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -193,7 +193,7 @@ class ElectNewRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and request.user.is_elect_new_manager():
-            moderate_obj = Moderated.objects.get(object_id=post.pk, type="POS")
+            moderate_obj = Moderated.objects.get(object_id=post.pk, type="ELE")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.ITEM_REJECT)
             return HttpResponse()
@@ -286,10 +286,10 @@ class CommentElectNewClaimCreate(TemplateView):
         self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
         self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'ELEC', self.comment.pk)
         self.template_name = get_detect_platform_template("managers/manage_create/elect_new/comment_claim.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(CommentPostClaimCreate,self).get(request,*args,**kwargs)
+        return super(CommentElectNewClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        context = super(CommentPostClaimCreate,self).get_context_data(**kwargs)
+        context = super(CommentElectNewClaimCreate,self).get_context_data(**kwargs)
         context["comment"] = self.comment
         context["is_reported"] = self.is_reported
         return context
@@ -301,7 +301,7 @@ class CommentElectNewClaimCreate(TemplateView):
         if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'ELEC', comment.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
-            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="POSС", object_id=comment.pk, description=description, type=type)
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="ELEC", object_id=comment.pk, description=description, type=type)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -310,7 +310,7 @@ class CommentElectNewRejectedCreate(View):
     def get(self,request,*args,**kwargs):
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_elect_new_manager():
-            moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
+            moderate_obj = Moderated.objects.get(object_id=comment.pk, type="ELEC")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_REJECT)
             return HttpResponse()
@@ -350,7 +350,7 @@ class CommentElectNewCloseCreate(TemplateView):
         form = ModeratedForm(request.POST)
         if form.is_valid() and request.user.is_elect_new_manager():
             mod = form.save(commit=False)
-            moderate_obj = Moderated.get_or_create_moderated_object(object_id=comment.pk, type="POSC")
+            moderate_obj = Moderated.get_or_create_moderated_object(object_id=comment.pk, type="ELEC")
             moderate_obj.create_close(object=comment, description=mod.description, manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED)
             return HttpResponse()
@@ -361,7 +361,7 @@ class CommentElectNewCloseDelete(View):
     def get(self,request,*args,**kwargs):
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_elect_new_manager():
-            moderate_obj = Moderated.objects.get(object_id=comment.pk, type="POSC")
+            moderate_obj = Moderated.objects.get(object_id=comment.pk, type="ELEC")
             moderate_obj.delete_close(object=comment, manager_id=request.user.pk)
             ElectNewManageLog.objects.create(item=comment.pk, manager=request.user.pk, action_type=ElectNewManageLog.COMMENT_CLOSED_HIDE)
             return HttpResponse()

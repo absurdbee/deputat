@@ -144,7 +144,7 @@ on('body', 'click', '.edit_blog_comment', function() {
     elem = link.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    _this.parentElement.append(response);
+    _this.parentElement.parentElement.append(response);
   }};
   link.send( null );
 });

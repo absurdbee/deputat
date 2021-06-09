@@ -80,7 +80,7 @@ class BlogComment(models.Model):
 
         if not text and not attach:
             from rest_framework.exceptions import ValidationError
-            raise ValidationError("Не выбран список для новой записи")
+            raise ValidationError("Нет текста или прикрепленных элементов")
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
@@ -101,7 +101,7 @@ class BlogComment(models.Model):
         from common.processing import get_blog_comment_processing
         if not text and not attach:
             from rest_framework.exceptions import ValidationError
-            raise ValidationError("Не выбран список для новой записи")
+            raise ValidationError("Нет текста или прикрепленных элементов")
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")

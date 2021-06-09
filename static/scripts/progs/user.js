@@ -83,7 +83,7 @@ link.send( null );
 })
 
 on('body', 'click', '.claim_blog_comment', function() {
-  open_fullscreen("/managers/blog_progs/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("window_loader"))
+  open_fullscreen("/managers/progs_blog/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("window_loader"))
 });
 on('body', 'click', '.claim_elect_new_comment', function() {
   open_fullscreen("/managers/elect_new/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("window_loader"))

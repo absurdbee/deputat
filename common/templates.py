@@ -130,7 +130,7 @@ def render_for_platform(request, template, data):
         return render(request, template, data)
 
 
-def get_full_template(template, request_user, user_agent):
+def get_full_template(folder, template, request_user, user_agent):
     if request_user.is_authenticated:
         update_activity(request_user, user_agent)
         if request_user.type[0] == "_":
@@ -138,7 +138,7 @@ def get_full_template(template, request_user, user_agent):
         else:
             template_name = template
     elif request_user.is_anonymous:
-        template_name = "anon_" + template
+        template_name = folder + "anon_" + template
     return get_folder(user_agent) + template_name
 
 

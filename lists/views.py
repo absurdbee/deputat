@@ -13,7 +13,7 @@ class AuthorityListView(ListView, CategoryListMixin):
 			self.list = AuthorityList.objects.first()
 		else:
 			self.list = AuthorityList.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_full_template("elect_list/authority_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("elect_list/" , "authority_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(AuthorityListView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):

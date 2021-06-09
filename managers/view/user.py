@@ -293,7 +293,7 @@ class UserClaimCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(UserClaimCreate,self).get_context_data(**kwargs)
-        context["user"] = self.user
+        context["object"] = self.user
         context["is_reported"] = self.is_reported
         return context
 

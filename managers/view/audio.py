@@ -231,7 +231,7 @@ class ListAudioClaimCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(ListAudioClaimCreate,self).get_context_data(**kwargs)
-        context["list"] = self.list
+        context["object"] = self.list
         context["is_reported"] = self.is_reported
         return context
 
@@ -283,7 +283,7 @@ class ListAudioCloseCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(ListAudioCloseCreate,self).get_context_data(**kwargs)
-        context["list"] = self.list
+        context["object"] = self.list
         return context
 
     def post(self,request,*args,**kwargs):

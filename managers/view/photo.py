@@ -221,7 +221,7 @@ class ListPhotoClaimCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(ListPhotoClaimCreate,self).get_context_data(**kwargs)
-        context["list"] = self.list
+        context["object"] = self.list
         context["is_reported"] = self.is_reported
         return context
 
@@ -273,7 +273,7 @@ class ListPhotoCloseCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(ListPhotoCloseCreate,self).get_context_data(**kwargs)
-        context["list"] = self.list
+        context["object"] = self.list
         return context
 
     def post(self,request,*args,**kwargs):

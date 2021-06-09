@@ -283,7 +283,7 @@ class ListSurveyCloseCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(ListSurveyCloseCreate,self).get_context_data(**kwargs)
-        context["list"] = self.list
+        context["object"] = self.list
         return context
 
     def post(self,request,*args,**kwargs):

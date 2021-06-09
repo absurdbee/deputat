@@ -1,20 +1,20 @@
 
-<form class="mt-5" data-uuid="{{ list.uuid }}">
+<form class="mt-5" data-uuid="{{ object.uuid }}">
   {% csrf_token %}
 
   <div class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-lg-2 col-md-4">
-              <a href="{% url 'user' pk=user.pk %}" class="ajax">
+              <a href="{% url 'user' pk=object.pk %}" class="ajax">
                 <figure style="width:50px;">
-                    <img src="{{ user.get_avatar }}" alt="image">
+                    <img src="{{ object.get_avatar }}" alt="image">
                 </figure>
               </a>
             </div>
             <div class="col-lg-10 col-md-8">
               <h6 class="mb-0 ml-1">
-                <a href="{% url 'user' pk=user.pk %}" class="ajax">{{ user.get_full_name }}</a>
+                <a href="{% url 'user' pk=object.pk %}" class="ajax">{{ object.get_full_name }}</a>
               </h6>
               <p class="ml-1" style="padding-top:10px;">Вы собираетесь применить предупреждающий баннер для страницы этого пользователя.</p>
             </div>

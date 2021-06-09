@@ -228,7 +228,7 @@ class CommunityCloseCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(CommunityCloseCreate,self).get_context_data(**kwargs)
-        context["community"] = self.community
+        context["object"] = self.community
         return context
 
     def post(self,request,*args,**kwargs):
@@ -293,7 +293,7 @@ class CommunityClaimCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(CommunityClaimCreate,self).get_context_data(**kwargs)
-        context["community"] = self.community
+        context["object"] = self.community
         return context
 
     def post(self,request,*args,**kwargs):

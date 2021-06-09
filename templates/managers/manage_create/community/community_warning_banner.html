@@ -1,5 +1,5 @@
 
-<form class="mt-5" data-uuid="{{ community.pk }}">
+<form class="mt-5" data-uuid="{{ object.pk }}">
   {% csrf_token %}
 
   <div class="card">
@@ -10,7 +10,7 @@
             </div>
             <div class="col-lg-10 col-md-8">
               <h6 class="my-0 mt-1">{% include 'desctop/generic/community/community.html' %}</h6>
-              <p style="padding-top:10px;">Вы собираетесь применить предупреждающий баннер для сообщества {{ community.name }}.</p>
+              <p style="padding-top:10px;">Вы собираетесь применить предупреждающий баннер для сообщества {{ object.name }}.</p>
             </div>
         </div>
         <br>

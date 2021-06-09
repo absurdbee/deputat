@@ -218,7 +218,7 @@ class DocUnverify(View):
             raise Http404
 
 
-class ListDocClaimCreate(View):
+class ListDocClaimCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):

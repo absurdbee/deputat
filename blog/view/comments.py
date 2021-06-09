@@ -54,7 +54,7 @@ class BlogCommentEdit(TemplateView):
 			_comment = self.form.save(commit=False)
 			new_comment = _comment.edit_comment(text=_comment.text, attach = request.POST.getlist("attach_items"))
 			if self.comment.parent:
-				return render_for_platform(request, 'blog/comment/reply.html',{'reply': self.comment}) 
+				return render_for_platform(request, 'blog/comment/reply.html',{'reply': self.comment})
 			else:
 				return render_for_platform(request, 'blog/comment/parent.html',{'comment': self.comment})
 		else:
@@ -89,8 +89,7 @@ class BlogCommentDelete(View):
 
 		comment = BlogComment.objects.get(pk=self.kwargs["pk"])
 		if request.is_ajax() and request.user.pk == comment.commenter.pk:
-			comment.is_deleted = True
-			comment.save(update_fields=['is_deleted'])
+			comment.delete_comment()
 			return HttpResponse()
 		else:
 			raise Http404
@@ -101,8 +100,7 @@ class BlogCommentAbortDelete(View):
 	def get(self,request,*args,**kwargs):
 		comment = BlogComment.objects.get(pk=self.kwargs["pk"])
 		if request.is_ajax() and request.user.pk == comment.commenter.pk:
-			comment.is_deleted = False
-			comment.save(update_fields=['is_deleted'])
+			comment.restore_comment()
 			return HttpResponse()
 		else:
 			raise Http404
@@ -144,8 +142,7 @@ class ElectNewCommentDelete(View):
 
 		comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
 		if request.is_ajax() and request.user.pk == comment.commenter.pk:
-			comment.is_deleted = True
-			comment.save(update_fields=['is_deleted'])
+			comment.delete_comment()
 			return HttpResponse()
 		else:
 			raise Http404
@@ -156,8 +153,7 @@ class ElectNewCommentAbortDelete(View):
 	def get(self,request,*args,**kwargs):
 		comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
 		if request.is_ajax() and request.user.pk == comment.commenter.pk:
-			comment.is_deleted = False
-			comment.save(update_fields=['is_deleted'])
+			comment.restore_comment()
 			return HttpResponse()
 		else:
 			raise Http404

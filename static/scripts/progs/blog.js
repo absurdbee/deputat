@@ -115,7 +115,15 @@ on('body', 'click', '.blog_inert', function() {
 
 on('body', 'click', '.remove_blog_comment', function() {
   comment_delete(this, "/blog/delete_blog_comment/", "restore_blog_comment")
-})
+});
+
+on('body', 'click', '.delete_elect_new', function() {
+  item_delete(this, "/blog/delete_elect_new/", "delete_elect_new", "restore_elect_new")
+});
+on('body', 'click', '.restore_elect_new', function() {
+  item_restore(this, "/blog/restore_elect_new/", "restore_elect_new", "delete_elect_new")
+});
+
 on('body', 'click', '.restore_blog_comment', function() {
   comment_abort_delete(this, "/blog/restore_blog_comment/")
 })
@@ -173,7 +181,7 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
     elem = link.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    document.body.querySelector("#ajax").innerHTML = response;
+    document.body.querySelector("#ajax").innerHTML = response.innerHTML;
   }};
   link.send(form_data);
 });

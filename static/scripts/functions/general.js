@@ -11,7 +11,7 @@ function send_form_and_toast_and_close_window(url, form) {
     ajax_link.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             close_worker_window();
-            close_default_window(); 
+            close_default_window();
             toast_info("Жалоба отправлена!");
         }
     }
@@ -709,6 +709,30 @@ function comment_delete(_this, _link, _class){
   }};
   link.send( );
 }
+
+function item_delete(_this, _link, old_class, new_class){
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', _link + _this.parentElement.getAttribute("data-pk") + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    _this.classList.replace(old_class, new_class)
+    _this.innerHTML = "Отменить";
+  }};
+  link.send( );
+}
+function item_restore(_this, _link, old_class, new_class){
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', _link + _this.parentElement.getAttribute("data-pk") + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    _this.classList.replace(old_class, new_class)
+    _this.innerHTML = "Удалить";
+  }};
+  link.send( );
+}
+
 function comment_abort_delete(_this, _link){
   comment = _this.parentElement.nextElementSibling;
   comment.style.display = "flex";

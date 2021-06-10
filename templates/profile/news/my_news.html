@@ -75,7 +75,8 @@
                         </a>
                       </div>
                       <div class="profile-user-info">
-                        <h6 class="mb-0">{{ object.title }} <span class="text-muted small">({{ object.get_created }})</span></h6>
+                        <h5 class="mb-0">{{ object.title }} <span class="text-muted small">({{ object.get_created }})</span></h5>
+                        <span class="">{{ object.get_type_display }}</span>
                       </div>
                       <div class="profile-star ml-auto">
                         {{ object.get_type_display }}

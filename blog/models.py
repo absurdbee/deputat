@@ -698,8 +698,6 @@ class ElectNew(models.Model):
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
 
-    def get_image(self):
-        if self.image:
-            return self.image.url
-        else:
-            return '/static/images/list.jpg'
+    def get_edit_attach(self, user):
+        from common.attach.elect_new_attach import get_elect_new_edit
+        return get_elect_new_edit(self, user)

@@ -165,7 +165,7 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
   form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'POST', "/blog/progs/edit_elect_new/" + _this.parentElement.getAttribute("data-pk") + "/", true );
+  link.open( 'POST', "/blog/progs/edit_elect_new/" + _this.getAttribute("data-pk") + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {

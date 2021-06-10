@@ -344,7 +344,7 @@ class ElectNew(models.Model):
             _elect = None
         self.title = title
         self.description = description
-        self.elect = elect
+        self.elect = _elect
         self.attach = _attach
         self.category = category
         self.save()

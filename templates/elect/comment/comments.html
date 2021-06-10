@@ -1,4 +1,4 @@
-{% if object.is_published %}
+
 <div class="col-12">
     <div class="card">
         <div class="card-body">
@@ -6,7 +6,7 @@
               {% csrf_token %}
                   <div class="row comment_attach_block no-gutters"></div>
                   <span style="display:flex">
-                      {% include 'blog/dropdown.html' %}
+                      {% include 'elect/dropdown.html' %}
                       <input name="text" placeholder="Напишите комментарий" class="form-control text-comment" style="margin-bottom:5px">
                   </span>
                     <input type="hidden" name="elect_new" value="{{ object.pk }}">
@@ -43,4 +43,3 @@
       {% endif %}
     {% endfor %}
 </div>
-{% endif %}

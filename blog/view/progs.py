@@ -83,7 +83,7 @@ class RestoreElectNew(View):
 
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.pk == new.creator.pk and new.is_deleted():
-            comment.restore_item()
+            new.restore_item()
             return HttpResponse()
         else:
             raise Http404

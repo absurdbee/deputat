@@ -83,9 +83,11 @@
                       </div>
                     </div>
                     <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
+                    <span>
                     <span class="publish_elect_new pointer underline">Редактировать</span>
                     &nbsp;&nbsp;
                     <span class="reject_elect_new pointer underline">Удалить</span>
+                    </span>
                   </div>
                   {% empty %}
                   <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">

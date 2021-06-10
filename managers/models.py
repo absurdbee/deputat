@@ -469,13 +469,13 @@ class Moderated(models.Model):
         except:
             return ''
     def get_blog_comment(self):
-        try:
-            from common.model.comments import BlogComment
-            comment = BlogComment.objects.get(pk=self.object_id)
-            user = comment.commenter
-            return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(user.pk), '/" class="ajax"><img src="', user.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(user.pk), '/" class="ajax">', user.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span><div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a class="create_blog_comment_close pointer">Закрыть | <a class="create_blog_comment_rejected pointer">Отклонить</a></div></div></div>'])
-        except:
-            return ''
+        #try:
+        from common.model.comments import BlogComment
+        comment = BlogComment.objects.get(pk=self.object_id)
+        user = comment.commenter
+        return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(user.pk), '/" class="ajax"><img src="', user.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(user.pk), '/" class="ajax">', user.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span><div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a class="create_blog_comment_close pointer">Закрыть | <a class="create_blog_comment_rejected pointer">Отклонить</a></div></div></div>'])
+        #except:
+        #    return ''
 
     def get_photo(self):
         try:

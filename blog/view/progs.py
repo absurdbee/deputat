@@ -36,7 +36,7 @@ class EditElectNew(TemplateView):
 
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
-        
+
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         return super(EditElectNew,self).get(request,*args,**kwargs)
 
@@ -47,6 +47,7 @@ class EditElectNew(TemplateView):
         context=super(EditElectNew,self).get_context_data(**kwargs)
         context["form"] = ElectNewForm(instance=self.new)
         context["get_elects"] = Elect.objects.only("pk")
+        context["new"] = self.new
         return context
 
     def post(self,request,*args,**kwargs):

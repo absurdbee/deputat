@@ -460,7 +460,7 @@ class Moderated(models.Model):
         except:
             return '<div class="media">Ошибка отображения данных</div>'
 
-    def get_blog(self):
+    def get_blog(self, user):
         try:
             from blog.models import Blog
             blog = Blog.objects.get(pk=self.object_id)
@@ -468,12 +468,16 @@ class Moderated(models.Model):
             return ''.join(['<div class="d-flex justify-content-start align-items-center mb-1"><div class="avatar mr-1"><a href="/elect/new/', str(blog.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" alt="avatar img" height="40" width="40"></a></div><div class="profile-user-info"><a href="/elect/new/', str(blog.pk), '/" class="ajax"><h4 class="mb-0">', blog.title, ' <span class="text-muted small">(blog.get_created())</span></h4></a><span class="small">',blog.get_type_display(),'</span></div></div><p class="card-text mb-50">', blog.description, '</p><span class="small" data-pk="', str(blog.pk), '"><span class="create_blog_close pointer underline">Заблокировать</span>&nbsp;&nbsp;<span class="create_blog_rejected pointer underline">Отклонить</span></span>'])
         except:
             return ''
-    def get_blog_comment(self):
+    def get_blog_comment(self, user):
         #try:
         from common.model.comments import BlogComment
         comment = BlogComment.objects.get(pk=self.object_id)
-        user = comment.commenter
-        return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(user.pk), '/" class="ajax"><img src="', user.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(user.pk), '/" class="ajax">', user.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span><div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a class="create_blog_comment_close pointer">Закрыть | <a class="create_blog_comment_rejected pointer">Отклонить</a></div></div></div>'])
+        creator = comment.commenter
+        if comment.attach:
+            _attach = get_u_attach(user)
+        else:
+            _attach = ''
+        return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(creator.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(creator.pk), '/" class="ajax">', creator.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span>', _attach, ' <div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a class="create_blog_comment_close pointer">Закрыть | <a class="create_blog_comment_rejected pointer">Отклонить</a></div></div></div>'])
         #except:
         #    return ''
 

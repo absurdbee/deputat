@@ -27,9 +27,9 @@ def get_survey_items(object):
     return object.get_survey_items()
 
 @register.filter
-def get_elect_new_items(object):
-    return object.get_elect_new_items()
+def get_elect_new_items(object, user):
+    return object.get_elect_new_items(user)
 
 @register.filter
-def get_blog_items(object):
-    return object.get_blog_items()
+def get_blog_items(object, user):
+    return object.get_blog_items(user)

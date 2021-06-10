@@ -13,7 +13,7 @@
                           <h1 class="mb-0 mb-3">Жалобы на новости</h1>
                           {% for object in object_list %}
                           <div class="pag mt-2 {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}" style="position: relative;">
-                              {{ object|get_blog_items|safe }}
+                              {{ object|get_blog_items:request.user|safe }}
                           </div>
                           {% empty %}
                           <div class="card centered mt-5">

@@ -474,7 +474,7 @@ class Moderated(models.Model):
         comment = BlogComment.objects.get(pk=self.object_id)
         creator = comment.commenter
         if comment.attach:
-            _attach = get_u_attach(user)
+            _attach = comment.get_u_attach(user)
         else:
             _attach = ''
         return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(creator.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(creator.pk), '/" class="ajax">', creator.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span>', _attach, ' <div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a class="create_blog_comment_close pointer">Закрыть | <a class="create_blog_comment_rejected pointer">Отклонить</a></div></div></div>'])

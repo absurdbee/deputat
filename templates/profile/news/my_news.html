@@ -67,31 +67,25 @@
               </ul>
                 <div class="match-height pag_container">
                   {% for object in object_list %}
-                  <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
-                    <div class="event_card border">
-                      <div class="event_img text-center">
+                  <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">
+                    <div class="d-flex justify-content-start align-items-center mb-1">
+                      <div class="avatar mr-1">
                         <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-                          <img class="img-fluid card-img-top image_fit_150" src="{{ object.creator.get_avatar }}" alt="img">
+                          <img src="{{ object.creator.get_avatar }}" alt="avatar img" height="40" width="40">
                         </a>
                       </div>
-                      <div class="card-body event_body">
-                        <h4 class="event_name">
-                          <div style="display: flex;">
-                            <a href="{% url 'elect_new_detail' pk=object.pk %}" class="text-body ajax">{{ object.title }}</a>
-                          </div>
-                          <span class="card-text item-company">&nbsp;{{ object.get_created }} </span>
-                        </h4>
-                        <div class="card-text event_description">
-                          <p>{{ object.get_type_display }}</p>
-                          {{ object.description|truncatechars:100 }}
-                          <div class="mt-2" data-pk="{{ object.pk }}">
-                            <span class="publish_elect_new pointer underline">Редактировать</span>
-                            &nbsp;&nbsp;
-                            <span class="reject_elect_new pointer underline">Удалить</span>
-                          </div>
-                        </div>
+                      <div class="profile-user-info">
+                        <h6 class="mb-0">{{ object.title }}</h6>
+                        <small class="text-muted">{{ object.get_created }}</small>
+                      </div>
+                      <div class="profile-star ml-auto">
+                        {{ object.get_type_display }}
                       </div>
                     </div>
+                    <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
+                    <span class="publish_elect_new pointer underline">Редактировать</span>
+                    &nbsp;&nbsp;
+                    <span class="reject_elect_new pointer underline">Удалить</span>
                   </div>
                   {% empty %}
                   <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">

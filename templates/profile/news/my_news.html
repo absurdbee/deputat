@@ -75,11 +75,8 @@
                         </a>
                       </div>
                       <div class="profile-user-info">
-                        <h5 class="mb-0">{{ object.title }} <span class="text-muted small">({{ object.get_created }})</span></h5>
-                        <span class="">{{ object.get_type_display }}</span>
-                      </div>
-                      <div class="profile-star ml-auto">
-                        {{ object.get_type_display }}
+                        <h4 class="mb-0">{{ object.title }} <span class="text-muted small">({{ object.get_created }})</span></h4>
+                        <span class="small">{{ object.get_type_display }}</span>
                       </div>
                     </div>
                     <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>

@@ -35,6 +35,8 @@ class EditElectNew(TemplateView):
     template_name = "elect/edit_elect_new.html"
 
     def get(self,request,*args,**kwargs):
+        from blog.models import ElectNew
+        
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         return super(EditElectNew,self).get(request,*args,**kwargs)
 
@@ -49,6 +51,7 @@ class EditElectNew(TemplateView):
 
     def post(self,request,*args,**kwargs):
         from blog.forms import ElectNewForm
+        from blog.models import ElectNew
         from common.templates import render_for_platform
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])

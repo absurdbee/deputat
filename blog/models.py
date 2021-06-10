@@ -644,7 +644,7 @@ class ElectNew(models.Model):
                 user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
-    def delete_elect_new(self):
+    def delete_item(self):
         from notify.models import Notify, Wall
         if self.type == "PUB":
             self.type = ElectNew.DELETED
@@ -657,7 +657,7 @@ class ElectNew(models.Model):
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_delete_elect_new(self):
+    def restore_item(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
             self.type = ElectNew.PUBLISHED
@@ -671,7 +671,7 @@ class ElectNew(models.Model):
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
 
-    def close_elect_new(self):
+    def close_item(self):
         from notify.models import Notify, Wall
         if self.type == "PUB":
             self.type = ElectNew.CLOSED
@@ -684,7 +684,7 @@ class ElectNew(models.Model):
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_close_elect_new(self):
+    def abort_close_item(self):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = ElectNew.PUBLISHED
@@ -698,7 +698,7 @@ class ElectNew(models.Model):
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Wall.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")
 
-    def get_images(self):
+    def get_image(self):
         if self.image:
             return self.image.url
         else:

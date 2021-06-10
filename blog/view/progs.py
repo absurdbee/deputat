@@ -61,3 +61,25 @@ class EditElectNew(TemplateView):
         else:
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
+
+class DeleteElectNew(View):
+	def get(self,request,*args,**kwargs):
+		from blog.models import ElectNew
+
+		new = ElectNew.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax() and request.user.pk == new.creator.pk and new.type[0] != "_":
+			new.delete_item()
+			return HttpResponse()
+		else:
+			raise Http404
+
+class RestoreElectNew(View):
+	from blog.models import ElectNew
+
+	def get(self,request,*args,**kwargs):
+		new = ElectNew.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax() and request.user.pk == new.creator.pk and new.is_deleted():
+			comment.restore_item()
+			return HttpResponse()
+		else:
+			raise Http404

@@ -29,3 +29,7 @@ def get_survey_items(object):
 @register.filter
 def get_elect_new_items(object):
     return object.get_elect_new_items()
+
+@register.filter
+def get_blog_items(object):
+    return object.get_blog_items()

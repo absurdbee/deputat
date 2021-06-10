@@ -598,6 +598,8 @@ class Moderated(models.Model):
             return self.get_blog()
         elif self.type == "BLOC":
             return self.get_blog_comment()
+        else:
+            return "No item!"
 
     @classmethod
     def get_moderation_users(cls):

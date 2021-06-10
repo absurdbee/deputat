@@ -48,7 +48,7 @@
                   <span tooltip="Удалить" flow="up" class="remove_blog_comment pointer">
                     <svg style="width: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                   </span>
-                {% elif request.user.is_elect_new_manager %}
+                {% elif request.user.is_blog_manager %}
                   <span tooltip="Закрыть" flow="up" class="svg_info close_blog_comment pointer">
                     <svg style="width: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                   </span>

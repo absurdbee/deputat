@@ -17,10 +17,10 @@
             </div>
             <div class="form-group">
               <label>Чиновник</label>
-              <input list="data-list" class="form-control" name="elect">
+              <input list="data-list" value="{{ new.elect.name }}" class="form-control" name="elect">
               <datalist id="data-list">
                 {% for object in get_elects %}
-                <option {% if new.elect.pk == object.pk %}selected {% endif %}value="{{ object.name }}"></option>
+                <option value="{{ object.name }}"></option>
                 {% endfor %}
               </datalist>
             </div>

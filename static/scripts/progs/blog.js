@@ -181,7 +181,7 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
     elem = link.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    document.body.querySelector("#ajax").innerHTML = response.innerHTML;
+    document.body.querySelector("#ajax").innerHTML = response.querySelector("#ajax").innerHTML;
   }};
   link.send(form_data);
 });

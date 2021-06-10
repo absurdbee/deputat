@@ -65,7 +65,7 @@
                       </a>
                   </li>
               </ul>
-                <div class="match-height pag_container">
+                <div class="match-height pag_container mt-3">
                   {% for object in object_list %}
                   <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">
                     <div class="d-flex justify-content-start align-items-center mb-1">
@@ -80,10 +80,10 @@
                       </div>
                     </div>
                     <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
-                    <span class="small">
-                    <span class="edit_elect_new pointer underline">Редактировать</span>
-                    &nbsp;&nbsp;
-                    <span class="delete_elect_new pointer underline">Удалить</span>
+                    <span class="small" data-pk="{{ object.pk }}">
+                      <span class="edit_elect_new pointer underline">Редактировать</span>
+                      &nbsp;&nbsp;
+                      <span class="delete_elect_new pointer underline">Удалить</span>
                     </span>
                   </div>
                   {% empty %}

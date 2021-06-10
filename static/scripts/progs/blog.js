@@ -154,6 +154,46 @@ on('body', 'click', '.edit_blog_comment', function() {
   }};
   link.send( null );
 });
+on('body', 'click', '.eeedit_elect_new', function() {
+  _this = this;
+  clear_comment_dropdown();
+  _this.parentElement.style.display = "none";
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/blog/progs/edit_elect_new/" + _this.parentElement.getAttribute("data-pk") + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    elem = link.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    document.body.querySelector("#ajax").innerHTML = response;
+  }};
+  link.send( null );
+});
+
+on('body', 'click', '.edit_elect_new', function() {
+  clear_comment_dropdown();
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/blog/progs/edit_elect_new/" + _this.parentElement.getAttribute("data-pk") + "/", loader)
+});
+on('body', 'click', '#u_edit_elect_new_btn', function() {
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/blog/progs/edit_elect_new/" + _this.parentElement.getAttribute("data-pk") + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    elem = link.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    document.body.querySelector("#ajax").innerHTML = response;
+  }};
+  link.send(form_data);
+});
 
 on('body', 'click', '.blogEditComment', function() {
   form = this.parentElement.parentElement

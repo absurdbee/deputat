@@ -334,6 +334,22 @@ class ElectNew(models.Model):
         user_notify(creator, None, elect_new.pk, "ELN", "draft_news_notify", "SIT")
         return elect_new
 
+    def edit_new(self, title, description, elect, attach, category):
+        from elect.models import Elect
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
+        try:
+            _elect = Elect.objects.get(name=elect)
+        except Elect.DoesNotExist:
+            _elect = None
+        self.title = title
+        self.description = description
+        self.elect = elect
+        self.attach = _attach
+        self.category = category
+        self.save()
+        return self
+
     def make_publish_new(self, title, description, elect, attach, category):
         from elect.models import Elect
         _attach = str(attach)

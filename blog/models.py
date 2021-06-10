@@ -284,10 +284,10 @@ class Blog(models.Model):
 
 class ElectNew(models.Model):
     PROCESSING, SUGGESTED, PUBLISHED, MANAGER, DELETED, CLOSED = '_PRO', 'SUG', 'PUB', 'MAN','_DEL','_CLO'
-    DELETED_MANAGER, CLOSED_MANAGER, REJECTED = '_DELM','_CLOM','_REJ'
+    DELETED_SUGGESTED, CLOSED_SUGGESTED, DELETED_MANAGER, CLOSED_MANAGER, REJECTED = '_DELS','_CLOS','_DELM','_CLOM','_REJ'
     TYPE = (
         (PROCESSING, 'обрабатывается'),(SUGGESTED, 'на рассмотрении'), (PUBLISHED, 'опубликована'),(DELETED, 'удалена'),(CLOSED, 'закрыта модератором'),(MANAGER, 'создана персоналом'),
-        (DELETED_MANAGER, 'удалена менеджерский'),(CLOSED_MANAGER, 'закрыта менеджерский'),(REJECTED, 'отклонена модератором')
+        (DELETED_SUGGESTED, 'удалена предложенная'),(CLOSED_SUGGESTED, 'предложенная менеджерский'),(DELETED_MANAGER, 'удалена менеджерский'),(CLOSED_MANAGER, 'закрыта менеджерский'),(REJECTED, 'отклонена модератором')
     )
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
@@ -648,8 +648,8 @@ class ElectNew(models.Model):
         from notify.models import Notify, Wall
         if self.type == "PUB":
             self.type = ElectNew.DELETED
-        elif self.type == "PRI":
-            self.type = ElectNew.DELETED_PRIVATE
+        elif self.type == "SUG":
+            self.type = ElectNew.DELETED_SUGGESTED
         elif self.type == "MAN":
             self.type = ElectNew.DELETED_MANAGER
         self.save(update_fields=['type'])
@@ -661,8 +661,8 @@ class ElectNew(models.Model):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
             self.type = ElectNew.PUBLISHED
-        elif self.type == "_DELP":
-            self.type = ElectNew.PRIVATE
+        elif self.type == "_DELS":
+            self.type = ElectNew.SUGGESTED
         elif self.type == "_DELM":
             self.type = ElectNew.MANAGER
         self.save(update_fields=['type'])

@@ -597,11 +597,11 @@ class Moderated(models.Model):
             return self.get_elect_new()
         elif self.type == "ELEC":
             return self.get_elect_new_comment()
-    def get_blog_items(self):
+    def get_blog_items(self, user):
         if self.type == "BLO":
-            return self.get_blog()
+            return self.get_blog(user)
         elif self.type == "BLOC":
-            return self.get_blog_comment()
+            return self.get_blog_comment(user)
         else:
             return "No item!"
 

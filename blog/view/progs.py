@@ -78,12 +78,12 @@ class DeleteElectNew(View):
 			raise Http404
 
 class RestoreElectNew(View):
-	def get(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
 
-		new = ElectNew.objects.get(pk=self.kwargs["pk"])
-		if request.is_ajax() and request.user.pk == new.creator.pk and new.is_deleted():
-			comment.restore_item()
-			return HttpResponse()
-		else:
-			raise Http404
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and request.user.pk == new.creator.pk and new.is_deleted():
+            comment.restore_item()
+            return HttpResponse()
+        else:
+            raise Http404

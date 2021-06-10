@@ -35,8 +35,8 @@ class EditElectNew(TemplateView):
     template_name = "elect/edit_elect_new.html"
 
     def get(self,request,*args,**kwargs):
-		self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
-		return super(EditElectNew,self).get(request,*args,**kwargs)
+        self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        return super(EditElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         from blog.forms import ElectNewForm

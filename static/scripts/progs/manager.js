@@ -194,8 +194,14 @@ on('body', 'click', '#create_video_List_close_btn', function() {
 on('body', 'click', '#create_video_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_video/create_close/", "Видеозапись закрыта")
 });
-on('body', 'click', '#create_survey_List_close_btn', function() {
+on('body', 'click', '#create_survey_list_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_survey/list_create_close/", "Список опросов закрыт")
+});
+on('body', 'click', '#create_blog_comment_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_blog/comment_create_close/", "Комментарий закрыт")
+});
+on('body', 'click', '#create_blog_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_blog/create_close/", "Новость закрыта")
 });
 
 on('body', 'click', '.remove_photo_list_close', function() {
@@ -321,4 +327,19 @@ on('body', 'click', '.create_survey_list_close', function() {
 });
 on('body', 'click', '.create_survey_list_rejected', function() {
   send_window_sanction_get(this, "/managers/progs_survey/list_create_rejected/", "Жалобы отклонены")
+});
+
+on('body', 'click', '.create_blog_comment_close', function() {
+  clean_body_changed_class();
+  open_manager_window(this, "/managers/progs_blog/comment_create_close/")
+});
+on('body', 'click', '.create_blog_close', function() {
+  clean_body_changed_class();
+  open_manager_window(this, "/managers/progs_blog/create_close/")
+});
+on('body', 'click', '.create_blog_comment_rejected', function() {
+  send_window_sanction_get(this, "/managers/progs_blog/comment_create_rejected/", "Жалобы отклонены")
+});
+on('body', 'click', '.create_blog_rejected', function() {
+  send_window_sanction_get(this, "/managers/progs_blog/create_rejected/", "Жалобы отклонены")
 });

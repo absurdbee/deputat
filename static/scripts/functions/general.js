@@ -114,10 +114,7 @@ function open_manager_window(_this, url) {
   } else if (_this.parentElement.getAttribute("data-pk")) {
     div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
     uuid = _this.parentElement.getAttribute("data-pk");
-  } else if (_this.parentElement.getAttribute("data-pk")) {
-    div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
-    uuid = _this.parentElement.getAttribute("data-pk");
-  } else{
+  }  else{
     div = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
     uuid = div.getAttribute("data-pk"), div.classList.add("changed");
   }
@@ -157,9 +154,15 @@ function clean_body_changed_class() {
 }
 function send_window_sanction_get(_this, url, toast) {
   // работа санкций при открытом окне списков и элементов - посылка сигнала без формы
-  document.body.querySelector(".changed") ? (div = document.body.querySelector(".changed"), uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid"))
-  : (div = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, uuid = div.getAttribute("data-pk"));
-
+  if (document.body.querySelector(".changed")) {
+    uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid")
+  } else if (_this.parentElement.getAttribute("data-pk")) {
+    div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
+    uuid = _this.parentElement.getAttribute("data-pk");
+  }  else{
+    div = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    uuid = div.getAttribute("data-pk"), div.classList.add("changed");
+  }
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', url + uuid + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

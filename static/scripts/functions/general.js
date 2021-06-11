@@ -109,21 +109,22 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
 }
 
 function open_manager_window(_this, url) {
-  document.body.querySelector(".changed") ? (div = document.body.querySelector(".changed"), uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid"))
-  : (div = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, uuid = div.getAttribute("data-pk"), div.classList.add("changed"));
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', url + uuid + "/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    loader = document.getElementById("worker_loader");
-    open_fullscreen(url + uuid + "/", loader)
-  }}
-
-  link_.send();
+  if (document.body.querySelector(".changed")) {
+    uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid")
+  } else if (_this.parentElement.getAttribute("data-pk")) {
+    div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
+    uuid = _this.parentElement.getAttribute("data-pk");
+  } else if (_this.parentElement.getAttribute("data-pk")) {
+    div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
+    uuid = _this.parentElement.getAttribute("data-pk");
+  } else{
+    div = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    uuid = div.getAttribute("data-pk"), div.classList.add("changed");
+  }
+  div = document.body.querySelector(".changed");
+  loader = document.getElementById("worker_loader");
+  open_fullscreen(url + uuid + "/", loader)
 }
-
 function send_window_sanction_post(form, url, toast) {
   // отправляем данные формы применеия санкций на странице списка или в модерском отделе модерации
   form_data = new FormData(form);

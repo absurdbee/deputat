@@ -110,6 +110,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
 
 function open_manager_window(_this, url) {
   if (document.body.querySelector(".changed")) {
+    div = document.body.querySelector(".changed");
     uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid")
   } else if (_this.parentElement.getAttribute("data-pk")) {
     div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
@@ -155,6 +156,7 @@ function clean_body_changed_class() {
 function send_window_sanction_get(_this, url, toast) {
   // работа санкций при открытом окне списков и элементов - посылка сигнала без формы
   if (document.body.querySelector(".changed")) {
+    div = document.body.querySelector(".changed");
     uuid = div.querySelector(".uuid_keeper").getAttribute("data-uuid")
   } else if (_this.parentElement.getAttribute("data-pk")) {
     div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;

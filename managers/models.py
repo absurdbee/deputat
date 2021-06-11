@@ -775,6 +775,10 @@ class ModerationPenalty(models.Model):
     def get_penalty_docs(cls, user_id):
         return cls.objects.filter(manager__id=user_id, type__contains="DO")
 
+    @classmethod
+    def get_penalty_blog(cls, user_id):
+        return cls.objects.filter(manager__id=user_id, type__contains="BL")
+
     def get_user(self):
         try:
             from users.models import User

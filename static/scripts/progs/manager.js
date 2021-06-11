@@ -337,7 +337,7 @@ on('body', 'click', '.create_blog_close', function() {
   clean_body_changed_class();
   open_manager_window(this, "/managers/progs_blog/create_close/")
 });
-on('body', 'click', '.create_blog_comment_rejected', function() {
+on('body', 'click', '.create_blog_comment_rejected', function() { 
   send_window_sanction_get(this, "/managers/progs_blog/comment_create_rejected/", "Жалобы отклонены")
 });
 on('body', 'click', '.create_blog_rejected', function() {

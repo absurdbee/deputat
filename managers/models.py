@@ -469,17 +469,17 @@ class Moderated(models.Model):
         except:
             return ''
     def get_blog_comment(self, user):
-        #try:
-        from common.model.comments import BlogComment
-        comment = BlogComment.objects.get(pk=self.object_id)
-        creator = comment.commenter
-        if comment.attach:
-            _attach = comment.get_u_attach(user)
-        else:
-            _attach = ''
-        return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(creator.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(creator.pk), '/" class="ajax">', creator.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span>', _attach, ' <div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a " obj-pk="', str(self.pk), '" class="show_object_reports pointer">(', self.reports_count_ru(), ')</a> |<a class="create_blog_comment_close pointer">Закрыть</a> | <a class="create_blog_comment_rejected pointer">Отклонить</a></div></div></div>'])
-        #except:
-        #    return ''
+        try:
+            from common.model.comments import BlogComment
+            comment = BlogComment.objects.get(pk=self.object_id)
+            creator = comment.commenter
+            if comment.attach:
+                _attach = comment.get_u_attach(user)
+            else:
+                _attach = ''
+            return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(creator.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(creator.pk), '/" class="ajax">', creator.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span>', _attach, ' <div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a " obj-pk="', str(self.pk), '" class="show_object_reports pointer">', self.reports_count_ru(), '</a> | <a class="create_blog_comment_close pointer">Закрыть</a> | <a class="create_blog_comment_rejected pointer">Отклонить</a></div></div></div>'])
+        except:
+            return ''
 
     def get_photo(self):
         try:
@@ -602,8 +602,6 @@ class Moderated(models.Model):
             return self.get_blog(user)
         elif self.type == "BLOC":
             return self.get_blog_comment(user)
-        else:
-            return "No item!"
 
     @classmethod
     def get_moderation_users(cls):
@@ -810,6 +808,26 @@ class ModerationPenalty(models.Model):
             return ''.join(['<div class="video" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit uuid_keeper" data-uuid="', str(video.uuid), '" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_penalty_detail" video-pk="', str(video.pk), '"></div></div>'])
         except:
             return ''
+    def get_blog(self, user):
+        try:
+            from blog.models import Blog
+            blog = Blog.objects.get(pk=self.object_id)
+            creator = blog.creator
+            return ''.join(['<div class="d-flex justify-content-start align-items-center mb-1"><div class="avatar mr-1"><a href="/elect/new/', str(blog.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" alt="avatar img" height="40" width="40"></a></div><div class="profile-user-info"><a href="/elect/new/', str(blog.pk), '/" class="ajax"><h4 class="mb-0">', blog.title, ' <span class="text-muted small">(blog.get_created())</span></h4></a><span class="small">',blog.get_type_display(),'</span></div></div><p class="card-text mb-50">', blog.description, '</p><span class="small" data-pk="', str(blog.pk), '"><span class="remove_blog_close pointer underline">Восстановить</span>&nbsp;&nbsp;<span class="blog_unverify pointer underline">Отменить проверку</span></span>'])
+        except:
+            return ''
+    def get_blog_comment(self, user):
+        try:
+            from common.model.comments import BlogComment
+            comment = BlogComment.objects.get(pk=self.object_id)
+            creator = comment.commenter
+            if comment.attach:
+                _attach = comment.get_u_attach(user)
+            else:
+                _attach = ''
+            return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(creator.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(creator.pk), '/" class="ajax">', creator.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span>', _attach, ' <div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a class="remove_blog_comment_close pointer">Восстановить</a> | <a class="blog_comment_unverify pointer">Отменить проверку</a></div></div></div>'])
+        except:
+            return ''
     def get_doc(self):
         try:
             from docs.models import Doc
@@ -913,8 +931,13 @@ class ModerationPenalty(models.Model):
             return self.get_playlist()
         elif self.type == "MUS":
             return self.get_music()
-    def get_elect_new_items(self):
+    def get_elect_new_items(self, user):
         if self.type == "ELE":
-            return self.get_elect_new()
+            return self.get_elect_new(user)
         elif self.type == "ELEC":
-            return self.get_elect_new_comment()
+            return self.get_elect_new_comment(user)
+    def get_blog_items(self, user):
+        if self.type == "BLO":
+            return self.get_blog(user)
+        elif self.type == "BLOC":
+            return self.get_blog_comment(user)

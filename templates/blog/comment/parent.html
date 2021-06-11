@@ -22,7 +22,7 @@
             <span class="card-text">{{ comment.text }}</span>
             {% if comment.attach %}
               {{ comment|get_attach:request.user|safe }}
-            {% endif %}
+            {% endif %} 
 
             <div class="align-items-center">
                 <span tooltip="Нравится" flow="up" class="like blog_comment_like {% if comment.likes|user_in:request.user %}btn_success{% else %}btn_default{% endif %} pointer" title="Нравится">

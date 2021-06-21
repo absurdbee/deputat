@@ -352,6 +352,8 @@ class ElectNew(models.Model):
 
     def make_publish_new(self, title, description, elect, attach, category):
         from elect.models import Elect
+        from notify.models import Notify, Wall
+
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         try:
@@ -367,9 +369,15 @@ class ElectNew(models.Model):
         self.category = category
         self.save()
         if Notify.objects.filter(type="ELN", object_id=self.pk, verb="SIT").exists():
-            Notify.objects.filter(type="ELN", object_id=self.pk, verb="SIT").update(verb="ITE")
+            Notify.objects.filter(type="ELN", object_id=self.pk, verb="SIT").delete()
         if Wall.objects.filter(type="ELN", object_id=self.pk, verb="SIT").exists():
-            Wall.objects.filter(type="ELN", object_id=self.pk, verb="SIT").update(verb="ITE")
+            Wall.objects.filter(type="ELN", object_id=self.pk, verb="SIT").delete()
+
+        Wall.objects.create(creator_id=self.creator.pk, type="ELN", object_id=self.pk, verb="ITE")
+        user_send_wall(doc.pk, None, "publish_elect_new_wall")
+        for user_id in self.elect.get_subscribers_ids():
+            Notify.objects.create(creator_id=self.creator.pk, recipient_id=user_id, type="ELN", object_id=self.pk, verb="ITE")
+            user_send_notify(doc.pk, creator.pk, user_id, None, "publish_elect_new_notify")
         self.creator.plus_elect_news(1)
         return self
 

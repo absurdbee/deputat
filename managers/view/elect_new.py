@@ -244,7 +244,7 @@ class PublishElectNew(TemplateView):
             return HttpResponseBadRequest()
 
 class RejectElectNew(View):
-    def post(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         from managers.forms import ModeratedForm
 
         self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])

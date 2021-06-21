@@ -286,6 +286,31 @@ on('body', 'click', '.u_load_music', function() {
   open_fullscreen('/users/load/u_music_load/', loader)
 });
 
+on('body', 'change', '#u_photo_attach', function() {
+  if (this.files.length > 10) {
+      toast_error("Не больше 10 фотографий");return
+  }
+  form = this.parentElement;
+  form_data = new FormData(form);
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/gallery/user_progs/add_attach_photo/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    photo_list = response.querySelectorAll(".pag");
+    photo_post_upload_attach(photo_list, document.body.querySelector(".attach_block")
+    );
+    }
+    close_create_window();
+  }
+  link_.send(form_data);
+});
+
 on('body', 'change', '#u_photo_comment_attach', function() {
   if (this.files.length > 2) {
       toast_error("Не больше 2 фотографий");return

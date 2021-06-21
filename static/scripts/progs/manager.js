@@ -11,7 +11,7 @@ on('body', 'click', '.u_photo_moderated_detail', function() {
   open_fullscreen("/gallery/moderated_photo/" + pk + "/", loader)
 });
 
-on('body', 'click', '.publish_elect_new', function() {
+on('body', 'click', '.u_publish_elect_new', function() {
   loader = document.getElementById("window_loader");
   open_fullscreen("/managers/elect_new/create_publish/", loader)
 });

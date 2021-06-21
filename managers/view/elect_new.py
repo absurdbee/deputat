@@ -214,7 +214,7 @@ class ElectNewUnverify(View):
 
 
 class PublishElectNew(TemplateView):
-    template_name = "managers/manage_create/elect_new/make_publish_elect_new.html" 
+    template_name = "managers/manage_create/elect_new/make_publish_elect_new.html"
 
     def get(self,request,*args,**kwargs):
         self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
@@ -235,7 +235,7 @@ class PublishElectNew(TemplateView):
         self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
         self.form_post = ElectNewForm(request.POST, instance=self.elect_new)
 
-        if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
             post = self.form_post.save(commit=False)
             new_post = post.make_publish_new(title=post.title, description=post.description, elect=post.elect, attach=request.POST.getlist("attach_items"), category=post.category)
             return render_for_platform(request, 'elect/elect_new.html',{'object': new_post})
@@ -243,21 +243,7 @@ class PublishElectNew(TemplateView):
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
 
-class RejectElectNew(TemplateView):
-    template_name = "elect/reject_elect_new.html"
-
-    def get(self,request,*args,**kwargs):
-        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        return super(RejectElectNew,self).get(request,*args,**kwargs)
-
-    def get_context_data(self,**kwargs):
-        from managers.forms import ModeratedForm
-
-        context=super(RejectElectNew,self).get_context_data(**kwargs)
-        context["form"] = ModeratedForm()
-        context["object"] = self.elect_new
-        return context
-
+class RejectElectNew(View):
     def post(self,request,*args,**kwargs):
         from managers.forms import ModeratedForm
 

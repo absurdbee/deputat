@@ -13,7 +13,7 @@ on('body', 'click', '.u_photo_moderated_detail', function() {
 
 on('body', 'click', '.u_publish_elect_new', function() {
   loader = document.getElementById("window_loader");
-  open_fullscreen("/managers/elect_new/create_publish/", loader)
+  open_fullscreen("/managers/elect_new/create_publish/" + this.parentElement.getAttribute("data-pk") + "/", loader)
 });
 
 on('body', 'click', '#u_publish_elect_new_btn', function() {

@@ -225,7 +225,7 @@ class PublishElectNew(TemplateView):
 
         context=super(PublishElectNew,self).get_context_data(**kwargs)
         context["form"] = ElectNewForm(instance=self.elect_new)
-        context["object"] = self.elect_new
+        context["new"] = self.elect_new
         return context
 
     def post(self,request,*args,**kwargs):

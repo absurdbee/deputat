@@ -214,7 +214,7 @@ class ElectNewUnverify(View):
 
 
 class PublishElectNew(TemplateView):
-    template_name = "elect/make_publish_elect_new.html"
+    template_name = "managers/manage_create/elect_new/make_publish_elect_new.html" 
 
     def get(self,request,*args,**kwargs):
         self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
@@ -224,7 +224,7 @@ class PublishElectNew(TemplateView):
         from blog.forms import ElectNewForm
 
         context=super(PublishElectNew,self).get_context_data(**kwargs)
-        context["form"] = ElectNewForm()
+        context["form"] = ElectNewForm(instance=self.elect_new)
         context["object"] = self.elect_new
         return context
 

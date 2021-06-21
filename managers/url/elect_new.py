@@ -17,8 +17,8 @@ urlpatterns = [
     url(r'^add_worker_editor/(?P<pk>\d+)/$', ElectNewWorkerEditorCreate.as_view()),
     url(r'^delete_worker_editor/(?P<pk>\d+)/$', ElectNewWorkerEditorDelete.as_view()),
 
-    url(r'^create_publish/(?P<uuid>[0-9a-f-]+)/$', PublishElectNew.as_view()),
-    url(r'^suggest_rejected/(?P<uuid>[0-9a-f-]+)/$', RejectElectNew.as_view()),
+    url(r'^create_publish/(?P<pk>\d+)/$', PublishElectNew.as_view()),
+    url(r'^suggest_rejected/(?P<pk>\d+)/$', RejectElectNew.as_view()),
 
     url(r'^create_close/(?P<uuid>[0-9a-f-]+)/$', ElectNewCloseCreate.as_view()),
     url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', ElectNewCloseDelete.as_view()),

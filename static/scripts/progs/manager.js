@@ -11,6 +11,29 @@ on('body', 'click', '.u_photo_moderated_detail', function() {
   open_fullscreen("/gallery/moderated_photo/" + pk + "/", loader)
 });
 
+on('body', 'click', '.publish_elect_new', function() {
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/managers/elect_new/create_publish/", loader)
+});
+
+on('body', 'click', '#u_publish_elect_new_btn', function() {
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', "/managers/elect_new/create_publish/" + _this.getAttribute("data-pk") + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    elem = link.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    document.body.querySelector("#ajax").innerHTML = response.querySelector("#ajax").innerHTML;
+  }};
+  link.send(form_data);
+});
+
 on('body', 'click', '.show_object_reports', function() {
   if (this.getAttribute("obj-pk")) {
     pk = this.getAttribute("obj-pk")
@@ -294,6 +317,9 @@ on('body', 'click', '.create_track_close', function() {
 on('body', 'click', '.create_track_rejected', function() {
   send_window_sanction_get(this, "/managers/progs_audio/create_rejected/", "Жалобы отклонены")
 });
+on('body', 'click', '.reject_suggested_elect_new', function() {
+  send_window_sanction_get(this, "/managers/elect_new/suggest_rejected/", "Активность отклонена")
+});
 
 on('body', 'click', '.create_video_list_close', function() {
   open_manager_window(this, "/managers/progs_video/list_create_close/")
@@ -337,7 +363,7 @@ on('body', 'click', '.create_blog_close', function() {
   clean_body_changed_class();
   open_manager_window(this, "/managers/progs_blog/create_close/")
 });
-on('body', 'click', '.create_blog_comment_rejected', function() { 
+on('body', 'click', '.create_blog_comment_rejected', function() {
   send_window_sanction_get(this, "/managers/progs_blog/comment_create_rejected/", "Жалобы отклонены")
 });
 on('body', 'click', '.create_blog_rejected', function() {

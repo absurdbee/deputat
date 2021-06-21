@@ -9,31 +9,29 @@
           <h3>Предложка</h3>
             <div class="card-body is_paginate">
                 {% for object in object_list %}
-                  <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
-                    <div class="event_card border">
-                      <div class="event_img text-center">
-                        <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-                          <img class="img-fluid card-img-top image_fit_150" src="{{ object.creator.get_avatar }}" alt="img">
+                <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">
+                  <div class="d-flex justify-content-start align-items-center mb-1">
+                    <div class="avatar mr-1">
+                      <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
+                        <img src="{{ object.creator.get_avatar }}" alt="avatar img" height="40" width="40">
+                      </a>
+                    </div>
+                    <div class="profile-user-info">
+                      <h4 class="mb-0">{{ object.title }} <span class="text-muted small">({{ object.get_created }})</span></h4>
+                      <span class="small">
+                        <a href="{% url 'user' pk=object.creator.pk %}" class="ajax">
+                          {{ object.creator.get_full_name }}
                         </a>
-                      </div>
-                      <div class="card-body event_body">
-                        <h4 class="event_name">
-                          <div style="display: flex;">
-                            <a href="{% url 'elect_new_detail' pk=object.pk %}" class="text-body ajax">{{ object.title }}</a>
-                          </div>
-                          <span class="card-text item-company">&nbsp;{{ object.get_created }} </span>
-                        </h4>
-                        <div class="card-text event_description">
-                          {{ object.description|truncatechars:100 }}
-                          <div class="mt-2" data-pk="{{ object.pk }}">
-                            <span class="publish_elect_new pointer underline">Подготовить к публикации</span>
-                            &nbsp;&nbsp;
-                            <span class="reject_elect_new pointer underline">Отклонить</span>
-                          </div>
-                        </div>
-                      </div>
+                      </span>
                     </div>
                   </div>
+                  <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
+                  <span class="small" data-pk="{{ object.pk }}">
+                    <span class="u_publish_elect_new pointer underline">Подготовить к публикации</span>
+                    &nbsp;&nbsp;
+                    <span class="reject_suggested_elect_new pointer underline">Отклонить</span>
+                  </span>
+                </div>
                 {% empty %}
                   Предложенных активностей пока нет ...
                 {% endfor %}

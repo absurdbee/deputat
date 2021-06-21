@@ -1,0 +1,63 @@
+{% load filters %}
+
+<form class="pt-4">
+  {% csrf_token %}
+    <div class="card mb-3">
+        <div class="card-header border-bottom">
+            <h5 class="content-color-primary mb-0">Подготовка к публикации</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+              <label>Название</label>
+              <input type="text" name="title" value="{{ new.title }}" class="form-control" id="id_title">
+            </div>
+            <div class="form-group">
+              <label>Описание</label>
+              <input type="text" name="description" value="{{ new.description }}" class="form-control" id="id_description">
+            </div>
+            <div class="form-group">
+              <label>Чиновник</label>
+              <input list="data-list" value="{{ new.elect.name }}" class="form-control" name="elect">
+              <datalist id="data-list">
+                {% for object in get_elects %}
+                <option value="{{ object.name }}"></option>
+                {% endfor %}
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label>Прикрепить объекты</label>
+              <div class="card-footer border-top btn_default">
+                  <span class="row {{ new.get_count_attach }} {% if new.get_count_attach == "files_10" %}" style="display: none;"{% endif %}">
+                    {{ new|edit_attach:request.user|safe }}
+                  </span>
+                  <div class="row">
+                      <div class="col attach_panel border" style="display: flex;">
+                        <a flow="up" tooltip="Изображение" class="btn btn-link btn-sm text-secondary u_select_photo">
+                          <svg class="svg_info svg_default" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                        </a>
+                        <a flow="up" tooltip="Видеозапись" class="btn btn-link btn-sm text-secondary u_select_video">
+                          <svg class="svg_info svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                        </a>
+                        <a flow="up" tooltip="Аудиозапись" class="btn btn-link btn-sm text-secondary u_select_music">
+                          <svg class="svg_info svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 5h-3v5.5c0 1.38-1.12 2.5-2.5 2.5S10 13.88 10 12.5s1.12-2.5 2.5-2.5c.57 0 1.08.19 1.5.51V5h4v2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/></svg>
+                        </a>
+                        <a flow="up" tooltip="Документ" class="btn btn-link btn-sm text-secondary u_select_doc">
+                          <svg class="svg_info svg_default" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                          </svg>
+                        </a>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Категория</label>
+              {{ form.category }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn custom_color border create_fullscreen_hide_2" style="position: absolute;">Отмена</button>
+            <button id="u_publish_elect_new_btn" data-pk="{{ new.pk }}" type="button" class="btn btn-success float-right">Изменить</button>
+        </div>
+    </div>
+</form>

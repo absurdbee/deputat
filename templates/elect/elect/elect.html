@@ -122,7 +122,24 @@
                 <div class="col-lg-6 col-12 order-1 order-lg-2 elect_news_container">
                     {% if object.get_news %}
                     {% for object in object.get_news %}
-                      {% include 'blog/elect_new_card.html' %}
+                    <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">
+                      <div class="d-flex justify-content-start align-items-center mb-1">
+                        <div class="avatar mr-1">
+                          <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
+                            <img src="{{ object.creator.get_avatar }}" alt="avatar img" height="40" width="40">
+                          </a>
+                        </div>
+                        <div class="profile-user-info">
+                          <h4 class="mb-0">{{ object.title }} <span class="text-muted small">({{ object.get_created }})</span></h4>
+                          <span class="small">
+                            <a href="{% url 'user' pk=object.creator.pk %}" class="ajax">
+                              {{ object.creator.get_full_name }}
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                      <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
+                    </div>
                     {% endfor %}
                     {% else %}
                     <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">

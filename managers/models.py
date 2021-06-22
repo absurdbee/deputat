@@ -592,11 +592,11 @@ class Moderated(models.Model):
             return self.get_playlist()
         elif self.type == "MUS":
             return self.get_music()
-    def get_elect_new_items(self):
+    def get_elect_new_items(self, user):
         if self.type == "ELE":
-            return self.get_elect_new()
+            return self.get_elect_new(user)
         elif self.type == "ELEC":
-            return self.get_elect_new_comment()
+            return self.get_elect_new_comment(user)
     def get_blog_items(self, user):
         if self.type == "BLO":
             return self.get_blog(user)

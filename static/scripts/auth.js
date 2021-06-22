@@ -143,7 +143,7 @@ on('body', 'click', '#logg', function() {
 });
 
 function phone_check() {
- if (document.getElementById('phone').value.length > 10)
+ if (document.getElementById('phone').value.length > 11)
    document.getElementById("phone_send").removeAttribute('disabled');
  else
    document.getElementById("phone_send").setAttribute("disabled", "true");

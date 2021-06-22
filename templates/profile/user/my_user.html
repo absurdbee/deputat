@@ -76,15 +76,15 @@
                                                 <img class="img-fluid" src="{{ user.get_avatar }}" alt="User avatar" style="height: 100px;">
                                                 <div class="d-flex flex-column ml-1">
                                                     <div class="user-info mb-1">
-                                                        <h4 class="mb-0">{{ user.get_full_name }}</h4>
+                                                        <h4 class="mb-0" style="font-weight: bold;">{{ user.get_full_name }}</h4>
                                                         <span class="card-text"></span>
                                                     </div>
                                                     <div class="d-flex flex-wrap">
-                                                          <a href="{% url 'settings_profile' %}" class="card-text user-info-title font-weight-bold mb-0 ajax">Настройки</a>
+                                                          <a href="{% url 'settings_profile' %}" class="ajax" style="font-weight: bold;">Настройки</a><br>
                                                           &nbsp;&nbsp;
-                                                          <a href="{% url 'user_cuberture_week' %}" class="card-text user-info-title font-weight-bold mb-0 ajax">Статистика</a>
+                                                          <a href="{% url 'user_cuberture_week' %}" class="ajax" style="font-weight: bold;">Статистика</a><br>
                                                           &nbsp;&nbsp;
-                                                          <a href="{% url 'user_transactions' %}" class="card-text user-info-title font-weight-bold mb-0 ajax">Движения кармы</a>
+                                                          <a href="{% url 'user_transactions' %}" class="ajax" style="font-weight: bold;">Движения кармы</a>
                                                     </div>
                                                 </div>
                                             </div>

@@ -18,7 +18,13 @@
                       <label for="phone" class="form-label">Телефон</label>
                       <div class="input-group input-group-merge">
                         <div class="input-group-prepend">
-                          <span class="input-group-text">+7</span>
+                          <span class="input-group-text">
+                            <select id="id_first_number">
+                              <option value="8" selected="">+7</option>
+                              <option value="375">+375</option>
+                              <option value="380">+380</option>
+                            </select>
+                          </span>
                         </div>
                         <input type="number" id="phone" onkeyup="phone_check();" placeholder="9042373637" class="form-control" tabindex="1" autofocus="">
                       </div>

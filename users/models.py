@@ -33,7 +33,7 @@ class User(AbstractUser):
     last_activity = models.DateTimeField(default=timezone.now, blank=True, verbose_name='Активность')
     phone = models.CharField(max_length=17, unique=True, verbose_name='Телефон')
     type = models.CharField(max_length=6, choices=TYPE, default=PHONE_NO_VERIFIED, verbose_name="Уровень доступа")
-    s_avatar = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to=upload_to_user_directory, processors=[Transpose(), ResizeToFit(width=200, height=200)])
+    s_avatar = ProcessedImageField(verbose_name='Главное изображение', blank=True, format='JPEG',options={'quality': 100}, processors=[Transpose(), ResizeToFit(200,200)],upload_to=upload_to_user_directory)
     gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL, verbose_name="Город")

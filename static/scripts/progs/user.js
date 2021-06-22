@@ -18,6 +18,7 @@ on('body', 'click', '#edit_user_profile_btn', function() {
   send_form_and_toast('/users/settings/', form, "Изменения приняты!");
   form.querySelector("#id_first_name").style.border = "1px #D8D6DE solid";
   form.querySelector("#id_last_name").style.border = "1px #D8D6DE solid";
+  form.querySelector("#id_email").style.border = "1px #D8D6DE solid";
 });
 
 on('body', 'click', '#edit_user_about_btn', function() {

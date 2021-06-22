@@ -11,6 +11,9 @@ on('body', 'click', '#edit_user_profile_btn', function() {
   } else if (!form.querySelector("#id_last_name").value){
     form.querySelector("#id_last_name").style.border = "1px #FF0000 solid";
     toast_error("Введите Вашу фамилию!"); return
+  } else if (!validateEmail(form.querySelector("#id_email").value)){
+    form.querySelector("#id_email").style.border = "1px #FF0000 solid";
+    toast_error("Введите правильный email!"); return
   };
   send_form_and_toast('/users/settings/', form, "Изменения приняты!");
   form.querySelector("#id_first_name").style.border = "1px #D8D6DE solid";

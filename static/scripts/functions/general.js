@@ -1,7 +1,8 @@
 var ready = (callback) => {
   if (document.readyState != "loading") callback();
   else document.addEventListener("DOMContentLoaded", callback);
-}
+};
+function validateEmail(email){var re = /\S+@\S+\.\S+/;return re.test(email)};
 
 function send_form_and_toast_and_close_window(url, form) {
     form_data = new FormData(form);

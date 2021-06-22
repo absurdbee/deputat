@@ -21,7 +21,7 @@ class UserProfileSettings(TemplateView):
 	def post(self,request,*args,**kwargs):
 		from users.forms import UserForm
 
-		self.form = UserForm(request.POST, instance=request.user)
+		self.form = UserForm(request.POST, request.FILES, instance=request.user)
 		if request.is_ajax() and self.form.is_valid():
 			self.form.save()
 			return HttpResponse()

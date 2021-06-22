@@ -4,7 +4,7 @@
   text-decoration:underline
 }
 .bold_underline:hover {
-  color:#5344ED
+  color:#5344ED !important
 }
 .centered h6 {
   text-align: center;

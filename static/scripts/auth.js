@@ -136,11 +136,11 @@ on('body', 'click', '#logg', function() {
 
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-
+    document.body.querySelector(".api_response").innerHTML = link.response;
     window.location.href = "/"
   } else{
     this.disabled = false;
-    document.body.querySelector(".api_response").innerHTML = link.response;
+    //document.body.querySelector(".api_response").innerHTML = link.response;
   }};
   link.send(form_data);
 });

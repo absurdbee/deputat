@@ -128,6 +128,8 @@ function validate_login(form) {
 
 on('body', 'click', '#logg', function() {
   form = document.querySelector("#login_form");
+  if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
   validate_login(form);
   form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
 
@@ -141,8 +143,6 @@ on('body', 'click', '#logg', function() {
     window.location.href = "/"
   } else{
     this.disabled = false;
-    if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
-    if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
   }};
   link.send(form_data);
 });

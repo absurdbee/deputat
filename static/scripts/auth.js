@@ -124,18 +124,13 @@ on('body', 'click', '#logg', function() {
 
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
-    response.innerHTML = "Введите телефон!"; return}
+    response.innerHTML = "Введите телефон!"; response.classList.add("error"); return}
   else if (!form.querySelector("#id_password").value){
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
-    response.innerHTML = "Введите пароль!"; return}
-  else {;
-    response.innerHTML = "Телефон или пароль - неверный!";
-    response.classList.add("error")}
+    response.innerHTML = "Введите пароль!"; response.classList.add("error"); return}
 
-  if(!response.classList.contains("error")) {
     form.querySelector("#id_username").style.display = "none";
     form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
-  }
 
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -147,6 +142,11 @@ on('body', 'click', '#logg', function() {
     window.location.href = "/"
   } else{
     this.disabled = false;
+    response.innerHTML = "Телефон или пароль - неверный!";
+    response.classList.add("error");
+    form.querySelector("#id_username").style.display = "block";
+    form.querySelector("#id_username").value = ''
+    form.querySelector("#id_password").value = ''
   }};
   link.send(form_data);
 });

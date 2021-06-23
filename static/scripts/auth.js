@@ -139,9 +139,8 @@ on('body', 'click', '#logg', function() {
 
     window.location.href = "/"
   } else{
-    //response = JSON.parse(link.responseText)
-    document.body.querySelector(".api_response").innerHTML = link.responseText[0];
-    this.disabled = false
+    this.disabled = false;
+    document.body.querySelector(".api_response").innerHTML = link.response;
   }};
   link.send(form_data);
 });

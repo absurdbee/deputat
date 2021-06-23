@@ -114,21 +114,22 @@ on('body', 'click', '#register_ajax', function() {
     }};
   reg_link.send(form_data);
 })
-on('body', 'click', '#logg', function() {
-  form = document.querySelector("#login_form");
+
+function validate_login(form) {
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
-    toast_error("Введите телефон!")}
+    document.body.querySelector(".api_response").innerHTML = "Введите телефон!"}
   else if (!form.querySelector("#id_password").value){
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
-    toast_error("Введите пароль!")}
+    document.body.querySelector(".api_response").innerHTML = "Введите пароль!"}
   else {
-    this.disabled = true;
-    form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
-    console.log(form.querySelector("#id_username").value)
-  }
-  if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
-  if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
+    document.body.querySelector(".api_response").innerHTML = "Телефон или пароль - неверный!"}
+};
+
+on('body', 'click', '#logg', function() {
+  form = document.querySelector("#login_form");
+  this.disabled = true;
+  form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
 
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -140,7 +141,9 @@ on('body', 'click', '#logg', function() {
     window.location.href = "/"
   } else{
     this.disabled = false;
-    //document.body.querySelector(".api_response").innerHTML = link.response;
+    if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
+    if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
+    validate_login(form);
   }};
   link.send(form_data);
 });

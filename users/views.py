@@ -144,35 +144,6 @@ class UserView(TemplateView, CategoryListMixin):
 		return context
 
 
-class UserEditView(TemplateView):
-	template_name, form = None, None
-
-	def get(self,request,*args,**kwargs):
-		from common.templates import get_my_template
-		self.template_name = get_small_template("profile/edit.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(UserEditView,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		from users.forms import UserForm
-
-		context = super(UserEditView,self).get_context_data(**kwargs)
-		context["form"] = UserForm()
-		return context
-
-	def post(self,request,*args,**kwargs):
-		from users.forms import UserForm
-
-		self.form = UserForm(request.POST, instance=request.user)
-		if request.is_ajax() and self.form.is_valid():
-			self.form.save()
-			photo_input = request.FILES.get('image')
-			if photo_input:
-				request.user.create_s_avatar(photo_input)
-				request.user.create_b_avatar(photo_input)
-			return HttpResponse()
-		return super(UserEditView,self).post(request,*args,**kwargs)
-
-
 class UserTransactionsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 

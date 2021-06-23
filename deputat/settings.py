@@ -178,7 +178,6 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_USERNAME_REQUIRED = True
 
 THUMBNAIL_DEFAULT_OPTIONS = {"crop":"smart","detail":True}
-
 THUMBNAIL_ALIASES = {
     "":{
         "avatar": {"size":(200,250)},

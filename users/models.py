@@ -52,8 +52,6 @@ class User(AbstractUser):
         else:
             return verb
 
-
-
     def close_item(self):
         if self.type == "DEP":
             self.type = User.CLOSED_DEPUTAT

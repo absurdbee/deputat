@@ -139,9 +139,8 @@ on('body', 'click', '#logg', function() {
 
     window.location.href = "/"
   } else{
-    response = link.responseText;
-    jsonResponse = JSON.parse(response);
-    document.body.querySelector(".api_response").innerHTML = jsonResponse["Data"];
+    response = JSON.parse(link.responseText)
+    document.body.querySelector(".api_response").innerHTML = response.Data;
     this.disabled = false
   }};
   link.send(form_data);

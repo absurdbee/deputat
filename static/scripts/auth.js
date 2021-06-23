@@ -138,7 +138,9 @@ on('body', 'click', '#logg', function() {
   if ( link.readyState == 4 && link.status == 200 ) {
 
     window.location.href = "/"
-    }};
+  } else{
+    document.body.querySelector(".api_response").innerHTML = link.status + ': ' + link.statusText
+  }};
   link.send(form_data);
 });
 

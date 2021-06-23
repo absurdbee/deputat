@@ -140,7 +140,7 @@ on('body', 'click', '#logg', function() {
     window.location.href = "/"
   } else{
     //response = JSON.parse(link.responseJSON)
-    document.body.querySelector(".api_response").innerHTML = link.responseJSON;
+    document.body.querySelector(".api_response").innerHTML = link.responseText.value;
     this.disabled = false
   }};
   link.send(form_data);

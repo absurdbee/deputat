@@ -127,7 +127,7 @@ on('body', 'click', '#logg', function() {
   else if (!form.querySelector("#id_password").value){
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
     document.body.querySelector(".api_response").innerHTML = "Введите пароль!"; return}
-  else
+  else {
     document.body.querySelector(".api_response").innerHTML = "Телефон или пароль - неверный!"; return}
 
   form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value

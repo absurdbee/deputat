@@ -15,6 +15,7 @@ class PhoneVerify(View):
         phone = str(request.user.get_location().phone) + str(self.kwargs["phone"])
         try:
             obj = PhoneCodes.objects.get(phone=phone, code=code)
+            return HttpResponse(phone)
         except:
             obj = None
         if obj:

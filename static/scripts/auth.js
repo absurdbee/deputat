@@ -118,12 +118,12 @@ on('body', 'click', '#register_ajax', function() {
 function validate_login(form) {
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
-    document.body.querySelector(".api_response").innerHTML = "Введите телефон!"; return}
+    document.body.querySelector(".api_response").innerHTML = "Введите телефон!"; return false}
   else if (!form.querySelector("#id_password").value){
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
-    document.body.querySelector(".api_response").innerHTML = "Введите пароль!"; return}
+    document.body.querySelector(".api_response").innerHTML = "Введите пароль!"; return false}
   else {
-    document.body.querySelector(".api_response").innerHTML = "Телефон или пароль - неверный!"; return}
+    document.body.querySelector(".api_response").innerHTML = "Телефон или пароль - неверный!"; return false}
 };
 
 on('body', 'click', '#logg', function() {

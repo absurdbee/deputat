@@ -78,6 +78,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 ACCOUNT_ADAPTER = 'deputat.adapter.MyAccountAdapter'
+LOGOUT_REDIRECT_URL = "main"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -47,7 +47,7 @@ urlpatterns = [
     url(r'^password-change/$',TemplateView.as_view(template_name="account/password_change.html"), name='password-change'),
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
-    url(r'^logout/$', auth_views.LogoutView.as_view(template_name="logout.html"), name='logout'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(template_name="logout.html"), {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
     url(r'^account/', include('allauth.urls')),
 
     url(r'^auth/$', AuthView.as_view(), name="login"),

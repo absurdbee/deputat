@@ -15,7 +15,6 @@ class PhoneVerify(View):
         phone = str(request.user.get_location().phone) + str(self.kwargs["phone"])
         try:
             obj = PhoneCodes.objects.get(phone=phone, code=code)
-            return HttpResponse(phone)
         except:
             obj = None
         if obj:
@@ -42,7 +41,7 @@ class PhoneSend(View):
         if not request.is_ajax() and not request.user.is_no_phone_verified():
             raise Http404
         else:
-            phone = self.kwargs["phone"]
+            phone = str(request.user.get_location().phone) + str(self.kwargs["phone"])
             if len(phone) > 8:
                 try:
                     user = User.objects.get(phone=phone)

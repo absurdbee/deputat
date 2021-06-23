@@ -118,19 +118,24 @@ on('body', 'click', '#register_ajax', function() {
 
 on('body', 'click', '#logg', function() {
   form = document.querySelector("#login_form");
+  response = form.querySelector(".api_response")
   if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
   if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
 
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
-    document.body.querySelector(".api_response").innerHTML = "Введите телефон!"; return}
+    response.innerHTML = "Введите телефон!"; return}
   else if (!form.querySelector("#id_password").value){
     form.querySelector("#id_password").style.border = "1px #FF0000 solid";
-    document.body.querySelector(".api_response").innerHTML = "Введите пароль!"; return}
-  else {
-    document.body.querySelector(".api_response").innerHTML = "Телефон или пароль - неверный!"; return}
+    response.innerHTML = "Введите пароль!"; return}
+  else {;
+    response.innerHTML = "Телефон или пароль - неверный!";
+    response.classList.add("error")}
 
-  form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value
+  if(!response.classList.contains("error")) {
+    form.querySelector("#id_username").style.display = "none";
+    form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
+  }
 
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

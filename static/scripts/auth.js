@@ -139,7 +139,10 @@ on('body', 'click', '#logg', function() {
 
     window.location.href = "/"
   } else{
-    document.body.querySelector(".api_response").innerHTML = link.responseText
+    response = link.responseText;
+    jsonResponse = JSON.parse(data);
+    document.body.querySelector(".api_response").innerHTML = jsonResponse["Data"];
+    this.disabled = false
   }};
   link.send(form_data);
 });

@@ -128,7 +128,7 @@ function validate_login(form) {
 
 on('body', 'click', '#logg', function() {
   form = document.querySelector("#login_form");
-  this.disabled = true;
+  validate_login(form);
   form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
 
   form_data = new FormData(form);
@@ -137,13 +137,12 @@ on('body', 'click', '#logg', function() {
 
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    document.body.querySelector(".api_response").innerHTML = link.response;
+    this.disabled = true;
     window.location.href = "/"
   } else{
     this.disabled = false;
     if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
     if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
-    validate_login(form);
   }};
   link.send(form_data);
 });

@@ -3,12 +3,13 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 
 function get_popstate() {
   window.addEventListener('popstate', function (e) {
-    e.preventDefault();
-    history.back()
+    if (e.state !== null) {
+      history.back()
+    }
   })
 };
 
-//get_popstate();
+get_popstate();
 
 function loadScripts( src ) {
     var script = document.createElement("SCRIPT"),

@@ -5,9 +5,8 @@ function goBack() {
   }
 
 window.addEventListener('popstate', function (e) {
-  //e.preventDefault();
-  //ajax_get_reload(document.referrer);
-  goBack()
+  e.preventDefault();
+  ajax_get_reload(document.referrer);
 });
 
 

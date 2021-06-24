@@ -869,6 +869,8 @@ function ajax_get_reload(url, prev_url) {
         loaded = false;
         create_pagination(rtr);
         init_music(rtr);
+        console.log(url);
+        console.log(prev_url);
       }
     }
     ajax_link.send();

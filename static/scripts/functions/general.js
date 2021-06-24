@@ -850,7 +850,7 @@ function open_fullscreen(link, block) {
   link_.send();
 }
 
-function ajax_get_reload(url, prev_url) {
+function ajax_get_reload(url) {
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
     ajax_link.open( 'GET', url, true );
     ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -862,8 +862,8 @@ function ajax_get_reload(url, prev_url) {
         rtr = document.getElementById('ajax');
         rtr.innerHTML = ajax.innerHTML;
         window.scrollTo(0,0);
+        window.history.pushState("", document.title, url);
         document.title = elem_.querySelector('title').innerHTML;
-        window.history.pushState("", elem_.querySelector("title"), url);
         get_select();
         page = 2;
         loaded = false;

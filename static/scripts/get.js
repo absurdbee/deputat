@@ -3,7 +3,7 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 function get_popstate() {
   window.addEventListener('popstate', function (e) {
     e.preventDefault();
-    ajax_get_reload(document.referrer, window.location.pathname);
+    ajax_get_reload(document.referrer);
   })
 };
 get_popstate();

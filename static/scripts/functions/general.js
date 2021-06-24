@@ -863,7 +863,7 @@ function ajax_get_reload(url) {
         rtr.innerHTML = ajax.innerHTML;
         window.scrollTo(0,0);
         document.title = elem_.querySelector('title').innerHTML;
-        window.history.pushState({route: url}, "network", url);
+        window.history.pushState({route: url}, "");
         get_select();
         page = 2;
         loaded = false;

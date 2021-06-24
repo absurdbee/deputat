@@ -1,23 +1,15 @@
 function on(elSelector,eventName,selector,fn) {var element = document.querySelector(elSelector);element.addEventListener(eventName, function(event) {var possibleTargets = element.querySelectorAll(selector);var target = event.target;for (var i = 0, l = possibleTargets.length; i < l; i++) {var el = target;var p = possibleTargets[i];while(el && el !== element) {if (el === p) {return fn.call(p, event);}el = el.parentNode;}}});};
 
 
-function test_popstate() {
-  history.pushState({page: 1}, "title 1", "?page=1");
-  history.pushState({page: 2}, "title 2", "?page=2");
-  history.replaceState({page: 3}, "title 3", "?page=3");
-  history.back(); // Logs "location: http://example.com/example.html?page=1, state: {"page":1}"
-  history.back(); // Logs "location: http://example.com/example.html, state: null
-  history.go(2);  // Logs "location: http://example.com/example.html?page=3, state: {"page":3}
-}
 function get_popstate() {
   window.addEventListener('popstate', function (e) {
     e.preventDefault();
-    //console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+    history.back()
   })
 };
 
-get_popstate();
-test_popstate();
+//get_popstate();
+
 function loadScripts( src ) {
     var script = document.createElement("SCRIPT"),
         head = document.getElementsByTagName( "head" )[ 0 ],

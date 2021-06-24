@@ -869,6 +869,7 @@ function ajax_get_reload(url) {
         loaded = false;
         create_pagination(rtr);
         init_music(rtr);
+        window.onpopstate = function () {history.go(1);};
       }
     }
     ajax_link.send();

@@ -4,7 +4,7 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 function get_popstate() {
   window.addEventListener('popstate', function (e) {
     if (e.state !== null) {
-      history.back()
+      history.back(); return
     }
   })
 };

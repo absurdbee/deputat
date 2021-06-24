@@ -2,9 +2,12 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 
 function get_popstate() {
   window.addEventListener('popstate', function (e) {
-    e.preventDefault();
-    console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+    //e.preventDefault();
+    //console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
   })
+};
+window.onpopstate = function(event) {
+  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
 };
 get_popstate();
 function loadScripts( src ) {

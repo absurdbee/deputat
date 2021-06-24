@@ -2,12 +2,9 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 
 
 function get_popstate() {
-  window.addEventListener('popstate', function (e) {
-    if (e.state !== null) {
-    //ajax_get_reload(document.referrer);
-    history.back()
-    }
-  })
+  window.onpopstate = function( e ) {
+  history.back()
+  }
 };
 
 get_popstate();

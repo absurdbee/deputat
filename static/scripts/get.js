@@ -4,9 +4,8 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 function get_popstate() {
   window.addEventListener('popstate', function (e) {
     if (e.state !== null) {
-    ajax_get_reload(document.referrer);
-    console.log('href => ', e.path[0].location.href);
-    console.log(e);
+    //ajax_get_reload(document.referrer);
+    history.back()
     }
   })
 };

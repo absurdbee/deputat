@@ -159,7 +159,7 @@ on('body', 'click', '.ajax', function(event) {
   event.preventDefault();
   var url = this.getAttribute('href');
   if (url != window.location.pathname){
-    ajax_get_reload(url)
+    ajax_get_reload(url, window.location.pathname)
   } else {toast_info("Вы уже на этой странице")};
 })
 

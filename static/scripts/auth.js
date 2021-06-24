@@ -138,10 +138,12 @@ on('body', 'click', '#logg', function() {
 
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
+    response.style.display = "none";
     this.disabled = true;
     window.location.href = "/"
   } else{
     this.disabled = false;
+    response.style.display = "block";
     response.innerHTML = "Телефон или пароль - неверный!";
     response.classList.add("error");
     form.querySelector("#id_username").style.display = "block";

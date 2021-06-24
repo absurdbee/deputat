@@ -6,6 +6,7 @@ function get_popstate() {
     if (e.state !== null) {
     //  window.history.go(-1)
     console.log('href => ', e.path[0].location.href);
+    console.log(e);
     }
   })
 };

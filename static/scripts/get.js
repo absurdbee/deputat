@@ -2,9 +2,8 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 
 
 window.addEventListener('popstate', function (e) {
-  e.preventDefault();
-  ajax_get_reload(document.referrer);
-  window.reload
+  //e.preventDefault();
+  //ajax_get_reload(document.referrer);
 });
 
 

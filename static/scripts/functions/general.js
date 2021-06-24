@@ -863,8 +863,8 @@ function ajax_get_reload(url, prev_url) {
         rtr.innerHTML = ajax.innerHTML;
         window.scrollTo(0,0);
         document.title = elem_.querySelector('title').innerHTML;
-        window.history.pushState({route: prev_url}, "", "xxxxx");
-        window.history.pushState({route: url}, "", "xxxxx");
+        window.history.pushState({route: prev_url}, "", prev_url);
+        window.history.pushState({route: url}, "", url);
         get_select();
         page = 2;
         loaded = false;

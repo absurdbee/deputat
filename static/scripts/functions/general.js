@@ -863,14 +863,12 @@ function ajax_get_reload(url, prev_url) {
         rtr.innerHTML = ajax.innerHTML;
         window.scrollTo(0,0);
         document.title = elem_.querySelector('title').innerHTML;
-        window.history.pushState({route: prev_url}, "", prev_url);
-        window.history.pushState({route: url}, "", url);
+        window.history.pushState("", "", url);
         get_select();
         page = 2;
         loaded = false;
         create_pagination(rtr);
         init_music(rtr);
-        get_popstste();
       }
     }
     ajax_link.send();

@@ -4,7 +4,8 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 function get_popstate() {
   window.addEventListener('popstate', function (e) {
     if (e.state !== null) {
-      window.history.go(-1)
+    //  window.history.go(-1)
+    console.log('href => ', e.path[0].location.href);
     }
   })
 };

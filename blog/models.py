@@ -284,10 +284,10 @@ class Blog(models.Model):
 
 class ElectNew(models.Model):
     PROCESSING, SUGGESTED, PUBLISHED, MANAGER, DELETED, CLOSED = '_PRO', 'SUG', 'PUB', 'MAN','_DEL','_CLO'
-    DELETED_SUGGESTED, CLOSED_SUGGESTED, DELETED_MANAGER, CLOSED_MANAGER, REJECTED = '_DELS','_CLOS','_DELM','_CLOM','_REJ'
+    DELETED_REJECTED, DELETED_SUGGESTED, CLOSED_SUGGESTED, DELETED_MANAGER, CLOSED_MANAGER, REJECTED = '_DELR','_DELS','_CLOS','_DELM','_CLOM','_REJ'
     TYPE = (
         (PROCESSING, 'обрабатывается'),(SUGGESTED, 'на рассмотрении'), (PUBLISHED, 'опубликована'),(DELETED, 'удалена'),(CLOSED, 'закрыта модератором'),(MANAGER, 'создана персоналом'),
-        (DELETED_SUGGESTED, 'удалена предложенная'),(CLOSED_SUGGESTED, 'предложенная менеджерский'),(DELETED_MANAGER, 'удалена менеджерский'),(CLOSED_MANAGER, 'закрыта менеджерский'),(REJECTED, 'отклонена модератором')
+        (DELETED_REJECTED, 'удалена отклоненная'),(DELETED_SUGGESTED, 'удалена предложенная'),(CLOSED_SUGGESTED, 'предложенная менеджерский'),(DELETED_MANAGER, 'удалена менеджерский'),(CLOSED_MANAGER, 'закрыта менеджерский'),(REJECTED, 'отклонена модератором')
     )
     title = models.CharField(max_length=255, verbose_name="Название")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
@@ -660,6 +660,8 @@ class ElectNew(models.Model):
             self.type = ElectNew.DELETED_SUGGESTED
         elif self.type == "MAN":
             self.type = ElectNew.DELETED_MANAGER
+        elif self.type == "_REJ":
+            self.type = ElectNew.DELETED_REJECTED
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="C")
@@ -673,6 +675,8 @@ class ElectNew(models.Model):
             self.type = ElectNew.SUGGESTED
         elif self.type == "_DELM":
             self.type = ElectNew.MANAGER
+        elif self.type == "_DELR":
+            self.type = ElectNew.REJECTED
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="ELN", object_id=self.pk, verb="ITE").update(status="R")

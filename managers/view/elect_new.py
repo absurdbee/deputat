@@ -255,7 +255,7 @@ class RejectElectNew(View):
             obj = post.get_or_create_moderated_object("ELE", self.elect_new.pk)
             obj.description = post.description
             obj.save(update_fields=["description"])
-            self.elect_new.type = "REJ"
+            self.elect_new.type = "_REJ"
             self.elect_new.save(update_fields=["type"])
             return HttpResponse()
         else:

@@ -389,8 +389,8 @@ class ElectNew(models.Model):
         return self.type == ElectNew.SUGGESTED
     def is_deleted(self):
         return self.type[:4] == "_DEL"
-    def is_suggested(self):
-        return self.type == ElectNew.SUGGESTED
+    def is_rejected(self):
+        return self.type == ElectNew.REJECTED
     def is_closed(self):
         return self.type[:4] == "_CLO"
     def is_suspended(self):

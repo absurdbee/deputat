@@ -47,7 +47,7 @@ document.body.querySelector(".userpic") ? request_user_id = document.body.queryS
 notify.classList.contains("badge-danger") ? (notify_count = notify.innerHTML.replace(/\s+/g, ''), notify_count = notify_count*1): notify_count = 0;
 
 ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-ws_path = ws_scheme + '://' + "194.58.122.46:8443" + "/notify/";
+ws_path = ws_scheme + '://' + "депутат.рус" + "/notify/";
 webSocket = new channels.WebSocketBridge();
 webSocket.connect(ws_path);
 

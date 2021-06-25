@@ -194,7 +194,7 @@ class User(AbstractUser):
         return ElectNew.objects.filter(creator_id=self.pk, type="PUB")
     def get_my_news(self):
         from blog.models import ElectNew
-        return ElectNew.objects.filter(creator_id=self.pk).exclude(type__contains="_")
+        return ElectNew.objects.filter(creator_id=self.pk).exclude(Q(type="PUB")|Q(type="_REG"))
 
     def get_news_count(self):
         from blog.models import ElectNew

@@ -54,10 +54,10 @@
     if ( request.readyState == 4 && request.status == 200) {
       var div = document.getElementById('jsondata');
       div.innerHTML = request.responseText;
+      console.log(request.responseText);
       if (!request.responseText.indexOf("уже зарегистрирован") !== -1) {
       document.getElementById("phone").setAttribute("disabled", "true");
       document.getElementById("phone_send").setAttribute("disabled", "true");
-      console.log("true")
     }
     }
   };

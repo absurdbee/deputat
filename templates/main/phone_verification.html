@@ -48,7 +48,7 @@
     if ( request.readyState == 4 && request.status == 200) {
       var div = document.getElementById('jsondata');
       div.innerHTML = request.responseText;
-      console.log(request.responseText !== -1)
+      console.log(request.responseText.indexOf("уже зарегистрирован") !== -1)
       if (request.responseText.indexOf("уже зарегистрирован") !== -1) {
         console.log("okkkk")
       } else {

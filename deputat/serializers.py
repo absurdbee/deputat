@@ -14,7 +14,7 @@ from django.utils import timezone
 def is_child(year, month, day):
     today = date.today()
     old = today.year - year - ((today.month, today.day) < (month, day))
-    return ins(old) < 18
+    return int(old) < 18
 
 class RegisterSerializer(serializers.Serializer):
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)

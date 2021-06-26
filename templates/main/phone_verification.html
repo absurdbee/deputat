@@ -49,7 +49,7 @@
       var div = document.getElementById('jsondata');
       div.innerHTML = request.responseText;
       console.log("okkkk")
-      if (!request.responseText.indexOf("уже зарегистрирован") !== -1) {
+      if (request.responseText.indexOf("уже зарегистрирован")) {
       document.getElementById("phone").setAttribute("disabled", "true");
       document.getElementById("phone_send").setAttribute("disabled", "true");
     }

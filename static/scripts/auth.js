@@ -123,7 +123,7 @@ on('body', 'click', '#register_ajax', function() {
   } else {
     if (reg_link.responseText.indexOf("Детям регистрация не разрешена!") !== -1) {
       toast_error("Детям регистрация не разрешена");
-      console.log(reg_link.responseText)
+      window.location.href = "/"
     }
     }};
   reg_link.send(form_data);

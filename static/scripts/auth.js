@@ -88,15 +88,24 @@ on('body', 'click', '#register_ajax', function() {
   } else if (!form.querySelector("#password1").value){
     form.querySelector("#password1").style.border = "1px #FF0000 solid";
     toast_error("Пароль - обязательное поле!")
-  }else if (!form.querySelector("#password2").value){
+  } else if (!form.querySelector("#password2").value){
     form.querySelector("#password2").style.border = "1px #FF0000 solid";
     toast_error("Введите пароль еще раз!")
-  }else if (!form.querySelector("#select_region").value){
+  } else if (!form.querySelector("#select_region").value){
     form.querySelector("#select_region").style.border = "1px #FF0000 solid";
     toast_error("Выберите регион!")
-  }else if (!form.querySelector("#id_city").value){
+  } else if (!form.querySelector("#id_city").value){
     form.querySelector("#id_city").style.border = "1px #FF0000 solid";
     toast_error("Выберите город!")
+  } else if (!form.querySelector("#date_day").value){
+      form.querySelector("#date_day").style.border = "1px #FF0000 solid";
+      toast_error("День рождения - обязательное поле!")
+  } else if (!form.querySelector("#date_month").value){
+      form.querySelector("#date_month").style.border = "1px #FF0000 solid";
+      toast_error("Месяц рождения - обязательное поле!")
+  } else if (!form.querySelector("#date_year").value){
+      form.querySelector("#date_year").style.border = "1px #FF0000 solid";
+      toast_error("Год рождения - обязательное поле!")
   }
   form_data = new FormData(form);
 
@@ -111,7 +120,7 @@ on('body', 'click', '#register_ajax', function() {
   reg_link.onreadystatechange = function () {
   if ( reg_link.readyState == 4 && reg_link.status == 201 ) {
     window.location.href = "/users/phone_verify/"
-    }};
+  } else { console.log(reg_link.responseText)}};
   reg_link.send(form_data);
 })
 

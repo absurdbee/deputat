@@ -63,9 +63,9 @@ class RegisterSerializer(serializers.Serializer):
         user.city = City.objects.get(slug=city_slug)
         user.gender = self.validated_data.get('gender', '')
 
-        self.date_day = self.validated_data.get('date_day', '')
-        self.date_month = self.validated_data.get('date_month', '')
-        self.date_year = self.validated_data.get('date_year', '')
+        self.date_day = int(self.validated_data.get('date_day', ''))
+        self.date_month = int(self.validated_data.get('date_month', ''))
+        self.date_year = int(self.validated_data.get('date_year', ''))
         if is_child(self.date_year, self.date_month, self.date_day):
             raise serializers.ValidationError("Детям регистрация не разрешена!")
         birthday = str(self.date_day) + "/" + str(self.date_month) + "/" + str(self.date_year)

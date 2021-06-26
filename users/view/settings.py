@@ -125,18 +125,14 @@ class UserAboutSettings(TemplateView):
 		from users.forms import UserProfileForm
 		from users.model.profile import UserProfile
 		from datetime import datetime
+		from users.model.profile import UserCheck
 
 		self.info = UserProfile.objects.get(user=request.user)
 		self.form = UserProfileForm(request.POST, instance=self.info)
 		if request.is_ajax() and self.form.is_valid():
 			new_info = self.form.save(commit=False)
+			new_info.save()
 			try:
-				birthday = str(request.POST.get("date_day")) + "/" + str(request.POST.get("date_month")) + "/" + str(request.POST.get("date_year"))
-				new_info.birthday = datetime.strptime(birthday, '%d/%m/%Y')
-			except:
-				new_info.save()
-			try:
-				from users.model.profile import UserCheck
 				check = UserCheck.objects.get(user_id=request.user.pk)
 			except:
 				check = UserCheck.objects.create(user_id=request.user.pk)

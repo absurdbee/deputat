@@ -84,7 +84,6 @@ class UserInfo(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_info', verbose_name="Пользователь")
     education = models.CharField(max_length=5, choices=EDUCATIONS, default=NO_VALUE, verbose_name="Образование")
     employment = models.CharField(max_length=5, choices=EMPLOYMENT, default=NO_VALUE, verbose_name="Сфера занятости")
-    birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
 
     elect_news = models.PositiveIntegerField(default=0, verbose_name="Кол-во постов")
     views = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров постов")

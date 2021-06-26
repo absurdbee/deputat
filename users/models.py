@@ -37,6 +37,7 @@ class User(AbstractUser):
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL, verbose_name="Город")
     point = models.PositiveIntegerField(default=0, verbose_name="Количество кармы")
     level = models.PositiveSmallIntegerField(default=1, verbose_name="Уровень")
+    birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
     USERNAME_FIELD = 'phone'
 
     class Meta:

@@ -7,7 +7,14 @@ from rest_framework.response import Response
 from users.models import User
 from city.models import City
 from common.utils import get_location
+from datetime import date, datetime
+from django.utils import timezone
 
+
+def is_child(year, month, day):
+    today = date.today()
+    old = today.year - year - ((today.month, today.day) < (month, day))
+    return old < 18
 
 class RegisterSerializer(serializers.Serializer):
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
@@ -17,6 +24,9 @@ class RegisterSerializer(serializers.Serializer):
     password2 = serializers.CharField(required=True, write_only=True)
     city = serializers.CharField(required=True, write_only=True)
     gender = serializers.CharField(required=True, write_only=True)
+    date_day = serializers.CharField(required=True, write_only=True)
+    date_month = serializers.CharField(required=True, write_only=True)
+    date_year = serializers.CharField(required=True, write_only=True)
 
     def validate_email(self, email):
         email = get_adapter().clean_email(email)
@@ -52,6 +62,16 @@ class RegisterSerializer(serializers.Serializer):
         city_slug = self.validated_data.get('city', '')
         user.city = City.objects.get(slug=city_slug)
         user.gender = self.validated_data.get('gender', '')
+
+        self.date_day = self.validated_data.get('date_day', '')
+        self.date_month = self.validated_data.get('date_month', '')
+        self.date_year = self.validated_data.get('date_year', '')
+        if is_child(self.date_year, self.date_month, self.date_day):
+            raise serializers.ValidationError("Детям регистрация не разрешена!")
+        birthday = str(self.date_day) + "/" + str(self.date_month) + "/" + str(self.date_year)
+        birthday = datetime.strptime(birthday, '%d/%m/%Y')
+        user.birthday = birthday
+
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         user.save()

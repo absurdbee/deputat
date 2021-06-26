@@ -120,7 +120,11 @@ on('body', 'click', '#register_ajax', function() {
   reg_link.onreadystatechange = function () {
   if ( reg_link.readyState == 4 && reg_link.status == 201 ) {
     window.location.href = "/users/phone_verify/"
-  } else { console.log(reg_link.responseText)}};
+  } else {
+    if (reg_link.responseText == ["Детям регистрация не разрешена!"]) {
+      toast_error("Детям регистрация не разрешена")
+      }
+    };
   reg_link.send(form_data);
 })
 

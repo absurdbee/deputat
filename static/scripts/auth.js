@@ -138,7 +138,8 @@ on('body', 'click', '#logg', function() {
 
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    response.style.display = "none";
+    response.classList.replace("error", "success");
+    response.innerHTML = "Успешный вход в аккаунт";
     this.disabled = true;
     window.location.href = "/"
   } else{

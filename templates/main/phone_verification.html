@@ -48,10 +48,10 @@
     if ( request.readyState == 4 && request.status == 200) {
       var div = document.getElementById('jsondata');
       div.innerHTML = request.responseText;
-      console.log(request.responseText.indexOf("уже зарегистрирован") !== -1)
       if (request.responseText.indexOf("уже зарегистрирован") !== -1) {
-        console.log("okkkk")
+        div.innerHTML = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в <a class="pointer underline send_support_message">Службу поддержки</a>, если этот номер Вы не использовали ранее.'
       } else {
+        div.innerHTML = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Последние 4 цифры" и нажать "Подтвердить"'
       document.getElementById("phone").setAttribute("disabled", "true");
       document.getElementById("phone_send").setAttribute("disabled", "true");
     }}}

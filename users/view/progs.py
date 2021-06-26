@@ -45,7 +45,7 @@ class PhoneSend(View):
             if len(phone) > 8:
                 try:
                     user = User.objects.get(phone=phone)
-                    data = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в <a class="pointer underline send_support_message">Службу поддержки</a>, если этот номер Вы не использовали ранее.'
+                    data = 'уже зарегистрирован'
                     response = render(request,'generic/response/phone.html',{'response_text':data})
                     return response
                 except:

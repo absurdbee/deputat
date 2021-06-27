@@ -65,7 +65,7 @@ def elect_new(user, elect_new):
 
 def get_elect_new(user, notify):
     if notify.type == "ELN":
-        return blog(user, ElectNew.objects.get(pk=notify.object_id))
+        return elect_new(user, ElectNew.objects.get(pk=notify.object_id))
     #else:
     #    if notify.is_have_user_set():
     #        return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a>' + notify.get_verb_display() + ' ' + notify.count_user_set_blog() + '</p>' + blog(user, Blog.objects.get(pk=notify.object_id))

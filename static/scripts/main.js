@@ -199,10 +199,6 @@ on('body', 'click', '.search-input-close', function() {
   this.parentElement.classList.remove("open");
 })
 
-on('body', 'click', '.dropdown-user-link', function() {
-  this.nextElementSibling.classList.contains("show") ? this.nextElementSibling.classList.remove("show") : this.nextElementSibling.classList.add("show")
-});
-
 on('body', 'click', '.menu-toggle', function() {
   _this = this;
   if (!_this.classList.contains("is-active")){

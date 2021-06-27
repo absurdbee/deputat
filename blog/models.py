@@ -329,10 +329,8 @@ class ElectNew(models.Model):
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
 
-        elect_new = cls.objects.create(creator=creator,title=title,description=description,elect=_elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
-        user_wall(creator, None, elect_new.pk, "ELN", "draft_news_wall", "SIT")
-        user_notify(creator, None, elect_new.pk, "ELN", "draft_news_notify", "SIT")
-        return elect_new
+        new = cls.objects.create(creator=creator,title=title,description=description,elect=_elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
+        return new
 
     def edit_new(self, title, description, elect, attach, category):
         from elect.models import Elect
@@ -353,6 +351,7 @@ class ElectNew(models.Model):
     def make_publish_new(self, title, description, elect, attach, category):
         from elect.models import Elect
         from notify.models import Notify, Wall
+        from common.notify.progs import user_send_notify, user_send_wall
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
@@ -368,16 +367,11 @@ class ElectNew(models.Model):
         self.attach = _attach
         self.category = category
         self.save()
-        if Notify.objects.filter(type="ELN", object_id=self.pk, verb="SIT").exists():
-            Notify.objects.filter(type="ELN", object_id=self.pk, verb="SIT").delete()
-        if Wall.objects.filter(type="ELN", object_id=self.pk, verb="SIT").exists():
-            Wall.objects.filter(type="ELN", object_id=self.pk, verb="SIT").delete()
-
         Wall.objects.create(creator_id=self.creator.pk, type="ELN", object_id=self.pk, verb="ITE")
-        user_send_wall(doc.pk, None, "publish_elect_new_wall")
+        user_send_wall(self.pk, None, "elect_new_wall")
         for user_id in self.elect.get_subscribers_ids():
             Notify.objects.create(creator_id=self.creator.pk, recipient_id=user_id, type="ELN", object_id=self.pk, verb="ITE")
-            user_send_notify(doc.pk, creator.pk, user_id, None, "publish_elect_new_notify")
+            user_send_notify(self.pk, creator.pk, user_id, None, "elect_new_notify")
         self.creator.plus_elect_news(1)
         return self
 

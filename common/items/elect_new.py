@@ -31,8 +31,6 @@ def elect_new(user, elect_new):
             card_drop += '<span class="dropdown-item u_close_elect_new">Закрыть</span>'
         else:
             card_drop += '<span class="dropdown-item elect_new_claim">Пожаловаться</span>'
-            if post.is_elect_new_in_bookmarks(user.pk):
-                card_drop += '<span><span class="dropdown-item remove_elect_new_bookmark">Из коллекции</span></span>'
 
     if post.comments_enabled:
         comments_enabled = ''

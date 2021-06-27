@@ -97,7 +97,7 @@ on('body', 'click', '.elect_new_inert', function() {
   send_inert(item, "/blog/votes/elect_new_inert/" + pk + "/");
 });
 on('body', 'click', '.elect_new_comment_like', function() {
-  item = this.parentElement.parentElement.parentElement.parentElement;
+  item = this.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
   send_like(item, "/blog/votes/elect_new_comment_like/" + pk + "/");
 });

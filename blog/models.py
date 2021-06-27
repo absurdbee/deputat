@@ -324,6 +324,11 @@ class ElectNew(models.Model):
         else:
             return '/static/images/no_photo.jpg'
 
+    def get_manager_tags(self):
+        from tags.models import ManagerTag
+        tags = ManagerTag.objects.filter(new=self).values("name")
+        return [i['name'] for i in tags]
+
     @classmethod
     def create_suggested_new(cls, creator, title, description, elect, attach, category):
         from common.notify.notify import user_wall, user_notify

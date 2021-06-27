@@ -1,5 +1,4 @@
-from blog.models import Blog
-from common.model.comments import BlogComment
+from blog.models import ElectNew
 
 def linebreaks(value, autoescape=None):
     from django.utils.html import linebreaks
@@ -8,32 +7,32 @@ def linebreaks(value, autoescape=None):
     return mark_safe(linebreaks(value, autoescape))
 
 
-def blog(user, blog):
+def elect_new(user, elect_new):
     from django.utils.http import urlencode
 
-    block, tags, votes_on, card_drop, post, value = '', '', '', '<span class="dropdown-item copy_link">Копировать ссылку</span>', blog, blog.pk
+    block, tags, votes_on, card_drop, post, value = '', '', '', '<span class="dropdown-item copy_link">Копировать ссылку</span>', elect_new, elect_new.pk
 
     if user.is_anonymous:
         user_like, user_dislike, user_inert = "btn_default", "btn_default", "btn_default"
         if not post.votes_on:
             votes_on = 'style="display:none"'
     else:
-        user_like, user_dislike, user_inert = "btn_default blog_like", "btn_default blog_dislike", "btn_default blog_inert"
+        user_like, user_dislike, user_inert = "btn_default elect_new_like", "btn_default elect_new_dislike", "btn_default elect_new_inert"
         if post.votes_on:
             if post.is_have_likes() and post.likes().filter(user_id=user.pk).exists():
-                user_like = "btn_success blog_like"
+                user_like = "btn_success elect_new_like"
             if post.is_have_dislikes() and post.dislikes().filter(user_id=user.pk).exists():
-                user_dislike = "btn_danger blog_dislike"
+                user_dislike = "btn_danger elect_new_dislike"
             if post.is_have_inerts() and post.inerts().filter(user_id=user.pk).exists():
-                user_inert = "btn_inert blog_inert"
+                user_inert = "btn_inert elect_new_inert"
         else:
             votes_on = 'style="display:none"'
         if user.is_supermanager():
-            card_drop += '<span class="dropdown-item u_close_blog">Закрыть</span>'
+            card_drop += '<span class="dropdown-item u_close_elect_new">Закрыть</span>'
         else:
-            card_drop += '<span class="dropdown-item blog_claim">Пожаловаться</span>'
-            if post.is_blog_in_bookmarks(user.pk):
-                card_drop += '<span><span class="dropdown-item remove_blog_bookmark">Из коллекции</span></span>'
+            card_drop += '<span class="dropdown-item elect_new_claim">Пожаловаться</span>'
+            if post.is_elect_new_in_bookmarks(user.pk):
+                card_drop += '<span><span class="dropdown-item remove_elect_new_bookmark">Из коллекции</span></span>'
 
     if post.comments_enabled:
         comments_enabled = ''
@@ -43,9 +42,9 @@ def blog(user, blog):
     for tag in post.get_manager_tags():
         tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
 
-    return ''.join([block, '<div class="event_card" data-pk="' + str(value) + '"><div class="event_img text-center"><a class="ajax" href="/blog/' + post.slug + '">\
+    return ''.join([block, '<div class="event_card" data-pk="' + str(value) + '"><div class="event_img text-center"><a class="ajax" href="/elect/' + post.slug + '">\
     <img class="img-fluid card-img-top" src="' + post.get_image() + '" alt="img"></a></div><div class="card-body event_body">\
-    <h4 class="event_name"><div style="display: flex;"><a class="text-body ajax" href="/blog/' + post.slug + '">' + post.title + '</a>\
+    <h4 class="event_name"><div style="display: flex;"><a class="text-body ajax" href="/elect/' + post.slug + '">' + post.title + '</a>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\
     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">\
@@ -57,16 +56,16 @@ def blog(user, blog):
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm0 12l-4.34 4.34L12 14H3v-2l3-7h9v10zm4-12h4v12h-4z"/></svg>\
     <span class="dislikes_count margin_right_5">', str(post.dislikes_count()), '</span></span><span class="inert  ', user_inert, '  pointer"', votes_on, ' title="Ниочём">\
     <svg class="svg_info"fill="currentColor"viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M7 11v2h10v-2H7zm5-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>\
-    <span class="inerts_count margin_right_5">', str(post.inerts_count()), '</span></span><span title="Поделиться" class="btn_default pointer get_blog_repost">\
+    <span class="inerts_count margin_right_5">', str(post.inerts_count()), '</span></span><span title="Поделиться" class="btn_default pointer get_elect_new_repost">\
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>\
     <span class="repost_count margin_right_5">', str(post.reposts_count()), '</span></span><span title="Комментарий" class="btn_default" style="cursor:pointer;margin-right: 5px;">\
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>\
     <span class="comment-count margin_right_5">', str(post.count_comments()), '</span></span><span title="Просмотры" style="right: 0;">\
     <svg fill="currentColor" class="svg_info svg_default" style="padding-bottom: 2px;font-size:17px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"/></svg>', str(post.count_views()), '</span></div></div><div class="load_full_data"></div></div></div>'])
 
-def get_blog(user, notify):
-    if notify.type == "BLO":
-        return blog(user, Blog.objects.get(pk=notify.object_id))
+def get_elect_new(user, notify):
+    if notify.type == "ELN":
+        return blog(user, ElectNew.objects.get(pk=notify.object_id))
     #else:
     #    if notify.is_have_user_set():
     #        return '<p style="padding: 10px 20px;"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax">' + notify.creator.get_full_name() + '</a>' + notify.get_verb_display() + ' ' + notify.count_user_set_blog() + '</p>' + blog(user, Blog.objects.get(pk=notify.object_id))

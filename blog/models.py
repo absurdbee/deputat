@@ -318,6 +318,12 @@ class ElectNew(models.Model):
     def __str__(self):
         return self.title
 
+    def get_image(self):
+        if self.elect.image:
+            return self.elect.image.url
+        else:
+            return '/static/images/no_photo.jpg'
+
     @classmethod
     def create_suggested_new(cls, creator, title, description, elect, attach, category):
         from common.notify.notify import user_wall, user_notify

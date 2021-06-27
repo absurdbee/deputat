@@ -83,6 +83,6 @@ def get_notify(user, notify):
     if type == "BLO":
         from common.items.blog import get_blog
         return get_blog(user, notify)
-    elif type == "BLOC":
-        from common.items.blog import get_comment_blog
-        return get_comment_blog(user, notify)
+    elif type == "ELN":
+        from common.items.elect_new import get_elect_new
+        return get_elect_new(user, notify)

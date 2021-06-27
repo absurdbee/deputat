@@ -501,12 +501,14 @@ class ElectNew(models.Model):
                 item.vote = ElectNewVotes2.LIKE
                 item.save(update_fields=['vote'])
                 self.like += 1
-                self.dislike -= 1
+                if self.dislike > 0:
+                    self.dislike -= 1
                 self.save(update_fields=['like', 'dislike'])
                 if self.elect:
                     elect = self.elect
-                    self.like += 1
-                    self.dislike -= 1
+                    elect.like += 1
+                    if elect.dislike > 0:
+                        elect.dislike -= 1
                     elect.save(update_fields=['like', 'dislike'])
             elif item.vote == ElectNewVotes2.INERT:
                 item.vote = ElectNewVotes2.LIKE

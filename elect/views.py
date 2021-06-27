@@ -176,4 +176,4 @@ class ElectNewDetailView(ListView, CategoryListMixin):
         return context
 
     def get_queryset(self):
-		return self.new.get_comments()
+        return self.new.get_comments()

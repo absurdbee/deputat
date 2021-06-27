@@ -91,6 +91,11 @@ on('body', 'click', '.elect_new_dislike', function() {
   pk = item.getAttribute("data-pk");
   send_dislike(item, "/blog/votes/elect_new_dislike/" + pk + "/");
 });
+on('body', 'click', '.elect_new_inert', function() {
+  item = this.parentElement.parentElement.parentElement.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_inert(item, "/blog/votes/elect_new_inert/" + pk + "/");
+});
 on('body', 'click', '.elect_new_comment_like', function() {
   item = this.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");

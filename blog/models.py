@@ -130,8 +130,7 @@ class Blog(models.Model):
         return [i['name'] for i in tags]
 
     def count_views(self):
-        from stst.models import BlogNumbers
-        return BlogNumbers.objects.filter(new=self.pk).values("pk").count()
+        return self.view
 
     def is_blog_in_bookmarks(self, user_id):
         from users.model.profile import Bookmarks
@@ -410,6 +409,9 @@ class ElectNew(models.Model):
     def inerts(self):
         from common.model.votes import ElectNewVotes2
         return ElectNewVotes2.objects.filter(new_id=self.pk, vote="INE")
+
+    def count_views(self):
+        return self.view
 
     def is_have_likes(self):
         return self.like > 0

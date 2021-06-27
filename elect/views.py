@@ -145,15 +145,29 @@ class ElectNewDetailView(TemplateView, CategoryListMixin):
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         if request.user.is_authenticated:
-            current_pk = request.user.pk
-        else:
-            current_pk = 0
-        if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-            ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=0)
-        else:
-            ElectNewNumbers.objects.create(user=current_pk, new=self.new.pk, platform=1)
-        self.template_name = get_full_template("elect/", "elect_new.html", request.user, request.META['HTTP_USER_AGENT'])
-        return super(ElectNewDetailView,self).get(request,*args,**kwargs)
+			if not ElectNewNumbers.objects.filter(user=request.user.pk, new=self.new.pk).exists():
+				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+					ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=1)
+				else:
+					ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=0)
+				self.new.view += 1
+				self.new.save(update_fields=["view"])
+			return super(ElectNewDetailView,self).get(request,*args,**kwargs)
+		else:
+			if not self.new.id in request.COOKIES:
+				from django.shortcuts import redirect
+
+				response = redirect('elect_new_detail', pk=self.new.pk)
+				response.set_cookie(self.new.pk, "elekt_new_view")
+				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+					ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=1)
+				else:
+					ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=0)
+				self.new.view += 1
+				self.new.save(update_fields=["view"])
+				return response
+			else:
+				return super(ElectNewDetailView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context=super(ElectNewDetailView,self).get_context_data(**kwargs)

@@ -117,7 +117,7 @@ class ElectNewCommentCreate(View):
 			comment = form_post.save(commit=False)
 			new_comment = comment.create_comment(
 													commenter=request.user,
-													blog=parent.blog,
+													new=new,
 													parent=None,
 													text=comment.text,
 													attach = request.POST.getlist("attach_items")
@@ -139,7 +139,7 @@ class ElectNewReplyCreate(View):
 			comment = form_post.save(commit=False)
 			new_comment = comment.create_comment(
 													commenter=request.user,
-													blog=parent.blog,
+													new=parent.new,
 													parent=parent,
 													text=comment.text,
 													attach = request.POST.getlist("attach_items")

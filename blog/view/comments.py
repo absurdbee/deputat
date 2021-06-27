@@ -115,7 +115,13 @@ class ElectNewCommentCreate(View):
 		new = ElectNew.objects.get(pk=request.POST.get('elect_new'))
 		if request.is_ajax() and form_post.is_valid() and new.comments_enabled:
 			comment = form_post.save(commit=False)
-			new_comment = comment.create_comment(commenter=request.user, parent=None, new=new, text=comment.text)
+			new_comment = comment.create_comment(
+													commenter=request.user,
+													blog=parent.blog,
+													parent=None,
+													text=comment.text,
+													attach = request.POST.getlist("attach_items")
+												)
 			return render(request, 'blog/elect_new_comment/new_parent.html',{'comment': new_comment})
 		else:
 			return HttpResponseBadRequest()
@@ -131,7 +137,13 @@ class ElectNewReplyCreate(View):
 		parent = ElectNewComment.objects.get(pk=request.POST.get('post_comment'))
 		if request.is_ajax() and form_post.is_valid():
 			comment = form_post.save(commit=False)
-			new_comment = comment.create_comment(commenter=request.user, parent=parent, new=None, text=comment.text)
+			new_comment = comment.create_comment(
+													commenter=request.user,
+													blog=parent.blog,
+													parent=parent,
+													text=comment.text,
+													attach = request.POST.getlist("attach_items")
+												)
 			return render(request, 'blog/elect_new_comment/new_reply.html',{'reply': new_comment, 'comment': parent,})
 		else:
 			return HttpResponseBadRequest()

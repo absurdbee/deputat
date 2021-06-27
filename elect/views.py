@@ -134,8 +134,8 @@ class PreElectionElectNewsView(ListView, CategoryListMixin):
         return news
 
 
-class ElectNewDetailView(TemplateView, CategoryListMixin):
-    template_name = None
+class ElectNewDetailView(ListView, CategoryListMixin):
+    template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
         import re
@@ -174,3 +174,6 @@ class ElectNewDetailView(TemplateView, CategoryListMixin):
         context=super(ElectNewDetailView,self).get_context_data(**kwargs)
         context["object"] = self.new
         return context
+
+    def get_queryset(self):
+		return self.new.get_comments()

@@ -112,7 +112,7 @@ class ElectNewCommentCreate(View):
 		from django.shortcuts import render
 
 		form_post = ElectNewCommentForm(request.POST)
-		new = ElectNew.objects.get(pk=request.POST.get('pk'))
+		new = ElectNew.objects.get(pk=request.POST.get('elect_new'))
 		if request.is_ajax() and form_post.is_valid() and new.comments_enabled:
 			comment = form_post.save(commit=False)
 			new_comment = comment.create_comment(commenter=request.user, parent=None, new=new, text=comment.text)

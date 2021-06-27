@@ -122,7 +122,7 @@ class ElectNewCommentCreate(View):
 													text=comment.text,
 													attach = request.POST.getlist("attach_items")
 												)
-			return render(request, 'blog/elect_new_comment/new_parent.html',{'comment': new_comment})
+			return render(request, 'elect/comment/new_parent.html',{'comment': new_comment})
 		else:
 			return HttpResponseBadRequest()
 
@@ -144,7 +144,7 @@ class ElectNewReplyCreate(View):
 													text=comment.text,
 													attach = request.POST.getlist("attach_items")
 												)
-			return render(request, 'blog/elect_new_comment/new_reply.html',{'reply': new_comment, 'comment': parent,})
+			return render(request, 'elect/comment/new_reply.html',{'reply': new_comment, 'comment': parent,})
 		else:
 			return HttpResponseBadRequest()
 

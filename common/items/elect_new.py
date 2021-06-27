@@ -40,9 +40,9 @@ def elect_new(user, elect_new):
     for tag in post.get_manager_tags():
         tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
 
-    return ''.join([block, '<div class="event_card" data-pk="' + str(value) + '"><div class="event_img text-center"><a class="ajax" href="/elect/' + str(post.pk) + '">\
+    return ''.join([block, '<div class="event_card" data-pk="' + str(value) + '"><div class="event_img text-center"><a class="ajax" href="/elect/new/' + str(post.pk) + '">\
     <img class="img-fluid card-img-top" src="' + post.get_image() + '" alt="img"></a></div><div class="card-body event_body">\
-    <h4 class="event_name"><div style="display: flex;"><a class="text-body ajax" href="/elect/' + str(post.pk) + '">' + post.title + '</a>\
+    <h4 class="event_name"><div style="display: flex;"><a class="text-body ajax" href="/elect/new/' + str(post.pk) + '">' + post.title + '</a>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\
     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">\

@@ -146,11 +146,11 @@ on('body', 'click', '.restore_blog_comment', function() {
 })
 on('body', 'click', '.blog_comment_like', function() {
   item = this.parentElement.parentElement;
-  send_like(item, "/blog/votes/blog_comment_like/" + item.getAttribute("data-pk") + "/");
+  send_comment_like(item, "/blog/votes/blog_comment_like/" + item.getAttribute("data-pk") + "/");
 });
 on('body', 'click', '.elect_new_comment_like', function() {
   item = this.parentElement.parentElement;
-  send_like(item, "/blog/votes/elect_new_comment_like/" + item.getAttribute("data-pk") + "/");
+  send_comment_like(item, "/blog/votes/elect_new_comment_like/" + item.getAttribute("data-pk") + "/");
 });
 
 on('body', 'click', '.edit_blog_comment', function() {

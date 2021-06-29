@@ -148,6 +148,39 @@ class ElectNewReplyCreate(View):
 		else:
 			return HttpResponseBadRequest()
 
+class ElectNewCommentEdit(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("elect/comment/edit.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
+		return super(ElectNewCommentEdit,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from blog.forms import ElectNewCommentForm
+
+		context = super(ElectNewCommentEdit,self).get_context_data(**kwargs)
+		context["comment"] = self.comment
+		context["form_post"] = ElectNewCommentForm(instance=self.comment)
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from common.templates import render_for_platform
+		from blog.forms import ElectNewCommentForm
+
+		self.comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
+		self.form = ElectNewCommentForm(request.POST,instance=self.comment)
+		if request.is_ajax() and self.form.is_valid():
+			_comment = self.form.save(commit=False)
+			new_comment = _comment.edit_comment(text=_comment.text, attach = request.POST.getlist("attach_items"))
+			if self.comment.parent:
+				return render_for_platform(request, 'elect/comment/reply.html',{'reply': self.comment})
+			else:
+				return render_for_platform(request, 'elect/comment/parent.html',{'comment': self.comment})
+		else:
+			return HttpResponseBadRequest()
+		return super(ElectNewCommentEdit,self).get(request,*args,**kwargs)
+
 class ElectNewCommentDelete(View):
 	def get(self,request,*args,**kwargs):
 		from common.model.comments import ElectNewComment

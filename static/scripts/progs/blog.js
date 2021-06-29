@@ -178,6 +178,24 @@ on('body', 'click', '.edit_blog_comment', function() {
   link.send( null );
 });
 
+on('body', 'click', '.edit_elect_new_comment', function() {
+  _this = this;
+  clear_comment_dropdown();
+  _this.parentElement.style.display = "none";
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/blog/edit_new_comment/" + _this.parentElement.parentElement.getAttribute("data-pk") + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    elem = link.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    _this.parentElement.parentElement.append(response);
+  }};
+  link.send( null );
+});
+
 on('body', 'click', '.edit_elect_new', function() {
   clear_comment_dropdown();
   loader = document.getElementById("window_loader");
@@ -233,6 +251,43 @@ on('body', 'click', '.blogEditComment', function() {
       }
   };
   link_.send(form_comment)
+});
+
+function edit_comment_post(form, url) {
+  span_form = form.parentElement;
+  block = span_form.parentElement.parentElement.parentElement;
+  form_comment = new FormData(form);
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  link_.open('POST', url, true);
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  if (!form.querySelector(".text-comment").value && !form.querySelector(".comment_attach_block").firstChild){
+    toast_error("Напишите или прикрепите что-нибудь");
+    form.querySelector(".text-comment").style.border = "1px #FF0000 solid";
+    form.querySelector(".dropdown").style.border = "1px #FF0000 solid";
+    return
+  };
+  link_.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          elem = link_.responseText;
+          new_post = document.createElement("span");
+          new_post.innerHTML = elem;
+          crd = document.createElement("div");
+          span = document.createElement("span");
+          crd.classList.add("card-body");
+          crd.style.paddingTop = "0.5rem";
+          crd.style.paddingBottom = "0.5rem";
+          crd.style.paddingLeft = "7px";
+          span.append(crd);
+          crd.innerHTML = new_post.querySelector(".card-body").innerHTML;
+          block.innerHTML = span.innerHTML;
+          toast_success(" Комментарий изменен");
+      }
+  };
+  link_.send(form_comment)
+}
+
+on('body', 'click', '.electnewEditComment', function() {
+  edit_comment_post(this.parentElement.parentElement, "/blog/edit_new_comment/" + this.getAttribute("data-pk") + "/")
 });
 
 on('body', 'click', '.blogComment', function() {

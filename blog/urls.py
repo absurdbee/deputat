@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^add_new_comment/$', ElectNewCommentCreate.as_view()),
     url(r'^reply_new_comment/$', ElectNewReplyCreate.as_view()),
     url(r'^delete_new_comment/(?P<pk>\d+)/$', ElectNewCommentDelete.as_view()),
-    url(r'^abort_delete_new_comment/(?P<pk>\d+)/$', ElectNewCommentAbortDelete.as_view()),
+    url(r'^restore_new_comment/(?P<pk>\d+)/$', ElectNewCommentAbortDelete.as_view()),
 
     url(r'^progs/', include('blog.url.progs')),
     url(r'^votes/', include('blog.url.votes')),

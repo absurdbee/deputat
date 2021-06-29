@@ -138,10 +138,10 @@ on('body', 'click', '.restore_blog_comment', function() {
 })
 
 on('body', 'click', '.remove_elect_new_comment', function() {
-  comment_delete(this, "/blog/delete_elect_new_comment/", "restore_blog_comment")
+  comment_delete(this, "/blog/delete_new_comment/", "restore_blog_comment")
 });
 on('body', 'click', '.restore_elect_new_comment', function() {
-  comment_abort_delete(this, "/blog/restore_elect_new_comment/")
+  comment_abort_delete(this, "/blog/restore_new_comment/")
 })
 
 on('body', 'click', '.delete_elect_new', function() {

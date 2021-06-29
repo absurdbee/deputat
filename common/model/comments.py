@@ -303,6 +303,22 @@ class ElectNewComment(models.Model):
     def __str__(self):
         return "{0}/{1}".format(self.commenter.get_full_name(), self.text[:10])
 
+    def get_count_attach(self):
+        if self.attach:
+            _attach = self.attach.split(",")
+            if len(_attach) == 1:
+                return "files_one"
+            elif len(_attach) == 2:
+                return "files_two"
+            else:
+                return "files_null"
+        else:
+            return "files_null"
+
+    def get_edit_attach(self, user):
+        from common.attach.comment_attach import get_blog_comment_edit
+        return get_blog_comment_edit(self, user)
+
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
         return naturaltime(self.created)

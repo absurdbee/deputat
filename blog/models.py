@@ -454,7 +454,7 @@ class ElectNew(models.Model):
 
     def count_comments(self):
         if self.comment > 0:
-            return self.comment > 0
+            return self.comment
         else:
             return ''
 

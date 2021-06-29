@@ -133,6 +133,16 @@ on('body', 'click', '.blog_inert', function() {
 on('body', 'click', '.remove_blog_comment', function() {
   comment_delete(this, "/blog/delete_blog_comment/", "restore_blog_comment")
 });
+on('body', 'click', '.restore_blog_comment', function() {
+  comment_abort_delete(this, "/blog/restore_blog_comment/")
+})
+
+on('body', 'click', '.remove_elect_new_comment', function() {
+  comment_delete(this, "/blog/delete_elect_new_comment/", "restore_blog_comment")
+});
+on('body', 'click', '.restore_elect_new_comment', function() {
+  comment_abort_delete(this, "/blog/restore_elect_new_comment/")
+})
 
 on('body', 'click', '.delete_elect_new', function() {
   item_delete(this, "/blog/progs/delete_elect_new/", "delete_elect_new", "restore_elect_new")
@@ -141,9 +151,6 @@ on('body', 'click', '.restore_elect_new', function() {
   item_restore(this, "/blog/progs/restore_elect_new/", "restore_elect_new", "delete_elect_new")
 });
 
-on('body', 'click', '.restore_blog_comment', function() {
-  comment_abort_delete(this, "/blog/restore_blog_comment/")
-})
 on('body', 'click', '.blog_comment_like', function() {
   item = this.parentElement.parentElement;
   send_comment_like(item, "/blog/votes/blog_comment_like/" + item.getAttribute("data-pk") + "/");

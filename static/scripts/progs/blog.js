@@ -96,11 +96,6 @@ on('body', 'click', '.elect_new_inert', function() {
   pk = item.getAttribute("data-pk");
   send_inert(item, "/blog/votes/elect_new_inert/" + pk + "/");
 });
-on('body', 'click', '.elect_new_comment_like', function() {
-  item = this.parentElement.parentElement;
-  pk = item.getAttribute("data-pk");
-  send_like(item, "/blog/votes/elect_new_comment_like/" + pk + "/");
-});
 
 on('body', 'click', '.blog_like', function() {
   item = this.parentElement.parentElement.parentElement.parentElement;
@@ -138,6 +133,23 @@ on('body', 'click', '.blog_comment_like', function() {
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.overrideMimeType("application/json");
   link.open( 'GET', "/blog/votes/blog_comment_like/" + item.getAttribute("data-pk") + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    jsonResponse = JSON.parse(link.responseText);
+    likes_count = item.querySelector(".likes_count");
+    likes_count.innerHTML = jsonResponse.like_count;
+    like.classList.toggle("btn_success");
+  }};
+  link.send( null );
+});
+on('body', 'click', '.elect_new_comment_like', function() {
+  item = this.parentElement.parentElement;
+  like = item.querySelector(".like");
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.overrideMimeType("application/json");
+  link.open( 'GET', "/blog/votes/elect_new_comment_like/" + item.getAttribute("data-pk") + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link.onreadystatechange = function () {

@@ -1,7 +1,7 @@
 {% if object_list %}
 
 {% for object in object_list %}
-<div class="mb-1 p-1 card pag {% if forloop.last %}last{% endif %}">
+<div class="mb-1 p-1 card pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.pk }}">
   <div class="d-flex justify-content-start align-items-center mb-1">
     <div class="avatar mr-1">
       <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">

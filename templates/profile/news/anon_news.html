@@ -69,28 +69,7 @@
               </ul>
                 <div class="match-height pag_container">
                   {% for object in object_list %}
-                  <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">
-                    <div class="d-flex justify-content-start align-items-center mb-1">
-                      <div class="avatar mr-1">
-                        <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-                          <img src="{{ object.creator.get_avatar }}" alt="avatar img" height="40" width="40">
-                        </a>
-                      </div>
-                      <div class="profile-user-info">
-                        <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-                          <h4 class="mb-0">{{ object.title }} <span class="text-muted small">({{ object.get_created }})</span></h4>
-                        </a>
-                        <span class="small">{{ object.get_type_display }}</span>
-                      </div>
-
-                    </div>
-                    <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
-                    <span class="small" data-pk="{{ object.pk }}">
-                      <span class="edit_elect_new pointer underline">Редактировать</span>
-                      &nbsp;&nbsp;
-                      <span class="delete_elect_new pointer underline">Удалить</span>
-                    </span>
-                  </div>
+                    {% include 'elect/new_card.html' %}
                   {% empty %}
                   <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
                       <div class="card-body">

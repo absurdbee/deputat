@@ -69,32 +69,7 @@
               </ul>
                 <div class="match-height pag_container">
                   {% for object in object_list %}
-                  <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
-                    <div class="event_card border">
-                      <div class="event_img text-center">
-                        <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-                          <img class="img-fluid card-img-top image_fit_150" src="{{ object.creator.get_avatar }}" alt="img">
-                        </a>
-                      </div>
-                      <div class="card-body event_body">
-                        <h4 class="event_name">
-                          <div style="display: flex;">
-                            <a href="{% url 'elect_new_detail' pk=object.pk %}" class="text-body ajax">{{ object.title }}</a>
-                          </div>
-                          <span class="card-text item-company">&nbsp;{{ object.get_created }} </span>
-                        </h4>
-                        <div class="card-text event_description">
-                          <p>{{ object.get_type_display }}</p>
-                          {{ object.description|truncatechars:100 }}
-                          <div class="mt-2" data-pk="{{ object.pk }}">
-                            <span class="copy_link pointer underline">Копировать ссылку</span>
-                            &nbsp;&nbsp;
-                            <span class="u_create_elect_new_close pointer underline">Закрыть</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    {% include 'elect/new_card.html' %}
                   {% empty %}
                   <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
                       <div class="card-body">

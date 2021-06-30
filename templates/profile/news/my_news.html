@@ -67,6 +67,9 @@
               </ul>
                 <div class="match-height pag_container mt-3">
                   {% for object in object_list %}
+                  {% if object.is_public %}
+                    {% include 'elect/new_card.html' %}
+                  {% else %}
                   <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">
                     <div class="d-flex justify-content-start align-items-center mb-1">
                       <div class="avatar mr-1">
@@ -89,6 +92,7 @@
                       <span class="delete_elect_new pointer underline">Удалить</span>
                     </span>
                   </div>
+                  {% endif %}
                   {% empty %}
                   <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
                       <div class="card-body">

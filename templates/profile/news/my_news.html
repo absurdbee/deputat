@@ -67,7 +67,7 @@
               </ul>
                 <div class="match-height pag_container mt-3">
                   {% for object in object_list %}
-                  {% if object.is_public %}
+                  {% if object.is_published %}
                     {% include 'elect/new_card.html' %}
                   {% else %}
                   <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">

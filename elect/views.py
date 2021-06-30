@@ -159,7 +159,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
                 from django.shortcuts import redirect
 
                 response = redirect('elect_new_detail', pk=self.new.pk)
-                response.set_cookie(self.new.pk, "elekt_new_view")
+                response.set_cookie(str(self.new.pk), "elekt_new_view")
                 if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
                     ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=1)
                 else:

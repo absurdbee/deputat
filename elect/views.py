@@ -155,7 +155,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
                 self.new.save(update_fields=["view"])
             return super(ElectNewDetailView,self).get(request,*args,**kwargs)
         else:
-            if not self.new.id in request.COOKIES:
+            if not str(self.new.id) in request.COOKIES:
                 from django.shortcuts import redirect
 
                 response = redirect('elect_new_detail', pk=self.new.pk)

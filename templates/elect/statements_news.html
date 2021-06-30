@@ -1,28 +1,7 @@
 {% if object_list %}
 
 {% for object in object_list %}
-<div class="mb-1 p-1 card pag {% if forloop.last %}last{% endif %}">
-  <div class="d-flex justify-content-start align-items-center mb-1">
-    <div class="avatar mr-1">
-      <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-        <img src="{{ object.creator.get_avatar }}" alt="avatar img" height="40" width="40">
-      </a>
-    </div>
-    <div class="profile-user-info">
-      <h4 class="mb-0">
-        <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-          {{ object.title }}
-        </a>
-       <span class="text-muted small">({{ object.get_created }})</span></h4>
-      <span class="small">
-        <a href="{% url 'user' pk=object.creator.pk %}" class="ajax">
-          {{ object.creator.get_full_name }}
-        </a>
-      </span>
-    </div>
-  </div>
-  <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
-</div>
+  {% include 'elect/new_card.html' %}
 {% endfor %}
 
 {% else %}

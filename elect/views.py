@@ -144,7 +144,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
         from common.templates import get_full_template
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        self.template_name = get_full_template("elect/", "elect_new.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_full_template("elect/news/", "new.html", request.user, request.META['HTTP_USER_AGENT'])
         if request.user.is_authenticated:
             if not ElectNewNumbers.objects.filter(user=request.user.pk, new=self.new.pk).exists():
                 if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):

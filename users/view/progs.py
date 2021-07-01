@@ -24,7 +24,11 @@ class PhoneSend(View):
                     response = render(request,'generic/response/phone.html',{'response_text':data})
                     return response
                 except:
-                    url = "https://api.ucaller.ru/v1.0/initCall?service_id=12203&key=GhfrKn0XKAmA1oVnyEzOnMI5uBnFN4ck&phone=" + str(phone)
+                    from users.model.profile import UserLocation
+                    loc = UserLocation.objects.filter(user=request.user).last()
+                    loc.phone = first_number
+                    loc.save(update_fields=["phone"])
+                    url = "https://api.ucaller.ru/v1.0/initCall?service_id=12203&key=GhfrKn0XKAmA1oVnyEzOnMI5uBnFN4ck&phone=" + loc.phone + _phone
                     response = requests.get(url=url)
                     data = response.json()
                     PhoneCodes.objects.create(phone=phone, code=data['code'])

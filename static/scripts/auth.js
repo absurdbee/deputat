@@ -199,9 +199,9 @@ function phone_check() {
  }
  function code_check() {
   if (document.querySelector('.code').value.length === 4)
-    document.querySelector("code_send").removeAttribute('disabled');
+    document.querySelector(".code_send").removeAttribute('disabled');
   else
-    document.querySelector("code_send").setAttribute("disabled", "true");
+    document.querySelector(".code_send").setAttribute("disabled", "true");
   }
 
   on('body', 'click', '#code_send', function() {

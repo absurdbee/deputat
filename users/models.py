@@ -53,6 +53,10 @@ class User(AbstractUser):
         else:
             return verb
 
+    def get_last_location(self):
+        from users.model.profile import UserLocation
+        return UserLocation.objects.filter(user=self)[0]
+
     def close_item(self):
         if self.type == "DEP":
             self.type = User.CLOSED_DEPUTAT

@@ -11,14 +11,26 @@
                       <label for="id_phone">Новый телефон</label>
                   </div>
                   <div class="col-sm-9">
-                    <input type="number" name="phone" id="id_phone" class="form-control">
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-prepend">
+                        <select id="id_first_number">
+                          <option value="8" selected="">{{ request.user.get_last_location.phone }}</option>
+                          <option value="375">+375</option>
+                          <option value="380">+380</option>
+                        </select>
+                      </div>
+                      <input type="number" id="phone" onkeyup="phone_check();" placeholder="9123456789" class="form-control" tabindex="1">
+                    </div>
+                    
+                    <div id='jsondata' style="margin-top:30px"></div>
+                    <div id='jsondata2' style="margin-top:30px"></div>
                   </div>
               </div>
           </div>
         </div>
         <div class="card-footer">
             <button class="btn btn-sm custom_color border create_fullscreen_hide_2" style="position: relative;">Отмена</button>
-            <button type="button" class="btn btn-sm btn-success float-right" id="u_edit_phone_btn">Создать</button>
+            <button type="button" class="btn btn-sm btn-success float-right" id="u_edit_phone_btn">Изменить</button>
         </div>
     </div>
 </form>

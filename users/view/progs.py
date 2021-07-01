@@ -28,7 +28,7 @@ class PhoneSend(View):
                     loc = UserLocation.objects.filter(user=request.user).last()
                     loc.phone = first_number
                     loc.save(update_fields=["phone"])
-                    url = "https://api.ucaller.ru/v1.0/initCall?service_id=12203&key=GhfrKn0XKAmA1oVnyEzOnMI5uBnFN4ck&phone=" + loc.phone + _phone
+                    url = "https://api.ucaller.ru/v1.0/initCall?service_id=12203&key=GhfrKn0XKAmA1oVnyEzOnMI5uBnFN4ck&phone=" + request.user.get_last_location().phone + _phone
                     response = requests.get(url=url)
                     data = response.json()
                     PhoneCodes.objects.create(phone=phone, code=data['code'])

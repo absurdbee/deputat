@@ -39,7 +39,7 @@ on('body', 'click', '#edit_user_profile_btn', function() {
 });
 
 on('#ajax', 'click', '#u_edit_password_btn', function() {
-  form = document.body.querySelector("#u_edit_password_form");
+  form = this.parentElement.parentElement.parentElement;
   field1 = form.querySelector("#password1"); field2 = form.querySelector("#password2");
   if (!field1.value){
     field1.style.border = "1px #FF0000 solid";

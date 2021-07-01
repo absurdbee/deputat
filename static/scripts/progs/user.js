@@ -200,11 +200,12 @@ on('body', 'click', '.create_survey_list_claim_btn', function() {
 
 on('body', 'click', '#change_code_send', function() {
     form = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    form_data = new FormData(form);
     user_pk = form.getAttribute("data-pk");
     var phone = form.querySelector('#phone').value;
     var code = document.body.querySelector('.block_verify').querySelector('#code').value;
     var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    request.open('GET', "/users/progs/change_phone_verify/" + phone + "/" + code + "/", true);
+    request.open('POST', "/users/progs/change_phone_verify/" + phone + "/" + code + "/", true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
@@ -212,13 +213,15 @@ on('body', 'click', '#change_code_send', function() {
           toast_info("Телефон изменён")
         }
     };
-    request.send(null)
+    request.send(form_data)
 });
 
 on('body', 'click', '.change_phone_send', function() {
-  var phone = document.querySelector('#phone').value;
+  form = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+var phone = document.querySelector('#phone').value;
  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
- request.open( 'GET', "/users/progs/change_phone_send/" + phone + "/", true );
+ request.open( 'POST', "/users/progs/change_phone_send/" + phone + "/", true );
  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
  request.onreadystatechange = function () {
    if ( request.readyState == 4 && request.status == 200) {
@@ -232,5 +235,5 @@ on('body', 'click', '.change_phone_send', function() {
      document.querySelector("#phone").setAttribute("disabled", "true");
      document.querySelector(".change_phone_send").setAttribute("disabled", "true");
    }}}
- request.send( null );
+ request.send(form_data);
 })

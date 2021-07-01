@@ -62,7 +62,7 @@ class PhoneVerify(View):
 
 
 class ChangePhoneSend(View):
-    def get(self,request,*args,**kwargs):
+    def post(self,request,*args,**kwargs):
         import json, requests
         from common.model.other import PhoneCodes
 
@@ -90,7 +90,7 @@ class ChangePhoneSend(View):
 
 
 class ChangePhoneVerify(View):
-    def get(self,request,*args,**kwargs):
+    def post(self,request,*args,**kwargs):
         from common.model.other import PhoneCodes
 
         if not request.is_ajax():

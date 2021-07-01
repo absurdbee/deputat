@@ -13,15 +13,15 @@
                   <div class="col-sm-9">
                     <div class="input-group input-group-merge">
                       <div class="input-group-prepend">
-                        <select id="id_first_number">
-                          <option value="8" selected="">+{{ request.user.get_last_location.phone }}</option>
+                        <select name="first_number" id="id_first_number">
+                          <option value="8" selected="">+7</option>
                           <option value="375">+375</option>
                           <option value="380">+380</option>
                         </select>
                       </div>
                       <input type="number" id="phone" onkeyup="phone_check();" placeholder="9123456789" class="form-control" tabindex="1">
                     </div>
-                    <button type="button" disabled="disabled" class="btn phone_send btn-primary btn-block" tabindex="2">Получить код</button>
+                    <button type="button" disabled="disabled" class="btn change_phone_send btn-primary btn-block" tabindex="2">Получить код</button>
 
                     <div id='jsondata' style="margin-top:30px"></div>
                     <div id='jsondata2' style="margin-top:30px"></div>

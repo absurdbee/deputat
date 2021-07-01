@@ -178,7 +178,7 @@ function phone_check() {
    document.querySelector(".phone_send").setAttribute("disabled", "true");
  }
  function code_check() {
-  if (document.querySelector('.code').value.length === 4)
+  if (document.querySelector('#code').value.length === 4)
     document.querySelector(".code_send").removeAttribute('disabled');
   else
     document.querySelector(".code_send").setAttribute("disabled", "true");
@@ -224,7 +224,7 @@ function phone_check() {
      }}}
    request.send( null );
   })
-  
+
   on('body', 'change', '.select_region', function() {
     _this = this;
     var val = _this.value;

@@ -9,7 +9,10 @@ urlpatterns = [
 	url(r'^main_stat/$', MainStatView.as_view()),
 	url(r'^main_docs/$', MainDocsView.as_view()),
 	url(r'^my_news/$', MyNewsView.as_view()),
-	url(r'^draft_news/$', DraftNewsView.as_view()),
+	url(r'^draft_news/$', DraftNewsView.as_view()), 
+
 	url(r'^phone_send/(?P<phone>\d+)/$', PhoneSend.as_view()),
     url(r'^phone_verify/(?P<phone>\d+)/(?P<code>\d+)/$', PhoneVerify.as_view()),
+	url(r'^change_phone_send/(?P<phone>\d+)/$', ChangePhoneSend.as_view()),
+    url(r'^change_phone_verify/(?P<phone>\d+)/(?P<code>\d+)/$', ChangePhoneVerify.as_view()),
 ]

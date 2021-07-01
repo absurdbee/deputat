@@ -55,6 +55,23 @@ on('#ajax', 'click', '#u_edit_password_btn', function() {
   close_create_window();
 });
 
+on('#ajax', 'click', '#u_edit_password_btn', function() {
+  form = this.parentElement.parentElement.parentElement;
+  field1 = form.querySelector("#password1"); field2 = form.querySelector("#password2");
+  if (!field1.value){
+    field1.style.border = "1px #FF0000 solid";
+    toast_error("Введите новый пароль!"); return
+  } else if (!field2.value){
+    field2.style.border = "1px #FF0000 solid";
+    toast_error("Повторите новый пароль!"); return
+  } else if (field1.value != field2.value){
+    field2.value = '';
+    toast_error("Пароли не совпадают!"); return
+  };
+  send_form_and_toast('/rest-auth/password/change/', form, "Пароль изменён!")
+  close_create_window();
+});
+
 on('body', 'click', '#edit_user_about_btn', function() {
   send_form_and_toast('/users/settings/about/', this.parentElement.parentElement, "Изменения приняты!");
 })
@@ -179,3 +196,41 @@ on('body', 'click', '.create_survey_claim_btn', function() {
 on('body', 'click', '.create_survey_list_claim_btn', function() {
   send_form_and_toast_and_close_window("/managers/progs_survey/list_create_claim/" + this.getAttribute('data-uuid') + "/", this.parentElement.parentElement.parentElement)
 });
+
+
+on('body', 'click', '#change_code_send', function() {
+    form = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    user_pk = form.getAttribute("data-pk");
+    var phone = form.querySelector('#phone').value;
+    var code = document.body.querySelector('.block_verify').querySelector('#code').value;
+    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    request.open('GET', "/users/progs/change_phone_verify/" + phone + "/" + code + "/", true);
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+          close_create_window();
+          toast_info("Телефон изменён")
+        }
+    };
+    request.send(null)
+});
+
+on('body', 'click', '.change_phone_send', function() {
+  var phone = document.querySelector('#phone').value;
+ var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+ request.open( 'GET', "/users/progs/change_phone_send/" + phone + "/", true );
+ request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+ request.onreadystatechange = function () {
+   if ( request.readyState == 4 && request.status == 200) {
+     var div = document.getElementById('jsondata');
+     div.innerHTML = request.responseText;
+     if (request.responseText.indexOf("уже зарегистрирован") !== -1) {
+       div.innerHTML = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в <a class="pointer underline send_support_message">Службу поддержки</a>, если этот номер Вы не использовали ранее.'
+       document.querySelector(".change_phone_send").setAttribute("disabled", "true");
+     } else if (request.responseText.indexOf("Мы Вам звоним") !== -1){
+       div.innerHTML = request.responseText;
+     document.querySelector("#phone").setAttribute("disabled", "true");
+     document.querySelector(".change_phone_send").setAttribute("disabled", "true");
+   }}}
+ request.send( null );
+})

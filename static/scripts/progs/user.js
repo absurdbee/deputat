@@ -217,7 +217,7 @@ on('body', 'click', '#change_code_send', function() {
 });
 
 on('body', 'click', '.change_phone_send', function() {
-  form = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+  form = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
 var phone = document.querySelector('#phone').value;
  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

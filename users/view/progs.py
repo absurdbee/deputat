@@ -26,7 +26,7 @@ class PhoneSend(View):
                     data = response.json()
                     PhoneCodes.objects.create(phone=phone, code=data['code'])
                     data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Последние 4 цифры" и нажать "Подтвердить"'
-                    response = render(request,'generic/response/code_send.html',{'response_text':data})
+                    response = render(request,'generic/response/code_send.html',{'response_text':data,'phone':phone })
                     return response
             else:
                 data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'

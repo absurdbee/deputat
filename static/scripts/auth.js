@@ -77,6 +77,26 @@ function toast_error(text){
   toasts.showError(text);
 }
 
+on('body', 'click', '#phone_send', function() {
+  var phone = document.querySelector('#phone').value;
+ var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+ request.open( 'GET', "/users/progs/phone_send/" + phone + "/", true );
+ request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+ request.onreadystatechange = function () {
+   if ( request.readyState == 4 && request.status == 200) {
+     var div = document.getElementById('jsondata');
+     div.innerHTML = request.responseText;
+     if (request.responseText.indexOf("уже зарегистрирован") !== -1) {
+       div.innerHTML = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в <a class="pointer underline send_support_message">Службу поддержки</a>, если этот номер Вы не использовали ранее.'
+       document.querySelector(".phone_send").setAttribute("disabled", "true");
+     } else if (request.responseText.indexOf("Мы Вам звоним") !== -1){
+       div.innerHTML = request.responseText;
+     document.querySelector("#phone").setAttribute("disabled", "true");
+     document.querySelector(".phone_send").setAttribute("disabled", "true");
+   }}}
+ request.send( null );
+})
+
 on('body', 'click', '#register_ajax', function() {
   form = document.querySelector("#signup");
   if (!form.querySelector("#id_first_name").value){
@@ -172,16 +192,16 @@ on('body', 'click', '#logg', function() {
 });
 
 function phone_check() {
- if (document.getElementById('phone').value.length > 9)
-   document.getElementById("phone_send").removeAttribute('disabled');
+ if (document.body.querySelector('#phone').value.length > 9)
+   document.querySelector(".phone_send").removeAttribute('disabled');
  else
-   document.getElementById("phone_send").setAttribute("disabled", "true");
+   document.querySelector(".phone_send").setAttribute("disabled", "true");
  }
  function code_check() {
-  if (document.getElementById('code').value.length === 4)
-    document.getElementById("code_send").removeAttribute('disabled');
+  if (document.querySelector('.code').value.length === 4)
+    document.querySelector("code_send").removeAttribute('disabled');
   else
-    document.getElementById("code_send").setAttribute("disabled", "true");
+    document.querySelector("code_send").setAttribute("disabled", "true");
   }
 
   on('body', 'click', '#code_send', function() {

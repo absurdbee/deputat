@@ -14,7 +14,7 @@ class PhoneSend(View):
         if not request.is_ajax() and not request.user.is_no_phone_verified():
             raise Http404
         else:
-            phone = request.POST.get('first_number') + str(self.kwargs["phone"])
+            phone = str(request.POST.get('first_number')) + str(self.kwargs["phone"])
             if len(phone) > 8:
                 try:
                     user = User.objects.get(phone=phone)

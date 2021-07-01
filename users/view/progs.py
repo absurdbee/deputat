@@ -15,7 +15,7 @@ class PhoneSend(View):
             raise Http404
         else:
             _phone = self.kwargs["phone"]
-            if len(phone) > 8:
+            if len(_phone) > 8:
                 phone = str(request.POST.get('first_number')) + _phone
                 try:
                     user = User.objects.get(phone=phone)

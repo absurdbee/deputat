@@ -75,9 +75,10 @@ class ChangePhoneSend(View):
 
         if not request.is_ajax():
             raise Http404
+        _phone = self.kwargs["phone"]
 
-        phone = request.POST.get('first_number') + str(self.kwargs["phone"])
-        if len(phone) > 8:
+        if len(_phone) > 8:
+            phone = request.POST.get('first_number') + self.kwargs["phone"]
             try:
                 user = User.objects.get(phone=phone)
                 data = 'уже зарегистрирован'

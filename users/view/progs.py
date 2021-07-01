@@ -78,14 +78,14 @@ class ChangePhoneSend(View):
         _phone = self.kwargs["phone"]
 
         if len(_phone) > 8:
-            phone = request.POST.get('first_number') + self.kwargs["phone"]
+            phone = str(request.POST.get('first_number')) + str(self.kwargs["phone"])
             try:
                 user = User.objects.get(phone=phone)
                 data = 'уже зарегистрирован'
                 response = render(request,'generic/response/phone.html',{'response_text':data})
                 return response
             except:
-                response = requests.get(url="https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + str(phone))
+                response = requests.get(url="https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone)
                 data = response.json()
                 PhoneCodes.objects.create(phone=phone, code=data['code'])
                 data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Последние 4 цифры" и нажать "Подтвердить"'

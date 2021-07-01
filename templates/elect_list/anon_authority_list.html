@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Депутаты | {{ list.name }}{% endblock %}
+{% block content %}
+
+<section class="container pt-4 pt-sm-5 pb-4">
+      <h2 class="h3 pt-2 text-center text-sm-left">{{ list.name }}</h2>
+      <div class="row pt-4 pag_container">
+        {% if object_list %}
+        {% for object in object_list %}
+          {% include 'elect/elect_index_card.html' %}
+        {% endfor %}
+        {% else %}
+          В списке почему-то никого нет.
+        {% endif %}
+
+        <div class="col-md-12 load text-center">
+          {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+{% endblock %}

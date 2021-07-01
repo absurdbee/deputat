@@ -1,0 +1,28 @@
+<form class="form form-horizontal">
+    {% csrf_token %}
+    <div class="card mb-3">
+        <div class="card-header border-bottom">
+            <h5 class="content-color-primary mb-0">Идентификация депутата</h5>
+            <p class="content-color-primary">
+              Пожалуйста, расскажите в поле "Описание", каким образом мы можем удостовериться,
+              что Вы являетесь депутатом. Спасибо.
+          </p>
+        </div>
+        <div class="card-body">
+          <div class="col-12">
+              <div class="form-group row">
+                  <div class="col-sm-3 col-form-label">
+                      <label for="secret_key">Описание</label>
+                  </div>
+                  <div class="col-sm-9">
+                    <input type="text" name="text" id="id_text" class="form-control">
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-sm custom_color border create_fullscreen_hide" style="position: relative; top: -10px; left: -10px;">Отмена</button>
+            <button type="button" class="btn btn-sm btn-success float-right" id="u_deputat_send_btn">Создать</button>
+        </div>
+    </div>
+</form>

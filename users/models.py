@@ -12,17 +12,17 @@ from city.models import City
 """
 
 class User(AbstractUser):
-    PHONE_NO_VERIFIED, STANDART, DEPUTAT, VERIFIED_SEND, VERIFIED, IDENTIFIED_SEND, IDENTIFIED, MANAGER, SUPERMANAGER = '_PV', 'STA', 'DEP', 'VES', 'VER', 'IDS', 'IDE', 'MAN', 'SUP'
-    CLOSED_DEPUTAT, CLOSED_STANDART, CLOSED_VERIFIED_SEND, CLOSED_VERIFIED, CLOSED_IDENTIFIED_SEND, CLOSED_IDENTIFIED, CLOSED_MANAGER = '_CLOD', '_CLOS', '_CLOVS', '_CLOV', '_CLOIS', '_CLOI', '_CLOM'
-    DELETED_DEPUTAT, DELETED_STANDART, DELETED_VERIFIED_SEND, DELETED_VERIFIED, DELETED_IDENTIFIED_SEND, DELETED_IDENTIFIED, DELETED_MANAGER = '_DELD', '_DELS', '_DELVS', '_DELV', '_DELIS', '_DELI', '_DELM'
-    SUSPENDED_DEPUTAT, SUSPENDED_STANDART, SUSPENDED_VERIFIED_SEND, SUSPENDED_VERIFIED, SUSPENDED_IDENTIFIED_SEND, SUSPENDED_IDENTIFIED, SUSPENDED_MANAGER = '_SUSD', '_SUSS', '_SUSVS', '_SUSV', '_SUSIS', '_SUSI', '_SUSM'
-    BANNER_DEPUTAT, BANNER_STANDART, BANNER_VERIFIED_SEND, BANNER_VERIFIED, BANNER_IDENTIFIED_SEND, BANNER_IDENTIFIED, BANNER_MANAGER = '_BAND', '_BANS', '_BANVS', '_BANV', '_BANIS', '_BANI', '_BANM'
+    PHONE_NO_VERIFIED, STANDART, DEPUTAT, DEPUTAT_SEND, VERIFIED_SEND, VERIFIED, IDENTIFIED_SEND, IDENTIFIED, MANAGER, SUPERMANAGER = '_PV','STA','DEPS','DEP','VES','VER','IDS','IDE','MAN','SUP'
+    CLOSED_DEPUTAT,CLOSED_DEPUTAT_SEND, CLOSED_STANDART, CLOSED_VERIFIED_SEND, CLOSED_VERIFIED, CLOSED_IDENTIFIED_SEND, CLOSED_IDENTIFIED, CLOSED_MANAGER = '_CLOD','_CLOS','_CLOVS','_CLOV','_CLOIS','_CLOI','_CLOM'
+    DELETED_DEPUTAT,DELETED_DEPUTAT_SEND, DELETED_STANDART, DELETED_VERIFIED_SEND, DELETED_VERIFIED, DELETED_IDENTIFIED_SEND, DELETED_IDENTIFIED, DELETED_MANAGER = '_DELD','_DELDS','_DELS','_DELVS','_DELV','_DELIS','_DELI','_DELM'
+    SUSPENDED_DEPUTAT,SUSPENDED_DEPUTAT_SEND, SUSPENDED_STANDART, SUSPENDED_VERIFIED_SEND, SUSPENDED_VERIFIED, SUSPENDED_IDENTIFIED_SEND, SUSPENDED_IDENTIFIED, SUSPENDED_MANAGER = '_SUSD','_SUSDS','_SUSS','_SUSVS','_SUSV','_SUSIS','_SUSI','_SUSM'
+    BANNER_DEPUTAT,BANNER_DEPUTAT_SEND, BANNER_STANDART, BANNER_VERIFIED_SEND, BANNER_VERIFIED, BANNER_IDENTIFIED_SEND, BANNER_IDENTIFIED, BANNER_MANAGER = '_BAND','_BANDS','_BANS','_BANVS','_BANV','_BANIS','_BANI','_BANM'
     TYPE = (
-        (PHONE_NO_VERIFIED, 'Телефон не подтвержден'),(STANDART, 'Обычные права'),(DEPUTAT, 'Депутат'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Проверенный'),(IDENTIFIED_SEND, 'Запрос на идентификацию'),(IDENTIFIED, 'Идентифицированный'),(MANAGER, 'Менеджер'),(SUPERMANAGER, 'Суперменеджер'),
-        (DELETED_DEPUTAT, 'Удален депутат'),(DELETED_STANDART, 'Удален'),(DELETED_VERIFIED_SEND, 'Удален подавший на верификацию'),(DELETED_VERIFIED, 'Удален верифицированный'),(DELETED_IDENTIFIED_SEND, 'Удален подавший на идентификацию'),(DELETED_IDENTIFIED, 'Удален идентифиированный'),(DELETED_MANAGER, 'Удален менеджер'),
-        (CLOSED_DEPUTAT, 'Закрыт депутат'),(CLOSED_STANDART, 'Закрыт'),(CLOSED_VERIFIED_SEND, 'Удален подавший на верификацию'),(CLOSED_VERIFIED, 'Закрыт верифицированный'),(CLOSED_IDENTIFIED_SEND, 'Закрыт подавший на идентификацию'),(CLOSED_IDENTIFIED, 'Закрыт идентифиированный'),(CLOSED_MANAGER, 'Закрыт менеджер'),
-        (SUSPENDED_DEPUTAT, 'Заморожен депутат'),(SUSPENDED_STANDART, 'Заморожен'),(SUSPENDED_VERIFIED_SEND, 'Заморожен подавший на верификацию'),(SUSPENDED_VERIFIED, 'Заморожен верифицированный'),(SUSPENDED_IDENTIFIED_SEND, 'Заморожен подавший на идентификацию'),(SUSPENDED_IDENTIFIED, 'Заморожен идентифиированный'),(SUSPENDED_MANAGER, 'Заморожен менеджер'),
-        (BANNER_DEPUTAT, 'Баннер депутат'),(BANNER_STANDART, 'Баннер'),(BANNER_VERIFIED_SEND, 'Баннер подавший на верификацию'),(BANNER_VERIFIED, 'Баннер верифицированный'),(BANNER_IDENTIFIED_SEND, 'Баннер подавший на идентификацию'),(BANNER_IDENTIFIED, 'Баннер идентифиированный'),(BANNER_MANAGER, 'Баннер менеджер'),
+        (PHONE_NO_VERIFIED, 'Телефон не подтвержден'),(STANDART, 'Обычные права'),(DEPUTAT, 'Депутат'),(DEPUTAT_SEND, 'Запрос на депутатство'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Проверенный'),(IDENTIFIED_SEND, 'Запрос на идентификацию'),(IDENTIFIED, 'Идентифицированный'),(MANAGER, 'Менеджер'),(SUPERMANAGER, 'Суперменеджер'),
+        (DELETED_DEPUTAT, 'Удален депутат'),(DELETED_DEPUTAT_SEND, 'Удален подавший на депутатство'),(DELETED_STANDART, 'Удален'),(DELETED_VERIFIED_SEND, 'Удален подавший на верификацию'),(DELETED_VERIFIED, 'Удален верифицированный'),(DELETED_IDENTIFIED_SEND, 'Удален подавший на идентификацию'),(DELETED_IDENTIFIED, 'Удален идентифиированный'),(DELETED_MANAGER, 'Удален менеджер'),
+        (CLOSED_DEPUTAT, 'Закрыт депутат'),(CLOSED_DEPUTAT_SEND, 'Закрыт подавший на депутатство'),(CLOSED_STANDART, 'Закрыт'),(CLOSED_VERIFIED_SEND, 'Удален подавший на верификацию'),(CLOSED_VERIFIED, 'Закрыт верифицированный'),(CLOSED_IDENTIFIED_SEND, 'Закрыт подавший на идентификацию'),(CLOSED_IDENTIFIED, 'Закрыт идентифиированный'),(CLOSED_MANAGER, 'Закрыт менеджер'),
+        (SUSPENDED_DEPUTAT, 'Заморожен депутат'),(SUSPENDED_DEPUTAT_SEND, 'Заморожен подавший на депутатство'),(SUSPENDED_STANDART, 'Заморожен'),(SUSPENDED_VERIFIED_SEND, 'Заморожен подавший на верификацию'),(SUSPENDED_VERIFIED, 'Заморожен верифицированный'),(SUSPENDED_IDENTIFIED_SEND, 'Заморожен подавший на идентификацию'),(SUSPENDED_IDENTIFIED, 'Заморожен идентифиированный'),(SUSPENDED_MANAGER, 'Заморожен менеджер'),
+        (BANNER_DEPUTAT, 'Баннер депутат'),(BANNER_DEPUTAT_SEND, 'Баннер подавший на депутатство'),(BANNER_STANDART, 'Баннер'),(BANNER_VERIFIED_SEND, 'Баннер подавший на верификацию'),(BANNER_VERIFIED, 'Баннер верифицированный'),(BANNER_IDENTIFIED_SEND, 'Баннер подавший на идентификацию'),(BANNER_IDENTIFIED, 'Баннер идентифиированный'),(BANNER_MANAGER, 'Баннер менеджер'),
     )
     MALE, FEMALE, DESCTOP, PHONE = 'Man', 'Fem', 'De', 'Ph'
     GENDER = ((MALE, 'Мужской'),(FEMALE, 'Женский'),)
@@ -56,6 +56,8 @@ class User(AbstractUser):
     def close_item(self):
         if self.type == "DEP":
             self.type = User.CLOSED_DEPUTAT
+        elif self.type == "DEPS":
+            self.type = User.CLOSED_DEPUTAT_SEND
         elif self.type == "STA":
             self.type = User.CLOSED_STANDART
         elif self.type == "MAN":
@@ -72,6 +74,8 @@ class User(AbstractUser):
     def abort_close_item(self):
         if self.type == "_CLOD":
             self.type = User.DEPUTAT
+        elif self.type == "_CLODS":
+            self.type = User.DEPUTAT_SEND
         elif self.type == "_CLOS":
             self.type = User.STANDART
         elif self.type == "_CLOM":
@@ -89,6 +93,8 @@ class User(AbstractUser):
     def suspend_item(self):
         if self.type == "DEP":
             self.type = User.SUSPENDED_DEPUTAT
+        elif self.type == "DEPS":
+            self.type = User.SUSPENDED_DEPUTAT_SEND
         elif self.type == "STA":
             self.type = User.SUSPENDED_STANDART
         elif self.type == "MAN":
@@ -104,6 +110,8 @@ class User(AbstractUser):
         self.save(update_fields=['type'])
     def abort_suspend_item(self):
         if self.type == "_SUSD":
+            self.type = User.DEPUTAT
+        elif self.type == "_SUSDS":
             self.type = User.DEPUTAT
         elif self.type == "_SUSS":
             self.type = User.STANDART
@@ -165,6 +173,14 @@ class User(AbstractUser):
         query.add(Q(Q(type="MAI") | Q(type="_CLOM")), Q.AND)
         return SurveyList.objects.get(query)
 
+    def is_have_secret_key(self):
+        from users.model.settings import UserSecretKey
+        try:
+            key = UserSecretKey.objects.get(user=self)
+            return key != ""
+        except:
+            return False
+
     def get_full_name(self):
         return self.first_name + " " + self.last_name
 
@@ -195,7 +211,7 @@ class User(AbstractUser):
         return ElectNew.objects.filter(creator_id=self.pk, type="PUB")
     def get_my_news(self):
         from blog.models import ElectNew
-        return ElectNew.objects.filter(creator_id=self.pk).filter(Q(type="PUB")|Q(type="SUG")|Q(type="REJ")) 
+        return ElectNew.objects.filter(creator_id=self.pk).filter(Q(type="PUB")|Q(type="SUG")|Q(type="REJ"))
 
     def get_news_count(self):
         from blog.models import ElectNew
@@ -285,8 +301,10 @@ class User(AbstractUser):
         return self.type == User.IDENTIFIED_SEND
     def is_identified(self):
         return self.type == User.IDENTIFIED
-    def is_child(self):
-        return self.type == User.CHILD
+    def is_deputat(self):
+        return self.type == User.DEPUTAT
+    def is_deputat_send(self):
+        return self.type == User.DEPUTAT_SEND
     def is_no_phone_verified(self):
         return self.type == User.PHONE_NO_VERIFIED
 

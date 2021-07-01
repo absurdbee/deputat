@@ -3,6 +3,23 @@ on('body', 'click', '#holder_image', function() {
   get_image_priview(this, img);
 });
 
+on('body', 'click', '.u_edit_password', function() {
+  loader = document.getElementById("create_loader");
+  open_fullscreen("/users/settings/edit_password/", loader)
+});
+on('body', 'click', '.edit_user_phone', function() {
+  loader = document.getElementById("create_loader");
+  open_fullscreen("/users/settings/edit_phone/", loader)
+});
+on('body', 'click', '.deputat_verified_send', function() {
+  loader = document.getElementById("create_loader");
+  open_fullscreen("/users/settings/deputat_send/", loader)
+});
+on('body', 'click', '.create_secret_user_key', function() {
+  loader = document.getElementById("create_loader");
+  open_fullscreen("/users/settings/create_secret_key/", loader)
+});
+
 on('body', 'click', '#edit_user_profile_btn', function() {
   form = this.parentElement.parentElement;
   if (!form.querySelector("#id_first_name").value){
@@ -21,18 +38,8 @@ on('body', 'click', '#edit_user_profile_btn', function() {
   form.querySelector("#id_email").style.border = "1px #D8D6DE solid";
 });
 
-on('body', 'click', '#edit_user_about_btn', function() {
-  send_form_and_toast('/users/settings/about/', this.parentElement.parentElement, "Изменения приняты!");
-})
-on('body', 'click', '#edit_user_notify_btn', function() {
-  send_form_and_toast('/users/settings/notify/', this.parentElement.parentElement, "Изменения приняты!");
-})
-on('body', 'click', '#edit_user_private_btn', function() {
-  send_form_and_toast('/users/settings/private/', this.parentElement.parentElement, "Изменения приняты!");
-})
-
-on('body', 'click', '#edit_user_password_btn', function() {
-  form = document.body.querySelector("#edit_user_password_form")
+on('#ajax', 'click', '#u_edit_password_btn', function() {
+  form = document.body.querySelector("#u_edit_password_form");
   field1 = form.querySelector("#password1"); field2 = form.querySelector("#password2");
   if (!field1.value){
     field1.style.border = "1px #FF0000 solid";
@@ -44,9 +51,19 @@ on('body', 'click', '#edit_user_password_btn', function() {
     field2.value = '';
     toast_error("Пароли не совпадают!"); return
   };
-  send_form_and_toast('/rest-auth/password/change/', form, "Изменения приняты!");
-  field1.value = ""; field2.value = ""; field1.style.border = "1px #D8D6DE solid";field2.style.border = "1px #D8D6DE solid";
+  send_form_and_toast('/rest-auth/password/change/', form, "Пароль изменён!")
+  close_create_window();
 });
+
+on('body', 'click', '#edit_user_about_btn', function() {
+  send_form_and_toast('/users/settings/about/', this.parentElement.parentElement, "Изменения приняты!");
+})
+on('body', 'click', '#edit_user_notify_btn', function() {
+  send_form_and_toast('/users/settings/notify/', this.parentElement.parentElement, "Изменения приняты!");
+})
+on('body', 'click', '#edit_user_private_btn', function() {
+  send_form_and_toast('/users/settings/private/', this.parentElement.parentElement, "Изменения приняты!");
+})
 
 on('body', 'click', '.remove_elect_subscribe', function() {
   _this = this;

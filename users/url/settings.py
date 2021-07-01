@@ -8,6 +8,9 @@ urlpatterns = [
     url(r'^private/$', UserPrivateSettings.as_view(), name="settings_private"),
     url(r'^quard/$', UserQuardSettings.as_view(), name="settings_quard"),
     url(r'^about/$', UserAboutSettings.as_view(), name="settings_about"),
-    
+
     url(r'^edit_password/$', UserEditPassword.as_view()),
+    url(r'^edit_phone/$', UserEditPhone.as_view()),
+    url(r'^create_secret_key/$', UserCreateKey.as_view()),
+    url(r'^deputat_send/$', UserDeputatSend.as_view()),
 ]

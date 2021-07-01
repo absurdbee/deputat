@@ -8,7 +8,7 @@ class UserProfileSettings(TemplateView):
 	template_name, form = None, None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_my_template("profile/settings_profile.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/settings/profile.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserProfileSettings,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -37,7 +37,7 @@ class UserNotifySettings(TemplateView):
     def get(self,request,*args,**kwargs):
         from users.forms import UserNotifyForm
 
-        self.template_name = get_my_template("profile/settings_notify.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_my_template("profile/settings/notify.html", request.user, request.META['HTTP_USER_AGENT'])
         try:
             self.notify = UserNotifications.objects.get(user=request.user)
         except:
@@ -72,7 +72,7 @@ class UserPrivateSettings(TemplateView):
 		except:
 			self.private = UserPrivate.objects.create(user=request.user)
 		self.form = UserPrivateForm(instance=self.private)
-		self.template_name = get_my_template("profile/settings_private.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/settings/private.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserPrivateSettings,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -96,7 +96,7 @@ class UserQuardSettings(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_my_template("profile/settings_quard.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/settings/quard.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserQuardSettings,self).get(request,*args,**kwargs)
 
 
@@ -111,7 +111,7 @@ class UserAboutSettings(TemplateView):
 		except:
 			self.info = UserProfile.objects.create(user=request.user)
 		self.form = UserProfileForm(instance=self.info)
-		self.template_name = get_my_template("profile/settings_about.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/settings/about.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserAboutSettings,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -138,7 +138,7 @@ class UserAboutSettings(TemplateView):
 				check = UserCheck.objects.create(user_id=request.user.pk)
 			if not check.profile_info:
 				info = UserProfile.objects.get(user_id=request.user.pk)
-				if info.education and info.employment and info.birthday:
+				if info.education and info.employment:
 					check.profile_info = True
 					check.save(update_fields=['profile_info'])
 					request.user.plus_carma(100, "ADD")
@@ -149,7 +149,7 @@ class UserEditPassword(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("profile/edit_password.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("profile/edit/password.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserEditPassword,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -166,3 +166,76 @@ class UserEditPassword(TemplateView):
 			self.form.save()
 			return HttpResponse()
 		return super(UserEditPassword,self).post(request,*args,**kwargs)
+
+class UserEditPhone(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("profile/edit/phone.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserEditPhone,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from users.forms import UserPhoneForm
+		context = super(UserEditPhone,self).get_context_data(**kwargs)
+		context["form"] = UserPhoneForm()
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from users.forms import UserPhoneForm
+
+		self.form = UserPhoneForm(request.POST,instance=request.user)
+		if request.is_ajax() and self.form.is_valid():
+			self.form.save()
+			return HttpResponse()
+		return super(UserEditPhone,self).post(request,*args,**kwargs)
+
+
+class UserCreateKey(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("profile/edit/secret_key.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserCreateKey,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from users.forms import UserKeyForm
+		context = super(UserCreateKey,self).get_context_data(**kwargs)
+		context["form"] = UserKeyForm()
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from users.forms import UserKeyForm
+		from users.model.settings import UserSecretKey
+
+		if not UserSecretKey.objects.filter(user=request.user).exists():
+			UserSecretKey.objects.create(user=request.user)
+		self.form = UserKeyForm(request.POST)
+		if request.is_ajax() and self.form.is_valid():
+			self.form.save()
+			return HttpResponse()
+		return super(UserCreateKey,self).post(request,*args,**kwargs)
+
+class UserDeputatSend(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_small_template("profile/edit/deputat_send.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserDeputatSend,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from users.forms import DeputatSendForm
+		context = super(UserDeputatSend,self).get_context_data(**kwargs)
+		context["form"] = DeputatSendForm()
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from users.forms import DeputatSendForm
+		from users.model.settings import DeputatSend
+
+		if DeputatSend.objects.filter(user=request.user).exists():
+			return HttpResponseBadRequest()
+		self.form = DeputatSendForm(request.POST)
+		if request.is_ajax() and self.form.is_valid():
+			self.form.save()
+			return HttpResponse()
+		return super(UserDeputatSend,self).post(request,*args,**kwargs)

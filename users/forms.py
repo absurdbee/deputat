@@ -12,6 +12,18 @@ class UserPasswordForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ('password',)
+class UserPhoneForm(forms.ModelForm):
+	class Meta:
+		model = User
+		fields = ('phone',)
+class UserKeyForm(forms.ModelForm):
+	class Meta:
+		model = UserSecretKey
+		fields = ('key',)
+class DeputatSendForm(forms.ModelForm):
+	class Meta:
+		model = DeputatSend
+		fields = ('text',)
 
 class UserNotifyForm(forms.ModelForm):
     class Meta:

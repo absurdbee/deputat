@@ -14,6 +14,7 @@
                 <p class="card-text mb-2">Введите Ваш номер телефона. Мы Вам пошлем код подтверждения.</p>
 
                 <form class="auth-forgot-password-form mt-2 verify_form" data-pk="{{ request.user.pk }}">
+                  {% csrf_token %}
                     <div class="form-group">
                       <label for="phone" class="form-label">Телефон</label>
                       <div class="input-group input-group-merge">
@@ -39,6 +40,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

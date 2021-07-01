@@ -9,7 +9,7 @@
         <h4 class="card-title">Настройки безопасности</h4>
     </div>
     <div class="card-body">
-      <div class="card mb-3 border">
+      <div class="card mb-1 border">
           <div class="card-body">
               <div class="media">
                 <figure style="width: 50px">
@@ -22,8 +22,7 @@
               </div>
           </div>
       </div>
-    </div>
-    <div class="card mb-3 border">
+    <div class="card mb-1 border">
         <div class="card-body">
             <div class="media">
               <figure style="width: 50px">
@@ -37,7 +36,7 @@
         </div>
     </div>
     {% if not user.is_deputat %}
-    <div class="card mb-3 border">
+    <div class="card mb-1 border">
         <div class="card-body pointer">
             <div class="media">
               <figure style="width: 50px">
@@ -58,7 +57,7 @@
         </div>
     </div>
     {% else %}
-    <div class="card mb-3 border">
+    <div class="card mb-1 border">
         <div class="card-body pointer">
             <div class="media">
               <figure style="width: 50px">
@@ -74,7 +73,7 @@
     {% endif %}
 
     {% if not user.is_have_secret_key %}
-    <div class="card mb-3 border">
+    <div class="card mb-1 border">
         <div class="card-body pointer">
             <div class="media">
               <figure style="width: 50px">
@@ -88,7 +87,7 @@
         </div>
     </div>
     {% else %}
-    <div class="card mb-3 border">
+    <div class="card mb-1 border">
         <div class="card-body pointer">
             <div class="media">
               <figure style="width: 50px">
@@ -126,6 +125,7 @@
       <li class="list-group-item" style="text-decoration:underline">Безопасность</li>
     </ul>
   </div>
+</div>
 </div>
 </div>
 {% endblock %}

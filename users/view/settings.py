@@ -149,7 +149,7 @@ class UserEditPassword(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("profile/edit/password.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/edit/password.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserEditPassword,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -171,7 +171,7 @@ class UserEditPhone(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("profile/edit/phone.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/edit/phone.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserEditPhone,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -194,7 +194,7 @@ class UserCreateKey(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("profile/edit/secret_key.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/edit/secret_key.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserCreateKey,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -219,7 +219,7 @@ class UserDeputatSend(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("profile/edit/deputat_send.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/edit/deputat_send.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserDeputatSend,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

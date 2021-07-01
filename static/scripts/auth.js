@@ -206,9 +206,11 @@ function phone_check() {
   });
 
   on('body', 'click', '.phone_send', function() {
+    form = this.parentElement;
+    form_data = new FormData(form);
     var phone = document.querySelector('#phone').value;
    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-   request.open( 'GET', "/users/progs/phone_send/" + phone + "/", true );
+   request.open( 'POST', "/users/progs/phone_send/" + phone + "/", true );
    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
    request.onreadystatechange = function () {
      if ( request.readyState == 4 && request.status == 200) {
@@ -222,7 +224,7 @@ function phone_check() {
        document.querySelector("#phone").setAttribute("disabled", "true");
        document.querySelector(".phone_send").setAttribute("disabled", "true");
      }}}
-   request.send( null );
+   request.send( form_data );
   })
 
   on('body', 'change', '.select_region', function() {

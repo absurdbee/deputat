@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 
 class PhoneSend(View):
-    def get(self,request,*args,**kwargs):
+    def post(self,request,*args,**kwargs):
         import json, requests
         from common.model.other import PhoneCodes
 
@@ -35,7 +35,7 @@ class PhoneSend(View):
 
 
 class PhoneVerify(View):
-    def get(self,request,*args,**kwargs):
+    def post(self,request,*args,**kwargs):
         from common.model.other import PhoneCodes
 
         if not request.is_ajax():

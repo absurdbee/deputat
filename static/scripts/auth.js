@@ -173,15 +173,15 @@ on('body', 'click', '#logg', function() {
 
 function phone_check() {
  if (document.body.querySelector('#phone').value.length > 9)
-   document.querySelector(".phone_send").removeAttribute('disabled');
+   document.querySelector(".form_phone_send").removeAttribute('disabled');
  else
-   document.querySelector(".phone_send").setAttribute("disabled", "true");
+   document.querySelector(".form_phone_send").setAttribute("disabled", "true");
  }
  function code_check() {
   if (document.querySelector('#code').value.length === 4)
-    document.querySelector(".code_send").removeAttribute('disabled');
+    document.querySelector(".form_code_send").removeAttribute('disabled');
   else
-    document.querySelector(".code_send").setAttribute("disabled", "true");
+    document.querySelector(".form_code_send").setAttribute("disabled", "true");
   }
 
   on('body', 'click', '#code_send', function() {

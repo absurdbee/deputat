@@ -16,7 +16,8 @@ class PhoneSend(View):
         else:
             _phone = self.kwargs["phone"]
             if len(_phone) > 8:
-                phone = request.user.get_last_location().phone + _phone
+                first_number = request.POST.get('first_number')
+                phone = first_number + _phone
                 try:
                     user = User.objects.get(phone=phone)
                     data = 'уже зарегистрирован'
@@ -27,7 +28,7 @@ class PhoneSend(View):
                     data = response.json()
                     PhoneCodes.objects.create(phone=phone, code=data['code'])
                     data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Последние 4 цифры" и нажать "Подтвердить"'
-                    response = render(request,'generic/response/code_send.html',{'response_text':data,'phone':phone })
+                    response = render(request,'generic/response/code_send.html',{'response_text':data,'phone':first_number })
                     return response
             else:
                 data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'

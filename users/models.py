@@ -55,7 +55,7 @@ class User(AbstractUser):
 
     def get_last_location(self):
         from users.model.profile import UserLocation
-        return UserLocation.objects.filter(user=self)[0]
+        return UserLocation.objects.filter(user=self).first()
 
     def close_item(self):
         if self.type == "DEP":

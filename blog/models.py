@@ -381,7 +381,7 @@ class ElectNew(models.Model):
         user_send_wall(self.pk, None, "elect_new_wall")
         for user_id in self.elect.get_subscribers_ids():
             Notify.objects.create(creator_id=self.creator.pk, recipient_id=user_id, type="ELN", object_id=self.pk, verb="ITE")
-            user_send_notify(self.pk, creator.pk, user_id, None, "elect_new_notify")
+            user_send_notify(self.pk, self.creator.pk, user_id, None, "elect_new_notify")
         self.creator.plus_elect_news(1)
         return self
 

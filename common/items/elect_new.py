@@ -10,7 +10,7 @@ def linebreaks(value, autoescape=None):
 def elect_new(user, elect_new):
     from django.utils.http import urlencode
 
-    elect_new_url = "elect/new/" + str(elect_new.pk)
+    elect_new_url = "/elect/new/" + str(elect_new.pk) + "/"
     block, tags, votes_on, card_drop, value = '', '', '', '<span class="dropdown-item copy_link" data-link="' + elect_new_url + '">Копировать ссылку</span>', elect_new.pk
 
     if user.is_anonymous:

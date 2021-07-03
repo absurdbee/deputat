@@ -1,3 +1,8 @@
+.custom-control-info .custom-control-input:checked ~ .custom-control-label::before, .custom-control-info .custom-control-input:active ~ .custom-control-label::before {
+    border-color: #00CFE8;
+    background-color: #00CFE8;
+}
+
 .password-control {
     position: absolute;
     top: 11px;

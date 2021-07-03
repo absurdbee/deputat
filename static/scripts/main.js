@@ -1,5 +1,5 @@
 
-on('body', 'keydown', '.form-control', function() {
+on('body', 'keydown', '.form-control', function(e) {
   if (e.keyCode == 13) {
     e.preventDefault();
   }

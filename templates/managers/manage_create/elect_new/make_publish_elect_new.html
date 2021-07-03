@@ -56,6 +56,14 @@
             </div>
             <div class="form-group">
               <label>Наши теги</label>
+              <div class="demo-inline-spacing">
+                {% for tag in tags %}
+                <div class="custom-control custom-control-info custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="a{{ tag.pk }}" checked="">
+                  <label class="custom-control-label" for="a{{ tag.pk }}">{{ tag.name }}</label>
+                </div>
+                {% endfor %}
+              </div>
               {{ tags }}
             </div>
         </div>

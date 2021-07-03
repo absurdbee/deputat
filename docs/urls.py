@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^moderated_load/(?P<pk>\d+)/$', UserLoadModeratedDoclist.as_view()),
     url(r'^user_docs/(?P<pk>\d+)/$', UserDocs.as_view(), name='user_docs'),
     url(r'^user_list/(?P<uuid>[0-9a-f-]+)/$', UserDocsList.as_view(), name='user_docs_list'),
+    url(r'^doc_detail/(?P<uuid>[0-9a-f-]+)/$', UserDocDetail.as_view()),
 
     url(r'^user_progs/', include('docs.url.user_progs')),
 ]

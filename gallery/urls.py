@@ -10,6 +10,7 @@ urlpatterns=[
     url(r'^moderated_load/(?P<pk>\d+)/$', UserLoadModeratedPhotolist.as_view()),
 
     url(r'^photo/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserListPhoto.as_view(), name="u_photo"),
+	url(r'^photo_detail/(?P<uuid>[0-9a-f-]+)/$', UserPhotoDetail.as_view(), name="u_photo_detail"),
 	url(r'^blog_photo/(?P<pk>\d+)/(?P<photo_pk>\d+)/$', UserBlogPhoto.as_view(), name="u_blog_photo"),
 	url(r'^elect_new_photo/(?P<pk>\d+)/(?P<photo_pk>\d+)/$', UserElectNewPhoto.as_view(), name="u_elect_new_photo"),
 	url(r'^blog_comment_photo/(?P<pk>\d+)/(?P<photo_pk>\d+)/$', UserBlogCommentPhoto.as_view(), name="u_blog_comment_photo"),

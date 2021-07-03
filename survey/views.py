@@ -1,6 +1,7 @@
 from django.views.generic import ListView
 from survey.models import Survey, SurveyList
 from users.models import User
+from generic.mixins import CategoryListMixin
 
 
 class SurveyView(ListView):
@@ -9,6 +10,20 @@ class SurveyView(ListView):
 	def get_queryset(self):
 		return Survey.objects.only("pk")
 
+class UserSurveyDetail(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_full_template
+
+		self.survey = Survey.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_full_template("survey/detail/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserSurveyDetail,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(UserSurveyDetail,self).get_context_data(**kwargs)
+		context["object"] = self.survey
+		return context
 
 class UserSurvey(ListView):
 	template_name, paginate_by = None, 15

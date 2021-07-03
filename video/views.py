@@ -4,11 +4,27 @@ from common.templates import get_small_template
 from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 from video.models import Video, VideoList
+from generic.mixins import CategoryListMixin
 
 
 class AllVideoView(TemplateView):
     template_name="all_video.html"
 
+
+class UserVideoDetail(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_full_template
+
+		self.video = Video.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_full_template("video/detail/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserVideoDetail,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(UserVideoDetail,self).get_context_data(**kwargs)
+		context["object"] = self.video
+		return context
 
 class UserVideoDetail(TemplateView):
     template_name = None

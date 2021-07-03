@@ -3,7 +3,23 @@ from music.models import *
 from django.views.generic import ListView
 from common.templates import get_small_template
 from users.models import User
+from generic.mixins import CategoryListMixin
 
+
+class UserTrackDetail(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_full_template
+
+		self.track = Music.objects.get(pk=self.kwargs["pk"])
+		self.template_name = get_full_template("music/detail/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserTrackDetail,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(UserTrackDetail,self).get_context_data(**kwargs)
+		context["object"] = self.track
+		return context
 
 class AllMusicView(TemplateView):
     template_name = None

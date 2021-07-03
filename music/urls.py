@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^moderated_load/(?P<pk>\d+)/$', UserLoadModeratedPlaylist.as_view()),
     url(r'^user_music/(?P<pk>\d+)/$', UserMusic.as_view(), name='user_music'),
     url(r'^user_list/(?P<uuid>[0-9a-f-]+)/$', UserMusicList.as_view(), name='user_playlist'),
+    url(r'^track_detail/(?P<pk>\d+)/$', UserTrackDetail.as_view()),
 
     url(r'^user_progs/', include('music.url.user_progs')),
 ]

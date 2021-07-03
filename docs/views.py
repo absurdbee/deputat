@@ -2,6 +2,23 @@ from django.views.generic import ListView
 from docs.models import Doc, DocList
 from common.templates import get_small_template
 from users.models import User
+from generic.mixins import CategoryListMixin
+
+
+class UserDocDetail(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_full_template
+
+		self.doc = Doc.objects.get(uuid=self.kwargs["uuid"])
+		self.template_name = get_full_template("docs/detail/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserDocDetail,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(UserDocDetail,self).get_context_data(**kwargs)
+		context["doc"] = self.doc
+		return context
 
 
 class DocsView(ListView):

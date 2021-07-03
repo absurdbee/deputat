@@ -1,6 +1,7 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from gallery.models import PhotoList, Photo
+from generic.mixins import CategoryListMixin
 
 
 class UserLoadPhotoList(ListView):
@@ -118,6 +119,20 @@ class UserListPhoto(TemplateView):
 		context["prev"] = self.prev
 		return context
 
+class UserPhotoDetail(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_full_template
+
+		self.photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+		self.template_name = get_full_template("user_gallery/detail_photo/", "photo.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserPhotoDetail,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(UserPhotoDetail,self).get_context_data(**kwargs)
+		context["object"] = self.photo
+		return context
 
 class UserElectNewPhoto(TemplateView):
 	template_name = None

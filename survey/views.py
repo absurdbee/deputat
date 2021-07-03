@@ -2,6 +2,7 @@ from django.views.generic import ListView
 from survey.models import Survey, SurveyList
 from users.models import User
 from generic.mixins import CategoryListMixin
+from django.views.generic.base import TemplateView
 
 
 class SurveyView(ListView):

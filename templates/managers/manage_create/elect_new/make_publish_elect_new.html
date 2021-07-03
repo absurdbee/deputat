@@ -59,7 +59,7 @@
               <div style="display: flex;flex-wrap: wrap;margin-top:20px">
                 {% for tag in tags %}
                 <div class="custom-control custom-control-info custom-checkbox" style="padding-right: 1.8rem;margin-top: 1.5rem;">
-                  <input type="checkbox" name="tags" class="custom-control-input" id="a{{ tag.pk }}">
+                  <input value="{{ tag.pk }}" type="checkbox" name="tags" class="custom-control-input" id="a{{ tag.pk }}">
                   <label class="custom-control-label" for="a{{ tag.pk }}">{{ tag.name }}</label>
                 </div>
                 {% endfor %}

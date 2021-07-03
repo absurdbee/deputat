@@ -358,7 +358,7 @@ class ElectNew(models.Model):
         self.save()
         return self
 
-    def make_publish_new(self, title, description, elect, attach, category):
+    def make_publish_new(self, title, description, elect, attach, category, tags):
         from elect.models import Elect
         from notify.models import Notify, Wall
         from common.notify.progs import user_send_notify, user_send_wall
@@ -383,6 +383,11 @@ class ElectNew(models.Model):
             Notify.objects.create(creator_id=self.creator.pk, recipient_id=user_id, type="ELN", object_id=self.pk, verb="ITE")
             user_send_notify(self.pk, self.creator.pk, user_id, None, "elect_new_notify")
         self.creator.plus_elect_news(1)
+        if tags:
+            from tags.models import ManagerTag
+            for _tag in tags:
+                tag = ManagerTag.objects.get(pk=_tag)
+                tag.new.add(self)
         return self
 
     def is_published(self):

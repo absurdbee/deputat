@@ -11,7 +11,7 @@ def elect_new(user, elect_new):
     from django.utils.http import urlencode
 
     elect_new_url = "/elect/new/" + str(elect_new.pk) + "/"
-    block, tags, votes_on, card_drop, value = '', '', '', '<span class="dropdown-item copy_link" data-link="' + elect_new_url + '">Копировать ссылку</span>', elect_new.pk
+    block, tags, votes_on, card_drop = '', '', '', '<span class="dropdown-item copy_link" data-link="' + elect_new_url + '">Копировать ссылку</span>'
 
     if user.is_anonymous:
         user_like, user_dislike, user_inert = "btn_default", "btn_default", "btn_default"
@@ -41,7 +41,7 @@ def elect_new(user, elect_new):
     for tag in elect_new.get_manager_tags():
         tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
 
-    return ''.join([block, '<div class="event_card" data-pk="' + str(value) + '"><div class="event_img text-center"><a class="ajax" href="' + elect_new_url + '">\
+    return ''.join([block, '<div class="event_card" data-pk="' + str(elect_new.pk) + '"><div class="event_img text-center"><a class="ajax" href="' + elect_new_url + '">\
     <img class="img-fluid card-img-top" src="' + elect_new.get_image() + '" alt="img"></a></div><div class="card-body event_body">\
     <h4 class="event_name"><div style="display: flex;"><a class="text-body ajax" href="' + elect_new_url + '">' + elect_new.title + '</a>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\

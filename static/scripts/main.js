@@ -1,4 +1,10 @@
 
+on('body', 'keydown', '.form-control', function() {
+  if (e.keyCode == 13) {
+    e.preventDefault();
+  }
+})
+
 on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })

@@ -518,8 +518,11 @@ line-height: 1;
 @media (max-width: 767.98px){
 .event_card {
     grid-template-columns: 1fr;
-
-}}
+}
+.event_description{
+    min-height: 190px;
+}
+}
 
 
 .event_img{

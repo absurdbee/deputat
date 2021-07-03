@@ -3,6 +3,17 @@ on('body', 'click', '#holder_image', function() {
   get_image_priview(this, img);
 });
 
+on('body', 'click', '.copy_link', function() {
+  url = this.getAttribute("data-link");
+  aux = document.createElement("input");
+  aux.setAttribute("value", url);
+  document.body.appendChild(aux);
+  aux.select();
+  document.execCommand("copy");
+  document.body.removeChild(aux);
+  toast_info("Ссылка скопирована")
+});
+
 on('body', 'click', '.u_edit_password', function() {
   loader = document.getElementById("create_loader");
   open_fullscreen("/users/settings/edit_password/", loader)

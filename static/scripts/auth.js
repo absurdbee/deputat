@@ -148,8 +148,8 @@ on('body', 'click', '#register_ajax', function() {
 on('body', 'click', '#logg', function() {
   form = document.querySelector("#login_form");
   response = form.querySelector(".api_response")
-  if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";}
-  if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#id_username").value){form.querySelector("#id_username").style.border = "1px solid rgba(0, 0, 0, 0.2)";}
+  if (form.querySelector("#id_password").value){form.querySelector("#id_password").style.border = "1px solid rgba(0, 0, 0, 0.2)";}
 
   if (!form.querySelector("#id_username").value){
     form.querySelector("#id_username").style.border = "1px #FF0000 solid";
@@ -179,8 +179,6 @@ on('body', 'click', '#logg', function() {
     form.querySelector("#id_username").style.display = "block";
     form.querySelector("#id_username").value = '';
     form.querySelector("#id_password").value = '';
-		form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";
-		form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";
   }};
   link.send(form_data);
 });

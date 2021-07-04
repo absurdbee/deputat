@@ -13,7 +13,7 @@
     {% endif %}
     <div style="flex: 0 0 45%;max-width:45%;padding:5px;">
       <span>
-        <a class="btn btn-sm border manage_remove_playlist" style="width: -webkit-fill-available;">♦ Закрыть</a>
+        <a class="btn btn-sm border manage_remove_playlist" style="width: -webkit-fill-available;">Закрыть</a>
       </span>
     </div>
     <div style="flex: 0 0 10%;max-width:10%;padding:5px;">
@@ -27,7 +27,7 @@
       <a href="{% url 'user' pk=list.creator.pk %}" class="ajax underline">
         {{ list.creator.get_full_name_genitive }}
       </a>
-      <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_playlist' pk=list.pk %}">Копировать ссылку</span>
+      <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_playlist' uuid=list.uuid %}">Копировать ссылку</span>
     </h5>
   </div>
 

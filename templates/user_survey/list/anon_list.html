@@ -14,7 +14,7 @@
     <div class="media mt-3" style="padding-left: 7px;">
       <h5 class="mt-1">
         {{ list.name }} ({{ list.count_items }})
-        <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_survey_list' pk=list.pk %}">Копировать ссылку</span>
+        <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_survey_list' uuid=list.uuid %}">Копировать ссылку</span>
       </h5>
     </div>
 

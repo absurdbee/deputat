@@ -7,31 +7,7 @@
     <section class="app-user-edit p-2">
         <div class="card">
 
-          <div class="col-md-6 col-sm-12 pag {% if forloop.last %}last{% endif %}" style="padding:3px">
-            <div class="media border p-1">
-                <div class="media-body music_media_body" style="line-height: 8px;">
-                  <span>{{ object.title }}</span>
-                  <div class="audio_div">
-                    <audio id="player" class="audio_player">
-                      <source src="{{ object.file.url }}" type="audio/mp3" />
-                    </audio>
-                  </div>
-                  <span class='span_btn'>
-                    <div class="dropdown" style="position: inherit;">
-                        <a class="btn_default drop pointer">
-                            <svg class="svg_info" style="padding-top: 2px;" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M0 0h24v24H0z" fill="none" />
-                                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                            </svg>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" style="top: 60px;">
-                            <span class="dropdown-item copy_link" data-link="/music/track_detail/{{ object.pk }}/">Копировать ссылку</span>
-                        </div>
-                    </div>
-                  </span>
-                </div>
-            </div>
-          </div>
+          {% include 'user_music/anon_track.html' %}
 
         </div>
     </section>

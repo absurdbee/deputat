@@ -126,7 +126,7 @@ class UserPhotoDetail(TemplateView, CategoryListMixin):
 		from common.templates import get_full_template
 
 		self.photo = Photo.objects.get(uuid=self.kwargs["uuid"])
-		self.template_name = get_full_template("user_gallery/detail_photo/", "photo.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("gallery/detail/user/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserPhotoDetail,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

@@ -18,7 +18,7 @@ class UserVideoDetail(TemplateView, CategoryListMixin):
 		from common.templates import get_full_template
 
 		self.video = Video.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_full_template("video/detail/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("video/detail/user/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserVideoDetail,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

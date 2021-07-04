@@ -13,7 +13,7 @@ class UserTrackDetail(TemplateView, CategoryListMixin):
 		from common.templates import get_full_template
 
 		self.track = Music.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_full_template("music/detail/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("music/detail/user/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserTrackDetail,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

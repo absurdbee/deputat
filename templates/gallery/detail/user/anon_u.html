@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Изображение {{ object.creator.get_full_name_genitive }}{% endblock %}
+{% load filters %}
+{% block content %}
+
+<div class="content-body pk_saver" data-pk="{{ object.creator.pk }}">
+    <section class="app-user-edit">
+        <div class="card">
+          <div class="data_display pt-4" data-uuid="{{ object.uuid }}" data-pk="{{ object.creator.pk }}">
+            <div class="row" style="margin-right: -10px;margin-left: -10px;">
+              {% include 'user_gallery/photo/move_photo.html' %}
+
+              <div class="col" style="padding:5px;">
+                <a type="button" class="btn btn-sm border menu_drop" style="width: -webkit-fill-available;">
+                    Опции
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item copy_link pointer" data-link="/gallery/photo_detail/{{ object.uuid }}/">Копировать ссылку</a>
+                </div>
+              </div>
+              <div class="col" style="padding:5px;">
+                <a class="btn btn-sm border pointer photo_fullscreen_hide_2" style="width: -webkit-fill-available;">x</a>
+              </div>
+            </div>
+            {% include 'user_gallery/photo/card_header.html' %}
+            <span class="content_block">
+              <span>
+                <div class="card image_card rounded-0 border-0 mb-3">
+                  {% if object.file %}
+                    <img style="width: 100%;" src="{{ object.file.url }}" alt="">
+                  {% else %}
+                    <svg class="svg_default" style="width:100%;height:auto" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                  {% endif %}
+              </div>
+              </span>
+            </span>
+            </div>
+        </div>
+    </section>
+</div>
+
+  {% endblock %}

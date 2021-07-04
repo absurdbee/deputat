@@ -22,7 +22,7 @@
         <span class="pointer badge badge-light-danger u_uncopy_photo_list">Удалить список из коллекции</span>
       {% endif %}
       <span class="pointer badge badge-light-warning u_close_photo_list">Закрыть список</span>
-      <span class="pointer badge badge-light-primary copy_link" data-link="/gallery/photo_detail/{{ object.uuid }}/">Копировать ссылку</span>
+      <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_photo_list' uuid=list.uuid %}">Копировать ссылку</span>
     </h5>
   </div>
 

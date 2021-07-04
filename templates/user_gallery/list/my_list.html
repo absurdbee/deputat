@@ -21,8 +21,8 @@
       {% if request.user.pk == list.creator.pk and not list.is_main %}
       <span class="pointer badge badge-light-secondary u_photo_list_edit">Изменить список</span>
       <span class="pointer badge badge-light-danger u_photo_list_remove">Удалить список</span>
-      <span class="pointer badge badge-light-primary copy_link" data-link="/gallery/photo_detail/{{ object.uuid }}/">Копировать ссылку</span>
       {% endif %}
+      <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_photo_list' uuid=list.uuid %}">Копировать ссылку</span>
   </h5>
   </form>
 </div>

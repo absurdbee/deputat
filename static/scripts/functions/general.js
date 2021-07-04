@@ -274,7 +274,7 @@ function profile_list_block_load(_this, block, link, actions_class) {
        };
        parent = _this.parentElement.parentElement.parentElement;
        parent.querySelector(".list_svg")? parent.querySelector(".list_svg").classList.remove(actions_class, "pointer") : null;
-       parent.querySelector(".list_name").classList.remove(actions_class, "pointer");
+       parent.querySelector(".list_name")? parent.querySelector(".list_name").classList.remove(actions_class, "pointer") : null;
        parent.classList.replace("border", "active_border");
     }};
     request.send( null );

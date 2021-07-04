@@ -19,22 +19,6 @@
     <div class="row no-gutters mb-2" style="overflow-x: auto;">
         <div class="col-12">
             <ul style="width:max-content;list-style: none;">
-              <li class="list_item">
-                  <div class="card file-manager-item folder cover_block active_border" data-uuid="{{ list.uuid }}">
-                      <div class="card-img-top file-logo-wrapper">
-                          <div class="d-flex align-items-center justify-content-center w-100">
-                              <svg class="list_toggle list_svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                          </div>
-                      </div>
-                      <div class="card-body pt-0">
-                          <div class="content-wrapper">
-                              <p class="card-text file-name mb-0 list_name list_toggle" style="text-align: left;">{{ list.name }}</p>
-                              <p class="card-text file-size mb-0 count">{{ list.count_items }}</p>
-                          </div>
-                          <small class="file-accessed pointer underline music_attach_list" data-pk="{{ list.pk }}">Прикрепить список</small>
-                      </div>
-                  </div>
-              </li>
                 {% for object in get_lists %}
                 <li class="list_item">
                     <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">

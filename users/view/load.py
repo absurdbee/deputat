@@ -7,7 +7,7 @@ class UserLoadPhoto(ListView):
 
 	def get(self,request,*args,**kwargs):
 		self.list, self.template_name = request.user.get_photo_list(), get_my_template("user_load/u_photo_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.get_lists = self.list.get_user_lists(request.user.pk)
+		self.get_lists = self.list.get_user_lists_not_empty(request.user.pk)
 		return super(UserLoadPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -62,7 +62,7 @@ class UserLoadVideo(ListView):
 	def get_context_data(self,**kwargs):
 		context = super(UserLoadVideo,self).get_context_data(**kwargs)
 		context["list"] = self.list
-		context["get_lists"] = self.list.get_user_lists(self.request.user.pk)
+		context["get_lists"] = self.list.get_user_lists_not_empty(self.request.user.pk)
 		return context
 
 	def get_queryset(self):
@@ -91,7 +91,7 @@ class UserLoadMusic(ListView):
 
 	def get(self,request,*args,**kwargs):
 		self.list, self.template_name = request.user.get_playlist(), get_my_template("user_load/u_music_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.get_lists = self.list.get_user_lists(request.user.pk)
+		self.get_lists = self.list.get_user_lists_not_empty(request.user.pk)
 		return super(UserLoadMusic,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -125,7 +125,7 @@ class UserLoadDoc(ListView):
 
 	def get(self,request,*args,**kwargs):
 		self.list, self.template_name = request.user.get_doc_list(), get_my_template("user_load/u_doc_load.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.get_lists = self.list.get_user_lists(request.user.pk)
+		self.get_lists = self.list.get_user_lists_not_empty(request.user.pk)
 		return super(UserLoadDoc,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

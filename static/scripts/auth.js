@@ -136,8 +136,8 @@ on('body', 'click', '#register_ajax', function() {
 		if (reg_link.responseText.indexOf( "Введённый пароль" ) != -1 && !document.body.classList.contains("password")) {
 			alert("Пороль должен состоять минимум из 8 символов - из букв, цифр.");
 			document.body.classList.add("password");
-
-		console.log("Введённый пароль слишком широко распространён.")
+	} else {
+		document.body.classList.remove("password");
 	}
 	}};
   reg_link.send(form_data);

@@ -133,8 +133,10 @@ on('body', 'click', '#register_ajax', function() {
   if ( reg_link.readyState == 4 && reg_link.status == 201 ) {
     window.location.href = "/users/phone_verify/"
   } else {
-		if (reg_link.responseText.indexOf( "Введённый пароль" ) != -1) {
-			alert("Пороль должен состоять минимум из 8 символов - из букв, цифр.")
+		if (reg_link.responseText.indexOf( "Введённый пароль" ) != -1 && document.body.classList.contains("password")) {
+			alert("Пороль должен состоять минимум из 8 символов - из букв, цифр.");
+			document.body.classList.add("password");
+
 		console.log("Введённый пароль слишком широко распространён.")
 	}
 	}};

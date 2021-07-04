@@ -19,7 +19,7 @@
           <span class="pointer badge badge-light-secondary u_video_list_edit">Изменить список</span>
           <span class="pointer badge badge-light-danger u_video_list_remove">Удалить список</span>
         {% endif %}
-        <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_video_list' pk=list.pk %}">Копировать ссылку</span>
+        <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_video_list' uuid=list.uuid %}">Копировать ссылку</span>
       </h5>
     </div>
 

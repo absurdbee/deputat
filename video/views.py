@@ -26,7 +26,7 @@ class UserVideoDetail(TemplateView, CategoryListMixin):
 		context["object"] = self.video
 		return context
 
-class UserVideoDetail(TemplateView):
+class UserVideoDetail_2(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -44,10 +44,10 @@ class UserVideoDetail(TemplateView):
             self.template_name = get_template_user_window(self.list, "user_video/detail/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
         else:
             self.template_name = get_template_anon_user_window(self.list, "user_video/detail/", "a.html", request.META['HTTP_USER_AGENT'])
-        return super(UserVideoDetail,self).get(request,*args,**kwargs)
+        return super(UserVideoDetail_2,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        c = super(UserVideoDetail,self).get_context_data(**kwargs)
+        c = super(UserVideoDetail_2,self).get_context_data(**kwargs)
         c['object'], c['list'], c['next'], c['prev'] = self.video, self.list, self.next, self.prev
         return c
 

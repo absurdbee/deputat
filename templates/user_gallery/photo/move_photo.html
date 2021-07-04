@@ -4,7 +4,7 @@
   <a type="button" class="btn btn-sm border menu_drop" style="width: -webkit-fill-available">
       Добавить
   </a>
-  <div class="dropdown-menu">
+  <div class="dropdown-menu" style="width:100%">
     {% for list in request.user.get_photo_lists %}
       <span data-uuid="{{ list.uuid }}">
         {% if list|item_in_list:object.id %}

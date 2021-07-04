@@ -19,6 +19,7 @@
             <span class="pointer badge badge-light-secondary u_playlist_edit">Изменить список</span>
             <span class="pointer badge badge-light-danger u_playlist_remove">Удалить список</span>
           {% endif %}
+          <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_playlist' pk=list.pk %}">Копировать ссылку</span>
         </h5>
     </div>
 

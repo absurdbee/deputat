@@ -27,6 +27,7 @@
       <a href="{% url 'user' pk=list.creator.pk %}" class="ajax underline">
         {{ list.creator.get_full_name_genitive }}
       </a>
+      <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_video_list' pk=list.pk %}">Копировать ссылку</span>
     </h5>
   </div>
 

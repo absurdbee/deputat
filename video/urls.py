@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^moderated_load/(?P<pk>\d+)/$', UserLoadModeratedVideoList.as_view()),
     url(r'^user_video/(?P<pk>\d+)/$', UserVideo.as_view(), name='user_video'),
     url(r'^user_detail/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserVideoDetail_2.as_view(), name='u_video'),
-    url(r'^user_list/(?P<uuid>[0-9a-f-]+)/$', UserVideoList.as_view(), name='user_videolist'),
+    url(r'^user_list/(?P<uuid>[0-9a-f-]+)/$', UserVideoList.as_view(), name='user_video_list'),
     url(r'^video_detail/(?P<pk>\d+)/$', UserVideoDetail.as_view()),
 
     url(r'^user_progs/', include('video.url.user_progs')),

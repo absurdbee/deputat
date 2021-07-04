@@ -177,8 +177,10 @@ on('body', 'click', '#logg', function() {
     response.innerHTML = "Телефон или пароль - неверный!";
     response.classList.add("error");
     form.querySelector("#id_username").style.display = "block";
-    form.querySelector("#id_username").value = ''
-    form.querySelector("#id_password").value = ''
+    form.querySelector("#id_username").value = '';
+    form.querySelector("#id_password").value = '';
+		form.querySelector("#id_username").style.border = "rgba(0, 0, 0, 0.2)";
+		form.querySelector("#id_password").style.border = "rgba(0, 0, 0, 0.2)";
   }};
   link.send(form_data);
 });

@@ -256,6 +256,11 @@ class PhotoList(models.Model):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         query.add(Q(Q(type="MAI")|Q(type="LIS")), Q.AND)
         return cls.objects.filter(query).values("pk").count()
+    @classmethod
+    def get_user_lists_not_empty(cls, user_pk):
+        query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
+        query.add(Q(list__isnull=False), Q.AND)
+        return cls.objects.filter(query)
 
     @classmethod
     def get_community_staff_lists(cls, community_pk):

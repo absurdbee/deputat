@@ -116,7 +116,9 @@ class PhotoList(models.Model):
         return self.photo_list.filter(Q(type="PUB") | Q(type="PRI"))
 
     def is_not_empty(self):
-        return self.photo_list.filter(type="PUB").values("pk").exists()
+        query = Q(list=self)
+        query.add(~Q(type__contains="_"), Q.AND)
+        return self.photo_list.filter(query).values("pk").exists()
 
     def is_item_in_list(self, item_id):
         return self.photo_list.filter(pk=item_id).exists()
@@ -260,7 +262,7 @@ class PhotoList(models.Model):
     def get_user_lists_not_empty(cls, user_pk):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         query.add(~Q(Q(type__contains="_")&Q(photo_list__isnull=True)), Q.AND)
-        return cls.objects.filter(query) 
+        return cls.objects.filter(query)
 
     @classmethod
     def get_community_staff_lists(cls, community_pk):

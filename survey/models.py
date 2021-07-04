@@ -54,7 +54,9 @@ class SurveyList(models.Model):
         return self.survey_list.filter(pk=item_id).values("pk").exists()
 
     def is_not_empty(self):
-        return self.survey_list.exclude(type__contains="_").values("pk").exists()
+        query = Q(list=self)
+        query.add(~Q(type__contains="_"), Q.AND)
+        return self.video_list.filter(query).values("pk").exists()
 
     def get_items(self):
         return self.survey_list.filter(type="PUB")

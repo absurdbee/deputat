@@ -94,7 +94,9 @@ class DocList(models.Model):
         return self.doc_list.filter(pk=item_id).exists()
 
     def is_not_empty(self):
-        return self.doc_list.filter(list=self).values("pk").exists()
+        query = Q(list=self)
+        query.add(~Q(type__contains="_"), Q.AND)
+        return self.doc_list.filter(query).values("pk").exists()
 
     def get_staff_items(self):
         return self.doc_list.filter(Q(type="PUB")|Q(type="PRI"))

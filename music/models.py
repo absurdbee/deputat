@@ -56,7 +56,9 @@ class SoundList(models.Model):
         return self.playlist.filter(pk=item_id).exists()
 
     def is_not_empty(self):
-        return self.playlist.filter(list=self).values("pk").exists()
+        query = Q(list=self)
+        query.add(~Q(type__contains="_"), Q.AND)
+        return self.playlist.filter(query).values("pk").exists()
 
     def get_staff_items(self):
         query = Q(type="PUB")|Q(type="PRI")

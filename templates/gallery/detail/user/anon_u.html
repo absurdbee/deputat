@@ -7,7 +7,7 @@
     <section class="app-user-edit">
         <div class="card">
           <div class="data_display pt-4" data-uuid="{{ object.uuid }}" data-pk="{{ object.creator.pk }}">
-            <div class="row" style="margin-right: -10px;margin-left: -10px;">
+            <div class="row">
               {% include 'user_gallery/photo/move_photo.html' %}
 
               <div class="col" style="padding:5px;">
@@ -17,9 +17,6 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item copy_link pointer" data-link="/gallery/photo_detail/{{ object.uuid }}/">Копировать ссылку</a>
                 </div>
-              </div>
-              <div class="col" style="padding:5px;">
-                <a class="btn btn-sm border pointer photo_fullscreen_hide_2" style="width: -webkit-fill-available;">x</a>
               </div>
             </div>
             {% include 'user_gallery/photo/card_header.html' %}

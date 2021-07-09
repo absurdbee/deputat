@@ -262,7 +262,7 @@ class VideoList(models.Model):
     @classmethod
     def get_user_lists_not_empty(cls, user_pk):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
-        query.add(~Q(type__contains="_", video_list__isnull=False), Q.AND)
+        query.add(~Q(video_list__isnull=False), Q.AND)
         return cls.objects.filter(query)
 
     @classmethod

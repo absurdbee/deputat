@@ -105,7 +105,7 @@ on('body', 'click', '#u_create_track_btn', function() {
   }};
 
   link_.send(form_data);
-  form.querySelector(".form_file").classList.add("red");
+  form.querySelector(".form_file").style.color = "red";
   this.disabled = false;
 });
 

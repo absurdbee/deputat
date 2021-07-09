@@ -100,7 +100,7 @@ on('body', 'click', '#u_create_track_btn', function() {
     toast_info("Аудиозапись создана!");
     init_music(document.body.querySelector(".uuid_saver"));
     close_create_window();
-  }else { this.disabled = true; console.log(link_.responseText) }};
+  }else { this.disabled = false; console.log(link_.responseText) }};
 
   link_.send(form_data);
 });

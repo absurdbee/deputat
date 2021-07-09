@@ -39,6 +39,7 @@ function send_comment_like(item, url){
     likes_count = item.querySelector(".likes_count");
     likes_count.innerHTML = jsonResponse.like_count;
     like.classList.toggle("btn_success");
+    console.log(jsonResponse.like_count)
   }};
   link.send( null );
 }

@@ -37,7 +37,6 @@ class ElectNewInert(View):
 class ElectNewCommentLike(View):
     def get(self, request, **kwargs):
         from common.model.votes import ElectNewCommentVotes
-
         if not request.is_ajax():
             raise Http404
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])

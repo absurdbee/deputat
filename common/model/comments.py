@@ -495,15 +495,9 @@ class ElectNewComment(models.Model):
         from common.notify.notify import user_notify, user_wall
         try:
             item = ElectNewCommentVotes.objects.get(comment=self, user=user)
-            if item.vote != ElectNewCommentVotes.LIKE:
-                item.vote = ElectNewCommentVotes.LIKE
-                item.save(update_fields=['vote'])
-                self.like += 1
-                self.save(update_fields=['like'])
-            else:
-                item.delete()
-                self.like -= 1
-                self.save(update_fields=['like'])
+            item.delete()
+            self.like -= 1
+            self.save(update_fields=['like'])
         except ElectNewCommentVotes.DoesNotExist:
             ElectNewCommentVotes.objects.create(comment=self, user=user, vote=ElectNewCommentVotes.LIKE)
             self.like += 1

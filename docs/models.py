@@ -277,6 +277,9 @@ class Doc(models.Model):
     def get_lists(self):
         return self.list.all()
 
+    def get_lists(self):
+        return self.list.all()
+
     @classmethod
     def create_doc(cls, creator, title, file, lists, is_public, community):
         from common.processing import get_doc_processing

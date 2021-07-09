@@ -256,6 +256,9 @@ class Survey(models.Model):
     def __str__(self):
         return self.title
 
+    def get_lists(self):
+        return self.list.all()
+
     def plus_reposts(self, count):
         self.repost += count
         return self.save(update_fields=['repost'])

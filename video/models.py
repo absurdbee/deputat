@@ -410,7 +410,7 @@ class Video(models.Model):
         from stst.models import VideoNumbers
         return VideoNumbers.objects.filter(video=self.pk).values('pk').count()
 
-    def get_lists_for_video(self):
+    def get_lists(self):
         return self.list.all()
     def get_list_uuid(self):
         return self.list.all()[0].uuid

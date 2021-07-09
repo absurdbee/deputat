@@ -304,6 +304,9 @@ class Music(models.Model):
         indexes = (BrinIndex(fields=['created']),)
         ordering = ['-created']
 
+    def get_lists(self):
+        return self.list.all()
+
     def get_mp3(self):
         url = self.uri + '/stream?client_id=3ddce5652caa1b66331903493735ddd64d'
         url.replace("\\?", "%3f")

@@ -304,6 +304,9 @@ class Photo(models.Model):
         verbose_name_plural = 'Фото'
         ordering = ["-created"]
 
+    def get_lists(self):
+        return self.list.all()
+
     def get_created(self):
         from django.contrib.humanize.templatetags.humanize import naturaltime
         return naturaltime(self.created)

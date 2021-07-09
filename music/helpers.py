@@ -22,8 +22,8 @@ def validate_file_extension(value):
     from django.conf import settings
 
     ext = os.path.splitext(value.name)[1]
-    valid_extensions = ['.ogg','.mp3','.wave']
+    valid_extensions = ['.ogg','.mp3','.wav']
     if not ext in valid_extensions:
-        raise ValidationError('Допустимы форматы: ogg, mp3, wave!')
+        raise ValidationError('Допустимы форматы: ogg, mp3, wav!')
     if value.size > settings.MUSIC_FILE_MAX_SIZE:
         raise ValidationError('Размер не более 5 МБ!')

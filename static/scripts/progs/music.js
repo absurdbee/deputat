@@ -97,8 +97,9 @@ on('body', 'click', '#u_create_track_btn', function() {
       uuid = document.body.querySelector(".uuid_saver").getAttribute("data-uuid"),
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
       document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null) : get_preview(response, "track");
-    toast_info("Аудиозапись создана!")
-    close_create_window();
+    toast_info("Аудиозапись создана!");
+    init_music(track);
+    close_create_window(document.body.querySelector(".uuid_saver"));
   }else { this.disabled = true; console.log(link_.responseText) }};
 
   link_.send(form_data);

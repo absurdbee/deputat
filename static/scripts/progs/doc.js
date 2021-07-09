@@ -94,8 +94,8 @@ on('body', 'click', '#u_create_doc_btn', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    document.body.querySelector(".pk_saver").getAttribute("data-uuid") ? (
-      uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
+    document.body.querySelector(".uuid_saver").getAttribute("data-uuid") ? (
+      uuid = document.body.querySelector(".uuid_saver").getAttribute("data-uuid"),
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
       document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null) : get_preview(response, "doc");
     toast_info("Документ создан!")

@@ -113,8 +113,7 @@ on('body', 'click', '#u_create_track_btn', function() {
     close_create_window();
     //form.querySelector(".form_file").classList.add("red");
     //this.disabled = false;
-    findSize(form.querySelector("#id_file"))
-  }};
+  } else if (this.status == 500) { findSize(form.querySelector("#id_file")) }};
 
   link_.send(form_data);
   form.querySelector(".form_file").style.color = "red";

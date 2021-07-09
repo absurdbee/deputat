@@ -100,9 +100,13 @@ on('body', 'click', '#u_create_track_btn', function() {
     toast_info("Аудиозапись создана!");
     init_music(document.body.querySelector(".uuid_saver"));
     close_create_window();
-  }else { this.disabled = false; form.querySelector(".form_file").classList.add("red") }};
+    //form.querySelector(".form_file").classList.add("red");
+    //this.disabled = false;
+  }};
 
   link_.send(form_data);
+  form.querySelector(".form_file").classList.add("red");
+  this.disabled = false;
 });
 
 on('body', 'click', '#u_edit_track_btn', function() {

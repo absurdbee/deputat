@@ -262,6 +262,7 @@ class VideoList(models.Model):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         #query.add(~Q(Q(video_list__isnull=True)&Q(video_list__type__contains="_")), Q.AND)
         query.add(~Q(video_list__isnull=True), Q.AND)
+        query.add(~Q(video_list__type__contains="_"), Q.AND)
         return cls.objects.filter(query)
 
     @classmethod

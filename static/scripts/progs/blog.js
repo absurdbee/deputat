@@ -159,7 +159,7 @@ on('body', 'click', '.blog_comment_like', function() {
 on('body', 'click', '.elect_new_comment_like', function() {
   item = this.parentElement.parentElement;
   send_comment_like(item, "/blog/votes/elect_new_comment_like/" + item.getAttribute("data-pk") + "/");
-});
+}); 
 
 on('body', 'click', '.edit_blog_comment', function() {
   _this = this;

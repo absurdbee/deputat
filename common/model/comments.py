@@ -238,8 +238,7 @@ class BlogComment(models.Model):
                 item.vote = BlogCommentVotes.LIKE
                 item.save(update_fields=['vote'])
                 self.like += 1
-                self.dislike -= 1
-                self.save(update_fields=['like', 'dislike'])
+                self.save(update_fields=['like'])
             else:
                 item.delete()
                 self.like -= 1
@@ -500,8 +499,7 @@ class ElectNewComment(models.Model):
                 item.vote = ElectNewCommentVotes.LIKE
                 item.save(update_fields=['vote'])
                 self.like += 1
-                self.dislike -= 1
-                self.save(update_fields=['like', 'dislike'])
+                self.save(update_fields=['like'])
             else:
                 item.delete()
                 self.like -= 1

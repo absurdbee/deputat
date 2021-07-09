@@ -99,7 +99,7 @@ on('body', 'click', '#u_create_track_btn', function() {
       document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null) : get_preview(response, "track");
     toast_info("Аудиозапись создана!")
     close_create_window();
-  }else { this.disabled = true }};
+  }else { this.disabled = true; console.log(link_.responseText) }};
 
   link_.send(form_data);
 });

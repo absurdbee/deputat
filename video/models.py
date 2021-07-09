@@ -265,7 +265,7 @@ class VideoList(models.Model):
         for list in lists:
             if list.is_not_empty():
                 result.append(list)
-        return cls.objects.filter(result)
+        return result
 
     @classmethod
     def get_community_staff_lists(cls, community_pk):

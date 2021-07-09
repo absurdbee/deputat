@@ -147,9 +147,7 @@ class VideoList(models.Model):
 
 
     def is_not_empty(self):
-        query = Q(list=self)
-        query.add(~Q(type__contains="_"), Q.AND)
-        return self.video_list.filter(query).exists()
+        return self.video_list.filter(list=self).exclude(type__contains="_").exists()
 
     def get_users_ids(self):
         users = self.users.exclude(type__contains="_").values("pk")
@@ -263,7 +261,6 @@ class VideoList(models.Model):
     def get_user_lists_not_empty(cls, user_pk):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         query.add(~Q(video_list__isnull=True), Q.AND)
-        query.add(~Q(video_list__type__contains="_"), Q.AND)
         return cls.objects.filter(query)
 
     @classmethod

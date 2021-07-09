@@ -63,12 +63,12 @@ on('body', 'click', '.u_remove_track_from_list', function() {
 
 function findSize(input) {
     try{
-        alert(input.files[0].size);
+        return input.files[0].size;
     }catch(e){
         var objFSO = new ActiveXObject("Scripting.FileSystemObject");
         var e = objFSO.getFile( input.value);
         var fileSize = e.size;
-        alert(fileSize);
+        return fileSize;
     }
 }
 
@@ -113,12 +113,10 @@ on('body', 'click', '#u_create_track_btn', function() {
     close_create_window();
     //form.querySelector(".form_file").classList.add("red");
     //this.disabled = false;
-  } else if (this.status == 500) { findSize(form.querySelector("#id_file")) }};
-
+  } else if (this.status == 500) { if (findSize(form.querySelector("#id_file"))> 5242880) {
+    form.querySelector(".form_file").style.color = "red"; this.disabled = false; return
+  }, this.disabled = false; } else { this.disabled = true }};
   link_.send(form_data);
-  form.querySelector(".form_file").style.color = "red";
-  this.disabled = false;
-  console.log()
 });
 
 on('body', 'click', '#u_edit_track_btn', function() {

@@ -15,7 +15,11 @@
                   {{ form_post.file }}
                 </div>
                 <div class="form-group">
-                  {{ form_post.list }}
+                  <select class="form-control" id="id_list" name="list" multiple style="height: 100%">
+                      {% for list in request.user.get_playlists %}
+                      <option {% if list in object.get_lists_for_track %}selected=""{% endif %} data-uuid="{{ object.uuid }}" value="{{ object.pk }}">{{ object.name }}</option>
+                      {% endfor %}
+                  </select>
                 </div>
                 <div class="form-group ">
                   <div class="custom-control custom-checkbox">

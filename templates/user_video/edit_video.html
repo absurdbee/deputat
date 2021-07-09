@@ -20,7 +20,6 @@
                       <option {% if list in object.get_lists_for_video %}selected=""{% endif %} data-uuid="{{ object.uuid }}" value="{{ object.pk }}">{{ object.name }}</option>
                       {% endfor %}
                   </select>
-                  {{ form_post.list }}
                 </div>
                 <div class="form-group ">
                   <div class="custom-control custom-checkbox">

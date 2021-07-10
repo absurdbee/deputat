@@ -10,6 +10,7 @@ function show_hide_password(target){
 	}
 	return false;
 }
+addMouseWell(window, scrollHorizontally);
 
 on('body', 'keydown', '.form-control', function(e) {
   if (e.keyCode == 13) {

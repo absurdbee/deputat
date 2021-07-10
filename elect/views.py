@@ -139,9 +139,9 @@ class ElectNewDetailView(ListView, CategoryListMixin):
 
     def get(self,request,*args,**kwargs):
         import re
-        MOBILE_AGENT_RE, user_agent = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE), request.META['HTTP_USER_AGENT']
         from stst.models import ElectNewNumbers
         from datetime import datetime
+        MOBILE_AGENT_RE, user_agent = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE), request.META['HTTP_USER_AGENT']
 
         self.new, folder, template = ElectNew.objects.get(pk=self.kwargs["pk"]), "elect/news/", "new.html"
         if request.user.is_authenticated:
@@ -153,7 +153,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
                 request.user.save(update_fields=['last_activity', 'device'])
             if request.user.type[0] == "_":
                 from common.templates import get_fine_request_user
-                template = get_fine_request_user(request.user)
+                _template = get_fine_request_user(request.user)
             elif self.new.type[0] == "_":
                 if self.new.is_suggested():
                     if self.new.creator.pk == request.user.pk:
@@ -181,6 +181,8 @@ class ElectNewDetailView(ListView, CategoryListMixin):
             else:
                 if self.new.creator.pk == request.user.pk:
                     _template = folder + "my_" + template
+                else:
+                    _template = folder + template
                 if not ElectNewNumbers.objects.filter(user=request.user.pk, new=self.new.pk).exists():
                     if MOBILE_AGENT_RE.match(user_agent):
                         ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=1)
@@ -188,6 +190,11 @@ class ElectNewDetailView(ListView, CategoryListMixin):
                         ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=0)
                     self.new.view += 1
                     self.new.save(update_fields=["view"])
+            if MOBILE_AGENT_RE.match(user_agent):
+                self.template_name = "" + _template
+            else:
+                self.template_name = "" + _template
+
             return super(ElectNewDetailView,self).get(request,*args,**kwargs)
         else:
             if MOBILE_AGENT_RE.match(user_agent):

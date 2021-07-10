@@ -2,10 +2,8 @@
 
 on('body', 'click', '.u_suggested_elect_new_create', function() {
   loader = document.getElementById("window_loader");
-  open_fullscreen("/blog/progs/suggest_elect_new/", loader)
-  if (this.getAttribute("data-name")) {
-    setTimeout(document.body.querySelector(".field_elect_new").innerHTML = this.getAttribute("data-name"), 3000);
-  };
+  this.getAttribute("data-name") ? name = this.getAttribute("data-name") : null;
+  open_elect_fullscreen("/blog/progs/suggest_elect_new/", loader, name)
 });
 
 on('body', 'click', '#u_create_suggested_new_btn', function() {

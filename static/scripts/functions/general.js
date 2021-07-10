@@ -860,6 +860,22 @@ function open_fullscreen(link, block) {
   }};
   link_.send();
 }
+function open_elect_fullscreen(link, block, name) {
+  var link_, elem;
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', link, true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    block.parentElement.style.display = "block";
+    block.innerHTML = elem;
+    if (name) {
+      block.querySelector(".field_elect_new").innerHTML = name;
+    }
+  }};
+  link_.send();
+}
 
 function ajax_get_reload(url) {
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

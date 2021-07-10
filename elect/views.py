@@ -139,7 +139,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
 
     def get(self,request,*args,**kwargs):
         import re
-        MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+        MOBILE_AGENT_RE, user_agent = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE), request.META['HTTP_USER_AGENT']
         from stst.models import ElectNewNumbers
         from datetime import datetime
 
@@ -182,7 +182,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
                 if self.new.creator.pk == request.user.pk:
                     _template = folder + "my_" + template
                 if not ElectNewNumbers.objects.filter(user=request.user.pk, new=self.new.pk).exists():
-                    if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+                    if MOBILE_AGENT_RE.match(user_agent):
                         ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=1)
                     else:
                         ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=0)
@@ -190,7 +190,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
                     self.new.save(update_fields=["view"])
             return super(ElectNewDetailView,self).get(request,*args,**kwargs)
         else:
-            if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+            if MOBILE_AGENT_RE.match(user_agent):
                 self.template_name = "" + folder + "anon_new.html"
             else:
                 self.template_name = "" + folder + "anon_new.html"
@@ -209,7 +209,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
                     from django.shortcuts import redirect
                     response = redirect('elect_new_detail', pk=self.new.pk)
                     response.set_cookie(str(self.new.pk), "elekt_new_view")
-                    if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+                    if MOBILE_AGENT_RE.match(user_agent):
                         ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=1)
                     else:
                         ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=0)

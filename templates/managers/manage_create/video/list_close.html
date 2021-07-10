@@ -3,7 +3,7 @@
   {% csrf_token %}
 
     <div class="card">
-      Закрыть список видеозаписей {{ object.creator.get_full_name_genitive }} "{{ object.name }}"
+      Закрыть альбом видеозаписей {{ object.creator.get_full_name_genitive }} "{{ object.name }}"
       <div class="card-body">
           <div class="form-group">
             <textarea name="description" class="form-control bg-light-secondary border-0" rows="4" placeholder="Опишите причину удаления"></textarea>

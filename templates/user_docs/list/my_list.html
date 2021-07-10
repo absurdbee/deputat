@@ -16,8 +16,8 @@
         <span class="second_list_name" data-name="{{ list.name }}">{{ list.name }}</span> ({{ list.count_items }})
         <span class="pointer badge badge-light-success u_doc_add">Добавить документ</span>
         {% if request.user.pk == list.creator.pk and not list.is_main %}
-          <span class="pointer badge badge-light-secondary u_doc_list_edit">Изменить список</span>
-          <span class="pointer badge badge-light-danger u_doc_list_remove">Удалить список</span>
+          <span class="pointer badge badge-light-secondary u_doc_list_edit">Изменить альбом</span>
+          <span class="pointer badge badge-light-danger u_doc_list_remove">Удалить альбом</span>
           <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_docs_list' uuid=list.uuid %}">Копировать ссылку</span>
         {% endif %}
       </h5>

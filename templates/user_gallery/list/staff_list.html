@@ -17,11 +17,11 @@
       {{ list.name }} ({{ list.count_items }})
 
       {% if list|is_user_can_add_list:request.user.pk %}
-        <span class="pointer badge badge-light-success u_copy_photo_list">Добавить список в коллекцию</span>
+        <span class="pointer badge badge-light-success u_copy_photo_list">Добавить альбом в коллекцию</span>
       {% elif request.user.pk in list.get_users_ids %}
-        <span class="pointer badge badge-light-danger u_uncopy_photo_list">Удалить список из коллекции</span>
+        <span class="pointer badge badge-light-danger u_uncopy_photo_list">Удалить альбом из коллекции</span>
       {% endif %}
-      <span class="pointer badge badge-light-warning u_close_photo_list">Закрыть список</span>
+      <span class="pointer badge badge-light-warning u_close_photo_list">Закрыть альбом</span>
       <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_photo_list' uuid=list.uuid %}">Копировать ссылку</span>
     </h5>
   </div>

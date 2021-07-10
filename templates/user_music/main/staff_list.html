@@ -75,11 +75,11 @@
           {{ list.name }} ({{ list.count_items }})
 
           {% if list|is_user_can_add_list:request.user.pk %}
-            <span class="pointer badge badge-light-success u_copy_playlist">Добавить список в коллекцию</span>
+            <span class="pointer badge badge-light-success u_copy_playlist">Добавить альбом в коллекцию</span>
           {% elif request.user.pk in list.get_users_ids %}
-            <span class="pointer badge badge-light-danger u_uncopy_playlist">Удалить список из коллекции</span>
+            <span class="pointer badge badge-light-danger u_uncopy_playlist">Удалить альбом из коллекции</span>
           {% endif %}
-          <span class="pointer badge badge-light-warning u_close_playlist">Закрыть список</span>
+          <span class="pointer badge badge-light-warning u_close_playlist">Закрыть альбом</span>
           <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_playlist' uuid=list.uuid %}">Копировать ссылку</span>
         </h5>
     </div>
@@ -96,7 +96,7 @@
           <div class="card-body">
           <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path fill='none' d='M0 0h24v24H0z'/><path d='M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z'/></svg>
           </div>
-          <h6>Список аудиозаписей пустой.</h6>
+          <h6>Альбом аудиозаписей пустой.</h6>
         </div>
         {% endif %}
       </div>

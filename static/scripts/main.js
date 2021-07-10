@@ -15,7 +15,7 @@ function scrollHorizontally(e) { //включает горизонтальный
     e = window.event || e;
 		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); //это шаг колеса для разных браузеров
     document.documentElement.scrollLeft -= (delta * 40); //прокручиваем всю страницу
-		//e.preventDefault();
+		e.preventDefault();
 	};
 function addMouseWell(elem, callback) { //вешает кроссплатформенный обработчик на колесо мыши над элементом
 	if (elem.addEventListener) {

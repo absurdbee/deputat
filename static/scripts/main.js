@@ -33,7 +33,7 @@ function show_hide_password(target){
     e.preventDefault(); // запрещает прокрутку по вертикали
 
   }
-  var elems = document.querySelectorAll('ul');
+  var elems = document.querySelectorAll('.list_item');
   for (var a = 0; a < elems.length; a++) {
     elems[a].addEventListener("mousewheel", scrollHorizontally, false);     // IE9, Chrome, Safari, Opera
     elems[a].addEventListener("DOMMouseScroll", scrollHorizontally, false); // Firefox

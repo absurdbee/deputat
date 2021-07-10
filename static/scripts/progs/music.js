@@ -94,7 +94,14 @@ on('body', 'click', '#u_create_track_btn', function() {
   else if (!form.querySelector("#id_file").value){
     form.querySelector("#id_file").style.border = "1px #FF0000 solid";
     toast_error("Загрузите аудиозапись!"); return
-  } else { _this.disabled = true }
+  }
+  else if (findSize(form.querySelector("#id_file"))> 5242880) {
+    toast_error("Файл не должен превышать 5 Мб!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else { _this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/music/user_progs/create_track/", true );
@@ -112,11 +119,7 @@ on('body', 'click', '#u_create_track_btn', function() {
     toast_info("Аудиозапись создана!");
     init_music(document.body.querySelector(".uuid_saver"));
     close_create_window();
-    //form.querySelector(".form_file").classList.add("red");
-    //this.disabled = false;
-  } else if (this.status == 500) { if (findSize(form.querySelector("#id_file"))> 5242880) {
-    form.querySelector(".form_file").style.color = "red"; _this.disabled = false; return
-  }} else { _this.disabled = true }};
+  } else { _this.disabled = true }};
   link_.send(form_data);
 });
 

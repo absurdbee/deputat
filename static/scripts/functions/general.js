@@ -11,19 +11,6 @@ function scrollHorizontally(e) { //включает горизонтальный
 		//e.preventDefault();
 	};
 
-function addMouseWell(elem, callback) { //вешает кроссплатформенный обработчик на колесо мыши над элементом
-	if (elem.addEventListener) {
-		if ('onwheel' in document) {
-			elem.addEventListener("wheel", callback);
-		} else if ('onmousewheel' in document) {
-			elem.addEventListener("mousewheel", callback);
-		} else {
-			elem.addEventListener("MozMousePixelScroll", callback);
-		}
-	} else {
-		elem.attachEvent("onmousewheel", callback);
-	}
-}
 
 function findSize(input) {
     try{

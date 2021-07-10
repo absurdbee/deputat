@@ -10,6 +10,20 @@ function show_hide_password(target){
 	}
 	return false;
 }
+
+function addMouseWell(elem, callback) { //вешает кроссплатформенный обработчик на колесо мыши над элементом
+	if (elem.addEventListener) {
+		if ('onwheel' in document) {
+			elem.addEventListener("wheel", callback);
+		} else if ('onmousewheel' in document) {
+			elem.addEventListener("mousewheel", callback);
+		} else {
+			elem.addEventListener("MozMousePixelScroll", callback);
+		}
+	} else {
+		elem.attachEvent("onmousewheel", callback);
+	}
+}
 addMouseWell(window, scrollHorizontally);
 
 on('body', 'keydown', '.form-control', function(e) {

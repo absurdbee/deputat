@@ -4,14 +4,6 @@ var ready = (callback) => {
 };
 function validateEmail(email){var re = /\S+@\S+\.\S+/;return re.test(email)};
 
-function scrollHorizontally(e) { //включает горизонтальный скрол элемента колесом
-    e = window.event || e;
-		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail))); //это шаг колеса для разных браузеров
-    document.documentElement.scrollLeft -= (delta * 40); //прокручиваем всю страницу
-		//e.preventDefault();
-	};
-
-
 function findSize(input) {
     try{
         return input.files[0].size;

@@ -2,7 +2,7 @@
 
 on('body', 'click', '.u_suggested_elect_new_create', function() {
   loader = document.getElementById("window_loader");
-  this.getAttribute("data-name") ? name = this.getAttribute("data-name") : name = null;
+  this.getAttribute("data-name") ? name = this.getAttribute("data-name") : name = "";
   open_elect_fullscreen("/blog/progs/suggest_elect_new/", loader, name)
 });
 

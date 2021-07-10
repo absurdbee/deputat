@@ -13,8 +13,8 @@ function show_hide_password(target){
 
 on('body', 'keydown', '.form-control', function(e) {
   if (e.keyCode == 13) {
-		if (e.classList.contains("custom_supported")){
-			e.append("\n");
+		if (this.classList.contains("custom_supported")){
+			this.append("\n");
 		} else {e.preventDefault()}
   }
 })

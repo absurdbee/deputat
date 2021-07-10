@@ -14,7 +14,7 @@ function show_hide_password(target){
 on('body', 'keydown', '.form-control', function(e) {
   if (e.keyCode == 13) {
 		if (this.classList.contains("custom_supported")){
-			this.setAttribute("rows", this.getAttribute("rows") + 1);
+			this.setAttribute("rows", int(this.getAttribute("rows")) + 1);
 		} else {e.preventDefault()}
   }
 })

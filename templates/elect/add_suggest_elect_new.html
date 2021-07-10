@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
               <label>Чиновник</label>
-              <input list="data-list" class="form-control" name="elect">
+              <input list="data-list" class="form-control field_elect_new" name="elect">
               <datalist id="data-list">
                 {% for object in get_elects %}
                 <option value="{{ object.name }}"></option>
@@ -25,7 +25,7 @@
             <div class="form-group">
               <label>Прикрепить объекты</label>
               <div class="card-footer border-top btn_default">
-                  <span class="files_0 row"></span> 
+                  <span class="files_0 row"></span>
                   <div class="row">
                       <div class="col attach_panel border" style="display: flex;">
                         <a flow="up" tooltip="Изображение" class="btn btn-link btn-sm text-secondary u_select_photo">

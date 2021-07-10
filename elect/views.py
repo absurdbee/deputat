@@ -141,10 +141,16 @@ class ElectNewDetailView(ListView, CategoryListMixin):
         import re
         MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
         from stst.models import ElectNewNumbers
+        from datetime import datetime
 
         self.new, folder, template = ElectNew.objects.get(pk=self.kwargs["pk"]), "elect/news/", "new.html"
         if request.user.is_authenticated:
-            update_activity(request_user, user_agent)
+            if MOBILE_AGENT_RE.match(user_agent):
+                request.user.last_activity, request.user.device = datetime.now(), "Ph"
+                request.user.save(update_fields=['last_activity', 'device'])
+            else:
+                request.user.last_activity, request.user.device = datetime.now(), "De"
+                request.user.save(update_fields=['last_activity', 'device'])
             if request.user.type[0] == "_":
                 from common.templates import get_fine_request_user
                 template = get_fine_request_user(request.user)

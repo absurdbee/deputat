@@ -38,6 +38,7 @@ class UserMusic(ListView):
 
     def get(self,request,*args,**kwargs):
         from common.templates import get_template_user_item, get_template_anon_user_item
+		from django.conf import settings
 
         pk = int(self.kwargs["pk"])
         self.user = User.objects.get(pk=pk)
@@ -45,6 +46,8 @@ class UserMusic(ListView):
         if pk == request.user.pk:
             self.music_list = self.list.get_staff_items()
             self.get_lists = self.list.get_user_staff_lists(pk)
+			if self.count_lists < settings.USER_MAX_MUSIC_LISTS:
+				self.can_add_list = True
         else:
             self.music_list = self.list.get_items()
             self.get_lists = self.list.get_user_lists(pk)
@@ -57,7 +60,7 @@ class UserMusic(ListView):
 
     def get_context_data(self,**kwargs):
         c = super(UserMusic,self).get_context_data(**kwargs)
-        c['user'], c['list'], c['get_lists'], c['count_lists'] = self.user, self.list, self.get_lists, self.count_lists
+        c['user'], c['list'], c['get_lists'], c['count_lists'], c['can_add_list'] = self.user, self.list, self.get_lists, self.count_lists, self.can_add_list
         return c
 
     def get_queryset(self):

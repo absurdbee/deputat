@@ -83,17 +83,20 @@ class UserVideo(ListView):
 
     def get(self,request,*args,**kwargs):
         from common.templates import get_template_user_item, get_template_anon_user_item
+        from django.conf import settings
 
         pk = int(self.kwargs["pk"])
         self.user = User.objects.get(pk=pk)
         self.list = self.user.get_video_list()
+        self.count_lists = self.list.get_user_lists_count(pk)
         if pk == request.user.pk:
             self.video_list = self.list.get_staff_items()
             self.get_lists = self.list.get_user_staff_lists(pk)
+            if self.count_lists < settings.USER_MAX_VIDEO_LISTS:
+    			self.can_add_list = True
         else:
             self.video_list = self.list.get_items()
             self.get_lists = self.list.get_user_lists(pk)
-        self.count_lists = self.list.get_user_lists_count(pk)
         if request.user.is_authenticated:
             self.template_name = get_template_user_item(self.list, "user_video/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
         else:
@@ -102,7 +105,7 @@ class UserVideo(ListView):
 
     def get_context_data(self,**kwargs):
         c = super(UserVideo,self).get_context_data(**kwargs)
-        c['user'], c['list'], c['get_lists'], c['count_lists'] = self.user, self.list, self.get_lists, self.count_lists
+        c['user'], c['list'], c['get_lists'], c['count_lists'], c['can_add_list'] = self.user, self.list, self.get_lists, self.count_lists, self.can_add_list
         return c
 
     def get_queryset(self):

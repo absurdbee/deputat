@@ -213,6 +213,10 @@ class SoundList(models.Model):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         query.add(~Q(Q(type__contains="_")&Q(playlist__isnull=True)), Q.AND)
         return cls.objects.filter(query)
+    @classmethod
+    def is_user_can_added_list(cls, user_pk):
+        from django.conf import settings
+        return cls.get_user_lists_count(user_pk) <= settings.USER_MAX_MUSIC_LISTS
 
     @classmethod
     def get_community_staff_lists(cls, community_pk):
@@ -235,6 +239,8 @@ class SoundList(models.Model):
     def create_list(cls, creator, name, description, order, community, is_public):
         from notify.models import Notify, Wall
         from common.processing import get_playlist_processing
+        if not SoundList.is_user_can_added_list(creator.pk):
+            pass
         if not order:
             order = 1
         if community:

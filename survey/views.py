@@ -31,12 +31,15 @@ class UserSurvey(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_template_user_item, get_template_anon_user_item
+		from django.conf import settings
 
 		pk = int(self.kwargs["pk"])
 		self.user = User.objects.get(pk=pk)
 		self.list = self.user.get_survey_list()
 		self.count_lists = self.list.get_user_lists_count(pk)
 		self.get_lists = self.list.get_user_lists(pk)
+		if self.user.pk == int(self.kwargs["pk"]) and self.count_lists < settings.USER_MAX_SURVEY_LISTS:
+			self.can_add_list = True
 		if request.user.is_authenticated:
 			self.template_name = get_template_user_item(self.list, "user_survey/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_survey_manager())
 		else:
@@ -49,6 +52,7 @@ class UserSurvey(ListView):
 		context['list'] = self.list
 		context['get_lists'] = self.get_lists
 		context['count_lists'] = self.count_lists
+		context['can_add_list'] = self.can_add_list
 		return context
 
 	def get_queryset(self):

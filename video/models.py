@@ -71,6 +71,8 @@ class VideoList(models.Model):
     def create_list(cls, creator, name, description, order, community, is_public):
         from notify.models import Notify, Wall
         from common.processing import get_video_list_processing
+        if not VideoList.is_user_can_added_list(creator.pk):
+            pass
         if not order:
             order = 1
         if community:
@@ -266,6 +268,10 @@ class VideoList(models.Model):
             if list.is_not_empty():
                 result.append(list)
         return result
+    @classmethod
+    def is_user_can_added_list(cls, user_pk):
+        from django.conf import settings
+        return cls.get_user_lists_count(user_pk) <= settings.USER_MAX_VIDEO_LISTS
 
     @classmethod
     def get_community_staff_lists(cls, community_pk):

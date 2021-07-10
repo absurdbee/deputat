@@ -40,11 +40,11 @@ class UserDocs(ListView):
 		self.user = User.objects.get(pk=pk)
 		self.list = self.user.get_doc_list()
 		self.count_lists = self.list.get_user_lists_count(pk)
-		if self.count_lists < settings.USER_MAX_DOC_LISTS:
-			self.can_add_list = True
 		if pk == request.user.pk:
 			self.doc_list = self.list.get_staff_items()
 			self.get_lists = self.list.get_user_staff_lists(pk)
+			if self.count_lists < settings.USER_MAX_DOC_LISTS:
+				self.can_add_list = True
 		else:
 			self.doc_list = self.list.get_items()
 			self.get_lists = self.list.get_user_lists(pk)

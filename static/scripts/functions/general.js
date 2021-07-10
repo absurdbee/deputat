@@ -665,7 +665,7 @@ function get_image_priview(ggg, img) {
         if (!entrou) {
             imgPath = img.value;
             extn = imgPath.substring(imgPath.lastIndexOf(".") + 1).toLowerCase();
-            if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+            if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg"|| extn == "webp") {
                 if (typeof FileReader != "undefined") {
                     if (ggg) {}
                     ggg.innerHTML = "";

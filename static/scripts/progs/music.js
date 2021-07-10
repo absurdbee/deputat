@@ -61,17 +61,6 @@ on('body', 'click', '.u_remove_track_from_list', function() {
   remove_item_from_list(this, '/music/user_progs/remove_track_from_list/', 'u_remove_track_from_list', 'u_add_track_in_list')
 })
 
-function findSize(input) {
-    try{
-        return input.files[0].size;
-    }catch(e){
-        var objFSO = new ActiveXObject("Scripting.FileSystemObject");
-        var e = objFSO.getFile( input.value);
-        var fileSize = e.size;
-        return fileSize;
-    }
-}
-
 on('body', 'click', '#u_create_track_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;

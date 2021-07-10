@@ -141,34 +141,76 @@ class ElectNewDetailView(ListView, CategoryListMixin):
         import re
         MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
         from stst.models import ElectNewNumbers
-        from common.templates import get_full_template
 
-        self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        self.template_name = get_full_template("elect/news/", "new.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.new, folder, template = ElectNew.objects.get(pk=self.kwargs["pk"]), "elect/news/", "new.html"
         if request.user.is_authenticated:
-            if not ElectNewNumbers.objects.filter(user=request.user.pk, new=self.new.pk).exists():
-                if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-                    ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=1)
-                else:
-                    ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=0)
-                self.new.view += 1
-                self.new.save(update_fields=["view"])
+            update_activity(request_user, user_agent)
+            if request.user.type[0] == "_":
+                from common.templates import get_fine_request_user
+                template = get_fine_request_user(request.user)
+            elif self.new.type[0] == "_":
+                if self.new.is_suggested():
+                    if self.new.creator.pk == request.user.pk:
+                        _template = folder + "my_suggested_" + template
+                    elif request.user.is_elect_new_manager():
+                        _template = folder + "staff_suggested_" + template
+                    else:
+                        from rest_framework.exceptions import PermissionDenied
+                        raise PermissionDenied("Ошибка доступа")
+                elif self.new.is_deleted():
+                    if self.new.creator.pk == request.user.pk:
+                        _template = folder + "my_deleted_" + template
+                    else:
+                        return "generic/u_template/deleted.html"
+                elif self.new.is_closed():
+                    if self.new.creator.pk == request.user.pk:
+                        _template = folder + "my_closed_" + template
+                    else:
+                        _template = folder + "closed_" + template
+                elif self.new.is_suspended():
+                    if self.new.creator.pk == request.user.pk:
+                        _template = folder + "my_suspended_" + template
+                    else:
+                        _template = "generic/u_template/suspended.html"
+            else:
+                if self.new.creator.pk == request.user.pk:
+                    _template = folder + "my_" + template
+                if not ElectNewNumbers.objects.filter(user=request.user.pk, new=self.new.pk).exists():
+                    if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+                        ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=1)
+                    else:
+                        ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=0)
+                    self.new.view += 1
+                    self.new.save(update_fields=["view"])
             return super(ElectNewDetailView,self).get(request,*args,**kwargs)
         else:
-            if not str(self.new.id) in request.COOKIES:
-                from django.shortcuts import redirect
-
-                response = redirect('elect_new_detail', pk=self.new.pk)
-                response.set_cookie(str(self.new.pk), "elekt_new_view")
-                if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
-                    ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=1)
-                else:
-                    ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=0)
-                self.new.view += 1
-                self.new.save(update_fields=["view"])
-                return response
+            if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+                self.template_name = "" + folder + "anon_new.html"
             else:
-                return super(ElectNewDetailView,self).get(request,*args,**kwargs)
+                self.template_name = "" + folder + "anon_new.html"
+            if self.new.type[0] == "_":
+                if self.new.is_deleted():
+                    return "generic/u_template/anon_deleted.html"
+                elif self.new.is_closed():
+                    return folder + "anon_closed_new.html"
+                elif self.new.is_suspended():
+                    return "generic/u_template/anon_suspended.html"
+                else:
+                    from rest_framework.exceptions import PermissionDenied
+                    raise PermissionDenied("Ошибка доступа")
+            else:
+                if not str(self.new.id) in request.COOKIES:
+                    from django.shortcuts import redirect
+                    response = redirect('elect_new_detail', pk=self.new.pk)
+                    response.set_cookie(str(self.new.pk), "elekt_new_view")
+                    if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+                        ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=1)
+                    else:
+                        ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=0)
+                    self.new.view += 1
+                    self.new.save(update_fields=["view"])
+                    return response
+        return super(ElectNewDetailView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context=super(ElectNewDetailView,self).get_context_data(**kwargs)

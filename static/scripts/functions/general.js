@@ -4,6 +4,17 @@ var ready = (callback) => {
 };
 function validateEmail(email){var re = /\S+@\S+\.\S+/;return re.test(email)};
 
+function findSize(input) {
+    try{
+        return input.files[0].size;
+    }catch(e){
+        var objFSO = new ActiveXObject("Scripting.FileSystemObject");
+        var e = objFSO.getFile( input.value);
+        var fileSize = e.size;
+        return fileSize;
+    }
+}
+
 function send_form_and_toast_and_close_window(url, form) {
     form_data = new FormData(form);
     ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

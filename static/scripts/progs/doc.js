@@ -72,7 +72,6 @@ on('body', 'click', '#u_create_doc_btn', function() {
   for (var i = 0; i < selectedOptions.length; i++) {
     if(selectedOptions[i].value) {val = true}
   }
-
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!")
@@ -83,7 +82,14 @@ on('body', 'click', '#u_create_doc_btn', function() {
   else if (!form.querySelector("#id_file").value){
     form.querySelector("#id_file").style.border = "1px #FF0000 solid";
     toast_error("Загрузите документ!")
-  } else { _this.disabled = true }
+  }
+  else if (findSize(form.querySelector("#id_file"))> 5242880) {
+    toast_error("Файл не должен превышать 5 Мб!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else { _this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/docs/user_progs/create_doc/", true );
@@ -127,7 +133,14 @@ on('body', 'click', '#u_edit_doc_btn', function() {
   else if (!form.querySelector("#id_file").value){
     form.querySelector("#id_file").style.border = "1px #FF0000 solid";
     toast_error("Загрузите документ!")
-  } else { this.disabled = true }
+  }
+  else if (findSize(form.querySelector("#id_file"))> 5242880) {
+    toast_error("Файл не должен превышать 5 Мб!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else { this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/docs/user_progs/edit_doc/" + pk + "/", true );

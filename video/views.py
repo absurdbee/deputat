@@ -93,7 +93,7 @@ class UserVideo(ListView):
             self.video_list = self.list.get_staff_items()
             self.get_lists = self.list.get_user_staff_lists(pk)
             if self.count_lists < settings.USER_MAX_VIDEO_LISTS:
-    			self.can_add_list = True
+                self.can_add_list = True
         else:
             self.video_list = self.list.get_items()
             self.get_lists = self.list.get_user_lists(pk)

@@ -17,20 +17,7 @@ function scrollHorizontally(e) { //включает горизонтальный
     document.documentElement.scrollLeft -= (delta * 40); //прокручиваем всю страницу
 		e.preventDefault();
 	};
-function addMouseWell(elem, callback) { //вешает кроссплатформенный обработчик на колесо мыши над элементом
-	if (elem.addEventListener) {
-		if ('onwheel' in document) {
-			elem.addEventListener("wheel", callback);
-		} else if ('onmousewheel' in document) {
-			elem.addEventListener("mousewheel", callback);
-		} else {
-			elem.addEventListener("MozMousePixelScroll", callback);
-		}
-	} else {
-		elem.attachEvent("onmousewheel", callback);
-	}
-}
-addMouseWell(window, scrollHorizontally);
+scrollHorizontally()
 
 on('body', 'keydown', '.form-control', function(e) {
   if (e.keyCode == 13) {

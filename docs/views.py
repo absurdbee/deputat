@@ -30,15 +30,18 @@ class DocsView(ListView):
 
 
 class UserDocs(ListView):
-	template_name, paginate_by = None, 15
+	template_name, paginate_by, can_add_list = None, 15, None
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_template_user_item, get_template_anon_user_item
+		from django.conf import settings
 
 		pk = int(self.kwargs["pk"])
 		self.user = User.objects.get(pk=pk)
 		self.list = self.user.get_doc_list()
 		self.count_lists = self.list.get_user_lists_count(pk)
+		if self.count_lists < settings.USER_MAX_DOC_LISTS:
+			self.can_add_list = True
 		if pk == request.user.pk:
 			self.doc_list = self.list.get_staff_items()
 			self.get_lists = self.list.get_user_staff_lists(pk)
@@ -57,6 +60,7 @@ class UserDocs(ListView):
 		context['list'] = self.list
 		context['get_lists'] = self.get_lists
 		context['count_lists'] = self.count_lists
+		context['can_add_list'] = self.can_add_list
 		return context
 
 	def get_queryset(self):

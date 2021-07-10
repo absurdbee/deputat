@@ -234,6 +234,10 @@ class DocList(models.Model):
         query = Q(creator_id=user_pk, community__isnull=True)|Q(users__id=user_pk)
         query.add(~Q(Q(type__contains="_")&Q(doc_list__isnull=True)), Q.AND)
         return cls.objects.filter(query)
+    @classmethod
+    def is_user_can_added_list(cls, user_pk):
+        from django.conf import settings
+        return cls.get_user_lists_count(user_pk) >= settings.USER_MAX_DOC_LISTS
 
     @classmethod
     def get_community_staff_lists(cls, community_pk):

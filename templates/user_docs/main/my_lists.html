@@ -54,6 +54,7 @@
                 </div>
             </li>
             {% endfor %}
+            {% if can_add_list %}
             <li class="list_item">
                 <div class="card file-manager-item folder border u_doc_list_add pointer">
                     <div class="card-img-top file-logo-wrapper">
@@ -71,6 +72,7 @@
                     </div>
                 </div>
             </li>
+            {% endif %}
         </ul>
     </div>
 </div>

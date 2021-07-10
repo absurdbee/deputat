@@ -34,37 +34,37 @@ class AllMusicView(TemplateView):
 
 
 class UserMusic(ListView):
-    template_name, paginate_by = None, 15
+	template_name, paginate_by = None, 15
 
-    def get(self,request,*args,**kwargs):
-        from common.templates import get_template_user_item, get_template_anon_user_item
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_template_user_item, get_template_anon_user_item
 		from django.conf import settings
 
-        pk = int(self.kwargs["pk"])
-        self.user = User.objects.get(pk=pk)
-        self.list = self.user.get_playlist()
-        if pk == request.user.pk:
-            self.music_list = self.list.get_staff_items()
-            self.get_lists = self.list.get_user_staff_lists(pk)
+		pk = int(self.kwargs["pk"])
+		self.user = User.objects.get(pk=pk)
+		self.list = self.user.get_playlist()
+		if pk == request.user.pk:
+			self.music_list = self.list.get_staff_items()
+			self.get_lists = self.list.get_user_staff_lists(pk)
 			if self.count_lists < settings.USER_MAX_MUSIC_LISTS:
 				self.can_add_list = True
-        else:
-            self.music_list = self.list.get_items()
-            self.get_lists = self.list.get_user_lists(pk)
-        self.count_lists = self.list.get_user_lists_count(pk)
-        if request.user.is_authenticated:
-            self.template_name = get_template_user_item(self.list, "user_music/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
-        else:
-            self.template_name = get_template_anon_user_item(self.list, "user_music/main/", "list.html", request.META['HTTP_USER_AGENT'])
-        return super(UserMusic,self).get(request,*args,**kwargs)
+		else:
+			self.music_list = self.list.get_items()
+			self.get_lists = self.list.get_user_lists(pk)
+		self.count_lists = self.list.get_user_lists_count(pk)
+		if request.user.is_authenticated:
+			self.template_name = get_template_user_item(self.list, "user_music/main/", "list.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_audio_manager())
+		else:
+			self.template_name = get_template_anon_user_item(self.list, "user_music/main/", "list.html", request.META['HTTP_USER_AGENT'])
+		return super(UserMusic,self).get(request,*args,**kwargs)
 
-    def get_context_data(self,**kwargs):
-        c = super(UserMusic,self).get_context_data(**kwargs)
-        c['user'], c['list'], c['get_lists'], c['count_lists'], c['can_add_list'] = self.user, self.list, self.get_lists, self.count_lists, self.can_add_list
-        return c
+	def get_context_data(self,**kwargs):
+		c = super(UserMusic,self).get_context_data(**kwargs)
+		c['user'], c['list'], c['get_lists'], c['count_lists'], c['can_add_list'] = self.user, self.list, self.get_lists, self.count_lists, self.can_add_list
+		return c
 
-    def get_queryset(self):
-        return self.music_list
+	def get_queryset(self):
+		return self.music_list
 
 
 class UserMusicList(ListView):

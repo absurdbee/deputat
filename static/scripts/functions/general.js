@@ -871,7 +871,7 @@ function open_elect_fullscreen(link, block, name) {
     block.parentElement.style.display = "block";
     block.innerHTML = elem;
     if (name) {
-      block.querySelector(".field_elect_new").innerHTML = name;
+      block.querySelector(".field_elect_new").value = name;
     }
   }};
   link_.send();

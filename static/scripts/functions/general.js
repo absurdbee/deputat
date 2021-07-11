@@ -387,9 +387,15 @@ function add_item_in_list(_this, url, old_class, new_class) {
 function remove_item_from_list(_this, url, old_class, new_class) {
   parent = _this.parentElement;
   uuid = parent.getAttribute("data-uuid");
-  pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk");
+  parent = _this.parentElement.parentElement.parentElemen
+  if (parent.parentElement.querySelector(".u_track_remove")) {
+    drops = parent.parentElement.querySelectorAll(".u_remove_track_from_list");
+    if (len(drops) == 1) {
+      return
+    }
+  };
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', url + pk + "/" + uuid + "/", true );
+  link.open( 'GET', url + parent.getAttribute("data-pk") + "/" + uuid + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {

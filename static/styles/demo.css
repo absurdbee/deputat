@@ -1,12 +1,4 @@
-::-webkit-scrollbar {
-  width: 1px;
-  height: 1px;
-}
 
-::-webkit-scrollbar-button {
-  width: 1px;
-  height: 1px;
-}
 .horizontal-scroll-wrapper {
   display: block;
   top: 0;

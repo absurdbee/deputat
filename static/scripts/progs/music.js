@@ -202,7 +202,7 @@ on('body', 'click', '.u_load_playlist', function() {
 });
 
 on('body', 'click', '.u_load_profile_playlist', function() {
-  profile_list_block_load(this, ".load_block", "/music/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
+  profile_list_block_load(this, ".load_block", "/music/user_list/" + this.getAttribute("data-uuid") + "/", "u_load_profile_playlist");
 });
 on('body', 'click', '.u_load_attach_playlist', function() {
   profile_list_block_load(this, ".is_load_paginate", "/users/load/u_playlist_load/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_attach_playlist");

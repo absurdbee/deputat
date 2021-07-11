@@ -132,9 +132,6 @@ class Elect(models.Model):
         import json
         from common.model.votes import ElectVotes
         from django.http import HttpResponse
-        if not self.votes_on:
-            from django.http import Http404
-            raise Http404
         try:
             item = ElectVotes.objects.get(blog=self, user=user)
             if item.vote == ElectVotes.DISLIKE:
@@ -166,9 +163,6 @@ class Elect(models.Model):
         import json
         from common.model.votes import ElectVotes
         from django.http import HttpResponse
-        if not self.votes_on:
-            from django.http import Http404
-            raise Http404
         try:
             item = ElectVotes.objects.get(blog=self, user=user)
             if item.vote == ElectVotes.LIKE:
@@ -200,9 +194,6 @@ class Elect(models.Model):
         import json
         from common.model.votes import ElectVotes
         from django.http import HttpResponse
-        if not self.votes_on:
-            from django.http import Http404
-            raise Http404
         try:
             item = ElectVotes.objects.get(blog=self, user=user)
             if item.vote == ElectVotes.LIKE:

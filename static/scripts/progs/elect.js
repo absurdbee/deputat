@@ -5,17 +5,17 @@ on('body', 'click', '.u_suggested_elect_new_create', function() {
 });
 
 on('body', 'click', '.elect_like', function() {
-  item = this.parentElement.parentElement.parentElement.parentElement;
+  item = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
   send_like(item, "/elect/votes/like/" + pk + "/");
 });
 on('body', 'click', '.elect_dislike', function() {
-  item = this.parentElement.parentElement.parentElement.parentElement;
+  item = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
   send_dislike(item, "/elect/votes/elect_dislike/" + pk + "/");
 });
 on('body', 'click', '.elect_inert', function() {
-  item = this.parentElement.parentElement.parentElement.parentElement;
+  item = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
   send_inert(item, "/elect/votes/elect_inert/" + pk + "/");
 });

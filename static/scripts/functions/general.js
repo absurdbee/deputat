@@ -387,7 +387,7 @@ function add_item_in_list(_this, url, old_class, new_class) {
 function remove_item_from_list(_this, url, old_class, new_class) {
   parent = _this.parentElement;
   uuid = parent.getAttribute("data-uuid");
-  parent = _this.parentElement.parentElement.parentElemen
+  parent = _this.parentElement.parentElement.parentElement
   if (parent.parentElement.querySelector(".u_track_remove")) {
     drops = parent.parentElement.querySelectorAll(".u_remove_track_from_list");
     if (len(drops) == 1) {

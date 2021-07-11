@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Активности | {{ object.title }}{% endblock %}
+{% load filters %}
+{% block content %}
+<div class="content mt-3 pk_saver">
+    <div class="content-wrapper">
+        <div class="content-detached content-left">
+            <div class="content-body">
+                <div class="blog-detail-wrapper">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body" data-pk="{{ object.pk }}">
+                                    <h1 class="card-title">{{ object.title }}</h1>
+                                    <p class="card-text mb-2">
+                                        Ваша новость удалена. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-detached sidebar-right">
+            <div class="sidebar">
+                <div class="blog-sidebar my-2 my-lg-0">
+                    <div class="blog-recent-posts mt-3">
+                        <h6 class="section-label">Последнее</h6>
+                        <div class="mt-75">
+                            {% for object in last_articles %}
+                            <div class="media mb-2">
+                                <a href="{% url 'elect_new_detail' slug=object.slug %}" class="mr-2 ajax">
+                                    <img class="rounded" src="{{ object.get_image }}" width="100" height="70" alt="img">
+                                </a>
+                                <div class="media-body">
+                                    <h6 class="blog-recent-post-title">
+                                        <a href="{% url 'elect_new_detail' slug=object.slug %}" class="text-body-heading ajax">{{ object.title }}</a>
+                                    </h6>
+                                    <div class="text-muted mb-0">{{ object.get_created }}</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

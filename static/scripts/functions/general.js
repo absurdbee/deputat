@@ -278,14 +278,12 @@ function profile_list_block_load(_this, block, link, actions_class) {
         elem_.innerHTML = request.responseText;
        document.body.querySelector(block).innerHTML = elem_.querySelector(block).innerHTML;
        init_music(document.body.querySelector(block));
-       class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
+       class_to_add = _this.parentElement.querySelectorAll(".list_toggle")
        for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add(actions_class, "pointer");
-         class_to_add[i].parentElement.parentElement.parentElement.classList.replace("active_border", "border");
+         class_to_add[i].replace("active_border", "border");
        };
-       parent = _this.parentElement.parentElement.parentElement;
-       parent.querySelector(".list_svg")? parent.querySelector(".list_svg").classList.remove(actions_class, "pointer") : null;
-       parent.querySelector(".list_name")? parent.querySelector(".list_name").classList.remove(actions_class, "pointer") : null;
+       parent.classList.remove(actions_class, "pointer");
        parent.classList.replace("border", "active_border");
     }};
     request.send( null );
@@ -387,14 +385,10 @@ function add_item_in_list(_this, url, old_class, new_class) {
 function remove_item_from_list(_this, url, old_class, new_class, check_class) {
   parent = _this.parentElement;
   uuid = parent.getAttribute("data-uuid");
-  console.log(old_class);
-  console.log(check_class);
   parent = _this.parentElement.parentElement.parentElement
   if (parent.parentElement.querySelector(check_class)) {
     drops = parent.parentElement.querySelectorAll("." + old_class);
-    console.log(drops);
     if (drops.length == 1) {
-      console.log("length 1");
       return
     }
   };

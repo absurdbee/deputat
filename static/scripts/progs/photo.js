@@ -142,7 +142,7 @@ on('body', 'click', '.u_uncopy_photo_list', function() {
 });
 
 on('body', 'click', '.u_load_profile_photo_list', function() {
-  profile_list_block_load(this, ".load_block", "/gallery/user_list/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_profile_photo_list");
+  profile_list_block_load(this, ".load_block", "/gallery/user_list/" + this.getAttribute("data-uuid") + "/", "u_load_profile_photo_list");
 });
 
 on('body', 'click', '.u_load_attach_photo_list', function() {

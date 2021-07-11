@@ -9,7 +9,7 @@
   transform: rotate(-90deg) translateY(-250px);
   transform-origin: right top;
   max-height: 750px;
-  padding: inherit;
+  margin-left: 7px;
 }
 .horizontal-scroll-wrapper > div {
   display: block;

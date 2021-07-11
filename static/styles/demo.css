@@ -25,7 +25,6 @@ div {
   max-height: 750px;
   margin: 0;
   padding-top: 1px;
-  background: #abc;
   overflow-y: auto;
   overflow-x: hidden;
   transform: rotate(-90deg) translateY(-250px);
@@ -34,7 +33,6 @@ div {
 .horizontal-scroll-wrapper > div {
   display: block;
   padding: 5px;
-  background: #cab;
   transform: rotate(90deg);
   transform-origin: right top;
 }

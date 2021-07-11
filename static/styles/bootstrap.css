@@ -6080,7 +6080,7 @@ a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {
 }
 .active_border {
   border: 2px #606370 solid !important;
-  background-color: #EDEDEE !important
+  background-color: #EDEDEE
 }
 .border:hover {
   border : 1px solid #6B6D70 !important;

@@ -24,7 +24,7 @@ body.dark-layout {
 }
 .active_border {
   border : 2px #606370 solid !important;
-  background-color: #161D30 !important
+  background-color: #161D30
 }
 .dark-layout a:hover {
   color : #FFFFFF;

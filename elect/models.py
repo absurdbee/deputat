@@ -44,7 +44,8 @@ class Elect(models.Model):
         return self.list.all()[0]
 
     def get_regions(self):
-        regions = self.elect_region.all() 
+        regions = self.region.all()
+        return regions
         all_regions = Region.objects.get(slug="all_regions")
         if all_regions in regions:
             return [all_regions,]

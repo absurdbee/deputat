@@ -283,8 +283,8 @@ function profile_list_block_load(_this, block, link, actions_class) {
          class_to_add[i].classList.add(actions_class, "pointer");
          class_to_add[i].classList.replace("active_border", "border");
        };
-       parent.classList.remove(actions_class, "pointer");
-       parent.classList.replace("border", "active_border");
+       _this.classList.remove(actions_class, "pointer");
+       _this.classList.replace("border", "active_border");
     }};
     request.send( null );
 }

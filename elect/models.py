@@ -133,7 +133,7 @@ class Elect(models.Model):
         from common.model.votes import ElectVotes
         from django.http import HttpResponse
         try:
-            item = ElectVotes.objects.get(blog=self, user=user)
+            item = ElectVotes.objects.get(elect=self, user=user)
             if item.vote == ElectVotes.DISLIKE:
                 item.vote = ElectVotes.LIKE
                 item.save(update_fields=['vote'])
@@ -151,7 +151,7 @@ class Elect(models.Model):
                 self.like -= 1
                 self.save(update_fields=['like'])
         except ElectVotes.DoesNotExist:
-            ElectVotes.objects.create(blog=self, user=user, vote=ElectVotes.LIKE)
+            ElectVotes.objects.create(elect=self, user=user, vote=ElectVotes.LIKE)
             self.like += 1
             self.save(update_fields=['like'])
             from common.notify.notify import user_notify, user_wall
@@ -164,7 +164,7 @@ class Elect(models.Model):
         from common.model.votes import ElectVotes
         from django.http import HttpResponse
         try:
-            item = ElectVotes.objects.get(blog=self, user=user)
+            item = ElectVotes.objects.get(elect=self, user=user)
             if item.vote == ElectVotes.LIKE:
                 item.vote = ElectVotes.DISLIKE
                 item.save(update_fields=['vote'])
@@ -182,7 +182,7 @@ class Elect(models.Model):
                 self.dislike -= 1
                 self.save(update_fields=['dislike'])
         except ElectVotes.DoesNotExist:
-            ElectVotes.objects.create(blog=self, user=user, vote=ElectVotes.DISLIKE)
+            ElectVotes.objects.create(elect=self, user=user, vote=ElectVotes.DISLIKE)
             self.dislike += 1
             self.save(update_fields=['dislike'])
             from common.notify.notify import user_notify, user_wall
@@ -195,7 +195,7 @@ class Elect(models.Model):
         from common.model.votes import ElectVotes
         from django.http import HttpResponse
         try:
-            item = ElectVotes.objects.get(blog=self, user=user)
+            item = ElectVotes.objects.get(elect=self, user=user)
             if item.vote == ElectVotes.LIKE:
                 item.vote = ElectVotes.INERT
                 item.save(update_fields=['vote'])
@@ -213,7 +213,7 @@ class Elect(models.Model):
                 self.inert -= 1
                 self.save(update_fields=['inert'])
         except ElectVotes.DoesNotExist:
-            ElectVotes.objects.create(blog=self, user=user, vote=ElectVotes.INERT)
+            ElectVotes.objects.create(elect=self, user=user, vote=ElectVotes.INERT)
             self.inert += 1
             self.save(update_fields=['inert'])
             from common.notify.notify import user_notify, user_wall

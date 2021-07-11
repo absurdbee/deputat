@@ -269,6 +269,10 @@ function media_list_recover(_this, url, old_class, new_class) {
 
 function profile_list_block_load(_this, block, link, actions_class) {
   // подгрузка списков в профиле пользователя
+
+  if (_this.getAttribute("href")) {
+    return
+  }
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   request.open( 'GET', link, true );
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

@@ -281,8 +281,7 @@ function profile_list_block_load(_this, block, link, actions_class) {
        class_to_add = _this.parentElement.parentElement.querySelectorAll(".list_toggle")
        for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add(actions_class, "pointer");
-         console.log(class_to_add[i]);
-         class_to_add[i].replace("active_border", "border");
+         class_to_add[i].classList.replace("active_border", "border");
        };
        parent.classList.remove(actions_class, "pointer");
        parent.classList.replace("border", "active_border");

@@ -391,7 +391,7 @@ function remove_item_from_list(_this, url, old_class, new_class, check_class) {
   console.log(check_class);
   parent = _this.parentElement.parentElement.parentElement
   if (parent.parentElement.querySelector(check_class)) {
-    drops = parent.parentElement.querySelectorAll(old_class);
+    drops = parent.parentElement.querySelectorAll("." + old_class);
     console.log(drops);
     if (drops.length == 1) {
       console.log("length 1");

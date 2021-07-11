@@ -32,6 +32,16 @@ class ElectNewVotes2(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     new = models.ForeignKey(ElectNew, on_delete=models.CASCADE)
 
+class ElectVotes(models.Model):
+    LIKE = "LIK"
+    DISLIKE = "DIS"
+    INERT = "INE"
+    VOTES = ((DISLIKE, 'Не оценил'),(LIKE, 'Оценил'),(INERT, 'Объект инертный'))
+
+    vote = models.CharField(max_length=5, verbose_name="Голос", choices=VOTES)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
+    elect = models.ForeignKey("elect.Elect", on_delete=models.CASCADE)
+
 
 class ElectNewCommentVotes(models.Model):
     LIKE = 1

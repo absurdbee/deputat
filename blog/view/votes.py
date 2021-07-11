@@ -8,8 +8,6 @@ from django.http import Http404
 
 class ElectNewLike(View):
     def get(self, request, **kwargs):
-        from common.model.votes import ElectNewVotes2
-
         if not request.is_ajax():
             raise Http404
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
@@ -17,8 +15,6 @@ class ElectNewLike(View):
 
 class ElectNewDislike(View):
     def get(self, request, **kwargs):
-        from common.model.votes import ElectNewVotes2
-
         if not request.is_ajax():
             raise Http404
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
@@ -26,8 +22,6 @@ class ElectNewDislike(View):
 
 class ElectNewInert(View):
     def get(self, request, **kwargs):
-        from common.model.votes import ElectNewVotes2
-
         if not request.is_ajax():
             raise Http404
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
@@ -36,7 +30,6 @@ class ElectNewInert(View):
 
 class ElectNewCommentLike(View):
     def get(self, request, **kwargs):
-        from common.model.votes import ElectNewCommentVotes
         if not request.is_ajax():
             raise Http404
         comment = ElectNewComment.objects.get(pk=self.kwargs["pk"])
@@ -45,8 +38,6 @@ class ElectNewCommentLike(View):
 
 class BlogLike(View):
     def get(self, request, **kwargs):
-        from common.model.votes import BlogVotes
-
         if not request.is_ajax():
             raise Http404
         blog = Blog.objects.get(pk=self.kwargs["pk"])
@@ -54,8 +45,6 @@ class BlogLike(View):
 
 class BlogDislike(View):
     def get(self, request, **kwargs):
-        from common.model.votes import BlogVotes
-
         if not request.is_ajax():
             raise Http404
         blog = Blog.objects.get(pk=self.kwargs["pk"])
@@ -63,8 +52,6 @@ class BlogDislike(View):
 
 class BlogInert(View):
     def get(self, request, **kwargs):
-        from common.model.votes import BlogVotes
-
         if not request.is_ajax():
             raise Http404
         blog = Blog.objects.get(pk=self.kwargs["pk"])
@@ -73,8 +60,6 @@ class BlogInert(View):
 
 class BlogCommentLike(View):
     def get(self, request, **kwargs):
-        from common.model.votes import BlogCommentVotes
-
         if not request.is_ajax():
             raise Http404
         comment = BlogComment.objects.get(pk=self.kwargs["pk"])

@@ -90,6 +90,22 @@ class Elect(models.Model):
             return self.inert
         else:
             return ''
+    def likes(self):
+        from common.model.votes import ElectVotes
+        return ElectVotes.objects.filter(elect_id=self.pk, vote="LIK")
+    def dislikes(self):
+        from common.model.votes import ElectVotes
+        return ElectVotes.objects.filter(elect_id=self.pk, vote="DIS")
+    def inerts(self):
+        from common.model.votes import ElectVotes
+        return ElectVotes.objects.filter(elect_id=self.pk, vote="INE")
+
+    def is_have_likes(self):
+        return self.like > 0
+    def is_have_dislikes(self):
+        return self.dislike > 0
+    def is_have_inerts(self):
+        return self.inert > 0
 
     def get_avatar(self):
         try:
@@ -111,6 +127,108 @@ class Elect(models.Model):
         subscribers = SubscribeElect.objects.filter(elect_id=self.pk).values("user_id")
         user_ids = [i['user_id'] for i in subscribers]
         return User.objects.filter(id__in=user_ids).exists()
+
+    def send_like(self, user):
+        import json
+        from common.model.votes import ElectVotes
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = ElectVotes.objects.get(blog=self, user=user)
+            if item.vote == ElectVotes.DISLIKE:
+                item.vote = ElectVotes.LIKE
+                item.save(update_fields=['vote'])
+                self.like += 1
+                self.dislike -= 1
+                self.save(update_fields=['like', 'dislike'])
+            elif item.vote == ElectVotes.INERT:
+                item.vote = ElectVotes.LIKE
+                item.save(update_fields=['vote'])
+                self.inert -= 1
+                self.like += 1
+                self.save(update_fields=['inert', 'like'])
+            else:
+                item.delete()
+                self.like -= 1
+                self.save(update_fields=['like'])
+        except ElectVotes.DoesNotExist:
+            ElectVotes.objects.create(blog=self, user=user, vote=ElectVotes.LIKE)
+            self.like += 1
+            self.save(update_fields=['like'])
+            from common.notify.notify import user_notify, user_wall
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "LIK")
+            user_wall(user, None, self.pk, "ELE", "u_elec_notify", "LIK")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
+
+    def send_dislike(self, user):
+        import json
+        from common.model.votes import ElectVotes
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = ElectVotes.objects.get(blog=self, user=user)
+            if item.vote == ElectVotes.LIKE:
+                item.vote = ElectVotes.DISLIKE
+                item.save(update_fields=['vote'])
+                self.like -= 1
+                self.dislike += 1
+                self.save(update_fields=['like', 'dislike'])
+            elif item.vote == ElectVotes.INERT:
+                item.vote = ElectVotes.DISLIKE
+                item.save(update_fields=['vote'])
+                self.inert -= 1
+                self.dislike += 1
+                self.save(update_fields=['inert', 'dislike'])
+            else:
+                item.delete()
+                self.dislike -= 1
+                self.save(update_fields=['dislike'])
+        except ElectVotes.DoesNotExist:
+            ElectVotes.objects.create(blog=self, user=user, vote=ElectVotes.DISLIKE)
+            self.dislike += 1
+            self.save(update_fields=['dislike'])
+            from common.notify.notify import user_notify, user_wall
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "DIS")
+            user_wall(user, None, self.pk, "ELE", "u_elec_notify", "DIS")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
+
+    def send_inert(self, user):
+        import json
+        from common.model.votes import ElectVotes
+        from django.http import HttpResponse
+        if not self.votes_on:
+            from django.http import Http404
+            raise Http404
+        try:
+            item = ElectVotes.objects.get(blog=self, user=user)
+            if item.vote == ElectVotes.LIKE:
+                item.vote = ElectVotes.INERT
+                item.save(update_fields=['vote'])
+                self.like -= 1
+                self.inert += 1
+                self.save(update_fields=['like', 'inert'])
+            elif item.vote == ElectVotes.DISLIKE:
+                item.vote = ElectVotes.INERT
+                item.save(update_fields=['vote'])
+                self.inert += 1
+                self.dislike -= 1
+                self.save(update_fields=['inert', 'dislike'])
+            else:
+                item.delete()
+                self.inert -= 1
+                self.save(update_fields=['inert'])
+        except ElectVotes.DoesNotExist:
+            ElectVotes.objects.create(blog=self, user=user, vote=ElectVotes.INERT)
+            self.inert += 1
+            self.save(update_fields=['inert'])
+            from common.notify.notify import user_notify, user_wall
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "INE")
+            user_wall(user, None, self.pk, "ELE", "u_elec_notify", "INE")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
 
 class LinkElect(models.Model):

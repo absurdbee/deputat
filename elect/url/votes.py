@@ -3,5 +3,7 @@ from elect.view.votes import *
 
 
 urlpatterns = [
-    url(r'^elect_comment_like/(?P<pk>\d+)/$', ElectCommentLikeCreate.as_view()),
+    url(r'^like/(?P<pk>\d+)/$', ElectLike.as_view()),
+    url(r'^dislike/(?P<pk>\d+)/$', ElectDislike.as_view()),
+    url(r'^inert/(?P<pk>\d+)/$', ElectInert.as_view()),
 ]

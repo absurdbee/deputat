@@ -1,9 +1,23 @@
-
-
 on('body', 'click', '.u_suggested_elect_new_create', function() {
   loader = document.getElementById("window_loader");
   this.getAttribute("data-name") ? name = this.getAttribute("data-name") : name = "";
   open_elect_fullscreen("/blog/progs/suggest_elect_new/", loader, name)
+});
+
+on('body', 'click', '.elect_like', function() {
+  item = this.parentElement.parentElement.parentElement.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_like(item, "/elect/votes/like/" + pk + "/");
+});
+on('body', 'click', '.elect_dislike', function() {
+  item = this.parentElement.parentElement.parentElement.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_dislike(item, "/elect/votes/elect_dislike/" + pk + "/");
+});
+on('body', 'click', '.elect_inert', function() {
+  item = this.parentElement.parentElement.parentElement.parentElement;
+  pk = item.getAttribute("data-pk");
+  send_inert(item, "/elect/votes/elect_inert/" + pk + "/");
 });
 
 on('body', 'click', '#u_create_suggested_new_btn', function() {

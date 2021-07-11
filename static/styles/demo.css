@@ -5,8 +5,10 @@
   left: 0;
   width: calc(250px + 1px);
   overflow-x: hidden;
+  overflow-y: auto;
   transform: rotate(-90deg) translateY(-250px);
   transform-origin: right top;
+  max-height: 750px;
 }
 .horizontal-scroll-wrapper > div {
   display: block;
@@ -14,7 +16,14 @@
   transform: rotate(90deg);
   transform-origin: right top;
 }
-
+.horizontal-scroll-wrapper ::-webkit-scrollbar {
+  width: 1px;
+  height: 1px;
+}
+.horizontal-scroll-wrapper::-webkit-scrollbar-button {
+  width: 1px;
+  height: 1px;
+}
 
 .custom-control-info .custom-control-input:checked ~ .custom-control-label::before, .custom-control-info .custom-control-input:active ~ .custom-control-label::before {
     border-color: #00CFE8;

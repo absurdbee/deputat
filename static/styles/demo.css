@@ -1,46 +1,51 @@
-$finalHeight: 250px;
-$finalWidth: 3 * $finalHeight;
-$scrollBarHeight: 1px;
-
 ::-webkit-scrollbar {
-  width: $scrollBarHeight;
-  height: $scrollBarHeight;
+  width: 1px;
+  height: 1px;
 }
 
 ::-webkit-scrollbar-button {
-  width: $scrollBarHeight;
-  height: $scrollBarHeight;
+  width: 1px;
+  height: 1px;
 }
+
+body {
+  background: #111;
+}
+
+div {
+  box-sizing: border-box;
+}
+
 .horizontal-scroll-wrapper {
   position: absolute;
   display: block;
   top: 0;
   left: 0;
-  width: calc(#{$finalHeight} + #{$scrollBarHeight});
-  max-height: $finalWidth;
+  width: calc(250px + 1px);
+  max-height: 750px;
   margin: 0;
-  padding-top: $scrollBarHeight;
+  padding-top: 1px;
   background: #abc;
   overflow-y: auto;
   overflow-x: hidden;
-  transform: rotate(-90deg) translateY(-$finalHeight);
+  transform: rotate(-90deg) translateY(-250px);
   transform-origin: right top;
-  & > div {
-    display: block;
-    padding: 5px;
-    background: #cab;
-    transform: rotate(90deg);
-    transform-origin: right top;
-  }
+}
+.horizontal-scroll-wrapper > div {
+  display: block;
+  padding: 5px;
+  background: #cab;
+  transform: rotate(90deg);
+  transform-origin: right top;
 }
 
 .squares {
-  padding: $finalHeight 0 0 0;
-  & > div {
-    width: $finalHeight;
-    height: $finalHeight;
-    margin: 10px 0;
-  }
+  padding: 250px 0 0 0;
+}
+.squares > div {
+  width: 250px;
+  height: 250px;
+  margin: 10px 0;
 }
 
 

@@ -7,10 +7,8 @@
       ({{ count_lists }})
     </h5>
 </div>
-<div class="row no-gutters" style="overflow-x: auto;">
-    <div class="col-12">
-        <ul style="width:max-content;list-style: none;" class="horizontal-scroll-wrapper squares">
-          <li class="list_item">
+<div class="horizontal-scroll-wrapper squares" style="overflow-x: auto;">
+          <div class="list_item">
               <div class="card file-manager-item folder cover_block active_border" data-uuid="{{ list.uuid }}">
                   <div class="card-img-top file-logo-wrapper">
                     <div class="d-flex align-items-center justify-content-center w-100">
@@ -27,9 +25,9 @@
                       </small>
                   </div>
               </div>
-          </li>
+          </div>
             {% for object in get_lists %}
-            <li class="list_item">
+            <div class="list_item">
                 <div class="card file-manager-item folder cover_block border" data-uuid="{{ object.uuid }}">
                     <div class="card-img-top file-logo-wrapper">
                       <div class="d-flex align-items-center justify-content-center w-100">
@@ -48,10 +46,10 @@
                         </small>
                     </div>
                 </div>
-            </li>
+            </div>
             {% endfor %}
             {% if can_add_list %}
-            <li class="list_item">
+            <div class="list_item">
                 <div class="card file-manager-item folder border u_photo_list_add pointer">
                     <div class="card-img-top file-logo-wrapper">
                         <div class="d-flex align-items-center justify-content-center w-100">
@@ -67,8 +65,6 @@
                         </small>
                     </div>
                 </div>
-            </li>
+            </div>
             {% endif %}
-        </ul>
-    </div>
 </div>

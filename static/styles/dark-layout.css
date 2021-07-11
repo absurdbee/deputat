@@ -22,9 +22,9 @@ body.dark-layout {
 .dark-layout .border:hover {
   border-color : #606370 !important;
 }
-.active_border {
+.dark-layout .active_border {
   border : 2px #606370 solid !important;
-  background-color: #161D30
+  background-color: #161D30 !important
 }
 .dark-layout a:hover {
   color : #FFFFFF;

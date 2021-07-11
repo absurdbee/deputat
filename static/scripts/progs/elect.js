@@ -12,12 +12,12 @@ on('body', 'click', '.elect_like', function() {
 on('body', 'click', '.elect_dislike', function() {
   item = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
-  send_dislike(item, "/elect/votes/elect_dislike/" + pk + "/");
+  send_dislike(item, "/elect/votes/dislike/" + pk + "/");
 });
 on('body', 'click', '.elect_inert', function() {
   item = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
-  send_inert(item, "/elect/votes/elect_inert/" + pk + "/");
+  send_inert(item, "/elect/votes/inert/" + pk + "/");
 });
 
 on('body', 'click', '#u_create_suggested_new_btn', function() {

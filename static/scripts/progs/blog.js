@@ -159,7 +159,7 @@ on('body', 'click', '.blog_comment_like', function() {
 on('body', 'click', '.elect_new_comment_like', function() {
   item = this.parentElement.parentElement;
   send_comment_like(item, "/blog/votes/elect_new_comment_like/" + item.getAttribute("data-pk") + "/");
-}); 
+});
 
 on('body', 'click', '.edit_blog_comment', function() {
   _this = this;
@@ -248,6 +248,7 @@ on('body', 'click', '.blogEditComment', function() {
           span.append(crd);
           crd.innerHTML = new_post.querySelector(".card-body").innerHTML;
           block.innerHTML = span.innerHTML;
+          console.log(block);
           toast_success(" Комментарий изменен");
       }
   };

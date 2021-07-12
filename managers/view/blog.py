@@ -126,7 +126,7 @@ class BlogCloseCreate(TemplateView):
     def get(self,request,*args,**kwargs):
         self.post = Blog.objects.get(pk=self.kwargs["pk"])
         if request.user.is_blog_manager():
-            self.template_name = get_detect_platform_template("managers/manage_create/blog/close.html", request.user, request.META['HTTP_USER_AGENT'])
+            self.template_name = get_detect_platform_template("managers/manage_create/blog/blog_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
         return super(BlogCloseCreate,self).get(request,*args,**kwargs)

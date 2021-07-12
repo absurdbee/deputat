@@ -126,7 +126,7 @@ class ElectNewCloseCreate(TemplateView):
     def get(self,request,*args,**kwargs):
         self.post = ElectNew.objects.get(pk=self.kwargs["pk"])
         if request.user.is_elect_new_manager():
-            self.template_name = get_detect_platform_template("managers/manage_create/elect_new/close.html", request.user, request.META['HTTP_USER_AGENT'])
+            self.template_name = get_detect_platform_template("managers/manage_create/elect_new/elect_new_close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
             raise Http404
         return super(ElectNewCloseCreate,self).get(request,*args,**kwargs)

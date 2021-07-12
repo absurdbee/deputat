@@ -164,7 +164,7 @@ class PhotoClaimCreate(TemplateView):
 
         self.photo = Photo.objects.get(uuid=self.kwargs["uuid"])
         self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'PHO', self.photo.pk)
-        self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_claim", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_detect_platform_template("managers/manage_create/photo/photo_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(PhotoClaimCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

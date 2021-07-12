@@ -131,8 +131,14 @@ on('body', 'click', '.add_elect_subscribe', function() {
 link.send( null );
 })
 
+on('body', 'click', '.claim_blog', function() {
+  open_fullscreen("/managers/progs_blog/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+});
 on('body', 'click', '.claim_blog_comment', function() {
   open_fullscreen("/managers/progs_blog/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+});
+on('body', 'click', '.claim_elect_new', function() {
+  open_fullscreen("/managers/elect_new/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
 });
 on('body', 'click', '.claim_elect_new_comment', function() {
   open_fullscreen("/managers/elect_new/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))

@@ -46,11 +46,6 @@ class Elect(models.Model):
     def get_regions(self):
         regions = self.region.all()
         return regions
-        all_regions = Region.objects.get(slug="all_regions")
-        if all_regions in regions:
-            return [all_regions,]
-        else:
-            return regions
 
     def get_news(self):
         return self.new_elect.filter(type="PUB")

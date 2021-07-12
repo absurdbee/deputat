@@ -169,7 +169,7 @@ class UserSuspensionCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(UserSuspensionCreate,self).get_context_data(**kwargs)
-        context["user"] = User.objects.get(pk=self.kwargs["pk"])
+        context["object"] = User.objects.get(pk=self.kwargs["pk"])
         return context
 
     def post(self,request,*args,**kwargs):
@@ -226,7 +226,7 @@ class UserCloseCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(UserCloseCreate,self).get_context_data(**kwargs)
-        context["user"] = User.objects.get(pk=self.kwargs["pk"])
+        context["object"] = User.objects.get(pk=self.kwargs["pk"])
         return context
 
     def post(self,request,*args,**kwargs):
@@ -263,7 +263,7 @@ class UserWarningBannerCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(UserWarningBannerCreate,self).get_context_data(**kwargs)
-        context["user"] = User.objects.get(pk=self.kwargs["pk"])
+        context["object"] = User.objects.get(pk=self.kwargs["pk"])
         return context
 
     def post(self,request,*args,**kwargs):

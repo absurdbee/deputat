@@ -301,13 +301,13 @@ class UserClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         user = User.objects.get(pk=self.kwargs["pk"])
-        form = ReportForm(request.POST)
         if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'USE', user.pk):
-            mod = form.save(commit=False)
-            ModerationReport.create_user_moderation_report(reporter_id=request.user.pk, object_id=user.pk, _type="USE", description=mod.description, type=request.POST.get('type'))
+            description = request.POST.get('description')
+            type = request.POST.get('type')
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="USE", object_id=user.pk, description=description, type=type)
             return HttpResponse()
         else:
-            raise Http404
+            return HttpResponseBadRequest()
 
 class UserWarningBannerDelete(View):
     def get(self,request,*args,**kwargs):

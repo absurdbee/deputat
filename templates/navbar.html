@@ -68,7 +68,7 @@
                   <ul class="search-list search-list-main"></ul>
               </div>
             </li>
-            <li class="nav-item dropdown dropdown-notification mr-25" tooltip="Уведомления" flow="down">
+            <li class="nav-item dropdown-notification mr-25" tooltip="Уведомления" flow="down">
               <a class="nav-link">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ficon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                 <span class="badge badge-pill resent_notify badge-up">{{ request.user.get_unread_notify_count }}</span>
@@ -93,13 +93,6 @@
                                     </div>
                                 </div>
                             </a>
-
-                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
-                          <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                        </div>
-                        <div class="ps__rail-y" style="top: 0px; right: 0px;">
-                          <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-                        </div>
                       </li>
                       <li class="dropdown-menu-footer">
                         <a class="btn btn-primary btn-block">Все уведомления</a>

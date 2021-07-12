@@ -174,6 +174,9 @@ on('body', 'click', '.u_survey_list_claim', function() {
   open_fullscreen("/managers/progs_survey/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("create_loader"))
 });
 
+on('body', 'click', '.create_user_claim_btn', function() {
+  send_form_and_toast_and_close_window("/managers/progs_user/create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
+});
 on('body', 'click', '.create_blog_comment_claim_btn', function() {
   send_form_and_toast_and_close_window("/managers/progs_blog/comment_create_claim/" + this.getAttribute('data-pk') + "/", this.parentElement.parentElement.parentElement)
 });

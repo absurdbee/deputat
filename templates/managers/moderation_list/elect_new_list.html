@@ -3,46 +3,33 @@
 {% load manager_tags %}
 {% block content %}
 
-<div class="row manager">
-    <div class="col-md-9 col-lg-8">
-        <br>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Поиск по списку">
-            <div class="input-group-append">
-                <button class="btn custom_color border" type="button">Искать</button>
-            </div>
-        </div>
+<div class="content-body manager">
+    <section class="app-user-edit">
         <div class="card">
-            <div class="card-header">
-                <div class="media">
-                    <div class="media-body">
-                      <h5 class="mt-1">Жалобы на активности</h5>
-                      <small class="content-color-secondary float-right mr-2 mt-1"></small>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8 col-md-7">
+                        <div class="card user-card">
+                          <h1 class="mb-0 mb-3">Жалобы на активности</h1>
+                          {% for object in object_list %}
+                          <div class="pag mt-2 {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}" style="position: relative;">
+                              {{ object|get_elect_new_items:request.user|safe }}
+                          </div>
+                          {% empty %}
+                          <div class="card centered mt-5">
+                            <div class="card-body">
+                              <svg fill="currentColor" class="svg_default thumb_big" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 5h-3v5.5c0 1.38-1.12 2.5-2.5 2.5S10 13.88 10 12.5s1.12-2.5 2.5-2.5c.57 0 1.08.19 1.5.51V5h4v2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"></path></svg>                            </div>
+                            <h6> Жалобы пока нет...</h6>
+                          </div>
+                          {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5">
+                      Сайдбарчик
                     </div>
                 </div>
             </div>
-            <div class="card-body px-0 py-0">
-
-              <div class="is_paginate">
-                {% if object_list %}
-                  {% for object in object_list %}
-                  <div class="pag {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}">
-                      {{ object|get_elect_new_items:request.user|safe }}
-                  </div>
-                  {% endfor %}
-                  {% else %}
-                  <div class="card centered mt-5">
-                    <div class="card-body">
-                    <svg fill="currentColor" class="thumb_big svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M22 13h-8v-2h8v2zm0-6h-8v2h8V7zm-8 10h8v-2h-8v2zm-2-8v6c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V9c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2zm-1.5 6l-2.25-3-1.75 2.26-1.25-1.51L3.5 15h7z"/></svg>
-                    </div>
-                    <h6> Жалоб пока нет...</h6>
-                  </div>
-                  {% endif %}
-            </div>
         </div>
-    </div>
+    </section>
 </div>
-<div class="col-md-3 col-lg-4"></div>
-</div>
-
 {% endblock %}

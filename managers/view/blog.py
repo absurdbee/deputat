@@ -165,7 +165,7 @@ class BlogClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         self.template_name = get_detect_platform_template("managers/manage_create/blog/claim.html", request.user, request.META['HTTP_USER_AGENT'])
-        self.new = Blog.objects.get(uuid=self.kwargs["uuid"])
+        self.new = Blog.objects.get(pk=self.kwargs["pk"])
         self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'BLO', self.new.pk)
         return super(BlogClaimCreate,self).get(request,*args,**kwargs)
 
@@ -180,7 +180,7 @@ class BlogClaimCreate(TemplateView):
     def post(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
-        self.new = Blog.objects.get(uuid=self.kwargs["uuid"])
+        self.new = Blog.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'BLO', self.new.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')

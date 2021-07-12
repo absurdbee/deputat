@@ -57,13 +57,23 @@
               <a class="nav-link nav-link-search">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search ficon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
               </a>
+              <div class="search-input">
+                  <div class="search-input-icon">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  </div>
+                  <input class="form-control input" type="text" placeholder="Что будем искать?" tabindex="-1" data-search="search">
+                  <div class="search-input-close">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  </div>
+                  <ul class="search-list search-list-main"></ul>
+              </div>
             </li>
-            <li class="nav-item dropdown-notification mr-25" tooltip="Уведомления" flow="down">
+            <li class="nav-item dropdown dropdown-notification mr-25" tooltip="Уведомления" flow="down">
               <a class="nav-link">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ficon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                 <span class="badge badge-pill resent_notify badge-up">{{ request.user.get_unread_notify_count }}</span>
               </a>
-              <ul class="dropdown-menu-media dropdown-menu-right">
+              <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                 <li class="dropdown-menu-header">
                   <div class="dropdown-header d-flex">
                     <h4 class="notification-title mb-0 mr-auto">Уведомления</h4>

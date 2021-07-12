@@ -124,7 +124,6 @@ on('body', 'click', '.main_nav', function() {
           }
           elem = link.responseText;
           response = document.createElement("span");
-          response.innerHTML = elem;
           _this.classList.add("active");
           container.innerHTML = "";
           container.innerHTML = response.querySelector(".news_stream").innerHTML

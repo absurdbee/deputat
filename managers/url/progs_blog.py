@@ -17,11 +17,11 @@ urlpatterns = [
     url(r'^add_worker_editor/(?P<pk>\d+)/$', BlogWorkerEditorCreate.as_view()),
     url(r'^delete_worker_editor/(?P<pk>\d+)/$', BlogWorkerEditorDelete.as_view()),
 
-    url(r'^create_close/(?P<uuid>[0-9a-f-]+)/$', BlogCloseCreate.as_view()),
-    url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', BlogCloseDelete.as_view()),
-    url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', BlogRejectedCreate.as_view()),
+    url(r'^create_close/(?P<pk>\d+)/$', BlogCloseCreate.as_view()),
+    url(r'^delete_close/(?P<pk>\d+)/$', BlogCloseDelete.as_view()),
+    url(r'^create_rejected/(?P<pk>\d+)/$', BlogRejectedCreate.as_view()),
     url(r'^create_claim/(?P<pk>\d+)/$', BlogClaimCreate.as_view()),
-    url(r'^unverify/(?P<post_uuid>[0-9a-f-]+)/$', BlogUnverify.as_view()),
+    url(r'^unverify/(?P<pk>\d+)/$', BlogUnverify.as_view()),
 
     url(r'^comment_create_close/(?P<pk>\d+)/$', CommentBlogCloseCreate.as_view()),
     url(r'^comment_delete_close/(?P<pk>\d+)/$', CommentBlogCloseDelete.as_view()),

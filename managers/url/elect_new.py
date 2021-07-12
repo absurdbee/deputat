@@ -20,11 +20,11 @@ urlpatterns = [
     url(r'^create_publish/(?P<pk>\d+)/$', PublishElectNew.as_view()),
     url(r'^suggest_rejected/(?P<pk>\d+)/$', RejectElectNew.as_view()),
 
-    url(r'^create_close/(?P<uuid>[0-9a-f-]+)/$', ElectNewCloseCreate.as_view()),
-    url(r'^delete_close/(?P<uuid>[0-9a-f-]+)/$', ElectNewCloseDelete.as_view()),
-    url(r'^create_rejected/(?P<uuid>[0-9a-f-]+)/$', ElectNewRejectedCreate.as_view()),
-    url(r'^create_claim/(?P<pk>\d+)/$', ElectNewClaimCreate.as_view()), 
-    url(r'^unverify/(?P<post_uuid>[0-9a-f-]+)/$', ElectNewUnverify.as_view()),
+    url(r'^create_close/(?P<pk>\d+)/$', ElectNewCloseCreate.as_view()),
+    url(r'^delete_close/(?P<pk>\d+)/$', ElectNewCloseDelete.as_view()),
+    url(r'^create_rejected/(?P<pk>\d+)/$', ElectNewRejectedCreate.as_view()),
+    url(r'^create_claim/(?P<pk>\d+)/$', ElectNewClaimCreate.as_view()),
+    url(r'^unverify/(?P<pk>\d+)/$', ElectNewUnverify.as_view()),
 
     url(r'^comment_create_close/(?P<pk>\d+)/$', CommentElectNewCloseCreate.as_view()),
     url(r'^comment_delete_close/(?P<pk>\d+)/$', CommentElectNewCloseDelete.as_view()),

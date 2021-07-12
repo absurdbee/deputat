@@ -124,7 +124,7 @@ class ElectNewCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
+        self.post = ElectNew.objects.get(pk=self.kwargs["pk"])
         if request.user.is_elect_new_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/elect_new/close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
@@ -137,7 +137,7 @@ class ElectNewCloseCreate(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
-        post, form = ElectNew.objects.get(uuid=self.kwargs["uuid"]), ModeratedForm(request.POST)
+        post, form = ElectNew.objects.get(pk=self.kwargs["pk"]), ModeratedForm(request.POST)
         if request.is_ajax() and form.is_valid() and request.user.is_elect_new_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="ELE")
@@ -149,7 +149,7 @@ class ElectNewCloseCreate(TemplateView):
 
 class ElectNewCloseDelete(View):
     def get(self,request,*args,**kwargs):
-        post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
+        post = ElectNew.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_elect_new_manager():
             moderate_obj = Moderated.objects.get(object_id=post.pk, type="ELE")
             moderate_obj.delete_close(object=post, manager_id=request.user.pk)
@@ -191,7 +191,7 @@ class ElectNewClaimCreate(TemplateView):
 
 class ElectNewRejectedCreate(View):
     def get(self,request,*args,**kwargs):
-        post = ElectNew.objects.get(uuid=self.kwargs["uuid"])
+        post = ElectNew.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_elect_new_manager():
             moderate_obj = Moderated.objects.get(object_id=post.pk, type="ELE")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
@@ -203,7 +203,7 @@ class ElectNewRejectedCreate(View):
 
 class ElectNewUnverify(View):
     def get(self,request,*args,**kwargs):
-        post = ElectNew.objects.get(uuid=self.kwargs["elect_new_uuid"])
+        post = ElectNew.objects.get(pk=self.kwargs["pk"])
         obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="ELE")
         if request.is_ajax() and request.user.is_elect_new_manager():
             obj.unverify_moderation(post, manager_id=request.user.pk)

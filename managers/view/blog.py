@@ -124,7 +124,7 @@ class BlogCloseCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.post = Blog.objects.get(uuid=self.kwargs["uuid"])
+        self.post = Blog.objects.get(pk=self.kwargs["pk"])
         if request.user.is_blog_manager():
             self.template_name = get_detect_platform_template("managers/manage_create/blog/close.html", request.user, request.META['HTTP_USER_AGENT'])
         else:
@@ -137,7 +137,7 @@ class BlogCloseCreate(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
-        post, form = Blog.objects.get(uuid=self.kwargs["uuid"]), ModeratedForm(request.POST)
+        post, form = Blog.objects.get(pk=self.kwargs["pk"]), ModeratedForm(request.POST)
         if request.is_ajax() and form.is_valid() and request.user.is_blog_manager():
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="BLO")
@@ -149,7 +149,7 @@ class BlogCloseCreate(TemplateView):
 
 class BlogCloseDelete(View):
     def get(self,request,*args,**kwargs):
-        post = Blog.objects.get(uuid=self.kwargs["uuid"])
+        post = Blog.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_blog_manager():
             moderate_obj = Moderated.objects.get(object_id=post.pk, type="BLO")
             moderate_obj.delete_close(object=post, manager_id=request.user.pk)
@@ -191,7 +191,7 @@ class BlogClaimCreate(TemplateView):
 
 class BlogRejectedCreate(View):
     def get(self,request,*args,**kwargs):
-        post = Blog.objects.get(uuid=self.kwargs["uuid"])
+        post = Blog.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_blog_manager():
             moderate_obj = Moderated.objects.get(object_id=post.pk, type="BLO")
             moderate_obj.reject_moderation(manager_id=request.user.pk)
@@ -203,7 +203,7 @@ class BlogRejectedCreate(View):
 
 class BlogUnverify(View):
     def get(self,request,*args,**kwargs):
-        post = Blog.objects.get(uuid=self.kwargs["blog_uuid"])
+        pk = Blog.objects.get(uuid=self.kwargs["pk"])
         obj = Moderated.get_or_create_moderated_object(object_id=post.pk, type="BLO")
         if request.is_ajax() and request.user.is_blog_manager():
             obj.unverify_moderation(post, manager_id=request.user.pk)

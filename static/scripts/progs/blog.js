@@ -247,7 +247,8 @@ on('body', 'click', '.blogEditComment', function() {
           crd.style.paddingLeft = "7px";
           span.append(crd);
           crd.innerHTML = new_post.querySelector(".card-body").innerHTML;
-          block.innerHTML = span.innerHTML;
+          //block.innerHTML = span.innerHTML;
+          block.innerHTML = new_post.querySelector(".card-body").innerHTML;
           console.log(block);
           toast_success(" Комментарий изменен");
       }

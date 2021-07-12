@@ -164,7 +164,7 @@ class ElectNewClaimCreate(TemplateView):
     def get(self,request,*args,**kwargs):
         from managers.models import ModerationReport
 
-        self.template_name = get_detect_platform_template("managers/manage_create/elect_new/claim.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_detect_platform_template("managers/manage_create/elect_new/elect_new_claim.html", request.user, request.META['HTTP_USER_AGENT'])
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         self.is_reported = ModerationReport.is_user_already_reported(request.user.pk, 'ELE', self.new.pk)
         return super(ElectNewClaimCreate,self).get(request,*args,**kwargs)

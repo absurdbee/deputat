@@ -394,7 +394,7 @@ class Moderated(models.Model):
         self.verified = True
         self.save()
         ModerationPenalty.create_close_penalty(moderated_object=self, manager_id=manager_id, type=self.type, object_id=self.object_id)
-        if self.type == "USE" or self.type == "COM":
+        if self.type == "USE" or self.type == "COM" or self.type == "ELE" or self.type == "BLO":
             object.close_item()
         elif object.community:
             object.close_item(object.community)
@@ -432,6 +432,8 @@ class Moderated(models.Model):
             community = Community.objects.get(pk=self.object_id)
             community.abort_close_item()
             community.abort_suspend_item()
+        elif self.type == "ELN" or self.type == "BLO":
+            object.abort_close_item(None)
         elif object.community:
             object.abort_close_item(object.community)
         else:

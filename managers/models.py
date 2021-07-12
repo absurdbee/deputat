@@ -463,13 +463,13 @@ class Moderated(models.Model):
             return '<div class="media">Ошибка отображения данных</div>'
 
     def get_blog(self, user):
-        try:
-            from blog.models import Blog
-            blog = Blog.objects.get(pk=self.object_id)
-            creator = blog.creator
-            return ''.join(['<div class="d-flex justify-content-start align-items-center mb-1"><div class="avatar mr-1"><a href="/blog/', str(blog.slug), '/" class="ajax"><img src="', blog.get_image(), '" alt="avatar img" height="40" width="40"></a></div><div class="profile-user-info"><a href="/blog/', str(blog.slug), '/" class="ajax"><h4 class="mb-0">', blog.title, ' <span class="text-muted small">(blog.get_created())</span></h4></a><span class="small">',blog.get_type_display(),'</span></div></div><p class="card-text mb-50">', blog.description, '</p><span><span><span><span class="small" data-pk="', str(blog.pk), '"><span class="create_blog_close pointer underline">Заблокировать</span>&nbsp;&nbsp;<span class="create_blog_rejected pointer underline">Отклонить</span></span></span></span></span>'])
-        except:
-            return ''
+        #try:
+        from blog.models import Blog
+        blog = Blog.objects.get(pk=self.object_id)
+        creator = blog.creator
+        return ''.join(['<div class="d-flex justify-content-start align-items-center mb-1"><div class="avatar mr-1"><a href="/blog/', str(blog.slug), '/" class="ajax"><img src="', blog.get_image(), '" alt="avatar img" height="40" width="40"></a></div><div class="profile-user-info"><a href="/blog/', str(blog.slug), '/" class="ajax"><h4 class="mb-0">', blog.title, ' <span class="text-muted small">(blog.get_created())</span></h4></a><span class="small">',blog.get_type_display(),'</span></div></div><p class="card-text mb-50">', blog.description, '</p><span><span><span><span class="small" data-pk="', str(blog.pk), '"><span class="create_blog_close pointer underline">Заблокировать</span>&nbsp;&nbsp;<span class="create_blog_rejected pointer underline">Отклонить</span></span></span></span></span>'])
+        #except:
+        #    return ''
     def get_elect_new(self, user):
         try:
             from blog.models import ElectNew

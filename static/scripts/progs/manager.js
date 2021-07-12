@@ -193,13 +193,19 @@ on('body', 'click', '.u_close_doc', function() {
   get_music_doc_sanction_window(this, "", "/managers/progs_doc/create_close/")
 })
 
+on('body', 'click', '#create_blog_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_blog/create_close/", "Новость закрыта")
+});
+on('body', 'click', '#create_elect_new_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/elect_new/create_close/", "Активность закрыта")
+});
 on('body', 'click', '#create_photo_List_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_photo/list_create_close/", "Фотоальбом закрыт")
 });
 on('body', 'click', '#create_photo_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_photo/create_close/", "Фото закрыто")
 });
-on('body', 'click', '#create_playList_close_btn', function() {
+on('body', 'click', '#create_playlist_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_audio/list_create_close/", "Плейлист закрыт")
 });
 on('body', 'click', '#create_track_close_btn', function() {

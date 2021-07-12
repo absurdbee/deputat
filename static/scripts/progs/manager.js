@@ -288,6 +288,14 @@ on('body', 'click', '.doc_unverify', function() {
   clean_body_changed_class();
   send_window_sanction_get(this, "/managers/progs_doc/unverify/", "Верификация отменена")
 });
+on('body', 'click', '.remove_elect_new_close', function() {
+  clean_body_changed_class();
+  send_window_sanction_get(this, "/managers/elect_new/delete_close/", "Активность восстановлена")
+});
+on('body', 'click', '.elect_new_unverify', function() {
+  clean_body_changed_class();
+  send_window_sanction_get(this, "/managers/elect_new/unverify/", "Верификация отменена")
+});
 
 on('body', 'click', '.remove_survey_list_close', function() {
   send_window_sanction_get(this, "/managers/progs_survey/list_delete_close/", "Список опросов восстановлен")

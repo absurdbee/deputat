@@ -239,15 +239,6 @@ on('body', 'click', '.blogEditComment', function() {
           elem = link_.responseText;
           new_post = document.createElement("span");
           new_post.innerHTML = elem;
-          crd = document.createElement("div");
-          span = document.createElement("span");
-          crd.classList.add("card-body");
-          crd.style.paddingTop = "0.5rem";
-          crd.style.paddingBottom = "0.5rem";
-          crd.style.paddingLeft = "7px";
-          span.append(crd);
-          crd.innerHTML = new_post.querySelector(".card-body").innerHTML;
-          //block.innerHTML = span.innerHTML;
           block.innerHTML = new_post.querySelector(".card-body").innerHTML;
           console.log(block);
           toast_success(" Комментарий изменен");

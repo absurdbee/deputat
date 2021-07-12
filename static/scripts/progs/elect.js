@@ -27,10 +27,10 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
 
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
-    toast_error("Название - обязательное поле!")
+    toast_error("Название - обязательное поле!"); return 
   } else if (!form.querySelector("#id_description").value){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
-    toast_error("Опишите ситуацию!")
+    toast_error("Опишите ситуацию!"); return
   } else { _this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -40,7 +40,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Новость предложена!")
-    document.getElementById("window_loader").innerHTML = '<div class="card card-congratulations"><div class="card-body text-center"><img src="/static/images/left.png" class="congratulations-img-left" alt="card-img-left"><img src="/static/images/right.png" class="congratulations-img-right" alt="card-img-right"><div class="avatar avatar-xl bg-primary shadow"><div class="avatar-content"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award font-large-1"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div></div><div class="text-center"><h2 class="mb-1 text-white">Благодарим, новость создана!</h2><p class="card-text m-auto w-75">Новость будет опубликована после проверки модераторами.</p></div></div></div>';
+    document.getElementById("window_loader").innerHTML = '<div class="card card-congratulations"><div class="card-body text-center"><img src="/static/images/left.png" class="congratulations-img-left" alt="card-img-left"><img src="/static/images/right.png" class="congratulations-img-right" alt="card-img-right"><div class="avatar avatar-xl bg-primary shadow"><div class="avatar-content"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award font-large-1"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div></div><div class="text-center"><h2 class="mb-1 text-white">Благодарим, новость создана!</h2><p class="card-text m-auto w-75">Новость будет опубликована после проверки модераторами.</p><p class="card-text m-auto w-75 create_fullscreen_hide_2">Понятно</p></div></div></div>';
   }};
 
   link_.send(form_data);

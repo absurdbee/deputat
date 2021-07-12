@@ -31,7 +31,7 @@ def elect_new(user, elect_new):
         if user.is_supermanager():
             card_drop += '<span class="dropdown-item u_close_elect_new">Закрыть</span>'
         else:
-            card_drop += '<span class="dropdown-item elect_new_claim">Пожаловаться</span>'
+            card_drop += '<span class="dropdown-item claim_elect_new">Пожаловаться</span>' 
 
     if elect_new.comments_enabled:
         comments_enabled = ''

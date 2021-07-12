@@ -32,7 +32,7 @@ class UserLoadPhotoList(ListView):
 
 
 class UserGallery(ListView):
-	template_name, paginate_by = None, 15
+	template_name, paginate_by, can_add_list = None, 15, None
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_template_user_item, get_template_anon_user_item

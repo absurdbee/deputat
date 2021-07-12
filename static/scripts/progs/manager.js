@@ -347,6 +347,13 @@ on('body', 'click', '.create_doc_close', function() {
 on('body', 'click', '.create_doc_rejected', function() {
   send_window_sanction_get(this, "/managers/progs_doc/create_rejected/", "Жалобы отклонены")
 });
+on('body', 'click', '.create_elect_new_close', function() {
+  clean_body_changed_class();
+  open_manager_window(this, "/managers/elect_new/create_close/")
+});
+on('body', 'click', '.create_elect_new_rejected', function() {
+  send_window_sanction_get(this, "/managers/elect_new/create_rejected/", "Жалобы отклонены")
+});
 
 on('body', 'click', '.create_survey_list_close', function() {
   open_manager_window(this, "/managers/progs_survey/list_create_close/")

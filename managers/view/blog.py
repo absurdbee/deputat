@@ -184,7 +184,7 @@ class BlogClaimCreate(TemplateView):
         if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'BLO', self.new.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
-            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="BLO", object_id=self.kwargs["pk"], description=description, type=type)
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="BLO", object_id=self.new.pk, description=description, type=type)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()

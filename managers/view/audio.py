@@ -242,7 +242,7 @@ class ListAudioClaimCreate(TemplateView):
         if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'MUL', self.list.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
-            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUL", object_id=list.pk, description=description, type=type)
+            ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="MUL", object_id=self.list.pk, description=description, type=type)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()

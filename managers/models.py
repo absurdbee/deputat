@@ -854,6 +854,26 @@ class ModerationPenalty(models.Model):
             return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(creator.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(creator.pk), '/" class="ajax">', creator.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span>', _attach, ' <div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a class="remove_blog_comment_close pointer">Восстановить</a> | <a class="blog_comment_unverify pointer">Отменить проверку</a></div></div></div>'])
         except:
             return ''
+    def get_elect_new(self, user):
+        try:
+            from blog.models import ElectNew
+            new = ElectNew.objects.get(pk=self.object_id)
+            creator = new.creator
+            return ''.join(['<div class="d-flex justify-content-start align-items-center mb-1"><div class="avatar mr-1"><a href="/elect/new/', str(new.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" alt="avatar img" height="40" width="40"></a></div><div class="profile-user-info"><a href="/elect/new/', str(new.pk), '/" class="ajax"><h4 class="mb-0">', new.title, ' <span class="text-muted small">(new.get_created())</span></h4></a><span class="small">',new.get_type_display(),'</span></div></div><p class="card-text mb-50">', new.description, '</p><span class="small" data-pk="', str(new.pk), '"><span class="remove_new_close pointer underline">Восстановить</span>&nbsp;&nbsp;<span class="new_unverify pointer underline">Отменить проверку</span></span>'])
+        except:
+            return ''
+    def get_elect_new_comment(self, user):
+        try:
+            from common.model.comments import BlogComment
+            comment = ElectNewComment.objects.get(pk=self.object_id)
+            creator = comment.commenter
+            if comment.attach:
+                _attach = comment.get_u_attach(user)
+            else:
+                _attach = ''
+            return ''.join(['<div class="card-body" style="padding: .5rem .5rem;"><div class="media"><div class="avatar mr-75"><a href="/users/', str(creator.pk), '/" class="ajax"><img src="', creator.get_avatar(), '" width="38" height="38" alt="Avatar"></a></div><div class="media-body"><h6 class="font-weight-bolder mb-25"><a href="/users/', str(creator.pk), '/" class="ajax">', creator.get_full_name(), '</a></h6><span class="text-muted small">', comment.get_created(), '</span><br></div></div><div class="comment_footer"><span class="card-text">', comment.text, '</span>', _attach, ' <div class="border mt-1 btn_console" data-pk="', str(comment.pk), '"><a class="remove_elect_new_comment_close pointer">Восстановить</a> | <a class="elect_new_comment_unverify pointer">Отменить проверку</a></div></div></div>'])
+        except:
+            return ''
     def get_doc(self):
         try:
             from docs.models import Doc

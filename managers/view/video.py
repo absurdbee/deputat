@@ -178,7 +178,7 @@ class VideoClaimCreate(TemplateView):
         from managers.models import ModerationReport
 
         video = Video.objects.get(uuid=self.kwargs["uuid"])
-        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'VID', self.video.pk):
+        if request.is_ajax() and not ModerationReport.is_user_already_reported(request.user.pk, 'VID', video.pk):
             description = request.POST.get('description')
             type = request.POST.get('type')
             ModerationReport.create_moderation_report(reporter_id=request.user.pk, _type="VID", object_id=video.pk, description=description, type=type)

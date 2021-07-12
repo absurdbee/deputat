@@ -328,6 +328,13 @@ class ElectNew(models.Model):
         tags = ManagerTag.objects.filter(new=self).values("name")
         return [i['name'] for i in tags]
 
+    def get_count_attach(self):
+        if self.attach:
+            length = self.attach.split(",")
+            return "files_" + str(len(length))
+        else:
+            return "files_0"
+
     @classmethod
     def create_suggested_new(cls, creator, title, description, elect, attach, category):
         from common.notify.notify import user_wall, user_notify

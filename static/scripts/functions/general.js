@@ -128,6 +128,7 @@ function open_manager_window(_this, url) {
   } else if (_this.parentElement.getAttribute("data-pk")) {
     div = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
     uuid = _this.parentElement.getAttribute("data-pk");
+    console.log("ok")
   }  else{
     div = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
     uuid = div.getAttribute("data-pk"), div.classList.add("changed");

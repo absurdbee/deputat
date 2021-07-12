@@ -131,6 +131,9 @@ on('body', 'click', '.add_elect_subscribe', function() {
 link.send( null );
 })
 
+on('body', 'click', '.claim_user', function() {
+  open_fullscreen("/managers/progs_user/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+});
 on('body', 'click', '.claim_blog', function() {
   open_fullscreen("/managers/progs_blog/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
 });

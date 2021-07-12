@@ -29,6 +29,7 @@
                 </a>
               </div>
             </div>
+            <div class="content-body news_stream mt-2">
 
             {% include 'main/map.html' %}
 
@@ -39,6 +40,7 @@
                   {{ object|get_notify:request.user|safe }}
                 </div>
               {% endfor %}
+            </div>
             </div>
           </div>
           <div class="content-header-left col-md-3 col-12 mb-2"></div>

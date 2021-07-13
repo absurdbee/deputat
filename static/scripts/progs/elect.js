@@ -28,7 +28,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
 
   xxx = form.querySelector("#data-list");
   elect_list = xxx.querySelectorAll("option");
-  console.log(elect_list);
+  console.log(elect_list.length);
   for (var i = 0; i < elect_list.length; i++){
     elect_list[i].getAttribute("value");
     if (elect_value == elect_list[i].getAttribute("value")) {

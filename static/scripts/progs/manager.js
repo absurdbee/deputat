@@ -188,7 +188,15 @@ on('body', 'click', '.create_user_rejected', function() {
 
 
 //////////////////////////// CLOSE ////////////////////
-
+on('body', 'click', '.close_user', function() {
+  get_item_sanction_window(this, "", "/managers/progs_user/create_close/")
+})
+on('body', 'click', '.suspend_user', function() {
+  get_item_sanction_window(this, "", "/managers/progs_user/create_suspension/")
+})
+on('body', 'click', '.banner_create_user', function() {
+  get_item_sanction_window(this, "", "/managers/progs_user/create_warning_banner/")
+})
 on('body', 'click', '.u_close_photo_list', function() {
   get_item_sanction_window(this, "", "/managers/progs_photo/list_create_close/")
 })

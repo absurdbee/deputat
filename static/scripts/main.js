@@ -122,9 +122,8 @@ on('body', 'click', '.main_nav', function() {
           for (var i = 0; i < links.length; i++){
             links[i].classList.remove("active");
           }
-          elem = link.responseText;
           response = document.createElement("span");
-					response.innerHTML = elem;
+					response.innerHTML = link.responseText;
 					console.log(response.querySelector(".news_stream"));
           _this.classList.add("active");
           container.innerHTML = "";

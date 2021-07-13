@@ -28,6 +28,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
 
   elect_list = form.querySelectorAll("option");
   for (var i = 0; i < elect_list.length; i++){
+    elect_list[i].getAttribute("value");
     if (elect_value == elect_list[i].getAttribute("value")) {
       elect = true; console.log("Депутат корректный"); console.log(elect_list[i].getAttribute("value"))
     }

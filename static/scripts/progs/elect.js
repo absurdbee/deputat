@@ -21,9 +21,17 @@ on('body', 'click', '.elect_inert', function() {
 });
 
 on('body', 'click', '#u_create_suggested_new_btn', function() {
-  _this = this;
+  _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
+  elect_value = form.querySelector("#id_elect").value;
   form_data = new FormData(form);
+
+  elect_list = form.querySelectorAll("option");
+  for (var i = 0; i < elect_list.length; i++){
+    if (elect_value == elect_list[i].getAttribute("value")) {
+      elect = true; console.log("Депутат корректный")
+    }
+  }
 
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
@@ -31,6 +39,12 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   } else if (!form.querySelector("#id_description").value){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
+  } else if (!elect_value){
+    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
+    toast_error("Выберите чиновника!"); return
+  } else if (!elect){
+    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
+    toast_error("Выберите чиновника из списка!"); return
   } else { _this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

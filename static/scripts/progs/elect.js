@@ -33,8 +33,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
     if (elect_value == elect_list[i].value) {
       elect = true; console.log("Депутат корректный"); console.log(elect_list[i].getAttribute("value"))
     }
-  }
-
+  };
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!"); return
@@ -47,7 +46,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   } else if (!elect){
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
     toast_error("Выберите чиновника из списка!"); return
-  } else { _this.disabled = true }
+  } else { _this.disabled = true };
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/blog/progs/suggest_elect_new/", true );

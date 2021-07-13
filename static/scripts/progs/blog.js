@@ -203,13 +203,36 @@ on('body', 'click', '.edit_elect_new', function() {
   open_fullscreen("/blog/progs/edit_elect_new/" + this.parentElement.getAttribute("data-pk") + "/", loader)
 });
 on('body', 'click', '#u_edit_elect_new_btn', function() {
-  _this = this;
+  _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
+  elect_value = form.querySelector("#id_elect").value;
   form_data = new FormData(form);
+  xxx = form.querySelector("#data-list");
+  elect_list = xxx.querySelectorAll("option");
+  console.log(elect_list.length);
+  for (var i = 0; i < elect_list.length; i++){
+    if (elect_value == elect_list[i].value) {
+      elect = true; console.log("Депутат корректный"); console.log(elect_list[i].getAttribute("value"))
+    }
+  };
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!"); return
+  } else if (!form.querySelector("#id_description").value){
+    form.querySelector("#id_description").style.border = "1px #FF0000 solid";
+    toast_error("Опишите ситуацию!"); return
+  } else if (!elect_value){
+    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
+    toast_error("Выберите чиновника!"); return
+  } else if (!elect){
+    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
+    toast_error("Выберите чиновника из списка!"); return
+  } else { _this.disabled = true };
+  
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/blog/progs/edit_elect_new/" + _this.getAttribute("data-pk") + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     elem = link.responseText;

@@ -26,7 +26,8 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   elect_value = form.querySelector("#id_elect").value;
   form_data = new FormData(form);
 
-  elect_list = form.querySelectorAll("option");
+  xxx = form.querySelector("#data-list");
+  elect_list = xxx.querySelectorAll("option");
   for (var i = 0; i < elect_list.length; i++){
     elect_list[i].getAttribute("value");
     if (elect_value == elect_list[i].getAttribute("value")) {

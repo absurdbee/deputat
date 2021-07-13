@@ -74,15 +74,16 @@
                                         <div class="user-avatar-section">
                                             <div class="d-flex justify-content-start">
                                                 <img class="img-fluid" src="{{ user.get_avatar }}" alt="User avatar" style="height: 100px;">
-                                                <div class="d-flex flex-column ml-1">
+                                                <div class="d-flex flex-column ml-1" data-uuid="{{ user.pk }}">
                                                     <div class="user-info mb-1">
                                                         <h4 class="mb-0" style="font-weight: bold;">{{ user.get_full_name }}</h4>
                                                         <span class="card-text"></span>
                                                     </div>
                                                     <div class="">
-                                                          <a class="pointer">Закрыть</a><br>
-                                                          <a class="pointer">Заморозить</a><br>
-                                                          <a class="pointer">Вывесить баннер</a>
+                                                          <a class="pointer close_user" style="font-weight: bold;">Закрыть</a><br>
+                                                          <a class="pointer suspend_user" style="font-weight: bold;">Заморозить</a><br>
+                                                          <a class="pointer banner_create_user" style="font-weight: bold;">Вывесить баннер</a>
+                                                          <a class="pointer copy_link" data-link="{% url 'user' pk=user.pk %}" style="font-weight: bold;">Копировать ссылку</a>
                                                     </div>
                                                 </div>
                                             </div>

@@ -471,13 +471,13 @@ class Moderated(models.Model):
         #except:
         #    return ''
     def get_elect_new(self, user):
-        try:
-            from blog.models import ElectNew
-            new = ElectNew.objects.get(pk=self.object_id)
-            creator = new.creator
-            return ''.join(['<div class="d-flex justify-content-start align-items-center mb-1"><div class="avatar mr-1"><a href="/elect/new/', str(new.pk), '/" class="ajax"><img src="', new.get_image(), '" alt="avatar img" height="40" width="40"></a></div><div class="profile-user-info"><a href="/elect/new/', str(new.pk), '/" class="ajax"><h4 class="mb-0">', new.title, ' <span class="text-muted small">(new.get_created())</span></h4></a><span class="small"><a class="ajax" href="/users/', str(creator.pk),'/">', creator.get_full_name(),'</a></span></div></div><p class="card-text mb-50">', new.description, '</p><span><span><span><span class="small" data-pk="', str(new.pk), '"><span " obj-pk="', str(self.pk), '" class="underline show_object_reports pointer">', self.reports_count_ru(), '</span>&nbsp;&nbsp;<span class="create_elect_new_close pointer underline">Заблокировать</span>&nbsp;&nbsp;<span class="create_elect_new_rejected pointer underline">Отклонить</span></span></span></span></span>'])
-        except:
-            return ''
+        #try:
+        from blog.models import ElectNew
+        new = ElectNew.objects.get(pk=self.object_id)
+        creator = new.creator
+        return ''.join(['<div class="d-flex justify-content-start align-items-center mb-1"><div class="avatar mr-1"><a href="/elect/new/', str(new.pk), '/" class="ajax"><img src="', new.get_image(), '" alt="avatar img" height="40" width="40"></a></div><div class="profile-user-info"><a href="/elect/new/', str(new.pk), '/" class="ajax"><h4 class="mb-0">', new.title, ' <span class="text-muted small">(new.get_created())</span></h4></a><span class="small"><a class="ajax" href="/users/', str(creator.pk),'/">', creator.get_full_name(),'</a></span></div></div><p class="card-text mb-50">', new.description, '</p><span><span><span><span class="small" data-pk="', str(new.pk), '"><span " obj-pk="', str(self.pk), '" class="underline show_object_reports pointer">', self.reports_count_ru(), '</span>&nbsp;&nbsp;<span class="create_elect_new_close pointer underline">Заблокировать</span>&nbsp;&nbsp;<span class="create_elect_new_rejected pointer underline">Отклонить</span></span></pan></span></span>'])
+        #except:
+        #    return ''
     def get_blog_comment(self, user):
         try:
             from common.model.comments import BlogComment

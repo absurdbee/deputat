@@ -125,7 +125,7 @@ on('body', 'click', '.main_nav', function() {
           elem = link.responseText;
           response = document.createElement("span");
 					response.innerHTML = elem;
-					console.log(response);
+					console.log(response.querySelector(".news_stream"));
           _this.classList.add("active");
           container.innerHTML = "";
           container.innerHTML = response.querySelector(".news_stream").innerHTML;

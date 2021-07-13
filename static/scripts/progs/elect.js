@@ -30,8 +30,6 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   elect_list = xxx.querySelectorAll("option");
   console.log(elect_list.length);
   for (var i = 0; i < elect_list.length; i++){
-    console.log(elect_value);
-    console.log(elect_list[i].value);
     if (elect_value == elect_list[i].value) {
       elect = true; console.log("Депутат корректный"); console.log(elect_list[i].getAttribute("value"))
     }

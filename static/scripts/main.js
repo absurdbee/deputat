@@ -124,7 +124,7 @@ on('body', 'click', '.main_nav', function() {
           }
           elem = link.responseText;
           response = document.createElement("span");
-					response.innerHTML = elem.innerHTML;
+					response.innerHTML = elem;
 					console.log(response);
           _this.classList.add("active");
           container.innerHTML = "";

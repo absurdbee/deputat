@@ -228,6 +228,7 @@ class PublishElectNew(TemplateView):
         context["form"] = ElectNewForm(instance=self.elect_new)
         context["new"] = self.elect_new
         context["tags"] = ManagerTag.objects.only("pk")
+        context["get_elects"] = Elect.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):

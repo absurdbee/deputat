@@ -127,7 +127,8 @@ on('body', 'click', '.main_nav', function() {
 					response.innerHTML = elem.innerHTML
           _this.classList.add("active");
           container.innerHTML = "";
-          container.innerHTML = response.querySelector(".news_stream").innerHTML
+          container.innerHTML = response.querySelector(".news_stream").innerHTML;
+					console.log(response)
         }
     }
 };

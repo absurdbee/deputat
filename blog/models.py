@@ -318,9 +318,9 @@ class ElectNew(models.Model):
         return self.title
 
     def get_image(self):
-        if self.elect.image:
+        try:
             return self.elect.image.url
-        else:
+        except:
             return '/static/images/no_photo.jpg'
 
     def get_manager_tags(self):

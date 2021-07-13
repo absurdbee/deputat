@@ -124,11 +124,11 @@ on('body', 'click', '.main_nav', function() {
           }
           elem = link.responseText;
           response = document.createElement("span");
-					response.innerHTML = elem.innerHTML
+					response.innerHTML = elem.innerHTML;
+					console.log(response);
           _this.classList.add("active");
           container.innerHTML = "";
           container.innerHTML = response.querySelector(".news_stream").innerHTML;
-					console.log(response)
         }
     }
 };

@@ -235,7 +235,7 @@ class UserCloseCreate(TemplateView):
             mod = form.save(commit=False)
             moderate_obj = Moderated.get_or_create_moderated_object(object_id=user.pk, type="USE")
             moderate_obj.create_close(object=user, description=mod.description, manager_id=request.user.pk)
-            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.ITEM_CLOSED)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.CLOSED)
             return HttpResponse()
         else:
             return HttpResponseBadRequest()
@@ -246,7 +246,7 @@ class UserCloseDelete(View):
         if request.is_ajax() and request.user.is_user_manager():
             moderate_obj = Moderated.objects.get(object_id=user.pk, type="USE")
             moderate_obj.delete_close(object=user, manager_id=request.user.pk)
-            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.ITEM_CLOSED_HIDE)
+            UserManageLog.objects.create(user=user.pk, manager=request.user.pk, action_type=UserManageLog.CLOSED_HIDE)
             return HttpResponse()
         else:
             raise Http404

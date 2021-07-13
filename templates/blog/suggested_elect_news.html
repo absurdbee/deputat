@@ -26,11 +26,13 @@
                     </div>
                   </div>
                   <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
+                  <span><span><span>
                   <span class="small" data-pk="{{ object.pk }}">
                     <span class="u_publish_elect_new pointer underline">Подготовить к публикации</span>
                     &nbsp;&nbsp;
                     <span class="reject_suggested_elect_new pointer underline">Отклонить</span>
                   </span>
+                  </span></span></span>
                 </div>
                 {% empty %}
                   Предложенных активностей пока нет ...

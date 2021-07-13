@@ -100,7 +100,7 @@ on('body', 'click', '.select_elect_news_category', function() {
           _this.classList.add("active");
           elect_news_container.innerHTML = "";
           elect_news_container.insertAdjacentHTML('afterBegin', response.innerHTML);
-        }
+        } 
     }
 };
 link.send( null );

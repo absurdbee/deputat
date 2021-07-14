@@ -83,6 +83,7 @@ on('body', 'mouseover', '.map_selector', function() {
 	iconPos = _this.getBoundingClientRect();
   popup.style.left = (iconPos.right - 250) + "px";
   popup.style.top = (window.scrollY + iconPos.top - 340) + "px";
+	popup.querySelector("h3").innerHTML = _this.getAttribute("data-name");
 	popup.style.display = "block";
 });
 on('body', 'mouseout', '.map_selector', function() {

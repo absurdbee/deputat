@@ -2,7 +2,10 @@
 .map_selector:hover {
     transform-box: fill-box;
     transform: scale(1.05);
-    transform-origin:50% 50%;
+}
+.map_selector {
+  transition: all 1s;
+  transform-origin: 50% 50%;
 }
 
 .horizontal-scroll-wrapper {

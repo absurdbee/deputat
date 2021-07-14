@@ -55,9 +55,9 @@ on('body', 'click', '.map_selector', function() {
   console.log(slug + " detected!");
   map = this.parentElement;
   svg_list = map.querySelectorAll("path");
-  for (var i = 0; i < svg_list.length; i++) {
-    svg_list[i].style.fill = "rgba(0,0,0,0.15)";
-  };
+  //for (var i = 0; i < svg_list.length; i++) {
+  //  svg_list[i].style.fill = "rgba(0,0,0,0.15)";
+  //};
   this.style.fill = "#897FF1";
   col_md_3 = this.parentElement.parentElement.nextElementSibling;
   block = col_md_3.querySelector("#elect_for_regions_loader");
@@ -100,7 +100,7 @@ on('body', 'click', '.select_elect_news_category', function() {
           _this.classList.add("active");
           elect_news_container.innerHTML = "";
           elect_news_container.insertAdjacentHTML('afterBegin', response.innerHTML);
-        } 
+        }
     }
 };
 link.send( null );

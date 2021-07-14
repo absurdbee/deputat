@@ -1,5 +1,8 @@
 {% load notify %}
-ggggg
+{% for object in object_list %}
+
 <div class="card mb-2">
   {{ object|get_notify:request.user|safe }}
 </div>
+
+{% endfor %}

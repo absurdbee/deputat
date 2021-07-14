@@ -77,6 +77,17 @@ on('body', 'click', '.map_selector', function() {
 link.send( null );
 })
 
+on('body', 'mouseover', '.map_selector', function() {
+	popup = this.parentElement.previousElementSibling;
+	iconPos = this.getBoundingClientRect();
+  popup.style.left = (iconPos.right + 20) + "px";
+  popup.style.top = (window.scrollY + iconPos.top - 60) + "px";
+	popup.style.display = "block";
+});
+on('body', 'mouseout', '.map_selector', function() {
+	this.parentElement.previousElementSibling.style.display = "none";
+});
+
 on('body', 'click', '.select_elect_news_category', function() {
   _this = this;
   if (_this.classList.contains("active")){

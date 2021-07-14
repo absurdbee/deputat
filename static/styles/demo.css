@@ -1,4 +1,24 @@
+#map_popup {
+  width: 400px;
+  padding: 20px;
+  font-size: 10pt;
+  background-color: white;
+  border-radius: 6px;
+  position: absolute;
+  display: none;
+}
 
+#map_popup::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  transform: rotate(45deg);
+  background-color: white;
+  position: absolute;
+  left: -6px;
+  top: 68px;
+}
+/*
 .map_selector:hover {
     transform-box: fill-box;
     transform: scale(1.2);
@@ -7,7 +27,7 @@
   transition: all 3s;
   transform-origin: 30% 30%;
 }
-
+*/
 .horizontal-scroll-wrapper {
   display: block;
   top: 0;

@@ -6,8 +6,7 @@
     transform: rotateX(12deg);
     background-color: rgb(137, 127, 241);
     transform-box: fill-box;
-      animation: scale 1s linear alternate;
-  	animation-direction: alternate;
+    animation: scale 1s;
     transform-origin:50% 50%;
 }
 

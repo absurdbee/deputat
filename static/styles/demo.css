@@ -1,7 +1,8 @@
 .map_selector:hover {
     position: relative;
     opacity: 1;
-    transform: scale(1.1);
+    transform: rotateX(12deg);
+    background-color: rgb(137, 127, 241);
 }
 
 .horizontal-scroll-wrapper {

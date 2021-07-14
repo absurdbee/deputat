@@ -75,25 +75,7 @@ on('body', 'click', '.map_selector', function() {
     }
 };
 link.send( null );
-})
-
-function getPosition(e){
-	var x = y = 0;
-
-	if (!e) {
-		var e = window.event;
-	}
-
-	if (e.pageX || e.pageY){
-		x = e.pageX;
-		y = e.pageY;
-	} else if (e.clientX || e.clientY){
-		x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-		y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-	}
-
-	return {x: x, y: y}
-}
+});
 
 on('body', 'mouseover', '.map_selector', function(e) {
 	_this = this;
@@ -326,3 +308,26 @@ on('body', 'click', '.create_ajax', function() {
     open_load_fullscreen(link, loader);
     init_music(loader)
 });
+
+on('body', 'click', '.get_user_notify_box', function() {
+	count_box = this.parentElement.nextElementSibling.querySelector(".resent_notify");
+	if (count_box.innerHTML) {
+		count_box.innerHTML = "";
+		container = this.parentElement.nextElementSibling.querySelector(".notify_box");
+
+		link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+	  link_.open( 'GET', "/notify/recent/", true );
+	  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	  link_.onreadystatechange = function () {
+	  if ( this.readyState == 4 && this.status == 200 ) {
+			elem_ = document.createElement('span');
+			elem_.innerHTML = link_.responseText;
+			container.innerHTML = "";
+			container = elem_.innerHTML;
+	  }};
+
+	  link_.send();
+	} else {
+		this.parentElement.nextElementSibling.classList.toggle("hide")
+	}
+})

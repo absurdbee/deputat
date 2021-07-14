@@ -58,37 +58,18 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search ficon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
               </a>
             </li>
+            {% if request.user.is_authenticated %}
             <li class="nav-item dropdown-notification mr-25" tooltip="Уведомления" flow="down">
-              <a class="nav-link">
+              <a class="nav-link get_user_notify_box">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ficon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                 <span class="badge badge-pill resent_notify badge-up">{{ request.user.get_unread_notify_count }}</span>
               </a>
-              <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                <li class="dropdown-menu-header">
-                  <div class="dropdown-header d-flex">
-                    <h4 class="notification-title mb-0 mr-auto">Уведомления</h4>
-                    <div class="badge badge-pill badge-light-primary">6 новых</div>
-                  </div>
-                </li>
-                        <li class="scrollable-container media-list ps">
-                          <a class="d-flex">
-                                <div class="media d-flex align-items-start">
-                                    <div class="media-left">
-                                        <div class="avatar">
-                                          <img src="/static/images/user.png" alt="avatar" width="32" height="32">
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <p class="media-heading"><span class="font-weight-bolder">Тес</span>winner!</p><small class="notification-text"> Won the monthly best seller badge.</small>
-                                    </div>
-                                </div>
-                            </a>
-                      </li>
-                      <li class="dropdown-menu-footer">
-                        <a class="btn btn-primary btn-block">Все уведомления</a>
-                      </li>
-                    </ul>
-                </li>
+            </li>
+            <div class="dropdown-menu-right hide">
+              <div clas="notify_box"></div>
+              <a class="btn btn-primary btn-block ajax" href="{% url 'all_notify' %}">Все уведомления</a>
+            </div>
+            {% endif %}
 
             <li class="nav-item dropdown dropdown-user">
               {% if request.user.is_authenticated %}

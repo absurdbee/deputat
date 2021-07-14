@@ -12,13 +12,15 @@ PHOTO_LIST, PHOTO, PHOTO_COMMENT = 'PHL', 'PHO', 'PHOC'
 DOC_LIST, DOC = 'DOL', 'DOC'
 MUSIC_LIST, MUSIC = 'MUL', 'MUS'
 VIDEO_LIST, VIDEO, VIDEO_COMMENT = 'VIL', 'VID', 'VIDC'
+SURVEY_LIST, SURVEY = 'SUL', 'SUR'
 
 TYPE = (
     (USER, 'Пользователь'), (COMMUNITY, 'Сообщество'),
     (MUSIC_LIST, 'Плейлист'), (MUSIC, 'Трек'),
     (ELECT_NEW, 'Активность'), (ELECT_NEW_COMMENT, 'Коммент к активности'),
     (BLOG, 'Новость'), (BLOG_COMMENT, 'Коммент к новости'),
-    (DOC_LIST, 'Список документов'), (DOC, 'документ'),
+    (DOC_LIST, 'Список документов'), (DOC, 'Документ'),
+    (SURVEY_LIST, 'Список опросов'), (SURVEY, 'Опрос'),
     (PHOTO_LIST, 'Список фотографий'), (PHOTO, 'Фотография'), (PHOTO_COMMENT, 'Коммент к фотографии'),
     (VIDEO_LIST, 'Список роликов'), (VIDEO, 'Ролик'), (VIDEO_COMMENT, 'Коммент к ролику'),
 )

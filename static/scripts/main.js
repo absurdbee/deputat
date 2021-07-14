@@ -77,12 +77,30 @@ on('body', 'click', '.map_selector', function() {
 link.send( null );
 })
 
+function getPosition(e){
+	var x = y = 0;
+
+	if (!e) {
+		var e = window.event;
+	}
+
+	if (e.pageX || e.pageY){
+		x = e.pageX;
+		y = e.pageY;
+	} else if (e.clientX || e.clientY){
+		x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+		y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+	}
+
+	return {x: x, y: y}
+}
+
 on('body', 'mouseover', '.map_selector', function() {
 	_this = this;
 	popup = _this.parentElement.nextElementSibling;
 	iconPos = _this.getBoundingClientRect();
-  popup.style.left = (iconPos.right - 250) + "px";
-  popup.style.top = (window.scrollY + iconPos.top - 340) + "px";
+  popup.style.left = (getPosition(_this) - 20) + "px";
+//  popup.style.top = (window.scrollY + iconPos.top - 340) + "px";
 	popup.querySelector("h3").innerHTML = _this.getAttribute("data-name");
 	popup.style.display = "block";
 });

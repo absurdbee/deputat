@@ -5,7 +5,7 @@
 }
 .map_selector {
   transition: all 3s;
-  transform-origin: 100% 100%;
+  transform-origin: 30% 30%;
 }
 
 .horizontal-scroll-wrapper {

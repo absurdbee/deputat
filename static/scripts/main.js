@@ -81,8 +81,8 @@ on('body', 'mouseover', '.map_selector', function() {
 	_this = this;
 	popup = _this.parentElement.nextElementSibling;
 	iconPos = _this.getBoundingClientRect();
-  popup.style.left = (iconPos.right -200) + "px";
-  popup.style.top = (window.scrollY + iconPos.top - 300) + "px";
+  popup.style.left = (iconPos.right -300) + "px";
+  popup.style.top = (window.scrollY + iconPos.top - 320) + "px";
 	popup.style.display = "block";
 });
 on('body', 'mouseout', '.map_selector', function() {

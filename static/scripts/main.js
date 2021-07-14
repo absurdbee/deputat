@@ -310,7 +310,7 @@ on('body', 'click', '.create_ajax', function() {
 });
 
 on('body', 'click', '.get_user_notify_box', function() {
-	count_box = this.parentElement.nextElementSibling.querySelector(".resent_notify");
+	count_box = this.querySelector(".resent_notify");
 	if (count_box.innerHTML) {
 		count_box.innerHTML = "";
 		container = this.parentElement.nextElementSibling.querySelector(".notify_box");

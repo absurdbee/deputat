@@ -99,8 +99,8 @@ on('body', 'mouseover', '.map_selector', function() {
 	_this = this;
 	popup = _this.parentElement.nextElementSibling;
 	iconPos = _this.getBoundingClientRect();
-  popup.style.left = (getPosition(_this) - 20) + "px";
-//  popup.style.top = (window.scrollY + iconPos.top - 340) + "px";
+  popup.style.left = (_this.pageX - 20) + "px";
+  popup.style.top = _this.pageX + "px";
 	popup.querySelector("h3").innerHTML = _this.getAttribute("data-name");
 	popup.style.display = "block";
 });

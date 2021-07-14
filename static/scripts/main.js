@@ -78,7 +78,7 @@ link.send( null );
 })
 
 on('body', 'mouseover', '.map_selector', function() {
-	popup = this.parentElement.previousElementSibling;
+	popup = this.parentElement.nextElementSibling;
 	iconPos = this.getBoundingClientRect();
   popup.style.left = (iconPos.right + 20) + "px";
   popup.style.top = (window.scrollY + iconPos.top - 60) + "px";

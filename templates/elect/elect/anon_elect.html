@@ -57,7 +57,6 @@
                       </div>
                   </div>
                     <div class="list-group list-group-labels mt-2">
-                        <button class="btn btn-outline-success waves-effect mb-1">Предложить новость</button>
                         <a data-href="/elect/{{ object.pk }}/all_news/" class="list-group-item list-group-item-action select_elect_news_category active">
                             <span class="align-middle">Все новости</span>
                         </a>
@@ -104,8 +103,12 @@
                         <div class="card-body">
                           <h3 class="card-title">У чиновника пока нет новостей.</h3>
                           <p class="card-text text-sm">
-                            Если у Вас есть чем поделиться с общественностью об этом чиновнике - Вы можете предложить новость</p>
-                          <a class="btn btn-secondary u_suggested_elect_new_create btn-sm pointer" data-name="{{ object.name }}">Предложить новость</a>
+                            Если у Вас есть чем поделиться с общественностью об этом чиновнике - Вы можете предложить новость
+                          </p>
+                          <p class="card-text text-sm">
+                            Для этого Вам необходимо <a href="{% url 'login' %}" class="ajax underline">Войти</a> или
+                            <a href="{% url 'signup' %}" class="ajax underline">Зарегистрироваться</a>
+                          </p>
                         </div>
                       </div>
                     {% endif %}

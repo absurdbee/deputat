@@ -311,7 +311,7 @@ on('body', 'click', '.create_ajax', function() {
 
 on('body', 'click', '.get_user_notify_box', function() {
 	count_box = this.querySelector(".resent_notify");
-	if (count_box.innerHTML) {
+	if (!count_box.classList.contains("showed") || count_box.innerHTML) {
 		count_box.innerHTML = "";
 		dropdown = this.parentElement.nextElementSibling;
 		container = dropdown.querySelector(".notify_box");
@@ -325,6 +325,7 @@ on('body', 'click', '.get_user_notify_box', function() {
 			elem_.innerHTML = link_.responseText;
 			container.innerHTML = "";
 			container = elem_.innerHTML;
+			count_box.classList.add("showed");
 	  }};
 
 	  link_.send();

@@ -132,7 +132,7 @@ class Notify(models.Model):
         cls.objects.filter(recipient_id=user_pk, status="U").update(status="R")
 
     def is_unread(self):
-        return self.status is "U"
+        return self.status == "U"
 
     def get_notify(self, user):
         from common.notify.progs import get_notify

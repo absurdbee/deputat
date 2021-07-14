@@ -328,6 +328,6 @@ on('body', 'click', '.get_user_notify_box', function() {
 
 	  link_.send();
 	} else {
-		this.parentElement.nextElementSibling.classList.toggle("hide")
+		this.parentElement.nextElementSibling.classList.toggle("hidden")
 	}
 })

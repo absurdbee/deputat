@@ -324,7 +324,7 @@ on('body', 'click', '.get_user_notify_box', function() {
 			elem_ = document.createElement('span');
 			elem_.innerHTML = link_.responseText;
 			container.innerHTML = "";
-			container = elem_.innerHTML;
+			container.innerHTML = elem_.innerHTML;
 			count_box.classList.add("showed");
 	  }};
 

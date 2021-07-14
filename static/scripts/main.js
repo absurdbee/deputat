@@ -313,7 +313,8 @@ on('body', 'click', '.get_user_notify_box', function() {
 	count_box = this.querySelector(".resent_notify");
 	if (count_box.innerHTML) {
 		count_box.innerHTML = "";
-		container = this.parentElement.nextElementSibling.querySelector(".notify_box");
+		dropdown = this.parentElement.nextElementSibling;
+		container = dropdown.querySelector(".notify_box");
 
 		link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
 	  link_.open( 'GET', "/notify/recent/", true );
@@ -327,7 +328,6 @@ on('body', 'click', '.get_user_notify_box', function() {
 	  }};
 
 	  link_.send();
-	} else {
-		this.parentElement.nextElementSibling.classList.toggle("hidden")
-	}
+	};
+	dropdown.classList.toggle("show")
 })

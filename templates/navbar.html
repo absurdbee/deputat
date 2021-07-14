@@ -65,7 +65,7 @@
                 <span class="badge badge-pill resent_notify badge-up">{{ request.user.get_unread_notify_count }}</span>
               </a>
             </li>
-            <div class="dropdown-menu-right hidden">
+            <div class="dropdown-menu dropdown-menu-right">
               <div clas="notify_box"></div>
               <a class="btn btn-primary btn-block ajax" href="{% url 'all_notify' %}">Все уведомления</a>
             </div>

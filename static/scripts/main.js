@@ -85,7 +85,7 @@ on('body', 'mouseover', '.map_selector', function() {
 	popup.style.display = "block";
 });
 on('body', 'mouseout', '.map_selector', function() {
-	this.parentElement.previousElementSibling.style.display = "none";
+	this.parentElement.nextElementSibling.style.display = "none";
 });
 
 on('body', 'click', '.select_elect_news_category', function() {

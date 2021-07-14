@@ -3,7 +3,6 @@
 .map_selector:hover {
     transform-box: fill-box;
     animation: scale 1s;
-    transform-origin:50% 50%;
 }
 
 @keyframes scale {

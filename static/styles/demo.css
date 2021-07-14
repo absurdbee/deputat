@@ -4,7 +4,7 @@
     transform: scale(1.2);
 }
 .map_selector {
-  transition: all 1.5s;
+  transition: all 3s;
   transform-origin: 50% 50%;
 }
 

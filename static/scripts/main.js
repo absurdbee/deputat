@@ -78,10 +78,11 @@ link.send( null );
 })
 
 on('body', 'mouseover', '.map_selector', function() {
-	popup = this.parentElement.nextElementSibling;
-	iconPos = this.getBoundingClientRect();
-  popup.style.left = (iconPos.right + 20) + "px";
-  popup.style.top = (window.scrollY + iconPos.top - 60) + "px";
+	_this = this;
+	popup = _this.parentElement.nextElementSibling;
+	iconPos = _this.getBoundingClientRect();
+  popup.style.left = (iconPos.right -150) + "px";
+  popup.style.top = (window.scrollY + iconPos.top - 160) + "px";
 	popup.style.display = "block";
 });
 on('body', 'mouseout', '.map_selector', function() {

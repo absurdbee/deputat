@@ -1,6 +1,6 @@
 .map_selector {
   transform-box: fill-box;
-    animation: scale 3s linear infinite alternate;
+    animation: scale 1s linear alternate;
 	animation-direction: alternate;
 transform-origin:50% 50%;
 }

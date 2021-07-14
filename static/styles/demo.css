@@ -8,12 +8,12 @@
     transform-box: fill-box;
       animation: scale 1s linear alternate;
   	animation-direction: alternate;
-  transform-origin:50% 50%;
+    transform-origin:50% 50%;
 }
 
 @keyframes scale {
-    0% { transform: scale(0.7); }
-    100% {  transform: scale(1); }
+    0% { transform: scale(1); }
+    100% {  transform: scale(1.2); }
 }
 
 .horizontal-scroll-wrapper {

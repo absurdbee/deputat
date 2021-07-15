@@ -78,6 +78,15 @@ def get_my_news(user):
 def get_draft_news(user):
     return Wall.objects.filter(verb="SIT")
 
+def get_wall(user, notify):
+    type = notify.type
+    if type == "BLO":
+        from common.items.blog import get_blog
+        return get_blog(user, notify)
+    elif type == "ELN":
+        from common.items.elect_new import get_elect_new
+        return get_elect_new(user, notify)
+
 def get_notify(user, notify):
     type = notify.type
     if type == "BLO":

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Уведомления{% endblock %}
+{% block content %}
+
+        <div class="content-wrapper row">
+          <div class="content-header-left col-md-9 col-12">
+            <div class="content-header">
+              Уведомления
+            </div>
+
+            <div class="content-body mt-2 is_paginate">
+              {% load notify %}
+              {% for object in object_list %}
+                <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
+                  {{ object|get_notify:request.user|safe }}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="content-header-left col-md-3 col-12 mb-2"></div>
+        </div>
+{% endblock %}

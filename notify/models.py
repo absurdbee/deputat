@@ -234,8 +234,8 @@ class Wall(models.Model):
         return naturaltime(self.created)
 
     def get_notify(self, user):
-        from common.notify.progs import get_notify
-        return get_notify(user, self)
+        from common.notify.progs import get_wall
+        return get_wall(user, self)
 
 
 class UserNewsNotify(models.Model):

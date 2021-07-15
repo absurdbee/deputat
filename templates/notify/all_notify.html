@@ -14,6 +14,8 @@
                 <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
                   {{ object|get_notify:request.user|safe }}
                 </div>
+              {% empty %}
+              <p>Уведомлений пока нет.</p>
               {% endfor %}
             </div>
           </div>

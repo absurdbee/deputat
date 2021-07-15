@@ -400,14 +400,14 @@ class ElectNew(models.Model):
             user_send_notify(self.pk, self.creator.pk, user_id, None, "elect_new_notify")
 
         # отправляем увед создателю активности, что ее успешно опубликовали
-        Notify.objects.create(creator_id=self.creator.pk, recipient_id=self.creator.pk, type="ELNC", object_id=self.pk, verb="ITE")
+        Notify.objects.create(creator_id=self.creator.pk, recipient_id=self.creator.pk, type="ELN", object_id=self.pk, verb="ELNC")
         channel_layer = get_channel_layer()
         payload = {
             'type': 'receive',
             'key': 'notification',
             'id': str(self.pk),
             'recipient_id': str(self.creator.pk),
-            'name': "elect_new_published", 
+            'name': "elect_new_published",
         }
         async_to_sync(channel_layer.group_send)('notification', payload)
 

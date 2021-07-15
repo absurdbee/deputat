@@ -41,14 +41,14 @@ def elect_new(user, elect_new):
     for tag in elect_new.get_manager_tags():
         tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
 
-    return ''.join([block, '<div class="event_card" data-pk="' + str(elect_new.pk) + '"><div class="event_img text-center"><span>\
-    <img class="img-fluid elect_new_window card-img-top" src="' + elect_new.get_image() + '" alt="img"></span></div><div class="card-body event_body">\
+    return ''.join([block, '<div class="event_card" data-pk="' + str(elect_new.pk) + '"><div class="event_img text-center"><span><span>\
+    <img class="img-fluid pointer elect_new_window card-img-top" src="' + elect_new.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\
     <h4 class="event_name"><div style="display: flex;"><span class="text-body elect_new_window pointer">' + elect_new.title + '</span>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\
     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">\
     </path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top:18px">' + card_drop + '</div></div></div><span class="card-text item-company">\
-    ' + elect_new.get_created() + ' | ' + tags + '</span></h4><div class="card-text elect_new_window event_description pointer">' + elect_new.description[:140] + '...\
+    ' + elect_new.get_created() + ' | ' + tags + '</span></h4><div class="card-text event_description"><span class="elect_new_window pointer"><span>' + elect_new.description[:140] + '...</span></span>\
     <br><br><a class="mt-1 ajax" style="text-decoration:underline" href="/elect/' + str(elect_new.elect.pk) + '">' + elect_new.elect.name + '</a><div class="" style="padding: 5px;position: absolute;bottom: 3px;width: 100%;">\
     <span class="like ', user_like, ' pointer"', votes_on, ' title="Нравится"><svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/><path d="M9 21h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9V9zM1 9h4v12H1z"/></svg>\
     <span class="likes_count margin_right_5">', str(elect_new.likes_count()), '</span></span><span class="dislike  ', user_dislike, ' pointer" ', votes_on, ' title="Не нравится">\

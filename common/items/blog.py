@@ -45,7 +45,7 @@ def blog(user, blog):
         tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
 
     return ''.join([block, '<div class="event_card" data-pk="' + str(blog.pk) + '"><div class="event_img text-center"><span class="elect_new_window pointer">\
-    <span><img class="img-fluid card-img-top blog_window" src="' + blog.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\
+    <span><span><img class="img-fluid card-img-top blog_window pointer" src="' + blog.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\
     <h4 class="event_name"><div style="display: flex;"><span class="text-body blog_window pointer">' + blog.title + '</span>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\

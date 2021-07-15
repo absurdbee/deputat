@@ -30,21 +30,12 @@ function case_news_wall(pk) {
           document.body.querySelector(".news_empty") ? document.body.querySelector(".news_empty").style.display = "none" : null}}
   link_.send()
 }
-function show_badge() {
-  notify.classList.contains("badge-danger") ? null : notify.classList.add("badge-danger");
-  notify.style.display = "grid";
-}
-function hide_badge() {
-  notify.classList.contains("badge-danger") ? notify.classList.remove("badge-danger") : null;
-  notify.style.display = "none";
-}
 
 if (!document.body.querySelector(".anon_avatar")){
   // подключаем сокеты только для зарегистрированных пользователей
 notify = document.body.querySelector(".resent_notify");
-
 document.body.querySelector(".userpic") ? request_user_id = document.body.querySelector(".userpic").getAttribute("data-pk") : request_user_id = 0
-notify.classList.contains("badge-danger") ? (notify_count = notify.innerHTML.replace(/\s+/g, ''), notify_count = notify_count*1): notify_count = 0;
+notify.innerHTML ? (notify_count = notify.innerHTML.replace(/\s+/g, ''), notify_count = notify_count*1): notify_count = 0;
 
 ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
 ws_path = ws_scheme + '://' + window.location.host + ":8443/notify/";
@@ -59,18 +50,10 @@ webSocket.listen(function (event) {
   switch (event.key) {
       case "notification":
         if (event.recipient_id == request_user_id){
-          if (event.name == "user_notify"){
-            // появление новых уведомлений, сваязанных с пользователями (новый чел зарегился, например)
-            case_user_notify()
-          }
-          else if (event.name == "news_notify"){
-            // появление новых уведомлений, сваязанных с пользователоями, на которых подписан request
-            case_news_notify(event.notify_id) }
-
-          // добавляем единичку и показываем счетчик, если его нет
           notify_count += 1;
           notify.innerHTML = notify_count;
-          show_badge()
+          console.log("теперь кол-во уведов - " notify_count);
+          new Audio('/static/audio/apple/stargaze.mp3').play();
         }
         break;
 
@@ -84,7 +67,6 @@ webSocket.listen(function (event) {
               if (document.body.querySelector(".news_stream")) {case_news_wall(event.id)}
             }
           break;
-
       case "message":
         if (event.creator_id != request_user_id){
           console.log("уведомления сообщений, звуки, отрисовка созданных элементов для участников чата");

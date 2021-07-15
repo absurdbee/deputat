@@ -405,9 +405,9 @@ class ElectNew(models.Model):
         payload = {
             'type': 'receive',
             'key': 'notification',
-            'id': str(id),
-            'recipient_id': str(recipient_id),
-            'name': socket_name,
+            'id': str(self.pk),
+            'recipient_id': str(self.creator.pk),
+            'name': "elect_new_published",
         }
         async_to_sync(channel_layer.group_send)('notification', payload)
 

@@ -215,7 +215,7 @@ class ElectNewDetailView(ListView, CategoryListMixin):
                 if not str(self.new.id) in request.COOKIES:
                     from django.shortcuts import redirect
                     response = redirect('elect_new_detail', pk=self.new.pk)
-                    response.set_cookie(str(self.new.pk), "elekt_new_view")
+                    response.set_cookie(str(self.new.pk), "elect_new_view")
                     if MOBILE_AGENT_RE.match(user_agent):
                         ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=1)
                     else:
@@ -228,6 +228,74 @@ class ElectNewDetailView(ListView, CategoryListMixin):
     def get_context_data(self,**kwargs):
         context=super(ElectNewDetailView,self).get_context_data(**kwargs)
         context["object"] = self.new
+        return context
+
+    def get_queryset(self):
+        return self.new.get_comments()
+
+class ElectNewWindowDetailView(ListView):
+    template_name, paginate_by = None, 15
+
+    def get(self,request,*args,**kwargs):
+        import re
+        from stst.models import ElectNewNumbers
+        from datetime import datetime
+        MOBILE_AGENT_RE, user_agent = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE), request.META['HTTP_USER_AGENT']
+
+        self.new, folder, template = ElectNew.objects.get(pk=self.kwargs["pk"]), "elect/new_window/", "new.html"
+        self.news = self.new.elect.get_news()
+        if request.user.is_authenticated:
+            if MOBILE_AGENT_RE.match(user_agent):
+                request.user.last_activity, request.user.device = datetime.now(), "Ph"
+                request.user.save(update_fields=['last_activity', 'device'])
+            else:
+                request.user.last_activity, request.user.device = datetime.now(), "De"
+                request.user.save(update_fields=['last_activity', 'device'])
+            if request.user.type[0] == "_" or self.new.type[0] == "_":
+                from rest_framework.exceptions import PermissionDenied
+                raise PermissionDenied("Ошибка доступа")
+            else:
+                _template = folder + template
+                if not ElectNewNumbers.objects.filter(user=request.user.pk, new=self.new.pk).exists():
+                    if MOBILE_AGENT_RE.match(user_agent):
+                        ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=1)
+                    else:
+                        ElectNewNumbers.objects.create(user=request.user.pk, new=self.new.pk, platform=0)
+                    self.new.view += 1
+                    self.new.save(update_fields=["view"])
+            if MOBILE_AGENT_RE.match(user_agent):
+                self.template_name = "" + _template
+            else:
+                self.template_name = "" + _template
+
+            return super(ElectNewWindowDetailView,self).get(request,*args,**kwargs)
+        else:
+            if MOBILE_AGENT_RE.match(user_agent):
+                self.template_name = "" + folder + "anon_new.html"
+            else:
+                self.template_name = "" + folder + "anon_new.html"
+            if self.new.type[0] == "_":
+                from rest_framework.exceptions import PermissionDenied
+                raise PermissionDenied("Ошибка доступа")
+            else:
+                if not str(self.new.id) in request.COOKIES:
+                    from django.shortcuts import redirect
+                    response = redirect('elect_new_detail', pk=self.new.pk)
+                    response.set_cookie(str(self.new.pk), "elect_new_view")
+                    if MOBILE_AGENT_RE.match(user_agent):
+                        ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=1)
+                    else:
+                        ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=0)
+                    self.new.view += 1
+                    self.new.save(update_fields=["view"])
+                    return response
+        return super(ElectNewWindowDetailView,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context=super(ElectNewWindowDetailView,self).get_context_data(**kwargs)
+        context["object"] = self.new
+        context["next"] = self.news.filter(pk__gt=self.photo.pk).order_by('pk').first()
+		context["prev"] = self.news.filter(pk__lt=self.photo.pk).order_by('-pk').first()
         return context
 
     def get_queryset(self):

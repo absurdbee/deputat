@@ -1,19 +1,3 @@
-function case_user_notify() {
-  console.log('заявки, дружба, приглашения...');
-  new Audio('/static/audio/apple/stargaze.mp3').play();
-}
-function case_user_wall() {
-  console.log('заявки, дружба, приглашения...');
-  new Audio('/static/audio/apple/stargaze.mp3').play();
-}
-function case_u_post_notify(pk) {
-    console.log('Реакции на записи');
-    try{
-    if (document.body.querySelector( '[data-pk=' + '"' + pk + '"' + ']' )){
-      post_update_votes(document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' ), uuid);
-    }}catch{null};
-    new Audio('/static/audio/apple/nota.mp3').play();
-}
 
 function case_news_wall(pk) {
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

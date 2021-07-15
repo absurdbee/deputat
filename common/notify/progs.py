@@ -81,17 +81,17 @@ def get_draft_news(user):
 def get_wall(user, notify):
     type = notify.type
     if type == "BLO":
-        from common.items.blog import get_blog
-        return get_blog(user, notify)
+        from common.items.blog import get_wall_blog
+        return get_wall_blog(user, notify)
     elif type == "ELN":
-        from common.items.elect_new import get_elect_new
-        return get_elect_new(user, notify)
+        from common.items.elect_new import get_wall_elect_new
+        return get_wall_elect_new(user, notify)
 
 def get_notify(user, notify):
     type = notify.type
-    if type == "BLO":
-        from common.items.blog import get_blog
-        return get_blog(user, notify)
+    if type == 'BLO':
+        from common.items.blog import get_notify_blog
+        return get_notify_blog(user, notify)
     elif type == "ELN":
-        from common.items.elect_new import get_elect_new
-        return get_elect_new(user, notify)
+        from common.items.elect_new import get_notify_elect_new
+        return get_notify_elect_new(user, notify)

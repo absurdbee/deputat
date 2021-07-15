@@ -79,6 +79,7 @@ def get_draft_news(user):
     return Wall.objects.filter(verb="SIT")
 
 def get_wall(user, notify):
+    # отрисовываем объект стены по его id и типу.
     type = notify.type
     if type == "BLO":
         from common.items.blog import get_wall_blog
@@ -88,6 +89,7 @@ def get_wall(user, notify):
         return get_wall_elect_new(user, notify)
 
 def get_notify(user, notify):
+    # отрисовываем объект уведомления по его id и типу.
     type = notify.type
     if type == 'BLO':
         from common.items.blog import get_notify_blog

@@ -87,7 +87,8 @@ def get_comment_elect_new(user, notify):
 
 
 def get_notify_elect_new(user, notify):
+    # мы поняли, что тип "Активность", теперь пробьем по его verb
     from blog.models import ElectNew
     new = ElectNew.objects.get(pk=notify.object_id)
-    if notify.type == "ELNC":
+    if notify.verb == "ELNC":
         return ''.join(['<div class="card-header" data-pk', str(notify.pk), '><div class="media"><figure><svg width="24" class="svg_default" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></figure><div class="media-body"><p class="mb-0">Ваша новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span>прошла проверку модератора и опубликована. Благодарим.</p><p class="mb-0 small">', notify.get_created(), '</p></div></div></div>'])

@@ -99,6 +99,11 @@ function send_inert(item, url){
   link.send( null );
 }
 
+on('body', 'click', '.blog_window', function() {
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/blog/window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+});
+
 on('body', 'click', '.elect_new_like', function() {
   item = this.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");
@@ -229,7 +234,7 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
     toast_error("Выберите чиновника из списка!"); return
   } else { _this.disabled = true };
-  
+
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', "/blog/progs/edit_elect_new/" + _this.getAttribute("data-pk") + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

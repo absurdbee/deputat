@@ -4,6 +4,11 @@ on('body', 'click', '.u_suggested_elect_new_create', function() {
   open_elect_fullscreen("/blog/progs/suggest_elect_new/", loader, name)
 });
 
+on('body', 'click', '.elect_new_window', function() {
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/elect/new_window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+});
+
 on('body', 'click', '.elect_like', function() {
   item = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   pk = item.getAttribute("data-pk");

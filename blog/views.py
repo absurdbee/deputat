@@ -60,7 +60,7 @@ class BlogWindowDetailView(ListView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_small_template
 
-		self.blog = Blog.objects.get(slug=self.kwargs["slug"])
+		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
 		self.articles = Blog.objects.only("pk")
 		self.template_name = get_small_template("blog/window/", "blog.html", request.user, request.META['HTTP_USER_AGENT'])
 		if request.user.is_authenticated:

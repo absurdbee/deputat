@@ -36,7 +36,7 @@ webSocket.listen(function (event) {
         if (event.recipient_id == request_user_id){
           notify_count += 1;
           notify.innerHTML = notify_count;
-          console.log("теперь кол-во уведов - " notify_count);
+          console.log("теперь кол-во уведов - " + notify_count);
           new Audio('/static/audio/apple/stargaze.mp3').play();
         }
         break;

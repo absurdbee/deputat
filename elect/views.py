@@ -295,7 +295,7 @@ class ElectNewWindowDetailView(ListView):
         context=super(ElectNewWindowDetailView,self).get_context_data(**kwargs)
         context["object"] = self.new
         context["next"] = self.news.filter(pk__gt=self.photo.pk).order_by('pk').first()
-		context["prev"] = self.news.filter(pk__lt=self.photo.pk).order_by('-pk').first()
+        context["prev"] = self.news.filter(pk__lt=self.photo.pk).order_by('-pk').first()
         return context
 
     def get_queryset(self):

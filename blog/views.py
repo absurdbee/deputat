@@ -91,8 +91,8 @@ class BlogWindowDetailView(ListView, CategoryListMixin):
 	def get_context_data(self,**kwargs):
 		context=super(BlogWindowDetailView,self).get_context_data(**kwargs)
 		context["object"] = self.blog
-		context["next"] = self.articles.filter(pk__gt=self.photo.pk).order_by('pk').first()
-		context["prev"] = self.articles.filter(pk__lt=self.photo.pk).order_by('-pk').first()
+		context["next"] = self.articles.filter(pk__gt=self.blog.pk).order_by('pk').first()
+		context["prev"] = self.articles.filter(pk__lt=self.blog.pk).order_by('-pk').first()
 		return context
 
 	def get_queryset(self):

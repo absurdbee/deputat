@@ -369,13 +369,18 @@ class ElectNew(models.Model):
         from elect.models import Elect
         from notify.models import Notify, Wall
         from common.notify.progs import user_send_notify, user_send_wall
+        from asgiref.sync import async_to_sync
+        from channels.layers import get_channel_layer
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
+
+        # экранируем проблемы с получением депутата. Он должен быть точно, но в БД мы прописали null=True,
+        # так как мы не хотим, чтобы при удалении депутата связанные с ним активности также удалились.
         try:
             _elect = Elect.objects.get(name=elect)
         except Elect.DoesNotExist:
-            _elect = None
+            _elect = Elect.objects.get(pk=94)
 
         self.type = ElectNew.PUBLISHED
         self.title = title
@@ -384,11 +389,29 @@ class ElectNew(models.Model):
         self.attach = _attach
         self.category = category
         self.save()
+
+        # создаем запись для стены и отсылаем сокет для отрисовки в реале
         Wall.objects.create(creator_id=self.creator.pk, type="ELN", object_id=self.pk, verb="ITE")
         user_send_wall(self.pk, None, "elect_new_wall")
+
+        # создаем уведы для каждого. кто подписан на депутата активности.
         for user_id in self.elect.get_subscribers_ids():
             Notify.objects.create(creator_id=self.creator.pk, recipient_id=user_id, type="ELN", object_id=self.pk, verb="ITE")
             user_send_notify(self.pk, self.creator.pk, user_id, None, "elect_new_notify")
+
+        # отправляем увед создателю активности, что ее успешно опубликовали
+        Notify.objects.create(creator_id=self.creator.pk, recipient_id=self.creator.pk, type="ELNC", object_id=self.pk, verb="ITE")
+        channel_layer = get_channel_layer()
+        payload = {
+            'type': 'receive',
+            'key': 'notification',
+            'id': str(id),
+            'recipient_id': str(recipient_id),
+            'name': socket_name,
+        }
+        async_to_sync(channel_layer.group_send)('notification', payload)
+
+        # плюсуем единичку создателю к его кол-ву созданных активностей. Добавляем теги с формы.
         self.creator.plus_elect_news(1)
         if tags:
             from tags.models import ManagerTag

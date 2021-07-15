@@ -400,6 +400,7 @@ class User(AbstractUser):
 
         query = Q(creator_id__in=self.get_user_profile_notify_ids())
         query.add(Q(user_set__isnull=True, object_set__isnull=True), Q.AND)
+        query.add(Q(creator_id=self.pk), Q.AND)
         return Notify.objects.only('created').filter(query)
 
     def read_user_notify(self):

@@ -96,6 +96,16 @@ on('body', 'click', '.prev_photo', function(event) {
   this.style.display = "none";
   open_fullscreen(this.getAttribute('href'), document.getElementById('photo_loader'));
 })
+on('body', 'click', '.next_item', function(event) {
+  event.preventDefault();
+  this.style.display = "none";
+  open_fullscreen(this.getAttribute('href'), document.getElementById('window_loader'));
+})
+on('body', 'click', '.prev_item', function(event) {
+  event.preventDefault();
+  this.style.display = "none";
+  open_fullscreen(this.getAttribute('href'), document.getElementById('window_loader'));
+})
 
 on('body', 'click', '.photo_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";

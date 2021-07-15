@@ -140,7 +140,7 @@ on('body', 'click', '.u_elect_new_photo', function() {
 on('body', 'click', '.u_load_photo_list', function() {
   parent = this.parentElement.parentElement;
   pk = parent.getAttribute("photolist-pk");
-  loader = document.getElementById("window_loader");
+  loader = document.getElementById("window_loader_2");  
   open_fullscreen("/gallery/user_load/" + pk + "/", loader)
 });
 

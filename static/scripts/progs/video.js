@@ -223,7 +223,7 @@ on('body', 'click', '.u_video_abort_remove', function() {
 on('body', 'click', '.u_load_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("videolist-pk");
-  loader = document.getElementById("window_loader");
+  loader = document.getElementById("window_loader_2");
   open_fullscreen("/video/user_load/" + pk + "/", loader)
 });
 

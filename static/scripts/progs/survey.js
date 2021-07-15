@@ -186,7 +186,7 @@ on('body', 'click', '.u_survey_abort_remove', function() {
 on('body', 'click', '.u_load_survey_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("surveylist-pk");
-  loader = document.getElementById("window_loader");
+  loader = document.getElementById("window_loader_2");
   open_fullscreen("/survey/user_load/" + pk + "/", loader)
 });
 

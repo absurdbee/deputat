@@ -69,7 +69,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
   selectedOptions = lists.selectedOptions;
   try {
   format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]
-} catch { format == null };
+} catch { format = null };
   input_file = form.querySelector("#id_file");
   val = false;
   for (var i = 0; i < selectedOptions.length; i++) {

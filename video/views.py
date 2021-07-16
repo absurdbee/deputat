@@ -59,7 +59,7 @@ class UserLoadVideoList(ListView):
         from common.templates import get_template_user_window, get_template_anon_user_window
 
         self.list = VideoList.objects.get(pk=self.kwargs["pk"])
-        if self.user.pk == request.user.pk:
+        if self.list.creator == request.user.pk:
             self.video_list = self.list.get_staff_items()
         else:
             self.video_list = self.list.get_items()

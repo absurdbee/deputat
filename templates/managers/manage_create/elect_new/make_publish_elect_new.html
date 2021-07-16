@@ -27,9 +27,13 @@
             <div class="form-group">
               <label>Прикрепить объекты</label>
               <div class="card-footer border-top btn_default">
-                  <span class="row {{ new.get_count_attach }}">
+                {% if new.attach %}
+                  <span class="attach_block row {{ new.get_count_attach }}">
                     {{ new|edit_attach:request.user|safe }}
                   </span>
+                {% else %}
+                <span class="row files_0"></span>
+                {% endif %}
                   <div class="row">
                       <div class="col attach_panel border" style="{% if new.get_count_attach == 'files_10' %}display: none;{% else %}display: flex;{% endif %}">
                         <a flow="up" tooltip="Изображение" class="btn btn-link btn-sm text-secondary u_select_photo">

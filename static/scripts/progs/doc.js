@@ -93,7 +93,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
     _this.disabled = false;
     return
   }
-  else if (!format == "pdf" || !format == "doc" || !format == "docx") {
+  else if (format != "pdf" || format != "doc" || format != "docx") {
     toast_error("Допустим формат файла pdf, doc, docx!"),
     form.querySelector(".form_file").style.color = "red";
     _this.disabled = false;

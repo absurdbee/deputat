@@ -76,7 +76,7 @@ on('body', 'click', '.u_add_photo_in_list', function() {
   add_item_in_list(this, '/gallery/user_progs/add_photo_in_list/', 'u_add_photo_in_list', 'u_remove_photo_from_list')
 })
 on('body', 'click', '.u_remove_photo_from_list', function() {
-  remove_item_from_list(this, '/gallery/user_progs/remove_photo_from_list/', 'u_remove_photo_from_list', 'u_add_photo_in_list', ".u_photo_remove")
+  remove_item_from_list(this, '/gallery/user_progs/remove_photo_from_list/', 'u_remove_photo_from_list', 'u_add_photo_in_list', ".mob_user_photo_remove")
 })
 
 on('body', 'click', '.u_photo_detail', function() {
@@ -140,7 +140,7 @@ on('body', 'click', '.u_elect_new_photo', function() {
 on('body', 'click', '.u_load_photo_list', function() {
   parent = this.parentElement.parentElement;
   pk = parent.getAttribute("photolist-pk");
-  loader = document.getElementById("window_loader_2");  
+  loader = document.getElementById("window_loader_2");
   open_fullscreen("/gallery/user_load/" + pk + "/", loader)
 });
 

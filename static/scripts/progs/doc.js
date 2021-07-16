@@ -67,6 +67,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
   form_data = new FormData(form);
   lists = form.querySelector("#id_list");
   selectedOptions = lists.selectedOptions;
+  input_file = form.querySelector("#id_file"), format = form.querySelector("#id_file").file[0].name.split(".").splice(-1,1)[0];
   val = false;
   for (var i = 0; i < selectedOptions.length; i++) {
     if(selectedOptions[i].value) {val = true}
@@ -78,17 +79,23 @@ on('body', 'click', '#u_create_doc_btn', function() {
     form.querySelector("#id_list").style.border = "1px #FF0000 solid";
     toast_error("Выберите список!")
   }
-  else if (!form.querySelector("#id_file").value){
-    form.querySelector("#id_file").style.border = "1px #FF0000 solid";
+  else if (!input_file.value){
+    input_file.style.border = "1px #FF0000 solid";
     toast_error("Загрузите документ!")
   }
-  else if (findSize(form.querySelector("#id_file"))> 5242880) {
+  else if (findSize(input_file)> 5242880) {
     toast_error("Файл не должен превышать 5 Мб!"),
+    input_file.style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else if (!format == "pdf" || !format == "doc" || !format == "docx") {
+    toast_error("Допустим формат файла pdf, doc, docx!"),
     form.querySelector(".form_file").style.color = "red";
     _this.disabled = false;
     return
   }
-  else { _this.disabled = true }
+  else { _this.disabled = true };
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/docs/user_progs/create_doc/", true );

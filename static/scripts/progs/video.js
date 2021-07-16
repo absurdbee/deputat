@@ -84,6 +84,9 @@ on('body', 'click', '#u_create_video_btn', function() {
   form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
 
+  try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
+  input_file = form.querySelector("#id_file");
+
   lists = form.querySelector("#id_list");
   selectedOptions = lists.selectedOptions;
   val = false;
@@ -98,17 +101,23 @@ on('body', 'click', '#u_create_video_btn', function() {
     form.querySelector("#id_list").style.border = "1px #FF0000 solid";
     toast_error("Выберите список!")
   }
-  else if (!form.querySelector("#id_file").value && !form.querySelector("#id_uri").value){
-    form.querySelector("#id_file").style.border = "1px #FF0000 solid";
+  else if (!format && !form.querySelector("#id_uri").value){
+    input_file.style.border = "1px #FF0000 solid";
     form.querySelector("#id_uri").style.border = "1px #FF0000 solid";
     toast_error("Загрузите файл или вставьте ссылку!")
   }
-  else if (!form.querySelector("#id_file").value && form.querySelector("#id_uri").value && !form.querySelector("#id_image")){
+  else if (!format && form.querySelector("#id_uri").value && !form.querySelector("#id_image")){
     form.querySelector("#id_image").style.border = "1px #FF0000 solid";
     toast_error("Загрузите обложку к видео!")
   }
-  else if (findSize(form.querySelector("#id_file"))> 5242880) {
+  else if (findSize(input_file)> 5242880) {
     toast_error("Файл не должен превышать 5 Мб!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else if (format != "mp4" && format != "mpeg4" && format != "avi") {
+    toast_error("Допустим формат файла mp4, mpeg4, avi!"),
     form.querySelector(".form_file").style.color = "red";
     _this.disabled = false;
     return
@@ -142,6 +151,9 @@ on('body', 'click', '#u_edit_video_btn', function() {
   pk = form.getAttribute("data-pk");
   form_data = new FormData(form);
 
+  try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
+  input_file = form.querySelector("#id_file");
+
   lists = form.querySelector("#id_list");
   selectedOptions = lists.selectedOptions;
   val = false;
@@ -156,12 +168,18 @@ on('body', 'click', '#u_edit_video_btn', function() {
     form.querySelector("#id_list").style.border = "1px #FF0000 solid";
     toast_error("Выберите список!")
   }
-  else if (!form.querySelector("#id_file").value){
-    form.querySelector("#id_file").style.border = "1px #FF0000 solid";
+  else if (format){
+    input_file.style.border = "1px #FF0000 solid";
     toast_error("Загрузите видеозапись!")
   }
-  else if (findSize(form.querySelector("#id_file"))> 5242880) {
+  else if (findSize(input_file)> 5242880) {
     toast_error("Файл не должен превышать 5 Мб!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else if (format != "mp4" && format != "mpeg4" && format != "avi") {
+    toast_error("Допустим формат файла mp4, mpeg4, avi!"),
     form.querySelector(".form_file").style.color = "red";
     _this.disabled = false;
     return

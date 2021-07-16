@@ -241,7 +241,7 @@ class PublishElectNew(TemplateView):
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
             post = self.form_post.save(commit=False)
-            new_post = post.make_publish_new(title=post.title, description=post.description, elect=post.elect, attach=request.POST.getlist("attach_items"), category=post.category, tags=request.POST.getlist("tags"))
+            new_post = post.make_publish_new(title=post.title, description=post.description, elect=post.elect, attach=request.POST.getlist("attach_items"), category=post.category, tags=request.POST.getlist("tags"), manager_id=request.user.pk)
             return render_for_platform(request, 'elect/news/new.html',{'object': new_post})
         else:
             from django.http import HttpResponseBadRequest

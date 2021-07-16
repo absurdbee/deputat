@@ -337,7 +337,6 @@ class ElectNew(models.Model):
 
     @classmethod
     def create_suggested_new(cls, creator, title, description, elect, attach, category):
-        from common.notify.notify import user_wall, user_notify
         from elect.models import Elect
         try:
             _elect = Elect.objects.get(name=elect)
@@ -365,12 +364,13 @@ class ElectNew(models.Model):
         self.save()
         return self
 
-    def make_publish_new(self, title, description, elect, attach, category, tags):
+    def make_publish_new(self, title, description, elect, attach, category, tags, manager_id):
         from elect.models import Elect
         from notify.models import Notify, Wall
         from common.notify.progs import user_send_notify, user_send_wall
         from asgiref.sync import async_to_sync
         from channels.layers import get_channel_layer
+        from logs.model.manage_elect_new import ElectNewManageLog
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
@@ -391,16 +391,17 @@ class ElectNew(models.Model):
         self.save()
 
         # создаем запись для стены и отсылаем сокет для отрисовки в реале
-        Wall.objects.create(creator_id=self.creator.pk, type="ELN", object_id=self.pk, verb="ITE")
+        Wall.objects.create(creator_id=manager_id, type="ELN", object_id=self.pk, verb="ITE")
         user_send_wall(self.pk, None, "elect_new_wall")
 
         # создаем уведы для каждого. кто подписан на депутата активности.
         for user_id in self.elect.get_subscribers_ids():
-            Notify.objects.create(creator_id=self.creator.pk, recipient_id=user_id, type="ELN", object_id=self.pk, verb="ITE")
+            Notify.objects.create(creator_id=manager_id, recipient_id=user_id, type="ELN", object_id=self.pk, verb="ITE")
             user_send_notify(self.pk, self.creator.pk, user_id, None, "elect_new_notify")
 
         # отправляем увед создателю активности, что ее успешно опубликовали
-        Notify.objects.create(creator_id=self.creator.pk, recipient_id=self.creator.pk, type="ELN", object_id=self.pk, verb="ELNC")
+        Notify.objects.create(creator_id=manager_id, recipient_id=self.creator.pk, type="ELN", object_id=self.pk, verb="ELNC")
+        ElectNewManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectNewManageLog.ITEM_PUBLISHED)
         channel_layer = get_channel_layer()
         payload = {
             'type': 'receive',

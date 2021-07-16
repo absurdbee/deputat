@@ -65,7 +65,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
-  console.log(findSize(form.querySelector("#id_file")));
+  console.log(findSize(form.querySelector("#id_file").value));
 
   lists = form.querySelector("#id_list");
   selectedOptions = lists.selectedOptions;

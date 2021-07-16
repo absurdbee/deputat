@@ -6,7 +6,7 @@ on('body', 'click', '.u_suggested_elect_new_create', function() {
 
 on('body', 'click', '.elect_new_window', function() {
   loader = document.getElementById("window_loader");
-  document.body.querySelector(".notify_dropdown").classList.remove("show");
+  document.body.querySelector(".notify_dropdown") ? document.body.querySelector(".notify_dropdown").classList.remove("show") : null;
   open_fullscreen("/elect/new_window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
 });
 

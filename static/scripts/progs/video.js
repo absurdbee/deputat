@@ -86,6 +86,9 @@ on('body', 'click', '#u_create_video_btn', function() {
 
   try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
   input_file = form.querySelector("#id_file");
+  if (form.querySelector("#id_uri").value){
+    input_file.value = "";
+  }
 
   lists = form.querySelector("#id_list");
   selectedOptions = lists.selectedOptions;

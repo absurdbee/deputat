@@ -67,7 +67,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
   form_data = new FormData(form);
   lists = form.querySelector("#id_list");
   selectedOptions = lists.selectedOptions;
-  console.log(form.querySelector("#id_file").files[0].name);
+  console.log(form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]);
   input_file = form.querySelector("#id_file"), format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0];
   val = false;
   for (var i = 0; i < selectedOptions.length; i++) {

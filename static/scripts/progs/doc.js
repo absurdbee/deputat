@@ -134,14 +134,14 @@ on('body', 'click', '#u_edit_doc_btn', function() {
 
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
-    toast_error("Название - обязательное поле!")
+    toast_error("Название - обязательное поле!"); return
   } else if (!val){
     form.querySelector("#id_list").style.border = "1px #FF0000 solid";
-    toast_error("Выберите список!")
+    toast_error("Выберите список!"); return
   }
   else if (!format){
     input_file.style.border = "1px #FF0000 solid";
-    toast_error("Загрузите документ!")
+    toast_error("Загрузите документ!"); return
   }
   else if (findSize(input_file)> 5242880) {
     toast_error("Файл не должен превышать 5 Мб!"),

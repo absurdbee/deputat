@@ -167,7 +167,7 @@ class UserVideoEdit(TemplateView):
         if request.is_ajax() and form_post.is_valid():
             _video = form_post.save(commit=False)
             new_video = self.video.edit_video(title=_video.title, image=_video.image, uri=_video.uri, file=_video.file, lists=request.POST.getlist("list"), is_public=request.POST.get("is_public"))
-            return render_for_platform(request, 'user_video/new_video.html',{'video': self.video})
+            return render_for_platform(request, 'user_video/new_video.html',{'object': self.video})
         else:
             return HttpResponseBadRequest()
 

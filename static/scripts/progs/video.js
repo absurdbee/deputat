@@ -153,7 +153,8 @@ on('body', 'click', '#u_create_video_btn', function() {
 });
 
 on('body', 'click', '#u_edit_video_btn', function() {
-  form = this.parentElement.parentElement.parentElement;
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
   pk = form.getAttribute("data-pk");
   form_data = new FormData(form);
 

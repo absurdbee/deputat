@@ -446,7 +446,7 @@ function open_load_fullscreen(link, block) {
     link_.send();
 }
 
-function post_and_load_object_page(form, url_post, url_1, url_2) {
+function post_and_load_object_page(form, url_post, url_1) {
     form_data = new FormData(form);
     var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     ajax_link.open('POST', url_post, true);
@@ -462,7 +462,7 @@ function post_and_load_object_page(form, url_post, url_1, url_2) {
             close_create_window();
             document.title = elem_.querySelector('title').innerHTML;
             uuid = rtr.querySelector(".pk_saver").getAttribute("data-uuid");
-            window.history.pushState(null, "vfgffgfgf", url_1 + url_2 + uuid + '/')
+            window.history.pushState(null, "vfgffgfgf", url_1 + uuid + '/')
         }
     }
     ajax_link.send(form_data)

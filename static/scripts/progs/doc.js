@@ -48,7 +48,7 @@ on('body', 'click', '#u_create_doc_list_btn', function() {
     form.querySelector("#id_name").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!");
   } else { this.disabled = true }
-  post_and_load_object_page(form, "/docs/user_progs/add_list/", "/docs/user_list/", "/");
+  post_and_load_object_page(form, "/docs/user_progs/add_list/", "/docs/user_list/");
 });
 
 on('body', 'click', '#u_edit_doc_list_btn', function() {

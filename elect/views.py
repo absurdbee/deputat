@@ -280,7 +280,7 @@ class ElectNewWindowDetailView(ListView):
             else:
                 if not str(self.new.id) in request.COOKIES:
                     from django.shortcuts import redirect
-                    response = redirect('elect_new_detail', pk=self.new.pk)
+                    response = redirect('elect_new_detail_window', pk=self.new.pk)
                     response.set_cookie(str(self.new.pk), "elect_new_view")
                     if MOBILE_AGENT_RE.match(user_agent):
                         ElectNewNumbers.objects.create(user=0, new=self.new.pk, platform=1)

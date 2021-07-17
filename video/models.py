@@ -374,17 +374,19 @@ class Video(models.Model):
             get_video_processing(video, Video.PRIVATE)
         return video
 
-    def edit_video(self, title, file, lists, is_public):
+    def edit_video(self, title, uri, image, file, lists, is_public):
         from common.processing import get_video_processing
 
         self.title = title
         self.file = file
         self.lists = lists
+        self.uri = uri
+        self.image = image
         if is_public:
-            get_video_processing(self, VIDEO.PUBLISHED)
+            get_video_processing(self, Video.PUBLISHED)
             self.make_publish()
         else:
-            get_video_processing(self, VIDEO.PRIVATE)
+            get_video_processing(self, Video.PRIVATE)
             self.make_private()
         return self.save()
 

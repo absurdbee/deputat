@@ -2,15 +2,15 @@
 <div class="mb-1 p-1 card pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.pk }}">
   <div class="d-flex justify-content-start align-items-center mb-1">
     <div class="avatar mr-1">
-      <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
+      <a href="{% url 'user' pk=object.creator.pk %}" class="ajax">
         <img src="{{ object.creator.get_avatar }}" alt="avatar img" height="40" width="40">
       </a>
     </div>
     <div class="profile-user-info">
       <h4 class="mb-0">
-        <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-          {{ object.title }}
-        </a>
+        <span>
+        <p class="pointer elect_new_window">{{ object.title }}</p>
+        </span>
         <span class="text-muted small">({{ object.get_created }})</span></h4>
       <span class="small">
         <a href="{% url 'user' pk=object.creator.pk %}" class="ajax">
@@ -19,7 +19,9 @@
       </span>
     </div>
   </div>
-  <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
+  <span><span><span>
+    <p class="card-text mb-50 pointer elect_new_window">{{ object.description|truncatechars:300 }}</p>
+  </span></span></span>
   <span><span>
   <div style="padding: 5px;bottom: 3px;width: 100%;">
     <span class="like {% if object.likes|user_in:request.user %}btn_success{% else %}btn_default{% endif %} elect_new_like pointer" title="Нравится" {% if not object.votes_on %}style="display:none"{% endif %}>

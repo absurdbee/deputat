@@ -17,7 +17,7 @@ class PhoneSend(View):
             _phone = self.kwargs["phone"]
             if len(_phone) > 8:
                 first_number = request.POST.get('first_number')
-                phone = first_number + _phone
+                phone = str(first_number) + str(_phone)
                 try:
                     user = User.objects.get(phone=phone)
                     data = 'уже зарегистрирован'

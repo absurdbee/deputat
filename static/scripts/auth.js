@@ -118,7 +118,7 @@ on('body', 'click', '#register_ajax', function() {
   } else if (!form.querySelector("#date_year").value){
       form.querySelector("#date_year").style.border = "1px #FF0000 solid";
       toast_error("Год рождения - обязательное поле!")
-  } else if (!form.querySelector("#password1").value != !form.querySelector("#password2").value){
+  } else if (form.querySelector("#password1").value != form.querySelector("#password2").value){
       form.querySelector("#password1").style.border = "1px #FF0000 solid";
 			form.querySelector("#password2").style.border = "1px #FF0000 solid";
       toast_error("Пароли не совпадают!")

@@ -2,7 +2,7 @@
 {% block title %}{{ list.name }}{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
+<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}" style="margin-top:-500px">
   <div class="breadcrumb-wrapper">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>

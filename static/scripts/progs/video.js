@@ -7,13 +7,13 @@ on('body', 'click', '.u_video_add', function() {
   open_fullscreen("/video/user_progs/create_video/", loader)
 });
 on('body', 'click', '.u_video_edit', function() {
-  parent = this.parentElement.parentElement.parentElement;
-  blocks = document.body.querySelectorAll('.col-sm-12');
+  pk = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  blocks = document.body.querySelectorAll('.u_video_detail');
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_video")}
-
-  parent.parentElement.parentElement.parentElement.classList.add("edited_video")
+  cur_video = document.body.querySelector('[video-pk=' + '"' + pk + '"' + ']')
+  cur_video.classList.add("edited_video");
   loader = document.getElementById("create_loader");
-  open_fullscreen("/video/user_progs/edit_video/" + parent.getAttribute("data-pk") +"/", loader)
+  open_fullscreen("/video/user_progs/edit_video/" + pk +"/", loader)
 });
 
 on('body', 'click', '.next_video', function(event) {
@@ -161,6 +161,10 @@ on('body', 'click', '#u_edit_video_btn', function() {
   try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
   input_file = form.querySelector("#id_file");
 
+  if (form.querySelector("#id_uri").value){
+    input_file.value = "";
+  }
+
   lists = form.querySelector("#id_list");
   selectedOptions = lists.selectedOptions;
   val = false;
@@ -200,12 +204,13 @@ on('body', 'click', '#u_edit_video_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Видеозапись изменена!")
-    close_create_window();
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
     video = document.body.querySelector(".edited_video");
     video.innerHTML = response.querySelector(".pag").innerHTML;
+    close_create_window();
+    close_photo_window();
   }};
 
   link_.send(form_data);

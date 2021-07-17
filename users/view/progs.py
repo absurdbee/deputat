@@ -7,15 +7,15 @@ from django.shortcuts import render
 
 
 class PhoneSend(View):
-    def post(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         import json, requests
         from common.model.other import PhoneCodes
 
         if not request.is_ajax() and not request.user.is_no_phone_verified():
             raise Http404
         else:
-            _phone = self.kwargs["phone"]
-            if len(_phone) > 8:
+            phone = self.kwargs["phone"]
+            if len(phone) > 8:
                 first_number = request.POST.get('first_number')
                 phone = str(first_number) + str(_phone)
                 try:
@@ -69,7 +69,7 @@ class PhoneVerify(View):
 
 
 class ChangePhoneSend(View):
-    def get(self,request,*args,**kwargs):
+    def post(self,request,*args,**kwargs):
         import json, requests
         from common.model.other import PhoneCodes
 

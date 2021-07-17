@@ -448,7 +448,6 @@ function open_load_fullscreen(link, block) {
 
 function post_and_load_object_page(form, url_post, url_1, url_2) {
     form_data = new FormData(form);
-    pk = document.body.querySelector(".pk_saver").getAttribute("data-pk");
     var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     ajax_link.open('POST', url_post, true);
     ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -463,7 +462,7 @@ function post_and_load_object_page(form, url_post, url_1, url_2) {
             close_create_window();
             document.title = elem_.querySelector('title').innerHTML;
             uuid = rtr.querySelector(".pk_saver").getAttribute("data-uuid");
-            window.history.pushState(null, "vfgffgfgf", url_1 + pk + url_2 + uuid + '/')
+            window.history.pushState(null, "vfgffgfgf", url_1 + url_2 + uuid + '/')
         }
     }
     ajax_link.send(form_data)

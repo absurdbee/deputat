@@ -205,7 +205,7 @@ function phone_check() {
   on('body', 'click', '#code_send', function() {
       form = document.querySelector('.verify_form');
       user_pk = form.getAttribute("data-pk");
-      var phone = form.querySelector('#phone').value;
+      var phone = form.querySelector('#id_first_number').value + form.querySelector('#phone').value;
       var code = document.body.querySelector('.block_verify').querySelector('#code').value;
       var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
       request.open('GET', "/users/progs/phone_verify/" + phone + "/" + code + "/", true);
@@ -220,7 +220,7 @@ function phone_check() {
               }
           }
       };
-      request.send(null)
+      request.send()
   });
 
   on('body', 'click', '.phone_send', function() {

@@ -42,13 +42,13 @@ class PhoneSend(View):
 
 
 class PhoneVerify(View):
-    def post(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         from common.model.other import PhoneCodes
 
         if not request.is_ajax():
             raise Http404
         code = self.kwargs["code"]
-        phone = request.POST.get('first_number') + str(self.kwargs["phone"])
+        phone = self.kwargs["phone"]
         try:
             obj = PhoneCodes.objects.get(phone=phone, code=code)
         except:

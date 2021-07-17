@@ -69,16 +69,15 @@ class PhoneVerify(View):
 
 
 class ChangePhoneSend(View):
-    def post(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         import json, requests
         from common.model.other import PhoneCodes
 
         if not request.is_ajax():
             raise Http404
-        _phone = self.kwargs["phone"]
+        phone = self.kwargs["phone"]
 
-        if len(_phone) > 8:
-            phone = str(7) + str(self.kwargs["phone"])
+        if len(phone) > 8:
             try:
                 user = User.objects.get(phone=phone)
                 data = 'уже зарегистрирован'

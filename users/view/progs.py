@@ -28,11 +28,11 @@ class PhoneSend(View):
                     loc = UserLocation.objects.filter(user=request.user).last()
                     loc.phone = first_number
                     loc.save(update_fields=["phone"])
-                    url = "https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + request.user.get_last_location().phone + _phone
+                    url = "https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone
                     response = requests.get(url=url)
                     data = response.json()
                     PhoneCodes.objects.create(phone=phone, code=data['code'])
-                    data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Последние 4 цифры" и нажать "Подтвердить"'
+                    data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Код" и нажать "Подтвердить"'
                     response = render(request,'generic/response/code_send.html',{'response_text':data,'phone':first_number })
                     return response
             else:
@@ -88,7 +88,7 @@ class ChangePhoneSend(View):
                 response = requests.get(url="https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone)
                 data = response.json()
                 PhoneCodes.objects.create(phone=phone, code=data['code'])
-                data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Последние 4 цифры" и нажать "Подтвердить"'
+                data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Код" и нажать "Подтвердить"'
                 response = render(request,'generic/response/change_code_send.html',{'response_text':data})
                 return response
         else:

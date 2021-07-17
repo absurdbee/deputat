@@ -20,7 +20,7 @@ on('body', 'click', '.u_doc_list_edit', function() {
   for (var i = 0; i < list.length; i++) {
     list[i].classList.remove("list_active")
   }
-  block = this.parentElement.parentElement.parentElement.parentElement;
+  block = this.parentElement.parentElement;
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
   loader = document.getElementById("create_loader");

@@ -8,11 +8,13 @@
                   </a>
                 </li>
             </ul>
+            {% if user.is_authenticated %}
             <ul class="nav navbar-nav bookmark-icons">
                 <li class="nav-item d-none d-lg-block">
                   <button class="btn btn-outline-primary btn-sm u_suggested_elect_new_create" style="color: #FFFFFF;border-color: #FFFFFF;">Предложить новость</button>
                 </li>
             </ul>
+            {% endif %}
         </div>
         <ul class="nav navbar-nav align-items-center ml-auto">
 

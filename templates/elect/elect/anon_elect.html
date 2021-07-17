@@ -96,7 +96,7 @@
                 <div class="col-lg-6 col-12 order-1 order-lg-2 elect_news_container">
                     {% if object.get_news %}
                     {% for object in object.get_news %}
-                      {% include 'elect/new_card.html' %}
+                      {% include 'elect/anon_new_card.html' %}
                     {% endfor %}
                     {% else %}
                     <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">

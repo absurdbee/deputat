@@ -7,11 +7,13 @@ on('body', 'click', '.u_video_add', function() {
   open_fullscreen("/video/user_progs/create_video/", loader)
 });
 on('body', 'click', '.u_video_edit', function() {
-  pk = this.parentElement.parentElement.parentElement.parentElement.parentElement;
+  pk = this.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("video-pk");
   blocks = document.body.querySelectorAll('.u_video_detail');
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_video")}
-  cur_video = document.body.querySelector('[video-pk=' + '"' + pk + '"' + ']')
-  cur_video.classList.add("edited_video");
+  try{
+    cur_video = document.body.querySelector('[video-pk=' + '"' + pk + '"' + ']')
+    cur_video.classList.add("edited_video")
+  } catch { null }
   loader = document.getElementById("create_loader");
   open_fullscreen("/video/user_progs/edit_video/" + pk +"/", loader)
 });
@@ -207,8 +209,10 @@ on('body', 'click', '#u_edit_video_btn', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    video = document.body.querySelector(".edited_video");
-    video.innerHTML = response.querySelector(".pag").innerHTML;
+    try{
+      video = document.body.querySelector(".edited_video");
+      video.innerHTML = response.querySelector(".pag").innerHTML
+    } catch { null };
     close_create_window();
     close_photo_window();
   }};

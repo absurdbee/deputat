@@ -74,7 +74,7 @@ class UserDoclistCreate(TemplateView):
         form_post= DoclistForm(request.POST)
         if request.is_ajax() and form_post.is_valid():
             list = form_post.save(commit=False)
-            new_list = list.create_list(creator=request.user, name=new_list.name, description=new_list.description, order=new_list.order, community=None, is_public=request.POST.get("is_public"))
+            new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order, community=None, is_public=request.POST.get("is_public"))
             return render_for_platform(request, 'user_docs/list/my_list.html',{'list': new_list})
         else:
             return HttpResponseBadRequest()

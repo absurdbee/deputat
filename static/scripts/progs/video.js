@@ -103,7 +103,6 @@ on('body', 'click', '#u_create_video_btn', function() {
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!")
   }
-
   else if (!form.querySelector("#id_uri").value){
     if (!format) {
       input_file.style.border = "1px #FF0000 solid";
@@ -177,27 +176,35 @@ on('body', 'click', '#u_edit_video_btn', function() {
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!")
-  } else if (!val){
+  }
+  else if (!form.querySelector("#id_uri").value){
+    if (!format) {
+      input_file.style.border = "1px #FF0000 solid";
+      form.querySelector("#id_uri").style.border = "1px #FF0000 solid";
+      toast_error("Загрузите файл или вставьте ссылку!")
+    }
+    else if (findSize(input_file)> 5242880) {
+      toast_error("Файл не должен превышать 5 Мб!"),
+      form.querySelector(".form_file").style.color = "red";
+      _this.disabled = false;
+      return
+    }
+    else if (format != "mp4" && format != "mpeg4" && format != "avi") {
+      toast_error("Допустим формат файла mp4, mpeg4, avi!"),
+      form.querySelector(".form_file").style.color = "red";
+      _this.disabled = false;
+      return
+    }
+  }
+  else if (!form.querySelector("#id_image")){
+    form.querySelector("#id_image").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите обложку к видео!")
+  }
+  else if (!val){
     form.querySelector("#id_list").style.border = "1px #FF0000 solid";
     toast_error("Выберите список!")
   }
-  else if (format){
-    input_file.style.border = "1px #FF0000 solid";
-    toast_error("Загрузите видеозапись!")
-  }
-  else if (findSize(input_file)> 5242880) {
-    toast_error("Файл не должен превышать 5 Мб!"),
-    form.querySelector(".form_file").style.color = "red";
-    _this.disabled = false;
-    return
-  }
-  else if (format != "mp4" && format != "mpeg4" && format != "avi") {
-    toast_error("Допустим формат файла mp4, mpeg4, avi!"),
-    form.querySelector(".form_file").style.color = "red";
-    _this.disabled = false;
-    return
-  }
-  else { this.disabled = true }
+  else { _this.disabled = true }
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/video/user_progs/edit_video/" + pk + "/", true );

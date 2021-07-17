@@ -16,17 +16,12 @@ class PhoneSend(View):
         else:
             phone = self.kwargs["phone"]
             if len(phone) > 8:
-                first_number = request.POST.get('first_number')
                 try:
                     user = User.objects.get(phone=phone)
                     data = 'уже зарегистрирован'
                     response = render(request,'generic/response/phone.html',{'response_text':data})
                     return response
                 except:
-                    from users.model.profile import UserLocation
-                    loc = UserLocation.objects.filter(user=request.user).last()
-                    loc.phone = first_number
-                    loc.save(update_fields=["phone"])
                     url = "https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone
                     response = requests.get(url=url)
                     data = response.json()

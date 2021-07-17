@@ -69,7 +69,7 @@
                   {% for object in object_list %}
                   {% if object.is_published %}
                     {% include 'elect/new_card.html' %}
-                  {% else if object.is_suggested %}
+                  {% elif object.is_suggested %}
                   <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">
                     <div class="d-flex justify-content-start align-items-center mb-1">
                       <div class="avatar mr-1">

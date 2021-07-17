@@ -245,22 +245,22 @@ on('body', 'click', '.menu-toggle', function() {
 
 on('body', 'click', '.sidenav-overlay', function() {
   if (this.classList.contains("show")){
-    $body.querySelector(".menu-toggle").remove("is-active");
-    $body.classList.remove("menu-open");
+    mobile_menu_close()
     $body.querySelector(".menu_close").style.display = "none";
-    $body.querySelector(".sidenav-overlay").classList.remove("show");
-    $body.querySelector(".nav_item_toggle").innerHTML = '<a class="nav-link menu-toggle pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu ficon"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>'
-    $body.querySelector(".main-menu").classList.remove("left_18")
   }
 })
 
-on('body', 'click', '.menu_close', function() {
-  this.style.display = "none";
-  $body.querySelector(".menu-toggle").remove("is-active");
+function mobile_menu_close() {
+	$body.querySelector(".menu-toggle").remove("is-active");
   $body.classList.remove("menu-open");
   $body.querySelector(".sidenav-overlay").classList.remove("show");
   $body.querySelector(".nav_item_toggle").innerHTML = '<a class="nav-link menu-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu ficon"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>'
   $body.querySelector(".main-menu").classList.remove("left_18")
+}
+
+on('body', 'click', '.menu_close', function() {
+  this.style.display = "none";
+  mobile_menu_close();
 })
 
 on('body', 'click', '.menu_nav_1', function() {

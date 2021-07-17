@@ -907,6 +907,7 @@ function ajax_get_reload(url) {
         loaded = false;
         create_pagination(rtr);
         init_music(rtr);
+        mobile_menu_close();
         //window.onpopstate = function () {history.go(1);};
       }
     }

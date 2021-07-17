@@ -69,7 +69,7 @@
                   {% for object in object_list %}
                   {% if object.is_published %}
                     {% include 'elect/new_card.html' %}
-                  {% else %}
+                  {% else if object.is_suggested %}
                   <div class="mt-1 card pag {% if forloop.last %}last{% endif %}">
                     <div class="d-flex justify-content-start align-items-center mb-1">
                       <div class="avatar mr-1">
@@ -78,14 +78,16 @@
                         </a>
                       </div>
                       <div class="profile-user-info">
-                        <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
-                          <h4 class="mb-0">{{ object.title }} <span class="text-muted small">({{ object.get_created }})</span></h4>
-                        </a>
+                        <h4 class="mb-0 elect_new_window">{{ object.title }}
+                          <span class="text-muted small">({{ object.get_created }})</span>
+                        </h4>
                         <span class="small">{{ object.get_type_display }}</span>
                       </div>
 
                     </div>
-                    <p class="card-text mb-50">{{ object.description|truncatechars:100 }}</p>
+                    <span><span><span>
+                      <p class="card-text mb-50 pointer elect_new_window">{{ object.description|truncatechars:300 }}</p>
+                    </span></span></span>
                     <span class="small" data-pk="{{ object.pk }}">
                       <span class="edit_elect_new pointer underline">Редактировать</span>
                       &nbsp;&nbsp;

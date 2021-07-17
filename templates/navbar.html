@@ -8,7 +8,7 @@
                   </a>
                 </li>
             </ul>
-            {% if user.is_authenticated %}
+            {% if request.user.is_authenticated %}
             <ul class="nav navbar-nav bookmark-icons">
                 <li class="nav-item d-none d-lg-block">
                   <button class="btn btn-outline-primary btn-sm u_suggested_elect_new_create" style="color: #FFFFFF;border-color: #FFFFFF;">Предложить новость</button>

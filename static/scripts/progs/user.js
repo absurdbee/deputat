@@ -225,7 +225,7 @@ on('body', 'click', '#change_code_send', function() {
     form = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
     form_data = new FormData(form);
     user_pk = form.getAttribute("data-pk");
-    var phone = form.querySelector('#phone').value;
+    var phone = form.querySelector('#id_first_number').value + form.querySelector('#phone').value;
     var code = document.body.querySelector('.block_verify').querySelector('#code').value;
     var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     request.open('POST', "/users/progs/change_phone_verify/" + phone + "/" + code + "/", true);
@@ -242,7 +242,7 @@ on('body', 'click', '#change_code_send', function() {
 on('body', 'click', '.change_phone_send', function() {
   form = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
-var phone = document.querySelector('#phone').value;
+  phone = form.querySelector('#id_first_number').value + form.querySelector('#phone').value;
  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
  request.open( 'POST', "/users/progs/change_phone_send/" + phone + "/", true );
  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

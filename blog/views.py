@@ -62,7 +62,7 @@ class BlogWindowDetailView(ListView, CategoryListMixin):
 
 		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
 		self.articles = Blog.objects.only("pk")
-		self.template_name = get_small_template("blog/window/", "blog.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("blog/window/blog.html", request.user, request.META['HTTP_USER_AGENT'])
 		if request.user.is_authenticated:
 			if not BlogNumbers.objects.filter(user=request.user.pk, new=self.blog.pk).exists():
 				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):

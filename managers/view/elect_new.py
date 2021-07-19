@@ -247,6 +247,39 @@ class PublishElectNew(TemplateView):
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
 
+class CreateElectNew(TemplateView):
+    template_name = "managers/manage_create/elect_new/create_publish_elect_new.html"
+
+    def get(self,request,*args,**kwargs):
+        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        return super(CreateElectNew,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from blog.forms import PublishElectNewForm
+        from tags.models import ManagerTag
+        from elect.models import Elect
+
+        context=super(CreateElectNew,self).get_context_data(**kwargs)
+        context["form"] = PublishElectNewForm(instance=self.elect_new)
+        context["new"] = self.elect_new
+        context["tags"] = ManagerTag.objects.only("pk")
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from blog.forms import PublishElectNewForm
+        from common.templates import render_for_platform
+
+        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        self.form_post = PublishElectNewForm(request.POST, instance=self.elect_new)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
+            post = self.form_post.save(commit=False)
+            new_post = post.make_publish_new(title=post.title, description=post.description, elect=post.elect, attach=request.POST.getlist("attach_items"), category=post.category, tags=request.POST.getlist("tags"), manager_id=request.user.pk, comments_enabled=post.comments_enabled, votes_on=post.votes_on)
+            return render_for_platform(request, 'elect/news/new.html',{'object': new_post})
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()
+
 class RejectElectNew(View):
     def get(self,request,*args,**kwargs):
         from managers.forms import ModeratedForm

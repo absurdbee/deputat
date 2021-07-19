@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^delete_worker_editor/(?P<pk>\d+)/$', ElectNewWorkerEditorDelete.as_view()),
 
     url(r'^create_publish/(?P<pk>\d+)/$', PublishElectNew.as_view()),
+    url(r'^create_elect_new/$', CreateElectNew.as_view()),
     url(r'^suggest_rejected/(?P<pk>\d+)/$', RejectElectNew.as_view()),
 
     url(r'^create_close/(?P<pk>\d+)/$', ElectNewCloseCreate.as_view()),

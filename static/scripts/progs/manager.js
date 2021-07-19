@@ -1,4 +1,5 @@
-on('body', 'click', '.manager_blog_create', function() {
+on('body', 'click', '.manager_blog_create', function(e) {
+  e.parentDefault();
   loader = document.getElementById("window_loader");
   open_fullscreen("/blog/progs/add_blog/", loader)
 });

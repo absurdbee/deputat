@@ -4,24 +4,49 @@ from django.http import HttpResponse
 from django.http import Http404
 
 
+class BlogCreateView(TemplateView):
+    template_name = "blog/create_blog.html"
+
+    def get_context_data(self,**kwargs):
+        from blog.forms import BlogForm
+
+        context=super(BlogCreateView,self).get_context_data(**kwargs)
+        context["form"] = BlogForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from blog.forms import BlogForm
+        from common.templates import render_for_platform
+
+        self.form_post = BlogForm(request.POST, request.FILES)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
+            post = self.form_post.save(commit=False)
+            new_post = post.create_blog(creator=request.user, title=post.title, image=post.image, description=post.description, comments_enabled=post.comments_enabled, votes_on=post.votes_on, tags=request.POST.getlist("tags"))
+            return render_for_platform(request, 'blog/detail/blog.html',{'object': new_post})
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()
+
+
 class SuggestElectNew(TemplateView):
     template_name = "elect/add_suggest_elect_new.html"
 
     def get_context_data(self,**kwargs):
-        from blog.forms import ElectNewForm
+        from blog.forms import SuggestElectNewForm
         from elect.models import Elect
 
         context=super(SuggestElectNew,self).get_context_data(**kwargs)
-        context["form"] = ElectNewForm()
+        context["form"] = SuggestElectNewForm()
         context["get_elects"] = Elect.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):
-        from blog.forms import ElectNewForm
+        from blog.forms import SuggestElectNewForm
         from elect.models import Elect
         from common.templates import render_for_platform
 
-        self.form_post = ElectNewForm(request.POST)
+        self.form_post = SuggestElectNewForm(request.POST)
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
             post = self.form_post.save(commit=False)

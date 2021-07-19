@@ -1,12 +1,21 @@
-from blog.models import ElectNew
+from blog.models import ElectNew, Blog
 from common.model.comments import BlogComment, ElectNewComment
 from django import forms
 
 
-class ElectNewForm(forms.ModelForm):
+class SuggestElectNewForm(forms.ModelForm):
 	class Meta:
 		model = ElectNew
 		fields = ['title', 'description', 'category', ]
+class PublishElectNewForm(forms.ModelForm):
+	class Meta:
+		model = ElectNew
+		fields = ['title', 'description', 'category', 'comments_enabled', 'votes_on', ]
+
+class BlogForm(forms.ModelForm):
+	class Meta:
+		model = Blog
+		fields = ['title', 'description', 'image', 'comments_enabled', 'votes_on', ]
 
 
 class BlogCommentForm(forms.ModelForm):

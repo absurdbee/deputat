@@ -46,12 +46,29 @@ class Blog(models.Model):
         return self.title
 
     @classmethod
-    def create_new(cls, creator, description, content, comments_enabled, votes_on, type):
-        from notify.models import Notify
+    def create_blog(cls, title, description, image, tags, comments_enabled, votes_on):
+        from notify.models import Wall
+        from common.notify.progs import user_send_wall
+        from logs.model.manage_elect_new import BlogManageLog
+        from common.processing import get_blog_processing
 
-        blog = cls.objects.create(creator=creator,description=description,category=category,comments_enabled=comments_enabled,votes_on=votes_on)
-        Notify.objects.create(creator_id=creator.pk, type="BLO", object_id=blog.pk, verb="ITE")
-        return blog
+        blog = cls.objects.create(creator=creator,title=title,description=description,image=image,comments_enabled=comments_enabled,votes_on=votes_on)
+        get_elect_new_processing(blog)
+
+        # создаем запись для стены и отсылаем сокет для отрисовки в реале
+        Wall.objects.create(creator_id=manager_id, type="BLO", object_id=self.pk, verb="ITE")
+        user_send_wall(self.pk, None, "new_blog_wall")
+
+        # создаем лог
+        BlogManageLog.objects.create(item=self.pk, manager=manager_id, action_type=BlogManageLog.ITEM_CREATED)
+
+        # Добавляем теги с формы.
+        if tags:
+            from tags.models import ManagerTag
+            for _tag in tags:
+                tag = ManagerTag.objects.get(pk=_tag)
+                tag.blog.add(self)
+        return self
 
     def likes(self):
         from common.model.votes import BlogVotes
@@ -338,6 +355,7 @@ class ElectNew(models.Model):
     @classmethod
     def create_suggested_new(cls, creator, title, description, elect, attach, category):
         from elect.models import Elect
+        from common.processing import get_elect_new_processing
         try:
             _elect = Elect.objects.get(name=elect)
         except:
@@ -345,11 +363,16 @@ class ElectNew(models.Model):
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
 
-        new = cls.objects.create(creator=creator,title=title,description=description,elect=_elect,attach=_attach,category=category,type=ElectNew.SUGGESTED,)
+        new = cls.objects.create(creator=creator,title=title,description=description,elect=_elect,attach=_attach,category=category,)
+        get_elect_new_processing(new, ElectNew.SUGGESTED)
         return new
 
     def edit_new(self, title, description, elect, attach, category):
         from elect.models import Elect
+        from common.processing import get_elect_new_processing
+
+        get_elect_new_processing(self, ElectNew.SUGGESTED)
+
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         try:
@@ -364,13 +387,14 @@ class ElectNew(models.Model):
         self.save()
         return self
 
-    def make_publish_new(self, title, description, elect, attach, category, tags, manager_id):
+    def make_publish_new(self, title, description, elect, attach, category, tags, manager_id, comments_enabled, votes_on):
         from elect.models import Elect
         from notify.models import Notify, Wall
         from common.notify.progs import user_send_notify, user_send_wall
         from asgiref.sync import async_to_sync
         from channels.layers import get_channel_layer
         from logs.model.manage_elect_new import ElectNewManageLog
+        from common.processing import get_elect_new_processing
 
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
@@ -382,13 +406,16 @@ class ElectNew(models.Model):
         except Elect.DoesNotExist:
             _elect = Elect.objects.get(pk=94)
 
-        self.type = ElectNew.PUBLISHED
         self.title = title
         self.description = description
         self.elect = elect
         self.attach = _attach
         self.category = category
+        self.comments_enabled = comments_enabled
+        self.votes_on = votes_on
         self.save()
+
+        get_elect_new_processing(self, ElectNew.PUBLISHED)
 
         # создаем запись для стены и отсылаем сокет для отрисовки в реале
         Wall.objects.create(creator_id=manager_id, type="ELN", object_id=self.pk, verb="ITE")

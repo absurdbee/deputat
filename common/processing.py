@@ -1,8 +1,13 @@
 
-def get_elect_new_processing(post):
-    post.type = "P"
-    post.save(update_fields=['type'])
-    return post
+def get_elect_new_processing(new, type):
+    new.type = type
+    new.save(update_fields=['type'])
+    return new
+
+def get_blog_processing(blog):
+    blog.type = 'PUB'
+    blog.save(update_fields=['type'])
+    return blog
 
 def get_blog_comment_processing(comment):
     comment.type = "PUB"

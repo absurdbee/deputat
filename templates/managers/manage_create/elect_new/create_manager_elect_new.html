@@ -4,20 +4,20 @@
   {% csrf_token %}
     <div class="card mb-3">
         <div class="card-header border-bottom">
-            <h5 class="content-color-primary mb-0">Подготовка к публикации</h5>
+            <h5 class="content-color-primary mb-0">Создание активности</h5>
         </div>
         <div class="card-body">
             <div class="form-group">
               <label>Название</label>
-              <input type="text" name="title" value="{{ new.title }}" class="form-control" id="id_title">
+              <input type="text" name="title" class="form-control" id="id_title">
             </div>
             <div class="form-group">
               <label>Описание</label>
-              <textarea style="height: 200px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description">{{ new.description }}</textarea>
+              <textarea style="height: 200px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description"></textarea>
             </div>
             <div class="form-group">
               <label>Чиновник</label>
-              <input id="id_elect" list="data-list" value="{{ new.elect.name }}" class="form-control" name="elect">
+              <input id="id_elect" list="data-list" class="form-control" name="elect">
               <datalist id="data-list">
                 {% for object in get_elects %}
                 <option value="{{ object.name }}"></option>
@@ -27,13 +27,7 @@
             <div class="form-group">
               <label>Прикрепить объекты</label>
               <div class="card-footer border-top btn_default">
-                {% if new.attach %}
-                  <span class="attach_block row {{ new.get_count_attach }}">
-                    {{ new|edit_attach:request.user|safe }}
-                  </span>
-                {% else %}
                 <span class="row files_0"></span>
-                {% endif %}
                   <div class="row">
                       <div class="col attach_panel border" style="{% if new.get_count_attach == 'files_10' %}display: none;{% else %}display: flex;{% endif %}">
                         <a flow="up" tooltip="Изображение" class="btn btn-link btn-sm text-secondary u_select_photo">
@@ -69,10 +63,22 @@
                 {% endfor %}
               </div>
             </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="comments_enabled" class="custom-control-input" checked id="id_111">
+                <label class="custom-control-label" for="id_111">Комментарии разрешены</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="votes_on" class="custom-control-input" checked id="id_112">
+                <label class="custom-control-label" for="id_112">Реакции разрешены</label>
+              </div>
+            </div>
         </div>
         <div class="card-footer">
             <button class="btn custom_color border create_fullscreen_hide_2" style="position: absolute;">Отмена</button>
-            <button id="u_publish_elect_new_btn" data-pk="{{ new.pk }}" type="button" class="btn btn-success float-right">Опубликовать</button>
+            <button id="manager_create_elect_new_btn" type="button" class="btn btn-success float-right">Опубликовать</button>
         </div>
     </div>
 </form>

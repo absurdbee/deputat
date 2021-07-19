@@ -49,7 +49,7 @@ class Blog(models.Model):
     def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on):
         from notify.models import Wall
         from common.notify.progs import user_send_wall
-        from logs.model.manage_elect_new import BlogManageLog
+        from logs.model.manage_blog import BlogManageLog
         from common.processing import get_blog_processing
 
         blog = cls.objects.create(creator=creator,title=title,description=description,image=image,comments_enabled=comments_enabled,votes_on=votes_on)

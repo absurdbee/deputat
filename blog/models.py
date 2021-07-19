@@ -56,19 +56,19 @@ class Blog(models.Model):
         get_blog_processing(blog)
 
         # создаем запись для стены и отсылаем сокет для отрисовки в реале
-        Wall.objects.create(creator_id=creator.pk, type="BLO", object_id=self.pk, verb="ITE")
-        user_send_wall(self.pk, None, "new_blog_wall")
+        Wall.objects.create(creator_id=creator.pk, type="BLO", object_id=blog.pk, verb="ITE")
+        user_send_wall(blog.pk, None, "new_blog_wall")
 
         # создаем лог
-        BlogManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=BlogManageLog.ITEM_CREATED)
+        BlogManageLog.objects.create(item=blog.pk, manager=creator.pk, action_type=BlogManageLog.ITEM_CREATED)
 
         # Добавляем теги с формы.
         if tags:
             from tags.models import ManagerTag
             for _tag in tags:
                 tag = ManagerTag.objects.get(pk=_tag)
-                tag.blog.add(self)
-        return self
+                tag.blog.add(blog)
+        return blog
 
     def likes(self):
         from common.model.votes import BlogVotes

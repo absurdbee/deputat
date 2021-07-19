@@ -46,7 +46,7 @@ class Blog(models.Model):
         return self.title
 
     @classmethod
-    def create_blog(cls, title, description, image, tags, comments_enabled, votes_on):
+    def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on):
         from notify.models import Wall
         from common.notify.progs import user_send_wall
         from logs.model.manage_elect_new import BlogManageLog

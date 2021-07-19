@@ -9,9 +9,11 @@ class BlogCreateView(TemplateView):
 
     def get_context_data(self,**kwargs):
         from blog.forms import BlogForm
+        from tags.models import ManagerTag
 
         context=super(BlogCreateView,self).get_context_data(**kwargs)
         context["form"] = BlogForm()
+        context["tags"] = ManagerTag.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):

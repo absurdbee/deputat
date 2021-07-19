@@ -5,8 +5,8 @@ on('body', 'click', '.manager_blog_create', function() {
 
 on('body', 'click', '.manager_elect_new_create', function() {
   loader = document.getElementById("window_loader");
-  open_fullscreen("/manager/elect_new/create_elect_new/", loader)
-}); 
+  open_fullscreen("/managers/elect_new/create_elect_new/", loader)
+});
 
 on('body', 'click', '.penalty_photo', function() {
   this.parentElement.parentElement.classList.add("changed");

@@ -27,6 +27,37 @@ on('body', 'click', '.u_publish_elect_new', function() {
   open_fullscreen("/managers/elect_new/create_publish/" + this.parentElement.getAttribute("data-pk") + "/", loader)
 });
 
+on('body', 'click', '#create_blog_btn', function() {
+  _this = this, elect = false;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!"); return
+  } else if (!form.querySelector("#id_description").value){
+    form.querySelector("#id_description").style.border = "1px #FF0000 solid";
+    toast_error("Опишите ситуацию!"); return
+  }
+  else if (!form.querySelector("#id_image").value){
+    form.querySelector("#holder_image").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите обложку!"); return
+  }
+  else { _this.disabled = true };
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/blog/progs/add_blog/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Новость создана!")
+    close_default_window()
+  }};
+
+  link_.send(form_data);
+});
+
 on('body', 'click', '#u_publish_elect_new_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;

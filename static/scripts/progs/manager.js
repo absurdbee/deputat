@@ -1,3 +1,13 @@
+on('body', 'click', '.manager_blog_create', function() {
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/blog/progs/add_blog/", loader)
+});
+
+on('body', 'click', '.manager_elect_new_create', function() {
+  loader = document.getElementById("window_loader");
+  open_fullscreen("/manager/elect_new/create_elect_new/", loader)
+}); 
+
 on('body', 'click', '.penalty_photo', function() {
   this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');

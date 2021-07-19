@@ -250,27 +250,22 @@ class PublishElectNew(TemplateView):
 class CreateElectNew(TemplateView):
     template_name = "managers/manage_create/elect_new/create_publish_elect_new.html"
 
-    def get(self,request,*args,**kwargs):
-        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        return super(CreateElectNew,self).get(request,*args,**kwargs)
-
     def get_context_data(self,**kwargs):
         from blog.forms import PublishElectNewForm
         from tags.models import ManagerTag
         from elect.models import Elect
 
         context=super(CreateElectNew,self).get_context_data(**kwargs)
-        context["form"] = PublishElectNewForm(instance=self.elect_new)
-        context["new"] = self.elect_new
+        context["form"] = PublishElectNewForm()
         context["tags"] = ManagerTag.objects.only("pk")
+        context["get_elects"] = Elect.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):
         from blog.forms import PublishElectNewForm
         from common.templates import render_for_platform
 
-        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        self.form_post = PublishElectNewForm(request.POST, instance=self.elect_new)
+        self.form_post = PublishElectNewForm(request.POST)
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
             post = self.form_post.save(commit=False)

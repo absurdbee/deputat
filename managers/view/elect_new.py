@@ -248,7 +248,7 @@ class PublishElectNew(TemplateView):
             return HttpResponseBadRequest()
 
 class CreateElectNew(TemplateView):
-    template_name = "managers/manage_create/elect_new/create_publish_elect_new.html"
+    template_name = "managers/manage_create/elect_new/create_manager_elect_new.html"
 
     def get_context_data(self,**kwargs):
         from blog.forms import PublishElectNewForm

@@ -5,8 +5,6 @@ def get_elect_new_processing(new, type):
     return new
 
 def get_blog_processing(blog):
-    blog.type = 'PUB'
-    blog.save(update_fields=['type'])
     return blog
 
 def get_blog_comment_processing(comment):

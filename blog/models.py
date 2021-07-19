@@ -53,14 +53,14 @@ class Blog(models.Model):
         from common.processing import get_blog_processing
 
         blog = cls.objects.create(creator=creator,title=title,description=description,image=image,comments_enabled=comments_enabled,votes_on=votes_on)
-        get_elect_new_processing(blog)
+        get_blog_processing(blog)
 
         # создаем запись для стены и отсылаем сокет для отрисовки в реале
-        Wall.objects.create(creator_id=manager_id, type="BLO", object_id=self.pk, verb="ITE")
+        Wall.objects.create(creator_id=creator.pk, type="BLO", object_id=self.pk, verb="ITE")
         user_send_wall(self.pk, None, "new_blog_wall")
 
         # создаем лог
-        BlogManageLog.objects.create(item=self.pk, manager=manager_id, action_type=BlogManageLog.ITEM_CREATED)
+        BlogManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=BlogManageLog.ITEM_CREATED)
 
         # Добавляем теги с формы.
         if tags:

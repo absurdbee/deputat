@@ -38,7 +38,7 @@ def get_location(request, user):
     else:
         ip = request.META.get('REMOTE_ADDR')
     IPUser.objects.create(user=user, ip=ip)
-    response = requests.get(url= "http://api.sypexgeo.net/c9Hu3/json/" + ip)
+    response = requests.get(url= "http://api.sypexgeo.net/CeaX9/json/" + ip) 
     data = response.json()
     loc = UserLocation.objects.create(user=user)
     sity = data['city']

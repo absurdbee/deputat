@@ -367,9 +367,38 @@ class ElectNew(models.Model):
         get_elect_new_processing(new, ElectNew.SUGGESTED)
         return new
 
+    @classmethod
+    def create_manager_new(cls, creator, title, description, elect, attach, category, comments_enabled, votes_on):
+        from elect.models import Elect
+        from common.processing import get_elect_new_processing
+        try:
+            _elect = Elect.objects.get(name=elect)
+        except:
+            _elect = None
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
+
+        new = cls.objects.create(creator=creator,title=title,comments_enabled=comments_enabled,votes_on=votes_on,description=description,elect=_elect,attach=_attach,category=category,)
+        get_elect_new_processing(new, ElectNew.PUBLISHED)
+        # создаем запись для стены и отсылаем сокет для отрисовки в реале
+        Wall.objects.create(creator_id=manager_id, type="ELN", object_id=new.pk, verb="ITE")
+        user_send_wall(new.pk, None, "elect_new_wall")
+
+        # создаем уведы для каждого. кто подписан на депутата активности.
+        for user_id in new.elect.get_subscribers_ids():
+            Notify.objects.create(creator_id=manager_id, recipient_id=user_id, type="ELN", object_id=new.pk, verb="ITE")
+            user_send_notify(new.pk, new.creator.pk, user_id, None, "elect_new_notify")
+        return new
+
+
     def edit_new(self, title, description, elect, attach, category):
         from elect.models import Elect
         from common.processing import get_elect_new_processing
+        from notify.models import Notify, Wall
+        from common.notify.progs import user_send_notify, user_send_wall
+        from asgiref.sync import async_to_sync
+        from channels.layers import get_channel_layer
+        from logs.model.manage_elect_new import ElectNewManageLog
 
         get_elect_new_processing(self, ElectNew.SUGGESTED)
 

@@ -216,7 +216,7 @@ on('body', 'click', '.u_track_abort_remove', function() {
 
 on('body', 'click', '.u_load_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
-  open_fullscreen("/music/user_load/" + parent.getAttribute("playlist-pk") + "/", document.body.querySelector("#create_loader_2");)
+  open_fullscreen("/music/user_load/" + parent.getAttribute("playlist-pk") + "/", document.body.querySelector("#create_loader_2"))
 });
 
 on('body', 'click', '.u_load_profile_playlist', function() {

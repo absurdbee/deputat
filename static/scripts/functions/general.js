@@ -2,6 +2,7 @@ var ready = (callback) => {
   if (document.readyState != "loading") callback();
   else document.addEventListener("DOMContentLoaded", callback);
 };
+
 function validateEmail(email){var re = /\S+@\S+\.\S+/;return re.test(email)};
 
 function findSize(input) {
@@ -461,7 +462,7 @@ function post_and_load_object_page(form, url_post, url_1) {
             window.scrollTo(0, 0);
             close_create_window();
             document.title = elem_.querySelector('title').innerHTML;
-            uuid = rtr.querySelector(".uuid_saver").getAttribute("data-uuid"); 
+            uuid = rtr.querySelector(".uuid_saver").getAttribute("data-uuid");
             window.history.pushState(null, "vfgffgfgf", url_1 + uuid + '/')
         }
     }

@@ -1,9 +1,9 @@
 on('body', 'click', '.u_doc_list_add', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/docs/user_progs/add_list/", loader)
 });
 on('body', 'click', '.u_doc_add', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/docs/user_progs/create_doc/", loader)
 });
 on('body', 'click', '.u_doc_edit', function() {
@@ -12,7 +12,7 @@ on('body', 'click', '.u_doc_edit', function() {
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_doc")}
 
   parent.parentElement.parentElement.parentElement.classList.add("edited_doc")
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/docs/user_progs/edit_doc/" + parent.getAttribute("data-pk") +"/", loader)
 });
 on('body', 'click', '.u_doc_list_edit', function() {
@@ -23,7 +23,7 @@ on('body', 'click', '.u_doc_list_edit', function() {
   block = this.parentElement.parentElement;
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/docs/user_progs/edit_list/" + uuid + "/", loader)
 });
 
@@ -212,7 +212,7 @@ on('body', 'click', '.u_doc_abort_remove', function() {
 on('body', 'click', '.u_load_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("doclist-pk");
-  loader = document.getElementById("window_loader_2");
+  loader = document.body.querySelector("#window_loader_2");
   open_fullscreen("/docs/user_load/" + pk + "/", loader)
 });
 

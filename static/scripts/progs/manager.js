@@ -1,36 +1,79 @@
+function post_elect_new(_this, url, toast) {
+  elect = false;
+  form = _this.parentElement.parentElement.parentElement;
+  elect_value = form.querySelector("#id_elect").value;
+  form_data = new FormData(form);
+
+  xxx = form.querySelector("#data-list");
+  elect_list = xxx.querySelectorAll("option");
+  for (var i = 0; i < elect_list.length; i++){
+    if (elect_value == elect_list[i].value) {
+      elect = true;
+    }
+  };
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!"); return
+  } else if (!form.querySelector("#id_description").value){
+    form.querySelector("#id_description").style.border = "1px #FF0000 solid";
+    toast_error("Опишите ситуацию!"); return
+  } else if (!elect_value){
+    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
+    toast_error("Выберите чиновника!"); return
+  } else if (!elect){
+    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
+    toast_error("Выберите чиновника из списка!"); return
+  } else { _this.disabled = true };
+
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'POST', url, true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+  if ( link.readyState == 4 && link.status == 200 ) {
+    elem = link.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    close_default_window();
+    document.body.querySelector("#ajax").innerHTML = response.querySelector("#ajax").innerHTML;
+    toast_info(toast)
+  }};
+  link.send(form_data);
+};
+
 on('body', 'click', '.manager_blog_create', function(e) {
   e.preventDefault();
-  loader = document.getElementById("window_loader");
+  loader = document.body.querySelector("#window_loader");
   open_fullscreen("/blog/progs/add_blog/", loader)
 });
 
 on('body', 'click', '.manager_elect_new_create', function() {
-  loader = document.getElementById("window_loader");
+  loader = document.body.querySelector("#window_loader");
   open_fullscreen("/managers/elect_new/create_elect_new/", loader)
 });
 
 on('body', 'click', '.penalty_photo', function() {
   this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');
-  loader = document.getElementById("worker_loader");
+  loader = document.body.querySelector("#window_loader");
   open_fullscreen("/gallery/penalty_photo/" + pk + "/", loader)
 });
 on('body', 'click', '.u_photo_moderated_detail', function() {
   this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');
-  loader = document.getElementById("worker_loader");
+  loader = document.body.querySelector("#window_loader");
   open_fullscreen("/gallery/moderated_photo/" + pk + "/", loader)
 });
 
 on('body', 'click', '.u_publish_elect_new', function() {
-  loader = document.getElementById("window_loader");
+  loader = document.body.querySelector("#window_loader");
   open_fullscreen("/managers/elect_new/create_publish/" + this.parentElement.getAttribute("data-pk") + "/", loader)
 });
 
 on('body', 'click', '#create_blog_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
-  form_data = new FormData(form); 
+  form_data = new FormData(form);
 
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
@@ -59,45 +102,10 @@ on('body', 'click', '#create_blog_btn', function() {
 });
 
 on('body', 'click', '#u_publish_elect_new_btn', function() {
-  _this = this, elect = false;
-  form = _this.parentElement.parentElement.parentElement;
-  elect_value = form.querySelector("#id_elect").value;
-  form_data = new FormData(form);
-
-  xxx = form.querySelector("#data-list");
-  elect_list = xxx.querySelectorAll("option");
-  console.log(elect_list.length);
-  for (var i = 0; i < elect_list.length; i++){
-    if (elect_value == elect_list[i].value) {
-      elect = true; console.log("Депутат корректный"); console.log(elect_list[i].getAttribute("value"))
-    }
-  };
-
-  if (!form.querySelector("#id_title").value){
-    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
-    toast_error("Название - обязательное поле!"); return
-  } else if (!form.querySelector("#id_description").value){
-    form.querySelector("#id_description").style.border = "1px #FF0000 solid";
-    toast_error("Опишите ситуацию!"); return
-  } else if (!elect_value){
-    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
-    toast_error("Выберите чиновника!"); return
-  } else if (!elect){
-    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
-    toast_error("Выберите чиновника из списка!"); return
-  } else { _this.disabled = true };
-
-  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'POST', "/managers/elect_new/create_publish/" + _this.getAttribute("data-pk") + "/", true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-  if ( link.readyState == 4 && link.status == 200 ) {
-    elem = link.responseText;
-    response = document.createElement("span");
-    response.innerHTML = elem;
-    document.body.querySelector("#ajax").innerHTML = response.querySelector("#ajax").innerHTML;
-  }};
-  link.send(form_data);
+  post_elect_new(this, "/managers/elect_new/create_publish/" + this.getAttribute("data-pk") + "/", "Активность опубликована!")
+});
+on('body', 'click', '#manager_create_elect_new_btn', function() {
+  post_elect_new(this, "/managers/elect_new/create_elect_new/" + this.getAttribute("data-pk") + "/", "Активность создана и опубликована!")
 });
 
 on('body', 'click', '.show_object_reports', function() {
@@ -106,55 +114,55 @@ on('body', 'click', '.show_object_reports', function() {
   } else {
     pk = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("obj-pk")
   }
-  open_fullscreen("/managers/load_claims/" + pk + "/", document.getElementById("window_loader"))
+  open_fullscreen("/managers/load_claims/" + pk + "/", document.body.querySelector("#window_loader"))
 });
 
 on('body', 'click', '.u_load_penalty_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/music/penalty_load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/music/penalty_load/" + parent.getAttribute("playlist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 on('body', 'click', '.u_load_penalty_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/video/penalty_load/" + parent.getAttribute("videolist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/video/penalty_load/" + parent.getAttribute("videolist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 on('body', 'click', '.u_load_penalty_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/docs/penalty_load/" + parent.getAttribute("doclist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/docs/penalty_load/" + parent.getAttribute("doclist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 on('body', 'click', '.u_load_penalty_survey_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/survey/penalty_load/" + parent.getAttribute("surveylist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/survey/penalty_load/" + parent.getAttribute("surveylist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 on('body', 'click', '.u_load_penalty_photo_list', function() {
   parent = this.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/gallery/penalty_load/" + parent.getAttribute("photolist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/gallery/penalty_load/" + parent.getAttribute("photolist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 
 
 on('body', 'click', '.u_load_moderated_photo_list', function() {
   parent = this.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/gallery/moderated_load/" + parent.getAttribute("photolist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/gallery/moderated_load/" + parent.getAttribute("photolist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 on('body', 'click', '.u_load_moderated_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/music/moderated_load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/music/moderated_load/" + parent.getAttribute("playlist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 on('body', 'click', '.u_load_moderated_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/video/moderated_load/" + parent.getAttribute("videolist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/video/moderated_load/" + parent.getAttribute("videolist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 on('body', 'click', '.u_load_moderated_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/docs/moderated_load/" + parent.getAttribute("doclist-pk") + "/", document.getElementById("window_loader"))
+  open_fullscreen("/docs/moderated_load/" + parent.getAttribute("doclist-pk") + "/", document.body.querySelector("#window_loader"))
 });
 
 on('body', 'click', '.create_user_close', function() {

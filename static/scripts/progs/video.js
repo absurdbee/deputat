@@ -1,9 +1,9 @@
 on('body', 'click', '.u_video_list_add', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/video/user_progs/add_list/", loader)
 });
 on('body', 'click', '.u_video_add', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/video/user_progs/create_video/", loader)
 });
 on('body', 'click', '.u_video_edit', function() {
@@ -14,7 +14,7 @@ on('body', 'click', '.u_video_edit', function() {
     cur_video = document.body.querySelector('[video-pk=' + '"' + pk + '"' + ']')
     cur_video.classList.add("edited_video")
   } catch { null }
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/video/user_progs/edit_video/" + pk +"/", loader)
 });
 
@@ -32,7 +32,7 @@ on('body', 'click', '.prev_video', function(event) {
 on('body', 'click', '.u_video_detail', function() {
   video_pk = this.getAttribute('video-pk');
   uuid = this.parentElement.getAttribute("data-uuid");
-  loader = document.getElementById("photo_loader");
+  loader = document.body.querySelector("#photo_loader");
   open_fullscreen("/video/user_detail/" + video_pk + "/" + uuid + "/", loader)
 });
 
@@ -42,7 +42,7 @@ on('body', 'click', '#u_edit_video_list_btn', function() {
 
 on('body', 'click', '.u_video_list_edit', function() {
   uuid = this.parentElement.parentElement.getAttribute('data-uuid');
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/video/user_progs/edit_list/" + uuid + "/", loader)
 });
 
@@ -261,7 +261,7 @@ on('body', 'click', '.u_video_abort_remove', function() {
 on('body', 'click', '.u_load_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("videolist-pk");
-  loader = document.getElementById("window_loader_2");
+  loader = document.body.querySelector("#window_loader_2");
   open_fullscreen("/video/user_load/" + pk + "/", loader)
 });
 

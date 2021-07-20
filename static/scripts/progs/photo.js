@@ -1,5 +1,5 @@
 on('body', 'click', '.u_photo_list_add', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/gallery/user_progs/add_list/", loader)
 });
 on('body', 'click', '.u_photo_list_edit', function() {
@@ -10,7 +10,7 @@ on('body', 'click', '.u_photo_list_edit', function() {
   block = this.parentElement.parentElement;
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/gallery/user_progs/edit_list/" + uuid + "/", loader)
 });
 
@@ -82,7 +82,7 @@ on('body', 'click', '.u_remove_photo_from_list', function() {
 on('body', 'click', '.u_photo_detail', function() {
   pk = this.getAttribute('photo-pk');
   this.parentElement.getAttribute('data-uuid') ? uuid = this.parentElement.getAttribute('data-uuid') : uuid = document.body.querySelector(".pk_saver").getAttribute('data-uuid')
-  loader = document.getElementById("photo_loader");
+  loader = document.body.querySelector("#photo_loader");
   open_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", loader)
 });
 
@@ -115,32 +115,32 @@ on('body', 'click', '.photo_fullscreen_hide_2', function() {
 on('body', 'click', '.u_blog_comment_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  loader = document.getElementById("photo_loader");
+  loader = document.body.querySelector("#photo_loader");
   open_fullscreen("/gallery/blog_comment_photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });
 on('body', 'click', '.u_elect_new_comment_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  loader = document.getElementById("photo_loader");
+  loader = document.body.querySelector("#photo_loader");
   open_fullscreen("/gallery/elect_new_comment_photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });
 on('body', 'click', '.u_blog_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  loader = document.getElementById("photo_loader");
+  loader = document.body.querySelector("#photo_loader");
   open_fullscreen("/gallery/blog_photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });
 on('body', 'click', '.u_elect_new_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  loader = document.getElementById("photo_loader");
+  loader = document.body.querySelector("#photo_loader");
   open_fullscreen("/gallery/elect_new_photo/" + comment_pk + "/" + photo_pk + "/", loader)
 });
 
 on('body', 'click', '.u_load_photo_list', function() {
   parent = this.parentElement.parentElement;
   pk = parent.getAttribute("photolist-pk");
-  loader = document.getElementById("window_loader_2");
+  loader = document.body.querySelector("#window_loader_2");
   open_fullscreen("/gallery/user_load/" + pk + "/", loader)
 });
 

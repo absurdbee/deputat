@@ -1,9 +1,9 @@
 on('body', 'click', '.u_track_list_add', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/music/user_progs/add_list/", loader)
 });
 on('body', 'click', '.u_track_add', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/music/user_progs/create_track/", loader)
 });
 
@@ -20,16 +20,16 @@ on('body', 'click', '.u_track_edit', function() {
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_track")}
 
   parent.parentElement.parentElement.parentElement.classList.add("edited_track")
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/music/user_progs/edit_track/" + parent.getAttribute("data-pk") +"/", loader)
 });
 on('body', 'click', '.u_playlist_add', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/music/user_progs/create_list/", loader)
 });
 on('body', 'click', '.u_playlist_edit', function() {
   uuid = this.parentElement.parentElement.getAttribute('data-uuid');
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/music/user_progs/edit_list/" + uuid + "/", loader)
 });
 
@@ -216,7 +216,7 @@ on('body', 'click', '.u_track_abort_remove', function() {
 
 on('body', 'click', '.u_load_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
-  open_fullscreen("/music/user_load/" + parent.getAttribute("playlist-pk") + "/", document.getElementById("window_loader_2"))
+  open_fullscreen("/music/user_load/" + parent.getAttribute("playlist-pk") + "/", document.body.querySelector("#create_loader_2");)
 });
 
 on('body', 'click', '.u_load_profile_playlist', function() {

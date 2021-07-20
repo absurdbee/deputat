@@ -15,19 +15,19 @@ on('body', 'click', '.copy_link', function() {
 });
 
 on('body', 'click', '.u_edit_password', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/users/settings/edit_password/", loader)
 });
 on('body', 'click', '.edit_user_phone', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/users/settings/edit_phone/", loader)
 });
 on('body', 'click', '.deputat_verified_send', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/users/settings/deputat_send/", loader)
 });
 on('body', 'click', '.create_secret_user_key', function() {
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen("/users/settings/create_secret_key/", loader)
 });
 
@@ -132,46 +132,46 @@ link.send( null );
 })
 
 on('body', 'click', '.claim_user', function() {
-  open_fullscreen("/managers/progs_user/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_user/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.claim_blog', function() {
-  open_fullscreen("/managers/progs_blog/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_blog/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.claim_blog_comment', function() {
-  open_fullscreen("/managers/progs_blog/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_blog/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.claim_elect_new', function() {
-  open_fullscreen("/managers/elect_new/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/elect_new/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.claim_elect_new_comment', function() {
-  open_fullscreen("/managers/elect_new/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/elect_new/comment_create_claim/" + this.parentElement.parentElement.getAttribute('data-pk') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.photo_claim', function() {
-  open_fullscreen("/managers/progs_photo/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_photo/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute('data-uuid') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.u_photo_list_claim', function() {
-  open_fullscreen("/managers/progs_photo/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_photo/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.u_video_claim', function() {
-  open_fullscreen("/managers/progs_video/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_video/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute('data-uuid') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.u_video_list_claim', function() {
-  open_fullscreen("/managers/progs_video/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_video/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.u_doc_list_claim', function() {
-  open_fullscreen("/managers/progs_doc/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_doc/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.doc_claim', function() {
-  open_fullscreen("/managers/progs_doc/create_claim/" + this.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_doc/create_claim/" + this.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.u_playlist_claim', function() {
-  open_fullscreen("/managers/progs_audio/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_audio/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.track_claim', function() {
-  open_fullscreen("/managers/progs_audio/create_claim/" + this.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_audio/create_claim/" + this.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", document.body.querySelector("#create_loader"))
 });
 on('body', 'click', '.u_survey_list_claim', function() {
-  open_fullscreen("/managers/progs_survey/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.getElementById("create_loader"))
+  open_fullscreen("/managers/progs_survey/list_create_claim/" + this.parentElement.parentElement.getAttribute('data-uuid') + "/", document.body.querySelector("#create_loader"))
 });
 
 on('body', 'click', '.create_user_claim_btn', function() {

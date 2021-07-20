@@ -101,7 +101,7 @@ function send_inert(item, url){
 }
 
 on('body', 'click', '.blog_window', function() {
-  loader = document.getElementById("window_loader");
+  loader = document.body.querySelector("#window_loader");
   open_fullscreen("/blog/window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
 });
 
@@ -205,7 +205,7 @@ on('body', 'click', '.edit_elect_new_comment', function() {
 
 on('body', 'click', '.edit_elect_new', function() {
   clear_comment_dropdown();
-  loader = document.getElementById("window_loader");
+  loader = document.body.querySelector("#window_loader");
   open_fullscreen("/blog/progs/edit_elect_new/" + this.parentElement.getAttribute("data-pk") + "/", loader)
 });
 on('body', 'click', '#u_edit_elect_new_btn', function() {
@@ -357,25 +357,25 @@ on('body', 'click', '.electnewReplyParentComment', function() {
 on('body', 'click', '.u_load_comment_photo', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen('/users/load/u_photo_comment_load/', loader)
 });
 on('body', 'click', '.u_load_doc', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen('/users/load/u_doc_load/', loader)
 });
 on('body', 'click', '.u_load_video', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen('/users/load/u_video_load/', loader)
 });
 on('body', 'click', '.u_load_music', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_fullscreen('/users/load/u_music_load/', loader)
 });
 
@@ -458,31 +458,31 @@ on('body', 'change', '#u_photo_attach', function() {
 on('body', 'click', '.u_select_photo', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_load_fullscreen('/users/load/u_photo_load/', loader)
 });
 on('body', 'click', '.u_select_survey', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_load_fullscreen('/users/load/u_survey_load/', loader)
 });
 
 on('body', 'click', '.u_select_video', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_load_fullscreen('/users/load/u_video_load/', loader)
 });
 on('body', 'click', '.u_select_music', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_load_fullscreen('/users/load/u_music_load/', loader)
 });
 on('body', 'click', '.u_select_doc', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.getElementById("create_loader");
+  loader = document.body.querySelector("#create_loader");
   open_load_fullscreen('/users/load/u_doc_load/', loader)
 });

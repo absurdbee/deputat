@@ -30,7 +30,7 @@ on('body', 'click', '.u_publish_elect_new', function() {
 on('body', 'click', '#create_blog_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
-  form_data = new FormData(form);
+  form_data = new FormData(form); 
 
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";

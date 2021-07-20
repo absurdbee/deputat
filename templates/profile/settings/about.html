@@ -3,63 +3,63 @@
 {% block content %}
 
 <div class="row mt-2">
-  <div class="col-md-9">
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Изменение информации</h4>
-    </div>
-    <div class="card-body">
-        <form class="form form-horizontal">
-          {% csrf_token %}
-                <div class="col-12">
-                    <div class="form-group row">
-                        <div class="col-sm-3 col-form-label">
-                            <label for="id_first_name">Образование</label>
-                        </div>
-                        <div class="col-sm-9">
-                            {{ form.education }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group row">
-                        <div class="col-sm-3 col-form-label">
-                            <label for="id_last_name">Сфера занятости</label>
-                        </div>
-                        <div class="col-sm-9">
-                            {{ form.employment }}
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Изменение информации</h4>
+            </div>
+            <div class="card-body">
+                <form class="form form-horizontal">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                <label for="id_first_name">Образование</label>
+                            </div>
+                            <div class="col-sm-9">
+                                {{ form.education }}
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                <label for="id_last_name">Сфера занятости</label>
+                            </div>
+                            <div class="col-sm-9">
+                                {{ form.employment }}
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="col-sm-9 offset-sm-3">
-                    <button type="button" class="btn btn-primary float-right" id="edit_user_about_btn">Сохранить</button>
-                </div>
-        </form>
+                    <div class="col-sm-9 offset-sm-3">
+                        <button type="button" class="btn btn-primary float-right" id="edit_user_about_btn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-<div class="col-md-3">
-  <div class="card">
-    <ul class="list-group">
-      <li class="list-group-item" style="text-decoration:underline">
-        <a class="ajax" href="{% url 'settings_profile' %}">
-          Основное
-        </a>
-      </li>
-      <li class="list-group-item" style="text-decoration:underline">
-          О себе
-      </li>
-      <li class="list-group-item">
-        <a class="ajax" href="{% url 'settings_notify' %}">Уведомления</a>
-      </li>
-      <li class="list-group-item">
-        <a class="ajax" href="{% url 'settings_private' %}">Приватность</a>
-        </li>
-      <li class="list-group-item">
-        <a class="ajax" href="{% url 'settings_quard' %}">Безопасность</a>
-      </li>
-    </ul>
-  </div>
-</div>
-{% endblock %}
+    <div class="col-md-3">
+        <div class="card">
+            <ul class="list-group">
+                <li class="list-group-item" style="text-decoration:underline">
+                    <a class="ajax" href="{% url 'settings_profile' %}">
+                        Основное
+                    </a>
+                </li>
+                <li class="list-group-item" style="text-decoration:underline">
+                    О себе
+                </li>
+                <li class="list-group-item">
+                    <a class="ajax" href="{% url 'settings_notify' %}">Уведомления</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="ajax" href="{% url 'settings_private' %}">Приватность</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="ajax" href="{% url 'settings_quard' %}">Безопасность</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}

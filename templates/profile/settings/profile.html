@@ -3,87 +3,87 @@
 {% block content %}
 
 <div class="row mt-2">
-  <div class="col-md-9">
-<div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Основные настройки</h4>
-    </div>
-    <div class="card-body">
-        <form class="form form-horizontal">
-          {% csrf_token %}
-                <div class="col-12">
-                    <div class="form-group row">
-                        <div class="col-sm-3 col-form-label">
-                            <label for="id_first_name">Имя</label>
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ user.first_name }}">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group row">
-                        <div class="col-sm-3 col-form-label">
-                            <label for="id_last_name">Фамилия</label>
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ user.last_name }}">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Основные настройки</h4>
+            </div>
+            <div class="card-body">
+                <form class="form form-horizontal">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                <label for="id_first_name">Имя</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ user.first_name }}">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group row">
-                        <div class="col-sm-3 col-form-label">
-                            <label for="id_email">Email</label>
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="email" id="id_email" class="form-control" name="email" value="{{ user.email }}">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                <label for="id_last_name">Фамилия</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ user.last_name }}">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group row">
-                      <div class="col-sm-3 col-form-label">
-                          <label for="id_email">Аватар</label>
-                      </div>
-                      <div class="col-sm-9">
-                        <p>Формат: png, jpg, jpeg, webp </p>
-                        <span>
-                          <input style="display: none;" type="file" name="s_avatar" accept="image/*">
-                        </span>
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                <label for="id_email">Email</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="email" id="id_email" class="form-control" name="email" value="{{ user.email }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
+                                <label for="id_email">Аватар</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>Формат: png, jpg, jpeg, webp </p>
+                                <span>
+                                    <input style="display: none;" type="file" name="s_avatar" accept="image/*">
+                                </span>
 
-                        <div id="holder_image" style="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;cursor:pointer">
-                            <img class="img-fluid rounded" src="{{ request.user.get_avatar }}" alt="User avatar" style="height: 100px;">
+                                <div id="holder_image" style="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;cursor:pointer">
+                                    <img class="img-fluid rounded" src="{{ request.user.get_avatar }}" alt="User avatar" style="height: 100px;">
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                </div>
-                <div class="col-sm-9 offset-sm-3">
-                    <button type="button" class="btn btn-primary float-right" id="edit_user_profile_btn">Сохранить</button>
-                </div>
-        </form>
+                    <div class="col-sm-9 offset-sm-3">
+                        <button type="button" class="btn btn-primary float-right" id="edit_user_profile_btn">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-<div class="col-md-3">
-  <div class="card">
-    <ul class="list-group">
-      <li class="list-group-item" style="text-decoration:underline">Основное</li>
-      <li class="list-group-item">
-        <a class="ajax" href="{% url 'settings_about' %}">
-          О себе
-        </a>
-      </li>
-      <li class="list-group-item">
-        <a class="ajax" href="{% url 'settings_notify' %}">Уведомления</a>
-      </li>
-      <li class="list-group-item">
-        <a class="ajax" href="{% url 'settings_private' %}">Приватность</a>
-        </li>
-      <li class="list-group-item">
-        <a class="ajax" href="{% url 'settings_quard' %}">Безопасность</a>
-      </li>
-    </ul>
-  </div>
-</div>
-{% endblock %}
+    <div class="col-md-3">
+        <div class="card">
+            <ul class="list-group">
+                <li class="list-group-item" style="text-decoration:underline">Основное</li>
+                <li class="list-group-item">
+                    <a class="ajax" href="{% url 'settings_about' %}">
+                        О себе
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a class="ajax" href="{% url 'settings_notify' %}">Уведомления</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="ajax" href="{% url 'settings_private' %}">Приватность</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="ajax" href="{% url 'settings_quard' %}">Безопасность</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endblock %}

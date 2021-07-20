@@ -3,38 +3,41 @@
 {% block content %}
 
 <div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
-  <div class="breadcrumb-wrapper">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>
-        <li class="breadcrumb-item"><a class="ajax" href="{% url 'user_docs' pk=list.creator.pk %}">Документы</a></li>
-        <li class="breadcrumb-item active">{{ list.name }} ({{ list.count_items }})</li>
-    </ol>
-  </div>
-  <span class="load_block">
-
-    <div class="media mt-3" style="padding-left: 7px;">
-      <h5 class="mt-1">
-        {{ list.name }} ({{ list.count_items }})
-        <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_docs_list' uuid=list.uuid %}">Копировать ссылку</span>
-      </h5>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'user_docs' pk=list.creator.pk %}">Документы</a></li>
+            <li class="breadcrumb-item active">{{ list.name }} ({{ list.count_items }})</li>
+        </ol>
     </div>
+    <span class="load_block">
 
-    <div class="row is_paginate no-gutters">
-        {% if object_list %}
-
-        {% for doc in object_list %}
-          {% include 'user_docs/anon_doc.html' %}
-        {% endfor %}
-
-        {% else %}
-        <div class="card centered item_empty">
-          <div class="card-body">
-          <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-          </div>
-          <h6>В списке нет документов.</h6>
+        <div class="media mt-3" style="padding-left: 7px;">
+            <h5 class="mt-1">
+                {{ list.name }} ({{ list.count_items }})
+                <span class="pointer badge badge-light-primary copy_link" data-link="{% url 'user_docs_list' uuid=list.uuid %}">Копировать ссылку</span>
+            </h5>
         </div>
-        {% endif %}
-    </div>
+
+        <div class="row is_paginate no-gutters">
+            {% if object_list %}
+
+            {% for doc in object_list %}
+            {% include 'user_docs/anon_doc.html' %}
+            {% endfor %}
+
+            {% else %}
+            <div class="card centered item_empty">
+                <div class="card-body">
+                    <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'>
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                    </svg>
+                </div>
+                <h6>В списке нет документов.</h6>
+            </div>
+            {% endif %}
+        </div>
     </span>
 </div>
 

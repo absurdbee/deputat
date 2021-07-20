@@ -105,7 +105,7 @@ on('body', 'click', '#u_publish_elect_new_btn', function() {
   post_elect_new(this, "/managers/elect_new/create_publish/" + this.getAttribute("data-pk") + "/", "Активность опубликована!")
 });
 on('body', 'click', '#manager_create_elect_new_btn', function() {
-  post_elect_new(this, "/managers/elect_new/create_elect_new/" + this.getAttribute("data-pk") + "/", "Активность создана и опубликована!")
+  post_elect_new(this, "/managers/elect_new/create_elect_new/", "Активность создана и опубликована!")
 });
 
 on('body', 'click', '.show_object_reports', function() {

@@ -4,7 +4,7 @@
 
 <section class="container pt-4 pt-sm-5 pb-4">
       <h2 class="h3 pt-2 text-center text-sm-left">{{ list.name }}</h2>
-      <div class="row pt-4 pag_container">
+      <div class="pt-4 pag_container">
         {% if object_list %}
         {% for object in object_list %}
           {% include 'elect/elect_index_card.html' %}

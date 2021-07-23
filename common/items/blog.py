@@ -50,7 +50,7 @@ def blog(user, blog):
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\
     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">\
     </path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top:18px">' + card_drop + '</div></div></div><span class="card-text item-company">\
-    ' + blog.get_created() + ' | ' + tags + '</span></h4><div class="card-text blog_window  event_description event_blog_description pointer">' + blog.description[:140] + '...\
+    ' + blog.get_created() + ' | ' + tags + '</span></h4><div class="card-text event_description event_blog_description"><span><span class="blog_window pointer">' + blog.description[:140] + '...</span></span>\
     <div class="" style="padding: 5px;position: absolute;bottom: 3px;width: 100%;">\
     <span class="like ', user_like, ' pointer"', votes_on, ' title="Нравится"><svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/><path d="M9 21h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9V9zM1 9h4v12H1z"/></svg>\
     <span class="likes_count margin_right_5">', str(blog.likes_count()), '</span></span><span class="dislike  ', user_dislike, ' pointer" ', votes_on, ' title="Не нравится">\

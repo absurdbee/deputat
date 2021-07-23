@@ -7,7 +7,7 @@
       <div class="row pt-4 pag_container">
         {% if region.get_all_elects %}
         {% for object in region.get_all_elects %}
-          {% include 'elect/elect_index_card.html' %}
+          {% include 'elect/anon_elect_index_card.html' %}
         {% endfor %}
         {% else %}
         <br>

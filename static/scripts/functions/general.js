@@ -868,6 +868,7 @@ function open_fullscreen(link, block) {
     block.parentElement.style.display = "block";
     block.innerHTML = elem;
     init_music(block);
+    document.body.querySelector(".toggle_fixed_block").style.position = "fixed"
   }};
   link_.send();
 }
@@ -883,7 +884,8 @@ function open_elect_fullscreen(link, block, name) {
     block.innerHTML = elem;
     if (name) {
       block.querySelector(".field_elect_new").value = name;
-    }
+    };
+    document.body.querySelector(".toggle_fixed_block").style.position = "fixed"
   }};
   link_.send();
 }
@@ -909,6 +911,7 @@ function ajax_get_reload(url) {
         init_music(rtr);
         mobile_menu_close();
         //window.onpopstate = function () {history.go(1);};
+        document.body.querySelector(".toggle_fixed_block").style.position = "fixed"
       }
     }
     ajax_link.send();

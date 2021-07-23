@@ -28,8 +28,10 @@
       <div class="content-overlay"></div>
 			<span id="ajax">
 				<span id="reload_block">
-					{% block content %}
-					{% endblock %}
+					<div class="toggle_fixed_block">
+						{% block content %}
+						{% endblock %}
+					</div>
 
 					<div class="card mb-3 window_fullscreen border" style="display:none">
 					  <div id="window_loader" style="position:relative;"></div>

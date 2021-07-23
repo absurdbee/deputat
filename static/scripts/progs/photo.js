@@ -110,6 +110,7 @@ on('body', 'click', '.prev_item', function(event) {
 on('body', 'click', '.photo_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
   this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
+  document.body.querySelector(".toggle_fixed_block").style.position = "relative"
 });
 
 on('body', 'click', '.u_blog_comment_photo', function() {

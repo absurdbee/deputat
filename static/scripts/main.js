@@ -25,26 +25,32 @@ on('body', 'click', '.show_parent_next_element', function() {
 function close_create_window() {
     document.querySelector(".create_fullscreen").style.display = "none";
     document.getElementById("create_loader").innerHTML = "";
+		document.body.querySelector(".toggle_fixed_block").style.position = "relative"
 }
 function close_default_window() {
     document.querySelector(".window_fullscreen").style.display = "none";
     document.getElementById("window_loader").innerHTML = "";
+		document.body.querySelector(".toggle_fixed_block").style.position = "relative"
 }
 function close_worker_window() {
     document.querySelector(".worker_fullscreen").style.display = "none";
     document.getElementById("worker_loader").innerHTML = "";
+		document.body.querySelector(".toggle_fixed_block").style.position = "relative"
 }
 function close_photo_window() {
     document.querySelector(".photo_fullscreen").style.display = "none";
     document.getElementById("photo_loader").innerHTML = "";
+		document.body.querySelector(".toggle_fixed_block").style.position = "relative"
 }
 on('body', 'click', '.create_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
   this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
+	document.body.querySelector(".toggle_fixed_block").style.position = "relative"
 });
 on('body', 'click', '.window_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
   this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
+	document.body.querySelector(".toggle_fixed_block").style.position = "relative"
 });
 on('body', 'click', '.previous_click', function(event) {
   this.previousElementSibling.click();

@@ -33,19 +33,19 @@
             <div class="content-body">
                 <div class="blog-detail-wrapper">
                     <div class="card">
+                      <h1 class="card-title" style="margin-bottom:7px">{{ object.title }}</h1>
+                      <div class="media mb-1">
+                          <div class="avatar mr-50">
+                              <img src="{{ object.creator.get_avatar }}" alt="Avatar" width="24" height="24">
+                          </div>
+                          <div class="media-body">
+                              <small><a href="{% url 'user' pk=object.creator.pk %}" class="text-body ajax">{{ object.creator.get_full_name }}</a></small>
+                              <span class="text-muted ml-50 mr-25">|</span>
+                              <small class="text-muted">{{ object.get_created }}</small>
+                          </div>
+                      </div>
                         <img src="{{ object.get_image }}" class="img-fluid card-img-top" alt="img">
                         <div class="card-body" data-pk="{{ object.pk }}">
-                            <h1 class="card-title">{{ object.title }}</h1>
-                            <div class="media">
-                                <div class="avatar mr-50">
-                                    <img src="{{ object.creator.get_avatar }}" alt="Avatar" width="24" height="24">
-                                </div>
-                                <div class="media-body">
-                                    <small><a href="{% url 'user' pk=object.creator.pk %}" class="text-body ajax">{{ object.creator.get_full_name }}</a></small>
-                                    <span class="text-muted ml-50 mr-25">|</span>
-                                    <small class="text-muted">{{ object.get_created }}</small>
-                                </div>
-                            </div>
                             <div class="my-1 py-25">
                                 {% for name in post.get_manager_tags %}
                                 <a href="{% url 'manager_tag' name=name %}">

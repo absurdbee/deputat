@@ -868,8 +868,8 @@ function open_fullscreen(link, block) {
     block.parentElement.style.display = "block";
     block.innerHTML = elem;
     init_music(block);
-    document.body.querySelector(".toggle_fixed_block").style.position = "fixed";
-    window.style.top = `-${window.scrollY}px`;
+    document.body.style.position = 'fixed';
+document.body.style.top = `-${window.scrollY}px`;
   }};
   link_.send();
 }

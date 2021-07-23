@@ -15,8 +15,6 @@ def elect_new(user, elect_new):
 
     if user.is_anonymous:
         user_like, user_dislike, user_inert = "btn_default", "btn_default", "btn_default"
-        if not elect_new.votes_on:
-            votes_on = 'style="display:none"'
     else:
         user_like, user_dislike, user_inert = "btn_default elect_new_like", "btn_default elect_new_dislike", "btn_default elect_new_inert"
         if elect_new.votes_on:

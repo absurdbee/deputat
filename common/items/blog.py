@@ -27,13 +27,14 @@ def blog(user, blog):
                 user_dislike = "btn_danger blog_dislike"
             if blog.is_have_inerts() and blog.inerts().filter(user_id=user.pk).exists():
                 user_inert = "btn_inert blog_inert"
+        else:
+            votes_on = 'style="display:none"'
         if user.is_supermanager():
             card_drop += '<span class="dropdown-item u_close_blog">Закрыть</span>'
         else:
             card_drop += '<span class="dropdown-item claim_blog">Пожаловаться</span>'
             if blog.is_blog_in_bookmarks(user.pk):
                 card_drop += '<span><span class="dropdown-item remove_blog_bookmark">Из коллекции</span></span>'
-
     if blog.comments_enabled:
         comments_enabled = ''
     else:

@@ -610,6 +610,9 @@ line-height: 1;
 .event_description{
     min-height: 190px;
 }
+.event_blog_description {
+  min-height: 150px !important;
+}
 }
 
 

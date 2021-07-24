@@ -317,8 +317,8 @@ function get_preview(response, type) {
       media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
       doc_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, media_body, pk)
     } else if (type == "track") {
-      response.querySelector(".span_btn").remove(); response.querySelector(".small").remove();
-      track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response)
+      response.querySelector(".span_btn").remove();
+      track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response.querySelector(".music_media_body"))
     } else if (type == "video") {
       pk = response.querySelector(".u_video_detail").getAttribute("video-pk");
       uuid = response.querySelector(".u_video_detail").getAttribute("list-pk");
@@ -332,8 +332,8 @@ function get_preview(response, type) {
       media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
       doc_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".media-body"), pk)
     } else if (type == "track") {
-      response.querySelector(".span_btn").remove(); response.querySelector(".small").remove();
-      track_post_attach(document.body.querySelector(".attach_block"), response)
+      response.querySelector(".span_btn").remove();
+      track_post_attach(document.body.querySelector(".attach_block"), response.querySelector(".music_media_body"))
     } else if (type == "video") {
       pk = response.querySelector(".u_video_detail").getAttribute("video-pk");
       uuid = response.querySelector(".u_video_detail").getAttribute("list-pk");

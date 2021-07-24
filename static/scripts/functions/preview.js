@@ -181,9 +181,10 @@ function create_preview_video(img_src, pk, uuid){
 }
 function create_preview_music(_this){
   $div = document.createElement("div");
+  $div.classList.add("border");
   $div.style.position = "relative";
   $div.style.width = "100%";
-  $div.style.padding = "5px";
+  $div.style.padding = "10px";
   $div.style.marginBottom = "7px";
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + _this.getAttribute('data-pk') + '">';
@@ -349,7 +350,7 @@ on('body', 'click', '.track_load_several', function() {
   if (document.body.querySelector(".current_file_dropdown")){
     check_track_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, _this), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".attach_block")){
-    check_track_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (track_post_attach(document.body.querySelector(".attach_block"), _this), this.classList.add("active_svg"))
+    check_track_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (track_post_attach(document.body.querySelector(".attach_block"), _this), this.classList.add("active_svg"), init_music(this.parentElement.parentElement))
   } else if (document.body.querySelector(".message_attach_block")){
     check_track_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (track_message_attach(document.body.querySelector(".message_attach_block"), _this), this.classList.add("active_svg"))
   }

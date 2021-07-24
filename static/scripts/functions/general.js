@@ -321,7 +321,7 @@ function get_preview(response, type) {
       track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response)
     } else if (type == "video") {
       pk = response.querySelector(".u_video_detail").getAttribute("video-pk");
-      uuid = response.querySelector(".u_video_detail").getAttribute("data-uuid");
+      uuid = response.querySelector(".u_video_detail").getAttribute("list-pk");
       src = response.querySelector("img").getAttribute("src");
       video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src)
     }
@@ -336,7 +336,7 @@ function get_preview(response, type) {
       track_post_attach(document.body.querySelector(".attach_block"), response)
     } else if (type == "video") {
       pk = response.querySelector(".u_video_detail").getAttribute("video-pk");
-      uuid = response.querySelector(".u_video_detail").getAttribute("data-uuid");
+      uuid = response.querySelector(".u_video_detail").getAttribute("list-pk");
       src = response.querySelector("img").getAttribute("src");
       video_post_attach(document.body.querySelector(".attach_block"), pk, uuid, src)
     }

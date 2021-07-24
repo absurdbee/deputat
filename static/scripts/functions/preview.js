@@ -193,7 +193,7 @@ function create_preview_music(_this){
   $mediaBody.style.lineHeight = "7px";
 
   $title = document.createElement("span");
-  span.innerHTML = _this.querySelector(".title").innerHTML;
+  $title.innerHTML = _this.querySelector(".title").innerHTML;
 
   $audio = document.createElement("audio");
   $audio.classList.add("audio_player");

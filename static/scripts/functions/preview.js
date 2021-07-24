@@ -188,7 +188,7 @@ function create_preview_music(_this){
   $div.style.paddingRight = "35px";
   $div.style.marginBottom = "7px";
   $input = document.createElement("span");
-  $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + _this.getAttribute('data-pk') + '">';
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + pk + '">';
 
   $mediaBody = document.createElement("div");
   $mediaBody.classList.add("media-body", "music_media_body");

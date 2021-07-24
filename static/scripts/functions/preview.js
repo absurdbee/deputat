@@ -407,7 +407,7 @@ on('body', 'click', '.music_attach_list', function() {
 on('body', 'click', '.video_load_one', function() {
   _this = this;
   pk = _this.getAttribute('video-pk');
-  uuid = _this.parentElement.getAttribute('data-uuid');
+  uuid = _this.getAttribute('list-pk');
   src = _this.getAttribute('src');
   if (document.body.querySelector(".current_file_dropdown")){
     check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src), close_create_window())
@@ -421,7 +421,7 @@ on('body', 'click', '.video_load_several', function() {
   previous = this.previousElementSibling
   _this = previous.querySelector("img");
   pk = _this.getAttribute('video-pk');
-  uuid = _this.parentElement.getAttribute('data-uuid');
+  uuid = _this.getAttribute('list-pk');
   src = _this.getAttribute('src');
   if (document.body.querySelector(".current_file_dropdown")){
     check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src), this.classList.add("active_svg"))

@@ -1,6 +1,7 @@
-
 <span class="load_block">
 {% if object_list %}
+<div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_music_load/">
+{% for object in object_list %}
 <div class="border load_pag {% if forloop.last %}load_last{% endif %}" style="position: relative;width: 100%;padding:5px 10px; margin-bottom:7px">
 <div class="media-body music_media_body" style="line-height: 8px;">
   <span>{{ object.title }}</span>
@@ -11,18 +12,17 @@
   </div>
 </div>
 
-  <span class="item_attach_circle track_load_several" style="top: 23px;">
+  <span class="item_attach_circle track_load_several" style="top: 23px;" tooltip="Прикрепить" flow="up">
       <svg fill="currentColor" viewBox="0 0 24 24">
         <path d="M24 24H0V0h24v24z" fill="none"/><circle cx="12" cy="12" r="8"/>
       </svg>
   </span>
 </div>
   {% endfor %}
-
 </div>
 {% else %}
 <div class="card mb-3 centered">
-  <h5 style="text-align: center;margin: 20px;"> Плейлист пустой.</h5>
+  <h5 style="text-align: center;margin: 20px;"> Основной плейлист пустой.</h5>
 </div>
 {% endif %}
 </span>

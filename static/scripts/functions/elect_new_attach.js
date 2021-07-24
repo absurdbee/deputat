@@ -56,7 +56,7 @@ function photo_post_upload_attach(photo_list, block){
   is_full_attach();
   for (var i = 0; i < photo_list.length; i++){
     parent = photo_list[i];
-    div = create_preview_photo(parent.querySelector(".u_photo_detail").getAttribute('data-href'), parent.getAttribute("photo-pk"));
+    div = create_preview_photo(parent.getAttribute('data-href'), parent.getAttribute("photo-pk"));
     add_file_attach();
     block.append(div);
     is_full_attach();

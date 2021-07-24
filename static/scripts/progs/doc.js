@@ -90,8 +90,8 @@ on('body', 'click', '#u_create_doc_btn', function() {
     _this.disabled = false;
     return
   }
-  else if (format != "pdf" && format != "doc" && format != "docx") {
-    toast_error("Допустим формат файла pdf, doc, docx!"),
+  else if (format != "pdf" && format != "doc" && format != "docx" && format != "txt") {
+    toast_error("Допустим формат файла pdf, doc, docx, txt!"),
     form.querySelector(".form_file").style.color = "red";
     _this.disabled = false;
     return
@@ -146,8 +146,8 @@ on('body', 'click', '#u_edit_doc_btn', function() {
     _this.disabled = false;
     return
   }
-  else if (format != "pdf" && format != "doc" && format != "docx") {
-    toast_error("Допустим формат файла pdf, doc, docx!"),
+  else if (format != "pdf" && format != "doc" && format != "docx" && format != "txt") {
+    toast_error("Допустим формат файла pdf, doc, docx, txt!"),
     form.querySelector(".form_file").style.color = "red";
     _this.disabled = false;
     return

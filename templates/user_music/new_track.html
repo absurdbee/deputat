@@ -2,7 +2,7 @@
   <span class="span1 {% for list in object.get_lists %}{{ list.uuid }}{% endfor %}"></span>
   <div class="media border p-1">
       <div class="media-body music_media_body" style="line-height: 8px;">
-        <span>{{ object.title }}</span>
+        <span class="title">{{ object.title }}</span>
         <div class="audio_div">
           <audio id="player" class="audio_player">
             <source src="{{ object.file.url }}" type="audio/mp3" />

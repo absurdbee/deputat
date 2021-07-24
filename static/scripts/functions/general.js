@@ -320,8 +320,8 @@ function get_preview(response, type) {
       response.querySelector(".span_btn").remove(); response.querySelector(".small").remove();
       track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response)
     } else if (type == "video") {
-      pk = response.querySelector(".u_video_list_detail").getAttribute("video-pk");
-      uuid = response.querySelector(".u_video_list_detail").getAttribute("data-uuid");
+      pk = response.querySelector(".u_video_detail").getAttribute("video-pk");
+      uuid = response.querySelector(".u_video_detail").getAttribute("data-uuid");
       src = response.querySelector("img").getAttribute("src");
       video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src)
     }
@@ -335,8 +335,8 @@ function get_preview(response, type) {
       response.querySelector(".span_btn").remove(); response.querySelector(".small").remove();
       track_post_attach(document.body.querySelector(".attach_block"), response)
     } else if (type == "video") {
-      pk = response.querySelector(".u_video_list_detail").getAttribute("video-pk");
-      uuid = response.querySelector(".u_video_list_detail").getAttribute("data-uuid");
+      pk = response.querySelector(".u_video_detail").getAttribute("video-pk");
+      uuid = response.querySelector(".u_video_detail").getAttribute("data-uuid");
       src = response.querySelector("img").getAttribute("src");
       video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src)
     }

@@ -1,22 +1,17 @@
 
 <span class="load_block">
 {% if object_list %}
-<div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_music_load/">
-{% for object in object_list %}
 <div class="border load_pag {% if forloop.last %}load_last{% endif %}" style="position: relative;width: 100%;padding:5px 10px; margin-bottom:7px">
-  <div class="counter" style="display:flex" data-pk="{{ object.pk }}" music-counter="{{ forloop.counter0|add:page_obj.start_index }}">
-        <a class="pointer music_list_item">
-          {% if object.artwork_url %}
-            <img style="width:30px;heigth:auto" src="{{ object.artwork_url.url }}" />
-          {% else %}
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          {% endif %}
-        </a>
-      <div class="media-body" style="padding-top: 8px; padding-left: 5px;margin-right:40px">
-          <h6 class="music_list_item pointer"><a>{{ object.title }}</a></h6>
-      </div>
+<div class="media-body music_media_body" style="line-height: 8px;">
+  <span>{{ object.title }}</span>
+  <div class="audio_div">
+    <audio class="audio_player">
+      <source src="{{ object.file.url }}" type="audio/mp3" />
+    </audio>
   </div>
-  <span class="item_attach_circle track_load_several" style="top: 8px;">
+</div>
+
+  <span class="item_attach_circle track_load_several" style="top: 23px;">
       <svg fill="currentColor" viewBox="0 0 24 24">
         <path d="M24 24H0V0h24v24z" fill="none"/><circle cx="12" cy="12" r="8"/>
       </svg>

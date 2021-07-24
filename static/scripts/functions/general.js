@@ -338,7 +338,7 @@ function get_preview(response, type) {
       pk = response.querySelector(".u_video_detail").getAttribute("video-pk");
       uuid = response.querySelector(".u_video_detail").getAttribute("data-uuid");
       src = response.querySelector("img").getAttribute("src");
-      video_comment_attach(document.body.querySelector(".attach_block").parentElement.parentElement, pk, uuid, src)
+      video_post_attach(document.body.querySelector(".attach_block"), pk, uuid, src)
     }
   } else if (document.body.querySelector(".message_attach_block")){
     if (type == "doc") {

@@ -4,7 +4,7 @@
 {% for object in object_list %}
 <div class="border load_pag {% if forloop.last %}load_last{% endif %}" style="position: relative;width: 100%;padding:5px 10px; margin-bottom:7px">
 <div class="media-body music_media_body" style="line-height: 8px;">
-  <span>{{ object.title }}</span>
+  <span class="title">{{ object.title }}</span>
   <div class="audio_div">
     <audio class="audio_player">
       <source src="{{ object.file.url }}" type="audio/mp3" />

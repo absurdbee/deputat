@@ -181,40 +181,30 @@ function create_preview_video(img_src, pk, uuid){
 }
 function create_preview_music(_this){
   $div = document.createElement("div");
+  $div.style.position = "relative";
+  $div.style.width = "100%";
+  $div.style.padding = "5px";
+  $div.style.marginBottom = "7px";
   $input = document.createElement("span");
-  $img = document.createElement("img");
-  $media = document.createElement("span");
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + _this.getAttribute('data-pk') + '">';
 
-  pk = _this.getAttribute('data-pk');
-  counter = _this.getAttribute('music-counter');
+  $mediaBody = document.createElement("div");
+  $mediaBody.classList.add("media-body", "music_media_body");
+  $mediaBody.style.lineHeight = "7px";
 
-  if (_this.querySelector("img")) {
-    $img = document.createElement("img");
-    $img.src = _this.querySelector("img").getAttribute("src");
-    $img.style.width = "30px";
-  } else {$img = document.createElement("span"); $img.innerHTML = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';}
+  $title = document.createElement("span");
+  span.innerHTML = _this.querySelector(".title").innerHTML;
 
-  $div.classList.add("col-md-6", "col-sm-12");
-  $div.style.display = "flex";
-  $div.style.padding = "3px";
-  $div.style.display = "flex";
-  $div.setAttribute('music-counter', counter);
-  $div.setAttribute('data-pk', pk);
+  $audio = document.createElement("audio");
+  $audio.classList.add("audio_player");
+  $audio.innerHTML = _this.querySelector(".audio_player").innerHTML;
 
-  $input.innerHTML = '<input type="hidden" name="attach_items" value="mus' + pk + '">';
-
-  $media.innerHTML = _this.querySelector(".media-body").innerHTML;
-  $media.style.marginLeft = "10px";
-  $media.style.marginRight = "40px";
-  $media.style.overflow = "hidden";
-  h6 = $media.querySelector("h6");
-  h6.style.paddingTop = "4px";
-  h6.classList.add("music_list_item", "pointer", "music_title");
+  $mediaBody.append($title);
+  $mediaBody.append($audio);
 
   $div.append(music_preview_delete());
   $div.append($input);
-  $div.append($img);
-  $div.append($media);
+  $div.append($mediaBody);
   return $div
 }
 function create_preview_doc(media_body, pk){

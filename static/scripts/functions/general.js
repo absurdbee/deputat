@@ -347,7 +347,11 @@ function get_preview(response, type) {
       media_body.querySelector(".span_btn").remove(); media_body.querySelector(".small").remove();
       doc_message_attach(document.body.querySelector(".message_attach_block"), response.querySelector(".media-body"), pk)
   }
-  };
+} else if (document.body.querySelector(".uuid_saver")){
+  uuid = document.body.querySelector(".uuid_saver").getAttribute("data-uuid");
+  check_span1(response.querySelector('.span1'), uuid, response.innerHTML);
+  document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null
+};
 };
 
 on('body', 'click', '.menu_drop', function() {

@@ -110,10 +110,7 @@ on('body', 'click', '#u_create_track_btn', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    document.body.querySelector(".uuid_saver").getAttribute("data-uuid") ? (
-      uuid = document.body.querySelector(".uuid_saver").getAttribute("data-uuid"),
-      check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
-      document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null) : get_preview(response, "track");
+    get_preview(response, "track");
     toast_info("Аудиозапись создана!");
     init_music(document.body.querySelector(".uuid_saver"));
     close_create_window();

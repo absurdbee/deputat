@@ -106,7 +106,7 @@ function doc_preview_delete(){
 
 function create_preview_photo(img_src, photo_pk){
   $div = document.createElement("div");
-  $div.classList.add("col-sm-6", "col-md-4", "photo");
+  $div.classList.add("row_item"); 
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="pho' + photo_pk + '">';
   $img = document.createElement("img");

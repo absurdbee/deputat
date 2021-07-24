@@ -422,7 +422,7 @@ on('body', 'change', '#u_photo_attach', function() {
     response = document.createElement("span");
     response.innerHTML = elem;
     photo_list = response.querySelectorAll(".pag");
-    photo_post_upload_attach(photo_list, document.body.querySelector(".attach_block").parentElement.parentElement
+    photo_post_upload_attach(photo_list, document.body.querySelector(".attach_block")
     );
     }
     close_create_window();

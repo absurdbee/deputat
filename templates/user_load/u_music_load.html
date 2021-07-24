@@ -46,12 +46,15 @@
 <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate" data-link="/users/load/u_music_load/">
 {% for object in object_list %}
 <div class="border load_pag {% if forloop.last %}load_last{% endif %}" style="position: relative;width: 100%;padding:5px 10px; margin-bottom:7px">
+<div class="media-body music_media_body" style="line-height: 8px;">
   <span>{{ object.title }}</span>
   <div class="audio_div">
     <audio id="player" class="audio_player">
       <source src="{{ object.file.url }}" type="audio/mp3" />
     </audio>
   </div>
+</div>
+
   <span class="item_attach_circle track_load_several" style="top: 8px;">
       <svg fill="currentColor" viewBox="0 0 24 24">
         <path d="M24 24H0V0h24v24z" fill="none"/><circle cx="12" cy="12" r="8"/>

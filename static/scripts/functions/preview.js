@@ -350,7 +350,7 @@ on('body', 'click', '.track_load_several', function() {
   if (document.body.querySelector(".current_file_dropdown")){
     check_track_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, _this), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".attach_block")){
-    check_track_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (track_post_attach(document.body.querySelector(".attach_block"), _this), this.classList.add("active_svg"), init_music(this.parentElement.parentElement))
+    check_track_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (track_post_attach(document.body.querySelector(".attach_block"), _this), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
     check_track_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (track_message_attach(document.body.querySelector(".message_attach_block"), _this), this.classList.add("active_svg"))
   }

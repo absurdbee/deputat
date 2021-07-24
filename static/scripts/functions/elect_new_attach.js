@@ -78,6 +78,7 @@ function track_post_attach(block, _this) {
   block.append(div);
   add_file_attach()
   is_full_attach();
+  init_music(block)
 }
 
 function doc_post_attach(block, media_block, pk) {

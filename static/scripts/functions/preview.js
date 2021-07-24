@@ -106,7 +106,7 @@ function doc_preview_delete(){
 
 function create_preview_photo(img_src, photo_pk){
   $div = document.createElement("div");
-  $div.classList.add("row_item"); 
+  $div.classList.add("row_item");
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="pho' + photo_pk + '">';
   $img = document.createElement("img");
@@ -160,9 +160,10 @@ function create_preview_photo_list(src, title, pk, count){
   return $div
 }
 
-function create_preview_video(img_src, pk){
+function create_preview_video(img_src, pk, uuid){
   $div = document.createElement("div");
-  $div.classList.add("col-md-4", "video");
+  $div.classList.add("row_item");
+  $div.setAttribute("data-uuid", uuid);
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="vid' + pk + '">';
   $img = document.createElement("img");
@@ -406,26 +407,28 @@ on('body', 'click', '.music_attach_list', function() {
 on('body', 'click', '.video_load_one', function() {
   _this = this;
   pk = _this.getAttribute('video-pk');
+  uuid = _this.getAttribute('data-uuid');
   src = _this.getAttribute('src');
   if (document.body.querySelector(".current_file_dropdown")){
-    check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, src), close_create_window())
+    check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src), close_create_window())
   } else if (document.body.querySelector(".attach_block")){
-    check_video_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_post_attach(document.body.querySelector(".attach_block"), pk, src), close_create_window())
+    check_video_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_post_attach(document.body.querySelector(".attach_block"), pk, uuid, src), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, src), close_create_window())
+    check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, uuid, src), close_create_window())
   }
 });
 on('body', 'click', '.video_load_several', function() {
   previous = this.previousElementSibling
   _this = previous.querySelector("img");
   pk = _this.getAttribute('video-pk');
+  uuid = _this.getAttribute('data-uuid');
   src = _this.getAttribute('src');
   if (document.body.querySelector(".current_file_dropdown")){
-    check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, src), this.classList.add("active_svg"))
+    check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".attach_block")){
-    check_video_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_post_attach(document.body.querySelector(".attach_block"), pk, src), this.classList.add("active_svg"))
+    check_video_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_post_attach(document.body.querySelector(".attach_block"), pk, uuid, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
-    check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, src), this.classList.add("active_svg"))
+    check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, uuid, src), this.classList.add("active_svg"))
   }
 });
 

@@ -321,8 +321,9 @@ function get_preview(response, type) {
       track_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, response)
     } else if (type == "video") {
       pk = response.querySelector(".u_video_list_detail").getAttribute("video-pk");
+      uuid = response.querySelector(".u_video_list_detail").getAttribute("data-uuid");
       src = response.querySelector("img").getAttribute("src");
-      video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, src)
+      video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src)
     }
   } else if (document.body.querySelector(".attach_block")){
     if (type == "doc") {
@@ -335,8 +336,9 @@ function get_preview(response, type) {
       track_post_attach(document.body.querySelector(".attach_block"), response)
     } else if (type == "video") {
       pk = response.querySelector(".u_video_list_detail").getAttribute("video-pk");
+      uuid = response.querySelector(".u_video_list_detail").getAttribute("data-uuid");
       src = response.querySelector("img").getAttribute("src");
-      video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, src)
+      video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src)
     }
   } else if (document.body.querySelector(".message_attach_block")){
     if (type == "doc") {

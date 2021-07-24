@@ -64,9 +64,9 @@ function photo_post_upload_attach(photo_list, block){
   close_create_window()
   }
 
-function video_post_attach(block, pk, src) {
+function video_post_attach(block, pk, uuid, src) {
   is_full_attach();
-  div = create_preview_video(src, pk)
+  div = create_preview_video(src, pk, uuid)
   block.append(div);
   add_file_attach()
   is_full_attach();

@@ -560,6 +560,9 @@ select {
   .audio_div {
     width:90%
   }
+  .image_fit_small {
+    height: 160px;
+}
 }
 .big_mobile_element {
   flex-basis: 100% !important

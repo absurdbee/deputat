@@ -356,9 +356,21 @@ a {
   opacity:1
 }
 
+.music_preview_delete {
+  position: absolute !important;
+  right: 15px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  top: 28px;
+  height: 25px;
+  width: 25px;
+  border: 1px grey solid;
+}
+
 .photo_preview_delete,
 .video_preview_delete,
-.music_preview_delete,
 .doc_preview_delete{
   position: absolute !important;
   right: 15px;

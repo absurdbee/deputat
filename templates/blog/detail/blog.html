@@ -96,8 +96,9 @@
                                 </div>
                             </div>
                         </div>
-
-                        {% include 'blog/comment/comments.html' %}
+                        {% if object.comments_enabled %}
+                          {% include 'blog/comment/comments.html' %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

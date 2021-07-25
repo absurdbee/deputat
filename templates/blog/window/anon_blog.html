@@ -105,7 +105,9 @@
                             </div>
                         </div>
                     </div>
-                    {% include 'blog/comment/anon_comments.html' %}
+                    {% if object.comments_enabled %}
+                      {% include 'blog/comment/anon_comments.html' %}
+                    {% endif %}
                 </div>
             </div>
         </div>

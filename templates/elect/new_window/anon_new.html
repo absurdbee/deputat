@@ -131,6 +131,8 @@
             </div>
         </div>
 
-        {% include 'elect/comment/anon_comments.html' %}
+        {% if object.comments_enabled %}
+          {% include 'elect/comment/anon_comments.html' %}
+        {% endif %}
     </div>
 </div>

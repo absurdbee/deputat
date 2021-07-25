@@ -31,7 +31,7 @@ class BlogCreateView(TemplateView):
             return HttpResponseBadRequest()
 
 class BlogEditView(TemplateView):
-    template_name = "elect/edit_blog.html"
+    template_name = "blog/edit_blog.html"
 
     def get(self,request,*args,**kwargs):
         from blog.models import Blog
@@ -138,22 +138,22 @@ class EditManagerElectNew(TemplateView):
         return super(EditManagerElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        from blog.forms import ElectNewForm
+        from blog.forms import PublishElectNewForm
         from elect.models import Elect
 
         context=super(EditManagerElectNew,self).get_context_data(**kwargs)
-        context["form"] = ElectNewForm(instance=self.new)
+        context["form"] = PublishElectNewForm(instance=self.new)
         context["get_elects"] = Elect.objects.only("pk")
         context["new"] = self.new
         return context
 
     def post(self,request,*args,**kwargs):
-        from blog.forms import ElectNewForm
+        from blog.forms import PublishElectNewForm
         from blog.models import ElectNew
         from common.templates import render_for_platform
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        self.form_post = ElectNewForm(request.POST, instance=self.new)
+        self.form_post = PublishElectNewForm(request.POST, instance=self.new)
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_superuser():
             post = self.form_post.save(commit=False)

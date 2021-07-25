@@ -297,9 +297,9 @@ class User(AbstractUser):
     def is_closed(self):
         return self.type[:4] == "_CLO"
     def is_manager(self):
-        return self.type == User.MANAGER
+        return self.type == User.MANAGER or self.is_superuser
     def is_supermanager(self):
-        return self.type == User.SUPERMANAGER
+        return self.type == User.SUPERMANAGER or self.is_superuser
     def is_verified_send(self):
         return self.type == User.VERIFIED_SEND
     def is_verified(self):

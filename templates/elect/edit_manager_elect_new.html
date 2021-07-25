@@ -57,7 +57,7 @@
             <div class="form-group">
               <label>Теги</label>
               <div style="display: flex;flex-wrap: wrap">
-                {% for tag in get_tags %}
+                {% for tag in tags %}
                 <div class="custom-control custom-control-info custom-checkbox" style="padding-right: 1.8rem;margin-top: 1.5rem;">
                   <input value="{{ tag.pk }}" type="checkbox" name="tags" class="custom-control-input" id="a{{ tag.pk }}">
                   <label class="custom-control-label" for="a{{ tag.pk }}">{{ tag.name }}</label>
@@ -67,13 +67,13 @@
             </div>
             <div class="form-group mt-2">
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" name="comments_enabled" class="custom-control-input" {% if blog.comments_enabled %}checked{% endif %} id="id_111">
+                <input type="checkbox" name="comments_enabled" class="custom-control-input" {% if new.comments_enabled %}checked{% endif %} id="id_111">
                 <label class="custom-control-label" for="id_111">Комментарии разрешены</label>
               </div>
             </div>
             <div class="form-group">
               <div class="custom-control custom-checkbox">
-                <input type="checkbox" name="votes_on" class="custom-control-input" {% if blog.votes_on %}checked{% endif %} id="id_112">
+                <input type="checkbox" name="votes_on" class="custom-control-input" {% if new.votes_on %}checked{% endif %} id="id_112">
                 <label class="custom-control-label" for="id_112">Реакции разрешены</label>
               </div>
             </div>

@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
               <label>Описание</label>
-              <textarea style="height: 200px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description">{{ blog.title }}</textarea>
+              <textarea style="height: 200px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description">{{ blog.description }}</textarea>
             </div>
             <div class="form-group">
               <label>Обложка</label>
@@ -26,7 +26,7 @@
             <div class="form-group">
               <label>Теги</label>
               <div style="display: flex;flex-wrap: wrap">
-                {% for tag in get_tags %}
+                {% for tag in tags %}
                 <div class="custom-control custom-control-info custom-checkbox" style="padding-right: 1.8rem;margin-top: 1.5rem;">
                   <input value="{{ tag.pk }}" type="checkbox" name="tags" class="custom-control-input" id="a{{ tag.pk }}">
                   <label class="custom-control-label" for="a{{ tag.pk }}">{{ tag.name }}</label>

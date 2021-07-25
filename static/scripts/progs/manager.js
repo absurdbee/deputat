@@ -41,6 +41,15 @@ function post_elect_new(_this, url, toast) {
   link.send(form_data);
 };
 
+on('body', 'click', '.u_edit_blog', function() {
+  loader = document.body.querySelector("#window_loader");
+  open_fullscreen("/blog/progs/edit_blog/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+});
+on('body', 'click', '.u_edit_elect_new', function() {
+  loader = document.body.querySelector("#window_loader");
+  open_fullscreen("/blog/progs/edit_manager_elect_new/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+});
+
 on('body', 'click', '.manager_blog_create', function(e) {
   e.preventDefault();
   loader = document.body.querySelector("#window_loader");

@@ -36,7 +36,7 @@ def elect_new(user, elect_new):
     else:
         comments_enabled = 'style="display:none"'
 
-    for tag in elect_new.get_manager_tags():
+    for tag in elect_new.get_manager_tags_name():
         tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
 
     return ''.join([block, '<div class="event_card" data-pk="' + str(elect_new.pk) + '"><div class="event_img text-center"><span><span>\

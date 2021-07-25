@@ -70,6 +70,27 @@ class Blog(models.Model):
                 tag.blog.add(blog)
         return blog
 
+    def edit_blog(self, title, description, image, tags, comments_enabled, votes_on, manager_id):
+        from common.processing import get_blog_processing
+        from logs.model.manage_blog import BlogManageLog
+
+        get_blog_processing(self, Blog.PUBLISHED)
+
+        self.title = title
+        self.description = description
+        self.image = image
+        self.comments_enabled = comments_enabled
+        self.votes_on = votes_on
+        self.save()
+        # Добавляем теги с формы.
+        if tags:
+            from tags.models import ManagerTag
+            for _tag in tags:
+                tag = ManagerTag.objects.get(pk=_tag)
+                tag.blog.add(blog)
+        BlogManageLog.objects.create(item=self.pk, manager=manager_id, action_type=BlogManageLog.ITEM_EDITED)
+        return self
+
     def likes(self):
         from common.model.votes import BlogVotes
         return BlogVotes.objects.filter(blog_id=self.pk, vote="LIK")
@@ -141,10 +162,14 @@ class Blog(models.Model):
         else:
             return '/static/images/no_photo.jpg'
 
-    def get_manager_tags(self):
+    def get_manager_tags_name(self):
         from tags.models import ManagerTag
         tags = ManagerTag.objects.filter(blog=self).values("name")
         return [i['name'] for i in tags]
+
+    def get_manager_tags(self):
+        from tags.models import ManagerTag
+        return ManagerTag.objects.filter(blog=self)
 
     def count_views(self):
         return self.view
@@ -340,10 +365,14 @@ class ElectNew(models.Model):
         except:
             return '/static/images/no_photo.jpg'
 
-    def get_manager_tags(self):
+    def get_manager_tags_name(self):
         from tags.models import ManagerTag
         tags = ManagerTag.objects.filter(new=self).values("name")
         return [i['name'] for i in tags]
+
+    def get_manager_tags(self):
+        from tags.models import ManagerTag
+        return ManagerTag.objects.filter(new=self)
 
     def get_count_attach(self):
         if self.attach:
@@ -394,11 +423,6 @@ class ElectNew(models.Model):
     def edit_new(self, title, description, elect, attach, category):
         from elect.models import Elect
         from common.processing import get_elect_new_processing
-        from notify.models import Notify, Wall
-        from common.notify.progs import user_send_notify, user_send_wall
-        from asgiref.sync import async_to_sync
-        from channels.layers import get_channel_layer
-        from logs.model.manage_elect_new import ElectNewManageLog
 
         get_elect_new_processing(self, ElectNew.SUGGESTED)
 
@@ -414,6 +438,36 @@ class ElectNew(models.Model):
         self.attach = _attach
         self.category = category
         self.save()
+        return self
+
+    def edit_manage_new(self, title, description, elect, attach, category, manager_id, comments_enabled, votes_on):
+        from elect.models import Elect
+        from common.processing import get_elect_new_processing
+        from logs.model.manage_elect_new import ElectNewManageLog
+
+        get_elect_new_processing(self, ElectNew.PUBLISHED)
+
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
+        try:
+            _elect = Elect.objects.get(name=elect)
+        except Elect.DoesNotExist:
+            _elect = None
+        self.title = title
+        self.description = description
+        self.elect = _elect
+        self.attach = _attach
+        self.category = category
+        self.comments_enabled = comments_enabled
+        self.votes_on = votes_on
+        self.save()
+        # Добавляем теги с формы.
+        if tags:
+            from tags.models import ManagerTag
+            for _tag in tags:
+                tag = ManagerTag.objects.get(pk=_tag)
+                tag.blog.add(blog)
+        ElectNewManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectNewManageLog.ITEM_EDITED)
         return self
 
     def make_publish_new(self, title, description, elect, attach, category, tags, manager_id, comments_enabled, votes_on):

@@ -140,11 +140,13 @@ class EditManagerElectNew(TemplateView):
     def get_context_data(self,**kwargs):
         from blog.forms import PublishElectNewForm
         from elect.models import Elect
+        from tags.models import ManagerTag
 
         context=super(EditManagerElectNew,self).get_context_data(**kwargs)
         context["form"] = PublishElectNewForm(instance=self.new)
         context["get_elects"] = Elect.objects.only("pk")
         context["new"] = self.new
+        context["tags"] = ManagerTag.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):

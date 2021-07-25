@@ -6,7 +6,7 @@ on('body', 'click', '#holder_image', function() {
 on('body', 'click', '.copy_link', function() {
   url = this.getAttribute("data-link");
   aux = document.createElement("input");
-  aux.setAttribute("value", "https://служународу.рус/" + url);
+  aux.setAttribute("value", "https://служународу.рус" + url);
   document.body.appendChild(aux);
   aux.select();
   document.execCommand("copy");

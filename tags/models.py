@@ -14,3 +14,11 @@ class ManagerTag(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_blog_ids(self):
+        blogs = self.blog.values("pk")
+        return [i['pk'] for i in blogs]
+
+    def get_new_ids(self):
+        news = self.new.values("pk")
+        return [i['pk'] for i in news]

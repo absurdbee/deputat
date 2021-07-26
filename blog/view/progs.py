@@ -160,7 +160,7 @@ class EditManagerElectNew(TemplateView):
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_supermanager():
             post = self.form_post.save(commit=False)
             new_post = post.edit_manage_new(title=post.title, tags=request.POST.getlist("tags"), description=post.description, elect=request.POST.get("elect"), attach=request.POST.getlist("attach_items"), category=post.category, manager_id=request.user.pk,comments_enabled=post.comments_enabled, votes_on=post.votes_on)
-            return render_for_platform(request, 'elect/mews/my_new.html',{'object': new_post})
+            return render_for_platform(request, 'elect/news/my_new.html',{'object': new_post})
         else:
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()

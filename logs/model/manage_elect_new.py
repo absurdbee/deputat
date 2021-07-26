@@ -4,12 +4,12 @@ from django.conf import settings
 
 
 class ElectNewManageLog(models.Model):
-    LIST_CLOSED, ITEM_CLOSED, ITEM_PUBLISHED, ITEM_EDITED, COMMENT_CLOSED = 'LCLO','ICLO','CCLO','IEDI','IPUB'
+    LIST_CLOSED, ITEM_CREATED, ITEM_CLOSED, ITEM_PUBLISHED, ITEM_EDITED, COMMENT_CLOSED = 'LCLO','ICRE','ICLO','CCLO','IEDI','IPUB'
     LIST_CLOSED_HIDE, ITEM_CLOSED_HIDE, COMMENT_CLOSED_HIDE = 'LRES','IRES','CRES'
     LIST_REJECT, ITEM_REJECT, COMMENT_REJECT = 'LREJ','IREJ','CREJ'
     LIST_UNVERIFY, ITEM_UNVERIFY, COMMENT_UNVERIFY = 'LUNV','IUNV','CUNV'
     ACTION_TYPES = (
-        (LIST_CLOSED, 'Список закрыт'),(ITEM_PUBLISHED, 'Активность опубликована'),(ITEM_EDITED, 'Элемент изменён'),(ITEM_CLOSED, 'Элемент закрыт'),(COMMENT_CLOSED, 'Комментарий закрыт'),
+        (LIST_CLOSED, 'Список закрыт'),(ITEM_CREATED, 'Активность создана'),(ITEM_PUBLISHED, 'Активность опубликована'),(ITEM_EDITED, 'Элемент изменён'),(ITEM_CLOSED, 'Элемент закрыт'),(COMMENT_CLOSED, 'Комментарий закрыт'),
         (LIST_CLOSED_HIDE, 'Список восстановлен'),(ITEM_CLOSED_HIDE, 'Элемент восстановлен'),(COMMENT_CLOSED_HIDE, 'Комментарий восстановлен'),
         (LIST_REJECT, 'Жалоба на список отклонена'),(ITEM_REJECT, 'Жалоба на элемент отклонена'),(COMMENT_REJECT, 'Жалоба на комментарий отклонена'),
         (LIST_UNVERIFY, 'Проверка на список убрана'),(ITEM_UNVERIFY, 'Проверка на элемент убрана'),(COMMENT_UNVERIFY, 'Проверка на комментарий убрана'),

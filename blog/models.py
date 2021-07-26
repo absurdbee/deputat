@@ -74,7 +74,7 @@ class Blog(models.Model):
         from common.processing import get_blog_processing
         from logs.model.manage_blog import BlogManageLog
 
-        get_blog_processing(self, Blog.PUBLISHED)
+        get_blog_processing(self)
 
         self.title = title
         self.description = description

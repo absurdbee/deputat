@@ -419,7 +419,7 @@ class ElectNew(models.Model):
         new = cls.objects.create(creator=creator,title=title,comments_enabled=comments_enabled,votes_on=votes_on,description=description,elect=_elect,attach=_attach,category=category,)
         get_elect_new_processing(new, ElectNew.PUBLISHED)
         # создаем запись для стены и отсылаем сокет для отрисовки в реале
-        Wall.objects.create(creator_id=creator.pk type="ELN", object_id=new.pk, verb="ITE")
+        Wall.objects.create(creator_id=creator.pk, type="ELN", object_id=new.pk, verb="ITE")
         user_send_wall(new.pk, None, "elect_new_wall")
 
         # создаем уведы для каждого. кто подписан на депутата активности.

@@ -44,9 +44,9 @@ function remove_file_attach(){
   else if (files_block.classList.contains("files_10")){ files_block.classList.add("files_9"), files_block.classList.remove("files_10")}
 }
 
-function photo_post_attach(block, photo_pk, src) {
+function photo_post_attach(block, photo_pk, uuid, src) {
   is_full_attach();
-  div = create_preview_photo(src, photo_pk)
+  div = create_preview_photo(src, photo_pk, uuid)
   block.append(div);
   add_file_attach()
   is_full_attach();

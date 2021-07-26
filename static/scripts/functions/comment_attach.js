@@ -47,10 +47,10 @@ function remove_file_dropdown(){
     dropdown.classList.add("files_one"), dropdown.classList.remove("files_two")};
 }
 
-function photo_comment_attach(dropdown, photo_pk, src) {
+function photo_comment_attach(dropdown, photo_pk, uuid, src) {
   is_full_dropdown();
   attach_block = dropdown.parentElement.previousElementSibling;
-  div = create_preview_photo(src, photo_pk);
+  div = create_preview_photo(src, photo_pk, uuid);
   attach_block.append(div);
   add_file_dropdown()
   is_full_dropdown();

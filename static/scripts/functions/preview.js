@@ -104,15 +104,16 @@ function doc_preview_delete(){
   return $span
 }
 
-function create_preview_photo(img_src, photo_pk){
+function create_preview_photo(img_src, photo_pk, uuid){
   $div = document.createElement("div");
   $div.classList.add("row_item");
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="pho' + photo_pk + '">';
   $img = document.createElement("img");
-  $img.classList.add("u_preview_photo", "image_fit", "pointer");
+  $img.classList.add("u_photo_detail", "image_fit", "pointer");
   $img.setAttribute("src", img_src);
   $img.setAttribute('photo-pk', photo_pk);
+  $img.setAttribute('data-uuid', uuid);
   $div.append(photo_preview_delete());
   $div.append($input);
   $div.append($img);
@@ -310,13 +311,14 @@ function create_preview_playlist(name, pk, count){
 on('body', 'click', '.photo_load_one', function() {
   _this = this;
   photo_pk = _this.parentElement.getAttribute('photo-pk');
+  uuid = _this.parentElement.getAttribute('list-uuid');
   src = _this.parentElement.getAttribute("data-href");
   if (document.body.querySelector(".current_file_dropdown")){
-    check_photo_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, photo_pk) ? null : (photo_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, photo_pk, src), close_create_window())
+    check_photo_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, photo_pk) ? null : (photo_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, photo_pk, uuid, src), close_create_window())
   } else if (document.body.querySelector(".attach_block")){
-    check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, src), close_create_window())
+    check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, uuid, src), close_create_window())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, src), close_create_window())
+    check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, uuid, src), close_create_window())
   }
 });
 
@@ -324,13 +326,14 @@ on('body', 'click', '.photo_load_several', function() {
   previous = this.previousElementSibling
   _this = previous.querySelector("img");
   photo_pk = previous.getAttribute('photo-pk');
+  uuid = _this.parentElement.getAttribute('list-uuid');
   src = _this.parentElement.getAttribute("data-href");
   if (document.body.querySelector(".current_file_dropdown")){
-    check_photo_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, photo_pk) ? null : (photo_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, photo_pk, src), this.classList.add("active_svg"))
+    check_photo_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, photo_pk) ? null : (photo_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, photo_pk, uuid,, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".attach_block")){
-    check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, src), this.classList.add("active_svg"))
+    check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, uuid,, src), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
-    check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, src), this.classList.add("active_svg"))
+    check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, uuid,, src), this.classList.add("active_svg"))
   }
 });
 

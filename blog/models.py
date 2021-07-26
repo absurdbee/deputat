@@ -450,7 +450,7 @@ class ElectNew(models.Model):
         self.save()
         return self
 
-    def edit_manage_new(self, title, description, elect, attach, category, manager_id, comments_enabled, votes_on):
+    def edit_manage_new(self, title, description, elect, attach, category, manager_id, comments_enabled, votes_on, tags):
         from elect.models import Elect
         from common.processing import get_elect_new_processing
         from logs.model.manage_elect_new import ElectNewManageLog

@@ -85,10 +85,7 @@ class Blog(models.Model):
         # Добавляем теги с формы.
         if tags:
             from tags.models import ManagerTag
-            tags_list = ManagerTag.objects.all()
-            for tag in tags_list:
-                if not self.pk in tag.get_blog_ids():
-                    tag.blog.remove(self)
+            ManagerTag.remove_blog(self)
             for _tag in tags:
                 tag = ManagerTag.objects.get(pk=_tag)
                 tag.blog.add(self)

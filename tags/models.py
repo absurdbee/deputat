@@ -19,6 +19,14 @@ class ManagerTag(models.Model):
         blogs = self.blog.values("pk")
         return [i['pk'] for i in blogs]
 
+    def get_blog_ids(self):
+        blogs = self.blog.values("pk")
+        return [i['pk'] for i in blogs]
+
     def get_new_ids(self):
         news = self.new.values("pk")
         return [i['pk'] for i in news]
+
+    @classmethod
+    def remove_blog(cls, blog):
+        self.blog.all().remove(blog)

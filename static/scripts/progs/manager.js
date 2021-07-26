@@ -49,6 +49,10 @@ on('body', 'click', '.u_edit_elect_new', function() {
   loader = document.body.querySelector("#window_loader");
   open_fullscreen("/blog/progs/edit_manager_elect_new/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
 });
+on('body', 'click', '.u_edit_elect_new', function() {
+  loader = document.body.querySelector("#window_loader");
+  open_fullscreen("/blog/progs/edit_manager_elect_new/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+});
 
 on('body', 'click', '.manager_blog_create', function(e) {
   e.preventDefault();
@@ -99,6 +103,37 @@ on('body', 'click', '#create_blog_btn', function() {
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/blog/progs/add_blog/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Новость создана!")
+    close_default_window()
+  }};
+
+  link_.send(form_data);
+});
+
+on('body', 'click', '#edit_blog_btn', function() {
+  _this = this, elect = false;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!"); return
+  } else if (!form.querySelector("#id_description").value){
+    form.querySelector("#id_description").style.border = "1px #FF0000 solid";
+    toast_error("Опишите ситуацию!"); return
+  }
+  else if (!form.querySelector("#id_image").value){
+    form.querySelector("#holder_image").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите обложку!"); return
+  }
+  else { _this.disabled = true };
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/blog/progs/edit_blog/" + this.getAttribute("data-pk") + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

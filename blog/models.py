@@ -470,9 +470,11 @@ class ElectNew(models.Model):
         # Добавляем теги с формы.
         if tags:
             from tags.models import ManagerTag
+            for i in ManagerTag.objects.all():
+                i.new.remove(self)
             for _tag in tags:
                 tag = ManagerTag.objects.get(pk=_tag)
-                tag.blog.add(blog)
+                tag.new.add(self)
         ElectNewManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectNewManageLog.ITEM_EDITED)
         return self
 
@@ -532,6 +534,8 @@ class ElectNew(models.Model):
         self.creator.plus_elect_news(1)
         if tags:
             from tags.models import ManagerTag
+            for i in ManagerTag.objects.all():
+                i.new.remove(self)
             for _tag in tags:
                 tag = ManagerTag.objects.get(pk=_tag)
                 tag.new.add(self)

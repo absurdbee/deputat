@@ -138,7 +138,7 @@ on('body', 'click', '#edit_blog_btn', function() {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    toast_info("Новость создана!")
+    toast_info("Новость изменена!")
     close_default_window()
   }};
 
@@ -150,6 +150,9 @@ on('body', 'click', '#u_publish_elect_new_btn', function() {
 });
 on('body', 'click', '#manager_create_elect_new_btn', function() {
   post_elect_new(this, "/managers/elect_new/create_elect_new/", "Активность создана и опубликована!")
+});
+on('body', 'click', '#u_edit_manage_elect_new_btn', function() {
+  post_elect_new(this, "/blog/progs/edit_manager_elect_new/" + this.getAttribute("data-pk") + "/", "Активность изменена!")
 });
 
 on('body', 'click', '.show_object_reports', function() {

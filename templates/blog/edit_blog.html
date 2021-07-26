@@ -19,7 +19,7 @@
               <label>Обложка</label>
               <p>Формат: png, jpg, jpeg, webp </p>
               <span>
-                <input style="display: none;" id="id_image" type="file" name="image" accept="image/*">
+                <input value="{{ blog.image.url }}" style="display: none;" id="id_image" type="file" name="image" accept="image/*">
               </span>
               <div id="holder_image" style="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;cursor:pointer">
                 <img class="img-fluid rounded" src="{{ blog.get_image }}" alt="Img default" style="height: 100px;">

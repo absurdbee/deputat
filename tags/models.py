@@ -29,4 +29,4 @@ class ManagerTag(models.Model):
 
     @classmethod
     def remove_blog(cls, _blog):
-        self.blog.all().remove(_blog)
+        cls.blog.remove(self)

@@ -407,6 +407,8 @@ class ElectNew(models.Model):
         from elect.models import Elect
         from common.processing import get_elect_new_processing
         from logs.model.manage_elect_new import ElectNewManageLog
+        from notify.models import Wall, Notify
+        from common.notify.progs import user_send_wall, user_send_notify
         try:
             _elect = Elect.objects.get(name=elect)
         except:
@@ -417,13 +419,13 @@ class ElectNew(models.Model):
         new = cls.objects.create(creator=creator,title=title,comments_enabled=comments_enabled,votes_on=votes_on,description=description,elect=_elect,attach=_attach,category=category,)
         get_elect_new_processing(new, ElectNew.PUBLISHED)
         # создаем запись для стены и отсылаем сокет для отрисовки в реале
-        Wall.objects.create(creator_id=manager_id, type="ELN", object_id=new.pk, verb="ITE")
+        Wall.objects.create(creator_id=creator.pk type="ELN", object_id=new.pk, verb="ITE")
         user_send_wall(new.pk, None, "elect_new_wall")
 
         # создаем уведы для каждого. кто подписан на депутата активности.
         for user_id in new.elect.get_subscribers_ids():
-            Notify.objects.create(creator_id=manager_id, recipient_id=user_id, type="ELN", object_id=new.pk, verb="ITE")
-            user_send_notify(new.pk, new.creator.pk, user_id, None, "elect_new_notify")
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="ELN", object_id=new.pk, verb="ITE")
+            user_send_notify(new.pk, creator.pk, user_id, None, "elect_new_notify")
         ElectNewManageLog.objects.create(item=new.pk, manager=creator.pk, action_type=BlogManageLog.ITEM_CREATED)
         return new
 

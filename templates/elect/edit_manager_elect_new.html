@@ -1,8 +1,7 @@
 {% load filters %}
 
-<form class="pt-4">
+<form class="pt-4 card mb-3">
   {% csrf_token %}
-    <div class="card mb-3">
         <div class="card-header border-bottom">
             <h5 class="content-color-primary mb-0">Редактирование активности</h5>
         </div>
@@ -85,5 +84,4 @@
             <button class="btn custom_color border create_fullscreen_hide_2" style="position: absolute;">Отмена</button>
             <button id="u_edit_manage_elect_new_btn" data-pk="{{ new.pk }}" type="button" class="btn btn-success float-right">Изменить</button>
         </div>
-      </div>
 </form>

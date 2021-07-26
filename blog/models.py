@@ -166,10 +166,12 @@ class Blog(models.Model):
         from tags.models import ManagerTag
         tags = ManagerTag.objects.filter(blog=self).values("name")
         return [i['name'] for i in tags]
-
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return ManagerTag.objects.filter(blog=self)
+    def is_selected_manager_tags(self, tag_name):
+        from tags.models import ManagerTag
+        return ManagerTag.objects.filter(name=tag_name, blog=self).exists()
 
     def count_views(self):
         return self.view

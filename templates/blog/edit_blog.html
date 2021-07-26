@@ -1,3 +1,5 @@
+{% load filters %}
+
 <form class="pt-4">
   {% csrf_token %}
     <div class="card mb-3">
@@ -28,7 +30,7 @@
               <div style="display: flex;flex-wrap: wrap">
                 {% for tag in tags %}
                 <div class="custom-control custom-control-info custom-checkbox" style="padding-right: 1.8rem;margin-top: 1.5rem;">
-                  <input value="{{ tag.pk }}" type="checkbox" name="tags" class="custom-control-input" id="a{{ tag.pk }}">
+                  <input {% if blog|is_selected_manager_tags:tag.name %}cheked{% endif %} value="{{ tag.pk }}" type="checkbox" name="tags" class="custom-control-input" id="a{{ tag.pk }}">
                   <label class="custom-control-label" for="a{{ tag.pk }}">{{ tag.name }}</label>
                 </div>
                 {% endfor %}

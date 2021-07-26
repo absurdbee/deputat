@@ -426,7 +426,7 @@ class ElectNew(models.Model):
         for user_id in new.elect.get_subscribers_ids():
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="ELN", object_id=new.pk, verb="ITE")
             user_send_notify(new.pk, creator.pk, user_id, None, "elect_new_notify")
-        ElectNewManageLog.objects.create(item=new.pk, manager=creator.pk, action_type=BlogManageLog.ITEM_CREATED)
+        ElectNewManageLog.objects.create(item=new.pk, manager=creator.pk, action_type=ElectNewManageLog.ITEM_CREATED)
         return new
 
 

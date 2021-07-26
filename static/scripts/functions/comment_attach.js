@@ -93,7 +93,7 @@ function photo_comment_upload_attach(photo_list, dropdown){
 
   attach_block = dropdown.parentElement.previousElementSibling;
   for (var i = 0; i < photo_list.length; i++){
-    div = create_preview_photo(photo_list[i].querySelector(".progressive").getAttribute('data-href'), photo_list[i].getAttribute("photo-pk"));
+    div = create_preview_photo(photo_list[i].querySelector(".progressive").getAttribute('data-href'), photo_list[i].getAttribute("photo-pk"), photo_list[i].getAttribute("list-uuid"));
     attach_block.append(div);
     add_file_dropdown()
     is_full_dropdown();

@@ -111,7 +111,7 @@ function create_preview_photo(img_src, photo_pk, uuid){
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="pho' + photo_pk + '">';
   $img = document.createElement("img");
-  $img.classList.add("u_photo_priview", "image_fit", "pointer");
+  $img.classList.add("u_photo_preview", "image_fit", "pointer");
   $img.setAttribute("src", img_src);
   $img.setAttribute('photo-pk', photo_pk);
   $img.setAttribute('data-uuid', uuid);

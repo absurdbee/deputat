@@ -28,5 +28,5 @@ class ManagerTag(models.Model):
         return [i['pk'] for i in news]
 
     @classmethod
-    def remove_blog(cls, blog):
-        self.blog.all().remove(blog)
+    def remove_blog(cls, _blog):
+        self.blog.all().remove(_blog)

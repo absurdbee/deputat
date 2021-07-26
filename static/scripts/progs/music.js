@@ -112,7 +112,7 @@ on('body', 'click', '#u_create_track_btn', function() {
     response.innerHTML = elem;
     get_preview(response, "track");
     toast_info("Аудиозапись создана!");
-    init_music(document.body.querySelector(".uuid_saver"));
+    init_music(document.body);
     close_create_window();
   } else { _this.disabled = true }};
   link_.send(form_data);

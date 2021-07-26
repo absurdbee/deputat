@@ -516,7 +516,7 @@ on('body', 'click', '.video_preview_delete', function() {
 on('body', 'click', '.music_preview_delete', function() {
   parent = this.parentElement;
   block = parent.parentElement;
-  if (block.parentElement.classList.contains("attach_block")){
+  if (block.parentElement.parentElement.classList.contains("attach_block")){
     remove_file_attach(), is_full_attach()
   } else if (block.classList.contains("comment_attach_block")){
     remove_file_dropdown(); is_full_dropdown()

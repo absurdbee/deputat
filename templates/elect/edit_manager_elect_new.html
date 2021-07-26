@@ -63,7 +63,7 @@
               <div style="display: flex;flex-wrap: wrap">
                 {% for tag in tags %}
                 <div class="custom-control custom-control-info custom-checkbox" style="padding-right: 1.8rem;margin-top: 1.5rem;">
-                  <input value="{{ tag.pk }}" type="checkbox" name="tags" class="custom-control-input" id="a{{ tag.pk }}">
+                  <input {% if new|is_selected_manager_tags:tag.name %}checked{% endif %} value="{{ tag.pk }}" type="checkbox" name="tags" class="custom-control-input" id="a{{ tag.pk }}">
                   <label class="custom-control-label" for="a{{ tag.pk }}">{{ tag.name }}</label>
                 </div>
                 {% endfor %}

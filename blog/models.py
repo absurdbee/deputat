@@ -371,10 +371,12 @@ class ElectNew(models.Model):
         from tags.models import ManagerTag
         tags = ManagerTag.objects.filter(new=self).values("name")
         return [i['name'] for i in tags]
-
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return ManagerTag.objects.filter(new=self)
+    def is_selected_manager_tags(self, tag_name):
+        from tags.models import ManagerTag
+        return ManagerTag.objects.filter(name=tag_name, new=self).exists()
 
     def get_count_attach(self):
         if self.attach:

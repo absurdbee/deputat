@@ -24,13 +24,13 @@
             <ul class="gallery_ul" style="width:max-content;list-style: none;">
                 {% for object in get_lists %}
                 <li class="list_item">
-              <div class="text-center bg-dark position-relative border" data-uuid="{{ object.uuid }}">
+              <div class="text-center list_toggle u_load_attach_photo_list pointer bg-dark position-relative border" data-uuid="{{ object.uuid }}">
                 <figure class="background-img">
                   <img src="{{ object.get_cover_photo }}">
                 </figure>
                 <div class="container p-3">
                   <h6 class="text-white">
-                    <span class="pointer nowrap list_toggle u_load_attach_photo_list list_name">{{ object.name }}</span>
+                    <span class="nowrap list_name">{{ object.name }}</span>
                   </h6>
                   <span class="text-white count">{{ object.count_items_ru }}</span>
 

@@ -195,5 +195,5 @@ on('body', 'click', '.u_load_profile_survey_list', function() {
 });
 
 on('body', 'click', '.u_load_attach_survey_list', function() {
-  profile_list_block_load(this, ".load_block", "/users/load/u_survey_list_load/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_attach_survey_list");
+  profile_list_block_load(this, ".load_block", "/users/load/u_survey_list_load/" + this.getAttribute("data-uuid") + "/", "u_load_attach_survey_list");
 });

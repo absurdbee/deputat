@@ -265,7 +265,7 @@ on('body', 'click', '.u_load_profile_video_list', function() {
 });
 
 on('body', 'click', '.u_load_attach_video_list', function() {
-  profile_list_block_load(this, ".load_block", "/users/load/u_video_list_load/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_attach_video_list");
+  profile_list_block_load(this, ".load_block", "/users/load/u_video_list_load/" + this.getAttribute("data-uuid") + "/", "u_load_attach_video_list");
 });
 
 on('body', 'click', '.mob_user_video_remove', function() {

@@ -406,6 +406,7 @@ class ElectNew(models.Model):
     def create_manager_new(cls, creator, title, description, elect, attach, category, comments_enabled, votes_on, tags):
         from elect.models import Elect
         from common.processing import get_elect_new_processing
+        from logs.model.manage_elect_new import ElectNewManageLog
         try:
             _elect = Elect.objects.get(name=elect)
         except:
@@ -423,6 +424,7 @@ class ElectNew(models.Model):
         for user_id in new.elect.get_subscribers_ids():
             Notify.objects.create(creator_id=manager_id, recipient_id=user_id, type="ELN", object_id=new.pk, verb="ITE")
             user_send_notify(new.pk, new.creator.pk, user_id, None, "elect_new_notify")
+        ElectNewManageLog.objects.create(item=new.pk, manager=creator.pk, action_type=BlogManageLog.ITEM_CREATED)
         return new
 
 

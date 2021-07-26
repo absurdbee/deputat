@@ -1,6 +1,6 @@
 {% load filters %}
 
-<div class="content mt-3">
+<div class="content mt-3" data-pk="{{ object.pk }}">
   <div class="row">
     {% if next %}
     <div class="col" style="padding:5px;">
@@ -17,8 +17,10 @@
       <div class="dropdown-menu" style="width:100%">
           <a class="dropdown-item copy_link pointer" data-link="/blog/{{ object.slug }}/">Копировать ссылку</a>
           {% if request.user.is_blog_manager %}
-            <span class="dropdown-item u_blog_edit">Изменить</span>
+          <span>
+            <span class="dropdown-item u_edit_blog">Изменить</span>
             <span class="dropdown-item u_blog_remove">Удалить</span>
+          </span>
           {% else %}
             <span class="dropdown-item claim_blog">Пожаловаться</span>
           {% endif %}

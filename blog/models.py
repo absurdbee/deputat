@@ -403,7 +403,7 @@ class ElectNew(models.Model):
         return new
 
     @classmethod
-    def create_manager_new(cls, creator, title, description, elect, attach, category, comments_enabled, votes_on):
+    def create_manager_new(cls, creator, title, description, elect, attach, category, comments_enabled, votes_on, tags):
         from elect.models import Elect
         from common.processing import get_elect_new_processing
         try:

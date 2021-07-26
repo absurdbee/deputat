@@ -499,7 +499,6 @@ on('body', 'click', '.doc_preview_delete', function() {
     remove_file_message_attach(); is_full_message_attach()
   }
   parent.remove();
-  try{ remove_file_dropdown(); is_full_dropdown()} catch { remove_file_attach(), is_full_attach()}
 });
 on('body', 'click', '.video_preview_delete', function() {
   parent = this.parentElement;

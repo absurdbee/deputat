@@ -106,15 +106,16 @@ function doc_preview_delete(){
 
 function create_preview_photo(img_src, photo_pk, uuid){
   $div = document.createElement("div");
-  $div.classList.add("u_photo_detail");
-  $div.setAttribute('photo-pk', photo_pk);
-  $div.setAttribute('data-uuid', uuid);
-  
+  $div.classList.add("row_item");
+
   $input = document.createElement("span");
   $input.innerHTML = '<input type="hidden" name="attach_items" value="pho' + photo_pk + '">';
   $img = document.createElement("img");
-  $img.classList.add("image_fit", "pointer");
+  $img.classList.add("u_photo_priview", "image_fit", "pointer");
   $img.setAttribute("src", img_src);
+  $img.setAttribute('photo-pk', photo_pk);
+  $img.setAttribute('data-uuid', uuid);
+
   $div.append(photo_preview_delete());
   $div.append($input);
   $div.append($img);

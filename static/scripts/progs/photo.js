@@ -86,6 +86,13 @@ on('body', 'click', '.u_photo_detail', function() {
   open_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", loader)
 });
 
+on('body', 'click', '.u_photo_preview', function() {
+  pk = this.getAttribute('photo-pk');
+  uuid = this.getAttribute('data-uuid');
+  loader = document.body.querySelector("#photo_loader");
+  open_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", loader)
+});
+
 on('body', 'click', '.next_photo', function(event) {
   event.preventDefault();
   this.style.display = "none";

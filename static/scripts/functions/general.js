@@ -492,7 +492,7 @@ on('body', 'click', '.doc_preview_delete', function() {
   parent = this.parentElement;
   block = parent.parentElement;
   if (block.classList.contains("attach_block")){
-    remove_file_attach(), is_full_attach()
+    remove_file_attach(); is_full_attach()
   } else if (block.classList.contains("comment_attach_block")){
     remove_file_dropdown(); is_full_dropdown()
   } else if (block.classList.contains("message_attach_block")){

@@ -27,7 +27,7 @@ def elect_new(user, elect_new):
         else:
             votes_on = 'style="display:none"'
         if user.is_supermanager():
-            card_drop += '<span class="dropdown-item u_close_elect_new">Закрыть</span><span class="dropdown-item u_edit_elect_new">Редактировать</span>'
+            card_drop += '<span class="dropdown-item u_elect_new_remove">Удалить</span><span class="dropdown-item u_edit_elect_new">Редактировать</span>'
         else:
             card_drop += '<span class="dropdown-item claim_elect_new">Пожаловаться</span>'
 

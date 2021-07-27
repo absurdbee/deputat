@@ -19,6 +19,9 @@ from autoslug import AutoSlugField
 
 
 class Blog(models.Model):
+    PUBLISHED, DELETED = 'PUB','_DEL'
+    TYPE = ((PUBLISHED, 'опубликована'),(DELETED, 'удалена'))
+
     title = models.CharField(max_length=255, verbose_name="Название")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="blog/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
@@ -28,6 +31,7 @@ class Blog(models.Model):
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
     slug = AutoSlugField(populate_from='title', null=True)
+    type = models.CharField(choices=TYPE, default=PUBLISHED, max_length=5, verbose_name="Статус записи")
 
     comment = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
@@ -44,6 +48,26 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+    def delete_item(self):
+        from notify.models import Notify, Wall
+
+        self.type = ElectNew.DELETED
+
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="BLO", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="BLO", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="BLO", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="BLO", object_id=self.pk, verb="ITE").update(status="C")
+    def restore_item(self):
+        from notify.models import Notify, Wall
+
+        self.type = ElectNew.PUBLISHED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="BLO", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="BLO", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="BLO", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="BLO", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_absolute_url(self):
         from django.urls import reverse

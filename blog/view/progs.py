@@ -187,6 +187,28 @@ class RestoreElectNew(View):
         else:
             raise Http404
 
+class DeleteBlog(View):
+	def get(self,request,*args,**kwargs):
+		from blog.models import Blog
+
+		blog = Blog.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax() and request.user.is_supermanager():
+			blog.delete_item()
+			return HttpResponse()
+		else:
+			raise Http404
+
+class RestoreElectNew(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import Blog
+
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and request.user.is_supermanager():
+            blog.restore_item()
+            return HttpResponse()
+        else:
+            raise Http404
+
 
 class BlogAddRepostCountVk(View):
     def get(self,request,*args,**kwargs):

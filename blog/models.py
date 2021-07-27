@@ -45,6 +45,10 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('blog_detail',kwargs={"slug":self.slug})
+
     @classmethod
     def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on):
         from notify.models import Wall
@@ -139,7 +143,7 @@ class Blog(models.Model):
         else:
             return ''
 
-    def reposts_count(self):
+    def count_reposts(self):
         if self.repost > 0:
             return self.repost
         else:
@@ -362,6 +366,10 @@ class ElectNew(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('elect_new_detail',kwargs={"pk":self.pk})
 
     def get_image(self):
         try:
@@ -595,8 +603,7 @@ class ElectNew(models.Model):
             return self.inert
         else:
             return ''
-
-    def reposts_count(self):
+    def count_reposts(self):
         if self.repost > 0:
             return self.repost
         else:

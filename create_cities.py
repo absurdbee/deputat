@@ -1,3 +1,5 @@
+https://telegram.me/share/url?url=<get_absolute_url>&text=<title>
+
 import sys,os
 import re
 import requests
@@ -380,6 +382,6 @@ def main():
                     region = Region.objects.get(name="Ярославская область")
                     City.objects.create(name=item.find_all('td')[0].text, region=region)
                     print("город " + item.find_all('td')[0].text + " Добавлен!")
-                
+
 if __name__ == '__main__':
     main()

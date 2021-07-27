@@ -480,21 +480,21 @@ on('body', 'click', '.blog_share_facebook', function() {
   share_link("/blog/progs/add_repost_count_blog_fb/" + this.parentElement.getAttribute("data-pk"), "https://www.facebook.com/sharer/sharer.php?u=" + this.parentElement.getAttribute("data-link"))
 })
 on('body', 'click', '.blog_share_twitter', function() {
-  share_link("/blog/progs/add_repost_count_blog_tw/" + this.parentElement.getAttribute("data-pk"), "https://twitter.com/share?url=" + this.parentElement.getAttribute("data-link"))
+  share_link("/blog/progs/add_repost_count_blog_tw/" + this.parentElement.getAttribute("data-pk"), "https://twitter.com/share?url=https://служународу.рус" + this.parentElement.getAttribute("data-link"))
 })
 on('body', 'click', '.blog_share_telegram', function() {
-  share_link("/blog/progs/add_repost_count_blog_tg/" + this.parentElement.getAttribute("data-pk"), "https://telegram.me/share/url?url=" + this.parentElement.getAttribute("data-link") + "&text=" + this.parentElement.getAttribute("data-title"))
+  share_link("/blog/progs/add_repost_count_blog_tg/" + this.parentElement.getAttribute("data-pk"), "https://telegram.me/share/url?url=https://служународу.рус" + this.parentElement.getAttribute("data-link") + "&text=" + this.parentElement.getAttribute("data-title"))
 })
 
 on('body', 'click', '.elect_new_share_vkontakte', function() {
-  share_link("/blog/progs/add_repost_count_elect_new_vk/" + this.parentElement.getAttribute("data-pk"), "http://vk.com/share.php?url=" + this.parentElement.getAttribute("data-link"))
+  share_link("/blog/progs/add_repost_count_elect_new_vk/" + this.parentElement.getAttribute("data-pk"), "http://vk.com/share.php?url=https://служународу.рус" + this.parentElement.getAttribute("data-link"))
 })
 on('body', 'click', '.elect_new_share_facebook', function() {
-  share_link("/blog/progs/add_repost_count_elect_new_fb/" + this.parentElement.getAttribute("data-pk"), "https://www.facebook.com/sharer/sharer.php?u=" + this.parentElement.getAttribute("data-link"))
+  share_link("/blog/progs/add_repost_count_elect_new_fb/" + this.parentElement.getAttribute("data-pk"), "https://www.facebook.com/sharer/sharer.php?u=https://служународу.рус" + this.parentElement.getAttribute("data-link"))
 })
 on('body', 'click', '.elect_new_share_twitter', function() {
-  share_link("/blog/progs/add_repost_count_elect_new_tw/" + this.parentElement.getAttribute("data-pk"), "https://twitter.com/share?url=" + this.parentElement.getAttribute("data-link"))
+  share_link("/blog/progs/add_repost_count_elect_new_tw/" + this.parentElement.getAttribute("data-pk"), "https://twitter.com/share?url=https://служународу.рус" + this.parentElement.getAttribute("data-link"))
 })
 on('body', 'click', '.elect_new_share_telegram', function() {
-  share_link("/blog/progs/add_repost_count_elect_new_tg/" + this.parentElement.getAttribute("data-pk"), "https://telegram.me/share/url?url=" + this.parentElement.getAttribute("data-link") + "&text=" + this.parentElement.getAttribute("data-title"))
+  share_link("/blog/progs/add_repost_count_elect_new_tg/" + this.parentElement.getAttribute("data-pk"), "https://telegram.me/share/url?url=https://служународу.рус" + this.parentElement.getAttribute("data-link") + "&text=" + this.parentElement.getAttribute("data-title"))
 })

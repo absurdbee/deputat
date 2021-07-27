@@ -65,15 +65,15 @@ def get_news():
     return Wall.objects.filter(query)
 
 def get_region_news(name):
-    # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
-    query = Q(object_set__isnull=True) & Q(options__icontains=name)
+    query = Q(type="BLO", verb="ITE")|Q(type="ELN", verb="ITE")
+    query.add(~Q(status="C"), Q.AND)
     return Wall.objects.filter(query, verb="ITE")
 
 
 def get_my_news(user):
     query = Q(creator_id__in=user.get_user_news_notify_ids())|\
             Q(creator_id__in=user.get_user_profile_notify_ids())
-    query.add(Q(user_set__isnull=True, object_set__isnull=True), Q.AND)
+    query.add(~Q(status="C"), Q.AND)
     return Wall.objects.filter(query, verb="ITE")
 
 def get_draft_news(user):

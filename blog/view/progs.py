@@ -202,7 +202,7 @@ class BlogAddRepostCount(View):
             blog.save(update_fields=["repost"])
             return response
         else:
-            pass
+            return HttpResponse()
 
 class ElectNewAddRepostCount(View):
     def get(self,request,*args,**kwargs):

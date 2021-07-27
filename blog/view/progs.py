@@ -170,7 +170,7 @@ class DeleteElectNew(View):
 		from blog.models import ElectNew
 
 		new = ElectNew.objects.get(pk=self.kwargs["pk"])
-		if request.is_ajax() and request.user.pk == new.creator.pk and (new.is_suggested() or new.is_rejected()):
+		if request.is_ajax() and request.user.pk == new.creator.pk and (new.is_suggested() or new.is_rejected() or request.user.is_supermanager()):
 			new.delete_item()
 			return HttpResponse()
 		else:

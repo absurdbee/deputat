@@ -35,9 +35,7 @@ function post_elect_new(_this, url, toast) {
     response = document.createElement("span");
     response.innerHTML = elem;
     close_default_window();
-    document.body.querySelector("#ajax").innerHTML = response.querySelector("#ajax").innerHTML;
-    init_music(document.body);
-    toast_info(toast)
+    toast_info("Активность создана!")
   }};
   link.send(form_data);
 };

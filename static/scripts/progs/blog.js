@@ -465,7 +465,7 @@ on('body', 'click', '.u_select_doc', function() {
 
 function share_link(url_ajax, url_share){
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', url_ajax + this.parentElement.getAttribute("data-pk") + "/", true );
+  link_.open( 'GET', url_ajax, true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {

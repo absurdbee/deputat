@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block title %}{{ object.name }}{% endblock %}
 {% load filters %}
+{% block meta %}
+<meta property="og:url" content="{% url 'elect_detail' pk=object.pk %}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ object.name }}" />
+<meta property="og:image" content="{{ object.image.url }}" />
+{% endblock %}
 {% block content %}
 
 <div class="content-body" data-pk="{{ object.pk }}">

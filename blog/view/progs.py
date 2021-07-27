@@ -198,7 +198,7 @@ class DeleteBlog(View):
 		else:
 			raise Http404
 
-class RestoreElectNew(View):
+class RestoreBlog(View):
     def get(self,request,*args,**kwargs):
         from blog.models import Blog
 

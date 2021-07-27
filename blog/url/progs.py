@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^edit_manager_elect_new/(?P<pk>\d+)/$', EditManagerElectNew.as_view()),
     url(r'^delete_elect_new/(?P<pk>\d+)/$', DeleteElectNew.as_view()),
     url(r'^restore_elect_new/(?P<pk>\d+)/$', RestoreElectNew.as_view()),
+    url(r'^a_r_c_b/(?P<pk>\d+)/$', BlogAddRepostCount.as_view()),
+    url(r'^a_r_c_el/(?P<pk>\d+)/$', ElectNewAddRepostCount.as_view()),
 ]

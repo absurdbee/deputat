@@ -186,3 +186,36 @@ class RestoreElectNew(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class BlogAddRepostCount(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import Blog
+
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and not ("blog_repost" + blog.slug) in request.COOKIES:
+            from django.shortcuts import redirect
+
+            response = redirect('blog_detail', slug=blog.slug)
+            response.set_cookie("blog_repost" + blog.slug, "blog_repost" + blog.slug)
+            blog.repost += 1
+            blog.save(update_fields=["repost"])
+            return response
+        else:
+            pass
+
+class ElectNewAddRepostCount(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import ElectNew
+
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and not ("new_repost" + new.pk) in request.COOKIES:
+            from django.shortcuts import redirect
+
+            response = redirect('elect_new_detail', pk=new.pk)
+            response.set_cookie("new_repost" + new.pk, "new_repost" + new.slug)
+            pk.repost += 1
+            pk.save(update_fields=["repost"])
+            return response
+        else:
+            pass

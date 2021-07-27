@@ -92,12 +92,12 @@
                                                 </svg>
                                                 <span class="repost_count margin_right_5">{{ object.count_reposts }}</span>
                                               </span>
-                                              <div class="dropdown-menu" style="top: -197px;">
+                                              <div class="dropdown-menu" style="top: -208px;" data-link="{% url 'blog_detail' slug=object.slug %}" data-title="{{ object.title }}">
                                                 <span class="dropdown-item underline" style="font-weight:bold;cursor:unset">Поделиться</span>
-                                                <span class="dropdown-item share_link vkontakte">VKontakte</span>
-                                                <span class="dropdown-item share_link facebook">Facebook</span>
-                                                <span class="dropdown-item share_link twitter">Twitter</span>
-                                                <span class="dropdown-item share_link telegram">Telegram</span>
+                                                <span class="dropdown-item blog_share_link vkontakte">VKontakte</span>
+                                                <span class="dropdown-item blog_share_link facebook">Facebook</span>
+                                                <span class="dropdown-item blog_share_link twitter">Twitter</span>
+                                                <span class="dropdown-item blog_share_link telegram">Telegram</span>
                                               </div>
                                             </span>
 

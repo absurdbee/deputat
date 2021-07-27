@@ -474,7 +474,7 @@ on('body', 'click', '.blog_share_link', function() {
     url = "https://telegram.me/share/url?url=" + this.parentElement.getAttribute("data-link") + "&text=" + this.parentElement.getAttribute("data-title");
   };
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/blog/progs/a_r_c_b/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement + "/", true );
+  link_.open( 'GET', "/blog/progs/a_r_c_b/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

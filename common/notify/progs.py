@@ -65,7 +65,7 @@ def get_news():
     return Wall.objects.filter(query)
 
 def get_region_news(name):
-    query = Q(type="BLO", verb="ITE")|Q(type="ELN", verb="ITE")
+    query = Q(type="BLO", verb="ITE", options__icontains=name)|Q(type="ELN", verb="ITE", options__icontains=name)
     query.add(~Q(status="C"), Q.AND)
     return Wall.objects.filter(query, verb="ITE")
 

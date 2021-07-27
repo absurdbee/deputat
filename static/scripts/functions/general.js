@@ -437,6 +437,39 @@ function mob_send_change(span, _link, new_class, html) {
     link.send(null)
 }
 
+function mob_send_change(span, _link, new_class, html) {
+    parent = span.parentElement;
+    item = span.parentElement.parentElement.parentElement.parentElement.parentElement;
+    item.getAttribute("data-uuid") ? uuid = item.getAttribute("data-uuid") : uuid = item.getAttribute("good-pk"); link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    link.open('GET', _link + uuid + "/", true);
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function() {
+        if (link.readyState == 4 && link.status == 200) {
+            new_span = document.createElement("span");
+            new_span.classList.add(new_class, "dropdown-item");
+            new_span.innerHTML = html;
+            parent.innerHTML = "";
+            parent.append(new_span)
+        }
+    };
+    link.send(null)
+}
+
+function post_send_change(parent, new_class, html) {
+    link.open('GET', _link + parent.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", true);
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function() {
+        if (link.readyState == 4 && link.status == 200) {
+            new_span = document.createElement("span");
+            new_span.classList.add(new_class, "dropdown-item");
+            new_span.innerHTML = html;
+            parent.innerHTML = "";
+            parent.append(new_span)
+        }
+    };
+    link.send(null)
+}
+
 function open_load_fullscreen(link, block) {
     link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     link_.open('GET', link, true);

@@ -40,6 +40,19 @@ function post_elect_new(_this, url, toast) {
   link.send(form_data);
 };
 
+on('body', 'click', '.u_elect_new_remove', function() {
+  post_send_change(this.parentElement, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");
+})
+on('body', 'click', '.u_elect_new_restore', function() {
+  post_send_change(this.parentElement, "/blog/progs/restore_elect_new/", "u_elect_new_restore", "Удалить");
+})
+on('body', 'click', '.u_blog_remove', function() {
+  post_send_change(this.parentElement, "/blog/progs/delete_blog/", "u_blog_restore", "Отмена");
+})
+on('body', 'click', '.u_blog_restore', function() {
+  post_send_change(this.parentElement, "/blog/progs/restore_blog/", "u_blog_restore", "Удалить");
+})
+
 on('body', 'click', '.u_edit_blog', function() {
   loader = document.body.querySelector("#window_loader");
   open_fullscreen("/blog/progs/edit_blog/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)

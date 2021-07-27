@@ -10,6 +10,14 @@ urlpatterns = [
     url(r'^edit_manager_elect_new/(?P<pk>\d+)/$', EditManagerElectNew.as_view()),
     url(r'^delete_elect_new/(?P<pk>\d+)/$', DeleteElectNew.as_view()),
     url(r'^restore_elect_new/(?P<pk>\d+)/$', RestoreElectNew.as_view()),
-    url(r'^a_r_c_b/(?P<pk>\d+)/$', BlogAddRepostCount.as_view()),
-    url(r'^a_r_c_el/(?P<pk>\d+)/$', ElectNewAddRepostCount.as_view()),
+
+    url(r'^add_repost_count_blog_vk/(?P<pk>\d+)/$', BlogAddRepostCountVk.as_view()),
+    url(r'^add_repost_count_blog_fb/(?P<pk>\d+)/$', BlogAddRepostCountFb.as_view()),
+    url(r'^add_repost_count_blog_tg/(?P<pk>\d+)/$', BlogAddRepostCountTg.as_view()),
+    url(r'^add_repost_count_blog_tw/(?P<pk>\d+)/$', BlogAddRepostCountTw.as_view()),
+
+    url(r'^add_repost_count_elect_new_vk/(?P<pk>\d+)/$', ElectNewAddRepostCountVk.as_view()),
+    url(r'^add_repost_count_elect_new_fb/(?P<pk>\d+)/$', ElectNewAddRepostCountFb.as_view()),
+    url(r'^add_repost_count_elect_new_tg/(?P<pk>\d+)/$', ElectNewAddRepostCountTg.as_view()),
+    url(r'^add_repost_count_elect_new_tw/(?P<pk>\d+)/$', ElectNewAddRepostCountTw.as_view()),
 ]

@@ -463,23 +463,38 @@ on('body', 'click', '.u_select_doc', function() {
 });
 
 
-on('body', 'click', '.blog_share_link', function() {
-  if (this.classList.contains("vkontakte")) {
-    url = "http://vk.com/share.php?url=" + this.parentElement.getAttribute("data-link");
-  } else if (this.classList.contains("facebook")) {
-    url = "https://www.facebook.com/sharer/sharer.php?u=" + this.parentElement.getAttribute("data-link");
-  } else if (this.classList.contains("twitter")) {
-    url = "https://twitter.com/share?url=" + this.parentElement.getAttribute("data-link");
-  } else if (this.classList.contains("telegram")) {
-    url = "https://telegram.me/share/url?url=" + this.parentElement.getAttribute("data-link") + "&text=" + this.parentElement.getAttribute("data-title");
-  };
+function share_link(url_ajax, url_share){
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/blog/progs/a_r_c_b/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", true );
+  link_.open( 'GET', url_ajax + this.parentElement.getAttribute("data-pk") + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;
+    window.open(url_share, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;
   }}
   link_.send();
+}
+on('body', 'click', '.blog_share_vkontakte', function() {
+  share_link("/blog/progs/add_repost_count_blog_vk/" + this.parentElement.getAttribute("data-pk"), "http://vk.com/share.php?url=" + this.parentElement.getAttribute("data-link"))
+})
+on('body', 'click', '.blog_share_facebook', function() {
+  share_link("/blog/progs/add_repost_count_blog_fb/" + this.parentElement.getAttribute("data-pk"), "https://www.facebook.com/sharer/sharer.php?u=" + this.parentElement.getAttribute("data-link"))
+})
+on('body', 'click', '.blog_share_twitter', function() {
+  share_link("/blog/progs/add_repost_count_blog_tw/" + this.parentElement.getAttribute("data-pk"), "https://twitter.com/share?url=" + this.parentElement.getAttribute("data-link"))
+})
+on('body', 'click', '.blog_share_telegram', function() {
+  share_link("/blog/progs/add_repost_count_blog_tg/" + this.parentElement.getAttribute("data-pk"), "https://telegram.me/share/url?url=" + this.parentElement.getAttribute("data-link") + "&text=" + this.parentElement.getAttribute("data-title"))
+})
+
+on('body', 'click', '.elect_new_share_vkontakte', function() {
+  share_link("/blog/progs/add_repost_count_elect_new_vk/" + this.parentElement.getAttribute("data-pk"), "http://vk.com/share.php?url=" + this.parentElement.getAttribute("data-link"))
+})
+on('body', 'click', '.elect_new_share_facebook', function() {
+  share_link("/blog/progs/add_repost_count_elect_new_fb/" + this.parentElement.getAttribute("data-pk"), "https://www.facebook.com/sharer/sharer.php?u=" + this.parentElement.getAttribute("data-link"))
+})
+on('body', 'click', '.elect_new_share_twitter', function() {
+  share_link("/blog/progs/add_repost_count_elect_new_tw/" + this.parentElement.getAttribute("data-pk"), "https://twitter.com/share?url=" + this.parentElement.getAttribute("data-link"))
+})
+on('body', 'click', '.elect_new_share_telegram', function() {
+  share_link("/blog/progs/add_repost_count_elect_new_tg/" + this.parentElement.getAttribute("data-pk"), "https://telegram.me/share/url?url=" + this.parentElement.getAttribute("data-link") + "&text=" + this.parentElement.getAttribute("data-title"))
 })

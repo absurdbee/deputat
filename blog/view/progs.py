@@ -188,32 +188,123 @@ class RestoreElectNew(View):
             raise Http404
 
 
-class BlogAddRepostCount(View):
+class BlogAddRepostCountVk(View):
     def get(self,request,*args,**kwargs):
         from blog.models import Blog
 
         blog = Blog.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and not ("blog_repost" + blog.slug) in request.COOKIES:
+        if request.is_ajax() and not ("blog_repost_vk_" + blog.slug) in request.COOKIES:
             from django.shortcuts import redirect
 
             response = redirect('blog_detail', slug=blog.slug)
-            response.set_cookie("blog_repost" + blog.slug, "blog_repost" + blog.slug)
+            response.set_cookie("blog_repost_vk_" + blog.slug, "blog_repost_vk_" + blog.slug)
+            blog.repost += 1
+            blog.save(update_fields=["repost"])
+            return response
+        else:
+            return HttpResponse()
+class BlogAddRepostCountFb(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import Blog
+
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and not ("blog_repost_fb_" + blog.slug) in request.COOKIES:
+            from django.shortcuts import redirect
+
+            response = redirect('blog_detail', slug=blog.slug)
+            response.set_cookie("blog_repost_fb_" + blog.slug, "blog_repost_fb_" + blog.slug)
+            blog.repost += 1
+            blog.save(update_fields=["repost"])
+            return response
+        else:
+            return HttpResponse()
+class BlogAddRepostCountTw(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import Blog
+
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and not ("blog_repost_tw_" + blog.slug) in request.COOKIES:
+            from django.shortcuts import redirect
+
+            response = redirect('blog_detail', slug=blog.slug)
+            response.set_cookie("blog_repost_tw_" + blog.slug, "blog_repost_tw_" + blog.slug)
+            blog.repost += 1
+            blog.save(update_fields=["repost"])
+            return response
+        else:
+            return HttpResponse()
+class BlogAddRepostCountTg(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import Blog
+
+        blog = Blog.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and not ("blog_repost_tg_" + blog.slug) in request.COOKIES:
+            from django.shortcuts import redirect
+
+            response = redirect('blog_detail', slug=blog.slug)
+            response.set_cookie("blog_repost_tg_" + blog.slug, "blog_repost_tg_" + blog.slug)
             blog.repost += 1
             blog.save(update_fields=["repost"])
             return response
         else:
             return HttpResponse()
 
-class ElectNewAddRepostCount(View):
+
+class ElectNewAddRepostCountVk(View):
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
 
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and not ("new_repost" + new.pk) in request.COOKIES:
+        if request.is_ajax() and not ("new_repost_vk_" + new.pk) in request.COOKIES:
             from django.shortcuts import redirect
 
             response = redirect('elect_new_detail', pk=new.pk)
-            response.set_cookie("new_repost" + new.pk, "new_repost" + new.slug)
+            response.set_cookie("new_repost_vk_" + new.pk, "new_repost_vk_" + new.slug)
+            pk.repost += 1
+            pk.save(update_fields=["repost"])
+            return response
+        else:
+            pass
+class ElectNewAddRepostCountFb(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import ElectNew
+
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and not ("new_repost_fb_" + new.pk) in request.COOKIES:
+            from django.shortcuts import redirect
+
+            response = redirect('elect_new_detail', pk=new.pk)
+            response.set_cookie("new_repost_fb_" + new.pk, "new_repost_fb_" + new.slug)
+            pk.repost += 1
+            pk.save(update_fields=["repost"])
+            return response
+        else:
+            pass
+class ElectNewAddRepostCountTg(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import ElectNew
+
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and not ("new_repost_tg_" + new.pk) in request.COOKIES:
+            from django.shortcuts import redirect
+
+            response = redirect('elect_new_detail', pk=new.pk)
+            response.set_cookie("new_repost_tg_" + new.pk, "new_repost_tg_" + new.slug)
+            pk.repost += 1
+            pk.save(update_fields=["repost"])
+            return response
+        else:
+            pass
+class ElectNewAddRepostCountTw(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import ElectNew
+
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and not ("new_repost_tw_" + new.pk) in request.COOKIES:
+            from django.shortcuts import redirect
+
+            response = redirect('elect_new_detail', pk=new.pk)
+            response.set_cookie("new_repost_tw_" + new.pk, "new_repost_tw_" + new.slug)
             pk.repost += 1
             pk.save(update_fields=["repost"])
             return response

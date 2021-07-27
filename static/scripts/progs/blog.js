@@ -480,6 +480,6 @@ on('body', 'click', '.blog_share_link', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;
-  }
+  }}
   link_.send(form_data);
 })

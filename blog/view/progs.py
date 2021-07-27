@@ -260,8 +260,8 @@ class ElectNewAddRepostCountVk(View):
 
             response = redirect('elect_new_detail', pk=new.pk)
             response.set_cookie("new_repost_vk_" + str(new.pk), "new_repost_vk_" + str(new.pk))
-            pk.repost += 1
-            pk.save(update_fields=["repost"])
+            new.repost += 1
+            new.save(update_fields=["repost"])
             return response
         else:
             pass
@@ -275,8 +275,8 @@ class ElectNewAddRepostCountFb(View):
 
             response = redirect('elect_new_detail', pk=new.pk)
             response.set_cookie("new_repost_fb_" + str(new.pk), "new_repost_fb_" + str(new.pk))
-            pk.repost += 1
-            pk.save(update_fields=["repost"])
+            new.repost += 1
+            new.save(update_fields=["repost"])
             return response
         else:
             pass
@@ -290,8 +290,8 @@ class ElectNewAddRepostCountTg(View):
 
             response = redirect('elect_new_detail', pk=new.pk)
             response.set_cookie("new_repost_tg_" + str(new.pk), "new_repost_tg_" + str(new.pk))
-            pk.repost += 1
-            pk.save(update_fields=["repost"])
+            new.repost += 1
+            new.save(update_fields=["repost"])
             return response
         else:
             pass
@@ -305,8 +305,8 @@ class ElectNewAddRepostCountTw(View):
 
             response = redirect('elect_new_detail', pk=new.pk)
             response.set_cookie("new_repost_tw_" + str(new.pk), "new_repost_tw_" + str(new.pk))
-            pk.repost += 1
-            pk.save(update_fields=["repost"])
+            new.repost += 1
+            new.save(update_fields=["repost"])
             return response
         else:
             pass

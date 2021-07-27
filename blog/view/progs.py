@@ -255,11 +255,11 @@ class ElectNewAddRepostCountVk(View):
         from blog.models import ElectNew
 
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and not ("new_repost_vk_" + new.pk) in request.COOKIES:
+        if request.is_ajax() and not ("new_repost_vk_" + str(new.pk)) in request.COOKIES:
             from django.shortcuts import redirect
 
             response = redirect('elect_new_detail', pk=new.pk)
-            response.set_cookie("new_repost_vk_" + new.pk, "new_repost_vk_" + new.slug)
+            response.set_cookie("new_repost_vk_" + str(new.pk), "new_repost_vk_" + str(new.pk))
             pk.repost += 1
             pk.save(update_fields=["repost"])
             return response
@@ -270,11 +270,11 @@ class ElectNewAddRepostCountFb(View):
         from blog.models import ElectNew
 
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and not ("new_repost_fb_" + new.pk) in request.COOKIES:
+        if request.is_ajax() and not ("new_repost_fb_" + str(new.pk)) in request.COOKIES:
             from django.shortcuts import redirect
 
             response = redirect('elect_new_detail', pk=new.pk)
-            response.set_cookie("new_repost_fb_" + new.pk, "new_repost_fb_" + new.slug)
+            response.set_cookie("new_repost_fb_" + str(new.pk), "new_repost_fb_" + str(new.pk))
             pk.repost += 1
             pk.save(update_fields=["repost"])
             return response
@@ -285,11 +285,11 @@ class ElectNewAddRepostCountTg(View):
         from blog.models import ElectNew
 
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and not ("new_repost_tg_" + new.pk) in request.COOKIES:
+        if request.is_ajax() and not ("new_repost_tg_" + str(new.pk)) in request.COOKIES:
             from django.shortcuts import redirect
 
             response = redirect('elect_new_detail', pk=new.pk)
-            response.set_cookie("new_repost_tg_" + new.pk, "new_repost_tg_" + new.slug)
+            response.set_cookie("new_repost_tg_" + str(new.pk), "new_repost_tg_" + str(new.pk))
             pk.repost += 1
             pk.save(update_fields=["repost"])
             return response
@@ -300,11 +300,11 @@ class ElectNewAddRepostCountTw(View):
         from blog.models import ElectNew
 
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and not ("new_repost_tw_" + new.pk) in request.COOKIES:
+        if request.is_ajax() and not ("new_repost_tw_" + str(new.pk)) in request.COOKIES:
             from django.shortcuts import redirect
 
             response = redirect('elect_new_detail', pk=new.pk)
-            response.set_cookie("new_repost_tw_" + new.pk, "new_repost_tw_" + new.slug)
+            response.set_cookie("new_repost_tw_" + str(new.pk), "new_repost_tw_" + str(new.pk))
             pk.repost += 1
             pk.save(update_fields=["repost"])
             return response

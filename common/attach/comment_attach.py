@@ -338,7 +338,7 @@ def get_blog_comment_edit(comment, user):
             try:
                 from music.models import Music
                 track = Music.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="border" style="position:relative; width:100%; padding:10px;padding-right:35px;margin-bottom:7px"><span class="music_preview_delete" tooltip="Не прикреплять" flow="up"><svg fill="#FF0000" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span><input type="hidden" name="attach_items" value="mus', str(track.pk), '"><div class="media-body music_media_body" style="lihe-heigh:7px"><span class="title">', track.title, '</span><audio class="audio_player"><source src="', track.file.url, '" type="audio/mp3" /></audio></div></div>'])
+                block = ''.join([block, '<div class="border" style="position:relative; width:100%; padding:10px;padding-right:35px;margin-bottom:7px"><span class="music_preview_delete" tooltip="Не прикреплять" flow="up"><svg fill="#FF0000" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span><input type="hidden" name="attach_items" value="mus', str(track.pk), '"><div class="media-body music_media_body" style="lihe-height:7px"><span class="title">', track.title, '</span><audio class="audio_player"><source src="', track.file.url, '" type="audio/mp3" /></audio></div></div>'])
             except:
                 pass
         elif item[:3] == "doc":

@@ -977,7 +977,7 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   font-family : 'Montserrat', Helvetica, Arial, serif;
   -webkit-transition : 300ms ease all, background 0s;
           transition : 300ms ease all, background 0s;
-  z-index : 997;
+  z-index : 10;
 }
 
 .header-navbar.fixed-top {

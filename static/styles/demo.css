@@ -602,6 +602,9 @@ select {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 }
 .big_mobile_element {
@@ -1177,10 +1180,7 @@ color: #FFD600;
   width: 125px;
 }
 .subscribe_img_div {
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
     -ms-flex-pack: center;
-    justify-content: center;
     -webkit-box-align: center;
     -webkit-align-items: center;
     -ms-flex-align: center;

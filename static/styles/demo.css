@@ -3,6 +3,9 @@
   border: 1px solid #41cd52;
   width: fit-content;
 }
+.add_elect_subscribe {
+  width: fit-content;
+}
 
 .remove_elect_subscribe:hover, .remove_elect_subscribe:active {
   color: #FFFFFF;

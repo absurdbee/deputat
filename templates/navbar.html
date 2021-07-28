@@ -1,4 +1,4 @@
-<nav class="header-navbar navbar navbar-expand-lg align-items-center navbar-light">
+<nav class="header-navbar navbar navbar-expand-lg align-items-center">
     <div class="navbar-container d-flex content">
         <div class="bookmark-wrapper d-flex align-items-center">
             <ul class="nav navbar-nav d-xl-none">
@@ -11,10 +11,17 @@
             {% if request.user.is_authenticated %}
             <ul class="nav navbar-nav bookmark-icons">
                 <li class="nav-item d-none d-lg-block">
-                  <button class="btn btn-outline-primary btn-sm u_suggested_elect_new_create" style="color: #FFFFFF;border-color: #FFFFFF;">Предложить новость</button>
+                  <button class="btn btn-outline-primary btn-sm u_suggested_elect_new_create">Предложить новость</button>
+                </li>
+                <li class="nav-item d-none d-lg-block">
+                  <div class="search-input open">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  </div>
+                  <input class="form-control input" type="text" placeholder="Поиск..." tabindex="-1">
                 </li>
             </ul>
             {% endif %}
+
         </div>
         <ul class="nav navbar-nav align-items-center ml-auto">
 
@@ -45,7 +52,7 @@
               </a>
             </li>
             {% endif %}
-            <li class="nav-item d-none d-lg-block" tooltip="Избранное" flow="down">
+            <li class="nav-item d-none d-lg-block" style="opacity:0.7">
               <a class="nav-link">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star ficon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
               </a>

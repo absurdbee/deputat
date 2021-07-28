@@ -434,6 +434,9 @@ a {
   padding:5px;
   position: relative;
 }
+.nav-search {
+  display:block
+}
 .input-group-prepend select {
   height: 35px;
   padding: 0;
@@ -574,6 +577,9 @@ select {
   }
   .image_fit_small {
     height: 180px;
+}
+.nav-search {
+  display:none
 }
 }
 .big_mobile_element {

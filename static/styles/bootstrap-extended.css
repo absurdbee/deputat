@@ -1180,7 +1180,6 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
 }
 
 .header-navbar .navbar-container ul.navbar-nav li > a.nav-link {
-  color : #D0D2D6;
   padding : 0 0.5rem;
   position : relative;
 }
@@ -1257,11 +1256,10 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   height : 1.5rem;
   width : 1.5rem;
   font-size : 1.5rem;
-  color: #D0D2D6
 }
 
 .header-navbar .navbar-container ul.navbar-nav li i.ficon:hover, .header-navbar .navbar-container ul.navbar-nav li svg.ficon:hover {
-  color : #FFFFFF;
+  color : black;
 }
 
 .header-navbar .navbar-container ul.navbar-nav li .media-list {

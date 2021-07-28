@@ -1191,7 +1191,7 @@ color: #FFD600;
 .subscribe_card {
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 0.5fr 2fr 1fr;
 }
 .subscribe_body {
   padding: 1.5rem 1rem;

@@ -7,6 +7,10 @@
   width: fit-content;
 }
 
+.menu-title {
+  font-weight: bold;
+  font-size: 85%;
+}
 .remove_elect_subscribe:hover, .remove_elect_subscribe:active {
   color: #FFFFFF;
   border: 1px solid #FFFFFF;

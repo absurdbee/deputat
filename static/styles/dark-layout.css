@@ -410,7 +410,7 @@ body.dark-layout {
 }
 
 .dark-layout .btn-group-toggle label[class*='btn-outline-'] {
-  color : #7367F0 !important;
+  color : #3176c1 !important;
 }
 
 .dark-layout .dropdown-menu {
@@ -433,7 +433,7 @@ body.dark-layout {
 
 .dark-layout .dropdown-menu .dropdown-item:active, .dark-layout .dropdown-menu .dropdown-item.active {
   color : #FFFFFF;
-  background-color : #7367F0;
+  background-color : #3176c1;
 }
 
 .dark-layout .dropdown-menu .dropdown-item.disabled, .dark-layout .dropdown-menu .dropdown-item:disabled {
@@ -450,7 +450,7 @@ body.dark-layout {
 
 .dark-layout .nav-tabs .nav-item .nav-link.active, .dark-layout .nav-pills .nav-item .nav-link.active, .dark-layout .nav-tabs.nav-justified .nav-item .nav-link.active {
   background-color : #283046;
-  color : #7367F0;
+  color : #3176c1;
 }
 
 .dark-layout .nav-tabs .nav-item .nav-link.disabled, .dark-layout .nav-pills .nav-item .nav-link.disabled, .dark-layout .nav-tabs.nav-justified .nav-item .nav-link.disabled {
@@ -463,7 +463,7 @@ body.dark-layout {
 
 .dark-layout .nav-pills .nav-item .nav-link.active {
   color : #FFFFFF;
-  background-color : #7367F0;
+  background-color : #3176c1;
 }
 
 .dark-layout .media-bordered .media:not(:first-child) {
@@ -481,7 +481,7 @@ body.dark-layout {
 }
 
 .dark-layout .list-group .list-group-item:not([class*='list-group-item-']).active, .dark-layout .list-group .list-group-item:not([class*='list-group-item-']):active, .dark-layout .list-group .list-group-item.list-group-item-action.active, .dark-layout .list-group .list-group-item.list-group-item-action:active {
-  background-color : #7367F0;
+  background-color : #3176c1;
   color : #FFFFFF;
 }
 
@@ -707,7 +707,7 @@ body.dark-layout {
 }
 
 .dark-layout .input-group:focus-within .form-control, .dark-layout .input-group:focus-within .input-group-text {
-  border-color : #7367F0;
+  border-color : #3176c1;
   box-shadow : none;
 }
 
@@ -823,7 +823,7 @@ body.dark-layout {
 }
 
 .dark-layout .dataTables_wrapper .dt-buttons .buttons-copy:active, .dark-layout .dataTables_wrapper .dt-buttons .buttons-excel:active, .dark-layout .dataTables_wrapper .dt-buttons .buttons-pdf:active, .dark-layout .dataTables_wrapper .dt-buttons .buttons-print:active, .dark-layout .dataTables_wrapper .dt-buttons .btn-secondary:active, .dark-layout .dataTables_wrapper .dt-buttons [class*='buttons-']:active {
-  background-color : #7367F0 !important;
+  background-color : #3176c1 !important;
   color : #FFFFFF;
 }
 
@@ -920,7 +920,7 @@ body.dark-layout {
 }
 
 .dark-layout .aggrid ::-webkit-scrollbar-thumb, .dark-layout .ag-header ::-webkit-scrollbar-thumb {
-  background : #7367F0;
+  background : #3176c1;
 }
 
 .dark-layout .getting-started .clockCard p {
@@ -1436,7 +1436,7 @@ body.dark-layout {
 }
 
 .dark-layout .app-user-view .plan-card {
-  border-color : #7367F0 !important;
+  border-color : #3176c1 !important;
 }
 
 .dark-layout .app-user-edit .form-control.error {
@@ -1519,7 +1519,7 @@ body.dark-layout {
 }
 
 .dark-layout.horizontal-layout .main-menu-content .navbar-nav > li.active .dropdown-menu li.active > a:hover {
-  color : #7367F0 !important;
+  color : #3176c1 !important;
 }
 
 .dark-layout.horizontal-layout .main-menu-content .navbar-nav > li.active .dropdown-menu li.open.active > a {

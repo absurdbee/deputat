@@ -87,7 +87,7 @@
 }
 
 .bold_underline {
-  color:#7367F0 !important;
+  color:#3176c1 !important;
   font-weight:bold;
   text-decoration:underline
 }
@@ -147,7 +147,7 @@
 }
 .badge.badge-light-primary {
     background-color: rgba(115, 103, 240, 0.12);
-    color: #7367F0 !important;
+    color: #3176c1 !important;
 }
 .badge.badge-light-secondary {
     background-color: rgba(130, 134, 139, 0.12);

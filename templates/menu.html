@@ -86,7 +86,7 @@
               {% for object in federal_elect_list %}
                 <li style="font-size: 80%;">
                   <a class="d-flex align-items-center ajax" href="{% url 'authority_index' slug=object.slug %}">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>
+                    <svg height="14px" viewBox="0 0 24 24" width="14px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/></svg>
                     <span class="menu-item">{{ object.name }}</span>
                   </a>
                 </li>

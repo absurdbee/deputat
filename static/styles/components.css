@@ -933,7 +933,7 @@ footer.footer-border {
 }
 
 .main-menu .navbar-header .navbar-brand .brand-logo svg {
-  width: auto;
+  width: 100%;
   height: 60px;
 }
 

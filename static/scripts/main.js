@@ -227,7 +227,19 @@ on('body', 'click', '.nav-link-search', function() {
   this.nextElementSibling.classList.add("open");
 });
 on('body', 'click', '.a_has_sub', function() {
-  this.parentElement.classList.contains("open") ? this.parentElement.classList.remove("open") : this.parentElement.classList.add("open")
+	if (this.parentElement.classList.contains("open")) {
+		this.parentElement.classList.remove("open");
+		if (this.querySelector("svg")) {
+			svg = this.querySelector("svg");
+			svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/>'
+		}
+	} else {
+		this.parentElement.classList.add("open");
+		if (this.querySelector("svg")) {
+			svg = this.querySelector("svg");
+			svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/>'
+		}
+	}
 });
 
 on('body', 'click', '.search-input-close', function() {

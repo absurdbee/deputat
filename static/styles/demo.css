@@ -598,13 +598,7 @@ select {
   display:none
 }
 .subscribe_img_div {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+
 }
 }
 .big_mobile_element {
@@ -1186,6 +1180,13 @@ color: #FFD600;
     -ms-flex-align: center;
     align-items: center;
     height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
 }
 .subscribe_card {
   overflow: hidden;

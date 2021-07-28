@@ -915,7 +915,7 @@ footer.footer-border {
   width : 260px;
   height : 4.45rem;
   position : relative;
-  padding : 0.35rem 1rem 0.3rem 1.64rem;
+  padding : 1.64rem 1rem 0.3rem 1.64rem;
   -webkit-transition : 300ms ease all, background 0s;
           transition : 300ms ease all, background 0s;
 }

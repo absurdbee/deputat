@@ -572,10 +572,6 @@ footer.footer-border {
           transform : translateX(5px);
 }
 
-.main-menu.menu-light .navigation > li > a {
-  margin : 0 15px;
-}
-
 .main-menu.menu-light .navigation > li > a .label {
   margin-top : 4px;
   margin-right : 5px;
@@ -587,7 +583,7 @@ footer.footer-border {
 }
 
 .main-menu.menu-light .navigation > li > ul li:first-of-type {
-  margin-top : 7px !important;
+  margin-top : -5px !important;
 }
 
 .main-menu.menu-light .navigation > li > ul li:not(.has-sub) {

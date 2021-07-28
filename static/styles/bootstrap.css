@@ -1,9 +1,4 @@
-/*!
- * Bootstrap v4.5.3 (https://getbootstrap.com/)
- * Copyright 2011-2020 The Bootstrap Authors
- * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+
 :root {
   --blue : #00CFE8;
   --indigo : #6610F2;
@@ -48,6 +43,13 @@ html {
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display : block;
+}
+@font-face {
+	font-family: 'Montserrat';
+	src:url('/static/fonts/Montserrat-Medium.ttf');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 body {

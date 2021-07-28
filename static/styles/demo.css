@@ -1000,7 +1000,6 @@ color: #42A5F5;
 }
 
 .warning {
-/*background-color: #FFFDE7;*/
 color: #ffffff !important;
 background-image: -moz-linear-gradient(45deg, #ff7800 0%, #f5a811 100%) !important;
 background-image: -webkit-linear-gradient(45deg, #ff7800 0%, #f5a811 100%) !important;
@@ -1018,16 +1017,14 @@ background-color: #FFD600;
 color: #FFD600;
 }
 
-
 [tooltip] {
-  position: relative; /* opinion 1 */
+  position: relative;
 }
 
-/* Applies to all tooltips */
 [tooltip]::before,
 [tooltip]::after {
-  text-transform: none; /* opinion 2 */
-  font-size: .9em; /* opinion 3 */
+  text-transform: none;
+  font-size: .9em;
   line-height: 1;
   user-select: none;
   pointer-events: none;
@@ -1037,20 +1034,12 @@ color: #FFD600;
 }
 [tooltip]::before {
   content: '';
-  border: 5px solid transparent; /* opinion 4 */
-  z-index: 1001; /* absurdity 1 */
+  border: 5px solid transparent;
+  z-index: 1001;
 }
 [tooltip]::after {
-  content: attr(tooltip); /* magic! */
-
-  /* most of the rest of this is opinion */
-  font-family: Helvetica, sans-serif;
+  content: attr(tooltip);
   text-align: center;
-
-  /*
-    Let the content set the size of the tooltips
-    but this will also keep them from being obnoxious
-    */
   min-width: 3em;
   max-width: 21em;
   white-space: nowrap;
@@ -1061,22 +1050,19 @@ color: #FFD600;
   box-shadow: 0 1em 2em -.5em rgba(0, 0, 0, 0.35);
   background: #333;
   color: #fff;
-  z-index: 1000; /* absurdity 2 */
+  z-index: 1000;
 }
 
-/* Make the tooltips respond to hover */
 [tooltip]:hover::before,
 [tooltip]:hover::after {
   display: block;
 }
 
-/* don't show empty tooltips */
 [tooltip='']::before,
 [tooltip='']::after {
   display: none !important;
 }
 
-/* FLOW: UP */
 [tooltip]:not([flow])::before,
 [tooltip][flow^="up"]::before {
   bottom: 100%;
@@ -1095,7 +1081,6 @@ color: #FFD600;
   transform: translate(-50%, -.5em);
 }
 
-/* FLOW: DOWN */
 [tooltip][flow^="down"]::before {
   top: 100%;
   border-top-width: 0;
@@ -1110,7 +1095,6 @@ color: #FFD600;
   transform: translate(-50%, .5em);
 }
 
-/* FLOW: LEFT */
 [tooltip][flow^="left"]::before {
   top: 50%;
   border-right-width: 0;
@@ -1124,7 +1108,6 @@ color: #FFD600;
   transform: translate(-.5em, -50%);
 }
 
-/* FLOW: RIGHT */
 [tooltip][flow^="right"]::before {
   top: 50%;
   border-left-width: 0;
@@ -1138,7 +1121,6 @@ color: #FFD600;
   transform: translate(.5em, -50%);
 }
 
-/* KEYFRAMES */
 @keyframes tooltips-vert {
   to {
     opacity: .9;
@@ -1153,7 +1135,6 @@ color: #FFD600;
   }
 }
 
-/* FX All The Things */
 [tooltip]:not([flow]):hover::before,
 [tooltip]:not([flow]):hover::after,
 [tooltip][flow^="up"]:hover::before,

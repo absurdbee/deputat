@@ -1,3 +1,14 @@
+.remove_elect_subscribe {
+  color: #41cd52;
+  border: 1px solid #41cd52;
+}
+
+.remove_elect_subscribe:hover {
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  background-color: #41cd52
+}
+
 .resent_notify  {
   color: red
 }

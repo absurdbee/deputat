@@ -597,6 +597,12 @@ select {
 .nav-search {
   display:none
 }
+.subscribe_img_div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
 }
 .big_mobile_element {
   flex-basis: 100% !important
@@ -1168,13 +1174,9 @@ color: #FFD600;
 }
 
 .subscribe_img {
-  width: 170px;
+  width: 70%;
 }
 .subscribe_img_div {
-  display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -ms-flex-pack: center;

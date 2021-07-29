@@ -18,7 +18,7 @@ class UserProfileSettings(TemplateView):
 		context = super(UserProfileSettings,self).get_context_data(**kwargs)
 		context["form"] = UserForm()
 		context["regions"] = Region.objects.only("pk")
-		context["cities"] = request.user.city.region.get_cities()
+		context["cities"] = self.request.user.city.region.get_cities()
 		return context
 
 	def post(self,request,*args,**kwargs):

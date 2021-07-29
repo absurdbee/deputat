@@ -5,6 +5,7 @@
 <div class="row" id="table-contextual">
     <div class="col-12">
         <div class="card">
+          {% include 'profile/settings/nav.html' %}
             <div class="card-header">
                 <h4 class="card-title">Движения Вашей кармы</h4>
                 <h4 class="card-title">Операций {{ user.get_transactions_count }}</h4>
@@ -33,7 +34,7 @@
                                 <span class="font-weight-bold">{{ object.created }}</span>
                             </td>
                             <td>{{ object.get_reason_display }}</td>
-                            <td>{{ object.get_pretty_value|safe }}</td>  
+                            <td>{{ object.get_pretty_value|safe }}</td>
                             <td>{{ object.total }}</td>
                         </tr>
                       {% endfor %}

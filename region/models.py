@@ -34,7 +34,7 @@ class Region(models.Model):
 
 	def get_news_ids(self):
 		from blog.models import ElectNew
-		ids = ElectNew.objects.filter(elect__in=self.get_elects()).values("pk")
+		ids = ElectNew.objects.filter(elect__in=self.get_elects()).values("id")
 		return [i['id'] for i in ids]
 
 	def is_have_elects(self):

@@ -245,9 +245,9 @@ on('body', 'click', '.phone_send', function() {
   })
 
   on('body', 'change', '.select_region', function() {
-    _this = this;
+    _this = this, row_variant = false;
     var val = _this.value;
-		_this.nextElementSibling ? block = _this.nextElementSibling : block = _this.parentElement.parentElement.parentElement.nextElementSibling.querySelector(".city_container");
+		_this.nextElementSibling ? block = _this.nextElementSibling : (block = _this.parentElement.parentElement.parentElement.nextElementSibling.querySelector(".city_container"), row_variant = true );
     if (val == '') {
       block.innerHTML = "";
     } else {
@@ -258,6 +258,9 @@ on('body', 'click', '.phone_send', function() {
         if ( link.readyState == 4 ) {
             if ( link.status == 200 ) {
                 block.innerHTML = link.responseText;
+								if (row_variant){
+									block.querySelector(".city_option").remove()
+								}
             }
         }
     };

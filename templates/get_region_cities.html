@@ -2,6 +2,6 @@
 <select class="form-control" name="city" id="id_city">
   <option value=''>Выберите город</option>
   {% for object in cities %}
-  <option value="{{ object.slug }}">{{ object.name }}</option>
+  <option value="{{ object.pk }}">{{ object.name }}</option>
   {% endfor %}
 </select>

@@ -59,8 +59,8 @@ class RegisterSerializer(serializers.Serializer):
 
         self.cleaned_data = self.get_cleaned_data()
         user.phone = users_count + 156
-        city_slug = self.validated_data.get('city', '')
-        user.city = City.objects.get(slug=city_slug)
+        city_pk = self.validated_data.get('city', '')
+        user.city = City.objects.get(pk=city_pk)
         user.gender = self.validated_data.get('gender', '')
 
         self.date_day = int(self.validated_data.get('date_day', ''))

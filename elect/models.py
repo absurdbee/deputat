@@ -40,6 +40,12 @@ class Elect(models.Model):
     def __str__(self):
         return self.name
 
+    def get_region_image(self):
+        if self.region.all()[0].image:
+            return self.region.all()[0].image.url
+        else:
+            return '/static/images/timeline.jpg'
+
     def get_image(self):
         if self.image:
             return self.image.url

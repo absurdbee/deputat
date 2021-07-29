@@ -39,11 +39,11 @@
             </a>
           </li>
             <li class="nav-item d-none d-lg-block" tooltip="Документы" flow="down">
-              <a href="{% url 'user_docs' pk=user.pk %}" class="nav-link ajax">
+              <a href="{% url 'user_docs' pk=request.user.pk %}" class="nav-link ajax">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file ficon"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
               </a>
             </li>
-            <li href="{% url 'user_news' pk=user.pk %}" class="nav-item d-none d-lg-block ajax" tooltip="Лента" flow="down">
+            <li href="{% url 'user_news' pk=request.user.pk %}" class="nav-item d-none d-lg-block ajax" tooltip="Лента" flow="down">
               <a class="nav-link">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home ficon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
               </a>

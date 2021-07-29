@@ -247,8 +247,9 @@ on('body', 'click', '.phone_send', function() {
   on('body', 'change', '.select_region', function() {
     _this = this;
     var val = _this.value;
+		_this.nextElementSibling ? block = _this.nextElementSibling : block = _this.parentElement.parentElement.parentElement.nextElementSibling.querySelector(".city_container");
     if (val == '') {
-      _this.nextElementSibling.innerHTML = "";
+      block.innerHTML = "";
     } else {
       var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
       link.open( 'GET', "/region/cities/" + val + "/", true );
@@ -256,7 +257,7 @@ on('body', 'click', '.phone_send', function() {
       link.onreadystatechange = function () {
         if ( link.readyState == 4 ) {
             if ( link.status == 200 ) {
-                _this.nextElementSibling.innerHTML = link.responseText;
+                block.innerHTML = link.responseText;
             }
         }
     };

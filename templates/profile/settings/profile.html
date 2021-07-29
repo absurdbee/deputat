@@ -81,7 +81,7 @@
                                 <label for="id_select_city">Город</label>
                             </div>
                             <div class="col-sm-9">
-                              <select class="form-control" name="city" id="select_city">
+                              <select class="form-control" name="city" id="id_city">
                                   {% for object in cities %}
                                   <option {% if object.pk == request.user.city.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                                   {% endfor %}

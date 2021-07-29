@@ -42,8 +42,8 @@ on('body', 'click', '#edit_user_profile_btn', function() {
   } else if (form.querySelector("#id_email").value && !validateEmail(form.querySelector("#id_email").value)){
     form.querySelector("#id_email").style.border = "1px #FF0000 solid";
     toast_error("Введите правильный email!"); return
-  } else if (form.querySelector("#select_city").value){
-    form.querySelector("#select_city").style.border = "1px #FF0000 solid";
+  } else if (form.querySelector("#id_city").value){
+    form.querySelector("#id_city").style.border = "1px #FF0000 solid";
     toast_error("Выберите город!"); return
   };
   send_form_and_toast('/users/settings/', form, "Изменения приняты!");

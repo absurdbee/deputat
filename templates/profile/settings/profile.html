@@ -36,6 +36,17 @@
                     <div class="col-12">
                         <div class="form-group row">
                             <div class="col-sm-3 col-form-label">
+                                <label for="id_email">Email</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="email" id="id_email" class="form-control" name="email" value="{{ user.email }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-sm-3 col-form-label">
                                 <label for="id_email">Аватар</label>
                             </div>
                             <div class="col-sm-9">
@@ -53,7 +64,7 @@
                     <div class="col-12">
                         <div class="form-group row">
                             <div class="col-sm-3 col-form-label">
-                                <label for="id_email">Регион</label>
+                                <label for="select_region">Регион</label>
                             </div>
                             <div class="col-sm-9">
                               <select class="form-control select_region" id="select_region">
@@ -67,10 +78,10 @@
                     <div class="col-12">
                         <div class="form-group row">
                             <div class="col-sm-3 col-form-label">
-                                <label for="id_email">Город</label>
+                                <label for="id_select_city">Город</label>
                             </div>
                             <div class="col-sm-9">
-                              <select class="form-control select_region" id="select_region">
+                              <select class="form-control" name="city" id="select_city">
                                   {% for object in cities %}
                                   <option {% if object.pk == request.user.city.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                                   {% endfor %}

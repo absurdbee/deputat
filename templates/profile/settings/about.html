@@ -5,11 +5,11 @@
 <div class="row mt-2">
     <div class="col-md-9">
         <div class="card">
+          {% include 'profile/settings/nav.html' %}
             <div class="card-header">
                 <h4 class="card-title">Изменение информации</h4>
             </div>
             <div class="card-body">
-              {% include 'profile/settings/nav.html' %}
                 <form class="form form-horizontal">
                     {% csrf_token %}
                     <div class="col-12">

@@ -40,7 +40,7 @@ class MainRegionView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		from common.notify.progs import get_region_news
-		return get_region_news(self.region.name)
+		return get_region_news(self.region)
 
 class MainMapView(TemplateView, CategoryListMixin):
 	template_name = None

@@ -2,9 +2,9 @@
 {% block title %}Фракция Госдумы | {{ fraction.name }}{% endblock %}
 {% block content %}
 
-<section class="container pt-4 pt-sm-5 pb-4">
-      <h2 class="h3 pt-2 text-center text-sm-left">{{ region.name }}</h2>
-      <div class="pt-4 pag_container">
+<section class="container pt-2 pt-sm-5 pb-4">
+      <h2 class="h3 text-sm-left">{{ region.name }}</h2>
+      <div class="pt-2 pag_container">
         {% if fraction.get_all_elects %}
         {% for object in fraction.get_all_elects %}
           {% include 'elect/elect_index_card.html' %}

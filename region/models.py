@@ -20,17 +20,26 @@ class Region(models.Model):
 		verbose_name = "Регион"
 		verbose_name_plural = "Регионы"
 
-	def get_all_elects(self):
+	def get_elects(self):
 		from elect.models import Elect
+		return Elect.objects.filter(region=self)
+	def get_elects_ids(self):
+		from elect.models import Elect
+		elects = Elect.objects.filter(region=self).values("id")
+		return [i['id'] for i in elects]
 
-		query = Q(Q(region=self) | Q(region__slug="all_regions"))
-		return Elect.objects.filter(query)
+	def get_news(self):
+		from blog.models import ElectNew
+		return ElectNew.objects.filter(elect__id=self.get_elects())
+
+	def get_news_ids(self):
+		from blog.models import ElectNew
+		ids = ElectNew.objects.filter(elect__id=self.get_elects()).values("pk")
+		return [i['id'] for i in ids]
 
 	def is_have_elects(self):
 		from elect.models import Elect
-
-		query = Q(Q(region=self) | Q(region__slug="all_regions"))
-		return Elect.objects.filter(query).exists()
+		return Elect.objects.filter(region=self).exists()
 
 	def get_cities(self):
 		return self.cities_region.filter(region=self)

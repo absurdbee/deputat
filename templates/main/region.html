@@ -38,6 +38,7 @@
                 <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
                   {{ object|get_notify:request.user|safe }}
                 </div>
+              {% endfor %}
               {% empty %}
               <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
                 <div class="card-body">

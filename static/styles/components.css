@@ -909,7 +909,8 @@ footer.footer-border {
   width : 260px;
   height : 4.45rem;
   position : relative;
-  padding : 1.64rem 1rem 0.3rem 1.64rem;
+  padding : 1rem 1rem 0.3rem 1.7rem;
+  margin-left: 15px;
   -webkit-transition : 300ms ease all, background 0s;
           transition : 300ms ease all, background 0s;
 }
@@ -927,8 +928,7 @@ footer.footer-border {
 }
 
 .main-menu .navbar-header .navbar-brand .brand-logo svg {
-  width: 100%;
-  height: 60px;
+  height: 85px;
 }
 
 .main-menu .navbar-header .navbar-brand .brand-text {

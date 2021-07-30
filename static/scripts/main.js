@@ -23,10 +23,10 @@ on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
 
-on('body', 'click', '#ajax', function() {
+on('body', 'click', '.base_row_container', function() {
 	drops = document.body.querySelectorAll(".dropdown-menu");
   for (var i = 0; i < drops.length; i++){
-		drops[i].classList.remove("show")
+			drops[i].classList.remove("show")
 	}
 })
 

@@ -249,7 +249,7 @@ class ListDocClaimCreate(TemplateView):
 
 class ListDocRejectedCreate(View):
     def get(self,request,*args,**kwargs):
-        list = DocList.objects.get(uuid=self.kwargs["uuid"])
+        list = DocList.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_doc_manager():
             moderate_obj = Moderated.objects.get(object_id=list.pk, type="DOL")
             moderate_obj.reject_moderation(manager_id=request.user.pk)

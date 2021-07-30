@@ -23,6 +23,12 @@ on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
 
+on('body', 'click', '#ajax', function() {
+	drops = document.body.querySelectorAll(".dropdown-menu");
+  for (var i = 0; i < drops.length; i++){
+		drops[i].classList.remove("show")
+	}
+})
 
 function close_create_window() {
     document.querySelector(".create_fullscreen").style.display = "none";

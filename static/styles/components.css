@@ -538,7 +538,7 @@ footer.footer-border {
 .main-menu.menu-light .navigation li a {
   color : #625F6E;
   padding : 4px 10px 4px 10px;
-  line-height : 1;
+  line-height : 0.8;
 }
 
 .main-menu.menu-light .navigation li a span.menu-sub-title {
@@ -715,7 +715,7 @@ footer.footer-border {
 .main-menu.menu-dark .navigation li a {
   color : #D0D0D0;
   padding : 3px 10px 3px 10px;
-  line-height : 1;
+  line-height : 0.8;
 }
 
 .main-menu.menu-dark .navigation li a span.menu-sub-title {

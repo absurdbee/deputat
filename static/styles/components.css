@@ -929,6 +929,7 @@ footer.footer-border {
 
 .main-menu .navbar-header .navbar-brand .brand-logo svg {
   height: 85px;
+  position: absolute;
 }
 
 .main-menu .navbar-header .navbar-brand .brand-text {

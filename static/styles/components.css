@@ -645,7 +645,8 @@ footer.footer-border {
 }
 
 .main-menu.menu-light .navigation > li ul li > a {
-  padding : 10px 15px 10px 20px;
+  padding : 5px 15px 5px 20px;
+  font-size: 85%;
 }
 
 .main-menu.menu-light .navigation > li ul li ul a {
@@ -822,7 +823,8 @@ footer.footer-border {
 }
 
 .main-menu.menu-dark .navigation > li ul li > a {
-  padding : 10px 15px 10px 20px;
+  padding : 5px 15px 5px 20px;
+  font-size: 85%
 }
 
 .main-menu.menu-dark .navigation > li ul li ul a {

@@ -29,6 +29,9 @@ on('body', 'click', '.base_row_container', function() {
 			drops[i].classList.remove("show")
 	}
 })
+on('body', 'click', '.stop_propagation_block', function(e) {
+	e.stopPropagation()
+})
 
 function close_create_window() {
     document.querySelector(".create_fullscreen").style.display = "none";

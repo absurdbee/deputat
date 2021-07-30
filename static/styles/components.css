@@ -537,8 +537,8 @@ footer.footer-border {
 
 .main-menu.menu-light .navigation li a {
   color : #625F6E;
-  padding : 5px 15px 5px 15px;
-  line-height : 1.45;
+  padding : 4px 10px 4px 10px;
+  line-height : 1;
 }
 
 .main-menu.menu-light .navigation li a span.menu-sub-title {
@@ -714,8 +714,8 @@ footer.footer-border {
 
 .main-menu.menu-dark .navigation li a {
   color : #D0D0D0;
-  padding : 5px 5px 10px 15px;
-  line-height : 1.45;
+  padding : 3px 10px 3px 10px;
+  line-height : 1;
 }
 
 .main-menu.menu-dark .navigation li a span.menu-sub-title {
@@ -1034,7 +1034,7 @@ footer.footer-border {
             backface-visibility : hidden;
     -webkit-perspective : 1000;
             perspective : 1000;
-    left: -58px !important; 
+    left: -58px !important;
   }
   .menu-open .main-menu {
     -webkit-transform : translate3d(0, 0, 0);

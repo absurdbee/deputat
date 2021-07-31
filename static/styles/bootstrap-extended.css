@@ -1366,12 +1366,6 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   .navbar-dark .navbar-container .navbar-nav .nav-link {
     color : #B8C2CC;
   }
-  .navbar-light .navbar-header .navbar-nav .nav-link {
-    color : #B8C2CC;
-  }
-  .navbar-light .navbar-container .navbar-nav .nav-link {
-    color : #B8C2CC;
-  }
 }
 
 @media (max-width: 1199.98px) {
@@ -1391,6 +1385,9 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   .header-navbar.navbar-static-top {
     left : 0;
     width : 100%;
+  }
+  .menu_toggle_btn {
+    display: none;
   }
 }
 @media (max-width: 991.98px) {

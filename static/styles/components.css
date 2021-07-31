@@ -1024,7 +1024,7 @@ footer.footer-border {
   pointer-events : none;
 }
 .menu_toggle_btn {
-  display: block;
+  display: none;
 }
 @media (max-width: 1277px) {
   .menu-hide .main-menu, .menu-open .main-menu {
@@ -1047,7 +1047,7 @@ footer.footer-border {
             transform : translate3d(0, 0, 0);
   };
   .menu_toggle_btn {
-    display: none;
+    display: block;
   }
 }
 

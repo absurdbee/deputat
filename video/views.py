@@ -78,7 +78,7 @@ class UserLoadVideoList(ListView):
         return self.video_list
 
 
-class UserVideo(ListView):
+class UserVideo(ListView, CategoryListMixin):
     template_name, paginate_by, can_add_list = None, 15, None
 
     def get(self,request,*args,**kwargs):
@@ -112,7 +112,7 @@ class UserVideo(ListView):
         return self.video_list
 
 
-class UserVideoList(ListView):
+class UserVideoList(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):

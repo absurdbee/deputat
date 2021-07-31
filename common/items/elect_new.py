@@ -40,7 +40,7 @@ def elect_new(user, elect_new):
         tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
 
     return ''.join([block, '<div class="event_card" data-pk="' + str(elect_new.pk) + '"><div class="event_img text-center"><span><span>\
-    <img class="img-fluid pointer elect_new_window card-img-top" style="width:120px" src="' + elect_new.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\
+    <img class="img-fluid pointer elect_new_window card-img-top" style="width:100%" src="' + elect_new.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\
     <h4 class="event_name"><div style="display: flex;"><span class="text-body elect_new_window pointer">' + elect_new.title + '</span>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\
     <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\

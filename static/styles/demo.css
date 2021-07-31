@@ -658,7 +658,7 @@ line-height: 1;
     grid-template-columns: 1fr;
 }
 .event_description{
-    min-height: 190px;
+    min-height: 240px;
 }
 .event_blog_description {
   min-height: 150px !important;

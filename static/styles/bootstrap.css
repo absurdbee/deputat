@@ -1834,10 +1834,10 @@ pre code {
   }
   .col-xl-10 {
     -webkit-box-flex : 0;
-    -webkit-flex : 0 0 86%;
-        -ms-flex : 0 0 86%;
-            flex : 0 0 86%;
-    max-width : 86%;
+    -webkit-flex : 0 0 85.8%;
+        -ms-flex : 0 0 85.8%;
+            flex : 0 0 85.8%;
+    max-width : 85.8%;
   }
   .col-xl-11 {
     -webkit-box-flex : 0;

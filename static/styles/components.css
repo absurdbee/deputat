@@ -1023,8 +1023,10 @@ footer.footer-border {
   opacity : 0.65;
   pointer-events : none;
 }
-
-@media (max-width: 1277px) { 
+.menu_toggle_btn {
+  display: block;
+}
+@media (max-width: 1277px) {
   .menu-hide .main-menu, .menu-open .main-menu {
     -webkit-transition : top 0.35s, height 0.35s, -webkit-transform 0.25s;
             transition : top 0.35s, height 0.35s, -webkit-transform 0.25s;
@@ -1043,6 +1045,9 @@ footer.footer-border {
   .menu-open .main-menu {
     -webkit-transform : translate3d(0, 0, 0);
             transform : translate3d(0, 0, 0);
+  };
+  .menu_toggle_btn {
+    display: none;
   }
 }
 

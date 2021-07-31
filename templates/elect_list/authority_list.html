@@ -6,6 +6,7 @@
       <h2 class="h3 text-sm-left">{{ list.name }}</h2>
       <div class="row pt-2 is_paginate">
         {% for object in object_list %}
+        {{ forloop }}
           {% include 'elect/elect_index_card.html' %}
         {% empty %}
             В списке почему-то никого нет.

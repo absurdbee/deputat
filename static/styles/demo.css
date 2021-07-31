@@ -1,7 +1,7 @@
 .menu_close {
   position: absolute;
-  top: 10px;
-  right: 0px;
+  top: -5px;
+  right: 10px;
 }
 
 .remove_elect_subscribe {
@@ -1181,7 +1181,7 @@ color: #FFD600;
 }
 
 .subscribe_img {
-  width: 125px;
+  width: 90px;
 }
 .subscribe_img_div {
     -ms-flex-pack: center;

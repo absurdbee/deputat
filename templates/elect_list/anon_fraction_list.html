@@ -4,7 +4,7 @@
 
 <section class="container pt-2 pt-sm-5 pb-4">
       <h2 class="h3 text-sm-left">{{ region.name }}</h2>
-      <div class="pt-2 pag_container">
+      <div class="row pt-2 pag_container">
         {% if fraction.get_all_elects %}
         {% for object in fraction.get_all_elects %}
           {% include 'elect/anon_elect_index_card.html' %}

@@ -3,9 +3,9 @@
 {% load filters %}
 {% block content %}
 
-<section class="container pt-2 pt-sm-5 pb-4">
-      <h2 class="h3 text-sm-left">{{ list.name }}</h2>
-      <div class="row pt-2 is_paginate">
+<section class="container pt-1 pt-sm-5 pb-4">
+      <h2 class="h3 text-sm-left m-0">{{ list.name }}</h2>
+      <div class="row pt-0 is_paginate">
         {% for object in object_list %}
 
         <div class="card subscribe_card col-md-6 {% if forloop.last %}last{% endif %} pag" data-pk="{{ object.pk }}">

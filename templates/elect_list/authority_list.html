@@ -6,18 +6,10 @@
       <h2 class="h3 text-sm-left">{{ list.name }}</h2>
       <div class="row pt-2 is_paginate">
         {% for object in object_list %}
-        {{ forloop.last }}
           {% include 'elect/elect_index_card.html' %}
         {% empty %}
             В списке почему-то никого нет.
         {% endfor %}
-
-
-        <div class="col-md-12 load text-center">
-          {% if page_obj.has_next %}
-            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
-          {% endif %}
-        </div>
       </div>
     </section>
 {% endblock %}

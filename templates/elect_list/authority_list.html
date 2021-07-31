@@ -4,14 +4,13 @@
 
 <section class="container pt-2 pt-sm-5 pb-4">
       <h2 class="h3 text-sm-left">{{ list.name }}</h2>
-      <div class="row pt-2 pag_container is_paginate">
-        {% if object_list %}
+      <div class="row pt-2 is_paginate">
         {% for object in object_list %}
           {% include 'elect/elect_index_card.html' %}
+        {% empty %}
+            В списке почему-то никого нет.
         {% endfor %}
-        {% else %}
-          В списке почему-то никого нет.
-        {% endif %}
+
 
         <div class="col-md-12 load text-center">
           {% if page_obj.has_next %}

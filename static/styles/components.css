@@ -1023,9 +1023,7 @@ footer.footer-border {
   opacity : 0.65;
   pointer-events : none;
 }
-.menu_toggle_btn {
-  display: block;
-}
+
 @media (max-width: 1277px) {
   .menu-hide .main-menu, .menu-open .main-menu {
     -webkit-transition : top 0.35s, height 0.35s, -webkit-transform 0.25s;

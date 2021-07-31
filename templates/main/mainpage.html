@@ -35,10 +35,10 @@
                 </div>
             </div>
 
-            <div class="content-body news_stream mt-2 is_paginate">
+            <div class="content-body news_stream mt-1 is_paginate">
               {% load notify %}
               {% for object in object_list %}
-                <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
+                <div class="card mb-1 pag {% if forloop.last %}last{% endif %}">
                   {{ object|get_notify:request.user|safe }}
                 </div>
               {% endfor %}

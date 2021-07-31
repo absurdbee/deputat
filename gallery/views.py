@@ -31,7 +31,7 @@ class UserLoadPhotoList(ListView):
 		return list
 
 
-class UserGallery(ListView):
+class UserGallery(ListView, CategoryListMixin):
 	template_name, paginate_by, can_add_list = None, 15, None
 
 	def get(self,request,*args,**kwargs):
@@ -69,7 +69,7 @@ class UserGallery(ListView):
 	def get_queryset(self):
 		return self.photo_list
 
-class UserPhotoList(ListView):
+class UserPhotoList(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 12
 
 	def get(self,request,*args,**kwargs):

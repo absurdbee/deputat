@@ -2,10 +2,10 @@ from django.views.generic.base import TemplateView
 from stst.models import UserNumbers
 from users.models import User
 from common.templates import get_my_template
-#from common.utils import get_mf_ages
+from generic.mixins import CategoryListMixin
 
 
-class UserCoberturaYear(TemplateView):
+class UserCoberturaYear(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -27,7 +27,7 @@ class UserCoberturaYear(TemplateView):
 		return context
 
 
-class UserCoberturaMonth(TemplateView):
+class UserCoberturaMonth(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -50,7 +50,7 @@ class UserCoberturaMonth(TemplateView):
 		return context
 
 
-class UserCoberturaWeek(TemplateView):
+class UserCoberturaWeek(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -77,7 +77,7 @@ class UserCoberturaWeek(TemplateView):
 		#context["mf_ages"] = get_mf_ages(self.users)
 		return context
 
-class UserCoberturaDay(TemplateView):
+class UserCoberturaDay(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -99,7 +99,7 @@ class UserCoberturaDay(TemplateView):
 		return context
 
 
-class UserTrafficYear(TemplateView):
+class UserTrafficYear(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -126,7 +126,7 @@ class UserTrafficYear(TemplateView):
 		return context
 
 
-class UserTrafficMonth(TemplateView):
+class UserTrafficMonth(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -153,7 +153,7 @@ class UserTrafficMonth(TemplateView):
 		return context
 
 
-class UserTrafficWeek(TemplateView):
+class UserTrafficWeek(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -186,7 +186,7 @@ class UserTrafficWeek(TemplateView):
 		return context
 
 
-class UserTrafficDay(TemplateView):
+class UserTrafficDay(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):

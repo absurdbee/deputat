@@ -66,13 +66,22 @@
     </div>
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: -webkit-fill-available;margin-left: 30px;margin-right: 10px;margin-top: 29px;">
+        <button class="btn btn-outline-primary active menu_nav_1" style="text-transform: uppercase;">
+          Структура
+        </button>
+        <button class="btn btn-outline-primary menu_nav_2" style="text-transform: uppercase;">
+          География
+        </button>
+      </div>
+
         <ul class="navigation navigation-main">
           <li class="nav-item has-sub">
-            <a class="d-flex align-items-center">
+            <a class="d-flex align-items-center pointer a_has_sub">
               <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/></svg>
               <span class="menu-title text-truncate" data-i18n="Dashboards">Федеральные власти</span>
             </a>
-            <ul class="menu-content show">
+            <ul class="menu-content">
               {% for object in federal_elect_list %}
                 <li style="font-size: 80%;">
                   <a class="d-flex align-items-center ajax" href="{% url 'authority_index' slug=object.slug %}">
@@ -83,11 +92,11 @@
             </ul>
           </li>
           <li class="nav-item has-sub">
-            <a class="d-flex align-items-center">
+            <a class="d-flex align-items-center pointer a_has_sub">
               <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/></svg>
               <span class="menu-title text-truncate" data-i18n="Dashboards">Регион. власти</span>
             </a>
-            <ul class="menu-content show">
+            <ul class="menu-content">
                 <li>
                   <a class="d-flex align-items-center ajax" style="font-size: 80%;">
                     <span class="menu-item">Пункт</span>
@@ -101,11 +110,11 @@
             </ul>
           </li>
           <li class="nav-item has-sub">
-            <a class="d-flex align-items-center">
+            <a class="d-flex align-items-center pointer a_has_sub">
               <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/></svg>
               <span class="menu-title text-truncate" data-i18n="Dashboards">Муницип. власти</span>
             </a>
-            <ul class="menu-content show">
+            <ul class="menu-content">
                 <li>
                   <a class="d-flex align-items-center ajax" style="font-size: 80%;">
                     <span class="menu-item">Пункт</span>
@@ -119,11 +128,11 @@
             </ul>
           </li>
           <li class="nav-item has-sub">
-            <a class="d-flex align-items-center">
+            <a class="d-flex align-items-center pointer a_has_sub">
               <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/></svg>
               <span class="menu-title text-truncate" data-i18n="Dashboards">Организации</span>
             </a>
-            <ul class="menu-content show">
+            <ul class="menu-content">
               <li>
                 <a class="d-flex align-items-center ajax" style="font-size: 80%;">
                   <span class="menu-item">Один</span>
@@ -137,11 +146,11 @@
             </ul>
           </li>
           <li class="nav-item has-sub">
-            <a class="d-flex align-items-center">
+            <a class="d-flex align-items-center pointer a_has_sub">
               <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/></svg>
               <span class="menu-title text-truncate" data-i18n="Dashboards">Сообщества</span>
             </a>
-            <ul class="menu-content show">
+            <ul class="menu-content">
                 <li>
                   <a class="d-flex align-items-center ajax" style="font-size: 80%;">
                     <span class="menu-item">Один</span>
@@ -154,6 +163,25 @@
                 </li>
             </ul>
           </li>
+        </ul>
+        <ul class="navigation navigation-main" style="display:none">
+          {% for object in regions %}
+          <li class="nav-item has-sub">
+            <a class="d-flex align-items-center pointer a_has_sub">
+              <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/></svg>
+              <span class="menu-title text-truncate" data-i18n="Dashboards">{{ object.name|truncatechars:29 }}</span>
+            </a>
+            <ul class="menu-content">
+              {% for city in object.get_cities %}
+                <li style="font-size: 80%;">
+                  <a class="d-flex align-items-center ajax" href="{% url 'city' slug=city.slug %}">
+                    <span class="menu-item">{{ city.name }}</span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endfor %}
         </ul>
     </div>
 </div>

@@ -60,7 +60,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
         return context
 
 
-class AllElectNewsView(ListView, CategoryListMixin):
+class AllElectNewsView(ListView):
     template_name = None
     paginate_by = 12
 
@@ -78,7 +78,7 @@ class AllElectNewsView(ListView, CategoryListMixin):
         news = ElectNew.objects.filter(elect=self.elect, type=ElectNew.PUBLISHED)
         return news
 
-class StatementsElectNewsView(ListView, CategoryListMixin):
+class StatementsElectNewsView(ListView):
     template_name = None
     paginate_by = 12
 
@@ -97,7 +97,7 @@ class StatementsElectNewsView(ListView, CategoryListMixin):
         return news
 
 
-class WorkWithVotersElectNewsView(ListView, CategoryListMixin):
+class WorkWithVotersElectNewsView(ListView):
     template_name = None
     paginate_by = 12
 
@@ -115,7 +115,7 @@ class WorkWithVotersElectNewsView(ListView, CategoryListMixin):
         news = ElectNew.objects.filter(elect=self.elect, category__slug="work_with_voters", type=ElectNew.PUBLISHED)
         return news
 
-class PreElectionElectNewsView(ListView, CategoryListMixin):
+class PreElectionElectNewsView(ListView):
     template_name = None
     paginate_by = 12
 

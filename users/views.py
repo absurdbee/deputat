@@ -42,6 +42,7 @@ class MainPhoneSend(TemplateView):
 			self.template_name = get_small_template("profile/user.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainPhoneSend,self).get(request,*args,**kwargs)
 
+
 class UserNewsView(ListView, CategoryListMixin):
 	template_name = None
 	paginate_by = 15

@@ -2,9 +2,10 @@ from django.views.generic import ListView
 from common.templates import get_my_template, get_small_template
 from django.views.generic.base import TemplateView
 from notify.models import Notify, Wall
+from generic.mixins import CategoryListMixin
 
 
-class AllNotifyView(ListView):
+class AllNotifyView(ListView, CategoryListMixin):
     """ Все уведомления пользователя """
     template_name, paginate_by = None, 15
 

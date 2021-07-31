@@ -2,9 +2,10 @@ from django.views.generic.base import TemplateView
 from users.model.settings import *
 from django.http import HttpResponse, HttpResponseBadRequest
 from common.templates import get_my_template
+from generic.mixins import CategoryListMixin
 
 
-class UserProfileSettings(TemplateView):
+class UserProfileSettings(TemplateView, CategoryListMixin):
 	template_name, form = None, None
 
 	def get(self,request,*args,**kwargs):
@@ -34,7 +35,7 @@ class UserProfileSettings(TemplateView):
 		return super(UserProfileSettings,self).post(request,*args,**kwargs)
 
 
-class UserNotifySettings(TemplateView):
+class UserNotifySettings(TemplateView, CategoryListMixin):
     template_name, form = None, None
 
     def get(self,request,*args,**kwargs):
@@ -65,7 +66,7 @@ class UserNotifySettings(TemplateView):
         return HttpResponse()
 
 
-class UserPrivateSettings(TemplateView):
+class UserPrivateSettings(TemplateView, CategoryListMixin):
 	template_name, form = None, None
 
 	def get(self,request,*args,**kwargs):
@@ -95,7 +96,7 @@ class UserPrivateSettings(TemplateView):
 		return HttpResponse()
 
 
-class UserQuardSettings(TemplateView):
+class UserQuardSettings(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
@@ -103,7 +104,7 @@ class UserQuardSettings(TemplateView):
 		return super(UserQuardSettings,self).get(request,*args,**kwargs)
 
 
-class UserAboutSettings(TemplateView):
+class UserAboutSettings(TemplateView, CategoryListMixin):
 	template_name, form = None, None
 
 	def get(self,request,*args,**kwargs):

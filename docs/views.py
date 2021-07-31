@@ -29,7 +29,7 @@ class DocsView(ListView):
 		return Doc.objects.only("pk")
 
 
-class UserDocs(ListView):
+class UserDocs(ListView, CategoryListMixin):
 	template_name, paginate_by, can_add_list = None, 15, None
 
 	def get(self,request,*args,**kwargs):
@@ -67,7 +67,7 @@ class UserDocs(ListView):
 		return self.doc_list
 
 
-class UserDocsList(ListView):
+class UserDocsList(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):

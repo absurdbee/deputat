@@ -26,7 +26,7 @@ class UserSurveyDetail(TemplateView, CategoryListMixin):
 		context["object"] = self.survey
 		return context
 
-class UserSurvey(ListView):
+class UserSurvey(ListView, CategoryListMixin):
 	template_name, paginate_by, can_add_list = None, 15, None
 
 	def get(self,request,*args,**kwargs):
@@ -59,7 +59,7 @@ class UserSurvey(ListView):
 		return self.list.get_items()
 
 
-class UserSurveyList(ListView):
+class UserSurveyList(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):

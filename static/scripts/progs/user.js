@@ -250,8 +250,8 @@ on('body', 'click', '.change_phone_send', function() {
    if ( request.readyState == 4 && request.status == 200) {
      var div = document.getElementById('jsondata');
      div.innerHTML = request.responseText;
-     if (request.responseText.indexOf("уже зарегистрирован") !== -1) {
-       div.innerHTML = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер или напишите в <a class="pointer underline send_support_message">Службу поддержки</a>, если этот номер Вы не использовали ранее.'
+     if (request.responseText.indexOf("no") !== -1) {
+       div.innerHTML = 'Пользователь с таким номером уже зарегистрирован. Используйте другой номер.'
        document.querySelector(".change_phone_send").setAttribute("disabled", "true");
      } else if (request.responseText.indexOf("Мы Вам звоним") !== -1){
        div.innerHTML = request.responseText;

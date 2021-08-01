@@ -197,10 +197,12 @@ class UserCreateKey(TemplateView):
 		from users.model.settings import UserSecretKey
 
 		if not UserSecretKey.objects.filter(user=request.user).exists():
-			UserSecretKey.objects.create(user=request.user)
+			user_key = UserSecretKey.objects.create(user=request.user)
 		self.form = UserKeyForm(request.POST)
 		if request.is_ajax() and self.form.is_valid():
-			self.form.save()
+			_item = self.form.save(commit=False)
+			user_key.key = self.form.key
+			user_key.save(update_fields=["key"])
 			return HttpResponse()
 		return super(UserCreateKey,self).post(request,*args,**kwargs)
 

@@ -227,6 +227,6 @@ class UserDeputatSend(TemplateView):
 		self.form = DeputatSendForm(request.POST)
 		if request.is_ajax() and self.form.is_valid():
 			_item = self.form.save(commit=False)
-			DeputatSend.create_item(request.user, text=_item.text)
+			DeputatSend.create_item(user=request.user, text=_item.text)
 			return HttpResponse()
 		return super(UserDeputatSend,self).post(request,*args,**kwargs)

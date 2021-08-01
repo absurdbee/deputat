@@ -356,7 +356,6 @@ function get_preview(response, type) {
 
 on('body', 'click', '.menu_drop', function() {
   block = this.nextElementSibling;
-  console.log(block);
   if (block.classList.contains("show")) { block.classList.remove("show") }
   else {
     all_drop = document.body.querySelectorAll(".dropdown-menu");

@@ -11,14 +11,14 @@
 
     {% include 'user_video/detail/move_video.html' %}
 
-    <div class="col" style="padding:5px;">
-      <a type="button" class="btn btn-sm border menu_drop" style="width: -webkit-fill-available;">
+    <div class="col dropdown" style="padding:5px;">
+      <a type="button" class="btn btn-sm" style="width: -webkit-fill-available;">
           Опции
       </a>
-      <div class="dropdown-menu" style="width:100%">
+      <div class="dropdown-menu border" style="width:100%">
           <span>
             <a class="dropdown-item mob_user_video_remove pointer">Удалить</a>
-            <a class="dropdown-item u_video_edit pointer">Редактировать</a> 
+            <a class="dropdown-item u_video_edit pointer">Редактировать</a>
           </span>
           <span>
           {% if object.is_private %}

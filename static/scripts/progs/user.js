@@ -229,7 +229,7 @@ on('body', 'click', '#change_code_send', function() {
     var phone = block.querySelector('#id_first_number').value + block.querySelector('#phone').value;
     var code = document.body.querySelector('.block_verify').querySelector('#code').value;
     var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    request.open('POST', "/users/progs/change_phone_verify/" + phone + "/" + code + "/", true);
+    request.open('GET', "/users/progs/change_phone_verify/" + phone + "/" + code + "/", true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {

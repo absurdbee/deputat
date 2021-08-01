@@ -54,3 +54,7 @@ class UserSecretKey(models.Model):
 class DeputatSend(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="+", verbose_name="Пользователь", on_delete=models.CASCADE)
     text = models.TextField(max_length=1000, blank=True, verbose_name="Описание спообов идентификации")
+
+    def create_item(cls, user, text):
+        item = cls.objects.create(user=user, text=text)
+        return item

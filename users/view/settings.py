@@ -178,21 +178,6 @@ class UserEditPhone(TemplateView):
 		self.template_name = get_my_template("profile/settings/phone.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserEditPhone,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		from users.forms import UserPhoneForm
-		context = super(UserEditPhone,self).get_context_data(**kwargs)
-		context["form"] = UserPhoneForm()
-		return context
-
-	def post(self,request,*args,**kwargs):
-		from users.forms import UserPhoneForm
-
-		self.form = UserPhoneForm(request.POST,instance=request.user)
-		if request.is_ajax() and self.form.is_valid():
-			self.form.save()
-			return HttpResponse()
-		return super(UserEditPhone,self).post(request,*args,**kwargs)
-
 
 class UserCreateKey(TemplateView):
 	template_name = None
@@ -218,6 +203,7 @@ class UserCreateKey(TemplateView):
 			self.form.save()
 			return HttpResponse()
 		return super(UserCreateKey,self).post(request,*args,**kwargs)
+
 
 class UserDeputatSend(TemplateView):
 	template_name = None

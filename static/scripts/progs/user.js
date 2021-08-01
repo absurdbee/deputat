@@ -225,10 +225,8 @@ on('body', 'click', '.create_survey_list_claim_btn', function() {
 
 
 on('body', 'click', '#change_code_send', function() {
-    form = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-    form_data = new FormData(form);
-    user_pk = form.getAttribute("data-pk");
-    var phone = form.querySelector('#id_first_number').value + form.querySelector('#phone').value;
+    block = this.parentElement.parentElement.parentElement;
+    var phone = block.querySelector('#id_first_number').value + block.querySelector('#phone').value;
     var code = document.body.querySelector('.block_verify').querySelector('#code').value;
     var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     request.open('POST', "/users/progs/change_phone_verify/" + phone + "/" + code + "/", true);
@@ -239,7 +237,7 @@ on('body', 'click', '#change_code_send', function() {
           toast_info("Телефон изменён")
         }
     };
-    request.send(form_data)
+    request.send()
 });
 
 on('body', 'click', '.change_phone_send', function() {

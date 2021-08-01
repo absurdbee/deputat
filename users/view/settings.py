@@ -201,7 +201,7 @@ class UserCreateKey(TemplateView):
 		self.form = UserKeyForm(request.POST)
 		if request.is_ajax() and self.form.is_valid():
 			_item = self.form.save(commit=False)
-			user_key.key = self.form.key
+			user_key.key = _item.key
 			user_key.save(update_fields=["key"])
 			return HttpResponse()
 		return super(UserCreateKey,self).post(request,*args,**kwargs)

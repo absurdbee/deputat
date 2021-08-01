@@ -97,7 +97,7 @@ class ChangePhoneVerify(View):
             obj = None
         if obj:
             request.user.phone = obj.phone
-            user.save(update_fields=["phone"])
+            request.user.save(update_fields=["phone"])
             obj.delete()
             data = 'ok'
             return render(request,'generic/response/phone.html',{'response_text':data})

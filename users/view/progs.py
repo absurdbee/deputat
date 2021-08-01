@@ -22,7 +22,7 @@ class PhoneSend(View):
                     response = render(request,'generic/response/phone.html',{'response_text':data})
                     return response
                 except:
-                    response = requests.get("https://api.ucaller.ru/v1.0/initCall?service_id=964155&key=t4Avgg7ilt0s6BHsvu9mcVA49gv6bkkU&phone=" + phone)
+                    response = requests.get("https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone)
                     data = response.json()
                     PhoneCodes.objects.create(phone=phone, code=data['code'])
                     data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Код" и нажать "Подтвердить"'
@@ -73,11 +73,11 @@ class ChangePhoneSend(View):
                 response = render(request,'generic/response/phone.html',{'response_text':data})
                 return response
             except:
-                response = requests.get("https://api.ucaller.ru/v1.0/initCall?service_id=964155&key=t4Avgg7ilt0s6BHsvu9mcVA49gv6bkkU&phone=" + phone)
+                response = requests.get("https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone)
                 data = response.json()
                 PhoneCodes.objects.create(phone=phone, code=data['code'])
                 data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Код" и нажать "Подтвердить"'
-                return render(request,'generic/response/change_code_send.html',{'response_text':data }) 
+                return render(request,'generic/response/change_code_send.html',{'response_text':data })
         else:
             data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'
             return render(request,'generic/response/phone.html',{'response_text':data})

@@ -49,8 +49,8 @@ class UserPrivate(models.Model):
 
 class UserSecretKey(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='+', verbose_name="Пользователь")
-    key = models.CharField(max_length=20, blank=True, verbose_name="Ключ доступа")
+    key = models.CharField(max_length=40, blank=True, verbose_name="Ключ доступа")
 
 class DeputatSend(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="+", verbose_name="Пользователь", on_delete=models.CASCADE)
-    text = models.CharField(max_length=500, blank=True, verbose_name="Описание спообов идентификации")
+    text = models.TextField(max_length=1000, blank=True, verbose_name="Описание спообов идентификации")

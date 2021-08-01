@@ -69,23 +69,6 @@ on('#ajax', 'click', '#u_edit_password_btn', function() {
   close_create_window();
 });
 
-on('#ajax', 'click', '#u_edit_password_btn', function() {
-  form = this.parentElement.parentElement.parentElement;
-  field1 = form.querySelector("#password1"); field2 = form.querySelector("#password2");
-  if (!field1.value){
-    field1.style.border = "1px #FF0000 solid";
-    toast_error("Введите новый пароль!"); return
-  } else if (!field2.value){
-    field2.style.border = "1px #FF0000 solid";
-    toast_error("Повторите новый пароль!"); return
-  } else if (field1.value != field2.value){
-    field2.value = '';
-    toast_error("Пароли не совпадают!"); return
-  };
-  send_form_and_toast('/rest-auth/password/change/', form, "Пароль изменён!")
-  close_create_window();
-});
-
 on('body', 'click', '#edit_user_about_btn', function() {
   send_form_and_toast('/users/settings/about/', this.parentElement.parentElement, "Изменения приняты!");
 })
@@ -259,4 +242,41 @@ on('body', 'click', '.change_phone_send', function() {
      document.querySelector(".change_phone_send").setAttribute("disabled", "true");
    }}}
  request.send();
-})
+});
+
+on('body', 'click', '#u_deputat_send_btn', function() {
+    form = this.parentElement.parentElement.parentElement;
+    form_data = new FormData(form);
+    if (!form.querySelector("#id_text").value){
+      form.querySelector("#id_text").style.border = "1px #FF0000 solid";
+      toast_error("Поле не может быть пустым!");
+    } else { this.disabled = true };
+    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    request.open('POST', "/users/settings/deputat_send/", true);
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+          close_create_window();
+          toast_info("Заявка отправлена!")
+        }
+    };
+    request.send(form_data)
+});
+on('body', 'click', '#u_secret_key_btn', function() {
+    form = this.parentElement.parentElement.parentElement;
+    form_data = new FormData(form);
+    if (!form.querySelector("#id_key").value){
+      form.querySelector("#id_key").style.border = "1px #FF0000 solid";
+      toast_error("Поле не может быть пустым!");
+    } else { this.disabled = true };
+    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    request.open('POST', "/users/settings/create_secret_key/", true);
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+          close_create_window();
+          toast_info("Секретное выражение установлено!")
+        }
+    };
+    request.send(form_data)
+});

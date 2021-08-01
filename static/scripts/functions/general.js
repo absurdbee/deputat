@@ -361,7 +361,9 @@ on('body', 'click', '.menu_drop', function() {
   all_drop = document.body.querySelectorAll(".dropdown-menu");
   for(i=0; i<all_drop.length; i++) {
     all_drop[i].classList.remove("show")
-  }; block.classList.add("show")}
+  };
+  block.classList.add("show"); console.log(block)
+  }
 });
 
 function on_off_list_in_collections(_this, url, new_class, old_class, text) {

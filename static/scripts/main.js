@@ -64,12 +64,11 @@ on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");
   text = this.querySelector("title").innerHTML;
   console.log(slug + " detected!");
-  map = this.parentElement;
-  svg_list = map.querySelectorAll("path");
+  svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
     svg_list[i].style.fill = "#DAD8D6";
   };
-  this.style.fill = "#897FF1";
+  this.style.fill = "#3176C1";
   col_md_3 = this.parentElement.parentElement.nextElementSibling;
   block = col_md_3.querySelector("#elect_for_regions_loader");
   col_md_3.querySelector("#select_regions").value = text;
@@ -96,9 +95,11 @@ on('body', 'mouseover', '.map_selector', function(e) {
   popup.style.top = (e.clientY - 450) + "px";
 	popup.querySelector("h3").innerHTML = _this.getAttribute("data-name");
 	popup.style.display = "block";
+  _this.style.fill = "#3176C1";
 });
 on('body', 'mouseout', '.map_selector', function() {
 	this.parentElement.nextElementSibling.style.display = "none";
+	_this.style.fill = "#DAD8D6";
 });
 
 on('body', 'click', '.select_elect_news_category', function() {

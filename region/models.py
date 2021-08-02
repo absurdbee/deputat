@@ -9,7 +9,7 @@ class Region(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Название региона")
 	slug = AutoSlugField(populate_from='name', unique=True)
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
-	svg = models.CharField(max_length=1000, blank=True, verbose_name="SVG")
+	svg = models.CharField(max_length=2000, blank=True, verbose_name="SVG")
 	image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="regions/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
 
 	def __str__(self):

@@ -67,8 +67,10 @@ on('body', 'click', '.map_selector', function() {
   svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
     svg_list[i].style.fill = "#DAD8D6";
+		svg_list[i].classList.remove("selected");
   };
   this.style.fill = "#3176C1";
+	this.classList.add("selected");
   col_md_3 = this.parentElement.parentElement.nextElementSibling;
   block = col_md_3.querySelector("#elect_for_regions_loader");
   col_md_3.querySelector("#select_regions").value = text;
@@ -80,7 +82,6 @@ on('body', 'click', '.map_selector', function() {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
             block.innerHTML = link.responseText;
-
         }
     }
 };
@@ -95,7 +96,9 @@ on('body', 'mouseover', '.map_selector', function(e) {
   popup.style.top = (e.clientY - 450) + "px";
 	popup.querySelector("h3").innerHTML = _this.getAttribute("data-name");
 	popup.style.display = "block";
-  _this.style.fill = "#3176C1";
+	if (!_this.classList.contains("selected")){
+  	_this.style.fill = "#3176C1"
+	}
 });
 on('body', 'mouseout', '.map_selector', function() {
 	this.parentElement.nextElementSibling.style.display = "none";

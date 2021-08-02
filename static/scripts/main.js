@@ -96,12 +96,15 @@ on('body', 'mouseover', '.map_selector', function(e) {
   popup.style.top = (e.clientY - 450) + "px";
 	popup.querySelector("h3").innerHTML = _this.getAttribute("data-name");
 	popup.style.display = "block";
+	this.style.fill = "#3176C1";
 });
 on('body', 'mouseout', '.map_selector', function() {
 	this.parentElement.nextElementSibling.style.display = "none";
 	_this.style.fill = "#DAD8D6";
 	if (!_this.classList.contains("selected")){
   	_this.style.fill = "#3176C1"
+	} else {
+		_this.style.fill = "#DAD8D6";
 	}
 });
 

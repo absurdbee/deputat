@@ -101,9 +101,9 @@ on('body', 'mouseover', '.map_selector', function(e) {
 on('body', 'mouseout', '.map_selector', function() {
 	this.parentElement.nextElementSibling.style.display = "none";
 	if (!this.classList.contains("selected")){
-  	this.style.fill = "#3176C1"
+  	this.style.fill = "#DAD8D6"
 	} else {
-		this.style.fill = "#DAD8D6";
+		this.style.fill = "#3176C1";
 	}
 });
 

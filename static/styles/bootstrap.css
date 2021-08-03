@@ -4014,24 +4014,12 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
   background-image : url('data:image/svg+xml;charset=utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'white\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' class=\'feather feather-minus\'%3E%3Cline x1=\'5\' y1=\'12\' x2=\'19\' y2=\'12\'%3E%3C/line%3E%3C/svg%3E');
 }
 
-.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color : rgba(115, 103, 240, 0.65);
-}
-
-.custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
-  background-color : rgba(115, 103, 240, 0.65);
-}
-
 .custom-radio .custom-control-label::before {
   border-radius : 50%;
 }
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
   background-image : none;
-}
-
-.custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color : rgba(115, 103, 240, 0.65);
 }
 
 .custom-switch {

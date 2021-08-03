@@ -1064,7 +1064,7 @@ color: #FFD600;
 [tooltip]::before {
   content: '';
   border: 5px solid transparent;
-  z-index: 1001;
+  z-index: 99999999;
 }
 [tooltip]::after {
   content: attr(tooltip);

@@ -85,17 +85,12 @@
           <li class="nav-item has-sub open">
             <a class="d-flex align-items-center pointer a_has_sub">
               <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/></svg>
-              <span class="menu-title text-truncate" data-i18n="Dashboards">Регион. власти</span>
+              <span class="menu-title text-truncate">Регион. власти</span>
             </a>
             <ul class="menu-content">
                 <li>
                   <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item">{{ user_region.name }}</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item load_regions_list">Выбрать регион</span>
+                    <span class="menu-item">{{ user_region.name }} <span tooltip="Выбрать регион" flow="up" class="pointer">...</span></span>
                   </a>
                 </li>
             </ul>
@@ -108,12 +103,7 @@
             <ul class="menu-content">
                 <li>
                   <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item">{{ user_region.name }}</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item">{{ request.user.city.name }}</span>
+                    <span class="menu-item">{{ request.user.city.name }} <span tooltip="Выбрать город" flow="up" class="pointer">...</span></span>
                   </a>
                 </li>
             </ul>
@@ -126,12 +116,7 @@
             <ul class="menu-content">
               <li>
                 <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                  <span class="menu-item">{{ user_region.name }}</span>
-                </a>
-              </li>
-              <li>
-                <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                  <span class="menu-item">Два</span>
+                  <span class="menu-item">{{ request.user.city.name }} <span tooltip="Выбрать город" flow="up" class="pointer">...</span></span>
                 </a>
               </li>
             </ul>
@@ -144,12 +129,7 @@
             <ul class="menu-content">
                 <li>
                   <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item">{{ user_region.name }}</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item">Два</span>
+                    <span class="menu-item">{{ request.user.city.name }} <span tooltip="Выбрать город" flow="up" class="pointer">...</span></span>
                   </a>
                 </li>
             </ul>

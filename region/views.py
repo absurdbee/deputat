@@ -45,3 +45,17 @@ class LoadCitiesView(TemplateView):
 		context = super(LoadCitiesView,self).get_context_data(**kwargs)
 		context["cities"] = self.cities
 		return context
+
+class LoadRegionsDropdown(TemplateView):
+	template_name = "region/get_regions_dropdown.html"
+
+	def get(self,request,*args,**kwargs):
+		from region.models import Region
+
+		self.regions = Region.objects.only("pk")
+		return super(LoadRegionsDropdown,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadRegionsDropdown,self).get_context_data(**kwargs)
+		context["regions"] = self.regions
+		return context

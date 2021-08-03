@@ -23,6 +23,11 @@ on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
 
+on('body', 'click', '.load_left_menu_dropdown_regions', function() {
+  list_load(this.parentElement.parentElement.parentElement.parentElement, "/region/load_regions_dropdown/");
+	this.remove()
+})
+
 on('body', 'click', '.base_row_container', function() {
 	drops = document.body.querySelectorAll(".dropdown-menu");
   for (var i = 0; i < drops.length; i++){

@@ -89,8 +89,8 @@
             </a>
             <ul class="menu-content">
                 <li>
-                  <a class="d-flex align-items-center ajax" style="font-size: 65%;">
-                    <span class="menu-item">{{ user_region.name }}
+                  <a href="{% url 'region_detail' slug=user_region.slug %}" class="d-flex align-items-center ajax" style="font-size: 65%;">
+                    <span class="menu-item">{{ user_region.name|truncatechars:21 }}
                       <span tooltip="Выбрать регион" flow="up" class="pointer load_left_menu_dropdown_regions">...</span>
                     </span>
                   </a>

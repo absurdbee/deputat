@@ -23,7 +23,7 @@ class RegionDetailView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.region = Region.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_full_template("elect_list/" , "region.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_small_template("region/region.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(RegionDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

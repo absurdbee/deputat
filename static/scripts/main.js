@@ -24,6 +24,7 @@ on('body', 'click', '.show_parent_next_element', function() {
 })
 
 on('body', 'click', '.load_left_menu_dropdown_regions', function() {
+	this.preventDefault();
   list_load(this.parentElement.parentElement.parentElement.parentElement, "/region/load_regions_dropdown/");
 	this.remove()
 })

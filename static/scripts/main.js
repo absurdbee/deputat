@@ -28,6 +28,11 @@ on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
   list_load(this.parentElement.parentElement.parentElement.parentElement, "/region/load_regions_dropdown/");
 	this.remove()
 })
+on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
+	e.preventDefault();
+  list_load(this.parentElement.parentElement.parentElement.parentElement, "/city/load_city_flat_list/");
+	this.remove()
+})
 
 on('body', 'click', '.base_row_container', function() {
 	drops = document.body.querySelectorAll(".dropdown-menu");

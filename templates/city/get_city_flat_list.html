@@ -1,0 +1,6 @@
+<input list="data-list" id="id_all_cities" class="form-control all_cities_flat_list">
+<datalist id="data-list">
+  {% for object in cities %}
+  <option data-link="{% url 'city' slug=object.slug %}" value="{{ object.name }}"></option>
+  {% endfor %}
+</datalist>

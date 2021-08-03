@@ -19,7 +19,7 @@ class CityDetailView(TemplateView, CategoryListMixin):
 		return context
 
 
-class CitylistView(ListView, CategoryListMixin):
+class CityListView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 12
 
 	def get(self,request,*args,**kwargs):
@@ -27,12 +27,27 @@ class CitylistView(ListView, CategoryListMixin):
 
 		self.region = Region.objects.get(slug=self.kwargs["slug"])
 		self.template_name = get_small_template("city/city_list.html", request.META['HTTP_USER_AGENT'])
-		return super(CitylistView,self).get(request,*args,**kwargs)
+		return super(CityListView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
 		return Blog.objects.filter(category=self.cat)
 
 	def get_context_data(self, **kwargs):
-		context = super(CitylistView, self).get_context_data(**kwargs)
+		context = super(CityListView, self).get_context_data(**kwargs)
 		context['region'] = self.region
+		return context
+
+
+class LoadCityFlatList(TemplateView):
+	template_name = "city/get_city_flat_list.html"
+
+	def get(self,request,*args,**kwargs):
+		from city.models import City
+
+		self.cities = City.objects.only("pk")
+		return super(LoadCityFlatList,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadCityFlatList,self).get_context_data(**kwargs)
+		context["cities"] = self.cities
 		return context

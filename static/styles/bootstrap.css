@@ -4032,6 +4032,13 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
   pointer-events : all;
   border-radius : 1rem;
 }
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color : #3176C1;
+}
+
+.custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
+  background-color : #3176C1;
+}
 
 .custom-switch .custom-control-label::after {
   top : calc(0.225rem + 2px);

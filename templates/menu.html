@@ -89,11 +89,10 @@
             </a>
             <ul class="menu-content">
                 <li>
-                  <a href="{% url 'region_detail' slug=user_region.slug %}" class="d-flex align-items-center ajax" style="font-size: 65%;">
-                    <span class="menu-item">{{ user_region.name|truncatechars:21 }}
-                      <span tooltip="Выбрать регион" flow="up" class="pointer load_left_menu_dropdown_regions">...</span>
-                    </span>
-                  </a>
+                  <div class="d-flex align-items-center menu-item" style="font-size: 65%;">
+                    <a href="{% url 'region_detail' slug=user_region.slug %}" class="ajax">{{ user_region.name|truncatechars:21 }}</a>
+                    <span tooltip="Выбрать регион" flow="up" class="pointer load_left_menu_dropdown_regions">...</span>
+                  </div>
                 </li>
             </ul>
           </li>

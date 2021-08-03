@@ -3963,10 +3963,6 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
   border-color : white;
 }
 
-.custom-control-input[disabled] ~ .custom-control-label, .custom-control-input:disabled ~ .custom-control-label {
-  color : #B8C2CC;
-}
-
 .custom-control-input[disabled] ~ .custom-control-label::before, .custom-control-input:disabled ~ .custom-control-label::before {
   background-color : #EFEFEF;
 }

@@ -143,6 +143,8 @@ class UserProfile(models.Model):
     tracks = models.PositiveIntegerField(default=0, verbose_name="Кол-во аудиозаписей")
     videos = models.PositiveIntegerField(default=0, verbose_name="Кол-во видеозаписей")
     comments = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
+    total_costs = models.PositiveIntegerField(default=0, verbose_name="Доходы")
+    total_revenue = models.PositiveIntegerField(default=0, verbose_name="Расходы")
 
     class Meta:
         verbose_name = "Информация о пользователе"

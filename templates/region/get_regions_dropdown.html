@@ -2,7 +2,7 @@
 {% for region in regions %}
 <li>
   <a class="d-flex align-items-center ajax" href="{% url 'region_detail' slug=region.slug %}" style="font-size: 80%;">
-    <span class="menu-item">{{ region.name|truncatechars:29 }}</span>
+    <span class="menu-item">{{ region.name|truncatechars:21 }}</span>
   </a>
 </li>
 {% endfor %}

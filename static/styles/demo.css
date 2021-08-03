@@ -3,6 +3,13 @@
   top: -5px;
   right: 10px;
 }
+.all_cities_flat_list {
+  height: 1.5rem;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-left: 15px;
+  width: 90%;
+}
 
 .remove_elect_subscribe {
   color: #41cd52;

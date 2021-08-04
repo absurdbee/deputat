@@ -1,7 +1,7 @@
 from region.models import Region
 from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
-from common.templates import get_small_template, get_full_template
+from common.templates import get_full_template
 
 
 class RegionElectView(TemplateView, CategoryListMixin):
@@ -9,7 +9,7 @@ class RegionElectView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.region = Region.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_small_template("elect_list/region_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("elect_list/", "region_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(RegionElectView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -23,7 +23,7 @@ class RegionDetailView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.region = Region.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_small_template("region/region.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("region/",  "region.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(RegionDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

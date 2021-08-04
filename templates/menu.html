@@ -107,8 +107,8 @@
             </a>
             <ul class="menu-content">
                 <li>
-                  <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item">{{ request.user.city.name }}</span>
+                  <a href="{% url 'elects_city' slug=user_city.slug %}" class="d-flex align-items-center ajax" style="font-size: 80%;">
+                    <span class="menu-item">{{ user_city.name }}</span>
                   </a>
                 </li>
                 <li>
@@ -125,8 +125,8 @@
             </a>
             <ul class="menu-content">
               <li>
-                <a href="{% url 'elects_city' slug=request.user.city.slug %}" class="d-flex align-items-center ajax" style="font-size: 80%;">
-                  <span class="menu-item">{{ request.user.city.name }}</span>
+                <a href="{% url 'elects_city' slug=user_city.slug %}" class="d-flex align-items-center ajax" style="font-size: 80%;">
+                  <span class="menu-item">{{ user_city.name }}</span>
                 </a>
               </li>
               <li>
@@ -143,8 +143,8 @@
             </a>
             <ul class="menu-content">
                 <li>
-                  <a href="{% url 'elects_city' slug=request.user.city.slug %}" class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item">{{ request.user.city.name }}</span>
+                  <a href="{% url 'elects_city' slug=user_city.slug %}" class="d-flex align-items-center ajax" style="font-size: 80%;">
+                    <span class="menu-item">{{ user_city.name }}</span>
                   </a>
                 </li>
                 <li>

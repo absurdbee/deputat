@@ -25,7 +25,7 @@ on('body', 'click', '.show_parent_next_element', function() {
 
 on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
 	e.preventDefault();
-  list_load(this.parentElement.parentElement, "/region/load_regions_dropdown/");
+  list_load(this.parentElement.parentElement.parentElement, "/region/load_regions_dropdown/");
 	this.remove()
 })
 on('body', 'click', '.load_left_menu_city_flat_list', function(e) {

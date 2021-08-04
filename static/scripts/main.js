@@ -34,7 +34,11 @@ on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
 	this.remove();
 });
 on('body', 'change', '#left_menu_regions', function() {
-	list_load(this.nextElementSibling, "/region/load_left_menu_region_get_cities/" + this.value + "/");
+	if (this.value == ""){
+		this.nextElementSibling.innerHTML = ""
+	} else {
+		list_load(this.nextElementSibling, "/region/load_left_menu_region_get_cities/" + this.value + "/")
+	}
 });
 
 on('body', 'click', '.base_row_container', function() {

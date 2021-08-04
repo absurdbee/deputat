@@ -90,7 +90,12 @@
             <ul class="menu-content">
                 <li>
                   <a class="d-flex align-items-center ajax" href="{% url 'region_detail' slug=user_region.slug %}" style="font-size: 65%;">
-                    <span class="menu-item">{{ user_region.name|truncatechars:21 }}  <span tooltip="Выбрать регион" flow="up" class="load_left_menu_dropdown_regions pointer">...</span></span>
+                    <span class="menu-item">{{ user_region.name|truncatechars:21 }}</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="d-flex align-items-center ajax" href="{% url 'region_detail' slug=user_region.slug %}" style="font-size: 65%;">
+                    <span class="load_left_menu_dropdown_regions menu-item">Выбрать регион</span>
                   </a>
                 </li>
             </ul>
@@ -106,6 +111,11 @@
                     <span class="menu-item">{{ request.user.city.name }} <span tooltip="Выбрать город" flow="up" class="pointer load_left_menu_city_flat_list">...</span></span>
                   </a>
                 </li>
+                <li>
+                  <a class="d-flex align-items-center ajax" style="font-size: 80%;">
+                    <span class="menu-item load_left_menu_city_flat_list">Выбрать город</span>
+                  </a>
+                </li>
             </ul>
           </li>
           <li class="nav-item has-sub open">
@@ -116,7 +126,12 @@
             <ul class="menu-content">
               <li>
                 <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                  <span class="menu-item">{{ request.user.city.name }} <span tooltip="Выбрать город" flow="up" class="pointer load_left_menu_city_flat_list">...</span></span>
+                  <span class="menu-item">{{ request.user.city.name }}</span>
+                </a>
+              </li>
+              <li>
+                <a class="d-flex align-items-center ajax" style="font-size: 80%;">
+                  <span class="menu-item load_left_menu_city_flat_list">Выбрать город</span>
                 </a>
               </li>
             </ul>
@@ -129,7 +144,12 @@
             <ul class="menu-content">
                 <li>
                   <a class="d-flex align-items-center ajax" style="font-size: 80%;">
-                    <span class="menu-item">{{ request.user.city.name }} <span tooltip="Выбрать город" flow="up" class="pointer load_left_menu_city_flat_list">...</span></span>
+                    <span class="menu-item">{{ request.user.city.name }}</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="d-flex align-items-center ajax" style="font-size: 80%;">
+                    <span class="menu-item load_left_menu_city_flat_list">Выбрать город</span>
                   </a>
                 </li>
             </ul>

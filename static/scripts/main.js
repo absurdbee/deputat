@@ -23,14 +23,13 @@ on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
 
-on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
-	e.preventDefault();
-  list_load(this.parentElement.parentElement.parentElement.parentElement, "/region/load_regions_dropdown/");
+on('body', 'click', '.load_left_menu_dropdown_regions', function() {
+  list_load(this.parentElement.parentElement, "/region/load_regions_dropdown/");
 	this.remove()
 })
-on('body', 'click', '.load_left_menu_city_flat_list', function(e) { 
+on('body', 'click', '.load_left_menu_city_flat_list', function(e) {
 	e.preventDefault();
-  list_load(this.parentElement.parentElement.parentElement.parentElement, "/city/load_city_flat_list/");
+  list_load(this.parentElement.parentElement, "/city/load_city_flat_list/");
 	this.remove()
 })
 

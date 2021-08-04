@@ -31,10 +31,10 @@ on('body', 'click', '.load_left_menu_regions', function(e) {
 on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
 	e.preventDefault();
   list_load(this.parentElement.parentElement.parentElement, "/region/load_left_menu_regions_select/");
-	this.remove()
+	this.remove();
 });
 on('body', 'change', '#left_menu_regions', function() {
-	list_load(this.parentElement.parentElement, "/region/load_left_menu_region_get_cities/" + this.value + "/");
+	list_load(this.parentElement, "/region/load_left_menu_region_get_cities/" + this.value + "/");
 });
 
 on('body', 'click', '.base_row_container', function() {

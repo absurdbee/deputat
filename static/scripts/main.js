@@ -33,7 +33,7 @@ on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
   list_load(this.parentElement.parentElement.parentElement, "/region/load_left_menu_regions_select/");
 	this.remove()
 });
-on('body', 'click', '#left_menu_regions', function(e) {
+on('body', 'change', '#left_menu_regions', function() {
 	list_load(this.parentElement.parentElement.parentElement, "/region/load_left_menu_region_get_cities/" + this.value + "/");
 });
 

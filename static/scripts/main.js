@@ -23,16 +23,19 @@ on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
 
+on('body', 'click', '.load_left_menu_regions', function(e) {
+	e.preventDefault();
+  list_load(this.parentElement.parentElement.parentElement, "/region/load_left_menu_regions/");
+	this.remove()
+})
 on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
 	e.preventDefault();
-  list_load(this.parentElement.parentElement.parentElement, "/region/load_regions_dropdown/");
+  list_load(this.parentElement.parentElement.parentElement, "/region/load_left_menu_regions_select/");
 	this.remove()
-})
-on('body', 'click', '.load_left_menu_city_flat_list', function(e) {
-	e.preventDefault();
-  list_load(this.parentElement.parentElement, "/city/load_city_flat_list/");
-	this.remove()
-})
+});
+on('body', 'click', '#left_menu_regions', function(e) {
+	list_load(this.parentElement.parentElement.parentElement, "/region/load_left_menu_region_get_cities/" + this.value + "/");
+});
 
 on('body', 'click', '.base_row_container', function() {
 	drops = document.body.querySelectorAll(".dropdown-menu");

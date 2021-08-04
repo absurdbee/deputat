@@ -33,7 +33,7 @@ class RegionDetailView(TemplateView, CategoryListMixin):
 
 
 class LoadCitiesView(TemplateView):
-	template_name = "get_region_cities.html"
+	template_name = "city/get_region_cities.html"
 
 	def get(self,request,*args,**kwargs):
 		from city.models import City
@@ -46,16 +46,44 @@ class LoadCitiesView(TemplateView):
 		context["cities"] = self.cities
 		return context
 
-class LoadRegionsDropdown(TemplateView):
-	template_name = "region/get_regions_dropdown.html"
+class LoadLeftMenuRegions(TemplateView):
+	template_name = "region/load_left_menu_regions.html"
 
 	def get(self,request,*args,**kwargs):
 		from region.models import Region
 
 		self.regions = Region.objects.only("pk")
-		return super(LoadRegionsDropdown,self).get(request,*args,**kwargs)
+		return super(LoadLeftMenuRegions,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		context = super(LoadRegionsDropdown,self).get_context_data(**kwargs)
+		context = super(LoadLeftMenuRegions,self).get_context_data(**kwargs)
 		context["regions"] = self.regions
+		return context
+
+class LoadLeftMenuRegionsSelect(TemplateView):
+	template_name = "region/load_left_menu_regions_select.html"
+
+	def get(self,request,*args,**kwargs):
+		from region.models import Region
+
+		self.regions = Region.objects.only("pk")
+		return super(LoadLeftMenuRegionsSelect,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadLeftMenuRegionsSelect,self).get_context_data(**kwargs)
+		context["regions"] = self.regions
+		return context
+
+class LoadLeftMenuRegionCities(TemplateView):
+	template_name = "region/load_left_menu_region_cities.html"
+
+	def get(self,request,*args,**kwargs):
+		from region.models import Region
+
+		self.region = Region.objects.get(pk=self.kwargs["pk"])
+		return super(LoadLeftMenuRegionCities,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadLeftMenuRegionCities,self).get_context_data(**kwargs)
+		context["cities"] = self.region.get_cities()
 		return context

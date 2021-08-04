@@ -1,0 +1,6 @@
+<select class="form-control left_menu_select" id="left_menu_regions">
+  <option value=''>Выберите регион</option>
+  {% for object in regions %}
+  <option value="{{ object.pk }}">{{ object.name }}</option>
+  {% endfor %}
+</select>

@@ -36,18 +36,3 @@ class CityListView(ListView, CategoryListMixin):
 		context = super(CityListView, self).get_context_data(**kwargs)
 		context['region'] = self.region
 		return context
-
-
-class LoadCityFlatList(TemplateView):
-	template_name = "city/get_city_flat_list.html"
-
-	def get(self,request,*args,**kwargs):
-		from city.models import City
-
-		self.cities = City.objects.only("pk")
-		return super(LoadCityFlatList,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		context = super(LoadCityFlatList,self).get_context_data(**kwargs)
-		context["cities"] = self.cities
-		return context

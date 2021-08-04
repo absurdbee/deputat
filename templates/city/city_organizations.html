@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Город {{ object.name }}{% endblock %}
+{% block content %}
+
+<section class="container pt-sm-5 pb-4">
+      <h2 class="h3 text-sm-left m-0">{{ object.name }}</h2>
+      <div class="row pt-0 is_paginate">
+        {% if object.get_elects %}
+        {% for object in object.get_elects %}
+          {% include 'elect/elect_index_card.html' %}
+        {% endfor %}
+        {% else %}
+        <br>
+        В городе "{{ object.name }}" почему-то нет закрепленных за ним чиновников.
+        {% endif %}
+      </div>
+</section>
+{% endblock %}

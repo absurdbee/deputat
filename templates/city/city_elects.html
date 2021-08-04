@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Город {{ object.name }}{% endblock %}
+{% block content %}
+
+<section class="container pt-sm-5 pb-4">
+      <h1 class="h3 text-sm-left m-0">{{ object.name }}</h1>
+
+      <div class="content-header">
+          <div class="content-header-left">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
+              <a class="btn btn-outline-primary main_nav active" data-href="/">
+                <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-flag"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                <span class="d-none d-sm-block">Регион.&nbsp;власти</span>
+              </a>
+              <a class="btn btn-outline-primary main_nav" data-href="/city/communities/">
+                <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                <span class="d-none d-sm-block">Сообщества</span>
+              </a>
+              <a class="btn btn-outline-primary main_nav" data-href="/city/organizations/">
+                <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+                <span class="d-none d-sm-block">Организации</span>
+              </a>
+            </div>
+          </div>
+      </div>
+
+      <div class="row pt-0 is_paginate">
+        {% if object.get_elects %}
+        {% for object in object.get_elects %}
+          {% include 'elect/elect_index_card.html' %}
+        {% endfor %}
+        {% else %}
+        <br>
+        В городе "{{ object.name }}" почему-то нет закрепленных за ним чиновников.
+        {% endif %}
+      </div>
+</section>
+{% endblock %}

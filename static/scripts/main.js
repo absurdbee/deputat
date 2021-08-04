@@ -23,7 +23,8 @@ on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"
 })
 
-on('body', 'click', '.load_left_menu_dropdown_regions', function() {
+on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
+	e.preventDefault();
   list_load(this.parentElement.parentElement, "/region/load_regions_dropdown/");
 	this.remove()
 })

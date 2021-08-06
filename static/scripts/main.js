@@ -94,7 +94,7 @@ on('body', 'click', '.map_selector', function() {
   col_md_3.querySelector("#select_regions").value = text;
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', "/list/region/" + slug + "/", true );
+  link.open( 'GET', "/region/region/" + slug + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {

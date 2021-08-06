@@ -59,6 +59,7 @@ class Community(models.Model):
 
     category = models.ForeignKey(CommunitySubCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Подкатегория сообщества")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_communities', null=False, blank=False, verbose_name="Создатель")
+    city = models.ManyToManyField("city.City", related_name='+', verbose_name="Город")
     name = models.CharField(max_length=100, blank=False, null=False, verbose_name="Название" )
     created = models.DateTimeField(auto_now_add=True, editable=False, verbose_name="Создано")
     status = models.CharField(max_length=100, blank=True, verbose_name="статус-слоган")

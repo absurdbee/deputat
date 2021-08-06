@@ -3,16 +3,23 @@
 {% block content %}
 
 <section class="container pt-sm-5 pb-4">
-      <h2 class="h3 text-sm-left m-0">{{ object.name }}</h2>
-      <div class="row pt-0 is_paginate">
-        {% if object.get_elects %}
-        {% for object in object.get_elects %}
-          {% include 'elect/elect_index_card.html' %}
-        {% endfor %}
-        {% else %}
-        <br>
-        В городе "{{ object.name }}" почему-то нет закрепленных за ним чиновников.
-        {% endif %}
+  <div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <h1 class="content-header-title float-left mb-0">г. {{ object.name }}</h1>
+        </div>
+        <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city' slug=object.slug %}">Информация</a></li>
+            <li class="breadcrumb-item active underline">Регион. власти</li>
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city_communities' slug=object.slug %}" href="#">Сообщества</a></li>
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city_organizations' slug=object.slug %}" href="#">Организации</a></li>
+          </ol>
+        </div>
       </div>
+    </div>
+  </div>
+
 </section>
 {% endblock %}

@@ -10,7 +10,7 @@ class CityDetailView(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.city = City.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_full_template("city/", "city_elects.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("city/", "city.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(CityDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

@@ -11,10 +11,10 @@
         </div>
         <div class="breadcrumb-wrapper">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city' slug=object.slug %}">Информация</a></li>
+            <li class="breadcrumb-item active underline">Информация</li>
             <li class="breadcrumb-item"><a class="ajax" href="{% url 'city_elects' slug=object.slug %}">Регион. власти</a></li>
-            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city_communities' slug=object.slug %}">Сообщества</a></li>
-            <li class="breadcrumb-item active underline">Организации</li>
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city_communities' slug=object.slug %}" href="#">Сообщества</a></li>
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city_organizations' slug=object.slug %}" href="#">Организации</a></li>
           </ol>
         </div>
       </div>

@@ -111,7 +111,7 @@ on('body', 'mouseover', '.map_selector', function(e) {
 	popup = _this.parentElement.nextElementSibling;
 	iconPos = _this.getBoundingClientRect();
   popup.style.left = (e.clientX - 200) + "px";
-  popup.style.top = (e.clientY - 450) + "px";
+  popup.style.top = (e.clientY - 250) + "px";
 	popup.querySelector("h3").innerHTML = _this.getAttribute("data-name");
 	popup.style.display = "block";
 	this.style.fill = "#3176C1";

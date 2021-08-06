@@ -33,8 +33,8 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/gallery/$', CommunityGallery.as_view(), name='community_gallery'),
     url(r'^(?P<pk>\d+)/photo_list/(?P<uuid>[0-9a-f-]+)/$', CommunityPhotoList.as_view(), name='community_list'),
 
-    url(r'^manage/', include('communities.url.manage')),
-    url(r'^progs/', include('communities.url.progs')),
-    url(r'^stat/', include('communities.url.stat')),
+    #url(r'^manage/', include('communities.url.manage')),
+    #url(r'^progs/', include('communities.url.progs')),
+    #url(r'^stat/', include('communities.url.stat')),
 
 ]

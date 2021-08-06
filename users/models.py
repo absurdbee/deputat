@@ -447,16 +447,22 @@ class User(AbstractUser):
             notify = UserProfileNotify.objects.get(user=self.pk, target=user_id).delete()
 
     def plus_carma(self, value, reason):
-        from users.model.profile import UserTransaction
+        from users.model.profile import UserTransaction, UserProfile
         self.point += value
         self.save(update_fields=["point"])
         UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value, total=self.point)
+        profile = UserProfile.objects.get(user=self)
+        profile.total_costs += value
+        profile.save(update_fields=["total_costs"])
 
     def minus_carma(self, value, reason):
-        from users.model.profile import UserTransaction
+        from users.model.profile import UserTransaction, UserProfile
         self.point -= value
         self.save(update_fields=["point"])
         UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value, total=self.point)
+        profile = UserProfile.objects.get(user=self)
+        profile.total_revenue += value
+        profile.save(update_fields=["total_revenue"])
 
     def get_age(self):
         from datetime import date
@@ -963,8 +969,11 @@ class User(AbstractUser):
     def minus_photos(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.photos -= count
-        return profile.save(update_fields=['photos'])
+        try:
+            profile.photos -= count
+            return profile.save(update_fields=['photos'])
+        except:
+            pass
     def plus_elect_news(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -973,8 +982,11 @@ class User(AbstractUser):
     def minus_elect_news(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.elect_news += count
-        return profile.save(update_fields=['elect_news'])
+        try:
+            profile.elect_news += count
+            return profile.save(update_fields=['elect_news'])
+        except:
+            pass
     def plus_surveys(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -983,8 +995,11 @@ class User(AbstractUser):
     def minus_surveys(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.surveys -= count
-        return profile.save(update_fields=['surveys'])
+        try:
+            profile.surveys -= count
+            return profile.save(update_fields=['surveys'])
+        except:
+            pass
     def plus_videos(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -993,8 +1008,11 @@ class User(AbstractUser):
     def minus_videos(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.videos -= count
-        return profile.save(update_fields=['videos'])
+        try:
+            profile.videos -= count
+            return profile.save(update_fields=['videos'])
+        except:
+            pass
     def plus_docs(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -1003,8 +1021,11 @@ class User(AbstractUser):
     def minus_docs(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.docs -= count
-        return profile.save(update_fields=['docs'])
+        try:
+            profile.docs -= count
+            return profile.save(update_fields=['docs'])
+        except:
+            pass
     def plus_tracks(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -1013,8 +1034,11 @@ class User(AbstractUser):
     def minus_tracks(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.tracks -= count
-        return profile.save(update_fields=['tracks'])
+        try:
+            profile.tracks -= count
+            return profile.save(update_fields=['tracks'])
+        except:
+            pass
     def plus_communities(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -1023,8 +1047,11 @@ class User(AbstractUser):
     def minus_communities(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.communities -= count
-        return profile.save(update_fields=['communities'])
+        try:
+            profile.communities -= count
+            return profile.save(update_fields=['communities'])
+        except:
+            pass
     def plus_friends(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -1033,8 +1060,11 @@ class User(AbstractUser):
     def minus_friends(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.friends -= count
-        return profile.save(update_fields=['friends'])
+        try:
+            profile.friends -= count
+            return profile.save(update_fields=['friends'])
+        except:
+            pass
     def plus_follows(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -1043,8 +1073,11 @@ class User(AbstractUser):
     def minus_follows(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.follows -= count
-        return profile.save(update_fields=['follows'])
+        try:
+            profile.follows -= count
+            return profile.save(update_fields=['follows'])
+        except:
+            pass
     def plus_comments(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
@@ -1053,8 +1086,11 @@ class User(AbstractUser):
     def minus_comments(self, count):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)
-        profile.comments -= count
-        return profile.save(update_fields=['comments'])
+        try:
+            profile.comments -= count
+            return profile.save(update_fields=['comments'])
+        except:
+            pass
 
     def get_default_communities(self):
         from communities.models import Community

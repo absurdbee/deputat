@@ -81,44 +81,65 @@ class Community(models.Model):
         self.community_info.photos += count
         return self.community_info.save(update_fields=['photos'])
     def minus_photos(self, count):
-        self.community_info.photos -= count
-        return self.community_info.save(update_fields=['photos'])
+        try:
+            self.community_info.photos -= count
+            return self.community_info.save(update_fields=['photos'])
+        except:
+            pass
     def plus_goods(self, count):
         self.community_info.goods += count
         return self.community_info.save(update_fields=['goods'])
     def minus_goods(self, count):
-        self.community_info.goods -= count
-        return self.community_info.save(update_fields=['goods'])
+        try:
+            self.community_info.goods -= count
+            return self.community_info.save(update_fields=['goods'])
+        except:
+            pass
     def plus_posts(self, count):
         self.community_info.posts += count
         return self.community_info.save(update_fields=['posts'])
     def minus_posts(self, count):
-        self.community_info.posts -= count
-        return self.community_info.save(update_fields=['posts'])
+        try:
+            self.community_info.posts -= count
+            return self.community_info.save(update_fields=['posts'])
+        except:
+            pass
     def plus_videos(self, count):
         self.community_info.videos += count
         return self.community_info.save(update_fields=['videos'])
     def minus_videos(self, count):
-        self.community_info.videos -= count
-        return self.community_info.save(update_fields=['videos'])
+        try:
+            self.community_info.videos -= count
+            return self.community_info.save(update_fields=['videos'])
+        except:
+            pass
     def plus_docs(self, count):
         self.community_info.docs += count
         return self.community_info.save(update_fields=['docs'])
     def minus_docs(self, count):
-        self.community_info.docs -= count
-        return self.community_info.save(update_fields=['docs'])
+        try:
+            self.community_info.docs -= count
+            return self.community_info.save(update_fields=['docs'])
+        except:
+            pass
     def plus_tracks(self, count):
         self.community_info.tracks += count
         return self.community_info.save(update_fields=['tracks'])
     def minus_tracks(self, count):
-        self.community_info.tracks -= count
-        return self.community_info.save(update_fields=['tracks'])
+        try:
+            self.community_info.tracks -= count
+            return self.community_info.save(update_fields=['tracks'])
+        except:
+            pass
     def plus_members(self, count):
         self.community_info.members += count
         return self.community_info.save(update_fields=['members'])
     def minus_members(self, count):
-        self.community_info.members -= count
-        return self.community_info.save(update_fields=['members'])
+        try:
+            self.community_info.members -= count
+            return self.community_info.save(update_fields=['members'])
+        except:
+            pass
 
     def is_deleted(self):
         return self.type == Community.THIS_DELETED

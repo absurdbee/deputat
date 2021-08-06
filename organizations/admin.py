@@ -1,30 +1,13 @@
 from django.contrib import admin
-from bars.models import BarsMovie, BarsComment, BarsCategory
+from organizations.models import Organizations
 
-class BarsMovieAdmin(admin.ModelAdmin):
 
-    list_display = ['title','description','posted']
-    list_filter = ['posted']
-    search_fields = ['title','description','posted']
-    class Meta:
-            model = BarsMovie
+class OrganizationsAdmin(admin.ModelAdmin):
 
-class BarsCommentAdmin(admin.ModelAdmin):
-
-    list_display = ['article_id','author_id','content']
-    list_filter = ['posted']
-    search_fields = ['article_id','author_id','content']
-    class Meta:
-            model = BarsComment
-
-class BarsCategoryAdmin(admin.ModelAdmin):
-
-    list_display = ['name','order']
+    list_display = ['name','order','type']
+    list_filter = ['type']
     search_fields = ['name']
     class Meta:
-            model = BarsCategory
+            model = Organizations
 
-
-admin.site.register(BarsMovie,BarsMovieAdmin)
-admin.site.register(BarsComment,BarsCommentAdmin)
-admin.site.register(BarsCategory,BarsCategoryAdmin)
+admin.site.register(Organizations,OrganizationsAdmin)

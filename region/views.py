@@ -17,21 +17,6 @@ class RegionElectView(TemplateView, CategoryListMixin):
 		context["region"] = self.region
 		return context
 
-
-class RegionDetailView(TemplateView, CategoryListMixin):
-	template_name = None
-
-	def get(self,request,*args,**kwargs):
-		self.region = Region.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_full_template("region/",  "region.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(RegionDetailView,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		context=super(RegionDetailView,self).get_context_data(**kwargs)
-		context["region"] = self.region
-		return context
-
-
 class LoadCitiesView(TemplateView):
 	template_name = "city/get_region_cities.html"
 
@@ -86,4 +71,58 @@ class LoadLeftMenuRegionCities(TemplateView):
 	def get_context_data(self,**kwargs):
 		context = super(LoadLeftMenuRegionCities,self).get_context_data(**kwargs)
 		context["cities"] = self.region.get_cities()
+		return context
+
+
+class RegionDetailView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("region/",  "region.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(RegionDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(RegionDetailView,self).get_context_data(**kwargs)
+		context["region"] = self.region
+		return context
+
+class RegionElectDetailView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("region/",  "region_elects.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(RegionElectDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(RegionElectDetailView,self).get_context_data(**kwargs)
+		context["region"] = self.region
+		return context
+
+class RegionCommunitiesDetailView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("region/",  "region_communities.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(RegionCommunitiesDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(RegionCommunitiesDetailView,self).get_context_data(**kwargs)
+		context["region"] = self.region
+		return context
+
+
+class RegionOrganizationsDetailView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("region/",  "region_organizations.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(RegionOrganizationsDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(RegionOrganizationsDetailView,self).get_context_data(**kwargs)
+		context["region"] = self.region
 		return context

@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^elects/(?P<slug>[\w\-]+)/$', RegionElectDetailView.as_view(), name="region_elects"),
     url(r'^communities/(?P<slug>[\w\-]+)/$', RegionCommunitiesDetailView.as_view(), name="region_communities"),
     url(r'^organizations/(?P<slug>[\w\-]+)/$', RegionOrganizationsDetailView.as_view(), name="region_organizations"),
+
     url(r'^cities/(?P<pk>\d+)/$', LoadCitiesView.as_view()),
     url(r'^load_left_menu_regions/$', LoadLeftMenuRegions.as_view()),
     url(r'^load_left_menu_regions_select/$', LoadLeftMenuRegionsSelect.as_view()),

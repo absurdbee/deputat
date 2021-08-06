@@ -1,9 +1,10 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from common.templates import get_managers_template
+from generic.mixins import CategoryListMixin
 
 
-class ManagersView(TemplateView):
+class ManagersView(TemplateView, CategoryListMixin):
     template_name = None
 
     def get(self,request,*args,**kwargs):
@@ -11,7 +12,7 @@ class ManagersView(TemplateView):
             self.template_name = get_managers_template("managers/managers.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ManagersView,self).get(request,*args,**kwargs)
 
-class SuperManagersView(TemplateView):
+class SuperManagersView(TemplateView, CategoryListMixin):
     template_name = None
 
     def get(self,request,*args,**kwargs):

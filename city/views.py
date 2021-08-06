@@ -5,20 +5,6 @@ from django.views.generic import ListView
 from common.templates import get_full_template
 
 
-class CityDetailView(TemplateView, CategoryListMixin):
-	template_name = None
-
-	def get(self,request,*args,**kwargs):
-		self.city = City.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_full_template("city/", "city.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(CityDetailView,self).get(request,*args,**kwargs)
-
-	def get_context_data(self,**kwargs):
-		context=super(CityDetailView,self).get_context_data(**kwargs)
-		context["object"] = self.city
-		return context
-
-
 class CityListView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 12
 
@@ -35,4 +21,59 @@ class CityListView(ListView, CategoryListMixin):
 	def get_context_data(self, **kwargs):
 		context = super(CityListView, self).get_context_data(**kwargs)
 		context['region'] = self.region
+		return context
+
+
+class CityDetailView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.city = City.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("city/", "city.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(CityDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(CityDetailView,self).get_context_data(**kwargs)
+		context["object"] = self.city
+		return context
+
+class CityElectDetailView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.city = City.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("city/", "city_elects.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(CityElectDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(CityElectDetailView,self).get_context_data(**kwargs)
+		context["object"] = self.city
+		return context
+
+
+class CityCommunitiesDetailView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.city = City.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("city/", "city_communities.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(CityCommunitiesDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(CityCommunitiesDetailView,self).get_context_data(**kwargs)
+		context["object"] = self.city
+		return context
+
+
+class CityOrganizationsDetailView(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		self.city = City.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("city/", "city_organizations.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(CityOrganizationsDetailView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(CityOrganizationsDetailView,self).get_context_data(**kwargs)
+		context["object"] = self.city
 		return context

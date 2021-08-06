@@ -49,6 +49,13 @@ class MainMapView(TemplateView, CategoryListMixin):
 		self.template_name = get_small_template("main/map.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainMapView,self).get(request,*args,**kwargs)
 
+	def get_context_data(self,**kwargs):
+		from region.models import Region
+
+		context = super(MainMapView,self).get_context_data(**kwargs)
+		context["regions"] = Region.objects.only("pk")
+		return context
+
 class MainStatView(TemplateView, CategoryListMixin):
 	template_name = None
 

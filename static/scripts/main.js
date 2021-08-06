@@ -89,9 +89,9 @@ on('body', 'click', '.map_selector', function() {
   };
   this.style.fill = "#3176C1";
 	this.classList.add("selected");
-  col_md_3 = this.parentElement.parentElement.nextElementSibling;
-  block = col_md_3.querySelector("#elect_for_regions_loader");
-  col_md_3.querySelector("#select_regions").value = text;
+  col_md_4 = this.parentElement.parentElement.nextElementSibling;
+  block = col_md_4.querySelector("#elect_for_regions_loader");
+  col_md_4.querySelector("#select_regions").value = text; 
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/region/region/" + slug + "/", true );

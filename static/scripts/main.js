@@ -80,7 +80,7 @@ on('body', 'click', '.previous_click', function(event) {
 })
 on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");
-  text = this.querySelector("title").innerHTML;
+  text = this.getAttribute("data-name");
   console.log(slug + " detected!");
   svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {

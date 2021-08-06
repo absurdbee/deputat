@@ -1,13 +1,13 @@
 from django.views.generic import ListView
 from communities.models import Community, CommunityCategory
-from common.template.user import get_default_template, get_detect_platform_template
+from common.templates import get_default_template, get_full_template
 
 
 class CommunityMembersView(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.c, self.template_name = Community.objects.get(pk=self.kwargs["pk"]), get_default_template("communities/list/", "members.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.c, self.template_name = Community.objects.get(pk=self.kwargs["pk"]), get_full_template("communities/list/", "members.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(CommunityMembersView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -23,7 +23,7 @@ class CommunityFriendsView(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.c, self.template_name = Community.objects.get(pk=self.kwargs["pk"]), get_default_template("communities/detail/", "friends.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.c, self.template_name = Community.objects.get(pk=self.kwargs["pk"]), get_full_template("communities/detail/", "friends.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(CommunityFriendsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -39,7 +39,7 @@ class AllCommunities(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_default_template("communities/list/", "all_communities.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("communities/list/", "all_communities.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(AllCommunities,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
@@ -55,7 +55,7 @@ class TrendCommunities(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_default_template("communities/list/", "trend_communities.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("communities/list/", "trend_communities.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(TrendCommunities,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
@@ -71,7 +71,7 @@ class CommunityCategoryView(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.cat, self.template_name = CommunityCategory.objects.get(pk=self.kwargs["pk"]), get_default_template("communities/list/", "cat_communities.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.cat, self.template_name = CommunityCategory.objects.get(pk=self.kwargs["pk"]), get_full_template("communities/list/", "cat_communities.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(CommunityCategoryView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

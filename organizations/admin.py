@@ -1,13 +1,13 @@
 from django.contrib import admin
-from organizations.models import Organizations
+from organizations.models import Organization
 
 
-class OrganizationsAdmin(admin.ModelAdmin):
+class OrganizationAdmin(admin.ModelAdmin):
 
     list_display = ['name','order','type']
     list_filter = ['type']
     search_fields = ['name']
     class Meta:
-            model = Organizations
+            model = Organization
 
-admin.site.register(Organizations,OrganizationsAdmin)
+admin.site.register(Organization,OrganizationAdmin)

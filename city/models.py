@@ -11,7 +11,7 @@ class City(models.Model):
 	region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="cities_region", blank=True, null=True, verbose_name="Регион")
 	point = models.PositiveIntegerField(default=0, verbose_name="Общее количество кармы")
 	total_costs = models.PositiveIntegerField(default=0, verbose_name="Общие доходы граждан")
-    total_revenue = models.PositiveIntegerField(default=0, verbose_name="Общие расходы граждан")
+	total_revenue = models.PositiveIntegerField(default=0, verbose_name="Общие расходы граждан")
 
 	def __str__(self):
 		return self.name

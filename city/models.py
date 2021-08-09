@@ -9,6 +9,9 @@ class City(models.Model):
 	slug = AutoSlugField(populate_from='name', unique=True, db_index=True)
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 	region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="cities_region", blank=True, null=True, verbose_name="Регион")
+	point = models.PositiveIntegerField(default=0, verbose_name="Общее количество кармы")
+	total_costs = models.PositiveIntegerField(default=0, verbose_name="Общие доходы граждан")
+    total_revenue = models.PositiveIntegerField(default=0, verbose_name="Общие расходы граждан")
 
 	def __str__(self):
 		return self.name

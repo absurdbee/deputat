@@ -11,6 +11,9 @@ class Region(models.Model):
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 	svg = models.TextField(blank=True, verbose_name="SVG")
 	image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="regions/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
+	point = models.PositiveIntegerField(default=0, verbose_name="Общее количество кармы")
+	total_costs = models.PositiveIntegerField(default=0, verbose_name="Общие доходы граждан")
+    total_revenue = models.PositiveIntegerField(default=0, verbose_name="Общие расходы граждан")
 
 	def __str__(self):
 		return self.name

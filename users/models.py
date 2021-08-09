@@ -448,21 +448,40 @@ class User(AbstractUser):
 
     def plus_carma(self, value, reason):
         from users.model.profile import UserTransaction, UserProfile
+        from region.models import Region
+        from city.models import City
+
         self.point += value
         self.save(update_fields=["point"])
         UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value, total=self.point)
         profile = UserProfile.objects.get(user=self)
         profile.total_costs += value
         profile.save(update_fields=["total_costs"])
+        city = self.city
+        city.total_costs += value
+        city.save(update_fields=["total_costs"])
+        region = city.region
+        region.total_costs += value
+        region.save(update_fields=["total_costs"])
 
     def minus_carma(self, value, reason):
         from users.model.profile import UserTransaction, UserProfile
+        from region.models import Region
+        from city.models import City
+
         self.point -= value
         self.save(update_fields=["point"])
         UserTransaction.objects.create(user_id=self.pk, reason=reason, value=value, total=self.point)
         profile = UserProfile.objects.get(user=self)
         profile.total_revenue += value
         profile.save(update_fields=["total_revenue"])
+
+        city = self.city
+        city.total_revenue += value
+        city.save(update_fields=["total_revenue"])
+        region = city.region
+        region.total_revenue += value
+        region.save(update_fields=["total_revenue"])
 
     def get_age(self):
         from datetime import date

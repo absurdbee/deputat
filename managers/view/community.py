@@ -337,3 +337,77 @@ class CommunityUnverify(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class PublishCommunity(TemplateView):
+    template_name = "managers/manage_create/community/create_publish_community.html"
+
+    def get(self,request,*args,**kwargs):
+        self.community = Community.objects.get(pk=self.kwargs["pk"])
+        return super(PublishCommunity,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from communities.forms import CommunityForm
+
+        context=super(PublishCommunity,self).get_context_data(**kwargs)
+        context["form"] = CommunityForm(instance=self.community)
+        context["new"] = self.elect_new
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from communities.forms import CommunityForm
+        from common.templates import render_for_platform
+
+        self.community = Community.objects.get(pk=self.kwargs["pk"])
+        self.form_post = CommunityForm(request.POST, instance=self.community)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_community_manager():
+            post, membersheeps = self.form_post.save(commit=False), [request.user]
+            new_post = post.create_publish_community(manager_id=request.user.pk, name=post.name, city=post.city, category=post.category)
+            return render_for_platform(request, 'communities/detail/admin_community.html',{'community': community, 'membersheeps': membersheeps, 'user': request.user})
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()
+
+class CreateCommunity(TemplateView):
+    template_name = "managers/manage_create/community/create_manager_community.html"
+
+    def get_context_data(self,**kwargs):
+        from communities.forms import CommunityForm
+
+        context=super(CreateCommunity,self).get_context_data(**kwargs)
+        context["form"] = CommunityForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from blog.forms import CommunityForm
+        from common.templates import render_for_platform
+
+        self.form_post = CommunityForm(request.POST)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_community_manager():
+            post = self.form_post.save(commit=False)
+            community = post.create_manager_community(creator=request.user, city=post.city, title=post.title, category=post.category)
+            return render_for_platform(request, 'communities/detail/admin_community.html',{'community': community,'membersheeps': [request.user]})
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()
+
+class RejectCommunity(View):
+    def get(self,request,*args,**kwargs):
+        from managers.forms import ModeratedForm
+
+        self.community = Community.objects.get(pk=self.kwargs["pk"])
+        self.form_post = ModeratedForm(request.POST)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_community_manager():
+            post = self.form_post.save(commit=False)
+            obj = post.get_or_create_moderated_object("COM", self.community.pk)
+            obj.description = post.description
+            obj.save(update_fields=["description"])
+            self.community.type = "_REJ"
+            self.community.save(update_fields=["type"])
+            return HttpResponse()
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()

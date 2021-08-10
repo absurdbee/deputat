@@ -39,22 +39,21 @@ class CommunitySubCategory(models.Model):
 
 
 class Community(models.Model):
-    PRIVATE, CLOSED, MANAGER, THIS_PROCESSING, PUBLIC = 'PRI', 'CLO', 'MAN', '_PRO', 'PUB'
-    THIS_DELETED, THIS_PRIVATE_DELETED, THIS_CLOSED_DELETED, THIS_MANAGER_DELETED = '_DELO', '_DELP', '_DELC', '_DELM'
-    THIS_BANNER_OPEN, THIS_BANNER_PRIVATE, THIS_BANNER_CLOSED, THIS_BANNER_MANAGER = '_BANO', '_BANP', '_BANC', '_BANM'
-    THIS_SUSPENDED_OPEN, THIS_SUSPENDED_PRIVATE, THIS_SUSPENDED_CLOSED, THIS_SUSPENDED_MANAGER = '_SUSO', '_SUSP', '_SUSC', '_SUSM'
-    THIS_BLOCKED_OPEN, THIS_BLOCKED_PRIVATE, THIS_BLOCKED_CLOSED, THIS_BLOCKED_MANAGER = '_BLOO', '_BLOP', '_BLOC', '_BLOM'
+    MANAGER, THIS_PROCESSING, PUBLIC = 'MAN', '_PRO', 'PUB'
+    THIS_DELETED, THIS_MANAGER_DELETED = '_DELO', '_DELM'
+    THIS_BANNER_OPEN, THIS_BANNER_MANAGER = '_BANO', '_BANM'
+    THIS_SUSPENDED_OPEN, THIS_SUSPENDED_MANAGER = '_SUSO', '_SUSM'
+    THIS_BLOCKED_OPEN, THIS_BLOCKED_MANAGER = '_BLOO', '_BLOM'
     TYPE = (
-        (CLOSED, 'Закрытый'),(PRIVATE, 'Приватный'),(MANAGER, 'Созданный персоналом'),(PUBLIC, 'Открытый'), (THIS_PROCESSING, 'Обработка'),
-        (THIS_DELETED, 'Открытый удалённый'),(THIS_PRIVATE_DELETED, 'Приватный удалённый'),(THIS_CLOSED_DELETED, 'Закрытый удалённый'),(THIS_MANAGER_DELETED, 'Менеджерский удалённый'),
-        (THIS_BANNER_OPEN, 'Открытый баннер'),(THIS_BANNER_PRIVATE, 'Приватный баннер'),(THIS_BANNER_CLOSED, 'Закрытый баннер'),(THIS_BANNER_MANAGER, 'Менеджерский баннер'),
-        (THIS_SUSPENDED_OPEN, 'Открытый замороженный'),(THIS_SUSPENDED_PRIVATE, 'Приватный замороженный'), (THIS_SUSPENDED_CLOSED, 'Закрытый замороженный'),(THIS_SUSPENDED_MANAGER, 'Менеджерский замороженный'),
-        (THIS_BLOCKED_OPEN, 'Открытый блокнутый'),(THIS_BLOCKED_PRIVATE, 'Приватный блокнутый'), (THIS_BLOCKED_CLOSED, 'Закрытый блокнутый'),(THIS_BLOCKED_MANAGER, 'Менеджерский блокнутый'),
+        (MANAGER, 'Созданный персоналом'),(PUBLIC, 'Открытый'), (THIS_PROCESSING, 'Обработка'),
+        (THIS_DELETED, 'Открытый удалённый'),(THIS_MANAGER_DELETED, 'Менеджерский удалённый'),
+        (THIS_BANNER_OPEN, 'Открытый баннер'),(THIS_BANNER_MANAGER, 'Менеджерский баннер'),
+        (THIS_SUSPENDED_OPEN, 'Открытый замороженный'),(THIS_SUSPENDED_MANAGER, 'Менеджерский замороженный'),
+        (THIS_BLOCKED_OPEN, 'Открытый блокнутый'),(THIS_BLOCKED_MANAGER, 'Менеджерский блокнутый'),
     )
-
-    CHILD, STANDART, VERIFIED_SEND, VERIFIED = 'CH', 'ST', 'VS', 'VE'
+    STANDART, VERIFIED_SEND, VERIFIED = 'ST', 'VS', 'VE'
     PERM = (
-        (CHILD, 'Детская'),(STANDART, 'Обычные права'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Провернный'),
+        (STANDART, 'Обычные права'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Провернный'),
     )
 
     category = models.ForeignKey(CommunitySubCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Подкатегория сообщества")
@@ -66,7 +65,6 @@ class Community(models.Model):
     type = models.CharField(choices=TYPE, default=THIS_PROCESSING, max_length=5)
     s_avatar = models.ImageField(blank=True, upload_to=upload_to_community_cover_directory)
     perm = models.CharField(max_length=5, choices=PERM, default=STANDART, verbose_name="Уровень доступа")
-    have_link = models.CharField(max_length=17, blank=True, verbose_name='Ссылка')
     banned_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='banned_of_communities', verbose_name="Черный список")
 
     class Meta:
@@ -76,6 +74,108 @@ class Community(models.Model):
 
     def __str__(self):
         return self.name
+
+    def send_like(self, user):
+        import json
+        from common.model.votes import CommunityVotes
+        from communities.model.settings import CommunityInfo
+        from django.http import HttpResponse
+
+        settings = CommunityInfo.objects.get(community=self)
+        try:
+            item = CommunityVotes.objects.get(community=self, user=user)
+            if item.vote == CommunityVotes.DISLIKE:
+                item.vote = CommunityVotes.LIKE
+                item.save(update_fields=['vote'])
+                self.like += 1
+                self.dislike -= 1
+                self.save(update_fields=['like', 'dislike'])
+            elif item.vote == CommunityVotes.INERT:
+                item.vote = CommunityVotes.LIKE
+                item.save(update_fields=['vote'])
+                self.inert -= 1
+                self.like += 1
+                self.save(update_fields=['inert', 'like'])
+            else:
+                item.delete()
+                self.like -= 1
+                self.save(update_fields=['like'])
+        except CommunityVotes.DoesNotExist:
+            CommunityVotes.objects.create(community=self, user=user, vote=CommunityVotes.LIKE)
+            self.like += 1
+            self.save(update_fields=['like'])
+            from common.notify.notify import user_notify, user_wall
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "LIK")
+            user_wall(user, None, self.pk, "ELE", "u_elec_notify", "LIK")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
+
+    def send_dislike(self, user):
+        import json
+        from common.model.votes import CommunityVotes
+        from communities.model.settings import CommunityInfo
+        from django.http import HttpResponse
+
+        settings = CommunityInfo.objects.get(community=self)
+        try:
+            item = CommunityVotes.objects.get(community=self, user=user)
+            if item.vote == CommunityVotes.LIKE:
+                item.vote = CommunityVotes.DISLIKE
+                item.save(update_fields=['vote'])
+                self.like -= 1
+                self.dislike += 1
+                self.save(update_fields=['like', 'dislike'])
+            elif item.vote == CommunityVotes.INERT:
+                item.vote = CommunityVotes.DISLIKE
+                item.save(update_fields=['vote'])
+                self.inert -= 1
+                self.dislike += 1
+                self.save(update_fields=['inert', 'dislike'])
+            else:
+                item.delete()
+                self.dislike -= 1
+                self.save(update_fields=['dislike'])
+        except CommunityVotes.DoesNotExist:
+            CommunityVotes.objects.create(community=self, user=user, vote=CommunityVotes.DISLIKE)
+            self.dislike += 1
+            self.save(update_fields=['dislike'])
+            from common.notify.notify import user_notify, user_wall
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "DIS")
+            user_wall(user, None, self.pk, "ELE", "u_elec_notify", "DIS")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
+
+    def send_inert(self, user):
+        import json
+        from common.model.votes import CommunityVotes
+        from communities.model.settings import CommunityInfo
+        from django.http import HttpResponse
+
+        settings = CommunityInfo.objects.get(community=self)
+        try:
+            item = CommunityVotes.objects.get(community=self, user=user)
+            if item.vote == CommunityVotes.LIKE:
+                item.vote = CommunityVotes.INERT
+                item.save(update_fields=['vote'])
+                self.like -= 1
+                self.inert += 1
+                self.save(update_fields=['like', 'inert'])
+            elif item.vote == CommunityVotes.DISLIKE:
+                item.vote = CommunityVotes.INERT
+                item.save(update_fields=['vote'])
+                self.inert += 1
+                self.dislike -= 1
+                self.save(update_fields=['inert', 'dislike'])
+            else:
+                item.delete()
+                self.inert -= 1
+                self.save(update_fields=['inert'])
+        except CommunityVotes.DoesNotExist:
+            CommunityVotes.objects.create(community=self, user=user, vote=CommunityVotes.INERT)
+            self.inert += 1
+            self.save(update_fields=['inert'])
+            from common.notify.notify import user_notify, user_wall
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "INE")
+            user_wall(user, None, self.pk, "ELE", "u_elec_notify", "INE")
+        return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def plus_photos(self, count):
         self.community_info.photos += count
@@ -149,8 +249,6 @@ class Community(models.Model):
         return self.perm == Community.VERIFIED_SEND
     def is_verified(self):
         return self.perm == Community.VERIFIED
-    def is_child(self):
-        return self.perm == Community.CHILD
     def is_suspended(self):
         return self.type[:4] == "_SUS"
     def is_closed(self):
@@ -159,8 +257,6 @@ class Community(models.Model):
         return self.type[:4] == "_BAN"
     def is_private(self):
         return self.type == self.PRIVATE
-    def is_close(self):
-        return self.type == self.CLOSED
     def is_public(self):
         return self.type == self.PUBLIC
     def is_open(self):
@@ -175,49 +271,43 @@ class Community(models.Model):
         self.banned_users.remove(user)
         return True
 
-    def get_posts_ids(self):
-        from posts.models import Post
-        return [i['id'] for i in Post.objects.filter(list__in=self.get_admin_all_post_lists()).values('id')]
-
     def get_community_avatar(self):
         if self.s_avatar:
             return '<img style="border-radius:50px;width:50px;" alt="image" src="' + self.s_avatar.url + ' />'
         else:
             return '<svg fill="currentColor" class="svg_default svg_default_50" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>'
 
-    def get_slug(self):
-        if self.have_link:
-            return "@" + self.have_link
-        else:
-            return "@public" + str(self.pk)
-    def get_link(self):
-        if self.have_link:
-            return "/" + self.have_link + "/"
-        else:
-            return "/public" + str(self.pk) + "/"
-
     def is_photo_open(self):
         return try_except(self.community_sections_open.photo)
-    def is_good_open(self):
-        return try_except(self.community_sections_open.good)
     def is_video_open(self):
         return try_except(self.community_sections_open.video)
     def is_music_open(self):
         return try_except(self.community_sections_open.music)
     def is_doc_open(self):
         return try_except(self.community_sections_open.doc)
-    def is_link_open(self):
-        return try_except(self.community_sections_open.link)
-    def is_article_open(self):
-        return try_except(self.community_sections_open.article)
     def is_contacts_open(self):
         return try_except(self.community_sections_open.contacts)
-    def is_discussion_open(self):
-        return try_except(self.community_sections_open.discussion)
 
     @classmethod
-    def create_community(cls, name, category, creator, type):
-        community = cls.objects.create(name=name, creator=creator, type=type, category=category)
+    def suggest_community(cls, name, category, creator, city):
+        community = cls.objects.create(name=name, creator=creator, category=category, city=city)
+        CommunityMembership.create_membership(user=creator, is_administrator=True, community=community)
+        community.save()
+        return community
+
+    @classmethod
+    def publish_community(cls, name, category, creator, type):
+        community = cls.objects.create(name=name, creator=creator, category=category)
+        CommunityMembership.create_membership(user=creator, is_administrator=True, community=community)
+        community.save()
+        creator.create_or_plus_populate_community(community.pk)
+        community.add_news_subscriber(creator.pk)
+        community.add_notify_subscriber(creator.pk)
+        return community
+
+    @classmethod
+    def create_manager_community(cls, name, category, creator, type):
+        community = cls.objects.create(name=name, creator=creator, category=category)
         CommunityMembership.create_membership(user=creator, is_administrator=True, community=community)
         community.save()
         creator.create_or_plus_populate_community(community.pk)
@@ -240,14 +330,6 @@ class Community(models.Model):
     @classmethod
     def is_user_with_username_banned_from_community(cls, username, community_pk):
         return cls.objects.filter(pk=community_pk, banned_users__username=username).exists()
-
-    @classmethod
-    def is_community_invites_enabled(cls, community_pk):
-        return cls.objects.filter(pk=community_pk, invites_enabled=True).exists()
-
-    @classmethod
-    def is_community_private(cls, community_pk):
-        return cls.objects.filter(pk=community_pk, type='_CLO').exists()
 
     @classmethod
     def get_community_for_user_with_id(cls, community_pk, user_id):
@@ -279,50 +361,12 @@ class Community(models.Model):
         trending_communities_query.add(~Q(banned_users__id=user_id), Q.AND)
         return cls._get_trending_communities_with_query(query=trending_communities_query)
 
-    def get_fix_list(self):
-        from posts.models import PostList
-        return PostList.objects.get(community_id=self.pk, type=PostList.THIS_FIXED)
-
-    def get_draft_posts(self):
-        from posts.models import PostList
-        list = PostList.objects.get(community_id=self.pk, type="_DRA")
-        return list.get_items()
-    def get_count_draft_posts(self):
-        from posts.models import PostList
-        list = PostList.objects.get(community_id=self.pk, type="_DRA")
-        return list.count_items()
-
-    def get_count_articles(self):
-        return self.community_info.articles
-
-    def id_draft_posts_exists(self):
-        return self.get_count_draft_posts() > 0
-
-    def get_draft_posts_for_user(self, user_pk):
-        from posts.models import PostList
-        list = PostList.objects.get(community_id=self.pk, type="_DRA")
-        posts_query = list.get_items()
-        return list.get_items().filter(creator_id=user_pk)
-    def get_count_draft_posts_for_user(self, user_pk):
-        from posts.models import PostList
-        list = PostList.objects.get(community_id=self.pk, type="_DRA")
-        posts_query = list.get_items()
-        return list.get_items().filter(creator_id=user_pk).values("pk").count()
-
     def get_count_photos(self):
         return self.community_info.photos
 
     def get_profile_photos(self):
         return self.get_photo_list().get_items()[:6]
 
-    def get_goods_count(self):
-        return self.community_info.goods
-
-    def get_good_list(self):
-        from goods.models import GoodList
-        query = Q(community_id=self.pk)
-        query.add(Q(Q(type="MAI") | Q(type="_CLOM")), Q.AND)
-        return GoodList.objects.get(query)
     def get_playlist(self):
         from music.models import SoundList
         query = Q(community_id=self.pk)
@@ -343,12 +387,6 @@ class Community(models.Model):
         query = Q(community_id=self.pk)
         query.add(Q(Q(type="MAI") | Q(type="_CLOM")), Q.AND)
         return DocList.objects.get(query)
-
-    def get_post_lists(self):
-        from posts.models import PostList
-        query = Q(community_id=self.id)
-        query.add(~Q(type__contains="_"), Q.AND)
-        return PostList.objects.filter(query)
 
     def get_survey_lists(self):
         from survey.models import SurveyList
@@ -374,12 +412,6 @@ class Community(models.Model):
         query.add(~Q(type__contains="_"), Q.AND)
         return SoundList.objects.filter(query)
 
-    def get_good_lists(self):
-        from goods.models import GoodList
-        query = Q(community_id=self.id)
-        query.add(~Q(type__contains="_"), Q.AND)
-        return GoodList.objects.filter(query)
-
     def create_s_avatar(self, photo_input):
         from easy_thumbnails.files import get_thumbnailer
         self.s_avatar = photo_input
@@ -388,20 +420,6 @@ class Community(models.Model):
         self.s_avatar = new_img
         self.save(update_fields=['s_avatar'])
         return self.s_avatar
-    def create_b_avatar(self, photo_input):
-        from easy_thumbnails.files import get_thumbnailer
-        self.b_avatar = photo_input
-        self.save(update_fields=['b_avatar'])
-        new_img = get_thumbnailer(self.b_avatar)['avatar'].url.replace('media/', '')
-        self.b_avatar = new_img
-        self.save(update_fields=['b_avatar'])
-        return self.b_avatar
-
-    def get_b_avatar(self):
-        try:
-            return self.b_avatar.url
-        except:
-            return None
 
     def get_avatar(self):
         try:
@@ -477,12 +495,6 @@ class Community(models.Model):
         return User.objects.filter(community_moderators_query)
 
     @classmethod
-    def get_community_follows(cls, community_pk):
-        from users.models import User
-        community_moderators_query = Q(communities_memberships__community__pk=community_pk, communities_memberships__is_moderator=True)
-        return User.objects.filter(community_moderators_query)
-
-    @classmethod
     def get_community_banned_users(cls, community_pk):
         community = Community.objects.get(pk=community_pk)
         community_members_query = Q()
@@ -554,76 +566,6 @@ class Community(models.Model):
         from notify.models import CommunityProfileNotify
         if CommunityProfileNotify.objects.filter(community=self.pk, user=user_id).exists():
             notify = CommunityProfileNotify.objects.get(community=self.pk, user=user_id).delete()
-
-    def is_community_playlist(self):
-        from music.models import UserTempSoundList
-        return UserTempSoundList.objects.filter(tag=None, community=self, genre=None).exists()
-
-    def is_wall_close(self):
-        return try_except(self.community_private_post.wall == "SP")
-    def is_staff_post_member_can(self):
-        return try_except(self.community_private_post.wall == "SPMC")
-    def is_staff_post_all_can(self):
-        return try_except(self.community_private_post.wall == "SPAC")
-    def is_member_post(self):
-        return try_except(self.community_private_post.wall == "MP")
-    def is_member_post_all_can(self):
-        return try_except(self.community_private_post.wall == "MPAC")
-    def is_all_can_post(self):
-        return try_except(self.community_private_post.wall == "AC")
-    def is_comment_post_send_admin(self):
-        return try_except(self.community_private_post.comment == "CA")
-    def is_comment_post_send_member(self):
-        return try_except(self.community_private_post.comment == "CM")
-    def is_comment_post_send_all(self):
-        return try_except(self.community_private_post.comment == "CNM")
-
-    def is_photo_upload_admin(self):
-        return try_except(self.community_private_photo.photo == "PA")
-    def is_photo_upload_member(self):
-        return try_except(self.community_private_photo.photo == "PM")
-    def is_photo_upload_nomember(self):
-        return try_except(self.community_private_photo.photo == "PNM")
-    def is_comment_photo_send_admin(self):
-        return try_except(self.community_private_photo.comment == "CA")
-    def is_comment_photo_send_member(self):
-        return try_except(self.community_private_photo.comment == "CM")
-    def is_comment_photo_send_all(self):
-        return try_except(self.community_private_photo.comment == "CNM")
-
-    def is_good_upload_admin(self):
-        return try_except(self.community_private_good.good == "GA")
-    def is_good_upload_member(self):
-        return try_except(self.community_private_good.good == "GM")
-    def is_good_upload_nomember(self):
-        return try_except(self.community_private_good.good == "GNM")
-    def is_comment_good_send_admin(self):
-        return try_except(self.community_private_good.comment == "CA")
-    def is_comment_good_send_member(self):
-        return try_except(self.community_private_good.comment == "CM")
-    def is_comment_good_send_all(self):
-        return try_except(self.community_private_good.comment == "CNM")
-
-    def is_video_upload_admin(self):
-        return try_except(self.community_private_video.video == "VA")
-    def is_video_upload_member(self):
-        return try_except(self.community_private_video.video == "VM")
-    def is_video_upload_nomember(self):
-        return try_except(self.community_private_video.video == "VNM")
-    def is_comment_video_send_admin(self):
-        return try_except(self.community_private_video.comment == "CA")
-    def is_comment_video_send_member(self):
-        return try_except(self.community_private_video.comment == "CM")
-    def is_comment_video_send_all(self):
-        return try_except(self.community_private_video.comment == "CNM")
-
-    def is_can_fixed_post(self):
-        from posts.models import PostList
-        try:
-            list = PostList.objects.get(community_id=self.pk, type=PostList.THIS_FIXED)
-            return list.count_fix_items() < 10
-        except:
-            return None
 
     def add_administrator(self, user):
         user_membership = self.memberships.get(user=user)
@@ -764,23 +706,3 @@ class CommunityMembership(models.Model):
             ]
         verbose_name = 'подписчик сообщества'
         verbose_name_plural = 'подписчики сообщества'
-
-
-class CommunityFollow(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, db_index=False, on_delete=models.CASCADE, related_name='community_follows', verbose_name="Подписчик")
-    community = models.ForeignKey(Community, db_index=False, on_delete=models.CASCADE, related_name='community', null=False, verbose_name="На какое сообщество подписывается")
-    view = models.BooleanField(default=False, verbose_name="Просмотрено")
-
-    class Meta:
-        unique_together = ('user', 'community')
-        verbose_name = 'Подписчик группы'
-        verbose_name_plural = 'Подписчики группы'
-
-
-    @classmethod
-    def create_follow(cls, user_id, community_pk):
-        return cls.objects.create(user_id=user_id, community_pk=community_pk)
-
-    @classmethod
-    def get_community_with(cls, community_pk):
-        return cls.objects.filter(community__pk=community_pk, view=False)

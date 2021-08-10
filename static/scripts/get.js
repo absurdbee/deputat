@@ -66,3 +66,4 @@ loadScripts('/static/scripts/progs/video.js');
 loadScripts('/static/scripts/progs/music.js');
 loadScripts('/static/scripts/progs/survey.js');
 loadScripts('/static/scripts/auth.js');
+loadScripts('/static/scripts/community.js');

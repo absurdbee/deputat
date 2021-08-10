@@ -23,6 +23,9 @@ class CommunityInfo(models.Model):
     tracks = models.PositiveIntegerField(default=0, verbose_name="Кол-во аудиозаписей")
     videos = models.PositiveIntegerField(default=0, verbose_name="Кол-во видеозаписей")
     docs = models.PositiveIntegerField(default=0, verbose_name="Кол-во документов")
+    like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
+    dislike = models.PositiveIntegerField(default=0, verbose_name="Кол-во дизлайков")
+    inert = models.PositiveIntegerField(default=0, verbose_name="Кол-во inert")
 
     def __str__(self):
         return self.community.name

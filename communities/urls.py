@@ -36,5 +36,6 @@ urlpatterns = [
     #url(r'^manage/', include('communities.url.manage')),
     #url(r'^progs/', include('communities.url.progs')),
     #url(r'^stat/', include('communities.url.stat')),
+    url(r'^votes/', include('communities.url.votes')),
 
 ]

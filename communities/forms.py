@@ -6,7 +6,7 @@ from django import forms
 class CommunityForm(forms.ModelForm):
 	class Meta:
 		model = Community
-		fields = ['name','type','category',]
+		fields = ['name', 'city', 'category',] 
 
 
 class GeneralCommunityForm(forms.ModelForm):

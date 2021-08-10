@@ -28,7 +28,7 @@ class CommunityCreate(TemplateView):
 
 		self.form = CommunityForm(request.POST)
 		if self.form.is_valid() and request.is_ajax():
-			new_community, membersheeps = self.form.save(commit=False), [request.user,]
+			new_community, membersheeps = self.form.save(commit=False), [request.user]
 			community = Community.create_community(name=new_community.name, category=new_community.category, type=new_community.type, creator=request.user)
 			return render_for_platform(request, 'communities/detail/admin_community.html',{'community': community, 'membersheeps': membersheeps, 'user': request.user})
 		else:

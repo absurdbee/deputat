@@ -23,6 +23,10 @@ urlpatterns = [
     url(r'^create_claim/(?P<pk>\d+)/$', OrganizationClaimCreate.as_view()),
     url(r'^unverify/(?P<pk>\d+)/$', OrganizationUnverify.as_view()),
 
+    url(r'^create_publish/(?P<pk>\d+)/$', PublishOrganization.as_view()),
+    url(r'^create_elect_new/$', CreateOrganization.as_view()),
+    url(r'^suggest_rejected/(?P<pk>\d+)/$', RejectOrganization.as_view()),
+
     #url(r'^comment_create_close/(?P<pk>\d+)/$', CommentOrganizationCloseCreate.as_view()),
     #url(r'^comment_delete_close/(?P<pk>\d+)/$', CommentOrganizationCloseDelete.as_view()),
     #url(r'^comment_create_rejected/(?P<pk>\d+)/$', CommentOrganizationRejectedCreate.as_view()),

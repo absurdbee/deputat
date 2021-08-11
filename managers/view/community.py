@@ -351,7 +351,7 @@ class PublishCommunity(TemplateView):
 
         context=super(PublishCommunity,self).get_context_data(**kwargs)
         context["form"] = CommunityForm(instance=self.community)
-        context["new"] = self.elect_new
+        context["community"] = self.community
         return context
 
     def post(self,request,*args,**kwargs):
@@ -362,7 +362,7 @@ class PublishCommunity(TemplateView):
         self.form_post = CommunityForm(request.POST, instance=self.community)
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_community_manager():
-            post, membersheeps = self.form_post.save(commit=False), [request.user]
+            post, membersheeps = self.form_post.save(commit=False), [self.community.creator]
             new_post = post.create_publish_community(manager_id=request.user.pk, name=post.name, city=post.city, category=post.category)
             return render_for_platform(request, 'communities/detail/admin_community.html',{'community': community, 'membersheeps': membersheeps, 'user': request.user})
         else:
@@ -380,7 +380,7 @@ class CreateCommunity(TemplateView):
         return context
 
     def post(self,request,*args,**kwargs):
-        from blog.forms import CommunityForm
+        from communities.forms import CommunityForm
         from common.templates import render_for_platform
 
         self.form_post = CommunityForm(request.POST)
@@ -405,8 +405,8 @@ class RejectCommunity(View):
             obj = post.get_or_create_moderated_object("COM", self.community.pk)
             obj.description = post.description
             obj.save(update_fields=["description"])
-            self.community.type = "_REJ"
-            self.community.save(update_fields=["type"])
+            self.community.perm = "_RE"
+            self.community.save(update_fields=["perm"])
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest

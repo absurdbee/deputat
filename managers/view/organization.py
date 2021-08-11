@@ -309,3 +309,99 @@ class CommentOrganizationCloseDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class PublishOrganization(TemplateView):
+    template_name = "managers/manage_create/organization/create_publish_organization.html"
+
+    def get(self,request,*args,**kwargs):
+        self.organization = Organization.objects.get(pk=self.kwargs["pk"])
+        return super(PublishOrganization,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from organizations.forms import OrganizationForm
+
+        context=super(PublishOrganization,self).get_context_data(**kwargs)
+        context["form"] = OrganizationForm(instance=self.organization)
+        context["organization"] = self.organization
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from organizations.forms import OrganizationForm
+        from common.templates import render_for_platform
+
+        self.organization = Organization.objects.get(pk=self.kwargs["pk"])
+        self.form_post = OrganizationForm(request.POST, instance=self.organization)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_organization_manager():
+            post = self.form_post.save(commit=False)
+            new_post = post.create_publish_organization(name=post.name,
+                                                        description=post.description,
+                                                        elect=post.elect,
+                                                        image=post.image,
+                                                        email_1=post.email_1,
+                                                        email_2=post.email_2,
+                                                        phone_1=post.phone_1,
+                                                        phone_2=post.phone_2,
+                                                        address_1=post.address_1,
+                                                        address_2=post.address_2,
+                                                        type=post.type,
+                                                        managet_id=request.user.pk)
+            return render_for_platform(request, '<template>',{'organization': new_post})
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()
+
+class CreateOrganization(TemplateView):
+    template_name = "managers/manage_create/organization/create_manager_organization.html"
+
+    def get_context_data(self,**kwargs):
+        from organizations.forms import OrganizationForm
+
+        context=super(CreateOrganization,self).get_context_data(**kwargs)
+        context["form"] = OrganizationForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from organizations.forms import OrganizationForm
+        from common.templates import render_for_platform
+
+        self.form_post = OrganizationForm(request.POST)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_organization_manager():
+            post = self.form_post.save(commit=False)
+            new_post = post.create_manager_organization(name=post.name,
+                                                        description=post.description,
+                                                        elect=post.elect,
+                                                        image=post.image,
+                                                        email_1=post.email_1,
+                                                        email_2=post.email_2,
+                                                        phone_1=post.phone_1,
+                                                        phone_2=post.phone_2,
+                                                        address_1=post.address_1,
+                                                        address_2=post.address_2,
+                                                        type=post.type,
+                                                        creator=request.user)
+            return render_for_platform(request, '<template>',{'organization': new_post})
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()
+
+class RejectOrganization(View):
+    def get(self,request,*args,**kwargs):
+        from managers.forms import ModeratedForm
+
+        self.organization = Organization.objects.get(pk=self.kwargs["pk"])
+        self.form_post = ModeratedForm(request.POST)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_organization_manager():
+            post = self.form_post.save(commit=False)
+            obj = post.get_or_create_moderated_object("ORG", self.organization.pk)
+            obj.description = post.description
+            obj.save(update_fields=["description"])
+            self.organization.type = "_REJ"
+            self.organization.save(update_fields=["type"])
+            return HttpResponse()
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()

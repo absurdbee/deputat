@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 class OrganizationManageLog(models.Model):
-    ITEM_CLOSED, COMMENT_CLOSED = ICLO','CCLO'
+    ITEM_CLOSED, COMMENT_CLOSED = 'ICLO','CCLO'
     ITEM_CLOSED_HIDE, COMMENT_CLOSED_HIDE = 'IRES','CRES'
     ITEM_REJECT, COMMENT_REJECT = 'IREJ','CREJ'
     ITEM_UNVERIFY, COMMENT_UNVERIFY = 'IUNV','CUNV'

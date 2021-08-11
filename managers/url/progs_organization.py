@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from managers.view.audio import *
+from managers.view.organization import *
 
 
 urlpatterns = [

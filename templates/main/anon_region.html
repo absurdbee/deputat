@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% block title %}Карта Российской Федерации{% endblock %}
+{% extends "base_anon.html" %}
+{% block title %}{{ region.name }} | Новости региона{% endblock %}
 {% block content %}
 
         <div class="content-wrapper row ml-0">
@@ -9,15 +9,15 @@
 
             <div class="content-header-left">
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <a class="btn btn-outline-primary main_nav" data-href="/">
+                <a class="btn btn-outline-primary main_nav" data-href="/" style="text-transform: uppercase;display: inline-flex;">
                   <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-flag"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
                   <span class="d-none d-sm-block">Россия</span>
                 </a>
-                <a class="btn btn-outline-primary main_nav" data-href="/main_region/{{ request.user.city.region.slug }}/">
+                <a class="btn btn-outline-primary main_nav active">
                   <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                   <span class="d-none d-sm-block">Мой&nbsp;регион</span>
                 </a>
-                <a class="btn btn-outline-primary main_nav active" data-href="/main_map/">
+                <a class="btn btn-outline-primary main_nav" data-href="/main_map/">
                   <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
                   <span class="d-none d-sm-block">Карта&nbsp;РФ</span>
                 </a>
@@ -31,8 +31,27 @@
                 </a>
               </div>
             </div>
-            <div class="content-body main_news_container news_stream is_paginate mt-2">
-              {% include 'main/test.html' %}
+
+            <div class="content-body news_stream mt-2 is_paginate">
+              {% load notify %}
+              {% for object in object_list %}
+                <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
+                  {{ object|get_notify:request.user|safe }}
+                </div>
+              {% empty %}
+              <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
+                <div class="card-body">
+                  <h3 class="card-title">Новостей региона {{ region.name }} пока нет.</h3>
+                  <p class="card-text text-sm">
+                    Если у Вас есть чем поделиться с общественностью - Вы можете предложить новость
+                  </p>
+                  <p class="card-text text-sm">
+                    Для этого Вам необходимо <a href="{% url 'login' %}" class="ajax underline">Войти</a> или
+                    <a href="{% url 'signup' %}" class="ajax underline">Зарегистрироваться</a>
+                  </p>
+                </div>
+                </div>
+              {% endfor %}
             </div>
           </div>
         </div>

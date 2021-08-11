@@ -45,14 +45,7 @@
                   <p class="card-text text-sm">
                     Если у Вас есть чем поделиться с общественностью - Вы можете предложить новость
                   </p>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-secondary u_suggested_elect_new_create btn-sm pointer">Предложить новость</a>
-                  {% else %}
-                  <p class="card-text text-sm">
-                    Для этого Вам необходимо <a href="{% url 'login' %}" class="ajax underline">Войти</a> или
-                    <a href="{% url 'signup' %}" class="ajax underline">Зарегистрироваться</a>
-                  </p>
-                  {% endif %}
+                  <a class="btn btn-secondary u_suggested_elect_new_create btn-sm pointer">Предложить новость</a>
                 </div>
                 </div>
               {% endfor %}

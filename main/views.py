@@ -5,14 +5,14 @@ from users.models import User
 from django.views import View
 from django.http import Http404
 import json, requests
-from common.templates import render_for_platform, get_small_template
+from common.templates import render_for_platform, get_full_template
 
 
 class MainPageView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("main/mainpage.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("main/", "mainpage.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainPageView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -29,7 +29,7 @@ class MainRegionView(ListView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		from region.models import Region
 
-		self.template_name = get_small_template("main/region.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("main/", "region.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.region = Region.objects.get(slug=self.kwargs["slug"])
 		return super(MainRegionView,self).get(request,*args,**kwargs)
 
@@ -46,7 +46,7 @@ class MainMapView(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("main/map.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("main/", "map.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainMapView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -60,7 +60,7 @@ class MainStatView(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_small_template("main/stat.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("main/", "stat.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainStatView,self).get(request,*args,**kwargs)
 
 
@@ -70,7 +70,7 @@ class MainDocsView(ListView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		from region.models import Region
 
-		self.template_name = get_small_template("main/docs.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("main/", "docs.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.region = Region.objects.get(slug=self.kwargs["slug"])
 		return super(MainDocsView,self).get(request,*args,**kwargs)
 

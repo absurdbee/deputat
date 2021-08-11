@@ -51,7 +51,7 @@ class Community(models.Model):
         (THIS_SUSPENDED_OPEN, 'Открытый замороженный'),(THIS_SUSPENDED_MANAGER, 'Менеджерский замороженный'),
         (THIS_BLOCKED_OPEN, 'Открытый блокнутый'),(THIS_BLOCKED_MANAGER, 'Менеджерский блокнутый'),
     )
-    SUGGESTED, STANDART, VERIFIED_SEND, VERIFIED = 'SU', 'ST', 'VS', 'VE'
+    SUGGESTED, STANDART, VERIFIED_SEND, VERIFIED, REJECTED = 'SU', 'ST', 'VS', 'VE', 'RE'
     PERM = (
         (SUGGESTED, 'Предложенное'),(REJECTED, 'Отклоненное'),(STANDART, 'Обычные права'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Провернный'),
     )

@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from communities.view.votes import *
+from communities.views.votes import *
 
 
 urlpatterns = [

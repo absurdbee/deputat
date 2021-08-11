@@ -9,11 +9,9 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav bookmark-icons">
-              {% if request.user.is_authenticated %}
                 <li class="nav-item d-none d-lg-block">
                   <button class="btn btn-outline-secondary btn-sm u_suggested_elect_new_create">Предложить новость</button>
                 </li>
-              {% endif %}
             </ul>
         </div>
         <ul class="nav navbar-nav align-items-center ml-auto">
@@ -37,7 +35,6 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card ficon"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
             </a>
           </li>
-          {% if request.user.is_authenticated %}
             <li class="nav-item d-none d-lg-block" tooltip="Документы" flow="down">
               <a href="{% url 'user_docs' pk=request.user.pk %}" class="nav-link ajax">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file ficon"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
@@ -48,7 +45,6 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home ficon"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
               </a>
             </li>
-            {% endif %}
             <li class="nav-item d-none d-lg-block" style="opacity:0.7">
               <a class="nav-link disabled">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star ficon"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
@@ -64,7 +60,6 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search ficon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
               </a>
             </li>
-            {% if request.user.is_authenticated %}
             <li class="nav-item dropdown-notification mr-25" tooltip="Уведомления" flow="down">
               <a class="nav-link get_user_notify_box">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ficon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -75,10 +70,8 @@
               <div class="notify_box" style="height: 450px;padding: 5px;"></div>
               <a class="btn btn-primary btn-block ajax" href="{% url 'all_notify' %}">Все уведомления</a>
             </div>
-            {% endif %}
 
             <li class="nav-item dropdown dropdown-user">
-              {% if request.user.is_authenticated %}
               <a class="nav-link dropdown-toggle dropdown-user-link userpic" data-pk="{{ request.user.pk }}">
                 <div class="user-nav d-sm-flex d-none">
                   <span class="user-name font-weight-bolder">{{ request.user.first_name }}</span>
@@ -112,29 +105,6 @@
                   Выйти
                 </a>
               </div>
-              {% else %}
-              <a class="nav-link dropdown-toggle dropdown-user-link">
-                <div class="user-nav d-sm-flex d-none">
-                  <span class="user-name font-weight-bolder">Привет, гость!</span>
-                  <span class="user-status">Онлайн</span>
-                </div>
-                <span class="avatar anon_avatar">
-                  <img src="/static/images/user.png" alt="avatar" height="40" width="40">
-                  <span class="avatar-status-online round"></span>
-                </span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="{% url 'login' %}">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
-                  Войти
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item ajax" href="">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-life-buoy"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line><line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line><line x1="14.83" y1="9.17" x2="18.36" y2="5.64"></line><line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line></svg>
-                  Помощь
-                </a>
-              </div>
-              {% endif %}
             </li>
         </ul>
     </div>

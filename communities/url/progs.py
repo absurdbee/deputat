@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^manager_add_member/(?P<community_pk>\d+)/(?P<user_pk>\d+)/$', CommunityManageMemberCreate.as_view()),
     url(r'^manager_delete_member/(?P<community_pk>\d+)/(?P<user_pk>\d+)/$', CommunityManageMemberDelete.as_view()),
 
-    url(r'^add/$', CommunityCreate.as_view(), name="add_community"),
+    url(r'^suggest_community/$', SuggestCommunityView.as_view(), name="suggest_community"),
     url(r'^cat/(?P<order>\d+)/$',CommunitiesCatsView.as_view(), name="communities_cats"),
 
     url(r'^add_admin/(?P<community_pk>\d+)/(?P<user_pk>\d+)/$', CommunityAdminCreate.as_view()),

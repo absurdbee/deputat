@@ -23,9 +23,9 @@ urlpatterns = [
     url(r'^create_claim/(?P<pk>\d+)/$', OrganizationClaimCreate.as_view()),
     url(r'^unverify/(?P<pk>\d+)/$', OrganizationUnverify.as_view()),
 
-    url(r'^comment_create_close/(?P<pk>\d+)/$', CommentOrganizationCloseCreate.as_view()),
-    url(r'^comment_delete_close/(?P<pk>\d+)/$', CommentOrganizationCloseDelete.as_view()),
-    url(r'^comment_create_rejected/(?P<pk>\d+)/$', CommentOrganizationRejectedCreate.as_view()),
-    url(r'^comment_create_claim/(?P<pk>\d+)/$', CommentOrganizationClaimCreate.as_view()),
-    url(r'^comment_unverify/(?P<pk>\d+)/$', CommentOrganizationUnverify.as_view()),
+    #url(r'^comment_create_close/(?P<pk>\d+)/$', CommentOrganizationCloseCreate.as_view()),
+    #url(r'^comment_delete_close/(?P<pk>\d+)/$', CommentOrganizationCloseDelete.as_view()),
+    #url(r'^comment_create_rejected/(?P<pk>\d+)/$', CommentOrganizationRejectedCreate.as_view()),
+    #url(r'^comment_create_claim/(?P<pk>\d+)/$', CommentOrganizationClaimCreate.as_view()),
+    #url(r'^comment_unverify/(?P<pk>\d+)/$', CommentOrganizationUnverify.as_view()),
 ]

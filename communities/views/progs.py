@@ -5,32 +5,32 @@ from django.http import HttpResponse, Http404
 from users.models import User
 
 
-class CommunityCreate(TemplateView):
+class SuggestCommunityView(TemplateView):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		from common.template.user import get_settings_template
+		from common.templates import get_detect_platform_template
 
-		self.template_name = get_settings_template("communities/manage/create_community.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(CommunityCreate,self).get(request,*args,**kwargs)
+		self.template_name = get_detect_platform_template("communities/manage/suggest_community.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(SuggestCommunityView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		from communities.forms import CommunityForm
 		from communities.models import CommunityCategory
 
-		c = super(CommunityCreate,self).get_context_data(**kwargs)
+		c = super(SuggestCommunityView,self).get_context_data(**kwargs)
 		c["form"], c["categories"] = CommunityForm(), CommunityCategory.objects.only("id")
 		return c
 
 	def post(self,request,*args,**kwargs):
-		from common.template.user import render_for_platform
+		from common.templates import render_for_platform
 		from communities.forms import CommunityForm
 
 		self.form = CommunityForm(request.POST)
 		if self.form.is_valid() and request.is_ajax():
-			new_community, membersheeps = self.form.save(commit=False), [request.user]
-			community = Community.create_community(name=new_community.name, category=new_community.category, type=new_community.type, creator=request.user)
-			return render_for_platform(request, 'communities/detail/admin_community.html',{'community': community, 'membersheeps': membersheeps, 'user': request.user})
+			_community = self.form.save(commit=False)
+			community = _community.suggest_community(name=_community.name, category=_community.category, creator=request.user, description=_community.description)
+			return render_for_platform(request, 'communities/detail/suggest_community.html',{'community': community, 'user': request.user})
 		else:
 			from django.http import HttpResponseBadRequest
 			return HttpResponseBadRequest()

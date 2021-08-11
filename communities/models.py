@@ -260,12 +260,14 @@ class Community(models.Model):
             return '<svg fill="currentColor" class="svg_default svg_default_50" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>'
 
     @classmethod
-    def suggest_community(cls, name, category, creator, city, description):
+    def suggest_community(cls, name, s_avatar, category, creator, city, description):
         community = cls.objects.create(name=name, description=description, creator=creator, category=category, city=city)
+        if s_avatar:
+            community.create_s_avatar(s_avatar)
         return community
 
-    def publish_community(self, name, category, description, manager_id):
-        from logs.model.manage_elect_new import ElectNewManageLog
+    def publish_community(self, name, s_avatar, category, description, manager_id):
+        from logs.model.manage_community import CommunityManageLog
         from notify.models import Wall, Notify
         from common.notify.progs import user_send_wall, user_send_notify
         from common.processing import get_community_processing
@@ -278,6 +280,8 @@ class Community(models.Model):
         self.save()
         self.add_news_subscriber(creator.pk)
         self.add_notify_subscriber(creator.pk)
+        if s_avatar:
+            self.create_s_avatar(s_avatar)
         CommunityManageLog.objects.create(item=self.pk, manager=manager_id, action_type=CommunityManageLog.PUBLISH)
         Wall.objects.create(creator_id=creator.pk, type="COM", object_id=self.pk, verb="ITE")
         user_send_wall(self.pk, None, "community_wall")
@@ -286,13 +290,15 @@ class Community(models.Model):
         return self
 
     @classmethod
-    def create_manager_community(cls, name, description, category, creator, type):
-        from logs.model.manage_elect_new import CommunityManageLog
+    def create_manager_community(cls, name, s_avatar, description, category, creator, type):
+        from logs.model.manage_community import CommunityManageLog
         from notify.models import Wall
         from common.notify.progs import user_send_wall
         from common.processing import get_community_processing
 
         community = cls.objects.create(name=name, description=description, creator=creator, category=category)
+        if s_avatar:
+            community.create_s_avatar(s_avatar)
         CommunityMembership.create_membership(user=creator, is_administrator=True, community=community)
         community.save()
         creator.create_or_plus_populate_community(community.pk)

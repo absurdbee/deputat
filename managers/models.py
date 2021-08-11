@@ -326,7 +326,7 @@ MUSIC_LIST, MUSIC = 'MUL', 'MUS'
 SURVEY_LIST, SURVEY = 'SUL', 'SUR'
 VIDEO_LIST, VIDEO, VIDEO_COMMENT = 'VIL', 'VID', 'VIDC'
 TYPE = (
-    (USER, 'Пользователь'), (COMMUNITY, 'Сообщество')
+    (USER, 'Пользователь'), (COMMUNITY, 'Сообщество'),
     (MUSIC_LIST, 'Плейлист'), (MUSIC, 'Трек'),
     (SURVEY_LIST, 'Список опросов'), (SURVEY, 'Опрос'),
     (ELECT_NEW, 'Активность депутата'), (ELECT_NEW_COMMENT, 'Коммент к активности депутата'),

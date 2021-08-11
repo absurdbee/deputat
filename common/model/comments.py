@@ -543,7 +543,7 @@ class OrganizationComment(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Комментатор")
     text = models.TextField(blank=True)
-    organization = models.ForeignKey(Organization, on_delete=models.CASCADE, blank=True, null=True)
+    organization = models.ForeignKey("organization.Organization", on_delete=models.CASCADE, blank=True, null=True)
     attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
     type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип комментария")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")

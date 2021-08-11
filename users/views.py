@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from users.models import User
 from django.views.generic import ListView
-from common.templates import get_small_template, get_my_template
+from common.templates import get_full_template, get_my_template
 from django.http import HttpResponse
 
 
@@ -37,9 +37,9 @@ class MainPhoneSend(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		if request.user.is_no_phone_verified():
-			self.template_name = get_small_template("generic/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_my_template("generic/phone_verification.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
-			self.template_name = get_small_template("profile/user.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_my_template("profile/user.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MainPhoneSend,self).get(request,*args,**kwargs)
 
 
@@ -76,7 +76,7 @@ class SubscribeElectsView(ListView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_small_template("profile/subscribes_elect.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("profile/", "subscribes_elect.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(SubscribeElectsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

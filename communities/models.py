@@ -2,7 +2,7 @@ import uuid
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
-from pilkit.processors import ResizeToFill, ResizeToFit
+from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
 from communities.helpers import upload_to_community_avatar_directory, upload_to_community_cover_directory
 from imagekit.models import ProcessedImageField
 from common.utils import try_except
@@ -51,9 +51,9 @@ class Community(models.Model):
         (THIS_SUSPENDED_OPEN, 'Открытый замороженный'),(THIS_SUSPENDED_MANAGER, 'Менеджерский замороженный'),
         (THIS_BLOCKED_OPEN, 'Открытый блокнутый'),(THIS_BLOCKED_MANAGER, 'Менеджерский блокнутый'),
     )
-    STANDART, VERIFIED_SEND, VERIFIED = 'ST', 'VS', 'VE'
+    SUGGESTED, STANDART, VERIFIED_SEND, VERIFIED = 'SU', 'ST', 'VS', 'VE'
     PERM = (
-        (STANDART, 'Обычные права'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Провернный'),
+        (SUGGESTED, 'Предложенное'),(REJECTED, 'Отклоненное'),(STANDART, 'Обычные права'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Провернный'),
     )
 
     category = models.ForeignKey(CommunitySubCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Подкатегория сообщества")
@@ -66,6 +66,8 @@ class Community(models.Model):
     s_avatar = models.ImageField(blank=True, upload_to=upload_to_community_cover_directory)
     perm = models.CharField(max_length=5, choices=PERM, default=STANDART, verbose_name="Уровень доступа")
     banned_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='banned_of_communities', verbose_name="Черный список")
+    description = models.TextField(max_length=500, blank=True, null=True, verbose_name="Описание")
+    #cover = ProcessedImageField(blank=True, format='JPEG',options={'quality': 90},upload_to=upload_to_community_avatar_directory,processors=[ResizeToFit(width=1024, upscale=False)])
 
     class Meta:
         verbose_name = 'сообщество'
@@ -186,24 +188,6 @@ class Community(models.Model):
             return self.community_info.save(update_fields=['photos'])
         except:
             pass
-    def plus_goods(self, count):
-        self.community_info.goods += count
-        return self.community_info.save(update_fields=['goods'])
-    def minus_goods(self, count):
-        try:
-            self.community_info.goods -= count
-            return self.community_info.save(update_fields=['goods'])
-        except:
-            pass
-    def plus_posts(self, count):
-        self.community_info.posts += count
-        return self.community_info.save(update_fields=['posts'])
-    def minus_posts(self, count):
-        try:
-            self.community_info.posts -= count
-            return self.community_info.save(update_fields=['posts'])
-        except:
-            pass
     def plus_videos(self, count):
         self.community_info.videos += count
         return self.community_info.save(update_fields=['videos'])
@@ -255,8 +239,6 @@ class Community(models.Model):
         return self.type[:4] == "_BLO"
     def is_have_warning_banner(self):
         return self.type[:4] == "_BAN"
-    def is_private(self):
-        return self.type == self.PRIVATE
     def is_public(self):
         return self.type == self.PUBLIC
     def is_open(self):
@@ -277,42 +259,48 @@ class Community(models.Model):
         else:
             return '<svg fill="currentColor" class="svg_default svg_default_50" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>'
 
-    def is_photo_open(self):
-        return try_except(self.community_sections_open.photo)
-    def is_video_open(self):
-        return try_except(self.community_sections_open.video)
-    def is_music_open(self):
-        return try_except(self.community_sections_open.music)
-    def is_doc_open(self):
-        return try_except(self.community_sections_open.doc)
-    def is_contacts_open(self):
-        return try_except(self.community_sections_open.contacts)
-
     @classmethod
-    def suggest_community(cls, name, category, creator, city):
-        community = cls.objects.create(name=name, creator=creator, category=category, city=city)
-        CommunityMembership.create_membership(user=creator, is_administrator=True, community=community)
-        community.save()
+    def suggest_community(cls, name, category, creator, city, description):
+        community = cls.objects.create(name=name, description=description, creator=creator, category=category, city=city)
         return community
 
+    def publish_community(self, name, category, description, manager_id):
+        from logs.model.manage_elect_new import ElectNewManageLog
+        from notify.models import Wall, Notify
+        from common.notify.progs import user_send_wall, user_send_notify
+        from common.processing import get_community_processing
+
+        get_community_processing(name, description)
+        CommunityMembership.create_membership(user=self.creator, is_administrator=True, community=self)
+        self.name = name
+        self.category = category
+        self.description = description
+        self.save()
+        self.add_news_subscriber(creator.pk)
+        self.add_notify_subscriber(creator.pk)
+        CommunityManageLog.objects.create(item=self.pk, manager=manager_id, action_type=CommunityManageLog.PUBLISH)
+        Wall.objects.create(creator_id=creator.pk, type="COM", object_id=self.pk, verb="ITE")
+        user_send_wall(self.pk, None, "community_wall")
+        Notify.objects.create(creator_id=creator.pk, recipient_id=self.creator.pk, type="COM", object_id=self.pk, verb="ITE")
+        user_send_notify(self.pk, self.creator.pk, self.creator.pk, None, "community_notify")
+        return self
+
     @classmethod
-    def publish_community(cls, name, category, creator, type):
-        community = cls.objects.create(name=name, creator=creator, category=category)
+    def create_manager_community(cls, name, description, category, creator, type):
+        from logs.model.manage_elect_new import CommunityManageLog
+        from notify.models import Wall
+        from common.notify.progs import user_send_wall
+        from common.processing import get_community_processing
+
+        community = cls.objects.create(name=name, description=description, creator=creator, category=category)
         CommunityMembership.create_membership(user=creator, is_administrator=True, community=community)
         community.save()
         creator.create_or_plus_populate_community(community.pk)
         community.add_news_subscriber(creator.pk)
         community.add_notify_subscriber(creator.pk)
-        return community
-
-    @classmethod
-    def create_manager_community(cls, name, category, creator, type):
-        community = cls.objects.create(name=name, creator=creator, category=category)
-        CommunityMembership.create_membership(user=creator, is_administrator=True, community=community)
-        community.save()
-        creator.create_or_plus_populate_community(community.pk)
-        community.add_news_subscriber(creator.pk)
-        community.add_notify_subscriber(creator.pk)
+        CommunityManageLog.objects.create(item=self.pk, manager=manager_id, action_type=CommunityManageLog.CREATE)
+        Wall.objects.create(creator_id=creator.pk, type="COM", object_id=self.pk, verb="ITE")
+        user_send_wall(self.pk, None, "community_wall")
         return community
 
     @classmethod

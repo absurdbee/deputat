@@ -12,6 +12,8 @@ class UserManageLog(models.Model):
     WARNING_BANNER_HIDE = 'NWBH'
     REJECT = 'REJ'
     UNVERIFY = 'UNV'
+    CREATE = "CRE"
+    PUBLISH = "PUB"
     ACTION_TYPES = (
         (CLOSED, 'Закрыт'),
         (CLOSED_HIDE, 'Восстановлен'),
@@ -24,6 +26,8 @@ class UserManageLog(models.Model):
         (WARNING_BANNER_HIDE, 'Убран предупреждающий баннер'),
         (REJECT, 'Жалоба отклонена'),
         (UNVERIFY, 'Проверка убрана'),
+        (CREATE, 'Создано'),
+        (PUBLISH, 'Одобрено'),
     )
 
     user = models.PositiveIntegerField(default=0, verbose_name="Пользователь")

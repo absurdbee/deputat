@@ -13,7 +13,7 @@ from logs.model.manage_user_community import UserManageLog
 class UserAdminCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_administrator()):
+        if request.is_ajax() and request.user.is_work_administrator():
             add_user_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -22,7 +22,7 @@ class UserAdminCreate(View):
 class UserAdminDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_administrator()):
+        if request.is_ajax() and request.user.is_work_administrator():
             remove_user_administrator(user, request.user)
             UserWorkerLog.objects.create(manager=request.user, user=user, action_type='Удален админ пользователей')
             return HttpResponse()
@@ -32,7 +32,7 @@ class UserAdminDelete(View):
 class UserModerCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_moderator()):
+        if request.is_ajax() and request.user.is_work_moderator():
             add_user_moderator(user, request.user)
             UserWorkerLog.objects.create(manager=request.user, user=user, action_type='Добавлен модератор пользователей')
             return HttpResponse()
@@ -42,7 +42,7 @@ class UserModerCreate(View):
 class UserModerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_moderator()):
+        if request.is_ajax() and request.user.is_work_moderator():
             remove_user_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -51,7 +51,7 @@ class UserModerDelete(View):
 class UserEditorCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_editor()):
+        if request.is_ajax() and request.user.is_work_editor():
             add_user_editor(user, request.user)
             return HttpResponse()
         else:
@@ -60,7 +60,7 @@ class UserEditorCreate(View):
 class UserEditorDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_editor()):
+        if request.is_ajax() and request.user.is_work_editor():
             remove_user_editor(user, request.user)
             UserWorkerLog.objects.create(manager=request.user, user=user, action_type='Удален редактор пользователей')
             return HttpResponse()
@@ -70,7 +70,7 @@ class UserEditorDelete(View):
 class UserAdvertiserCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_advertiser()):
+        if request.is_ajax() and request.user.is_work_advertiser():
             add_user_advertiser(user, request.user)
             return HttpResponse()
         else:
@@ -79,7 +79,7 @@ class UserAdvertiserCreate(View):
 class UserAdvertiserDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_advertiser()):
+        if request.is_ajax() and request.user.is_work_advertiser():
             remove_user_advertiser(user, request.user)
             return HttpResponse()
         else:

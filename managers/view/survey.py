@@ -14,7 +14,7 @@ from managers.forms import ModeratedForm, ReportForm
 class SurveyAdminCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_survey_administrator()):
+        if request.is_ajax() and request.user.is_work_survey_administrator():
             add_survey_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -23,7 +23,7 @@ class SurveyAdminCreate(View):
 class SurveyAdminDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_survey_administrator()):
+        if request.is_ajax() and request.user.is_work_survey_administrator():
             remove_survey_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -33,7 +33,7 @@ class SurveyAdminDelete(View):
 class SurveyModerCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_survey_moderator()):
+        if request.is_ajax() and request.user.is_work_survey_moderator():
             add_survey_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -42,7 +42,7 @@ class SurveyModerCreate(View):
 class SurveyModerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_survey_moderator()):
+        if request.is_ajax() and request.user.is_work_survey_moderator():
             remove_survey_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -52,7 +52,7 @@ class SurveyModerDelete(View):
 class SurveyEditorCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_survey_editor()):
+        if request.is_ajax() and request.user.is_work_survey_editor():
             add_survey_editor(user, request.user)
             return HttpResponse()
         else:
@@ -61,7 +61,7 @@ class SurveyEditorCreate(View):
 class SurveyEditorDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_survey_editor()):
+        if request.is_ajax() and request.user.is_work_survey_editor():
             remove_survey_editor(user, request.user)
             return HttpResponse()
         else:

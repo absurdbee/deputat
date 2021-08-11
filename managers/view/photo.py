@@ -14,7 +14,7 @@ from logs.model.manage_photo import PhotoManageLog
 class PhotoAdminCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_photo_administrator()):
+        if request.is_ajax() and request.user.is_work_photo_administrator():
             add_photo_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -23,7 +23,7 @@ class PhotoAdminCreate(View):
 class PhotoAdminDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_photo_administrator()):
+        if request.is_ajax() and request.user.is_work_photo_administrator():
             remove_photo_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -32,7 +32,7 @@ class PhotoAdminDelete(View):
 class PhotoModerCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_photo_moderator()):
+        if request.is_ajax() and request.user.is_work_photo_moderator():
             add_photo_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -41,7 +41,7 @@ class PhotoModerCreate(View):
 class PhotoModerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_photo_moderator()):
+        if request.is_ajax() and request.user.is_work_photo_moderator():
             remove_photo_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -50,7 +50,7 @@ class PhotoModerDelete(View):
 class PhotoEditorCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_photo_editor()):
+        if request.is_ajax() and request.user.is_work_photo_editor():
             add_photo_editor(user, request.user)
             return HttpResponse()
         else:
@@ -59,7 +59,7 @@ class PhotoEditorCreate(View):
 class PhotoEditorDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_photo_editor()):
+        if request.is_ajax() and request.user.is_work_photo_editor():
             remove_photo_editor(user, request.user)
             return HttpResponse()
         else:

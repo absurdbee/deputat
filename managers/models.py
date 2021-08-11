@@ -137,6 +137,20 @@ class AudioUserStaff(models.Model):
         verbose_name = 'Полномочия в аудиозаписях'
         verbose_name_plural = 'Полномочия в аудиозаписях'
 
+class OrganizationUserStaff(models.Model):
+    ADMINISTRATOR, MODERATOR, EDITOR, ADVERTISER = 'A', 'M', 'E', 'R'
+    LEVEL = (
+        (ADMINISTRATOR, 'Администратор'),(MODERATOR, 'Модератор'),(EDITOR, 'Редактор'),(ADVERTISER, 'Рекламодатель'),
+    )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='organization_user_staff', verbose_name="Особый пользователь")
+    level = models.CharField(max_length=5, choices=LEVEL, blank=True, verbose_name="Уровень доступа")
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        verbose_name = 'Полномочия в организациях'
+        verbose_name_plural = 'Полномочия в организациях'
 
 class CanWorkStaffUser(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='can_work_staff_user', verbose_name="Создатель персонала")
@@ -266,6 +280,19 @@ class CanWorkStaffAudioUser(models.Model):
         verbose_name = 'Создатель персонала аудиозаписей'
         verbose_name_plural = 'Создатели персонала аудиозаписей'
 
+class CanWorkStaffOrganizationUser(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='can_work_staff_organization_user', verbose_name="Создатель персонала в аудиозаписях")
+    can_work_administrator = models.BooleanField(default=False, verbose_name="Может добавлять администраторов организациях")
+    can_work_moderator = models.BooleanField(default=False, verbose_name="Может добавлять модераторов организациях")
+    can_work_editor = models.BooleanField(default=False, verbose_name="Может добавлять редакторов организациях")
+    can_work_advertiser = models.BooleanField(default=False, verbose_name="Может добавлять рекламодателей организациях")
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        verbose_name = 'Создатель персонала организаций'
+        verbose_name_plural = 'Создатели персонала организаций'
 
 class ModerationCategory(models.Model):
     SEVERITY_CRITICAL, SEVERITY_HIGH, SEVERITY_MEDIUM, SEVERITY_LOW = 'C', 'H', 'M', 'L'
@@ -291,6 +318,7 @@ class ModerationCategory(models.Model):
 
 USER, COMMUNITY = 'USE', 'COM'
 ELECT_NEW, ELECT_NEW_COMMENT = 'ELE', 'ELEC'
+ORGANIZATION, ORGANIZATION_COMMENT = 'ORG', 'ORGC'
 BLOG, BLOG_COMMENT = 'BLO', 'BLOC'
 PHOTO_LIST, PHOTO, PHOTO_COMMENT = 'PHL', 'PHO', 'PHOC'
 DOC_LIST, DOC = 'DOL', 'DOC'
@@ -298,11 +326,12 @@ MUSIC_LIST, MUSIC = 'MUL', 'MUS'
 SURVEY_LIST, SURVEY = 'SUL', 'SUR'
 VIDEO_LIST, VIDEO, VIDEO_COMMENT = 'VIL', 'VID', 'VIDC'
 TYPE = (
-    (USER, 'Пользователь'), (COMMUNITY, 'Сообщество'),
+    (USER, 'Пользователь'), (COMMUNITY, 'Сообщество')
     (MUSIC_LIST, 'Плейлист'), (MUSIC, 'Трек'),
     (SURVEY_LIST, 'Список опросов'), (SURVEY, 'Опрос'),
     (ELECT_NEW, 'Активность депутата'), (ELECT_NEW_COMMENT, 'Коммент к активности депутата'),
     (BLOG, 'Блог'), (BLOG_COMMENT, 'Коммент к блогу'),
+    (ORGANIZATION, 'Организация'), (ORGANIZATION_COMMENT, 'Коммент к организации'),
     (DOC_LIST, 'Список документов'), (DOC, 'документ'),
     (PHOTO_LIST, 'Список фотографий'), (PHOTO, 'Фотография'), (PHOTO_COMMENT, 'Коммент к фотографии'),
     (VIDEO_LIST, 'Список роликов'), (VIDEO, 'Ролик'), (VIDEO_COMMENT, 'Коммент к ролику'),

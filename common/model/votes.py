@@ -69,3 +69,11 @@ class BlogCommentVotes(models.Model):
     vote = models.IntegerField(verbose_name="Голос", choices=VOTES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     comment = models.ForeignKey(BlogComment, on_delete=models.CASCADE)
+
+class OrganizationCommentVotes(models.Model):
+    LIKE = 1
+    VOTES = ((LIKE, 'Нравится'),)
+
+    vote = models.IntegerField(verbose_name="Голос", choices=VOTES)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
+    comment = models.ForeignKey(BlogComment, on_delete=models.CASCADE)

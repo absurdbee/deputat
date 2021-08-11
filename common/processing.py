@@ -1,3 +1,5 @@
+def get_community_processing(name, description):
+    return True
 
 def get_elect_new_processing(new, type):
     new.type = type

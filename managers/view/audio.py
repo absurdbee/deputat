@@ -14,7 +14,7 @@ from managers.forms import ModeratedForm, ReportForm
 class AudioAdminCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_audio_administrator()):
+        if request.is_ajax() and request.user.is_work_audio_administrator():
             add_audio_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -23,7 +23,7 @@ class AudioAdminCreate(View):
 class AudioAdminDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_audio_administrator()):
+        if request.is_ajax() and request.user.is_work_audio_administrator():
             remove_audio_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -33,7 +33,7 @@ class AudioAdminDelete(View):
 class AudioModerCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_audio_moderator()):
+        if request.is_ajax() and request.user.is_work_audio_moderator():
             add_audio_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -42,7 +42,7 @@ class AudioModerCreate(View):
 class AudioModerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_audio_moderator()):
+        if request.is_ajax() and request.user.is_work_audio_moderator():
             remove_audio_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -52,7 +52,7 @@ class AudioModerDelete(View):
 class AudioEditorCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_audio_editor()):
+        if request.is_ajax() and request.user.is_work_audio_editor():
             add_audio_editor(user, request.user)
             return HttpResponse()
         else:
@@ -61,7 +61,7 @@ class AudioEditorCreate(View):
 class AudioEditorDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_audio_editor()):
+        if request.is_ajax() and request.user.is_work_audio_editor():
             remove_audio_editor(user, request.user)
             return HttpResponse()
         else:

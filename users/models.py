@@ -12,17 +12,17 @@ from city.models import City
 """
 
 class User(AbstractUser):
-    PHONE_NO_VERIFIED, STANDART, DEPUTAT, DEPUTAT_SEND, VERIFIED_SEND, VERIFIED, IDENTIFIED_SEND, IDENTIFIED, MANAGER, SUPERMANAGER = '_PV','STA','DEP','DEPS','VES','VER','IDS','IDE','MAN','SUP'
-    CLOSED_DEPUTAT,CLOSED_DEPUTAT_SEND, CLOSED_STANDART, CLOSED_VERIFIED_SEND, CLOSED_VERIFIED, CLOSED_IDENTIFIED_SEND, CLOSED_IDENTIFIED, CLOSED_MANAGER = '_CLOD','_CLODS','_CLOS','_CLOVS','_CLOV','_CLOIS','_CLOI','_CLOM'
-    DELETED_DEPUTAT,DELETED_DEPUTAT_SEND, DELETED_STANDART, DELETED_VERIFIED_SEND, DELETED_VERIFIED, DELETED_IDENTIFIED_SEND, DELETED_IDENTIFIED, DELETED_MANAGER = '_DELD','_DELDS','_DELS','_DELVS','_DELV','_DELIS','_DELI','_DELM'
-    SUSPENDED_DEPUTAT,SUSPENDED_DEPUTAT_SEND, SUSPENDED_STANDART, SUSPENDED_VERIFIED_SEND, SUSPENDED_VERIFIED, SUSPENDED_IDENTIFIED_SEND, SUSPENDED_IDENTIFIED, SUSPENDED_MANAGER = '_SUSD','_SUSDS','_SUSS','_SUSVS','_SUSV','_SUSIS','_SUSI','_SUSM'
-    BANNER_DEPUTAT,BANNER_DEPUTAT_SEND, BANNER_STANDART, BANNER_VERIFIED_SEND, BANNER_VERIFIED, BANNER_IDENTIFIED_SEND, BANNER_IDENTIFIED, BANNER_MANAGER = '_BAND','_BANDS','_BANS','_BANVS','_BANV','_BANIS','_BANI','_BANM'
+    PHONE_NO_VERIFIED, STANDART, DEPUTAT, DEPUTAT_SEND, IDENTIFIED_SEND, IDENTIFIED, MANAGER, SUPERMANAGER = '_PV','STA','DEP','DEPS','IDS','IDE','MAN','SUP'
+    CLOSED_DEPUTAT,CLOSED_DEPUTAT_SEND, CLOSED_STANDART, CLOSED_IDENTIFIED_SEND, CLOSED_IDENTIFIED, CLOSED_MANAGER = '_CLOD','_CLODS','_CLOS','_CLOIS','_CLOI','_CLOM'
+    DELETED_DEPUTAT,DELETED_DEPUTAT_SEND, DELETED_STANDART, DELETED_IDENTIFIED_SEND, DELETED_IDENTIFIED, DELETED_MANAGER = '_DELD','_DELDS','_DELS','_DELIS','_DELI','_DELM'
+    SUSPENDED_DEPUTAT,SUSPENDED_DEPUTAT_SEND, SUSPENDED_STANDART, SUSPENDED_IDENTIFIED_SEND, SUSPENDED_IDENTIFIED, SUSPENDED_MANAGER = '_SUSD','_SUSDS','_SUSS','_SUSIS','_SUSI','_SUSM'
+    BANNER_DEPUTAT,BANNER_DEPUTAT_SEND, BANNER_STANDART, BANNER_IDENTIFIED_SEND, BANNER_IDENTIFIED, BANNER_MANAGER = '_BAND','_BANDS','_BANS','_BANIS','_BANI','_BANM'
     TYPE = (
-        (PHONE_NO_VERIFIED, 'Телефон не подтвержден'),(STANDART, 'Обычные права'),(DEPUTAT, 'Депутат'),(DEPUTAT_SEND, 'Запрос на депутатство'),(VERIFIED_SEND, 'Запрос на проверку'),(VERIFIED, 'Проверенный'),(IDENTIFIED_SEND, 'Запрос на идентификацию'),(IDENTIFIED, 'Идентифицированный'),(MANAGER, 'Менеджер'),(SUPERMANAGER, 'Суперменеджер'),
-        (DELETED_DEPUTAT, 'Удален депутат'),(DELETED_DEPUTAT_SEND, 'Удален подавший на депутатство'),(DELETED_STANDART, 'Удален'),(DELETED_VERIFIED_SEND, 'Удален подавший на верификацию'),(DELETED_VERIFIED, 'Удален верифицированный'),(DELETED_IDENTIFIED_SEND, 'Удален подавший на идентификацию'),(DELETED_IDENTIFIED, 'Удален идентифиированный'),(DELETED_MANAGER, 'Удален менеджер'),
-        (CLOSED_DEPUTAT, 'Закрыт депутат'),(CLOSED_DEPUTAT_SEND, 'Закрыт подавший на депутатство'),(CLOSED_STANDART, 'Закрыт'),(CLOSED_VERIFIED_SEND, 'Удален подавший на верификацию'),(CLOSED_VERIFIED, 'Закрыт верифицированный'),(CLOSED_IDENTIFIED_SEND, 'Закрыт подавший на идентификацию'),(CLOSED_IDENTIFIED, 'Закрыт идентифиированный'),(CLOSED_MANAGER, 'Закрыт менеджер'),
-        (SUSPENDED_DEPUTAT, 'Заморожен депутат'),(SUSPENDED_DEPUTAT_SEND, 'Заморожен подавший на депутатство'),(SUSPENDED_STANDART, 'Заморожен'),(SUSPENDED_VERIFIED_SEND, 'Заморожен подавший на верификацию'),(SUSPENDED_VERIFIED, 'Заморожен верифицированный'),(SUSPENDED_IDENTIFIED_SEND, 'Заморожен подавший на идентификацию'),(SUSPENDED_IDENTIFIED, 'Заморожен идентифиированный'),(SUSPENDED_MANAGER, 'Заморожен менеджер'),
-        (BANNER_DEPUTAT, 'Баннер депутат'),(BANNER_DEPUTAT_SEND, 'Баннер подавший на депутатство'),(BANNER_STANDART, 'Баннер'),(BANNER_VERIFIED_SEND, 'Баннер подавший на верификацию'),(BANNER_VERIFIED, 'Баннер верифицированный'),(BANNER_IDENTIFIED_SEND, 'Баннер подавший на идентификацию'),(BANNER_IDENTIFIED, 'Баннер идентифиированный'),(BANNER_MANAGER, 'Баннер менеджер'),
+        (PHONE_NO_VERIFIED, 'Телефон не подтвержден'),(STANDART, 'Обычные права'),(DEPUTAT, 'Депутат'),(DEPUTAT_SEND, 'Запрос на депутатство'),(IDENTIFIED_SEND, 'Запрос на идентификацию'),(IDENTIFIED, 'Идентифицированный'),(MANAGER, 'Менеджер'),(SUPERMANAGER, 'Суперменеджер'),
+        (DELETED_DEPUTAT, 'Удален депутат'),(DELETED_DEPUTAT_SEND, 'Удален подавший на депутатство'),(DELETED_STANDART, 'Удален'),(DELETED_IDENTIFIED_SEND, 'Удален подавший на идентификацию'),(DELETED_IDENTIFIED, 'Удален идентифиированный'),(DELETED_MANAGER, 'Удален менеджер'),
+        (CLOSED_DEPUTAT, 'Закрыт депутат'),(CLOSED_DEPUTAT_SEND, 'Закрыт подавший на депутатство'),(CLOSED_STANDART, 'Закрыт'),(CLOSED_IDENTIFIED_SEND, 'Закрыт подавший на идентификацию'),(CLOSED_IDENTIFIED, 'Закрыт идентифиированный'),(CLOSED_MANAGER, 'Закрыт менеджер'),
+        (SUSPENDED_DEPUTAT, 'Заморожен депутат'),(SUSPENDED_DEPUTAT_SEND, 'Заморожен подавший на депутатство'),(SUSPENDED_STANDART, 'Заморожен'),(SUSPENDED_IDENTIFIED_SEND, 'Заморожен подавший на идентификацию'),(SUSPENDED_IDENTIFIED, 'Заморожен идентифиированный'),(SUSPENDED_MANAGER, 'Заморожен менеджер'),
+        (BANNER_DEPUTAT, 'Баннер депутат'),(BANNER_DEPUTAT_SEND, 'Баннер подавший на депутатство'),(BANNER_STANDART, 'Баннер'),(BANNER_IDENTIFIED_SEND, 'Баннер подавший на идентификацию'),(BANNER_IDENTIFIED, 'Баннер идентифиированный'),(BANNER_MANAGER, 'Баннер менеджер'),
     )
     MALE, FEMALE, DESCTOP, PHONE = 'Man', 'Fem', 'De', 'Ph'
     GENDER = ((MALE, 'Мужской'),(FEMALE, 'Женский'),)
@@ -66,10 +66,6 @@ class User(AbstractUser):
             self.type = User.CLOSED_STANDART
         elif self.type == "MAN":
             self.type = User.CLOSED_MANAGER
-        elif self.type == "VES":
-            self.type = User.CLOSED_VERIFIED_SEND
-        elif self.type == "VER":
-            self.type = User.CLOSED_VERIFIED
         elif self.type == "IDS":
             self.type = User.CLOSED_IDENTIFIED_SEND
         elif self.type == "IDE":
@@ -84,10 +80,6 @@ class User(AbstractUser):
             self.type = User.STANDART
         elif self.type == "_CLOM":
             self.type = User.MANAGER
-        elif self.type == "_CLOVS":
-            self.type = User.VERIFIED_SEND
-        elif self.type == "_CLOV":
-            self.type = User.VERIFIED
         elif self.type == "_CLOIS":
             self.type = User.IDENTIFIED_SEND
         elif self.type == "_CLOI":
@@ -103,10 +95,6 @@ class User(AbstractUser):
             self.type = User.SUSPENDED_STANDART
         elif self.type == "MAN":
             self.type = User.SUSPENDED_MANAGER
-        elif self.type == "VES":
-            self.type = User.SUSPENDED_VERIFIED_SEND
-        elif self.type == "VER":
-            self.type = User.SUSPENDED_VERIFIED
         elif self.type == "IDS":
             self.type = User.SUSPENDED_IDENTIFIED_SEND
         elif self.type == "IDE":
@@ -121,10 +109,6 @@ class User(AbstractUser):
             self.type = User.STANDART
         elif self.type == "_SUSM":
             self.type = User.MANAGER
-        elif self.type == "_SUSVS":
-            self.type = User.VERIFIED_SEND
-        elif self.type == "_SUSV":
-            self.type = User.VERIFIED
         elif self.type == "_SUSIS":
             self.type = User.IDENTIFIED_SEND
         elif self.type == "_SUSI":
@@ -300,10 +284,6 @@ class User(AbstractUser):
         return self.type == User.MANAGER or self.is_superuser
     def is_supermanager(self):
         return self.type == User.SUPERMANAGER or self.is_superuser
-    def is_verified_send(self):
-        return self.type == User.VERIFIED_SEND
-    def is_verified(self):
-        return self.type == User.VERIFIED
     def is_identified_send(self):
         return self.type == User.IDENTIFIED_SEND
     def is_identified(self):
@@ -853,6 +833,29 @@ class User(AbstractUser):
             return self.is_superuser or self.music_user_staff.level
         except:
             return False
+
+    def is_organization_administrator(self):
+        return self.is_superuser or try_except(self.organization_user_staff.level == "A")
+    def is_organization_moderator(self):
+        return self.is_superuser or try_except(self.organization_user_staff.level == "M")
+    def is_organization_editor(self):
+        return self.is_superuser or try_except(self.organization_user_staff.level == "E")
+    def is_organization_manager(self):
+        try:
+            return self.is_superuser or self.organization_user_staff.level
+        except:
+            return False
+
+    def is_work_organization_administrator(self):
+        return self.is_superuser or try_except(self.can_work_staff_organization.can_work_administrator)
+    def is_work_organization_moderator(self):
+        return self.is_superuser or try_except(self.can_work_staff_organization.can_work_moderator)
+    def is_work_organization_editor(self):
+        return self.is_superuser or try_except(self.can_work_staff_organization.can_work_editor)
+    def is_work_organization_advertiser(self):
+        return self.is_superuser or try_except(self.can_work_staff_organization.can_work_advertiser)
+    def is_organization_supermanager(self):
+        return self.is_work_organization_administrator() or self.is_work_organization_moderator() or is_work_organization_editor() or is_work_organization_advertiser()
 
     def is_work_administrator(self):
         return self.is_superuser or try_except(self.can_work_staff_user.can_work_administrator)

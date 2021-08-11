@@ -14,7 +14,7 @@ from managers.forms import ModeratedForm, ReportForm
 class DocAdminCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_doc_administrator()):
+        if request.is_ajax() and request.user.is_work_doc_administrator():
             add_doc_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -23,7 +23,7 @@ class DocAdminCreate(View):
 class DocAdminDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_doc_administrator()):
+        if request.is_ajax() and request.user.is_work_doc_administrator():
             remove_doc_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -33,7 +33,7 @@ class DocAdminDelete(View):
 class DocModerCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_doc_moderator()):
+        if request.is_ajax() and request.user.is_work_doc_moderator():
             add_doc_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -42,7 +42,7 @@ class DocModerCreate(View):
 class DocModerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_doc_moderator()):
+        if request.is_ajax() and request.user.is_work_doc_moderator():
             remove_doc_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -52,7 +52,7 @@ class DocModerDelete(View):
 class DocEditorCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_doc_editor()):
+        if request.is_ajax() and request.user.is_work_doc_editor():
             add_doc_editor(user, request.user)
             return HttpResponse()
         else:
@@ -61,7 +61,7 @@ class DocEditorCreate(View):
 class DocEditorDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_doc_editor()):
+        if request.is_ajax() and request.user.is_work_doc_editor():
             remove_doc_editor(user, request.user)
             return HttpResponse()
         else:

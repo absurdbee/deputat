@@ -14,7 +14,7 @@ from logs.model.manage_user_community import CommunityManageLog
 class CommunityAdminCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_community_administrator()):
+        if request.is_ajax() and request.user.is_work_community_administrator():
             add_community_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -23,7 +23,7 @@ class CommunityAdminCreate(View):
 class CommunityAdminDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_community_administrator()):
+        if request.is_ajax() and request.user.is_work_community_administrator():
             remove_community_administrator(user, request.user)
             UserWorkerLog.objects.create(manager=request.user, user=user, action_type='Удален админ пользователей')
             return HttpResponse()
@@ -33,7 +33,7 @@ class CommunityAdminDelete(View):
 class CommunityModerCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_community_moderator()):
+        if request.is_ajax() and request.user.is_work_community_moderator():
             add_community_moderator(user, request.user)
             UserWorkerLog.objects.create(manager=request.user, user=user, action_type='Добавлен модератор пользователей')
             return HttpResponse()
@@ -43,7 +43,7 @@ class CommunityModerCreate(View):
 class CommunityModerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_community_moderator()):
+        if request.is_ajax() and request.user.is_work_community_moderator():
             remove_community_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -52,7 +52,7 @@ class CommunityModerDelete(View):
 class CommunityEditorCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_community_editor()):
+        if request.is_ajax() and request.user.is_work_community_editor():
             add_community_editor(user, request.user)
             return HttpResponse()
         else:
@@ -61,7 +61,7 @@ class CommunityEditorCreate(View):
 class CommunityEditorDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_community_editor()):
+        if request.is_ajax() and request.user.is_work_community_editor():
             remove_community_editor(user, request.user)
             UserWorkerLog.objects.create(manager=request.user, user=user, action_type='Удален редактор пользователей')
             return HttpResponse()
@@ -72,7 +72,7 @@ class CommunityEditorDelete(View):
 class CommunityAdvertiserCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_community_advertiser()):
+        if request.is_ajax() and request.user.is_work_community_advertiser():
             add_community_advertiser(user, request.user)
             return HttpResponse()
         else:
@@ -81,7 +81,7 @@ class CommunityAdvertiserCreate(View):
 class CommunityAdvertiserDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_community_advertiser()):
+        if request.is_ajax() and request.user.is_work_community_advertiser():
             remove_community_advertiser(user, request.user)
             return HttpResponse()
         else:

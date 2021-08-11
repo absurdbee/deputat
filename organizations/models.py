@@ -44,6 +44,7 @@ class Organization(models.Model):
 	address_1 = models.CharField(blank=True, max_length=100, verbose_name='Адрес 1')
 	address_2 = models.CharField(blank=True, max_length=100, verbose_name='Адрес 2')
 	type = models.PositiveSmallIntegerField(choices=TYPE, default=1, verbose_name="Тип деятельности")
+	description = models.TextField(max_length=500, blank=True, null=True, verbose_name="Описание")
 
 	def __str__(self):
 		return self.name

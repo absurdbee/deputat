@@ -14,7 +14,7 @@ from logs.model.manage_video import VideoManageLog
 class VideoAdminCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_video_administrator()):
+        if request.is_ajax() and request.user.is_work_video_administrator():
             add_video_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -23,7 +23,7 @@ class VideoAdminCreate(View):
 class VideoAdminDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_video_administrator()):
+        if request.is_ajax() and request.user.is_work_video_administrator():
             remove_video_administrator(user, request.user)
             return HttpResponse()
         else:
@@ -32,7 +32,7 @@ class VideoAdminDelete(View):
 class VideoModerCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_video_moderator()):
+        if request.is_ajax() and request.user.is_work_video_moderator():
             add_video_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -41,7 +41,7 @@ class VideoModerCreate(View):
 class VideoModerDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_video_moderator()):
+        if request.is_ajax() and request.user.is_work_video_moderator():
             remove_video_moderator(user, request.user)
             return HttpResponse()
         else:
@@ -50,7 +50,7 @@ class VideoModerDelete(View):
 class VideoEditorCreate(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_video_editor()):
+        if request.is_ajax() and request.user.is_work_video_editor():
             add_video_editor(user, request.user)
             return HttpResponse()
         else:
@@ -59,7 +59,7 @@ class VideoEditorCreate(View):
 class VideoEditorDelete(View):
     def get(self,request,*args,**kwargs):
         user = User.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and (request.user.is_superuser or request.user.is_work_video_editor()):
+        if request.is_ajax() and request.user.is_work_video_editor():
             remove_video_editor(user, request.user)
             return HttpResponse()
         else:

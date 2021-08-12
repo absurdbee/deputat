@@ -3,9 +3,10 @@ from django.views.generic import ListView
 from django.http import Http404
 from common.templates import get_detect_platform_template
 from managers.models import Moderated
+from generic.mixins import CategoryListMixin
 
 
-class ModerationUser(ListView):
+class ModerationUser(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -20,7 +21,7 @@ class ModerationUser(ListView):
         return Moderated.get_moderation_users()
 
 
-class ModerationDoc(ListView):
+class ModerationDoc(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -35,7 +36,7 @@ class ModerationDoc(ListView):
         return Moderated.get_moderation_docs()
 
 
-class ModerationCommunity(ListView):
+class ModerationCommunity(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -49,7 +50,7 @@ class ModerationCommunity(ListView):
     def get_queryset(self):
         return Moderated.get_moderation_communities()
 
-class ModerationElectNew(ListView):
+class ModerationElectNew(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -63,7 +64,7 @@ class ModerationElectNew(ListView):
     def get_queryset(self):
         return Moderated.get_moderation_elect_news()
 
-class ModerationBlog(ListView):
+class ModerationBlog(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -77,7 +78,7 @@ class ModerationBlog(ListView):
     def get_queryset(self):
         return Moderated.get_moderation_blog()
 
-class ModerationSurvey(ListView):
+class ModerationSurvey(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -92,7 +93,7 @@ class ModerationSurvey(ListView):
         return Moderated.get_moderation_survey()
 
 
-class ModerationPhoto(ListView):
+class ModerationPhoto(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -106,7 +107,7 @@ class ModerationPhoto(ListView):
     def get_queryset(self):
         return Moderated.get_moderation_photos()
 
-class ModerationAudio(ListView):
+class ModerationAudio(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -121,7 +122,7 @@ class ModerationAudio(ListView):
         return Moderated.get_moderation_audios()
 
 
-class ModerationVideo(ListView):
+class ModerationVideo(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):

@@ -3,9 +3,10 @@ from django.views.generic import ListView
 from django.http import Http404
 from common.templates import get_detect_platform_template
 from managers.models import ModerationPenalty
+from generic.mixins import CategoryListMixin
 
 
-class PenaltyUser(ListView):
+class PenaltyUser(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -19,7 +20,7 @@ class PenaltyUser(ListView):
     def get_queryset(self):
         return ModerationPenalty.get_penalty_users(self.request.user.pk)
 
-class PenaltyDoc(ListView):
+class PenaltyDoc(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -33,7 +34,7 @@ class PenaltyDoc(ListView):
     def get_queryset(self):
         return ModerationPenalty.get_penalty_docs(self.request.user.pk)
 
-class PenaltyCommunity(ListView):
+class PenaltyCommunity(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -47,7 +48,7 @@ class PenaltyCommunity(ListView):
     def get_queryset(self):
         return ModerationPenalty.get_penalty_communities(self.request.user.pk)
 
-class PenaltyElectNew(ListView):
+class PenaltyElectNew(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -61,7 +62,7 @@ class PenaltyElectNew(ListView):
     def get_queryset(self):
         return ModerationPenalty.get_penalty_elect_news(self.request.user.pk)
 
-class PenaltyBlog(ListView):
+class PenaltyBlog(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -75,7 +76,7 @@ class PenaltyBlog(ListView):
     def get_queryset(self):
         return ModerationPenalty.get_penalty_blog(self.request.user.pk)
 
-class PenaltySurvey(ListView):
+class PenaltySurvey(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -90,7 +91,7 @@ class PenaltySurvey(ListView):
         return ModerationPenalty.get_penalty_surveys(self.request.user.pk)
 
 
-class PenaltyPhoto(ListView):
+class PenaltyPhoto(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -104,7 +105,7 @@ class PenaltyPhoto(ListView):
     def get_queryset(self):
         return ModerationPenalty.get_penalty_photos(self.request.user.pk)
 
-class PenaltyAudio(ListView):
+class PenaltyAudio(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):
@@ -119,7 +120,7 @@ class PenaltyAudio(ListView):
         return ModerationPenalty.get_penalty_audios(self.request.user.pk)
 
 
-class PenaltyVideo(ListView):
+class PenaltyVideo(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 
     def get(self,request,*args,**kwargs):

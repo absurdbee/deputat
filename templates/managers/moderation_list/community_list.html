@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block title %}Жалобы на сообщества{% endblock %}
-{% load manager_tags %}
 {% block content %}
 
 <div class="content-body manager">
@@ -13,7 +12,7 @@
                           <h1 class="mb-0 mb-3">Жалобы на сообщества</h1>
                           {% for object in object_list %}
                           <div class="pag {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}">
-                              {{ object|get_community|safe }}
+                              {{ object.get_community|safe }}
                           </div>
                           {% empty %}
                           <div class="card centered mt-5">

@@ -7,7 +7,7 @@
       <div class="row pt-0 is_paginate">
         {% if region.get_elects %}
         {% for object in region.get_elects %}
-          {% include 'elect/elect_index_card.html' %}
+          {% include 'elect/anon_elect_index_card.html' %}
         {% endfor %}
         {% else %}
         <br>

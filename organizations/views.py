@@ -14,3 +14,46 @@ class AllOrganizationsList(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		return Organization.objects.only("pk")
+
+
+class SuggestOrganizationView(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_detect_platform_template
+
+		self.template_name = get_detect_platform_template("organizations/suggest_organization.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(SuggestOrganizationView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from organizations.forms import OrganizationForm
+
+		c = super(SuggestOrganizationView,self).get_context_data(**kwargs)
+		c["form"] = OrganizationForm()
+		return c
+
+	def post(self,request,*args,**kwargs):
+		from common.templates import render_for_platform
+		from organizations.forms import OrganizationForm
+
+		self.form = CommunityForm(request.POST)
+		if self.form.is_valid() and request.is_ajax():
+			_organization = self.form.save(commit=False)
+			organization = _community.suggest_organization(
+															name=_organization.name,
+															image=_organization.image,
+															creator=request.user,
+															city=_organization.city,
+															description=_organization.description,
+															email_1=_organization.email_1,
+															email_2=_organization.email_2,
+															phone_1=_organization.phone_1,
+															phone_2=_organization.phone_2,
+															address_1=_organization.address_1,
+															address_2=_organization.address_2,
+															type=_organization.type,
+															)
+			return render_for_platform(request, 'organizations/detail/suggest_community.html',{'organization': organization})
+		else:
+			from django.http import HttpResponseBadRequest
+			return HttpResponseBadRequest()

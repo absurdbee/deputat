@@ -34,7 +34,6 @@ class Organization(models.Model):
 			(LAWYERS, 'Юристы'),
 		)
 	name = models.CharField(max_length=100, verbose_name="Название")
-	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 	image = models.ImageField(blank=True, upload_to="organizations/")
 	city = models.ManyToManyField("city.City", related_name='+', verbose_name="Город")
 	email_1 = models.EmailField(blank=True, verbose_name="Почта 1")

@@ -267,3 +267,23 @@ on('body', 'click', '.phone_send', function() {
     link.send( null );
     };
   });
+
+	on('body', 'change', '.left_menu_select', function() {
+    _this = this;
+    val = _this.value;
+    if (val == '') {
+      return
+    } else {
+			parent = _this.parentElement.parentElement.parentElement;
+			if (parent.classList.contains("municipal_authorities")) {
+				url = '/elects/'
+			}
+			else if (parent.classList.contains("organizations")) {
+				url = '/organizations/'
+			}
+			else if (parent.classList.contains("communities")) {
+				url = '/communities/'
+			};
+
+      ajax_get_reload(url + val + "/")
+  });

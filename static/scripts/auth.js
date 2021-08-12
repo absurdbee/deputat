@@ -268,7 +268,7 @@ on('body', 'click', '.phone_send', function() {
     };
   });
 
-	on('body', 'change', '.left_menu_select', function() {
+	on('body', 'change', '.left_menu_select_ajax', function() {
     _this = this;
     val = _this.value;
     if (val == '') {

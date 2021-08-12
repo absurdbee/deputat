@@ -15,8 +15,8 @@
       <a class="btn btn-secondary u_suggested_elect_new_create btn-sm pointer" data-name="{{ elect.name }}">Предложить новость</a>
     {% else %}
     <p class="card-text text-sm">
-      Для этого Вам необходимо <a href="{% url 'login' %}" class="ajax underline">Войти</a> или
-      <a href="{% url 'signup' %}" class="ajax underline">Зарегистрироваться</a>
+      Для этого Вам необходимо <a href="{% url 'login' %}" class="underline">Войти</a> или
+      <a href="{% url 'signup' %}" class="underline">Зарегистрироваться</a>
     </p>
     {% endif %}
   </div>

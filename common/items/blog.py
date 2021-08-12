@@ -47,7 +47,7 @@ def blog(user, blog):
     <span><img class="img-fluid card-img-top blog_window pointer" style="width:100%" src="' + blog.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\
     <h4 class="event_name"><div style="display: flex;"><span class="text-body blog_window pointer">' + blog.title + '</span>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\
-    <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\
+    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\
     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">\
     </path></svg></a><div class="dropdown-menu dropdown-menu-right" style="top:18px">' + card_drop + '</div></div></div><span class="card-text item-company">\
     ' + blog.get_created() + ' | ' + tags + '</span></h4><div class="card-text event_description event_blog_description"><span><span class="blog_window pointer">' + blog.description[:180] + '...</span></span>\

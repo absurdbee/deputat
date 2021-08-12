@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^edit_phone/$', UserEditPhone.as_view()),
     url(r'^create_secret_key/$', UserCreateKey.as_view()),
     url(r'^deputat_send/$', UserDeputatSend.as_view()),
+    url(r'^password_recovery/$', PasswordRecovery.as_view()), 
 ]

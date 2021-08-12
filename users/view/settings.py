@@ -232,3 +232,13 @@ class UserDeputatSend(TemplateView):
 			DeputatSend.create_item(user=request.user, text=_item.text)
 			return HttpResponse()
 		return super(UserDeputatSend,self).post(request,*args,**kwargs)
+
+class PasswordRecovery(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		if request.user.is_anonymous:
+			self.template_name = "account/password_forgot_main.html"
+		else:
+			self.template_name = "account/login.html"
+		return super(PasswordRecovery,self).get(request,*args,**kwargs)

@@ -43,7 +43,7 @@
                                           <img src="{{ object.creator.get_avatar }}" alt="Avatar" width="24" height="24">
                                       </div>
                                       <div class="media-body">
-                                          <small><a href="{% url 'user' pk=object.creator.pk %}" class="text-body ajax">{{ object.creator.get_full_name }}</a></small>
+                                          <small><a href="{% url 'user' pk=object.creator.pk %}" class="text-body ajax">{{ object.creator.get_full_name|safe }}</a></small>
                                           <span class="text-muted ml-50 mr-25">|</span>
                                           <small class="text-muted">{{ object.get_created }}</small>
                                       </div>
@@ -128,7 +128,7 @@
                                                   <img src="{{ object.creator.get_avatar }}" alt="Avatar" width="24" height="24">
                                               </div>
                                               <div class="media-body">
-                                                  <small><a href="{% url 'user' pk=object.creator.pk %}" class="text-body ajax">{{ object.creator.get_full_name }}</a></small>
+                                                  <small><a href="{% url 'user' pk=object.creator.pk %}" class="text-body ajax">{{ object.creator.get_full_name|safe }}</a></small>
                                               </div>
                                           </div>
                                         </span>

@@ -90,7 +90,7 @@
                                         <img src="{{ subs.get_avatar }}" alt="avatar img" style="width:40px; height:auto">
                                     </div>
                                     <div class="profile-user-info">
-                                        <h6 class="mb-0">{{ subs.get_full_name }}</h6>
+                                        <h6 class="mb-0">{{ subs.get_full_name|safe }}</h6>
                                         <small class="text-muted">{{ subs.get_online_display|safe }}</small>
                                     </div>
                                 </a>

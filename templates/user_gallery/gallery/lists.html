@@ -24,7 +24,7 @@
                       </div>
                       <small class="file-accessed">
                         <a class="ajax underline" href="{% url 'user' pk=list.creator.pk %}">
-                          {{ list.creator.get_full_name }}
+                          {{ list.creator.get_full_name|safe }}
                         </a>
                       </small>
                   </div>
@@ -45,7 +45,7 @@
                         </div>
                         <small class="file-accessed">
                           <a class="ajax underline" href="{% url 'user' pk=object.creator.pk %}">
-                            {{ object.creator.get_full_name }}
+                            {{ object.creator.get_full_name|safe }}
                           </a>
                         </small>
                     </div>

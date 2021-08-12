@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ user.get_full_name }}{% endblock %}
+{% block title %}{{ user.get_full_name|safe }}{% endblock %}
 {% block content %}
 
 <div class="content-body pk_saver" data-pk="{{ user.pk }}">
@@ -76,7 +76,7 @@
                                                 <img class="img-fluid" src="{{ user.get_avatar }}" alt="User avatar" style="height: 100px;">
                                                 <div class="d-flex flex-column ml-1" data-uuid="{{ user.pk }}">
                                                     <div class="user-info mb-1">
-                                                        <h4 class="mb-0" style="font-weight: bold;">{{ user.get_full_name }}</h4>
+                                                        <h4 class="mb-0" style="font-weight: bold;">{{ user.get_full_name|safe }}</h4>
                                                         <span class="card-text"></span>
                                                     </div>
                                                     <div class="">

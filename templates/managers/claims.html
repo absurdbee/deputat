@@ -24,7 +24,7 @@
         <div class="media-body pl-1">
           <h6 class="my-0 mt-1">
             <a href="{% url 'user' pk=object.reporter.pk %}" class="ajax">
-              {{ object.reporter.get_full_name }}
+              {{ object.reporter.get_full_name|safe }}
             </a>
           </h6>
           <p style="font-weight:bold">{{ object.get_type_display }}</p>

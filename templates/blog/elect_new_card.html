@@ -11,7 +11,7 @@
             <div class="profile-user-info">
                 <h6 class="mb-0">
                   <a class="ajax" href="{% url 'user' pk=object.creator.pk %}">
-                    {{ object.creator.get_full_name }}
+                    {{ object.creator.get_full_name|safe }}
                   </a>
                 </h6>
                 <small>{{ object.get_created }}</small>

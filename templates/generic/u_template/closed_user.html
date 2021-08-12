@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ user.get_full_name }}{% endblock %}
+{% block title %}{{ user.get_full_name|safe }}{% endblock %}
 {% block meta %}
 <meta property="og:url" content="" />
 <meta property="og:type" content="website" />

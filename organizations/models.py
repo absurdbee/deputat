@@ -49,7 +49,7 @@ class Organization(models.Model):
 		return self.name
 
 	class Meta:
-		ordering = ["order", "name"]
+		ordering = ["name"]
 		verbose_name = "Организация"
 		verbose_name_plural = "Организации"
 

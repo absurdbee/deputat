@@ -490,6 +490,16 @@ class Moderated(models.Model):
             '</span><div class="border mt-1 btn_console" data-pk="', str(self.object_id), '"><a class="create_user_suspend pointer">Заморозить</a> | <a class="create_user_close pointer">Заблокировать</a> | <a class="create_user_warning_banner pointer">Повесить баннер</a> | <a class="create_user_rejected pointer">Отклонить</a></div></div></div>'])
         except:
             return '<div class="media">Ошибка отображения данных</div>'
+    def get_community(self):
+        try:
+            from communities.models import Community
+            community = Community.objects.get(pk=self.object_id)
+            return ''.join(['<div class="media"><a href="/communities/', str(self.object_id), '" class="ajax"><figure><img src="', community.get_avatar(), \
+            '" style="width: 90px;" alt="image"></figure></a><div class="media-body pl-1"><h6 class="my-0 mt-1"><a href="/communities/', \
+            str(self.object_id), '" class="ajax"><h6 class="mt-1">', community.name, '</h6></a><span class="mt-1 pointer underline show_object_reports" obj-pk="', str(self.pk), '">', self.reports_count_ru(), \
+            '</span><div class="border mt-1 btn_console" data-pk="', str(self.object_id), '"><a class="create_community_suspend pointer">Заморозить</a> | <a class="create_community_close pointer">Заблокировать</a> | <a class="create_community_warning_banner pointer">Повесить баннер</a> | <a class="create_community_rejected pointer">Отклонить</a></div></div></div>'])
+        except:
+            return '<div class="media">Ошибка отображения данных</div>'
 
     def get_blog(self, user):
         #try:
@@ -845,6 +855,24 @@ class ModerationPenalty(models.Model):
             return ''.join(['<div class="media"><a href="/users/', str(self.object_id), '" class="ajax"><figure><img src="', user.get_avatar(), \
             '" style="width: 90px;" alt="image"></figure></a><div class="media-body pl-1"><h6 class="my-0 mt-1"><a href="/users/', \
             str(self.object_id), '" class="ajax"><h6 class="mt-1">', user.get_full_name(), \
+            '</h6></a></h6><div class=""></div><div class="border-top btn_console" user-pk="', str(self.object_id), '">', span, '</div></div></div>'])
+        except:
+            return '<div class="media">Ошибка отображения данных</div>'
+    def get_community(self):
+        try:
+            from communities.models import Community
+            community = Community.objects.get(pk=self.object_id)
+            if self.is_suspend():
+                span = '<span class="small">До ' + str(self.expiration) + '</span> (<a class="small remove_community_suspend pointer">Отменить заморозку</a> | <a class="small ucommunity_unverify pointer">Отменить проверку</a>)'
+            elif self.is_closed():
+                span = '<span class="small">Заблокирован</span> (<a class="small remove_community_close pointer">Отменить блокировку</a> | <a class="small community_unverify pointer">Отменить проверку</a>)'
+            elif self.is_banner():
+                span = '<span class="small">Баннер предупреждения</span> (<a class="small remove_community_warning_banner pointer">Убрать баннер</a> | <a class="small community_unverify pointer">Отменить проверку</a>)'
+            else:
+                span = '<span class="small">Санкции не применены</span>'
+            return ''.join(['<div class="media"><a href="/communities/', str(self.object_id), '" class="ajax"><figure><img src="', community.get_avatar(), \
+            '" style="width: 90px;" alt="image"></figure></a><div class="media-body pl-1"><h6 class="my-0 mt-1"><a href="/communities/', \
+            str(self.object_id), '" class="ajax"><h6 class="mt-1">', community.name, \
             '</h6></a></h6><div class=""></div><div class="border-top btn_console" user-pk="', str(self.object_id), '">', span, '</div></div></div>'])
         except:
             return '<div class="media">Ошибка отображения данных</div>'

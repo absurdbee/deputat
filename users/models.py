@@ -174,7 +174,7 @@ class User(AbstractUser):
 
     def get_full_name(self):
         if self.is_identified():
-            return self.first_name + " " + self.last_name + ' <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+            return self.first_name + " " + self.last_name + ' <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>'
         else:
             return self.first_name + " " + self.last_name
 
@@ -202,14 +202,14 @@ class User(AbstractUser):
 
     def get_news(self):
         from blog.models import ElectNew
-        return ElectNew.objects.filter(creator_id=self.pk, type="PUB")
+        return ElectNew.objects.filter(creator_id=self.pk, type="PUB", community__isnull=True)
     def get_my_news(self):
         from blog.models import ElectNew
-        return ElectNew.objects.filter(creator_id=self.pk).filter(Q(type="PUB")|Q(type="SUG")|Q(type="REJ"))
+        return ElectNew.objects.filter(creator_id=self.pk, community__isnull=True).filter(Q(type="PUB")|Q(type="SUG")|Q(type="REJ"))
 
     def get_news_count(self):
         from blog.models import ElectNew
-        return ElectNew.objects.filter(creator_id=self.pk).values("pk").count()
+        return ElectNew.objects.filter(creator_id=self.pk, community__isnull=True).values("pk").count()
 
     def get_elect_subscribers(self):
         from elect.models import Elect, SubscribeElect

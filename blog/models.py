@@ -373,7 +373,7 @@ class ElectNew(models.Model):
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
-    image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="blog/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
+    community = models.ForeignKey('communities.Community', related_name='elect_new_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
 
     comment = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")

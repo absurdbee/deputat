@@ -43,12 +43,12 @@
 
             <div class="item-options subscribe_options text-center">
               {% if object|is_user_subscribe:request.user.pk %}
-                <button type="button" class="btn btn-outline-secondary subscribe_btn remove_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
+                <button type="button" class="btn btn-sm btn-outline-secondary subscribe_btn remove_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x align-middle mr-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     <span>Вы подписаны</span>
                 </button>
               {% else %}
-                <button type="button" class="btn btn-outline-secondary subscribe_btn add_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
+                <button type="button" class="btn btn-sm btn-outline-secondary subscribe_btn add_elect_subscribe" data-pk="{{ object.pk }}" data-name="{{ object.name }}">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart align-middle mr-25"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                     <span class="text-truncate">Подписаться</span>
                 </button>

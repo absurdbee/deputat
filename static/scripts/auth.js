@@ -276,13 +276,13 @@ on('body', 'click', '.phone_send', function() {
     } else {
 			parent = _this.parentElement.parentElement;
 			if (parent.classList.contains("municipal_authorities")) {
-				url = '/elects/'
+				url = '/city/elects/'
 			}
 			else if (parent.classList.contains("organizations")) {
-				url = '/organizations/'
+				url = '/city/organizations/'
 			}
 			else if (parent.classList.contains("communities")) {
-				url = '/communities/'
+				url = '/city/communities/'
 			};
 
       ajax_get_reload(url + val + "/")

@@ -10,8 +10,10 @@ class SuggestCommunityView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_detect_platform_template
-
-		self.template_name = get_detect_platform_template("communities/manage/suggest_community.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_identified():
+			self.template_name = get_detect_platform_template("communities/manage/suggest_community.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			raise Http404
 		return super(SuggestCommunityView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -27,7 +29,7 @@ class SuggestCommunityView(TemplateView):
 		from communities.forms import CommunityForm
 
 		self.form = CommunityForm(request.POST)
-		if self.form.is_valid() and request.is_ajax():
+		if self.form.is_valid() and request.is_ajax() and request.user.is_identified():
 			_community = self.form.save(commit=False)
 			community = _community.suggest_community(name=_community.name, category=_community.category, creator=request.user, description=_community.description)
 			return render_for_platform(request, 'communities/detail/suggest_community.html',{'community': community, 'user': request.user})

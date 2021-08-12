@@ -9,7 +9,7 @@
             <div class="card-header">
                 <h4 class="card-title">Движения Вашей кармы</h4>
                 <h4 class="card-title">Операций {{ user.get_transactions_count }}</h4>
-                <h4 class="card-title">Доходы: {{ user.get_total_costs }}, расходы: {{ user.get_total_revenue }}</h4>
+                <h4 class="card-title">Доходы: {{ user.profile.total_costs }}, расходы: {{ user.profile.total_revenue }}</h4>
             </div>
             <div class="card-body">
                 <p class="card-text">

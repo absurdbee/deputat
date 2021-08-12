@@ -173,7 +173,10 @@ class User(AbstractUser):
             return False
 
     def get_full_name(self):
-        return self.first_name + " " + self.last_name
+        if self.is_identified():
+            return self.first_name + " " + self.last_name + ' <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+        else:
+            return self.first_name + " " + self.last_name
 
     def get_region_slug(self):
         return self.city.region.slug
@@ -287,7 +290,7 @@ class User(AbstractUser):
     def is_identified_send(self):
         return self.type == User.IDENTIFIED_SEND
     def is_identified(self):
-        return self.type == User.IDENTIFIED
+        return self.type == User.IDENTIFIED or self.is_superuser
     def is_deputat(self):
         return self.type == User.DEPUTAT
     def is_deputat_send(self):

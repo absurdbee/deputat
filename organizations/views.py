@@ -3,6 +3,7 @@ from generic.mixins import CategoryListMixin
 from organizations.models import Organization
 from django.views.generic import ListView
 from common.templates import get_full_template
+from django.http import Http404
 
 
 class AllOrganizationsList(ListView, CategoryListMixin):
@@ -21,8 +22,10 @@ class SuggestOrganizationView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_detect_platform_template
-
-		self.template_name = get_detect_platform_template("organizations/suggest_organization.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.is_identified():
+			self.template_name = get_detect_platform_template("organizations/suggest_organization.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			raise Http404
 		return super(SuggestOrganizationView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -37,7 +40,7 @@ class SuggestOrganizationView(TemplateView):
 		from organizations.forms import OrganizationForm
 
 		self.form = CommunityForm(request.POST)
-		if self.form.is_valid() and request.is_ajax():
+		if self.form.is_valid() and request.is_ajax() and request.user.is_identified():
 			_organization = self.form.save(commit=False)
 			organization = _community.suggest_organization(
 															name=_organization.name,

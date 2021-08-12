@@ -286,4 +286,4 @@ on('body', 'click', '.phone_send', function() {
 			};
 
       ajax_get_reload(url + val + "/")
-  });
+  }});

@@ -4,7 +4,7 @@ from organizations.models import Organization
 
 class OrganizationAdmin(admin.ModelAdmin):
 
-    list_display = ['name','order','type']
+    list_display = ['name','type']
     list_filter = ['type']
     search_fields = ['name']
     class Meta:

@@ -148,7 +148,7 @@ class SecretKeyVerify(View):
         from django.contrib.auth import authenticate, login
 
         #new_user = authenticate(request, phone=user.phone,password=user.password)
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return HttpResponse("ok")
         #else:
         #    return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})

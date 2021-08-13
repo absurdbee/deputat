@@ -138,15 +138,15 @@ class RecoveryPhoneSend(View):
 class SecretKeyVerify(View):
     def post(self,request,*args,**kwargs):
         from users.model.settings import UserSecretKey
+        from users.forms import UserKeyForm
 
         if not request.is_ajax():
             raise Http404
         key = request.POST.get('key')
         user = User.objects.get(pk=self.kwargs["pk"])
         key_items = UserSecretKey.objects.only("pk")
-
-        if UserSecretKey.objects.filter(user=user, key=key).exists(): 
-            return HttpResponse("ok")
+        form = UserKeyForm()
+        if form.is_valid() and UserSecretKey.objects.filter(user=user, key=key).exists(): 
             from django.contrib.auth import authenticate, login
 
             new_user = authenticate(phone=user.phone,password=user.password1)

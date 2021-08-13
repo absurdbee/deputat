@@ -319,8 +319,9 @@ on('body', 'click', '.phone_send', function() {
 	    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 	    request.onreadystatechange = function() {
 	        if (request.readyState == 4 && request.status == 200) {
-	          ajax_get_reload("/users/" + form.getAttribute("data-pk") + "/")
-	        } else {form.parentElement.nextElementSibling.innerHTML = request.responseText}
+						if (request.responseText.indexOf("Неверное") !== -1) {form.parentElement.nextElementSibling.innerHTML = request.responseText}
+						else {ajax_get_reload("/users/" + form.getAttribute("data-pk") + "/")}
+	        }
 	    };
 	    request.send(form_data)
 	});

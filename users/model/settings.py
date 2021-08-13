@@ -57,7 +57,7 @@ class UserSecretKey(models.Model):
         return item
 
     def __str__(self):
-        return self.user
+        return self.user.last_name
 
 class DeputatSend(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="+", verbose_name="Пользователь", on_delete=models.CASCADE)

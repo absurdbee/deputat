@@ -321,6 +321,6 @@ on('body', 'click', '.phone_send', function() {
 	        if (request.readyState == 4 && request.status == 200) {
 	          ajax_get_reload("/users/" + form.getAttribute("data-pk") + "/")
 	        }
-	    };
+	    } else {form.parentElement.nextElementSibling.innerHTML = request.responseText};
 	    request.send(form_data)
 	});

@@ -119,7 +119,7 @@ class RecoveryPhoneSend(View):
             try:
                 user = User.objects.get(phone=phone)
                 if user.is_have_secret_key():
-                    response = render(request,'generic/response/recover_secret_key.html',{'user':'user'})
+                    response = render(request,'generic/response/recover_secret_key.html',{'user':user})
                 else:
                     response = requests.get("https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone)
                     data = response.json()

@@ -134,7 +134,7 @@ class RecoveryPhoneSend(View):
             return render(request,'generic/response/phone.html',{'response_text':data})
 
 
-class PhoneVerify(View):
+class SecretKeyVerify(View):
     def post(self,request,*args,**kwargs):
         if not request.is_ajax():
             raise Http404

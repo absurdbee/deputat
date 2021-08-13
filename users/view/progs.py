@@ -143,12 +143,10 @@ class RecoveryPhoneSend(View):
     def get(self,request,*args,**kwargs):
         import json, requests
         from users.model.settings import UserSecretKey
-        from common.model.other import RecoveryPhoneCodes
 
         if not request.is_ajax() and request.user.is_authenticated:
             raise Http404
         phone = self.kwargs["phone"]
-        key_items = UserSecretKey.objects.only("pk")
 
         if len(phone) > 8:
             try:
@@ -164,7 +162,7 @@ class RecoveryPhoneSend(View):
                     return render(request,'generic/response/recover_code_send.html',{'response_text':data })
                 return response
             except:
-                return render(request,'generic/response/phone.html',{'response_text':'user_does_not_exists','key_items':key_items })
+                return render(request,'generic/response/phone.html',{'response_text':'user_does_not_exists'})
         else:
             data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'
             return render(request,'generic/response/phone.html',{'response_text':data})

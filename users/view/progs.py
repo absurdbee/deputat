@@ -149,7 +149,7 @@ class RecoveryPhoneSend(View):
         phone = self.kwargs["phone"]
 
         if len(phone) > 8:
-            try:
+            if User.objects.filter(phone=phone).exists():
                 user = User.objects.get(phone=phone)
 
                 if user.is_have_secret_key():
@@ -161,7 +161,7 @@ class RecoveryPhoneSend(View):
                     data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Код" и нажать "Подтвердить"'
                     return render(request,'generic/response/recover_code_send.html',{'response_text':data })
                 return response
-            except:
+            else:
                 return render(request,'generic/response/phone.html',{'response_text':'user_does_not_exists'})
         else:
             data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'

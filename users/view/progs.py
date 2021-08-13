@@ -106,10 +106,44 @@ class ChangePhoneVerify(View):
             return render(request,'generic/response/phone.html',{'response_text':data})
 
 
+class SecretKeyVerify(View):
+    def post(self,request,*args,**kwargs):
+        from users.model.settings import UserSecretKey
+
+        if not request.is_ajax():
+            raise Http404
+        key = request.POST.get('key')
+        user = User.objects.get(pk=self.kwargs["pk"])
+        key_items = UserSecretKey.objects.only("pk")
+        if UserSecretKey.objects.filter(user=user,key=key).exists():
+            from django.contrib.auth import login
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return HttpResponse("ok")
+        else:
+            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})
+
+class SecretKeyVerify(View):
+    def post(self,request,*args,**kwargs):
+        from users.model.settings import UserSecretKey
+
+        if not request.is_ajax():
+            raise Http404
+        key = request.POST.get('key')
+        user = User.objects.get(pk=self.kwargs["pk"])
+        key_items = UserSecretKey.objects.only("pk")
+        if UserSecretKey.objects.filter(user=user,key=key).exists():
+            from django.contrib.auth import login
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return HttpResponse("ok")
+        else:
+            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})
+
+
 class RecoveryPhoneSend(View):
     def get(self,request,*args,**kwargs):
         import json, requests
         from users.model.settings import UserSecretKey
+        from common.model.other import RecoveryPhoneCodes
 
         if not request.is_ajax() and request.user.is_authenticated:
             raise Http404
@@ -125,6 +159,7 @@ class RecoveryPhoneSend(View):
                 else:
                     response = requests.get("https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone)
                     data = response.json()
+                    RecoveryPhoneCodes.objects.create(phone=phone, code=data['code'])
                     data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Код" и нажать "Подтвердить"'
                     return render(request,'generic/response/recover_code_send.html',{'response_text':data })
                 return response
@@ -133,40 +168,6 @@ class RecoveryPhoneSend(View):
         else:
             data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'
             return render(request,'generic/response/phone.html',{'response_text':data})
-
-
-class SecretKeyVerify(View):
-    def post(self,request,*args,**kwargs):
-        from users.model.settings import UserSecretKey
-
-        if not request.is_ajax():
-            raise Http404
-        key = request.POST.get('key')
-        user = User.objects.get(pk=self.kwargs["pk"])
-        key_items = UserSecretKey.objects.only("pk")
-        if UserSecretKey.objects.filter(user=user,key=key).exists():
-            from django.contrib.auth import login
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return HttpResponse("ok")
-        else:
-            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})
-
-class SecretKeyVerify(View):
-    def post(self,request,*args,**kwargs):
-        from users.model.settings import UserSecretKey
-
-        if not request.is_ajax():
-            raise Http404
-        key = request.POST.get('key')
-        user = User.objects.get(pk=self.kwargs["pk"])
-        key_items = UserSecretKey.objects.only("pk")
-        if UserSecretKey.objects.filter(user=user,key=key).exists():
-            from django.contrib.auth import login
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return HttpResponse("ok")
-        else:
-            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})
-
 
 class RecoveryPhoneVerify(View):
     def get(self,request,*args,**kwargs):

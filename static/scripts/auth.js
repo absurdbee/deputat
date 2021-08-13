@@ -352,7 +352,8 @@ on('body', 'click', '.phone_send', function() {
 	});
 
 	on('body', 'click', '#recover_code_send', function() {
-	    block = this.parentElement.parentElement;
+			_this = this;
+	    block = _this.parentElement.parentElement;
 	    var phone = block.previousElementSibling.querySelector('#id_first_number').value + block.previousElementSibling.querySelector('#phone').value;
 	    var code = block.querySelector('.block_verify').querySelector('#code').value;
 	    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -361,7 +362,7 @@ on('body', 'click', '.phone_send', function() {
 	    request.onreadystatechange = function() {
 	        if (request.readyState == 4 && request.status == 200) {
 						if (request.responseText.indexOf("Код подтверждения неверный") !== -1) {block.nextElementSibling.innerHTML = request.responseText}
-						else {window.location.href = "/users/" + form.getAttribute("data-pk") + "/"}
+						else {window.location.href = "/"}
 	        }
 	    };
 	    request.send()

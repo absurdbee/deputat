@@ -142,7 +142,7 @@ class SecretKeyVerify(View):
 class RecoveryPhoneSend(View):
     def get(self,request,*args,**kwargs):
         import json, requests
-        from users.model.settings import UserSecretKey
+        from users.model.settings import RecoveryPhoneCodes
 
         if not request.is_ajax() and request.user.is_authenticated:
             raise Http404

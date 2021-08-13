@@ -21,6 +21,7 @@ class ElectNewCommentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PhoneCodes)
+admin.site.register(RecoveryPhoneCodes)
 admin.site.register(BlogComment, BlogCommentAdmin)
 admin.site.register(ElectNewComment, ElectNewCommentAdmin)
 

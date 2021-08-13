@@ -353,8 +353,8 @@ on('body', 'click', '.phone_send', function() {
 
 	on('body', 'click', '#recover_code_send', function() {
 	    block = this.parentElement.parentElement.nextElementSibling;
-	    var phone = block.querySelector('#id_first_number').value + block.querySelector('#phone').value;
-	    var code = document.body.querySelector('.block_verify').querySelector('#code').value;
+	    var phone = block.querySelector('#id_first_number').value + block.previousElementSibling.querySelector('#phone').value;
+	    var code = block.querySelector('.block_verify').querySelector('#code').value;
 	    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 	    request.open('GET', "/users/progs/recovery_phone_send/" + phone + "/" + code + "/", true);
 			request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

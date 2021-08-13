@@ -4,7 +4,7 @@ var ready = (callback) => {
 };
 
 function validateEmail(email){var re = /\S+@\S+\.\S+/;return re.test(email)};
-
+function scrollToBottom(id) {document.querySelector(id).scrollIntoView(false);}
 function findSize(input) {
     try{
         return input.files[0].size;
@@ -908,6 +908,21 @@ function open_fullscreen(link, block) {
     block.parentElement.style.display = "block";
     block.innerHTML = elem;
     init_music(block);
+  }};
+  link_.send();
+}
+function open_scroll_fullscreen(link, block) {
+  var link_, elem;
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', link, true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    block.parentElement.style.display = "block";
+    block.innerHTML = elem;
+    init_music(block);
+    scrollToBottom(".comments_block_container");
   }};
   link_.send();
 }

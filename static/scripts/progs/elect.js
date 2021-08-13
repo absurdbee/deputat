@@ -9,6 +9,11 @@ on('body', 'click', '.elect_new_window', function() {
   document.body.querySelector(".notify_dropdown") ? document.body.querySelector(".notify_dropdown").classList.remove("show") : null;
   open_fullscreen("/elect/new_window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
 });
+on('body', 'click', '.elect_new_window_comment', function() {
+  loader = document.body.querySelector("#window_loader");
+  document.body.querySelector(".notify_dropdown") ? document.body.querySelector(".notify_dropdown").classList.remove("show") : null;
+  open_scroll_fullscreen("/elect/new_window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+});
 
 on('body', 'click', '.elect_like', function() {
   item = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;

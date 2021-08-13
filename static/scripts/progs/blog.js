@@ -104,6 +104,10 @@ on('body', 'click', '.blog_window', function() {
   loader = document.body.querySelector("#window_loader");
   open_fullscreen("/blog/window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
 });
+on('body', 'click', '.blog_window_comment', function() {
+  loader = document.body.querySelector("#window_loader");
+  open_scroll_fullscreen("/blog/window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+});
 
 on('body', 'click', '.elect_new_like', function() {
   item = this.parentElement.parentElement.parentElement.parentElement;

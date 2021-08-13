@@ -143,6 +143,7 @@ class SecretKeyVerify(View):
             raise Http404
         key = request.POST.get('key')
         user = User.objects.get(pk=self.kwargs["pk"])
+        key_items = UserSecretKey.objects.only("pk")
 
         if UserSecretKey.objects.filter(user_id=user.pk, key=key).exists():
             from django.contrib.auth import authenticate, login
@@ -151,4 +152,4 @@ class SecretKeyVerify(View):
             login(request, new_user)
             return HttpResponse("ok")
         else:
-            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!'})
+            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})

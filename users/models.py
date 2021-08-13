@@ -45,7 +45,7 @@ class User(AbstractUser):
         verbose_name_plural = 'пользователи'
 
     def __str__(self):
-        return self.first_name + self.last_name
+        return self.first_name + " " + self.last_name
 
     def get_verb_gender(self, verb):
         if self.is_women():

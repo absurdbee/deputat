@@ -132,3 +132,21 @@ class RecoveryPhoneSend(View):
         else:
             data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'
             return render(request,'generic/response/phone.html',{'response_text':data})
+
+
+class PhoneVerify(View):
+    def post(self,request,*args,**kwargs):
+        if not request.is_ajax():
+            raise Http404
+        key = request.POST.get('key')
+        user = User.objects.get(self.kwargs["pk"])
+        from users.model.settings import UserSecretKey
+
+        if UserSecretKey.objects.filter(user=user, key=key).exists():
+            from django.contrib.auth import authenticate, login
+
+            new_user = authenticate(phone=user.phone,password=user.password1)
+            login(request, new_user)
+            return HttpResponse("ok")
+        else:
+            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!'})

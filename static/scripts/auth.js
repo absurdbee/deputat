@@ -309,3 +309,18 @@ on('body', 'click', '.phone_send', function() {
 	   }}}
 	 request.send();
 	});
+
+	on('body', 'click', '#recover_code_send', function() {
+	    form = this.parentElement.parentElement;
+			form_data = new FormData(form);
+
+	    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+	    request.open('POST', "/users/progs/secret_key_verify/" + form.getAttribute("data-pk") + "/", true);
+	    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	    request.onreadystatechange = function() {
+	        if (request.readyState == 4 && request.status == 200) {
+	          ajax_get_reload("/users/" + form.getAttribute("data-pk") + "/")
+	        }
+	    };
+	    request.send(form_data)
+	});

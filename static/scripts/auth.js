@@ -10,6 +10,31 @@ function show_hide_password(target){
 	}
 	return false;
 }
+function ajax_get_reload(url) {
+  var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+    ajax_link.open( 'GET', url, true );
+    ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    ajax_link.onreadystatechange = function () {
+      if ( this.readyState == 4 && this.status == 200 ) {
+        elem_ = document.createElement('span');
+        elem_.innerHTML = ajax_link.responseText;
+        ajax = elem_.querySelector("#reload_block");
+        rtr = document.getElementById('ajax');
+        rtr.innerHTML = ajax.innerHTML;
+        window.scrollTo(0,0);
+        window.history.pushState("", document.title, url);
+        document.title = elem_.querySelector('title').innerHTML;
+        get_select();
+        page = 2;
+        loaded = false;
+        create_pagination(rtr);
+        init_music(rtr);
+        mobile_menu_close();
+        //window.onpopstate = function () {history.go(1);};
+      }
+    }
+    ajax_link.send();
+}
 
 class ToastManager {
   constructor(){

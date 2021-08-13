@@ -139,7 +139,7 @@ class SecretKeyVerify(View):
         if not request.is_ajax():
             raise Http404
         key = request.POST.get('key')
-        user = User.objects.get(self.kwargs["pk"])
+        user = User.objects.get(pk=self.kwargs["pk"])
         from users.model.settings import UserSecretKey
 
         if UserSecretKey.objects.filter(user=user, key=key).exists():

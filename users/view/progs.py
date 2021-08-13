@@ -144,7 +144,7 @@ class SecretKeyVerify(View):
         key = request.POST.get('key')
         user = User.objects.get(pk=self.kwargs["pk"])
         key_items = UserSecretKey.objects.only("pk")
-        if UserSecretKey.objects.filter(user=user, key=key).exists():
+        if UserSecretKey.objects.filter(user=user).exists():
             from django.contrib.auth import login
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return HttpResponse("ok")

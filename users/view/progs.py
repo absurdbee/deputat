@@ -109,26 +109,27 @@ class ChangePhoneVerify(View):
 class RecoveryPhoneSend(View):
     def get(self,request,*args,**kwargs):
         import json, requests
-        from common.model.other import PhoneCodes
+        from users.model.settings import UserSecretKey
 
         if not request.is_ajax():
             raise Http404
         phone = self.kwargs["phone"]
+        key_items = UserSecretKey.objects.only("pk")
 
         if len(phone) > 8:
             try:
                 user = User.objects.get(phone=phone)
+
                 if user.is_have_secret_key():
                     response = render(request,'generic/response/recover_secret_key.html',{'user':user})
                 else:
                     response = requests.get("https://api.ucaller.ru/v1.0/initCall?service_id=729235&key=G0NjjPZgzj7D65tcjAuCyKhR4nkTlntK&phone=" + phone)
                     data = response.json()
-                    PhoneCodes.objects.create(phone=phone, code=data['code'])
                     data = 'Мы Вам звоним. Последние 4 цифры нашего номера - код подтверждения, который нужно ввести в поле "Код" и нажать "Подтвердить"'
                     return render(request,'generic/response/recover_code_send.html',{'response_text':data })
                 return response
             except:
-                return render(request,'generic/response/phone.html',{'response_text':'user_does_not_exists' })
+                return render(request,'generic/response/phone.html',{'response_text':'user_does_not_exists','key_items':key_items })
         else:
             data = 'Введите, пожалуйста, корректное количество цифр Вашего телефона'
             return render(request,'generic/response/phone.html',{'response_text':data})
@@ -136,11 +137,12 @@ class RecoveryPhoneSend(View):
 
 class SecretKeyVerify(View):
     def post(self,request,*args,**kwargs):
+        from users.model.settings import UserSecretKey
+
         if not request.is_ajax():
             raise Http404
         key = request.POST.get('key')
         user = User.objects.get(pk=self.kwargs["pk"])
-        from users.model.settings import UserSecretKey
 
         if UserSecretKey.objects.filter(user_id=user.pk, key=key).exists():
             from django.contrib.auth import authenticate, login

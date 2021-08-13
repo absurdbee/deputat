@@ -360,7 +360,7 @@ on('body', 'click', '.phone_send', function() {
 			request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 	    request.onreadystatechange = function() {
 	        if (request.readyState == 4 && request.status == 200) {
-						if (request.responseText.indexOf("Код подтверждения неверный") !== -1) {block.innerHTML = request.responseText}
+						if (request.responseText.indexOf("Код подтверждения неверный") !== -1) {block.nextElementSibling.innerHTML = request.responseText}
 						else {window.location.href = "/users/" + form.getAttribute("data-pk") + "/"}
 	        }
 	    };

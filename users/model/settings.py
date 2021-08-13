@@ -54,7 +54,10 @@ class UserSecretKey(models.Model):
     @classmethod
     def create_key(cls, user, key):
         item = cls.objects.create(user=user, key=key)
-        return item 
+        return item
+
+    def __str__(self):
+        return self.user + self.key
 
 class DeputatSend(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="+", verbose_name="Пользователь", on_delete=models.CASCADE)

@@ -287,3 +287,25 @@ on('body', 'click', '.phone_send', function() {
 
       ajax_get_reload(url + val + "/")
   }});
+
+
+	on('body', 'click', '.recovery_phone_send', function() {
+	  block = this.parentElement.parentElement;
+	  phone = block.querySelector('#id_first_number').value + block.querySelector('#phone').value;
+	 var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+	 request.open( 'GET', "/users/progs/recovery_phone_send/" + phone + "/", true );
+	 request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	 request.onreadystatechange = function () {
+	   if ( request.readyState == 4 && request.status == 200) {
+	     var div = document.getElementById('jsondata');
+	     div.innerHTML = request.responseText;
+	     if (request.responseText.indexOf("user_does_not_exists") !== -1) {
+	       div.innerHTML = 'Пользователь с таким номером не найден. Используйте другой номер.'
+	       document.querySelector(".recovery_phone_send").setAttribute("disabled", "true");
+	     } else {
+	       div.innerHTML = request.responseText;
+	     document.querySelector("#phone").setAttribute("disabled", "true");
+	     document.querySelector(".recovery_phone_send").setAttribute("disabled", "true");
+	   }}}
+	 request.send();
+	});

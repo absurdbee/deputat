@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 from users.model.settings import *
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from common.templates import get_my_template
 from generic.mixins import CategoryListMixin
 
@@ -242,3 +242,66 @@ class PasswordRecovery(TemplateView):
 		else:
 			self.template_name = "account/login.html"
 		return super(PasswordRecovery,self).get(request,*args,**kwargs)
+
+
+class GetPasswordRecoverySecretKey(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		if request.user.is_anonymous:
+			self.template_name = "account/secret_key_window.html"
+		else:
+			raise Http404
+		return super(GetPasswordRecoverySecretKey,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from users.forms import UserKeyForm
+		context = super(GetPasswordRecoverySecretKey,self).get_context_data(**kwargs)
+		context["form"] = UserKeyForm()
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from users.forms import UserKeyForm
+		from users.model.settings import UserSecretKey
+		from users.models import User
+		from common.templates import render_for_platform
+
+		self.form = UserKeyForm(request.POST)
+		if request.is_ajax() and self.form.is_valid():
+			_item = self.form.save(commit=False)
+			if UserSecretKey.objects.filter(key=_item.key):
+				key_item = UserSecretKey.objects.get(key=_item.key)
+				user = User.objects.filter(pk=key_item.user_id)
+				return render_for_platform(request, 'profile/settings/quard.html',{'user': user})
+			else:
+				return HttpResponseBadRequest()
+		return super(GetPasswordRecoverySecretKey,self).post(request,*args,**kwargs)
+
+class GetPasswordRecoveryPhone(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		if request.user.is_anonymous:
+			self.template_name = "account/phone_window.html"
+		else:
+			raise Http404
+		return super(GetPasswordRecoveryPhone,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from users.forms import UserPhoneForm
+		context = super(GetPasswordRecoveryPhone,self).get_context_data(**kwargs)
+		context["form"] = UserPhoneForm()
+		return context
+
+	def post(self,request,*args,**kwargs):
+		from users.forms import UserPhoneForm
+		from users.model.settings import DeputatSend
+
+		if DeputatSend.objects.filter(user=request.user, key__isnull=False).exists():
+			return HttpResponseBadRequest()
+		self.form = UserPhoneForm(request.POST)
+		if request.is_ajax() and self.form.is_valid():
+			_item = self.form.save(commit=False)
+			DeputatSend.create_item(user=request.user, text=_item.text)
+			return HttpResponse()
+		return super(GetPasswordRecoveryPhone,self).post(request,*args,**kwargs)

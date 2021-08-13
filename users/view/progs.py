@@ -183,5 +183,6 @@ class RecoveryPhoneVerify(View):
             RecoveryPhoneCodes.objects.filter(phone=phone, code=code).delete()
             user = User.objects.get(phone=phone)
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return HttpResponse("ok")
         else:
             return render(request,'generic/response/phone.html',{'response_text':'Код подтверждения неверный. Проверьте, пожалуйста, номер, с которого мы Вам звонили. Последние 4 цифры этого номера и есть код подтверждения, который нужно ввести с поле "Код".'})

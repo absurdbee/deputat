@@ -144,11 +144,9 @@ class SecretKeyVerify(View):
         key = request.POST.get('key')
         user = User.objects.get(pk=self.kwargs["pk"])
         key_items = UserSecretKey.objects.only("pk")
-        #if UserSecretKey.objects.filter(user=user, key=key).exists():
-        from django.contrib.auth import authenticate, login
-
-        #new_user = authenticate(request, phone=user.phone,password=user.password)
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        return HttpResponse("ok")
-        #else:
-        #    return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})
+        if UserSecretKey.objects.filter(user=user, key=key).exists():
+            from django.contrib.auth import login
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return HttpResponse("ok")
+        else:
+            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})

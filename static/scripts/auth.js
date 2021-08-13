@@ -356,7 +356,7 @@ on('body', 'click', '.phone_send', function() {
 	    var phone = block.previousElementSibling.querySelector('#id_first_number').value + block.previousElementSibling.querySelector('#phone').value;
 	    var code = block.querySelector('.block_verify').querySelector('#code').value;
 	    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-	    request.open('GET', "/users/progs/recovery_phone_send/" + phone + "/" + code + "/", true);
+	    request.open('GET', "/users/progs/recovery_phone_verify/" + phone + "/" + code + "/", true);
 			request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 	    request.onreadystatechange = function() {
 	        if (request.readyState == 4 && request.status == 200) {

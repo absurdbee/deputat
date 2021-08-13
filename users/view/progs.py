@@ -111,7 +111,7 @@ class RecoveryPhoneSend(View):
         import json, requests
         from users.model.settings import UserSecretKey
 
-        if not request.is_ajax():
+        if not request.is_ajax() and request.user.is_authenticated:
             raise Http404
         phone = self.kwargs["phone"]
         key_items = UserSecretKey.objects.only("pk")
@@ -150,3 +150,37 @@ class SecretKeyVerify(View):
             return HttpResponse("ok")
         else:
             return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})
+
+class SecretKeyVerify(View):
+    def post(self,request,*args,**kwargs):
+        from users.model.settings import UserSecretKey
+
+        if not request.is_ajax():
+            raise Http404
+        key = request.POST.get('key')
+        user = User.objects.get(pk=self.kwargs["pk"])
+        key_items = UserSecretKey.objects.only("pk")
+        if UserSecretKey.objects.filter(user=user,key=key).exists():
+            from django.contrib.auth import login
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return HttpResponse("ok")
+        else:
+            return render(request,'generic/response/error_code_recover.html',{'response_text':'Неверное секретное выражение!','key_items':key_items})
+
+
+class RecoveryPhoneVerify(View):
+    def get(self,request,*args,**kwargs):
+        from common.model.other import RecoveryPhoneCodes
+
+        if not request.is_ajax():
+            raise Http404
+        code = self.kwargs["code"]
+        phone = self.kwargs["phone"]
+        if RecoveryPhoneCodes.objects.filter(phone=phone, code=code).exists():
+            from django.contrib.auth import login
+
+            RecoveryPhoneCodes.objects.filter(phone=phone, code=code).delete()
+            user = User.objects.get(phone=phone)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        else:
+            return render(request,'generic/response/phone.html',{'response_text':'Код подтверждения неверный. Проверьте, пожалуйста, номер, с которого мы Вам звонили. Последние 4 цифры этого номера и есть код подтверждения, который нужно ввести с поле "Код".'})

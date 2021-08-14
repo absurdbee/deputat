@@ -105,7 +105,7 @@ on('body', 'click', '.map_selector', function() {
 link.send( null );
 });
 
-on('body', 'change', '.select_regions', function() {
+on('body', 'change', '#select_regions', function() {
   slug = this.val;
 	map = this.parentElement.parentElement.querySelector(".russia_map")
   svg_list = map.querySelectorAll("path");

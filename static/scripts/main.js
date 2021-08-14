@@ -106,7 +106,7 @@ link.send( null );
 });
 
 on('body', 'change', '#select_regions', function() {
-  slug = this.val;
+  slug = this.value;
 	map = this.parentElement.parentElement.querySelector("#russia_map")
   svg_list = map.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {

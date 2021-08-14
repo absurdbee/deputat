@@ -81,7 +81,6 @@ on('body', 'click', '.previous_click', function(event) {
 on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");
   text = this.getAttribute("data-name");
-  console.log(slug + " detected!");
   svg_list = this.parentElement.querySelectorAll("path");
   for (var i = 0; i < svg_list.length; i++) {
     svg_list[i].style.fill = "#DAD8D6";
@@ -91,7 +90,33 @@ on('body', 'click', '.map_selector', function() {
 	this.classList.add("selected");
   col_md_4 = this.parentElement.parentElement.nextElementSibling;
   block = col_md_4.querySelector("#elect_for_regions_loader");
-  col_md_4.querySelector("#select_regions").value = slug;  
+  col_md_4.querySelector("#select_regions").value = slug;
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/region/region/" + slug + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+            block.innerHTML = link.responseText;
+        }
+    }
+};
+link.send( null );
+});
+
+on('body', 'change', '.select_regions', function() {
+  slug = this.val;
+	map = this.parentElement.parentElement.querySelector(".russia_map")
+  svg_list = map.querySelectorAll("path");
+  for (var i = 0; i < svg_list.length; i++) {
+    svg_list[i].style.fill = "#DAD8D6";
+		svg_list[i].classList.remove("selected");
+  };
+	svg = map.querySelector('[data-slug=' + '"' + slug + '"' + ']')
+  svg.style.fill = "#3176C1";
+	svg.classList.add("selected");
+  block = this.nextElementSibling;
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/region/region/" + slug + "/", true );

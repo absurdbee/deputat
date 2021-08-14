@@ -179,34 +179,6 @@ on('body', 'click', '.select_elect_news_category', function() {
 link.send( null );
 })
 
-on('body', 'click', '.main_nav', function() {
-  _this = this;
-  if (_this.classList.contains("active")){
-    return
-  }
-  container = _this.parentElement.parentElement.parentElement.nextElementSibling;
-  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link.open( 'GET', _this.getAttribute("data-href"), true );
-  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link.onreadystatechange = function () {
-    if ( link.readyState == 4 ) {
-        if ( link.status == 200 ) {
-          links = _this.parentElement.querySelectorAll(".main_nav");
-          for (var i = 0; i < links.length; i++){
-            links[i].classList.remove("active");
-          }
-          response = document.createElement("span");
-					response.innerHTML = link.responseText;
-					console.log(response.querySelector(".news_stream"));
-          _this.classList.add("active");
-          container.innerHTML = "";
-					container.insertAdjacentHTML('afterBegin', response.querySelector(".news_stream").innerHTML);
-        }
-    }
-};
-link.send( null );
-})
-
 on('body', 'click', '.window_fullscreen_hide', function() {
   parent = this.parentElement
   parent.style.display = "none";

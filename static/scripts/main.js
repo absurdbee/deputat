@@ -355,9 +355,10 @@ on('body', 'click', '.create_ajax', function() {
 
 on('body', 'click', '.get_user_notify_box', function() {
 	count_box = this.querySelector(".resent_notify");
+	dropdown = this.parentElement.nextElementSibling;
+	dropdown.classList.toggle("show");
 	if (!count_box.classList.contains("showed") || count_box.innerHTML) {
 		count_box.innerHTML = "";
-		dropdown = this.parentElement.nextElementSibling;
 		container = dropdown.querySelector(".notify_box");
 
 		link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -374,5 +375,5 @@ on('body', 'click', '.get_user_notify_box', function() {
 
 	  link_.send();
 	};
-	dropdown.classList.toggle("show")
+
 })

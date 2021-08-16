@@ -354,8 +354,9 @@ on('body', 'click', '.create_ajax', function() {
 });
 
 on('body', 'click', '.get_user_notify_box', function() {
+	console.log(this.parentElement.nextElementSibling);
 	if (this.parentElement.nextElementSibling.classList.contains("show")) {
-		console.log("okj");
+		console.log(this.parentElement.nextElementSibling);
 		this.parentElement.nextElementSibling.classList.remove("show");return
 	};
 	count_box = this.querySelector(".resent_notify");

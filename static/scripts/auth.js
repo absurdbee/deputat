@@ -309,9 +309,16 @@ on('body', 'click', '.phone_send', function() {
 			else if (parent.classList.contains("communities")) {
 				url = '/city/communities/'
 			};
-
       ajax_get_reload(url + val + "/")
   }});
+
+	on('body', 'change', '#left_menu_regions_2', function() {
+		val = this.value;
+		if (val == '') {
+			return
+		} else {
+			ajax_get_reload("/region/" + val + "/")
+	}});
 
 
 	on('body', 'click', '.recovery_phone_send', function() {

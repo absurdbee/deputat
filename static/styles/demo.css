@@ -11,9 +11,11 @@
   width: 85%;
   padding: 0;
   border: none;
-  background-image: none;
+  background-image: none !important;
 }
-
+.navigation > li > ul li:first-of-type {
+  margin-top: 7px !important;
+}
 .remove_elect_subscribe {
   color: #41cd52;
   border: 1px solid #41cd52;

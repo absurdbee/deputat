@@ -264,6 +264,18 @@ class SoundList(models.Model):
         get_playlist_processing(list, SoundList.LIST)
         return list
 
+    @classmethod
+    def create_manager_list(cls, creator, name, description, order):
+        from common.processing import get_playlist_processing
+        from logs.model.manage_audio import AudioManageLog
+
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description,order=order)
+        get_playlist_processing(list, SoundList.MANAGER)
+        AudioManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=AudioManageLog.LIST_CREATED)
+        return list
+
     def edit_list(self, name, description, order, is_public):
         from common.processing import get_playlist_processing
 
@@ -279,6 +291,20 @@ class SoundList(models.Model):
         else:
             get_playlist_processing(self, SoundList.PRIVATE)
             self.make_private()
+        return self
+
+    def edit_manager_list(self, name, description, order, manager_id):
+        from common.processing import get_playlist_processing
+        from logs.model.manage_audio import AudioManageLog
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        get_playlist_processing(self, SoundList.MANAGER)
+        AudioManageLog.objects.create(item=self.pk, manager=manager_id, action_type=AudioManageLog.LIST_EDITED)
         return self
 
 

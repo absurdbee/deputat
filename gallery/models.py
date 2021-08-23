@@ -153,6 +153,18 @@ class PhotoList(models.Model):
         get_photo_list_processing(list, PhotoList.LIST)
         return list
 
+    @classmethod
+    def create_manager_list(cls, creator, name, description, order):
+        from common.processing import get_photo_list_processing
+        from logs.model.manage_photo import PhotoManageLog
+
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description, order=order)
+        get_photo_list_processing(list, PhotoList.MANAGER)
+        PhotoManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=PhotoManageLog.LIST_CREATED)
+        return list
+
     def edit_list(self, name, description, order, is_public):
         from common.processing import get_photo_list_processing
 
@@ -168,6 +180,20 @@ class PhotoList(models.Model):
         else:
             get_photo_list_processing(self, PhotoList.PRIVATE)
             self.make_private()
+        return self
+
+    def edit_manager_list(self, name, description, order, manager_id):
+        from common.processing import get_photo_list_processing
+        from logs.model.manage_photo import PhotoManageLog
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        get_photo_list_processing(self, PhotoList.MANAGER)
+        PhotoManageLog.objects.create(item=self.pk, manager=manager_id, action_type=PhotoManageLog.LIST_EDITED)
         return self
 
     def make_private(self):

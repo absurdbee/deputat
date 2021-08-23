@@ -161,6 +161,19 @@ class SurveyList(models.Model):
                     user_send_notify(list.pk, creator.pk, user_id, None, "create_u_survey_list_notify")
         get_survey_list_processing(list, SurveyList.LIST)
         return list
+
+    @classmethod
+    def create_manager_list(cls, creator, name, description, order):
+        from common.processing import get_survey_list_processing
+        from logs.model.manage_survey import SurveyManageLog
+
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description,order=order)
+        get_survey_list_processing(list, SurveyList.MANAGER)
+        SurveyManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=SurveyManageLog.LIST_CREATED)
+        return list
+
     def edit_list(self, name, description, order, is_public):
         from common.processing import get_survey_list_processing
         if not order:
@@ -175,6 +188,20 @@ class SurveyList(models.Model):
         else:
             get_survey_list_processing(self, SurveyList.PRIVATE)
             self.make_private()
+        return self
+
+    def edit_manager_list(self, name, description, order, manager_id):
+        from common.processing import get_survey_list_processing
+        from logs.model.manage_survey import SurveyManageLog
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        get_survey_list_processing(self, SurveyList.MANAGER)
+        SurveyManageLog.objects.create(item=self.pk, manager=manager_id, action_type=SurveyManageLog.LIST_EDITED)
         return self
 
     def delete_list(self):

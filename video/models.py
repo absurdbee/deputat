@@ -96,6 +96,18 @@ class VideoList(models.Model):
         get_video_list_processing(list, VideoList.LIST)
         return list
 
+    @classmethod
+    def create_manager_list(cls, creator, name, description, order):
+        from common.processing import get_video_list_processing
+        from logs.model.manage_video import VideoManageLog
+
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description,order=order)
+        get_video_list_processing(list, VideoList.MANAGER)
+        VideoManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=VideoManageLog.LIST_CREATED)
+        return list
+
     def edit_list(self, name, description, order, is_public):
         from common.processing import get_video_list_processing
 
@@ -111,6 +123,20 @@ class VideoList(models.Model):
         else:
             get_video_list_processing(self, VideoList.PRIVATE)
             self.make_private()
+        return self
+
+    def edit_manager_list(self, name, description, order, manager_id):
+        from common.processing import get_video_list_processing
+        from logs.model.manage_video import VideoManageLog
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        get_video_list_processing(self, VideoList.MANAGER)
+        VideoManageLog.objects.create(item=self.pk, manager=manager_id, action_type=VideoManageLog.LIST_EDITED)
         return self
 
     def count_items(self):

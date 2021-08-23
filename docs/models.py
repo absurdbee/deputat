@@ -75,6 +75,18 @@ class DocList(models.Model):
         get_doc_list_processing(list, DocList.LIST)
         return list
 
+    @classmethod
+    def create_manager_list(cls, creator, name, description, order):
+        from common.processing import get_doc_list_processing
+        from logs.model.manage_doc import DocManageLog
+
+        if not order:
+            order = 1
+        list = cls.objects.create(creator=creator,name=name,description=description,order=order)
+        get_doc_list_processing(list, DocList.MANAGER)
+        DocManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=DocManageLog.LIST_CREATED)
+        return list
+
     def edit_list(self, name, description, order, is_public):
         from common.processing import get_doc_list_processing
 
@@ -90,6 +102,20 @@ class DocList(models.Model):
         else:
             get_doc_list_processing(self, DocList.PRIVATE)
             self.make_private()
+        return self
+
+    def edit_manager_list(self, name, description, order, manager_id):
+        from common.processing import get_doc_list_processing
+        from logs.model.manage_doc import DocManageLog
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        get_doc_list_processing(self, DocList.MANAGER)
+        DocManageLog.objects.create(item=self.pk, manager=manager_id, action_type=DocManageLog.LIST_EDITED)
         return self
 
     def is_item_in_list(self, item_id):

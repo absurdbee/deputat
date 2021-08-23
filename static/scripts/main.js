@@ -39,7 +39,7 @@ on('body', 'change', '#left_menu_regions', function() {
 	} else {
 		list_load(this.nextElementSibling, "/region/load_left_menu_region_get_cities/" + this.value + "/")
 	}
-});
+}); 
 
 on('body', 'click', '.base_row_container', function() {
 	drops = document.body.querySelectorAll(".dropdown-menu");

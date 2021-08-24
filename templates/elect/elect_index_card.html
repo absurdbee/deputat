@@ -1,6 +1,7 @@
 {% load filters %}
 
-<div class="card subscribe_card col-md-6 pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.pk }}">
+<div class="col-md-6 pag {% if forloop.last %}last{% endif %}">
+  <div class="card subscribe_card" data-pk="{{ object.pk }}">
     <div class="subscribe_img_div">
       <a href="{% url 'elect_detail' pk=object.pk %}" class="ajax">
         <img class="subscribe_img" src="{{ object.get_image }}" alt="img">
@@ -46,5 +47,5 @@
         </button>
         {% endif %}
     </div>
-
+  </div>
 </div>

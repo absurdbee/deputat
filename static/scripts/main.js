@@ -39,7 +39,7 @@ on('body', 'change', '#left_menu_regions', function() {
 	} else {
 		list_load(this.nextElementSibling, "/region/load_left_menu_region_get_cities/" + this.value + "/")
 	}
-}); 
+});
 
 on('body', 'click', '.base_row_container', function() {
 	drops = document.body.querySelectorAll(".dropdown-menu");
@@ -137,7 +137,7 @@ on('body', 'mouseover', '.map_selector', function(e) {
 	iconPos = _this.getBoundingClientRect();
   popup.style.left = (e.clientX - 200) + "px";
   popup.style.top = (e.clientY - 250) + "px";
-	popup.querySelector("h3").innerHTML = _this.getAttribute("data-name");
+	popup.querySelector("h6").innerHTML = _this.getAttribute("data-name");
 	popup.style.display = "block";
 	this.style.fill = "#3176C1";
 });

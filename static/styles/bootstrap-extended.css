@@ -1392,7 +1392,7 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
     display: none;
   }
   .desctop_custom_width {
-    padding-left: 20px
+    padding-left: 10px
   }
 }
 @media (max-width: 991.98px) {

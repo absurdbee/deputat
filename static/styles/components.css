@@ -989,7 +989,10 @@ html .pace .pace-progress {
   .menu-open .main-menu {
     -webkit-transform : translate3d(0, 0, 0);
             transform : translate3d(0, 0, 0);
-  };
+  }
+  .desctop_custom_width {
+    padding-left: 30px
+  }
 }
 
 @media (min-width: 1073px) {

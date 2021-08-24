@@ -1182,6 +1182,7 @@ color: #FFD600;
 
 .subscribe_img {
   width: 90px;
+  padding-left: 5px;
 }
 .subscribe_img_div {
     -ms-flex-pack: center;

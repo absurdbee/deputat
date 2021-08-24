@@ -3,11 +3,11 @@
 {% block content %}
 
         <div class="content-wrapper row ml-0">
-          <div class="content-header-left col-12">
+
             {% include 'main/breadcrumb.html' %}
 
             <div class="content-header">
-            <div class="col-md-9 pl-0 pr-0 content-header-left">  
+            <div class="col-md-9 p-0 content-header-left">
               <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
                 <a class="btn btn-outline-primary main_nav ajax" href="/">
                   <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-flag"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
@@ -35,6 +35,5 @@
             <div class="content-body main_news_container news_stream is_paginate mt-2">
               {% include 'main/test.html' %}
             </div>
-          </div>
         </div>
 {% endblock %}

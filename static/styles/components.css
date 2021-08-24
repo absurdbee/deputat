@@ -531,10 +531,6 @@ html .pace .pace-progress {
   top : 1px;
 }
 
-.main-menu.menu-light .navigation > li > ul li:first-of-type {
-  margin-top : -5px !important;
-}
-
 .main-menu.menu-light .navigation > li > ul li:not(.has-sub) {
   margin : 0 15px;
 }

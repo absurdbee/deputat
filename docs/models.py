@@ -354,6 +354,28 @@ class Doc(models.Model):
             get_doc_processing(doc, Doc.PRIVATE)
         return doc
 
+    @classmethod
+    def create_manager_doc(cls, creator, title, file, lists):
+        from common.processing import get_doc_processing
+        from logs.model.manage_doc import DocManageLog
+
+        if not lists:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового документа")
+
+        doc = cls.objects.create(creator=creator,title=title,file=file)
+        for list_id in lists:
+            doc_list = DocList.objects.get(pk=list_id)
+            doc_list.doc_list.add(doc)
+
+        get_doc_processing(doc, Doc.MANAGER)
+        from common.notify.progs import user_send_notify, user_send_wall
+
+        for user_id in creator.get_user_news_notify_ids():
+            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="DOC", object_id=doc.pk, verb="ITE")
+            user_send_notify(doc.pk, creator.pk, user_id, None, "create_manager_doc_notify")
+        return doc
+
     def edit_doc(self, title, file, lists, is_public):
         from common.processing import get_doc_processing
 

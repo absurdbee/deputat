@@ -4,12 +4,9 @@
 
         <div class="content-wrapper row ml-0">
           <div class="content-header-left col-12">
-            <div class="row ml-0">
-              <div class="content-header-left col-md-9 col-12">
-                {% include 'main/breadcrumb.html' %}
-              </div>
-            </div>
+            {% include 'main/breadcrumb.html' %}
 
+            <div class="row ml-0">
             <div class="content-header-left">
               <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
                 <a class="btn btn-outline-primary main_nav ajax" href="/">
@@ -33,6 +30,7 @@
                   <span class="d-none d-sm-block">Документы</span>
                 </a>
               </div>
+            </div>
             </div>
             <div class="content-body main_news_container news_stream is_paginate mt-2">
               {% include 'main/test.html' %}

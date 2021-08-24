@@ -990,9 +990,6 @@ html .pace .pace-progress {
     -webkit-transform : translate3d(0, 0, 0);
             transform : translate3d(0, 0, 0);
   }
-  .desctop_custom_width {
-    padding-left: 40px
-  }
 }
 
 @media (min-width: 1073px) {

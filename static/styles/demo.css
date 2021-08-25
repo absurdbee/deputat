@@ -12,7 +12,7 @@
   padding: 0;
   border: none;
   background-image: none !important;
-  padding-right: 0;
+  padding-right: 0 !important;
 }
 
 .remove_elect_subscribe {

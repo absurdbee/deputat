@@ -7,11 +7,12 @@
   height: 1.5rem;
   font-size: 10px;
   text-transform: uppercase;
-  margin-left: 33px;
+  margin-left: 20px;
   width: 85%;
   padding: 0;
   border: none;
   background-image: none !important;
+  padding-right: 0;
 }
 
 .remove_elect_subscribe {

@@ -400,6 +400,37 @@ class Video(models.Model):
             get_video_processing(video, Video.PRIVATE)
         return video
 
+    @classmethod
+    def create_manager_video(cls, creator, title, file, image, uri, lists):
+        from common.processing import get_video_processing
+        from logs.model.manage_video import VideoManageLog
+        from common.notify.progs import user_send_notify
+        from notify.models import Notify
+
+        if not lists:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового документа")
+        elif not file and not uri:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран файл для ссылка")
+        if uri:
+            current_uri = uri.replace("watch?v=", "embed/")
+        else:
+            current_uri = ""
+        video = cls.objects.create(creator=creator,title=title,image=image,file=file,uri=current_uri)
+
+        for list_id in lists:
+            video_list = VideoList.objects.get(pk=list_id)
+            video_list.video_list.add(video)
+
+        get_video_processing(video, Video.MANAGER)
+
+        #for user_id in creator.get_user_news_notify_ids():
+        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VID", object_id=video.pk, verb="ITE")
+        #    user_send_notify(video.pk, creator.pk, user_id, None, "create_u_video_notify")
+        VideoManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=VideoManageLog.ITEM_CREATED)
+        return video
+
     def edit_video(self, title, uri, image, file, lists, is_public):
         from common.processing import get_video_processing
 

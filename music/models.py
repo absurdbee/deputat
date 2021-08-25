@@ -429,6 +429,29 @@ class Music(models.Model):
             get_music_processing(track, Music.PRIVATE)
         return track
 
+    @classmethod
+    def create_manager_track(cls, creator, title, file, lists):
+        from common.processing import get_music_processing
+        from logs.model.manage_audio import AudioManageLog
+
+        if not lists:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового элемента")
+
+        track = cls.objects.create(creator=creator,title=title,file=file)
+        for list_id in lists:
+            track_list = SoundList.objects.get(pk=list_id)
+            track_list.playlist.add(track)
+
+        get_music_processing(track, Music.MANAGER)
+        from common.notify.progs import user_send_notify, user_send_wall
+
+        #for user_id in creator.get_user_news_notify_ids():
+        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUS", object_id=track.pk, verb="ITE")
+        #    user_send_notify(track.pk, creator.pk, user_id, None, "create_manager_track_notify")
+        AudioManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=AudioManageLog.ITEM_CREATED)
+        return track
+
     def edit_track(self, title, file, lists, is_public):
         from common.processing import get_music_processing
 

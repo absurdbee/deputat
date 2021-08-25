@@ -380,6 +380,29 @@ class Photo(models.Model):
             get_photo_processing(photo, Photo.PRIVATE)
         return photo
 
+    @classmethod
+    def create_manager_photo(cls, creator, image, list):
+        from common.processing import get_photo_processing
+        from logs.model.manage_photo import PhotoManageLog
+
+        if not list:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового элемента")
+
+        photo = cls.objects.create(creator=creator,preview=image,file=image)
+        for list_id in lists:
+            photo_list = PhotoList.objects.get(pk=list_id)
+            photo_list.photo_list.add(photo)
+
+        get_photo_processing(photo, Photo.MANAGER)
+        from common.notify.progs import user_send_notify, user_send_wall
+
+        #for user_id in creator.get_user_news_notify_ids():
+        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="PHO", object_id=photo.pk, verb="ITE")
+        #    user_send_notify(photo.pk, creator.pk, user_id, None, "create_manager_photo_notify")
+        PhotoManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=PhotoManageLog.ITEM_CREATED)
+        return photo
+
     def is_list_exists(self):
         return self.photo_list.filter(creator=self.creator).exists()
 

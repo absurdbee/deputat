@@ -348,6 +348,29 @@ class Survey(models.Model):
                 user_send_notify(survey.pk, creator.pk, user_id, None, "create_u_survey_notify")
         return survey
 
+    @classmethod
+    def create_manager_survey(cls, title, image, lists, creator, order, is_anonymous, is_multiple, is_no_edited, time_end, answers):
+        from common.processing import get_survey_processing
+        from logs.model.manage_survey import SurveyManageLog
+
+        if not lists:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового элемента")
+
+        survey = cls.objects.create(title=title,image=image,creator=creator,order=order,is_anonymous=is_anonymous,is_multiple=is_multiple,is_no_edited=is_no_edited,time_end=time_end)
+        for list_id in lists:
+            survey_list = SurveyList.objects.get(pk=list_id)
+            survey_list.survey_list.add(survey)
+
+        get_survey_processing(survey, Survey.MANAGER)
+        from common.notify.progs import user_send_notify, user_send_wall
+
+        #for user_id in creator.get_user_news_notify_ids():
+        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="SUR", object_id=survey.pk, verb="ITE")
+        #    user_send_notify(survey.pk, creator.pk, user_id, None, "create_manager_survey_notify")
+        SurveyManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=SurveyManageLog.ITEM_CREATED)
+        return survey
+
     def edit_survey(self, title, image, lists, order, is_anonymous, is_multiple, is_no_edited, time_end, answers):
         from common.processing  import get_survey_processing
 

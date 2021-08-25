@@ -371,9 +371,10 @@ class Doc(models.Model):
         get_doc_processing(doc, Doc.MANAGER)
         from common.notify.progs import user_send_notify, user_send_wall
 
-        for user_id in creator.get_user_news_notify_ids():
-            Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="DOC", object_id=doc.pk, verb="ITE")
-            user_send_notify(doc.pk, creator.pk, user_id, None, "create_manager_doc_notify")
+        #for user_id in creator.get_user_news_notify_ids():
+        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="DOC", object_id=doc.pk, verb="ITE")
+        #    user_send_notify(doc.pk, creator.pk, user_id, None, "create_manager_doc_notify")
+        DocManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=DocManageLog.ITEM_CREATED)
         return doc
 
     def edit_doc(self, title, file, lists, is_public):

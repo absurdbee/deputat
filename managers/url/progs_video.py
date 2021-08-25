@@ -28,4 +28,9 @@ urlpatterns = [
     url(r'^list_create_rejected/(?P<uuid>[0-9a-f-]+)/$', ListVideoRejectedCreate.as_view()),
     url(r'^list_create_claim/(?P<uuid>[0-9a-f-]+)/$', ListVideoClaimCreate.as_view()),
     url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListVideoUnverify.as_view()),
+
+    url(r'^create_video/$', CreateManagerVideo.as_view()),
+    url(r'^edit_video/$', EditManagerVideo.as_view()),
+    url(r'^create_list/$', CreateManagerVideoList.as_view()),
+    url(r'^edit_list/$', EditManagerVideoList.as_view()),
 ]

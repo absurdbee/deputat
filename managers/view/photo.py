@@ -298,3 +298,61 @@ class ListPhotoCloseDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class CreateManagerPhoto(View):
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            list, photos = PhotoList.objects.get(uuid=self.kwargs["uuid"]), []
+            for p in request.FILES.getlist('file'):
+                photo = Photo.create_manager_photo(creator=request.user, image=p, list=list)
+                photos += [photo]
+            return render_for_platform(request, 'managers/manage_create/photo/new_manager_photos.html',{'object_list': photos})
+        else:
+            raise Http404
+
+
+class CreateManagerPhotoList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/photo/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CreateManagerPhotoList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from gallery.forms import PhotoListForm
+        context = super(CreateManagerPhotoList,self).get_context_data(**kwargs)
+        context["form_post"] = PhotoListForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from gallery.forms import PhotoListForm
+        form_post= PhotoListForm(request.POST)
+        if request.is_ajax() and form_post.is_valid():
+            list = form_post.save(commit=False)
+            new_list = list.create_manager_list(creator=request.user, name=list.name, description=list.description, order=list.order)
+            return render_for_platform(request, 'user_gallery/list/my_list.html',{'list': new_list})
+        else:
+            return HttpResponseBadRequest()
+
+
+class EditManagerPhotoList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/photo/edit_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(EditManagerPhotoList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from gallery.forms import PhotoListForm
+        context = super(EditManagerPhotoList,self).get_context_data(**kwargs)
+        context["list"] = PhotoList.objects.get(uuid=self.kwargs["uuid"])
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from gallery.forms import PhotoListForm
+        self.list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
+        self.form = PhotoListForm(request.POST,instance=self.list)
+        if request.is_ajax() and self.form.is_valid():
+            list = self.form.save(commit=False)
+            list.edit_manager_list(name=list.name, description=list.description, order=list.order, manager_id=request.user.pk)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+        return super(EditManagerPhotoList,self).get(request,*args,**kwargs)

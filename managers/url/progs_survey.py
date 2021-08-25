@@ -28,4 +28,7 @@ urlpatterns = [
     url(r'^list_create_rejected/(?P<uuid>[0-9a-f-]+)/$', ListSurveyRejectedCreate.as_view()),
     url(r'^list_create_claim/(?P<uuid>[0-9a-f-]+)/$', ListSurveyClaimCreate.as_view()),
     url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListSurveyUnverify.as_view()),
+
+    #url(r'^create_survey/$', CreateManagerSurvey.as_view()),
+    #url(r'^edit_survey/$', EditManagerSurvey.as_view()),
 ]

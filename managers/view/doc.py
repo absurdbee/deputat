@@ -308,3 +308,101 @@ class ListDocCloseDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class CreateManagerDoc(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/doc/create_doc.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CreateManagerDoc,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from docs.forms import DocForm
+        context = super(CreateManagerDoc,self).get_context_data(**kwargs)
+        context["form_post"] = DocForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from docs.forms import DocForm
+        form_post = DocForm(request.POST, request.FILES)
+
+        if request.is_ajax() and form_post.is_valid():
+            doc = form_post.save(commit=False)
+            new_doc = doc.create_manager_doc(creator=request.user, title=doc.title, file=doc.file, lists=request.POST.getlist("list"))
+            return render_for_platform(request, 'user_docs/new_doc.html',{'doc': new_doc})
+        else:
+            return HttpResponseBadRequest()
+
+class EditManagerDoc(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.doc = Doc.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_detect_platform_template("managers/manage_create/doc/edit_doc.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(EditManagerDoc,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from docs.forms import DocForm
+        context = super(EditManagerDoc,self).get_context_data(**kwargs)
+        context["form_post"] = DocForm(instance=self.doc)
+        context["doc"] = self.doc
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from docs.forms import DocForm
+        self.doc = Doc.objects.get(pk=self.kwargs["pk"])
+        form_post = DocForm(request.POST, request.FILES, instance=self.doc)
+
+        if request.is_ajax() and form_post.is_valid():
+            _doc = form_post.save(commit=False)
+            new_doc = self.doc.edit_manager_doc(title=_doc.title, file=_doc.file, lists=request.POST.getlist("list"), manager_id=request.user.pk)
+            return render_for_platform(request, 'user_docs/new_doc.html',{'doc': self.doc})
+        else:
+            return HttpResponseBadRequest()
+
+
+class CreateManagerDocList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/doc/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CreateManagerDocList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from docs.forms import DocListForm
+        context = super(CreateManagerDocList,self).get_context_data(**kwargs)
+        context["form_post"] = DocListForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from docs.forms import DocListForm
+        form_post= DocListForm(request.POST)
+        if request.is_ajax() and form_post.is_valid():
+            list = form_post.save(commit=False)
+            new_list = list.create_manager_list(creator=request.user, name=list.name, description=list.description, order=list.order)
+            return render_for_platform(request, 'user_docs/list/my_list.html',{'list': new_list})
+        else:
+            return HttpResponseBadRequest()
+
+
+class EditManagerDocList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/doc/edit_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(EditManagerDocList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from docs.forms import DocListForm
+        context = super(EditManagerDocList,self).get_context_data(**kwargs)
+        context["list"] = DocList.objects.get(uuid=self.kwargs["uuid"])
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from docs.forms import DocListForm
+        self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
+        self.form = DocListForm(request.POST,instance=self.list)
+        if request.is_ajax() and self.form.is_valid():
+            list = self.form.save(commit=False)
+            list.edit_manager_list(name=list.name, description=list.description, order=list.order, manager_id=request.user.pk)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+        return super(EditManagerDocList,self).get(request,*args,**kwargs)

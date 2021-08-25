@@ -28,4 +28,9 @@ urlpatterns = [
     url(r'^list_create_rejected/(?P<uuid>[0-9a-f-]+)/$', ListAudioRejectedCreate.as_view()),
     url(r'^list_create_claim/(?P<uuid>[0-9a-f-]+)/$', ListAudioClaimCreate.as_view()),
     url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListAudioUnverify.as_view()),
+
+    url(r'^create_track/$', CreateManagerTrack.as_view()),
+    url(r'^edit_track/$', EditManagerTrack.as_view()),
+    url(r'^create_list/$', CreateManagerMusicList.as_view()),
+    url(r'^edit_list/$', EditManagerMusicList.as_view()),
 ]

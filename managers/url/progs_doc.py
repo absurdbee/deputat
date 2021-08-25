@@ -28,4 +28,9 @@ urlpatterns = [
     url(r'^list_create_rejected/(?P<uuid>[0-9a-f-]+)/$', ListDocRejectedCreate.as_view()),
     url(r'^list_create_claim/(?P<uuid>[0-9a-f-]+)/$', ListDocClaimCreate.as_view()),
     url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListDocUnverify.as_view()),
+
+    url(r'^create_doc/$', CreateManagerDoc.as_view()),
+    url(r'^edit_doc/$', EditManagerDoc.as_view()),
+    url(r'^create_list/$', CreateManagerDocList.as_view()),
+    url(r'^edit_list/$', EditManagerDocList.as_view()),
 ]

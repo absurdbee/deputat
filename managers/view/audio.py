@@ -308,3 +308,101 @@ class ListAudioCloseDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class CreateManagerTrack(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/audio/create_track.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CreateManagerTrack,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from music.forms import TrackForm
+        context = super(CreateManagerTrack,self).get_context_data(**kwargs)
+        context["form_post"] = TrackForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from music.forms import TrackForm
+        form_post = TrackForm(request.POST, request.FILES)
+
+        if request.is_ajax() and form_post.is_valid():
+            track = form_post.save(commit=False)
+            new_track = track.create_manager_track(creator=request.user, title=track.title, file=track.file, lists=request.POST.getlist("list"))
+            return render_for_platform(request, 'user_music/new_track.html',{'object': new_track})
+        else:
+            return HttpResponseBadRequest()
+
+class EditManagerTrack(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.track = Music.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_detect_platform_template("managers/manage_create/audio/edit_track.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(EditManagerTrack,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from music.forms import TrackForm
+        context = super(EditManagerTrack,self).get_context_data(**kwargs)
+        context["form_post"] = TrackForm(instance=self.track)
+        context["track"] = self.track
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from music.forms import TrackForm
+        self.track = Music.objects.get(pk=self.kwargs["pk"])
+        form_post = TrackForm(request.POST, request.FILES, instance=self.track)
+
+        if request.is_ajax() and form_post.is_valid():
+            _track = form_post.save(commit=False)
+            new_track = _track.edit_manager_track(title=_track.title, file=_track.file, lists=request.POST.getlist("list"), manager_id=request.user.pk)
+            return render_for_platform(request, 'user_music/new_track.html',{'object': self.track})
+        else:
+            return HttpResponseBadRequest()
+
+
+class CreateManagerMusicList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/audio/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CreateManagerMusicList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from music.forms import PlaylistForm
+        context = super(CreateManagerMusicList,self).get_context_data(**kwargs)
+        context["form_post"] = PlaylistForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from music.forms import PlaylistForm
+        form_post= PlaylistForm(request.POST)
+        if request.is_ajax() and form_post.is_valid():
+            list = form_post.save(commit=False)
+            new_list = list.create_manager_list(creator=request.user, name=list.name, description=list.description, order=list.order)
+            return render_for_platform(request, 'user_music/list/my_list.html',{'list': new_list})
+        else:
+            return HttpResponseBadRequest()
+
+
+class EditManagerMusicList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/audio/edit_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(EditManagerMusicList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from music.forms import PlaylistForm
+        context = super(EditManagerMusicList,self).get_context_data(**kwargs)
+        context["list"] = SoundList.objects.get(uuid=self.kwargs["uuid"])
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from music.forms import PlaylistForm
+        self.list = SoundList.objects.get(uuid=self.kwargs["uuid"])
+        self.form = PlaylistForm(request.POST,instance=self.list)
+        if request.is_ajax() and self.form.is_valid():
+            list = self.form.save(commit=False)
+            list.edit_manager_list(name=list.name, description=list.description, order=list.order, manager_id=request.user.pk)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+        return super(EditManagerMusicList,self).get(request,*args,**kwargs)

@@ -299,3 +299,101 @@ class ListVideoCloseDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class CreateManagerVideo(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/video/create_video.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CreateManagerVideo,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from video.forms import VideoForm
+        context = super(CreateManagerVideo,self).get_context_data(**kwargs)
+        context["form_post"] = VideoForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from video.forms import VideoForm
+        form_post = VideoForm(request.POST, request.FILES)
+
+        if request.is_ajax() and form_post.is_valid():
+            video = form_post.save(commit=False)
+            new_video = Video.create_manager_video(creator=request.user, title=video.title, file=video.file, image=video.image, uri=video.uri, lists=request.POST.getlist("list"))
+            return render_for_platform(request, 'user_video/new_video.html',{'object': new_video})
+        else:
+            return HttpResponseBadRequest()
+
+class EditManagerVideo(TemplateView):
+    form_post = None
+
+    def get(self,request,*args,**kwargs):
+        self.video = Video.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_detect_platform_template("managers/manage_create/video/edit_video.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(EditManagerVideo,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from video.forms import VideoForm
+        context = super(EditManagerVideo,self).get_context_data(**kwargs)
+        context["form_post"] = VideoForm(instance=self.video)
+        context["video"] = self.video
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from video.forms import VideoForm
+        self.video = Video.objects.get(pk=self.kwargs["pk"])
+        form_post = VideoForm(request.POST, request.FILES, instance=self.video)
+
+        if request.is_ajax() and form_post.is_valid():
+            _video = form_post.save(commit=False)
+            new_video = self.video.edit_manager_video(title=_video.title, image=_video.image, uri=_video.uri, file=_video.file, lists=request.POST.getlist("list"), manager_id=request.user.pk)
+            return render_for_platform(request, 'user_video/new_video.html',{'object': self.video})
+        else:
+            return HttpResponseBadRequest()
+
+
+class CreateManagerVideoList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/video/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CreateManagerVideoList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from video.forms import VideoListForm
+        context = super(CreateManagerVideoList,self).get_context_data(**kwargs)
+        context["form_post"] = VideoListForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from video.forms import VideoListForm
+        form_post= VideoListForm(request.POST)
+        if request.is_ajax() and form_post.is_valid():
+            list = form_post.save(commit=False)
+            new_list = list.create_manager_list(creator=request.user, name=list.name, description=list.description, order=list.order)
+            return render_for_platform(request, 'user_video/list/my_list.html',{'list': new_list})
+        else:
+            return HttpResponseBadRequest()
+
+
+class EditManagerVideoList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_detect_platform_template("managers/manage_create/video/edit_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(EditManagerVideoList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from video.forms import VideoListForm
+        context = super(EditManagerVideoList,self).get_context_data(**kwargs)
+        context["list"] = VideoList.objects.get(uuid=self.kwargs["uuid"])
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from video.forms import VideoListForm
+        self.list = VideoList.objects.get(uuid=self.kwargs["uuid"])
+        self.form = VideoListForm(request.POST,instance=self.list)
+        if request.is_ajax() and self.form.is_valid():
+            list = self.form.save(commit=False)
+            list.edit_manager_list(name=list.name, description=list.description, order=list.order, manager_id=request.user.pk)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+        return super(EditManagerVideoList,self).get(request,*args,**kwargs)

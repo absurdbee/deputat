@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'easy_thumbnails',
+    'import_export',
 
     'blog_cat',
     'blog',
@@ -222,3 +223,5 @@ USER_MAX_MUSIC_LISTS = 50
 USER_MAX_VIDEO_LISTS = 50
 USER_MAX_SURVEY_LISTS = 50
 USER_MAX_PHOTO_LISTS = 50
+
+IMPORT_EXPORT_SKIP_ADMIN_LOG = True

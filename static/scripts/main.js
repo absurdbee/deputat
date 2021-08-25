@@ -30,7 +30,7 @@ on('body', 'click', '.load_left_menu_regions', function(e) {
 })
 on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
 	e.preventDefault();
-  list_load(this.parentElement.parentElement.parentElement, "/region/load_left_menu_regions_select/");
+  list_load(this.parentElement.parentElement, "/region/load_left_menu_regions_select/");
 	this.remove();
 });
 on('body', 'change', '#left_menu_regions', function() {

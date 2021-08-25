@@ -207,13 +207,6 @@ function list_load(block, link) {
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   request.onreadystatechange = function () {if ( request.readyState == 4 && request.status == 200 ) {block.innerHTML = request.responseText;}};request.send( null );
 }
-function request_data_load(block, link) {
-  // грузим что-то по ссылке link в блок block
-  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  request.open( 'GET', link, true );
-  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  request.onreadystatechange = function () {if ( request.readyState == 4 && request.status == 200 ) {block.innerHTML = request.responseText;}};request.send( null );
-}
 
 function media_list_edit(_this, url) {
   form = _this.parentElement.parentElement.parentElement;

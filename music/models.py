@@ -466,6 +466,17 @@ class Music(models.Model):
             self.make_private()
         return self.save()
 
+    def edit_manager_track(self, title, file, lists, manager_id):
+        from common.processing import get_track_processing
+        from logs.model.manage_track import AudioManageLog
+
+        self.title = title
+        self.file = file
+        self.lists = lists
+        get_track_processing(self, Music.MANAGER)
+        AudioManageLog.objects.create(item=self.pk, manager=manager_id, action_type=AudioManageLog.ITEM_EDITED)
+        return self.save()
+
     def delete_track(self, community):
         from notify.models import Notify, Wall
         if self.type == "PUB":

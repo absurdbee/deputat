@@ -391,6 +391,17 @@ class Doc(models.Model):
             self.make_private()
         return self.save()
 
+    def edit_manager_doc(self, title, file, lists, manager_id):
+        from common.processing import get_doc_processing
+        from logs.model.manage_doc import DocManageLog
+
+        self.title = title
+        self.file = file
+        self.lists = lists
+        get_doc_processing(self, Doc.MANAGER)
+        DocManageLog.objects.create(item=self.pk, manager=manager_id, action_type=DocManageLog.ITEM_EDITED)
+        return self.save()
+
     def make_private(self):
         from notify.models import Notify, Wall
         self.type = Doc.PRIVATE

@@ -447,6 +447,19 @@ class Video(models.Model):
             self.make_private()
         return self.save()
 
+    def edit_manager_video(self, title, uri, image, file, lists, manager_id):
+        from common.processing import get_video_processing
+        from logs.model.manage_video import VideoManageLog
+
+        self.title = title
+        self.file = file
+        self.lists = lists
+        self.uri = uri
+        self.image = image
+        get_video_processing(self, Video.MANAGER)
+        VideoManageLog.objects.create(item=self.pk, manager=manager_id, action_type=VideoManageLog.ITEM_EDITED)
+        return self.save()
+
     def get_uri(self):
         if self.file:
             return self.file.url

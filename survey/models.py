@@ -390,6 +390,22 @@ class Survey(models.Model):
                 Answer.objects.create(survey=survey, text=answer)
         return survey
 
+    def edit_manager_survey(self, title, image, lists, order, is_anonymous, is_multiple, is_no_edited, time_end, answers, manager_id):
+        from common.processing import get_survey_processing
+        from logs.model.manage_survey import SurveyManageLog
+
+        self.title = title
+        self.image = image
+        self.lists = lists
+        self.order = order
+        self.is_anonymous = is_anonymous
+        self.is_multiple = is_multiple
+        self.is_no_edited = is_no_edited
+        self.time_end = time_end
+        get_survey_processing(self, Survey.MANAGER)
+        SurveyManageLog.objects.create(item=self.pk, manager=manager_id, action_type=SurveyManageLog.ITEM_EDITED)
+        return self.save()
+
     def is_user_voted(self, user_id):
         return SurveyVote.objects.filter(answer__survey_id=self.pk, user_id=user_id).exists()
 

@@ -2,15 +2,15 @@ from managers.models import *
 from django.contrib import admin
 
 
-#admin.site.register(UserStaff)
-#admin.site.register(CommunityStaff)
-#admin.site.register(ElectNewUserStaff)
-#admin.site.register(SurveyUserStaff)
-#admin.site.register(DocUserStaff)
-#admin.site.register(PhotoUserStaff)
-#admin.site.register(VideoUserStaff)
-#admin.site.register(AudioUserStaff)
-#admin.site.register(CanWorkStaffUser)
+admin.site.register(UserStaff)
+admin.site.register(CommunityStaff)
+admin.site.register(ElectNewUserStaff)
+admin.site.register(SurveyUserStaff)
+admin.site.register(DocUserStaff)
+admin.site.register(PhotoUserStaff)
+admin.site.register(VideoUserStaff)
+admin.site.register(AudioUserStaff)
+admin.site.register(CanWorkStaffUser)
 
 #admin.site.register(CanWorkStaffCommunity)
 #admin.site.register(CanWorkStaffElectNewUser)

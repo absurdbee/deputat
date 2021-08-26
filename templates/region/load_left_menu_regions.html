@@ -1,5 +1,5 @@
 
-<input list="left_regions_list" class="form-control left_menu_select underline field_elect_new" id="left_menu_regions_2">
+<input list="left_regions_list" placeholder="Начинайте вводить" class="form-control left_menu_select underline field_elect_new" id="left_menu_regions_2">
 <datalist id="left_regions_list">
   {% for object in regions %}
   <option data-slug="{{ object.slug }}" value="{{ object.name|truncatechars:24 }}"></option>

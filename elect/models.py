@@ -26,6 +26,7 @@ class Elect(models.Model):
     term_of_office = models.CharField(max_length=100, null=True, verbose_name='Срок окончания полномочий')
     election_information = models.CharField(max_length=200, blank=True, verbose_name="Сведения об избрании")
     fraction = models.ForeignKey('lists.Fraction', null=True, on_delete=models.SET_NULL, blank=True, verbose_name="Фракции")
+    is_active = models.BooleanField(default=False, verbose_name="Может добавлять рекламодателей докуметов")
 
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")

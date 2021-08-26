@@ -200,14 +200,6 @@ function send_window_sanction_get(_this, url, toast) {
   link_.send();
 }
 
-function showDropdown(element) {
-    var event;
-    event = document.createEvent('MouseEvents');
-    event.initMouseEvent('mousedown', true, true, window);
-    element.dispatchEvent(event);
-    console.log("click!!")
-};
-
 function list_load(block, link) {
   // грузим что-то по ссылке link в блок block
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -216,8 +208,6 @@ function list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
-      block.focus();
-      block.classList.contains("form-control") ? (block.click(), console.log("click!!")) : null
     }
   };
   request.send( null );

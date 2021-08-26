@@ -208,7 +208,9 @@ function list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
-      block.click()
+      event = document.createEvent('MouseEvents');
+      event.initMouseEvent('mousedown', true, true, window);
+      block.dispatchEvent(event);
       block.classList.contains("form-control") ? (block.click(), console.log("click!!")) : null
     }
   };

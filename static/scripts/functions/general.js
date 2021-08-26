@@ -216,7 +216,7 @@ function list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
-      showDropdown(block);
+      block.focus();
       block.classList.contains("form-control") ? (block.click(), console.log("click!!")) : null
     }
   };

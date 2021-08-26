@@ -31,9 +31,6 @@ function post_elect_new(_this, url, toast) {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    elem = link.responseText;
-    response = document.createElement("span");
-    response.innerHTML = elem;
     close_default_window();
     toast_info(toast)
   }};

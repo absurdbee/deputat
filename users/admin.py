@@ -17,7 +17,7 @@ class UserAdmin(admin.ModelAdmin):
         UserPrivateInline,
         UserProfileInline,
         ]
-    list_display = ['pk', 'phone']
+    list_display = ['last_name', 'phone']
     search_fields = ('last_name','first_name')
     model = User
 

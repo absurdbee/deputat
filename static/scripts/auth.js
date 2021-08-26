@@ -313,8 +313,11 @@ on('body', 'click', '.phone_send', function() {
   }});
 
 	on('body', 'change', '#left_menu_regions_2', function() {
-		slug = this.getAttribute("data-slug");
-		val = this.value;
+		_this = this;
+		val = _this.value;
+		option = _this.nextElementSibling.querySelector('[value=' + '"' + val + '"' + ']')
+		slug = option.getAttribute("data-slug");
+
 		if (val == '') {
 			return
 		} else {

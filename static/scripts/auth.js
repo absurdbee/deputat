@@ -313,11 +313,12 @@ on('body', 'click', '.phone_send', function() {
   }});
 
 	on('body', 'change', '#left_menu_regions_2', function() {
+		slug = this.getAttribute("data-slug");
 		val = this.value;
 		if (val == '') {
 			return
 		} else {
-			ajax_get_reload("/region/" + val + "/")
+			ajax_get_reload("/region/" + slug + "/")
 	}});
 
 

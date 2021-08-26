@@ -1,7 +1,8 @@
-<select style="font-size: 65%;" class="form-control left_menu_select underline" id="left_menu_regions_2">
-  <option value=''>Выберите регион</option>
+
+<input list="left_regions_list" class="form-control left_menu_select underline field_elect_new" id="left_menu_regions_2">
+<datalist id="left_regions_list">
   {% for object in regions %}
-  <option value="{{ object.slug }}">{{ object.name|truncatechars:24 }}</option>
+  <option data-slug="{{ object.slug }}" value="{{ object.name|truncatechars:24 }}"></option>
   {% endfor %}
-</select>
+</datalist>
 <div></div>

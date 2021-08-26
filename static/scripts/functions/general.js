@@ -205,6 +205,7 @@ function showDropdown(element) {
     event = document.createEvent('MouseEvents');
     event.initMouseEvent('mousedown', true, true, window);
     element.dispatchEvent(event);
+    console.log("click!!")
 };
 
 function list_load(block, link) {

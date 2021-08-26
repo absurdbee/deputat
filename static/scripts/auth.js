@@ -312,6 +312,11 @@ on('body', 'click', '.phone_send', function() {
       ajax_get_reload(url + val + "/")
   }});
 
+	on('body', 'click', '#left_menu_select', function() {
+		this.value = "";
+		this.focus()
+	});
+
 	on('body', 'change', '#left_menu_regions_2', function() {
 		_this = this;
 		val = _this.value;
@@ -320,7 +325,7 @@ on('body', 'click', '.phone_send', function() {
 
 		if (val == '') {
 			return
-		} else {ajax_get_reload("/region/" + slug + "/"; _this.value = '')}
+		} else {ajax_get_reload("/region/" + slug + "/")}
 	});
 
 

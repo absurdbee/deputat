@@ -320,9 +320,8 @@ on('body', 'click', '.phone_send', function() {
 
 		if (val == '') {
 			return
-		} else {
-			ajax_get_reload("/region/" + slug + "/")
-	}});
+		} else {ajax_get_reload("/region/" + slug + "/"; _this.value = ''; _this.focus())}
+	});
 
 
 	on('body', 'click', '.recovery_phone_send', function() {

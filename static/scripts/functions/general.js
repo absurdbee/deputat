@@ -208,7 +208,7 @@ function list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
-      block.querySelector("select") ? (block.querySelector("select").click(), console.log("click!!")) : null
+      block.classList.contains("left_menu_select") ? (block.click(), console.log("click!!")) : null
     }
   };
   request.send( null );

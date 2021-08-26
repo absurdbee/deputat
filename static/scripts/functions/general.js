@@ -205,7 +205,13 @@ function list_load(block, link) {
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   request.open( 'GET', link, true );
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  request.onreadystatechange = function () {if ( request.readyState == 4 && request.status == 200 ) {block.innerHTML = request.responseText;}};request.send( null );
+  request.onreadystatechange = function () {
+    if ( request.readyState == 4 && request.status == 200 ) {
+      block.innerHTML = request.responseText;
+      block.querySelector("select") ? block.querySelector("select").click() : null
+    }
+  };
+  request.send( null );
 }
 
 function media_list_edit(_this, url) {

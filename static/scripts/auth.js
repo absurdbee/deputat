@@ -320,7 +320,7 @@ on('body', 'click', '.phone_send', function() {
 
 		if (val == '') {
 			return
-		} else {ajax_get_reload("/region/" + slug + "/"; _this.value = ''; _this.focus())}
+		} else {ajax_get_reload("/region/" + slug + "/"; _this.value = '')}
 	});
 
 

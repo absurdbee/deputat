@@ -208,8 +208,7 @@ function list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
-      block.querySelector("#left_menu_regions_2").focus();
-    	block.querySelector("#left_menu_regions_2").click(); 
+    	block.querySelector("#left_menu_regions_2").click();
     }
   };
   request.send( null );

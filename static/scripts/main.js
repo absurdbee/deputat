@@ -26,8 +26,7 @@ on('body', 'click', '.show_parent_next_element', function() {
 on('body', 'click', '.load_left_menu_regions', function(e) {
 	e.preventDefault();
   list_load(this.parentElement.parentElement, "/region/load_left_menu_regions/");
-
-	//this.remove()
+	this.parentElement.parentElement.querySelector(".left_menu_select").click()
 })
 on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
 	e.preventDefault();

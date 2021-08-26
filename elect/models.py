@@ -272,3 +272,25 @@ class SubscribeElect(models.Model):
     class Meta:
         unique_together = ('elect', 'user',)
         indexes = [models.Index(fields=['elect', 'user']),]
+
+
+class ElectStat(models.Model):
+    GGOD = 1
+    NORMAL = 0
+    BAD = -1
+
+    LEVEL = (
+        (GGOD, 'Молодец'),
+        (NORMAL, 'Нормальный'),
+        (BAD, 'Не молодец'),
+    )
+    elect = models.OneToOneField(Elect, on_delete=models.CASCADE, related_name='elect_stat', verbose_name="Пользователь")
+    lgbt = models.SmallIntegerField(choices=LEVEL, default=NORMAL, verbose_name="Отношение к ЛГБТ")
+    yuvenal = models.SmallIntegerField(choices=LEVEL, default=NORMAL, verbose_name="Отношение к ювеналке")
+    med_fascism = models.SmallIntegerField(choices=LEVEL, default=NORMAL, verbose_name="Отношение к мед. фашизму")
+    abort = models.SmallIntegerField(choices=LEVEL, default=NORMAL, verbose_name="Отношение к абортам")
+    educations = models.SmallIntegerField(choices=LEVEL, default=NORMAL, verbose_name="Отношение к образованию")
+
+    express_loans = models.SmallIntegerField(choices=LEVEL, default=NORMAL, verbose_name="Отношение к экспресс-судам")
+    sbn = models.SmallIntegerField(choices=LEVEL, default=NORMAL, verbose_name="Отношение к СБН")
+    surrogat_mom = models.SmallIntegerField(choices=LEVEL, default=NORMAL, verbose_name="Отношение к суррогатному материнству")

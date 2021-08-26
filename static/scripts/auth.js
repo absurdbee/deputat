@@ -317,6 +317,7 @@ on('body', 'click', '.phone_send', function() {
 			this.value = "";
 			this.focus();
 			this.focus();
+			this.value = " ";
 		} else {
 			return
 		}

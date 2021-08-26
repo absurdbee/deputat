@@ -312,7 +312,7 @@ on('body', 'click', '.phone_send', function() {
       ajax_get_reload(url + val + "/")
   }});
 
-	on('body', 'click', '#left_menu_select', function() {
+	on('body', 'click', '.left_menu_select', function() {
 		if (this.value) {
 			this.value = "";
 			this.focus()

@@ -208,6 +208,8 @@ function list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
+      block.focus();
+    	block.click(); 
     }
   };
   request.send( null );

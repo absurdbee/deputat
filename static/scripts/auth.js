@@ -313,8 +313,12 @@ on('body', 'click', '.phone_send', function() {
   }});
 
 	on('body', 'click', '#left_menu_select', function() {
-		this.value = "";
-		this.focus()
+		if (this.value) {
+			this.value = "";
+			this.focus()
+		} else {
+			return
+		}
 	});
 
 	on('body', 'change', '#left_menu_regions_2', function() {

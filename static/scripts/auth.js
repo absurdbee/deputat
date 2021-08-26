@@ -315,7 +315,7 @@ on('body', 'click', '.phone_send', function() {
 	on('body', 'click', '.left_menu_select', function() {
 		if (this.value) {
 			this.value = "";
-			this.focus();
+			this.click();
 			this.click();
 		} else {
 			return

@@ -209,6 +209,7 @@ function list_load(block, link) {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
     	block.querySelector("#left_menu_regions_2").click();
+      block.querySelector("#left_menu_regions_2").focus();
     }
   };
   request.send( null );

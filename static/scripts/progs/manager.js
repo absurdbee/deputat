@@ -38,7 +38,7 @@ function post_elect_new(_this, url, toast) {
 };
 
 on('body', 'click', '.u_elect_new_remove', function() {
-  post_send_change(this.parentElement, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");
+  post_send_change(this, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");
 })
 on('body', 'click', '.u_elect_new_restore', function() {
   post_send_change(this.parentElement, "/blog/progs/restore_elect_new/", "u_elect_new_restore", "Удалить");

@@ -41,7 +41,7 @@ on('body', 'change', '#left_menu_regions', function() {
 
 	if (val == '') {
 		return
-	} else {list_load(this.nextElementSibling, "/region/load_left_menu_region_get_cities/" + slug + "/")}
+	} else {list_load(this.nextElementSibling.nextElementSibling, "/region/load_left_menu_region_get_cities/" + slug + "/")}
 });
 
 on('body', 'click', '.base_row_container', function() {

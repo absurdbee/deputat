@@ -166,23 +166,29 @@ class EditManagerElectNew(TemplateView):
             return HttpResponseBadRequest()
 
 class DeleteElectNew(View):
-	def get(self,request,*args,**kwargs):
-		from blog.models import ElectNew
+    def get(self,request,*args,**kwargs):
+        from blog.models import ElectNew
 
-		new = ElectNew.objects.get(pk=self.kwargs["pk"])
-		if request.is_ajax() and request.user.pk == new.creator.pk and (new.is_suggested() or new.is_rejected() or request.user.is_supermanager()):
-			new.delete_item()
-			return HttpResponse()
-		else:
-			raise Http404
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax():
+            if request.user.pk == new.creator.pk and (new.is_suggested() or new.is_rejected()):
+                new.delete_item()
+            elif request.user.is_elect_new_manager():
+                new.delete_item()
+            return HttpResponse()
+        else:
+            raise Http404
 
 class RestoreElectNew(View):
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
 
         new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        if request.is_ajax() and request.user.pk == new.creator.pk and new.is_deleted():
-            new.restore_item()
+        if request.is_ajax():
+            if request.user.pk == new.creator.pk and new.is_deleted():
+                new.restore_item()
+            elif request.user.is_elect_new_manager():
+                new.delete_item()
             return HttpResponse()
         else:
             raise Http404

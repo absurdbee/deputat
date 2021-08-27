@@ -294,8 +294,10 @@ on('body', 'click', '.phone_send', function() {
   });
 
 	on('body', 'change', '.left_menu_select_ajax', function() {
-    _this = this;
-    val = _this.value;
+		_this = this;
+		val = _this.value;
+		option = _this.nextElementSibling.querySelector('[value=' + '"' + val + '"' + ']')
+		slug = option.getAttribute("data-slug");
     if (val == '') {
       return
     } else {
@@ -309,15 +311,12 @@ on('body', 'click', '.phone_send', function() {
 			else if (parent.classList.contains("communities")) {
 				url = '/city/communities/'
 			};
-      ajax_get_reload(url + val + "/")
+      ajax_get_reload(url + slug + "/")
   }});
 
 	on('body', 'click', '.left_menu_select', function() {
 		if (this.value) {
 			this.value = "";
-			setTimeout(this.focus(), 1000);
-			setTimeout(this.click(), 1000);
-
 		} else {
 			return
 		}

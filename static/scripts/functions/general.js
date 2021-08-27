@@ -224,8 +224,6 @@ function cities_list_load(block, link) {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
 
-        block.querySelector(".left_menu_select").click();
-        block.querySelector(".left_menu_select").focus();
         parent = block.parentElement.parentElement.parentElement;
         if (parent.classList.contains("municipal_authorities")) {
   				val_id = "_elects"
@@ -239,8 +237,8 @@ function cities_list_load(block, link) {
         input = block.querySelector(".left_menu_select");
         input.setAttribute("list", val_id);
   			input.nextElementSibling.setAttribute("id", val_id);
-        block.querySelector(".left_menu_select ").click();
-        block.querySelector(".left_menu_select ").focus();
+        block.querySelector(".left_menu_select").click();
+        block.querySelector(".left_menu_select").focus();
     }
   };
   request.send( null );

@@ -1,5 +1,5 @@
 <span>
-<input list="left_regions_list_" class="form-control left_menu_select underline " id="left_menu_regions">
+<input list="left_regions_list_" class="form-control left_menu_select underline left_menu_regions">
 <datalist id="left_regions_list_">
   {% for object in regions %}
   <option data-slug="{{ object.slug }}" value="{{ object.name|truncatechars:24 }}"></option>

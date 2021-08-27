@@ -32,7 +32,7 @@ on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
   list_load(this.parentElement.parentElement, "/region/load_left_menu_regions_select/");
 });
 
-on('body', 'change', '#left_menu_regions', function() {
+on('body', 'change', '.left_menu_regions', function() {
 	_this = this;
 	val = _this.value;
 	option = _this.nextElementSibling.querySelector('[value=' + '"' + val + '"' + ']')

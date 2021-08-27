@@ -15,6 +15,8 @@ class AuthorityList(models.Model):
 	slug = models.CharField(max_length=100, verbose_name="Англ. название для списка")
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 	is_reginal = models.BooleanField(default=True, verbose_name="Региональный список")
+	is_in_left_menu = models.BooleanField(default=False, verbose_name="Выводится в левом меню")
+	is_active = models.BooleanField(default=False, verbose_name="Действующий список")
 
 	def __str__(self):
 		return self.name

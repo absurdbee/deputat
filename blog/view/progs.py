@@ -188,7 +188,7 @@ class RestoreElectNew(View):
             if request.user.pk == new.creator.pk and new.is_deleted():
                 new.restore_item()
             elif request.user.is_elect_new_manager():
-                new.delete_item()
+                new.restore_item()
             return HttpResponse()
         else:
             raise Http404

@@ -221,7 +221,7 @@ function cities_list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
-      try{
+
         block.querySelector(".left_menu_select").click();
         block.querySelector(".left_menu_select").focus();
         parent = block.parentElement.parentElement.parentElement.parentElement;
@@ -237,7 +237,6 @@ function cities_list_load(block, link) {
         input = block.querySelector(".left_menu_select");
         input.setAttribute("list", val_id);
   			input.nextElementSibling.setAttribute("id", val_id);
-      } catch {null}
     }
   };
   request.send( null );

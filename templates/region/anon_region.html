@@ -1,18 +1,72 @@
 {% extends "base_anon.html" %}
-{% block title %}Регион | {{ region.name }}{% endblock %}
+{% block title %}Регион {{ region.name }}{% endblock %}
 {% block content %}
 
 <section class="container pt-sm-5 pb-4">
-      <h2 class="h3 text-sm-left m-0">{{ region.name }}</h2>
-      <div class="row pt-0 is_paginate">
-        {% if region.get_elects %}
-        {% for object in region.get_elects %}
-          {% include 'elect/anon_elect_index_card.html' %}
-        {% endfor %}
-        {% else %}
-        <br>
-        В регионе "{{ region.name }}" почему-то нет закрепленных за ним чиновников.
+      <h1 class="h3 text-sm-left m-0">{{ region.name }}</h1>
+
+        {% if region.is_have_governors %}
+          <div class="row pt-0">
+            {% for object in region.get_governors %}
+              {% include 'elect/elect_index_card.html' %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if region.is_have_senators %}
+          <div class="row pt-0">
+            {% for object in region.get_senators %}
+              {% include 'elect/elect_index_card.html' %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+      <div class="row pt-0">
+        {% if region.is_have_commissioner_child %}
+          {% for object in region.get_commissioner_child %}
+            {% include 'elect/elect_index_card.html' %}
+          {% endfor %}
+        {% endif %}
+        {% if region.is_have_commissioner_human %}
+          {% for object in region.get_commissioner_human %}
+            {% include 'elect/elect_index_card.html' %}
+          {% endfor %}
+        {% endif %}
+
+        {% if region.is_have_head_hinistry_health %}
+          {% for object in region.get_head_hinistry_health %}
+            {% include 'elect/elect_index_card.html' %}
+          {% endfor %}
+        {% endif %}
+        {% if region.is_have_chapter_min_enlightenment %}
+          {% for object in region.get_chapter_min_enlightenment %}
+            {% include 'elect/elect_index_card.html' %}
+          {% endfor %}
         {% endif %}
       </div>
+
+      {% if region.is_have_head_societies_chambers %}
+        <div class="row pt-0">
+          {% for object in region.get_head_societies_chambers %}
+            {% include 'elect/elect_index_card.html' %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if region.is_have_gos_duma %}
+        <div class="row pt-0">
+          {% for object in region.get_gos_duma %}
+            {% include 'elect/elect_index_card.html' %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if region.is_have_legislative_assembly %}
+        <div class="row pt-0">
+          {% for object in region.get_legislative_assembly %}
+            {% include 'elect/elect_index_card.html' %}
+          {% endfor %}
+        </div>
+      {% endif %}
 </section>
 {% endblock %}

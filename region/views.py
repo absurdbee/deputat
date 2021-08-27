@@ -65,7 +65,7 @@ class LoadLeftMenuRegionCities(TemplateView):
 	def get(self,request,*args,**kwargs):
 		from region.models import Region
 
-		self.region = Region.objects.get(pk=self.kwargs["pk"])
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
 		return super(LoadLeftMenuRegionCities,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

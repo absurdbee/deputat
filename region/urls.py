@@ -11,6 +11,6 @@ urlpatterns = [
     url(r'^cities/(?P<pk>\d+)/$', LoadCitiesView.as_view()),
     url(r'^load_left_menu_regions/$', LoadLeftMenuRegions.as_view()),
     url(r'^load_left_menu_regions_select/$', LoadLeftMenuRegionsSelect.as_view()),
-    url(r'^load_left_menu_region_get_cities/(?P<pk>\d+)/$', LoadLeftMenuRegionCities.as_view()),
+    url(r'^load_left_menu_region_get_cities/(?P<slug>[\w\-]+)/$', LoadLeftMenuRegionCities.as_view()),
     url(r'^(?P<slug>[\w\-]+)/$', RegionDetailView.as_view(), name='region_detail'),
 ]

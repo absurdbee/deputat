@@ -208,7 +208,36 @@ function list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
-      try{block.querySelector(".left_menu_select").click();block.querySelector(".left_menu_select").focus()} catch {null}
+    }
+  };
+  request.send( null );
+}
+
+function cities_list_load(block, link) {
+  // грузим что-то по ссылке link в блок block
+  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  request.open( 'GET', link, true );
+  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  request.onreadystatechange = function () {
+    if ( request.readyState == 4 && request.status == 200 ) {
+      block.innerHTML = request.responseText;
+      try{
+        block.querySelector(".left_menu_select").click();
+        block.querySelector(".left_menu_select").focus();
+        parent = block.parentElement.parentElement.parentElement.parentElement;
+        if (parent.classList.contains("municipal_authorities")) {
+  				val_id = "_elects"
+  			}
+  			else if (parent.classList.contains("organizations")) {
+  				val_id = "_organizations"
+  			}
+  			else if (parent.classList.contains("communities")) {
+  				val_id = "_communities"
+  			};
+        input = block.querySelector(".left_menu_select");
+        input.setAttribute("list", val_id);
+  			input.nextElementSibling.setAttribute("id", val_id);
+      } catch {null}
     }
   };
   request.send( null );

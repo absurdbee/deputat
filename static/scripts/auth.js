@@ -303,16 +303,14 @@ on('body', 'click', '.phone_send', function() {
     } else {
 			parent = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
 			if (parent.classList.contains("municipal_authorities")) {
-				url = '/city/elects/'; val_id = "_elects"
+				url = '/city/elects/'
 			}
 			else if (parent.classList.contains("organizations")) {
-				url = '/city/organizations/'; val_id = "_organizations"
+				url = '/city/organizations/'
 			}
 			else if (parent.classList.contains("communities")) {
-				url = '/city/communities/'; val_id = "_communities"
+				url = '/city/communities/'
 			};
-			_this.setAttribute("list", val_id);
-			_this.nextElementSibling.setAttribute("id", val_id);
       ajax_get_reload(url + slug + "/")
   }});
 

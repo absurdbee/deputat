@@ -22,7 +22,9 @@
                 {% if request.user.is_elect_new_manager %}
                 <span><span>
                   <span class="dropdown-item u_edit_elect_new">Изменить</span>
-                  <span class="dropdown-item u_elect_new_remove">Удалить</span>
+                  <span>
+                    <span class="dropdown-item u_elect_new_remove">Удалить</span>
+                  </span>
                 </span></span>
                 {% else %}
                 <span class="dropdown-item claim_elect_new">Пожаловаться</span>

@@ -239,6 +239,8 @@ function cities_list_load(block, link) {
         input = block.querySelector(".left_menu_select");
         input.setAttribute("list", val_id);
   			input.nextElementSibling.setAttribute("id", val_id);
+        block.querySelector(".left_menu_select ").click();
+        block.querySelector(".left_menu_select ").focus();
     }
   };
   request.send( null );

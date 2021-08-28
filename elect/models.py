@@ -48,7 +48,16 @@ class Elect(models.Model):
 
         if (not region and not city) or not name:
             return
-        elect = cls.objects.create(name=name,description=description,image=image,list=list,birthday=birthday,fraction=fraction)
+        elect = cls.objects.create(name=name,description=description,image=image,birthday=birthday,fraction=fraction)
+        if region:
+            for _region in region:
+                _region.elect_region.add(elect)
+        if list:
+            for _list in list:
+                _list.elect_list.add(elect)
+        if city:
+            for _city in city:
+                _city.elect_city.add(elect)
         ElectManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=ElectManageLog.ITEM_CREATED)
         return list
 

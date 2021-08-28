@@ -59,7 +59,8 @@ on('body', 'click', '.u_edit_elect_new', function() {
   open_fullscreen("/blog/progs/edit_manager_elect_new/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
 });
 
-on('body', 'click', '.manager_elect_create', function() {
+on('body', 'click', '.manager_elect_create', function(e) {
+  e.preventDefault();
   loader = document.body.querySelector("#window_loader");
   open_fullscreen("/managers/elect_new/create_elect/", loader)
 });

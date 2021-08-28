@@ -772,7 +772,7 @@ class User(AbstractUser):
         return self.is_superuser or try_except(self.blog_user_staff.level == "E")
     def is_blog_manager(self):
         try:
-            return self.is_superuser or self.elect_new_user_staff.level
+            return self.is_superuser or self.blog_user_staff.level
         except:
             return False
 

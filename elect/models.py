@@ -47,17 +47,21 @@ class Elect(models.Model):
         from logs.model.manage_elect_new import ElectManageLog
 
         elect = cls.objects.create(name=name,description=description,image=image,birthday=birthday,fraction=fraction)
-        #if region:
-        #    for _region in region:
-        #        _region.elect_region.add(elect)
+        if region:
+            from region.models import Region
+            for region_id in region:
+                a = Region.objects.get(pk=region_id)
+                elect.region.add(a)
         if list:
             from lists.models import AuthorityList
             for list_id in list:
                 a = AuthorityList.objects.get(pk=list_id)
                 elect.list.add(a)
-        #if city:
-        #    for _city in city:
-        #        _city.elect_city.add(elect)
+        if city:
+            from city.models import City
+            for city_id in city:
+                a = City.objects.get(pk=city_id)
+                elect.city.add(a)
         ElectManageLog.objects.create(item=elect.pk, manager=creator.pk, action_type=ElectManageLog.ITEM_CREATED)
         return list
 

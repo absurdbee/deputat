@@ -51,12 +51,12 @@ class Elect(models.Model):
             for _region in region:
                 _region.elect_region.add(elect)
         if list:
-            for _list in list:
-                _list.elect_list.add(elect)
+            #for _list in list:
+            list.elect_list.add(elect)
         if city:
             for _city in city:
                 _city.elect_city.add(elect)
-        ElectManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=ElectManageLog.ITEM_CREATED)
+        ElectManageLog.objects.create(item=elect.pk, manager=creator.pk, action_type=ElectManageLog.ITEM_CREATED)
         return list
 
     def get_region_image(self):

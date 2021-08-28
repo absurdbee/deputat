@@ -378,3 +378,28 @@ on('body', 'click', '.get_user_notify_box', function() {
 	};
 
 })
+
+on('body', 'change', '#id_region', function() {
+	_this = this;
+	var val = _this.value;
+	parent = _this.parentElement;
+	 if (!parent.classList.contains("is_region_multiple")) {
+		 return
+	 }
+	 city_container = parent.nextElementSibling;
+	if (val == '') {
+		city_container.innerHTML = "";
+	} else {
+		var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+		link.open( 'GET', "/region/load_cities_for_multiple_form/" + val + "/", true );
+		link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		link.onreadystatechange = function () {
+			if ( link.readyState == 4 ) {
+					if ( link.status == 200 ) {
+							city_container.innerHTML = link.responseText;
+					}
+			}
+	};
+	link.send( null );
+	};
+});

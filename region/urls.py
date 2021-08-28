@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^load_left_menu_regions/$', LoadLeftMenuRegions.as_view()),
     url(r'^load_left_menu_regions_select/$', LoadLeftMenuRegionsSelect.as_view()),
     url(r'^load_left_menu_region_get_cities/(?P<slug>[\w\-]+)/$', LoadLeftMenuRegionCities.as_view()),
+    url(r'^load_cities_for_multiple_form/(?P<pk>\d+)/$', LoadCitiesMultipleForm.as_view()),
     url(r'^(?P<slug>[\w\-]+)/$', RegionDetailView.as_view(), name='region_detail'),
 ]

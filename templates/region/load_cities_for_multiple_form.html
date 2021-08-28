@@ -1,0 +1,5 @@
+<select name="city" id="id_city" multiple="">
+  {% for object in cities %}
+  <option value="{{ object.pk }}">{{ object.name }}</option>
+  {% endfor %}
+</select>

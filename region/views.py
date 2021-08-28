@@ -73,6 +73,20 @@ class LoadLeftMenuRegionCities(TemplateView):
 		context["cities"] = self.region.get_cities()
 		return context
 
+class LoadCitiesMultipleForm(TemplateView):
+	template_name = "region/load_cities_for_multiple_form.html"
+
+	def get(self,request,*args,**kwargs):
+		from region.models import Region
+
+		self.region = Region.objects.get(pk=self.kwargs["pk"])
+		return super(LoadCitiesMultipleForm,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadCitiesMultipleForm,self).get_context_data(**kwargs)
+		context["cities"] = self.region.get_cities()
+		return context
+
 
 class RegionDetailView(TemplateView, CategoryListMixin):
 	template_name = None

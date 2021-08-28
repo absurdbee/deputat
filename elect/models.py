@@ -52,7 +52,7 @@ class Elect(models.Model):
                 _region.elect_region.add(elect)
         if list:
             #for _list in list:
-            list.elect_list.add(elect)
+            elect.list.add(list)
         if city:
             for _city in city:
                 _city.elect_city.add(elect)

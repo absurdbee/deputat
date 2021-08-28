@@ -32,16 +32,18 @@
             </div>
             <div class="form-group">
               <label>Орган власти</label>
+              <p>Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
               {{ form.list }}
             </div>
             <div class="form-group">
               <label>Регионы</label>
+              <p>Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
               {{ form.region }}
             </div>
-            <div></div>
+            <div class="form-group"></div>
             <div class="form-group">
               <label>Дата рождения</label>
-              {{ form.birthday }}
+              <input type="date" id="id_birthday" name="birthday">
             </div>
             <div class="form-group">
               <label>Фракция (если есть)</label>

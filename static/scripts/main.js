@@ -386,8 +386,9 @@ on('body', 'change', '#id_region', function() {
 	 if (!parent.classList.contains("is_region_multiple")) {
 		 return
 	 }
-	 city_container = parent.nextElementSibling;
-	if (val == '') {
+	city_container = parent.nextElementSibling;
+	selectedOptions = _this.selectedOptions;
+	if (val == '' || len(selectedOptions) > 1) {
 		city_container.innerHTML = "";
 	} else {
 		var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

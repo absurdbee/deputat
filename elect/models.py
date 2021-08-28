@@ -42,6 +42,16 @@ class Elect(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def create_elect(cls, creator, name, description, image, list, region, city, birthday, fraction):
+        from logs.model.manage_elect_new import ElectManageLog
+
+        if (not region and not city) or not name:
+            return
+        elect = cls.objects.create(name=name,description=description,image=image,list=list,birthday=birthday,fraction=fraction)
+        ElectManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=ElectManageLog.ITEM_CREATED)
+        return list
+
     def get_region_image(self):
         if self.region.all()[0].image:
             return self.region.all()[0].image.url

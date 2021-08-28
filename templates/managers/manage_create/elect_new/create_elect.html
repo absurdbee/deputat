@@ -1,0 +1,56 @@
+<form class="pt-4">
+  {% csrf_token %}
+  <div class="row no-gutters">
+    <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
+      <a class="btn btn-sm border photo_fullscreen_hide_2" style="width: -webkit-fill-available;">
+        <svg fill="currentColor" class="svg_default" style="width: 17px;" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </a>
+    </div>
+  </div>
+    <div class="card mb-3">
+        <div class="card-header border-bottom">
+            <h5 class="content-color-primary mb-0">Создание чиновника</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+              <label>ФИО</label>
+              <input type="text" name="name" class="form-control" id="id_name">
+            </div>
+            <div class="form-group">
+              <label>Описание</label>
+              <textarea style="height: 200px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Аватар</label>
+              <p>Формат: png, jpg, jpeg, webp </p>
+              <span>
+                <input style="display: none;" id="id_image" type="file" name="image" accept="image/*">
+              </span>
+              <div id="holder_image" style="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;cursor:pointer">
+                <img class="img-fluid rounded" src="/static/images/list.jpg" alt="Img default" style="height: 100px;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Орган власти</label>
+              {{ form.list }}
+            </div>
+            <div class="form-group">
+              <label>Регионы</label>
+              {{ form.region }}
+            </div>
+            <div></div>
+            <div class="form-group">
+              <label>Дата рождения</label>
+              {{ form.birthday }}
+            </div>
+            <div class="form-group">
+              <label>Фракция (если есть)</label>
+              {{ form.fraction }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn custom_color border create_fullscreen_hide_2" style="position: absolute;">Отмена</button>
+            <button id="create_elect_btn" type="button" class="btn btn-success float-right">Сохранить</button>
+        </div>
+    </div>
+</form>

@@ -81,3 +81,21 @@ class ElectNewCreateWorkerManageLog(models.Model):
         verbose_name = "Лог создателя суперменеджера активностей депутатов"
         verbose_name_plural = "Логи создателей суперменеджеров активностей депутатов"
         ordering=["-created"]
+
+
+class ElectManageLog(models.Model):
+    ITEM_CREATED, ITEM_CLOSED, ITEM_EDITED = 'ICRE','ICLO','IEDI'
+    ACTION_TYPES = (
+        (ITEM_CREATED, 'Депутат создан'),(ITEM_EDITED, 'Элемент изменён'),(ITEM_CLOSED, 'Элемент закрыт')
+    )
+
+    item = models.PositiveIntegerField(default=0, verbose_name="Депутат")
+    manager = models.PositiveIntegerField(default=0, verbose_name="Менеджер")
+    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
+    action_type = models.CharField(editable=False, blank=False, null=False, choices=ACTION_TYPES, max_length=5)
+
+    class Meta:
+        indexes = (BrinIndex(fields=['created']),)
+        verbose_name = "Лог менеджера депутатов"
+        verbose_name_plural = "Логи менеджеров депутатов"
+        ordering=["-created"]

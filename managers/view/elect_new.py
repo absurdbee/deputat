@@ -403,7 +403,7 @@ class CreateManagerElect(TemplateView):
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
             post = self.form_post.save(commit=False)
-            new_post = post.create_elect(creator=request.user, name=post.post, description=post.description, image=post.image, list=post.list, region=post.region, city=post.city,birthday=post.birthday, fraction=post.fraction)
+            new_post = post.create_elect(creator=request.user, name=post.name, description=post.description, image=post.image, list=post.list, region=post.region, city=post.city,birthday=post.birthday, fraction=post.fraction)
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest

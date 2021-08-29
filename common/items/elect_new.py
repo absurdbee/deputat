@@ -99,4 +99,4 @@ def get_notify_elect_new(user, notify):
     elif 'LIK' in verb or 'DIS' in verb or 'INE' in verb:
         return notify_elect_new(user, notify)
     if verb == "ITE":
-        return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">' + notify.creator.get_name() + '</a> разместил новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+        return notify_elect_new(user, notify)

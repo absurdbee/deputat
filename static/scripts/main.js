@@ -357,6 +357,8 @@ on('body', 'click', '.create_ajax', function() {
 
 on('body', 'click', '.get_user_notify_box', function() {
 	console.log(this);
+	console.log(this.parentElement);
+	console.log(this.parentElement.nextElementSibling);
 	//count_box = this.querySelector(".resent_notify");
 	dropdown = this.parentElement;
 

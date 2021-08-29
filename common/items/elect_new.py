@@ -7,7 +7,7 @@ def linebreaks(value, autoescape=None):
     return mark_safe(linebreaks(value, autoescape))
 
 
-def elect_new(user, elect_new):
+def wall_elect_new(user, elect_new):
     from django.utils.http import urlencode
 
     elect_new_url = "/elect/new/" + str(elect_new.pk) + "/"
@@ -56,7 +56,7 @@ def elect_new(user, elect_new):
 
 def get_wall_elect_new(user, notify):
     if notify.type == "ELN":
-        return elect_new(user, ElectNew.objects.get(pk=notify.object_id))
+        return wall_elect_new(user, ElectNew.objects.get(pk=notify.object_id))
 
 def get_comment_elect_new(user, notify):
     comment = ElectNewComment.objects.get(pk=notify.object_id)
@@ -77,10 +77,21 @@ def get_comment_elect_new(user, notify):
         notify.creator.get_full_name() + '</a>' + notify.get_verb_display()\
          + ' новость </p>' + blog(user, _blog)
 
+def notify_elect_new(user, notify):
+    if notify.is_have_user_set():
+        return ''.join(['<div class=""><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">' + notify.creator.get_name() + '</a>' + notify.get_verb_display() + str(notify.count_user_set_act()) + '</p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+    elif notify.is_have_object_set():
+        first_notify = notify.get_first_object_set()
+        return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/' + str(first_notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">' + first_notify.creator.get_name() + '</a> и ещё ' + str(notify.count_object_set()) + first_notify.get_verb_display() + ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+    else:
+        return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">' + notify.creator.get_name() + '</a>', + notify.get_verb_display(), ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
 
 def get_notify_elect_new(user, notify):
     # мы поняли, что тип "Активность", теперь пробьем по его verb
-    from blog.models import ElectNew
+    new = ElectNew.objects.get(pk=notify.object_id)
     if notify.verb == "ELNC":
+        from blog.models import ElectNew
         new = ElectNew.objects.get(pk=notify.object_id)
         return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small">Ваша новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> прошла проверку модератора и опубликована. Благодарим.</p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+    elif 'LIK' in notify.verb or 'DIS' in notify.verb or 'INE' in notify.verb:
+        return notify_elect_new(user, notify)

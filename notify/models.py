@@ -79,11 +79,11 @@ class Notify(models.Model):
         count = Notify.objects.filter(user_set_id=self.pk).values("pk").count() + 1
         a, b = count % 10, count % 100
         if (a == 1) and (b != 11):
-            return str(count) + " раз"
+            return str(count) + " комментарий к активности"
         elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
-            return str(count) + " раза"
+            return str(count) + " комментария к активности"
         else:
-            return str(count) + " раз"
+            return str(count) + " комментариев к активности"
     def get_first_user_set(self):
         return Notify.objects.filter(user_set_id=self.pk).first()
 

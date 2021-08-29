@@ -78,6 +78,9 @@ def get_comment_elect_new(user, notify):
          + ' новость </p>' + blog(user, _blog)
 
 def notify_elect_new(user, notify):
+    from blog.models import ElectNew
+    new = ElectNew.objects.get(pk=notify.object_id)
+
     if notify.is_have_user_set():
         return ''.join(['<div class=""><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">' + notify.creator.get_name() + '</a>' + notify.get_verb_display() + str(notify.count_user_set_act()) + '</p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
     elif notify.is_have_object_set():
@@ -88,7 +91,6 @@ def notify_elect_new(user, notify):
 
 def get_notify_elect_new(user, notify):
     # мы поняли, что тип "Активность", теперь пробьем по его verb
-    new = ElectNew.objects.get(pk=notify.object_id)
     if notify.verb == "ELNC":
         from blog.models import ElectNew
         new = ElectNew.objects.get(pk=notify.object_id)

@@ -571,7 +571,7 @@ class Answer(models.Model):
                 community_wall(user, community, None, survey.pk, "SUR", "c_survey_vote_wall", "SVO")
             else:
                 from common.notify.notify import user_notify, user_wall
-                user_notify(user, None, survey.pk, "SUR", "u_survey_vote_notify", "SVO")
+                user_notify(user, None, survey.pk, "SUR", "u_survey_vote_notify", "SVO", self.creator.pk)
                 user_wall(user, None, survey.pk, "SUR", "u_survey_vote_wall", "SVO")
         return HttpResponse(json.dumps({"votes": survey.get_votes_count()}), content_type="application/json")
 

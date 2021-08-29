@@ -272,7 +272,7 @@ class Blog(models.Model):
                 community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "LIK")
             else:
                 from common.notify.notify import user_notify, user_wall
-                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "LIK")
+                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "LIK", self.creator.pk)
                 user_wall(user, None, self.pk, "BLO", "u_blog_notify", "LIK")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
@@ -311,7 +311,7 @@ class Blog(models.Model):
                 community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "DIS")
             else:
                 from common.notify.notify import user_notify, user_wall
-                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "DIS")
+                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "DIS", self.creator.pk)
                 user_wall(user, None, self.pk, "BLO", "u_blog_notify", "DIS")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
@@ -350,7 +350,7 @@ class Blog(models.Model):
                 community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "INE")
             else:
                 from common.notify.notify import user_notify, user_wall
-                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "INE")
+                user_notify(user, None, self.pk, "BLO", "u_blog_notify", "INE", self.creator.pk)
                 user_wall(user, None, self.pk, "BLO", "u_blog_notify", "INE")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
@@ -734,7 +734,10 @@ class ElectNew(models.Model):
                 community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
             else:
                 from common.notify.notify import user_notify, user_wall
-                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
+                from notify.models import Notify
+
+                Notify.objects.create(creator_id=user.pk, recipient_id=self.creator.pk, object_id=self.pk, type="LIK", verb="LIK")
+                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK", self.creator.pk)
                 user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
@@ -791,7 +794,7 @@ class ElectNew(models.Model):
                 community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
             else:
                 from common.notify.notify import user_notify, user_wall
-                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
+                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS", self.creator.pk)
                 user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
@@ -848,7 +851,7 @@ class ElectNew(models.Model):
                 community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "INE")
             else:
                 from common.notify.notify import user_notify, user_wall
-                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
+                user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "INE", self.creator.pk)
                 user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 

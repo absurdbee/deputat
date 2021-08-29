@@ -15,11 +15,13 @@ from common.notify.progs import *
         "Тот-то оценил Ваш пост".
 """
 
-def user_notify(creator, action_community_id, object_id, type, socket_name, verb):
+def user_notify(creator, action_community_id, object_id, type, socket_name, verb, owner_id):
     from notify.models import Notify
     from datetime import date
 
     current_verb, today = creator.get_verb_gender(verb), date.today()
+
+    recipient_ids = creator.get_member_for_notify_ids() + [owner_id]
 
     for user_id in creator.get_member_for_notify_ids():
         if Notify.objects.filter(creator_id=creator.pk, action_community_id=action_community_id, recipient_id=user_id, object_id=object_id, type=type, verb=verb).exists():

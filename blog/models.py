@@ -695,7 +695,7 @@ class ElectNew(models.Model):
         if not self.votes_on:
             from django.http import Http404
             raise Http404
-        try:
+        if ElectNewVotes2.objects.filter(new=self, user=user).exists():
             item = ElectNewVotes2.objects.filter(new=self, user=user).first()
             if item.vote == ElectNewVotes2.DISLIKE:
                 item.vote = ElectNewVotes2.LIKE
@@ -729,7 +729,7 @@ class ElectNew(models.Model):
                     elect = self.elect
                     elect.like -= 1
                     elect.save(update_fields=['like'])
-        except ElectNewVotes2.DoesNotExist:
+        else:
             ElectNewVotes2.objects.create(new=self, user=user, vote=ElectNewVotes2.LIKE)
             self.like += 1
             self.save(update_fields=['like'])

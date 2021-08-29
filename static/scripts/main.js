@@ -356,36 +356,33 @@ on('body', 'click', '.create_ajax', function() {
 });
 
 on('body', 'click', '.get_user_notify_box', function() {
-	console.log(this);
-	console.log(this.parentElement);
-	console.log(this.parentElement.nextElementSibling);
-	//count_box = this.querySelector(".resent_notify");
-	dropdown = this.parentElement;
+	count_box = this.querySelector(".resent_notify");
+	_dropdown = this.parentElement;
 
-	if (dropdown.classList.contains("show")) {
-		dropdown.classList.remove("show")
+	if (_dropdown.classList.contains("show")) {
+		_dropdown.classList.remove("show")
 		console.log("remove show")
 	} else {
-		dropdown.classList.add("show")
+		_dropdown.classList.add("show")
 		console.log("add show")
 	}
-	//if (!count_box.classList.contains("showed") || count_box.innerHTML) {
-	//	count_box.innerHTML = "";
-	//	container = dropdown.querySelector(".notify_box");
+	if (!count_box.classList.contains("showed") || count_box.innerHTML) {
+		count_box.innerHTML = "";
+		container = _dropdown.querySelector(".notify_box");
 
-	//	link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-	//  link_.open( 'GET', "/notify/recent/", true );
-	//  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-	//  link_.onreadystatechange = function () {
-	//  if ( this.readyState == 4 && this.status == 200 ) {
-	//		elem_ = document.createElement('span');
-	//		elem_.innerHTML = link_.responseText;
-	//		container.innerHTML = "";
-	//		container.innerHTML = elem_.innerHTML;
-	//		count_box.classList.add("showed");
-	//  }};
-	//  link_.send();
-	//};
+		link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+	  link_.open( 'GET', "/notify/recent/", true );
+	  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	  link_.onreadystatechange = function () {
+	  if ( this.readyState == 4 && this.status == 200 ) {
+			elem_ = document.createElement('span');
+			elem_.innerHTML = link_.responseText;
+			container.innerHTML = "";
+			container.innerHTML = elem_.innerHTML;
+			count_box.classList.add("showed");
+	  }};
+	   link_.send();
+	};
 
 })
 

@@ -17,16 +17,18 @@ from common.notify.progs import *
 
 def user_notify(creator, action_community_id, object_id, type, socket_name, verb, owner_id):
     from notify.models import Notify
-    from datetime import date
 
-    current_verb, today = creator.get_verb_gender(verb), date.today()
+    current_verb = creator.get_verb_gender(verb)
+    if Notify.objects.filter(creator_id=creator.pk, action_community_id=action_community_id, object_id=object_id, type=type, verb=current_verb).exists():
+        pass
 
-    recipient_ids = creator.get_member_for_notify_ids() + [owner_id]
+    if owner_id:
+        recipient_ids = creator.get_member_for_notify_ids() + [owner_id]
+    else:
+        recipient_ids = creator.get_member_for_notify_ids()
 
-    for user_id in creator.get_member_for_notify_ids():
-        if Notify.objects.filter(creator_id=creator.pk, action_community_id=action_community_id, recipient_id=user_id, object_id=object_id, type=type, verb=verb).exists():
-            pass
-        elif Notify.objects.filter(recipient_id=user_id, action_community_id=action_community_id, created__gt=today, type=type, verb=current_verb).exists():
+    for user_id in recipient_ids:
+        if Notify.objects.filter(recipient_id=user_id, action_community_id=action_community_id, created__gt=today, type=type, verb=current_verb).exists():
             notify = Notify.objects.get(recipient_id=user_id, action_community_id=action_community_id, type=type, created__gt=today, verb=current_verb)
             Notify.objects.create(creator_id=creator.pk, action_community_id=action_community_id, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb, user_set=notify)
         elif Notify.objects.filter(recipient_id=user_id, object_id=object_id, type=type, created__gt=today, verb=verb).exists():

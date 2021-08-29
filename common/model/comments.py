@@ -254,7 +254,10 @@ class BlogComment(models.Model):
                     community_wall(user, community, None, self.pk, "BLOC", "c_blog_comment_notify", "LCO")
                 else:
                     from common.notify.notify import user_notify, user_wall
-                    user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LRE", self.commenter.pk)
+                    if user.pk == self.commenter.pk:
+                        user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LRE", None)
+                    else:
+                        user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LRE", self.commenter.pk)
                     user_wall(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
             else:
                 if community:
@@ -263,7 +266,10 @@ class BlogComment(models.Model):
                     community_wall(user, community, None, self.pk, "BLOC", "c_blog_comment_notify", "LCO")
                 else:
                     from common.notify.notify import user_notify, user_wall
-                    user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO", self.commenter.pk)
+                    if user.pk == self.commenter.pk:
+                        user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO", None)
+                    else:
+                        user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO", self.commenter.pk)
                     user_wall(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count())}),content_type="application/json")
 
@@ -506,11 +512,14 @@ class ElectNewComment(models.Model):
                 if community:
                     from common.notify.notify import community_notify, community_wall
                     community_notify(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LRE")
-                    community_wall(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LCO")
+                    community_wall(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LRE")
                 else:
                     from common.notify.notify import user_notify, user_wall
-                    user_notify(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LRE", self.commenter.pk)
-                    user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO")
+                    if user.pk == self.commenter.pk:
+                        user_notify(user, None, self.pk, "ELNC", "u_blog_comment_notify", "LRE", None)
+                    else:
+                        user_notify(user, None, self.pk, "ELNC", "u_blog_comment_notify", "LRE", self.commenter.pk)
+                    user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LRE")
             else:
                 if community:
                     from common.notify.notify import community_notify, community_wall
@@ -518,7 +527,10 @@ class ElectNewComment(models.Model):
                     community_wall(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LCO")
                 else:
                     from common.notify.notify import user_notify, user_wall
-                    user_notify(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO", self.commenter.pk)
+                    if user.pk == self.commenter.pk:
+                        user_notify(user, None, self.pk, "ELNC", "u_blog_comment_notify", "LCO", None)
+                    else:
+                        user_notify(user, None, self.pk, "ELNC", "u_blog_comment_notify", "LCO", self.commenter.pk)
                     user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count())}),content_type="application/json")
 

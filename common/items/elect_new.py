@@ -93,7 +93,10 @@ def get_notify_elect_new(user, notify):
         return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small">Ваша новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> прошла проверку модератора и опубликована. Благодарим.</p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
     elif 'LIK' in verb or 'DIS' in verb or 'INE' in verb:
         return notify_elect_new(user, notify)
-    elif 'LCO' in verb:
-        return notify_comment_elect_new(user, notify)
     elif verb == "ITE":
         return notify_elect_new(user, notify)
+
+
+def get_notify_elect_new(user, notify):
+    if 'LCO' in verb:
+        return notify_comment_elect_new(user, notify)

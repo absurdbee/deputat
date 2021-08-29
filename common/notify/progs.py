@@ -98,3 +98,6 @@ def get_notify(user, notify):
     elif type == "ELN":
         from common.items.elect_new import get_notify_elect_new
         return get_notify_elect_new(user, notify)
+    elif type == "ELNC":
+        from common.items.elect_new import get_notify_comment_elect_new
+        return get_notify_comment_elect_new(user, notify)

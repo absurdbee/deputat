@@ -375,7 +375,7 @@ on('body', 'click', '.get_user_notify_box', function() {
 	//		count_box.classList.add("showed");
 	//  }};
 	//  link_.send();
-	};
+	//};
 
 })
 

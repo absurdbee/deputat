@@ -42,6 +42,9 @@ class Elect(models.Model):
     def __str__(self):
         return self.name
 
+    def count_regions(self):
+        return self.region.count()
+
     @classmethod
     def create_elect(cls, creator, name, description, image, list, region, city, birthday, fraction):
         from logs.model.manage_elect_new import ElectManageLog

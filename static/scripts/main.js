@@ -358,6 +358,7 @@ on('body', 'click', '.create_ajax', function() {
 on('body', 'click', '.get_user_notify_box', function() {
 	//count_box = this.querySelector(".resent_notify");
 	dropdown = this.parentElement.nextElementSibling;
+	console.log(dropdown);
 	if (dropdown.classList.contains("show")) {
 		dropdown.classList.remove("show")
 		console.log("remove show")

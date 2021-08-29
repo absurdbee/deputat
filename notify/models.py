@@ -70,11 +70,11 @@ class Notify(models.Model):
         count = Notify.objects.filter(user_set_id=self.pk).values("pk").count() + 1
         a, b = count % 10, count % 100
         if (a == 1) and (b != 11):
-            return " " + str(count) + " активность"
+            return str(count) + " активность"
         elif (a >= 2) and (a <= 4) and ((b < 10) or (b >= 20)):
-            return " " + str(count) + " активности"
+            return str(count) + " активности"
         else:
-            return " " + str(count) + " активностей"
+            return str(count) + " активностей"
     def count_user_set_comment(self):
         count = Notify.objects.filter(user_set_id=self.pk).values("pk").count() + 1
         a, b = count % 10, count % 100

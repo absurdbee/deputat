@@ -101,7 +101,7 @@ def get_notify_elect_new(user, notify):
 
 def get_notify_comment_elect_new(user, notify):
     verb = notify.verb
-    if 'LCO' in verb:
+    if 'L' in verb:
         return notify_comment_elect_new(user, notify)
     else:
         return "nnnnnnn"

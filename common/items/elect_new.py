@@ -97,6 +97,6 @@ def get_notify_elect_new(user, notify):
         return notify_elect_new(user, notify)
 
 
-def get_notify_elect_new(user, notify):
+def get_notify_comment_elect_new(user, notify):
     if 'LCO' in verb:
         return notify_comment_elect_new(user, notify)

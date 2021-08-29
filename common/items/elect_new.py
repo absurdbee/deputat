@@ -91,9 +91,12 @@ def notify_elect_new(user, notify):
 
 def get_notify_elect_new(user, notify):
     # мы поняли, что тип "Активность", теперь пробьем по его verb
-    if notify.verb == "ELNC":
+    verb = notify.verb
+    if verb == "ELNC":
         from blog.models import ElectNew
         new = ElectNew.objects.get(pk=notify.object_id)
         return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small">Ваша новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> прошла проверку модератора и опубликована. Благодарим.</p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
-    elif 'LIK' in notify.verb or 'DIS' in notify.verb or 'INE' in notify.verb:
+    elif 'LIK' in verb or 'DIS' in verb or 'INE' in verb:
         return notify_elect_new(user, notify)
+    if verb == "ITE":
+        return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/' + str(notify.creator.pk) + '/" class="ajax" style="font-weight: bold;">' + notify.creator.get_name() + '</a> разместил новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])

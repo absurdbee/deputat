@@ -90,10 +90,20 @@ class BlogComment(models.Model):
         commenter.plus_comments(1)
         get_blog_comment_processing(comment)
         if comment.parent:
-            user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
+            if comment.parent.blog.creator.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP", comment.parent.blog.creator.pk)
+            if comment.parent.commenter.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP", comment.parent.commenter.pk)
             user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
         else:
-            user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
+            if comment.blog.creator.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM", comment.blog.creator.pk)
             user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
         return comment
 
@@ -360,10 +370,20 @@ class ElectNewComment(models.Model):
         new.save(update_fields=["comment"])
         commenter.plus_comments(1)
         if comment.parent:
-            user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
+            if comment.parent.new.creator.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP", comment.parent.new.creator.pk)
+            if comment.parent.commenter.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP", comment.parent.commenter.pk)
             user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
         else:
-            user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
+            if comment.new.creator.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM", comment.new.creator.pk)
             user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
         get_elect_new_comment_processing(comment)
         return comment
@@ -621,11 +641,21 @@ class OrganizationComment(models.Model):
         new.save(update_fields=["comment"])
         commenter.plus_comments(1)
         if comment.parent:
-            user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_organization_comment_notify", "REP")
-            user_comment_wall(comment.commenter, comment.pk, "ORGC", "u_organization_comment_notify", "REP")
+            if comment.parent.new.creator.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP", comment.parent.new.creator.pk)
+            if comment.parent.commenter.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP", comment.parent.commenter.pk)
+            user_comment_wall(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP")
         else:
-            user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_organization_comment_notify", "COM")
-            user_comment_wall(comment.commenter, comment.pk, "ORGC", "u_organization_comment_notify", "COM")
+            if comment.new.creator.pk == comment.commenter.pk:
+                user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "COM", None)
+            else:
+                user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "COM", comment.new.creator.pk)
+            user_comment_wall(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "COM")
         get_organization_comment_processing(comment)
         return comment
 

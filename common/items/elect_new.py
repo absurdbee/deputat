@@ -101,7 +101,13 @@ def get_notify_elect_new(user, notify):
 
 def get_notify_comment_elect_new(user, notify):
     verb = notify.verb
-    if 'L' in verb:
+    if 'LCO' in verb or 'LRE' in verb:
         return notify_comment_elect_new(user, notify)
-    else:
-        return "nnnnnnn"
+    elif 'COMMENT' in verb:
+        from common.model.comments import ElectNewComment
+        comment = ElectNewComment.objects.get(pk=notify.object_id)
+        return ''.join(['<div class="" data-pk="', str(comment.new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', comment.new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+    elif 'REPLY' in verb:
+        from common.model.comments import ElectNewComment
+        comment = ElectNewComment.objects.get(pk=notify.object_id)
+        return ''.join(['<div class="" data-pk="', str(comment.parent.new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' коммент', comment.parent.text[:50], '... к новости <span class="elect_new_window pointer underline" style="font-weight: bold;">', comment.new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])

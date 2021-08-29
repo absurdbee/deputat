@@ -71,6 +71,8 @@ def notify_elect_new(user, notify):
         return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
 
 def notify_comment_elect_new(user, notify):
+    from common.model.comments import ElectNewComment
+
     comment = ElectNewComment.objects.get(pk=notify.object_id)
     if comment.parent:
         new = comment.parent.new

@@ -97,11 +97,11 @@ def get_notify_elect_new(user, notify):
         return notify_elect_new(user, notify)
     elif verb == "ITE":
         return notify_elect_new(user, notify)
-    else:
-        return "nnnnnnn"
 
 
 def get_notify_comment_elect_new(user, notify):
     verb = notify.verb
     if 'LCO' in verb:
         return notify_comment_elect_new(user, notify)
+    else:
+        return "nnnnnnn"

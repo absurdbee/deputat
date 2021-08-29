@@ -91,12 +91,16 @@ def community_wall(creator, community, action_community_id, object_id, type, soc
     community_send_wall(object_id, creator.pk, community, action_community_id, socket_name)
 
 
-def user_comment_notify(creator, object_id, type, socket_name, verb):
+def user_comment_notify(creator, object_id, type, socket_name, verb, owner_id):
     from notify.models import Notify
-    from datetime import date
 
-    current_verb, today = creator.get_verb_gender(verb), date.today()
-    for user_id in creator.get_member_for_notify_ids():
+    if owner_id:
+        recipient_ids = creator.get_member_for_notify_ids() + [owner_id]
+    else:
+        recipient_ids = creator.get_member_for_notify_ids()
+
+    current_verb = creator.get_verb_gender(verb)
+    for user_id in recipient_ids:
         if Notify.objects.filter(recipient_id=user_id, created__gt=today, type=type, verb=current_verb).exists():
             notify = Notify.objects.filter(recipient_id=user_id, type=type, created__gt=today, verb=current_verb).last()
             Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb, user_set=notify)
@@ -109,9 +113,8 @@ def user_comment_notify(creator, object_id, type, socket_name, verb):
 
 def user_comment_wall(creator, object_id, type, socket_name, verb):
     from notify.models import Wall
-    from datetime import date
 
-    current_verb, today = creator.get_verb_gender(verb), date.today()
+    current_verb = creator.get_verb_gender(verb)
     if Wall.objects.filter(created__gt=today, type=type, verb=current_verb).exists():
         notify = Wall.objects.filter(type=type, created__gt=today, verb=current_verb).last()
         wall = Wall.objects.create(creator_id=creator.pk, object_id=object_id, type=type, verb=current_verb, user_set=notify)

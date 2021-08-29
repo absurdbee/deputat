@@ -397,7 +397,10 @@ small, .small {
   font-size : 0.857rem;
   font-weight : 400;
 }
-
+.small_2 {
+  font-size : 0.657rem;
+  font-weight : 100;
+}
 mark, .mark {
   padding : 0.2em;
   background-color : #FCF8E3;

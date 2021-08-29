@@ -79,7 +79,7 @@ def notify_comment_elect_new(user, notify):
     else:
         new = comment.new
     if notify.is_have_user_set():
-        return ''.join(['<div class=""><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' <span class="pointer show_all_notifies_user_set underline"', str(notify.count_user_set_comment()), '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+        return ''.join(['<div class=""><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' <span class="pointer show_all_notifies_user_set underline"', notify.count_user_set_comment(), '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
     elif notify.is_have_object_set():
         first_notify = notify.get_first_object_set()
         return ''.join(['<div class="" data-pk="', str(new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(first_notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', first_notify.creator.get_name(), '</a> и ещё ', str(notify.count_object_set()), first_notify.get_verb_display(), ' комментарий к новости <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])

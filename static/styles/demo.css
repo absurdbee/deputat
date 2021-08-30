@@ -1207,7 +1207,7 @@ color: #FFD600;
   grid-template-columns: 0.5fr 2fr 1fr;
 }
 .subscribe_body {
-  padding: 1.5rem 1rem;
+  padding: 0 1rem;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;

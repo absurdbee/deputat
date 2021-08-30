@@ -412,7 +412,9 @@ class ElectNew(models.Model):
             return '/static/images/no_photo.jpg'
 
     def get_manager_tags_name(self):
-        return [i['name'] for i in self.tags.all()]
+        tags = self.tags.all()
+        return [i['name'] for i in tags]
+
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return self.tags.all()

@@ -83,6 +83,7 @@ class Elect(models.Model):
         self.region.clear()
         self.city.clear()
         self.list.clear()
+        self.save()
         if region:
             from region.models import Region
             for region_id in region:

@@ -1207,7 +1207,7 @@ color: #FFD600;
   grid-template-columns: 0.5fr 2fr 1fr;
 }
 .subscribe_body {
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -1255,6 +1255,9 @@ color: #FFD600;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.subscribe_body h6 {
+  padding-top: 5px;
 }
 
 @media (max-width: 767.98px) {

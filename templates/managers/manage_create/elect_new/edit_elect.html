@@ -45,7 +45,11 @@
               {% if elect.count_regions == 1 %}
               <label>Города</label>
               <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
-                {{ form.city }}
+              <select name="city" id="id_city" multiple="">
+                {% for object in elect.region.get_cities %}
+                <option value="{{ object.pk }}">{{ object.name }}</option>
+                {% endfor %}
+              </select>
               {% endif %}
             </div>
             <div class="form-group">

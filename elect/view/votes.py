@@ -1,5 +1,6 @@
 from django.views import View
 from elect.models import Elect
+from django.http import Http404
 
 
 class ElectLike(View):

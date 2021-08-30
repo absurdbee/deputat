@@ -412,15 +412,13 @@ class ElectNew(models.Model):
             return '/static/images/no_photo.jpg'
 
     def get_manager_tags_name(self):
-        from tags.models import ManagerTag
-        tags = ManagerTag.objects.filter(new=self).values("name")
-        return [i['name'] for i in tags]
+        return [i['name'] for i in self.tags.all()]
     def get_manager_tags(self):
         from tags.models import ManagerTag
-        return ManagerTag.objects.filter(new=self)
+        return self.tags.all()
     def is_selected_manager_tags(self, tag_name):
         from tags.models import ManagerTag
-        return ManagerTag.objects.filter(name=tag_name, new=self).exists()
+        return self.tags.all().exists()
 
     def get_count_attach(self):
         if self.attach:

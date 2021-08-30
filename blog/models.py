@@ -662,7 +662,7 @@ class ElectNew(models.Model):
         from common.model.comments import ElectNewComment
         query = Q(new_id=self.pk, parent__isnull=True)
         query.add(Q(Q(type="PUB")|Q(type="EDI")), Q.AND)
-        return ElectNewComment.objects.filter(query)
+        return ElectNewComment.objects.filter(query).order_by("-created")
 
     def get_u_attach(self, user):
         from common.attach.elect_new_attach import get_u_elect_new_attach

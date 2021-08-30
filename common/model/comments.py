@@ -339,7 +339,7 @@ class ElectNewComment(models.Model):
         return naturaltime(self.created)
 
     def get_replies(self):
-        return self.elect_new_comment_replies.filter(Q(type="PUB")|Q(type="EDI"))
+        return self.elect_new_comment_replies.filter(Q(type="PUB")|Q(type="EDI")).order_by("-created")
 
     def count_replies(self):
         return self.get_replies().values("pk").count()

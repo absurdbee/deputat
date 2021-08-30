@@ -43,6 +43,8 @@
 
             <div class="form-group">
               {% if elect.count_regions == 1 %}
+              <label>Города</label>
+              <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
                 {{ form.city }}
               {% endif %}
             </div>

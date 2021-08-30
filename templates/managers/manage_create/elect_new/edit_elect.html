@@ -42,13 +42,13 @@
             </div>
 
             <div class="form-group">
-              {{ elect.get_cities_ids }} 
+              {{ elect.get_cities_ids }}
               {% if elect.count_regions == 1 %}
               <label>Города</label>
               <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
               <select name="city" id="id_city" multiple="">
                 {% for object in elect.get_region_cities %}
-                  <option {% if object.pk in elect.get_cities_ids %}selected=""{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+                  <option {% if object in elect.get_cities %}selected=""{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                 {% endfor %}
               </select>
               {% endif %}

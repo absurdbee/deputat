@@ -522,7 +522,7 @@ class ElectNew(models.Model):
             from tags.models import ManagerTag
             for tag_id in tags:
                 a = ManagerTag.objects.get(pk=tag_id)
-                new.tags.add(a)
+                self.tags.add(a)
         ElectNewManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectNewManageLog.ITEM_EDITED)
         return self
 
@@ -585,7 +585,7 @@ class ElectNew(models.Model):
             from tags.models import ManagerTag
             for tag_id in tags:
                 a = ManagerTag.objects.get(pk=tag_id)
-                new.tags.add(a)
+                self.tags.add(a)
         return self
 
     def is_published(self):

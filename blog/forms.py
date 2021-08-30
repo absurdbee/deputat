@@ -15,7 +15,7 @@ class PublishElectNewForm(forms.ModelForm):
 class BlogForm(forms.ModelForm):
 	class Meta:
 		model = Blog
-		fields = ['title', 'description', 'image', 'comments_enabled', 'votes_on', ]
+		fields = ['title', 'description', 'image', 'comments_enabled', 'votes_on', 'tags', ]
 
 
 class BlogCommentForm(forms.ModelForm):

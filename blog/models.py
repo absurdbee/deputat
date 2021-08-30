@@ -32,6 +32,7 @@ class Blog(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
     slug = AutoSlugField(populate_from='title', null=True)
     type = models.CharField(choices=TYPE, default=PUBLISHED, max_length=5, verbose_name="Статус записи")
+    tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='blog_tags', verbose_name="Теги")
 
     comment = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
@@ -93,9 +94,9 @@ class Blog(models.Model):
         # Добавляем теги с формы.
         if tags:
             from tags.models import ManagerTag
-            for _tag in tags:
-                tag = ManagerTag.objects.get(pk=_tag)
-                tag.blog.add(blog)
+            for tag_id in tags:
+                a = ManagerTag.objects.get(pk=tag_id)
+                blog.tags.add(a)
         return blog
 
     def edit_blog(self, title, description, image, tags, comments_enabled, votes_on, manager_id):
@@ -113,11 +114,10 @@ class Blog(models.Model):
         # Добавляем теги с формы.
         if tags:
             from tags.models import ManagerTag
-            for i in ManagerTag.objects.all():
-                i.blog.remove(self)
-            for _tag in tags:
-                tag = ManagerTag.objects.get(pk=_tag)
-                tag.blog.add(self)
+            self.tags.clear()
+            for tag_id in tags:
+                a = ManagerTag.objects.get(pk=tag_id)
+                self.tags.add(a)
         BlogManageLog.objects.create(item=self.pk, manager=manager_id, action_type=BlogManageLog.ITEM_EDITED)
         return self
 
@@ -192,14 +192,10 @@ class Blog(models.Model):
         else:
             return '/static/images/no_photo.jpg'
 
-    def get_manager_tags_name(self):
-        from tags.models import ManagerTag
-        tags = ManagerTag.objects.filter(blog=self).values("name")
-        return [i['name'] for i in tags]
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return ManagerTag.objects.filter(blog=self)
-        
+
     def count_views(self):
         return self.view
 
@@ -380,7 +376,7 @@ class ElectNew(models.Model):
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
     community = models.ForeignKey('communities.Community', related_name='elect_new_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
-    tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
+    tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='blog_tags', verbose_name="Теги")
 
     comment = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
@@ -407,10 +403,6 @@ class ElectNew(models.Model):
             return self.elect.image.url
         except:
             return '/static/images/no_photo.jpg'
-
-    def get_manager_tags_name(self):
-        tags = self.tags.all()
-        return [i['name'] for i in tags]
 
     def get_manager_tags(self):
         from tags.models import ManagerTag

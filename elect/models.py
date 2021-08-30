@@ -51,12 +51,12 @@ class Elect(models.Model):
         return self.city.all()
 
     @classmethod
-    def create_elect(cls, creator, name, description, image, list, region, city, birthday, fraction):
+    def create_elect(cls, creator, name, description, image, list, region, city, birthday, fraction, post):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
 
-        elect = cls.objects.create(name=name_2,description=description,image=image,birthday=birthday,fraction=fraction)
+        elect = cls.objects.create(name=name_2,description=description,post=post,image=image,birthday=birthday,fraction=fraction)
         if region:
             from region.models import Region
             for region_id in region:
@@ -78,11 +78,12 @@ class Elect(models.Model):
     def get_region(self):
         return self.region.all()[0]
 
-    def edit_elect(self, name, description, image, list, region, city, birthday, fraction, manager_id):
+    def edit_elect(self, name, description, image, list, region, city, birthday, fraction, manager_id, post):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
         self.name = name_2
+        self.post = post
         self.description = description
         self.image = image
         self.birthday = birthday

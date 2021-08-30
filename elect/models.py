@@ -55,6 +55,8 @@ class Elect(models.Model):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
+        if not post:
+            post = ""
 
         elect = cls.objects.create(name=name_2,description=description,post=post,image=image,birthday=birthday,fraction=fraction)
         if region:
@@ -82,6 +84,8 @@ class Elect(models.Model):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
+        if not post:
+            post = ""
         self.name = name_2
         self.post = post
         self.description = description

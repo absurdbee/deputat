@@ -16,6 +16,10 @@
             </h6>
         </div>
         <span class="text-success mb-1">{{ object.get_first_list }}</span>
+        {% if object.post %}
+          <br>
+          <span class="text-success">{{ object.post }}</span>
+        {% endif %}
         <span class="delivery-date" style="margin-top: 1.2rem;margin-bottom: 0.25rem;">
           <span><span><span><span>
           <span class="mr-1 like {% if object.likes|user_in:request.user %}btn_success{% else %}btn_default{% endif %} elect_like pointer" title="Нравится">

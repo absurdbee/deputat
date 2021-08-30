@@ -46,8 +46,8 @@
               <label>Города</label>
               <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
               <select name="city" id="id_city" multiple="">
-                {% for object in elect.region.get_cities %}
-                <option value="{{ object.pk }}">{{ object.name }}</option>
+                {% for object in elect.get_cities %}
+                  <option value="{{ object.pk }}">{{ object.name }}</option>
                 {% endfor %}
               </select>
               {% endif %}

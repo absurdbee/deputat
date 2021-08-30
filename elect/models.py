@@ -44,6 +44,8 @@ class Elect(models.Model):
 
     def count_regions(self):
         return self.region.count()
+    def get_cities(self):
+        return self.region.all()[0].get_cities()
 
     @classmethod
     def create_elect(cls, creator, name, description, image, list, region, city, birthday, fraction):

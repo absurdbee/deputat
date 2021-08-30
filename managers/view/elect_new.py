@@ -252,12 +252,10 @@ class CreateElectNew(TemplateView):
 
     def get_context_data(self,**kwargs):
         from blog.forms import PublishElectNewForm
-        from tags.models import ManagerTag
         from elect.models import Elect
 
         context=super(CreateElectNew,self).get_context_data(**kwargs)
         context["form"] = PublishElectNewForm()
-        context["tags"] = ManagerTag.objects.only("pk")
         context["get_elects"] = Elect.objects.only("pk")
         return context
 
@@ -429,7 +427,7 @@ class EditManagerElect(TemplateView):
     def post(self,request,*args,**kwargs):
         from elect.forms import ElectForm
         from elect.models import Elect
-        
+
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         self.form_post = ElectForm(request.POST, request.FILES, instance=self.elect)
 

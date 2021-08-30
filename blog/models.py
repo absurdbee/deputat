@@ -458,6 +458,11 @@ class ElectNew(models.Model):
 
         new = cls.objects.create(creator=creator,title=title,comments_enabled=comments_enabled,votes_on=votes_on,description=description,elect=_elect,attach=_attach,category=category,)
         get_elect_new_processing(new, ElectNew.PUBLISHED)
+        if tags:
+            from tags.models import ManagerTag
+            for tag_id in tags:
+                a = ManagerTag.objects.get(pk=tag_id)
+                new.tags.add(a)
         # создаем запись для стены и отсылаем сокет для отрисовки в реале
         Wall.objects.create(creator_id=creator.pk, type="ELN", object_id=new.pk, verb="ITE")
         user_send_wall(new.pk, None, "elect_new_wall")
@@ -511,14 +516,13 @@ class ElectNew(models.Model):
         self.comments_enabled = comments_enabled
         self.votes_on = votes_on
         self.save()
+        self.tags.clear()
         # Добавляем теги с формы.
         if tags:
             from tags.models import ManagerTag
-            for i in ManagerTag.objects.all():
-                i.new.remove(self)
-            for _tag in tags:
-                tag = ManagerTag.objects.get(pk=_tag)
-                tag.new.add(self)
+            for tag_id in tags:
+                a = ManagerTag.objects.get(pk=tag_id)
+                new.tags.add(a)
         ElectNewManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectNewManageLog.ITEM_EDITED)
         return self
 
@@ -576,13 +580,12 @@ class ElectNew(models.Model):
 
         # плюсуем единичку создателю к его кол-ву созданных активностей. Добавляем теги с формы.
         self.creator.plus_elect_news(1)
+        # Добавляем теги с формы.
         if tags:
             from tags.models import ManagerTag
-            for i in ManagerTag.objects.all():
-                i.new.remove(self)
-            for _tag in tags:
-                tag = ManagerTag.objects.get(pk=_tag)
-                tag.new.add(self)
+            for tag_id in tags:
+                a = ManagerTag.objects.get(pk=tag_id)
+                new.tags.add(a)
         return self
 
     def is_published(self):

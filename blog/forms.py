@@ -10,7 +10,7 @@ class SuggestElectNewForm(forms.ModelForm):
 class PublishElectNewForm(forms.ModelForm):
 	class Meta:
 		model = ElectNew
-		fields = ['title', 'description', 'category', 'comments_enabled', 'votes_on', ]
+		fields = ['title', 'description', 'category', 'comments_enabled', 'votes_on', 'tags', ]
 
 class BlogForm(forms.ModelForm):
 	class Meta:

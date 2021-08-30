@@ -11,6 +11,6 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django
 django.setup()
 
-from blog.models import Blog
+from elect.models import EducationElect
 
-Blog.objects.all().delete()
+EducationElect.objects.all().delete()

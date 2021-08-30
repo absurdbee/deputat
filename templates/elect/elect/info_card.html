@@ -37,10 +37,10 @@
             <p class="card-text">{{ object.election_information }}</p>
         </div>
         {% endif %}
-        {% if object.educationelect_set.all %}
+        {% if object.description %}
         <div class="mt-2">
             <h5 class="mb-75" style="font-weight: bold;">Образование:</h5>
-            <p class="card-text">{% for edu in object.educationelect_set.all %}{{ edu.title }}: {{ edu.year }}<br>{% endfor %}</p>
+            <p class="card-text">{{ object.description }}</p>
         </div>
         {% endif %}
         {% if object.linlelect_set.all %}

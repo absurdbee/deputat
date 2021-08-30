@@ -18,7 +18,7 @@ from django.db.models import Q
 class Elect(models.Model):
     name = models.CharField(max_length=255, verbose_name="ФИО")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
-    description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
+    description = models.CharField(max_length=500, blank=True, verbose_name="Образование")
     list = models.ManyToManyField('lists.AuthorityList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
     region = models.ManyToManyField(Region, blank=True, related_name='elect_region', verbose_name="Регионы, за которым закреплен депутат")
     city = models.ManyToManyField('city.City', blank=True, related_name='elect_city', verbose_name="Города, за которым закреплен депутат")

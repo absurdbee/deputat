@@ -11,6 +11,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django
 django.setup()
 
-from elect.models import EducationElect
+from elect.models import Elect
 
-EducationElect.objects.all().delete()
+for elect in Elect.objects.all():
+    elect.post = ""
+    elect.save()

@@ -408,3 +408,30 @@ class CreateManagerElect(TemplateView):
         else:
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
+
+class EditManagerElect(TemplateView):
+    template_name = "managers/manage_create/elect_new/edit_elect.html"
+
+    def get(self,request,*args,**kwargs):
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        return super(EditManagerElect,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from elect.forms import ElectForm
+        context=super(EditManagerElect,self).get_context_data(**kwargs)
+        context["form"] = ElectForm(instance=self.elect)
+        context["elect"] = self.elect
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from elect.forms import ElectForm
+
+        self.form_post = ElectForm(request.POST, request.FILES, instance=self.elect)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
+            post = self.form_post.save(commit=False)
+            new_post = post.edit_elect(name=post.name, description=post.description, image=post.image, list=request.POST.getlist("list"), region=request.POST.getlist("region"), city=request.POST.getlist("city"),birthday=post.birthday, fraction=post.fraction, manager_id=request.user.pk)
+            return HttpResponse() 
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()

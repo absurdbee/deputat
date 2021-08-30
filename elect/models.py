@@ -68,6 +68,38 @@ class Elect(models.Model):
         ElectManageLog.objects.create(item=elect.pk, manager=creator.pk, action_type=ElectManageLog.ITEM_CREATED)
         return list
 
+    def get_region(self):
+        return self.region.all()[0]
+
+    def edit_elect(self, name, description, image, list, region, city, birthday, fraction, manager_id):
+        from logs.model.manage_elect_new import ElectManageLog
+
+        self.name = name
+        self.description = description
+        self.image = image
+        self.birthday = birthday
+        self.fraction = fraction
+
+        self.region.clear()
+        self.city.clear()
+        self.list.clear()
+        if region:
+            from region.models import Region
+            for region_id in region:
+                a = Region.objects.get(pk=region_id)
+                self.region.add(a)
+        if list:
+            from lists.models import AuthorityList
+            for list_id in list:
+                a = AuthorityList.objects.get(pk=list_id)
+                self.list.add(a)
+        if city:
+            from city.models import City
+            for city_id in city:
+                a = City.objects.get(pk=city_id)
+                self.city.add(a)
+        ElectManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectManageLog.ITEM_EDITED)
+
     def get_region_image(self):
         if self.region.all()[0].image:
             return self.region.all()[0].image.url

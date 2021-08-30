@@ -233,7 +233,7 @@ class Elect(models.Model):
             self.like += 1
             self.save(update_fields=['like'])
             from common.notify.notify import user_notify, user_wall
-            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "LIK")
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "LIK", self.pk)
             user_wall(user, None, self.pk, "ELE", "u_elec_notify", "LIK")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
@@ -264,7 +264,7 @@ class Elect(models.Model):
             self.dislike += 1
             self.save(update_fields=['dislike'])
             from common.notify.notify import user_notify, user_wall
-            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "DIS")
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "DIS", self.pk)
             user_wall(user, None, self.pk, "ELE", "u_elec_notify", "DIS")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
@@ -295,7 +295,7 @@ class Elect(models.Model):
             self.inert += 1
             self.save(update_fields=['inert'])
             from common.notify.notify import user_notify, user_wall
-            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "INE")
+            user_notify(user, None, self.pk, "ELE", "u_elec_notify", "INE", self.pk)
             user_wall(user, None, self.pk, "ELE", "u_elec_notify", "INE")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 

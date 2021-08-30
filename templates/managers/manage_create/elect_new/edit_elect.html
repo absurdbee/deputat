@@ -9,16 +9,16 @@
   </div>
     <div class="card mb-3">
         <div class="card-header border-bottom">
-            <h5 class="content-color-primary mb-0">Создание чиновника</h5>
+            <h5 class="content-color-primary mb-0">Изменение чиновника</h5>
         </div>
         <div class="card-body">
             <div class="form-group">
               <label>ФИО</label>
-              <input type="text" name="name" class="form-control" id="id_name">
+              <input type="text" value="{{ elect.name }}" name="name" class="form-control" id="id_name">
             </div>
             <div class="form-group">
               <label>Описание</label>
-              <textarea style="height: 100px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description"></textarea>
+              <textarea style="height: 100px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description">{{ elect.description }}</textarea>
             </div>
             <div class="form-group">
               <label>Аватар</label>
@@ -27,7 +27,7 @@
                 <input style="display: none;" id="id_image" type="file" name="image" accept="image/*">
               </span>
               <div id="holder_image" style="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;cursor:pointer">
-                <img class="img-fluid rounded" src="/static/images/list.jpg" alt="Img default" style="height: 100px;">
+                <img class="img-fluid rounded" src="{{ elect.get_image }}" alt="Img default" style="height: 100px;">
               </div>
             </div>
             <div class="form-group">
@@ -41,10 +41,14 @@
               {{ form.region }}
             </div>
 
-            <div class="form-group"></div>
+            <div class="form-group">
+              {% if elect.count_regions == 1 %}
+                {{ form.city }}
+              {% endif %}
+            </div>
             <div class="form-group">
               <label>Дата рождения</label><br>
-              <input type="date" id="id_birthday" name="birthday">
+              <input type="date" value="{{ elect.birthday }}" id="id_birthday" name="birthday">
             </div>
             <div class="form-group">
               <label>Фракция (если есть)</label>
@@ -53,7 +57,7 @@
         </div>
         <div class="card-footer">
             <button class="btn custom_color border create_fullscreen_hide_2" style="position: absolute;">Отмена</button>
-            <button id="create_elect_btn" type="button" class="btn btn-success float-right">Сохранить</button>
+            <button id="edit_elect_btn" type="button" class="btn btn-success float-right">Сохранить</button>
         </div>
     </div>
 </form>

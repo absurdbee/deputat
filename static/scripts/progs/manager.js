@@ -64,6 +64,10 @@ on('body', 'click', '.manager_elect_create', function(e) {
   loader = document.body.querySelector("#window_loader");
   open_fullscreen("/managers/elect_new/create_elect/", loader)
 });
+on('body', 'click', '.manager_elect_edit', function() {
+  loader = document.body.querySelector("#window_loader");
+  open_fullscreen("/managers/elect_new/edit_elect/", loader)
+});
 
 on('body', 'click', '.manager_blog_create', function(e) {
   e.preventDefault();
@@ -149,6 +153,36 @@ on('body', 'click', '#create_elect_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Чиновник создан!")
+    close_default_window()
+  } else { _this.disabled = false }};
+
+  link_.send(form_data);
+});
+
+on('body', 'click', '#edit_elect_btn', function() {
+  _this = this, elect = false;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+
+  if (!form.querySelector("#id_name").value){
+    form.querySelector("#id_name").style.border = "1px #FF0000 solid";
+    toast_error("ФИО - обязательное поле!"); return
+  } else if (!form.querySelector("#id_list").value){
+    form.querySelector("#id_list").style.border = "1px #FF0000 solid";
+    toast_error("Выберите орган власти!"); return
+  } else if (!form.querySelector("#id_region").value){
+    form.querySelector("#id_region").style.border = "1px #FF0000 solid";
+    toast_error("Выберите регион!"); return
+  }
+  else { _this.disabled = true };
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/managers/elect_new/edit_elect/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Чиновник изменён!")
     close_default_window()
   } else { _this.disabled = false }};
 

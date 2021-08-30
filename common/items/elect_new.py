@@ -36,8 +36,8 @@ def wall_elect_new(user, elect_new):
     else:
         comments_enabled = 'style="display:none"'
 
-    for tag in elect_new.get_manager_tags_name():
-        tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
+    for tag in elect_new.get_manager_tags():
+        tags += '<a class="ajax" href="/tags/' + tag.name + '/">' + tag.name + '</a>'
 
     return ''.join([block, '<div class="event_card" data-pk="' + str(elect_new.pk) + '"><div class="event_img text-center"><span><span>\
     <img class="img-fluid pointer elect_new_window card-img-top" style="width:100%" src="' + elect_new.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\

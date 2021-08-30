@@ -50,7 +50,3 @@ def edit_attach(obj, request_user):
 @register.filter
 def is_user_can_add_list(list, user_id):
     return list.is_user_can_add_list(user_id)
-
-@register.filter
-def is_selected_manager_tags(object, tag_name):
-    return object.is_selected_manager_tags(tag_name)

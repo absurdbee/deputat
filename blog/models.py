@@ -199,10 +199,7 @@ class Blog(models.Model):
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return ManagerTag.objects.filter(blog=self)
-    def is_selected_manager_tags(self, tag_name):
-        from tags.models import ManagerTag
-        return ManagerTag.objects.filter(name=tag_name, blog=self).exists()
-
+        
     def count_views(self):
         return self.view
 
@@ -418,9 +415,6 @@ class ElectNew(models.Model):
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return self.tags.all()
-    def is_selected_manager_tags(self, tag_name):
-        from tags.models import ManagerTag
-        return self.tags.all().exists()
 
     def get_count_attach(self):
         if self.attach:

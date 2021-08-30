@@ -40,8 +40,8 @@ def blog(user, blog):
     else:
         comments_enabled = 'style="display:none"'
 
-    for tag in blog.get_manager_tags_name():
-        tags += '<a class="ajax" href="/tags/' + tag + '/">' + tag + '</a>'
+    for tag in blog.get_manager_tags():
+        tags += '<a class="ajax" href="/tags/' + tag.name + '/">' + tag.name + '</a>'
 
     return ''.join([block, '<div class="event_card" data-pk="' + str(blog.pk) + '"><div class="event_img text-center"><span>\
     <span><img class="img-fluid card-img-top blog_window pointer" style="width:100%" src="' + blog.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\

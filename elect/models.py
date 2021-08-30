@@ -44,10 +44,10 @@ class Elect(models.Model):
 
     def count_regions(self):
         return self.region.count()
-    def get_cities(self):
+    def get_region_cities(self):
         return self.region.all()[0].get_cities()
     def get_cities_ids(self):
-        cities = self.region.all()[0].get_cities()
+        cities = self.city.all()
         return [i['id'] for i in cities]
 
     @classmethod

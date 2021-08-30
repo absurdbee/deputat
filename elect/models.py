@@ -46,6 +46,9 @@ class Elect(models.Model):
         return self.region.count()
     def get_cities(self):
         return self.region.all()[0].get_cities()
+    def get_cities_ids(self):
+        cities = self.region.all()[0].get_cities()
+        cities_ids = [i['id'] for i in cities]
 
     @classmethod
     def create_elect(cls, creator, name, description, image, list, region, city, birthday, fraction):

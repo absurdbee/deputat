@@ -47,7 +47,7 @@
               <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
               <select name="city" id="id_city" multiple="">
                 {% for object in elect.get_cities %}
-                  <option value="{{ object.pk }}">{{ object.name }}</option>
+                  <option {% if object.pk in elect.get_cities_ids %}selected=""{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                 {% endfor %}
               </select>
               {% endif %}

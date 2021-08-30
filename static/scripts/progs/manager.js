@@ -66,7 +66,7 @@ on('body', 'click', '.manager_elect_create', function(e) {
 });
 on('body', 'click', '.manager_elect_edit', function() {
   loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/managers/elect_new/edit_elect/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader) 
+  open_fullscreen("/managers/elect_new/edit_elect/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
 });
 
 on('body', 'click', '.manager_blog_create', function(e) {
@@ -177,7 +177,7 @@ on('body', 'click', '#edit_elect_btn', function() {
   else { _this.disabled = true };
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/managers/elect_new/edit_elect/", true );
+  link_.open( 'POST', "/managers/elect_new/edit_elect/" + _this.getAttribute("data-pk") + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

@@ -53,7 +53,9 @@ class Elect(models.Model):
     def create_elect(cls, creator, name, description, image, list, region, city, birthday, fraction):
         from logs.model.manage_elect_new import ElectManageLog
 
-        elect = cls.objects.create(name=name,description=description,image=image,birthday=birthday,fraction=fraction)
+        name_2 = name.split("  ", " ").split("   ", " ").split("   ", " ").split("    ", " ")
+
+        elect = cls.objects.create(name=name_2,description=description,image=image,birthday=birthday,fraction=fraction)
         if region:
             from region.models import Region
             for region_id in region:
@@ -78,7 +80,8 @@ class Elect(models.Model):
     def edit_elect(self, name, description, image, list, region, city, birthday, fraction, manager_id):
         from logs.model.manage_elect_new import ElectManageLog
 
-        self.name = name
+        name_2 = name.split("  ", " ").split("   ", " ").split("   ", " ").split("    ", " ")
+        self.name = name_2
         self.description = description
         self.image = image
         self.birthday = birthday

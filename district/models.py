@@ -32,10 +32,8 @@ class District(models.Model):
 
 	class Meta:
 		ordering = ["order", "name"]
-		verbose_name = "�"
-		verbose_name_plural = "Район"
+		verbose_name = "District"
+		verbose_name_plural = "District"
 
 	def __str__(self):
 		return self.name
-
-		

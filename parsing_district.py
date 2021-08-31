@@ -25,7 +25,6 @@ for region in Region.objects.all():
     data = response.json()
     count = 0
     for i in data:
-        print ("кол-во дистриктов/городов", len(data[count]))
         print ("полный путь ", data[count][0])
 
         path = data[count][0].split(",")
@@ -42,4 +41,4 @@ for region in Region.objects.all():
         print ("ссылка ", data[count][2])
         count += 1
         print ("-----------------")
-    break
+    print ("==============================")

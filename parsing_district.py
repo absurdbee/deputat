@@ -41,4 +41,5 @@ for region in Region.objects.all():
 
         print ("ссылка ", data[count][2])
         count += 1
+        print ("-----------------")
     break

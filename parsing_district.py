@@ -31,11 +31,13 @@ for region in Region.objects.all():
         path = data[count][0].split(",")
 
         print ("единица ", path[0])
+        path_1 = path[1].replace("город ", "")
         if len(path) == 3:
-            print ("дистрикт ", path[1])
-            print ("регион ", path[2])
+            print ("дистрикт ", path_1)
+            path_2 = path[2].replace("город ", "")
+            print ("регион ", path_2)
         else:
-            print ("регион ", path[1])
+            print ("регион ", path_1)
 
         print ("ссылка ", data[count][2])
         count += 1

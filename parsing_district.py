@@ -34,15 +34,15 @@ for region in Region.objects.all():
 
         city_or_district = data[count][1]
 
-        if path_0 in data_district_includes:
+        if data_district_includes in path_0:
             if not District.objects.filter(name=path_0, region=region).exists():
                 District.objects.create(name=path_0, region=region, link=data[count][2])
                 print ("District создан!")
-        elif path_1 in data_district_includes:
+        elif data_district_includes in path_1:
             if not District.objects.filter(name=path_0, region=region).exists():
                 District.objects.create(name=path_0, region=region, link=data[count][2])
                 print ("District создан!")
-        if not city_or_district in data_district_includes:
+        if not data_district_includes in city_or_district:
             if not City.objects.filter(name=city_or_district, region=region).exists():
                 City.objects.create(name=city_or_district, region=region, link=data[count][2])
                 print ("City создан!")

@@ -11,6 +11,13 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django
 django.setup()
 
+
+""" Определим слова для понимания - в поле город или район?
+    Если вхождение есть со списком data_district_includes, значит это район
+"""
+data_district_includes = ["сельсовет", "район"]
+
+
 from region.models import Region
 
 for region in Region.objects.all():
@@ -21,7 +28,7 @@ for region in Region.objects.all():
         print ("кол-во дистриктов/городов", len(data[count]))
         print ("полный путь ", data[count][0])
 
-        path = data[i][0].split(",")
+        path = data[count][0].split(",")
 
         print ("единица ", path[0])
         if len(path) == 3:

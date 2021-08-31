@@ -30,7 +30,21 @@ else:
 
 print ("ссылка ", data[0][2])
 
-#for region in Region.objects.all():
-#    response = requests.get(url= "https://election.novayagazeta.ru/api/address/?address=" + region.name)
-#    data = response.json()
-#    print (data)
+for region in Region.objects.all():
+    response = requests.get(url= "https://election.novayagazeta.ru/api/address/?address=" + region.name)
+    data = response.json()
+    for i in len(data):
+        print ("кол-во дистриктов/городов", len(data[i]))
+        print ("полный путь ", data[i][0])
+
+        path = data[i][0].split(",")
+
+        print ("единица ", path[0])
+        if len(path) == 3:
+            print ("дистрикт ", path[1])
+            print ("регион ", path[2])
+        else:
+            print ("регион ", path[1])
+
+        print ("ссылка ", data[i][2])
+        break

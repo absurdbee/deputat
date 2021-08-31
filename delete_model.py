@@ -11,8 +11,9 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django
 django.setup()
 
-from elect.models import Elect
+from city.models import City
 
-for elect in Elect.objects.all():
-    elect.post = ""
-    elect.save()
+for city in City.objects.all():
+    city.name = city.name.replace("город ", "")
+    city.save(update_fields=["name"])
+    print ("Изменено!")

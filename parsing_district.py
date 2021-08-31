@@ -16,9 +16,10 @@ from region.models import Region
 for region in Region.objects.all():
     response = requests.get(url= "https://election.novayagazeta.ru/api/address/?address=" + region.name)
     data = response.json()
+    count = 1
     for i in data:
-        print ("кол-во дистриктов/городов", len(data[i]))
-        print ("полный путь ", data[i][0])
+        print ("кол-во дистриктов/городов", len(data[count]))
+        print ("полный путь ", data[count][0])
 
         path = data[i][0].split(",")
 
@@ -29,5 +30,6 @@ for region in Region.objects.all():
         else:
             print ("регион ", path[1])
 
-        print ("ссылка ", data[i][2])
+        print ("ссылка ", data[count][2])
+        count += 1
         break

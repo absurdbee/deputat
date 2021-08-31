@@ -1,4 +1,3 @@
-https://telegram.me/share/url?url=<get_absolute_url>&text=<title>
 
 import sys,os
 import re

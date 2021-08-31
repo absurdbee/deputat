@@ -32,7 +32,7 @@ class Blog(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, verbose_name="Создатель")
     slug = AutoSlugField(populate_from='title', null=True)
     type = models.CharField(choices=TYPE, default=PUBLISHED, max_length=5, verbose_name="Статус записи")
-    tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='blog_tags', verbose_name="Теги")
+    tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='+', verbose_name="Теги")
 
     comment = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
@@ -376,7 +376,7 @@ class ElectNew(models.Model):
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")
     attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
     community = models.ForeignKey('communities.Community', related_name='elect_new_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
-    tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='blog_tags', verbose_name="Теги")
+    tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='+', verbose_name="Теги")
 
     comment = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")

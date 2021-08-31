@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'logs',
     'quan',
     'organizations',
+    'district',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

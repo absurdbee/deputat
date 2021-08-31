@@ -16,7 +16,10 @@ from region.models import Region
 response = requests.get(url= "https://election.novayagazeta.ru/api/address/?address=" + "Коми")
 data = response.json()
 print ("кол-во элементов ", len(data))
-print ("кол-во ", len(data[0]), ";полный путь ", data[0][0], ";единица ", data[0][1], ";ссылка ", data[0][2], ";число какое то ", data[0][3])
+print ("кол-во ", len(data[0]))
+print ("полный путь ", data[0][0])
+print ("единица ", data[0][1])
+print (";ссылка ", data[0][2])
 
 #for region in Region.objects.all():
 #    response = requests.get(url= "https://election.novayagazeta.ru/api/address/?address=" + region.name)

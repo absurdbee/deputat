@@ -20,6 +20,7 @@ data_city_includes = ["поселение", "сельсовет"]
 
 
 from region.models import Region
+from city.models import City
 
 for region in Region.objects.all():
     response = requests.get(url= "https://election.novayagazeta.ru/api/address/?address=" + region.name)
@@ -43,3 +44,4 @@ for region in Region.objects.all():
         count += 1
         print ("-----------------")
     print ("==============================")
+    break

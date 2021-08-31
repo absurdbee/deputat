@@ -15,7 +15,8 @@ django.setup()
 """ Определим слова для понимания - в поле город или район?
     Если вхождение есть со списком data_district_includes, значит это район
 """
-data_district_includes = ["сельсовет", "район"]
+data_district_includes = ["район", "округ"]
+data_city_includes = ["поселение", "сельсовет"]
 
 
 from region.models import Region

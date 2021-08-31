@@ -63,4 +63,3 @@ for region in Region.objects.all():
         count += 1
         print ("-----------------")
     print ("==============================")
-    break

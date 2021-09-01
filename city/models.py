@@ -45,4 +45,4 @@ class City(models.Model):
 
 	def get_elects_2(self):
 		from elect.models import Elect
-		return Elect.objects.filter(city__isnull=False)
+		return Elect.objects.filter(city__isnull=True)

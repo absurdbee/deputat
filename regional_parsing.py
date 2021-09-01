@@ -144,7 +144,7 @@ def main():
     #    html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
     #    get_page_data(html, None, district)
     html = get_html("https://election.novayagazeta.ru/region/01608430000/")
-    #    get_page_data(html, None, None)
+    get_page_data(html, None, None)
 
 
 if __name__ == '__main__':

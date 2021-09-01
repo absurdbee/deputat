@@ -48,10 +48,15 @@ def get_page_data(html, city, district):
             total_sr = ratio_tds[ratio_tds_count].find('span').text
         ratio_tds_count += 1
 
-    chapter_section_2 = chapter__sections[1]
-    summary = chapter_section_2.find_all('div', class_="summary__item")
-    total_place = summary[0].find('b').text
-    man_procent = summary[1].find('b').text
+    if chapter__sections[0].find('div', class_='summary summary_candidates pb-md-5 pt-3 mb-3 mb-md-1'):
+        summary = chapter__sections[0].find_all('div', class_="summary__item")
+        total_place = summary[0].find('b').text
+        man_procent = summary[1].find('b').text
+    else:
+        chapter_section_2 = chapter__sections[1]
+        summary = chapter_section_2.find_all('div', class_="summary__item")
+        total_place = summary[0].find('b').text
+        man_procent = summary[1].find('b').text
 
     if city:
         city.name = name
@@ -105,23 +110,24 @@ def get_page_data(html, city, district):
         except:
             pass
 
-        if not is_elect_exists:
-            elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)
-            elect.list.add(_list)
-            if city:
-                elect.city.add(city)
-            elif district:
-                elect.district.add(district)
-            print("Добавлен кандидат ", elect.name)
+        #if not is_elect_exists:
+        #    elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)
+        #    elect.list.add(_list)
+        #    if city:
+        #        elect.city.add(city)
+        #    elif district:
+        #        elect.district.add(district)
+        #    print("Добавлен кандидат ", elect.name)
 
 def main():
     for city in City.objects.all():
         print("работаю с городом ", city.name)
         html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
         get_page_data(html, city, None)
-    for district in District.objects.all():
-        html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
-        get_page_data(html, None, district)
+        break
+    #for district in District.objects.all():
+    #    html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
+    #    get_page_data(html, None, district)
 
 
 if __name__ == '__main__':

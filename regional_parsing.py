@@ -75,8 +75,10 @@ def get_page_data(html):
         person_span = person.find_all('span')
 
         _name = person_span[0].text
-        print ("_fraction ", person_span[1].text)
-        _fraction = Fraction.objects.get(name=person_span[1].text)
+        try:
+            _fraction = Fraction.objects.get(name=person_span[1].text)
+        except:
+            _fraction = Fraction.objects.get(name="Без фракции")
         _post = item.find_all('p', class_="js-foldable")[0].text
         print ("Имя ", _name)
         print ("Фракция ", _fraction.name)

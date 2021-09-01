@@ -83,7 +83,10 @@ def get_page_data(html):
         print ("Имя ", _name)
         print ("Фракция ", _fraction.name)
         print ("Должность ", _post)
+        print ("------------------")
         items_count += 1
+        print ("Всего кандидатов: ", items_count)
+
 
 def main():
     html = get_html("https://election.novayagazeta.ru/region/54701000000/")

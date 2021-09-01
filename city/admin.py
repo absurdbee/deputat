@@ -3,7 +3,7 @@ from city.models import City
 
 
 class CityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'region', 'order', 'slug']
+    list_display = ['name', 'region', 'link', 'slug']
     list_filter = ['region']
     search_fields = ['name']
 

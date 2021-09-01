@@ -13,24 +13,21 @@ django.setup()
 
 from city.models import City
 from district.models import District
-from lists.models import Fraction
+from lists.models import Fraction, AuthorityList
+
 
 def get_html(url):
     r = requests.get(url)
     return r.text
 
-def get_page_data(html):
+def get_page_data(html, city, district):
     soup = BeautifulSoup(html, 'lxml')
 
-    total_self, total_er, total_ldpr, total_kprf, total_sr = None, None, None, None, None
-
+    total_self, total_er, total_ldpr, total_kprf, total_sr = "", "", "", "", ""
     name = soup.find('h1', class_='page-content__headline h1').text
-    print ("Название ТЕ ", name)
 
     comparison = soup.find('div', class_='comparison')
-    comparison_integers = comparison.find_all('b', class_='num-el')[0].text
-    total_voters = comparison_integers
-    print ("Избирателей ", total_voters)
+    total_voters = comparison.find_all('b', class_='num-el')[0].text
 
     chapter__sections = soup.find_all('div', class_='chapter__section')
 
@@ -50,26 +47,43 @@ def get_page_data(html):
         elif p_text == "Справедливая Россия":
             total_sr = ratio_tds[ratio_tds_count].find('span').text
         ratio_tds_count += 1
-    print ("Самовыдвижение ", total_self)
-    print ("Единая Россия ", total_er)
-    print ("ЛДПР ", total_ldpr)
-    print ("КПРФ ", total_kprf)
-    print ("Справедливая Россия ", total_sr)
 
     chapter_section_2 = chapter__sections[1]
     summary = chapter_section_2.find_all('div', class_="summary__item")
     total_place = summary[0].find('b').text
-    print ("Всего мест ", total_place)
     man_procent = summary[1].find('b').text
-    print ("Процент мужиков ", man_procent)
-    print ("++++++++++++++++++++++++++++++++++++++")
-    print ("Кандидаты:")
+
+    if city:
+        city.name = name
+        city.total_voters = total_voters
+        city.total_place = total_place
+        city.man_procent = man_procent
+        city.total_self = total_self
+        city.total_er = total_er
+        city.total_ldpr = total_ldpr
+        city.total_sr = total_sr
+        city.total_kprf = total_kprf
+        city.save()
+        print("Город заполнен ", city.name)
+    elif district:
+        district.name = name
+        district.total_voters = total_voters
+        district.total_place = total_place
+        district.man_procent = man_procent
+        district.total_self = total_self
+        district.total_er = total_er
+        district.total_ldpr = total_ldpr
+        district.total_sr = total_sr
+        district.total_kprf = total_kprf
+        district.save()
+        print("Район заполнен ", district.name)
+
+    _list = AuthorityList.objects.get(name="Кандидат")
 
     chapter_section_3 = chapter__sections[2]
     deputats_body = chapter_section_3.find('tbody')
     deputat_items = deputats_body.find_all('tr')
 
-    items_count = 0
     for item in deputat_items:
         person = item.find('div', class_="person-item person-item_row js-popup-trigger")
         person_span = person.find_all('span')
@@ -80,17 +94,33 @@ def get_page_data(html):
         except:
             _fraction = Fraction.objects.get(name="Без фракции")
         _post = item.find_all('p', class_="js-foldable")[0].text
-        print ("Имя ", _name)
-        print ("Фракция ", _fraction.name)
-        print ("Должность ", _post)
-        print ("------------------")
-        items_count += 1
-        print ("Всего кандидатов: ", items_count)
+        old = person.find_all('td', class_="is-hidden-mobile")[0].text
 
+        is_elect_exists = False
+        try:
+            elects = Elect.objects.filter(name=_name)
+            for i in elects:
+                if i.calculate_age() == old:
+                    is_elect_exists = True
+        except:
+            pass
+
+        if not is_elect_exists:
+            elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)
+            elect.list.add(_list)
+            if city:
+                elect.city.add(city)
+            elif district:
+                elect.district.add(district)
+            print("Добавлен кандидат ", elect.name)
 
 def main():
-    html = get_html("https://election.novayagazeta.ru/region/54701000000/")
-    get_page_data(html)
+    for city in City.objects.all():
+        html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
+        get_page_data(html, city, None)
+    for district in District.objects.all():
+        html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
+        get_page_data(html, None, district)
 
 
 if __name__ == '__main__':

@@ -91,6 +91,8 @@ def get_page_data(html, city, district):
         district.save()
         print("Район заполнен ", district.name)
 
+    print("Чиновники:")
+
     _list = AuthorityList.objects.get(name="Кандидат")
 
     deputats_body = chapter_section_3.find('tbody')
@@ -121,6 +123,7 @@ def get_page_data(html, city, district):
         print("Должность: ", _post)
         print("Возраст: ", old)
         print("Партия: ", _fraction)
+        print("-----------------")
 
         #if not is_elect_exists:
         #    elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)

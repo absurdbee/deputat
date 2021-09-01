@@ -23,7 +23,7 @@ def get_html(url):
 def get_page_data(html, city, district):
     soup = BeautifulSoup(html, 'lxml')
 
-    total_self, total_er, total_ldpr, total_kprf, total_sr = "", "", "", "", ""
+    total_self, total_er, total_ldpr, total_kprf, total_sr, total_place = "", "", "", "", "", ""
     name = soup.find('h1', class_='page-content__headline h1').text
 
     comparison = soup.find('div', class_='comparison')

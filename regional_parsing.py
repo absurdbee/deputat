@@ -28,8 +28,8 @@ def get_page_data(html):
     print ("Название ТЕ ", name)
 
     comparison = soup.find('div', class_='comparison__item-footer')
-    comparison_integers = comparison.find_all('b', class_='num-el')
-    total_voters = comparison_integers[0].relpace("&nbsp;", "")
+    comparison_integers = comparison.find('b', class_='num-el')
+    total_voters = comparison_integers.relpace("&nbsp;", "")
     print ("Избирателей ", total_voters)
 
     chapter__sections = soup.find_all('div', class_='chapter__section')

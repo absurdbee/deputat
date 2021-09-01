@@ -14,6 +14,10 @@ django.setup()
 from city.models import City
 
 for city in City.objects.all():
-    _name = city.name.replace("городской ", "").replace("рабочий ", "").replace("город-курорт ", "").replace('"', '')
-    city.name = _name
-    city.save(update_fields=["name"])
+    if not city.link:
+        city.delete()
+        print ("not link deleted!")
+    else:
+        if City.objects.filter(link=city.link).values("pk").count() > 1:
+            city.delete()
+            print ("double deleted!")

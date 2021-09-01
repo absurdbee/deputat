@@ -66,16 +66,6 @@ def get_page_data(html, city, district):
             total_place = summary[0].find('b').text
             man_procent = summary[1].find('b').text
 
-    print("Название: ", name)
-    print("Избирателей: ", total_voters)
-    print("Всего мест: ", total_place)
-    print("Мужиков: ", man_procent)
-    print("Самовыдвиженцы: ", total_self)
-    print("Единоросы: ", total_er)
-    print("ldpr: ", total_ldpr)
-    print("sr: ", total_sr)
-    print("kprf: ", total_kprf)
-
     if city:
         city.name = name
         city.total_voters = total_voters
@@ -100,8 +90,6 @@ def get_page_data(html, city, district):
         district.total_kprf = total_kprf
         district.save()
         print("Район заполнен ", district.name)
-
-    print("Чиновники:")
 
     _list = AuthorityList.objects.get(name="Кандидат")
 
@@ -128,34 +116,25 @@ def get_page_data(html, city, district):
                     is_elect_exists = True
         except:
             pass
-        print("Имя: ", _name)
-        print("Уже есть: ", is_elect_exists)
-        print("Должность: ", _post)
-        print("Возраст: ", old)
-        print("Партия: ", _fraction)
-        print("-----------------")
 
-        #if not is_elect_exists:
-        #    elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)
-        #    elect.list.add(_list)
-        #    if city:
-        #        elect.city.add(city)
-        #    elif district:
-        #        elect.district.add(district)
-        #    print("Добавлен кандидат ", elect.name)
+        if not is_elect_exists:
+            elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)
+            elect.list.add(_list)
+            if city:
+                elect.city.add(city)
+            elif district:
+                elect.district.add(district)
+            print("Добавлен кандидат ", elect.name)
 
 def main():
-    #for city in City.objects.all():
-    #    print("работаю с городом ", city.name)
-    #    html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
-    #    get_page_data(html, city, None)
-    #    break
-    #for district in District.objects.all():
-    #    html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
-    #    get_page_data(html, None, district)
-    html = get_html("https://election.novayagazeta.ru/region/87644000000/")
-    get_page_data(html, None, None)
-
+    for city in City.objects.all():
+        print("работаю с городом ", city.name)
+        html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
+        get_page_data(html, city, None)
+        break
+    for district in District.objects.all():
+        html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
+        get_page_data(html, None, district)
 
 if __name__ == '__main__':
     main()

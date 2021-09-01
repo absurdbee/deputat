@@ -66,6 +66,16 @@ def get_page_data(html, city, district):
             total_place = summary[0].find('b').text
             man_procent = summary[1].find('b').text
 
+    print("Название: ", name)
+    print("Избирателей: ", total_voters)
+    print("Всего мест: ", total_place)
+    print("Мужиков: ", man_procent)
+    print("Самовыдвиженцы: ", total_self)
+    print("Единоросы: ", total_er)
+    print("ldpr: ", total_ldpr)
+    print("sr: ", total_sr)
+    print("kprf: ", total_kprf)
+
     if city:
         city.name = name
         city.total_voters = total_voters

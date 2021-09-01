@@ -38,7 +38,7 @@ def get_page_data(html):
     ratio_tds = ratio_table.find_all('td')
     ratio_tds_count = 0
     for td in ratio_tds:
-        p_text = ratio_tds[ratio_tds_count].find('p', class="ratio-table__label").text
+        p_text = ratio_tds[ratio_tds_count].find('p', class_="ratio-table__label").text
         if p_text == "Самовыдвижение":
             total_self = ratio_tds[ratio_tds_count].find('span').text
         elif p_text == "Единая Россия":
@@ -49,6 +49,7 @@ def get_page_data(html):
             total_kprf = ratio_tds[ratio_tds_count].find('span').text
         elif p_text == "Справедливая Россия":
             total_sr = ratio_tds[ratio_tds_count].find('span').text
+        ratio_tds_count += 1
     print ("Самовыдвижение ", total_self)
     print ("Единая Россия ", total_er)
     print ("ЛДПР ", total_ldpr)
@@ -56,7 +57,7 @@ def get_page_data(html):
     print ("Справедливая Россия ", total_sr)
 
     chapter_section_2 = chapter__sections[1]
-    summary = chapter_section_2.find_all('div', class="summary__item")
+    summary = chapter_section_2.find_all('div', class_="summary__item")
     total_place = summary[0].find('b').text
     print ("Всего мест ", total_place)
     man_procent = summary[1].find('b').text
@@ -69,12 +70,12 @@ def get_page_data(html):
     deputat_items = deputats_body.find_all('tr')
 
     for item in deputat_items:
-        person = item.find('div', class="person-item person-item_row js-popup-trigger")
+        person = item.find('div', class_="person-item person-item_row js-popup-trigger")
         person_span = person.find_all('span')
 
         _name = person_span[0].text
         _fraction = Fraction.objects.get(name=person_span[1].text)
-        _post = item.findall('p', class="js-foldable")[0]['data-fulltext']
+        _post = item.findall('p', class_="js-foldable")[0]['data-fulltext']
         print ("Имя ", _name)
         print ("Фракция ", _fraction.name)
         print ("Должность ", _post)

@@ -27,8 +27,8 @@ def get_page_data(html):
     name = soup.find('h1', class_='page-content__headline h1').text
     print ("Название ТЕ ", name)
 
-    comparison = soup.find('div', class_='comparison__item-footer')
-    comparison_integers = comparison.find('b', class_='num-el')
+    comparison = soup.find('div', class_='comparison')
+    comparison_integers = comparison.find_all('b', class_='num-el')[0].text
     total_voters = comparison_integers.relpace("&nbsp;", "")
     print ("Избирателей ", total_voters)
 

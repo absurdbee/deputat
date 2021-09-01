@@ -55,8 +55,10 @@ def get_page_data(html, city, district):
         else:
             total_place = summary[0].find('b').text
             man_procent = summary[1].find('b').text
+        chapter_section_3 = chapter__sections[1]
     else:
         chapter_section_2 = chapter__sections[1]
+        chapter_section_3 = chapter__sections[2]
         summary = chapter_section_2.find_all('div', class_="summary__item")
         if "%" in summary[0].find('b').text:
             man_procent = summary[0].find('b').text
@@ -91,7 +93,6 @@ def get_page_data(html, city, district):
 
     _list = AuthorityList.objects.get(name="Кандидат")
 
-    chapter_section_3 = chapter__sections[2]
     deputats_body = chapter_section_3.find('tbody')
     deputat_items = deputats_body.find_all('tr')
 

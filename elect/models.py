@@ -44,6 +44,11 @@ class Elect(models.Model):
     def __str__(self):
         return self.name
 
+    def calculate_age(self):
+        from datetime import date
+        today = date.today()
+        return today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))
+
     def count_regions(self):
         return self.region.count()
     def get_region_cities(self):

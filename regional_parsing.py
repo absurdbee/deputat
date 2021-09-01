@@ -116,6 +116,7 @@ def get_page_data(html, city, district):
 
 def main():
     for city in City.objects.all():
+        print("работаю с городом ", city.name)
         html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
         get_page_data(html, city, None)
     for district in District.objects.all():

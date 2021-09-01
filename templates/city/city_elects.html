@@ -20,6 +20,8 @@
       </div>
     </div>
   </div>
-
+{% for elect in object.get_elects %}
+  {{ elect.name }} <br>
+{% endfor %}
 </section>
 {% endblock %}

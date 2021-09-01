@@ -135,14 +135,16 @@ def get_page_data(html, city, district):
         #    print("Добавлен кандидат ", elect.name)
 
 def main():
-    for city in City.objects.all():
-        print("работаю с городом ", city.name)
-        html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
-        get_page_data(html, city, None)
-        break
+    #for city in City.objects.all():
+    #    print("работаю с городом ", city.name)
+    #    html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
+    #    get_page_data(html, city, None)
+    #    break
     #for district in District.objects.all():
     #    html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
     #    get_page_data(html, None, district)
+    html = get_html("https://election.novayagazeta.ru/region/01608430000/")
+    #    get_page_data(html, None, None)
 
 
 if __name__ == '__main__':

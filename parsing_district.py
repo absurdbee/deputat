@@ -35,14 +35,12 @@ for region in Region.objects.all():
         city_or_district = data[count][1]
 
         if not "район" in city_or_district or "округ" in city_or_district:
-            if not City.objects.filter(name=city_or_district, region=region).exists():
-                City.objects.create(name=city_or_district, region=region, link=data[count][2])
-                print ("City создан!")
-            else:
+            if City.objects.filter(name=city_or_district, region=region).exists():
                 city = City.objects.get(name=city_or_district, region=region)
-                city.link = data[count][2]
-                city.save(update_fields=["link"])
-                print ("City присвоена ссылка!")
+                if not city.link:
+                    city.link = data[count][2]
+                    city.save(update_fields=["link"])
+                    print ("City присвоена ссылка!")
         count += 1
         print ("-----------------")
     print ("==============================")

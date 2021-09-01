@@ -12,15 +12,17 @@ import django
 django.setup()
 
 from city.models import City
+from district.models import District
 
-city_with_link = 0
+district_no_link = 0
 city_no_link = 0
 
 for city in City.objects.all():
-    if city.link:
-        city_with_link += 1
-    else:
+    if not city.link:
         city_no_link += 1
+for district in District.objects.all():
+    if not district.link:
+        district_no_link += 1
 
-print ("Город со ссылкой ", city_with_link)
+print ("Регион без ссылкой ", district_no_link)
 print ("Город без ссылки ", city_no_link)

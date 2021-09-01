@@ -35,7 +35,7 @@ def get_page_data(html):
     chapter__sections = soup.find_all('div', class_='chapter__section')
 
     ratio_table = chapter__sections[0].find('table', class_='ratio-table')
-    ratio_tds = definitions_list_2.find_all('td')
+    ratio_tds = ratio_table.find_all('td')
     ratio_tds_count = 0
     for td in ratio_tds:
         p_text = ratio_tds[ratio_tds_count].find('p', class="ratio-table__label").text

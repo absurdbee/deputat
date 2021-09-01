@@ -34,14 +34,6 @@ for region in Region.objects.all():
 
         city_or_district = data[count][1]
 
-        if "район" in path_0 or "округ" in path_0:
-            if not District.objects.filter(name=path_0, region=region).exists():
-                District.objects.create(name=path_0, region=region, link=data[count][2])
-                print ("District создан!")
-        elif "район" in path_1 or "округ" in path_1:
-            if not District.objects.filter(name=path_0, region=region).exists():
-                District.objects.create(name=path_0, region=region, link=data[count][2])
-                print ("District создан!")
         if not "район" in city_or_district or "округ" in city_or_district:
             if not City.objects.filter(name=city_or_district, region=region).exists():
                 City.objects.create(name=city_or_district, region=region, link=data[count][2])
@@ -51,15 +43,6 @@ for region in Region.objects.all():
                 city.link = data[count][2]
                 city.save(update_fields=["link"])
                 print ("City присвоена ссылка!")
-
-        #if len(path) == 3:
-        #    print ("дистрикт: ", path_1)
-        #    path_2 = path[2].replace("город ", "")
-        #    print ("регион: ", path_2)
-        #elif len(path) == 2:
-        #    print ("регион: ", path_1)
-
-        #print ("ссылка ", data[count][2])
         count += 1
         print ("-----------------")
     print ("==============================")

@@ -14,7 +14,9 @@ django.setup()
 from city.models import City
 
 for city in City.objects.all():
-    city.name = city.name.replace("поселение ", "").replace("округ ", "")
-    city.save(update_fields=["name"])
-    print ("Изменено!")
-    
+    #_name = city.name.replace("поселок ", "").replace("округ ", "")
+    #city.name = _name
+    #city.save(update_fields=["name"])
+    if "округ" in city.name:
+        city.delete()
+        print ("Deleted!")

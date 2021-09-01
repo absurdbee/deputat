@@ -14,6 +14,7 @@ django.setup()
 from city.models import City
 from district.models import District
 from lists.models import Fraction, AuthorityList
+from elect.models import Elect
 
 
 def get_html(url):

@@ -29,7 +29,7 @@ def get_page_data(html):
 
     comparison = soup.find('div', class_='comparison')
     comparison_integers = comparison.find_all('b', class_='num-el')[0].text
-    total_voters = comparison_integers.relpace("&nbsp;", "")
+    total_voters = comparison_integers
     print ("Избирателей ", total_voters)
 
     chapter__sections = soup.find_all('div', class_='chapter__section')

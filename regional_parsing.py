@@ -125,14 +125,14 @@ def get_page_data(html, city, district):
         print("Партия: ", _fraction)
         print("-----------------")
 
-        #if not is_elect_exists:
-        #    elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)
-        #    elect.list.add(_list)
-        #    if city:
-        #        elect.city.add(city)
-        #    elif district:
-        #        elect.district.add(district)
-        #    print("Добавлен кандидат ", elect.name)
+        if not is_elect_exists:
+            elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)
+            elect.list.add(_list)
+            if city:
+                elect.city.add(city)
+            elif district:
+                elect.district.add(district)
+            print("Добавлен кандидат ", elect.name)
 
 def main():
     for city in City.objects.all():
@@ -140,9 +140,9 @@ def main():
         html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
         get_page_data(html, city, None)
         break
-    #for district in District.objects.all():
-    #    html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
-    #    get_page_data(html, None, district)
+    for district in District.objects.all():
+        html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
+        get_page_data(html, None, district)
 
 
 if __name__ == '__main__':

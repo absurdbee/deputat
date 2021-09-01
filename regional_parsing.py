@@ -50,13 +50,19 @@ def get_page_data(html, city, district):
 
     if chapter__sections[0].find('div', class_='summary summary_candidates pb-md-5 pt-3 mb-3 mb-md-1'):
         summary = chapter__sections[0].find_all('div', class_="summary__item")
-        total_place = summary[0].find('b').text
-        man_procent = summary[1].find('b').text
+        if "%" in summary[0].find('b').text:
+            man_procent = summary[0].find('b').text
+        else:
+            total_place = summary[0].find('b').text
+            man_procent = summary[1].find('b').text
     else:
         chapter_section_2 = chapter__sections[1]
         summary = chapter_section_2.find_all('div', class_="summary__item")
-        total_place = summary[0].find('b').text
-        man_procent = summary[1].find('b').text
+        if "%" in summary[0].find('b').text:
+            man_procent = summary[0].find('b').text
+        else:
+            total_place = summary[0].find('b').text
+            man_procent = summary[1].find('b').text
 
     if city:
         city.name = name

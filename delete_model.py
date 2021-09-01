@@ -14,6 +14,6 @@ django.setup()
 from city.models import City
 
 for city in City.objects.all():
-    _name = city.name.replace("поселок ", "").replace("округ ", "").replace("город ", "").replace('"', '')
+    _name = city.name.replace("городской ", "").replace("рабочий ", "").replace("город-курорт ", "").replace('"', '')
     city.name = _name
     city.save(update_fields=["name"])

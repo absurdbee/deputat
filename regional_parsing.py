@@ -116,6 +116,11 @@ def get_page_data(html, city, district):
                     is_elect_exists = True
         except:
             pass
+        print("Имя: ", _name)
+        print("Уже есть: ", is_elect_exists)
+        print("Должность: ", _post)
+        print("Возраст: ", old)
+        print("Партия: ", _fraction)
 
         #if not is_elect_exists:
         #    elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)

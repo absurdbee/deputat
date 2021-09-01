@@ -106,7 +106,7 @@ def get_page_data(html, city, district):
         except:
             _fraction = Fraction.objects.get(name="Без фракции")
         _post = item.find_all('p', class_="js-foldable")[0].text
-        old = person.find_all('td', class_="is-hidden-mobile")[0].text
+        old = item.find_all('td', class_="is-hidden-mobile")[0].text
 
         is_elect_exists = False
         try:

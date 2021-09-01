@@ -76,7 +76,7 @@ def get_page_data(html):
 
         _name = person_span[0].text
         _fraction = Fraction.objects.get(name=person_span[1].text)
-        _post = deputat_items[items_count].findall('p', class_="js-foldable")[0]["data-fulltext"].text
+        _post = deputat_items[items_count].findall('p', class_="js-foldable")[0].text
         print ("Имя ", _name)
         print ("Фракция ", _fraction.name)
         print ("Должность ", _post)

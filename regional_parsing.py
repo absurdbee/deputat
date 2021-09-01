@@ -69,16 +69,18 @@ def get_page_data(html):
     deputats_body = chapter_section_3.find('tbody')
     deputat_items = deputats_body.find_all('tr')
 
+    items_count = 0
     for item in deputat_items:
-        person = item.find('div', class_="person-item person-item_row js-popup-trigger")
+        person = deputat_items[items_count].find('div', class_="person-item person-item_row js-popup-trigger")
         person_span = person.find_all('span')
 
         _name = person_span[0].text
         _fraction = Fraction.objects.get(name=person_span[1].text)
-        _post = item.findall('p', class_="js-foldable")[0]['data-fulltext']
+        _post = item[items_count].findall('p', class_="js-foldable")[0]['data-fulltext']
         print ("Имя ", _name)
         print ("Фракция ", _fraction.name)
         print ("Должность ", _post)
+        items_count += 1
 
 def main():
     html = get_html("https://election.novayagazeta.ru/region/54701000000/")

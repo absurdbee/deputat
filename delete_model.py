@@ -17,6 +17,6 @@ for city in City.objects.all():
     #_name = city.name.replace("поселок ", "").replace("округ ", "")
     #city.name = _name
     #city.save(update_fields=["name"])
-    if "округ" in city.name:
+    if "муниципальный" in city.name:
         city.delete()
         print ("Deleted!")

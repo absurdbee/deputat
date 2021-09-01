@@ -82,4 +82,5 @@ def get_page_data(html):
 
 def main():
     html = get_html("https://election.novayagazeta.ru/region/54701000000/")
+    print ("Должность ")
     return get_page_data(html)

@@ -24,11 +24,11 @@ def get_page_data(html):
 
     total_self, total_er, total_ldpr, total_kprf, total_sr = None, None, None, None, None
 
-    name = soup.find('h1', class_='page-content__headline h1')
+    name = soup.find('h1', class_='page-content__headline h1').text
     print ("Название ТЕ ", name)
 
-    comparison = soup.find('div', class_='comparison')
-    comparison_integers = comparison.find_all('a', class_='num-el')
+    comparison = soup.find('div', class_='comparison__item-footer')
+    comparison_integers = comparison.find_all('b', class_='num-el')
     total_voters = comparison_integers[0].relpace("&nbsp;", "")
     print ("Избирателей ", total_voters)
 

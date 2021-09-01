@@ -153,7 +153,7 @@ def main():
     #for district in District.objects.all():
     #    html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
     #    get_page_data(html, None, district)
-    html = get_html("https://election.novayagazeta.ru/region/29614101000/")
+    html = get_html("https://election.novayagazeta.ru/region/05701000000/")
     get_page_data(html, None, None)
 
 

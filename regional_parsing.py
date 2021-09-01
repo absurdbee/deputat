@@ -113,8 +113,12 @@ def get_page_data(html, city, district):
         try:
             elects = Elect.objects.filter(name=_name)
             for i in elects:
-                if i.calculate_age() == old:
+                if i.birthday == old:
                     is_elect_exists = True
+                    if city:
+                        i.city.add(city)
+                    else:
+                        i.district.add(district)
         except:
             pass
 
@@ -132,10 +136,9 @@ def main():
         print("работаю с городом ", city.name)
         html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
         get_page_data(html, city, None)
-        break
-    for district in District.objects.all():
-        html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
-        get_page_data(html, None, district)
+    #for district in District.objects.all():
+    #    html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
+    #    get_page_data(html, None, district)
 
 if __name__ == '__main__':
     main()

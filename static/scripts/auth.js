@@ -272,7 +272,7 @@ on('body', 'click', '.phone_send', function() {
   on('body', 'change', '.select_region', function() {
     _this = this, row_variant = false;
     var val = _this.value;
-		_this.nextElementSibling ? block = _this.nextElementSibling : (block = _this.parentElement.parentElement.parentElement.nextElementSibling.querySelector(".city_container"), row_variant = true );
+		_this.nextElementSibling ? block = _this.nextElementSibling : (block = _this.parentElement.parentElement.parentElement.nextElementSibling, row_variant = true );
     if (val == '') {
       block.innerHTML = "";
     } else {

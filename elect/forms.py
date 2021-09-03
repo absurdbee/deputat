@@ -5,4 +5,4 @@ from elect.models import Elect
 class ElectForm(forms.ModelForm):
 	class Meta:
 		model = Elect
-		fields = ['name', 'image', 'description', 'birthday', 'fraction', 'list', 'region', 'city', 'post']
+		fields = ['name', 'image', 'description', 'birthday', 'fraction', 'list', 'region', 'district', 'city', 'post']

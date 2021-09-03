@@ -71,6 +71,7 @@ class LoadLeftMenuRegionCities(TemplateView):
 	def get_context_data(self,**kwargs):
 		context = super(LoadLeftMenuRegionCities,self).get_context_data(**kwargs)
 		context["cities"] = self.region.get_cities()
+		context["districts"] = self.region.get_districts()
 		return context
 
 class LoadCitiesMultipleForm(TemplateView):
@@ -85,6 +86,7 @@ class LoadCitiesMultipleForm(TemplateView):
 	def get_context_data(self,**kwargs):
 		context = super(LoadCitiesMultipleForm,self).get_context_data(**kwargs)
 		context["cities"] = self.region.get_cities()
+		context["districts"] = self.region.get_districts()
 		return context
 
 

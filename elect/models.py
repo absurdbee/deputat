@@ -57,7 +57,7 @@ class Elect(models.Model):
         return self.city.all()
 
     @classmethod
-    def create_elect(cls, creator, name, description, image, list, region, city, birthday, fraction, post):
+    def create_elect(cls, creator, name, description, image, list, region, district, city, birthday, fraction, post):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
@@ -70,6 +70,11 @@ class Elect(models.Model):
             for region_id in region:
                 a = Region.objects.get(pk=region_id)
                 elect.region.add(a)
+        if district:
+            from district.models import District
+            for district_id in district:
+                a = District.objects.get(pk=district_id)
+                elect.district.add(a)
         if list:
             from lists.models import AuthorityList
             for list_id in list:
@@ -86,7 +91,7 @@ class Elect(models.Model):
     def get_region(self):
         return self.region.all()[0]
 
-    def edit_elect(self, name, description, image, list, region, city, birthday, fraction, manager_id, post):
+    def edit_elect(self, name, description, image, list, region, district, city, birthday, fraction, manager_id, post):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
@@ -100,6 +105,7 @@ class Elect(models.Model):
         self.fraction = fraction
 
         self.region.clear()
+        self.district.clear()
         self.city.clear()
         self.list.clear()
         self.save()
@@ -108,6 +114,11 @@ class Elect(models.Model):
             for region_id in region:
                 a = Region.objects.get(pk=region_id)
                 self.region.add(a)
+        if district:
+            from district.models import District
+            for district_id in district:
+                a = District.objects.get(pk=district_id)
+                elect.district.add(a)
         if list:
             from lists.models import AuthorityList
             for list_id in list:

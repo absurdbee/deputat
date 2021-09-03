@@ -6,10 +6,14 @@ from generic.mixins import CategoryListMixin
 
 
 class UserProfileSettings(TemplateView, CategoryListMixin):
-	template_name, form = None, None
+	template_name, form, cities, districts = None, None, None, None
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_my_template("profile/settings/profile.html", request.user, request.META['HTTP_USER_AGENT'])
+		if request.user.city:
+			self.cities = request.user.city.region.get_cities()
+		if request.user.district:
+			self.districts = request.user.district.region.get_districts()
 		return super(UserProfileSettings,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -19,7 +23,8 @@ class UserProfileSettings(TemplateView, CategoryListMixin):
 		context = super(UserProfileSettings,self).get_context_data(**kwargs)
 		context["form"] = UserForm()
 		context["regions"] = Region.objects.only("pk")
-		context["cities"] = self.request.user.city.region.get_cities()
+		context["cities"] = self.cities
+		context["districts"] = self.districts
 		return context
 
 	def post(self,request,*args,**kwargs):

@@ -239,9 +239,9 @@ function cities_list_load(block, link) {
         input_1.setAttribute("list", district_id);
   			input_1.nextElementSibling.setAttribute("id", district_id);
 
-        input_1 = block.querySelector(".left_menu_select_cities");
-        input_1.setAttribute("list", city_id);
-  			input_1.nextElementSibling.setAttribute("id", city_id);
+        input_2 = block.querySelector(".left_menu_select_cities");
+        input_2.setAttribute("list", city_id);
+  			input_2.nextElementSibling.setAttribute("id", city_id);
     }
   };
   request.send( null );

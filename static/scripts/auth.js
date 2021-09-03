@@ -118,36 +118,36 @@ on('body', 'click', '#register_ajax', function() {
   form = document.querySelector("#signup");
   if (!form.querySelector("#id_first_name").value){
     form.querySelector("#id_first_name").style.border = "1px #FF0000 solid";
-    toast_error("Имя - обязательное поле!");
+    toast_error("Имя - обязательное поле!"); return
   } else if (!form.querySelector("#id_last_name").value){
     form.querySelector("#id_last_name").style.border = "1px #FF0000 solid";
-    toast_error("Фамилия - обязательное поле!")
+    toast_error("Фамилия - обязательное поле!"); return
   } else if (!form.querySelector("#password1").value){
     form.querySelector("#password1").style.border = "1px #FF0000 solid";
-    toast_error("Пароль - обязательное поле!")
+    toast_error("Пароль - обязательное поле!"); return
   } else if (!form.querySelector("#password2").value){
     form.querySelector("#password2").style.border = "1px #FF0000 solid";
-    toast_error("Введите пароль еще раз!")
+    toast_error("Введите пароль еще раз!"); return
   } else if (!form.querySelector("#select_region").value){
     form.querySelector("#select_region").style.border = "1px #FF0000 solid";
-    toast_error("Выберите регион!")
+    toast_error("Выберите регион!"); return
   } else if (!form.querySelector("#id_city").value && !form.querySelector("#id_district").value){
     form.querySelector("#id_city").style.border = "1px #FF0000 solid";
 		form.querySelector("#id_district").style.border = "1px #FF0000 solid";
-    toast_error("Выберите город или район!")
+    toast_error("Выберите город или район!"); return
   } else if (!form.querySelector("#date_day").value){
       form.querySelector("#date_day").style.border = "1px #FF0000 solid";
-      toast_error("День рождения - обязательное поле!")
+      toast_error("День рождения - обязательное поле!"); return
   } else if (!form.querySelector("#date_month").value){
       form.querySelector("#date_month").style.border = "1px #FF0000 solid";
-      toast_error("Месяц рождения - обязательное поле!")
+      toast_error("Месяц рождения - обязательное поле!"); return
   } else if (!form.querySelector("#date_year").value){
       form.querySelector("#date_year").style.border = "1px #FF0000 solid";
-      toast_error("Год рождения - обязательное поле!")
+      toast_error("Год рождения - обязательное поле!"); return
   } else if (form.querySelector("#password1").value != form.querySelector("#password2").value){
       form.querySelector("#password1").style.border = "1px #FF0000 solid";
 			form.querySelector("#password2").style.border = "1px #FF0000 solid";
-      toast_error("Пароли не совпадают!")
+      toast_error("Пароли не совпадают!"); return
   }
   form_data = new FormData(form);
 

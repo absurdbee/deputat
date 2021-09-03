@@ -63,8 +63,10 @@ class RegisterSerializer(serializers.Serializer):
         user.phone = users_count + 15600
         city_pk = self.validated_data.get('city', '')
         district_pk = self.validated_data.get('city', '')
-        user.city = City.objects.get(pk=city_pk)
-        user.district = District.objects.get(pk=district_pk)
+        if city_pk:
+            user.city = City.objects.get(pk=city_pk)
+        if district_pk:
+            user.district = District.objects.get(pk=district_pk)
         user.gender = self.validated_data.get('gender', '')
 
         self.date_day = int(self.validated_data.get('date_day', ''))

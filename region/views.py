@@ -34,6 +34,23 @@ class LoadCitiesView(TemplateView):
 		context["districts"] = self.districts
 		return context
 
+class LoadSettingsCitiesView(TemplateView):
+	template_name = "city/get_settings_cities.html"
+
+	def get(self,request,*args,**kwargs):
+		from city.models import City
+		from district.models import District
+
+		self.cities = City.objects.filter(region__pk=self.kwargs["pk"])
+		self.districts = District.objects.filter(region__pk=self.kwargs["pk"])
+		return super(LoadSettingsCitiesView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadSettingsCitiesView,self).get_context_data(**kwargs)
+		context["cities"] = self.cities
+		context["districts"] = self.districts
+		return context
+
 class LoadLeftMenuRegions(TemplateView):
 	template_name = "region/load_left_menu_regions.html"
 

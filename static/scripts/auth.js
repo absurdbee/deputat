@@ -302,6 +302,7 @@ on('body', 'click', '.phone_send', function() {
       return
     } else {
 			parent = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
+			console.log(parent)
 			if (parent.classList.contains("municipal_authorities")) {
 				url = '/district/elects/'
 			}

@@ -22,13 +22,16 @@ class LoadCitiesView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from city.models import City
+		from district.models import District
 
 		self.cities = City.objects.filter(region__pk=self.kwargs["pk"])
+		self.districts = District.objects.filter(region__pk=self.kwargs["pk"])
 		return super(LoadCitiesView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(LoadCitiesView,self).get_context_data(**kwargs)
 		context["cities"] = self.cities
+		context["districts"] = self.districts
 		return context
 
 class LoadLeftMenuRegions(TemplateView):

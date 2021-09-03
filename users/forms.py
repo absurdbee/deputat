@@ -6,7 +6,7 @@ from users.model.settings import *
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'city')
+        fields = ('first_name', 'last_name', 'email', 'city', 'district')
 
 class UserPasswordForm(forms.ModelForm):
 	class Meta:

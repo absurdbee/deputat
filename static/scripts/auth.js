@@ -293,7 +293,28 @@ on('body', 'click', '.phone_send', function() {
     };
   });
 
-	on('body', 'change', '.left_menu_select_ajax', function() {
+	on('body', 'change', '.left_menu_select_districts', function() {
+		_this = this;
+		val = _this.value;
+		option = _this.nextElementSibling.querySelector('[value=' + '"' + val + '"' + ']')
+		slug = option.getAttribute("data-slug");
+    if (val == '') {
+      return
+    } else {
+			parent = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
+			if (parent.classList.contains("municipal_authorities")) {
+				url = '/district/elects/'
+			}
+			else if (parent.classList.contains("organizations")) {
+				url = '/district/organizations/'
+			}
+			else if (parent.classList.contains("communities")) {
+				url = '/district/communities/'
+			};
+      ajax_get_reload(url + slug + "/")
+  }});
+
+	on('body', 'change', '.left_menu_select_cities', function() {
 		_this = this;
 		val = _this.value;
 		option = _this.nextElementSibling.querySelector('[value=' + '"' + val + '"' + ']')

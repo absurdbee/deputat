@@ -62,7 +62,7 @@ class RegisterSerializer(serializers.Serializer):
         self.cleaned_data = self.get_cleaned_data()
         user.phone = users_count + 15600
         city_pk = self.validated_data.get('city', '')
-        district_pk = self.validated_data.get('city', '')
+        district_pk = self.validated_data.get('district', '')
         if city_pk:
             user.city = City.objects.get(pk=city_pk)
         if district_pk:

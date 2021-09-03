@@ -285,6 +285,7 @@ on('body', 'click', '.phone_send', function() {
                 block.innerHTML = link.responseText;
 								if (row_variant){
 									block.querySelector(".city_option").remove()
+									block.querySelector(".district_option").remove()
 								}
             }
         }

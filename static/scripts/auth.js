@@ -131,9 +131,10 @@ on('body', 'click', '#register_ajax', function() {
   } else if (!form.querySelector("#select_region").value){
     form.querySelector("#select_region").style.border = "1px #FF0000 solid";
     toast_error("Выберите регион!")
-  } else if (!form.querySelector("#id_city").value){
+  } else if (!form.querySelector("#id_city").value && !form.querySelector("#id_district").value){
     form.querySelector("#id_city").style.border = "1px #FF0000 solid";
-    toast_error("Выберите город!")
+		form.querySelector("#id_district").style.border = "1px #FF0000 solid";
+    toast_error("Выберите город или район!")
   } else if (!form.querySelector("#date_day").value){
       form.querySelector("#date_day").style.border = "1px #FF0000 solid";
       toast_error("День рождения - обязательное поле!")

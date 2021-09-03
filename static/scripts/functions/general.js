@@ -224,7 +224,7 @@ function cities_list_load(block, link) {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
 
-        parent = block.parentElement.parentElement.parentElement.parentElement.parentElement;
+        parent = block.parentElement.parentElement.parentElement;
         console.log(parent)
         if (parent.classList.contains("municipal_authorities")) {
   				city_id = "city_elects_1", district_id = "district_elects_1"

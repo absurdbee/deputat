@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_anon.html" %}
 {% block title %}{{ object.name }}{% endblock %}
 {% block content %}
 
@@ -11,17 +11,15 @@
         </div>
         <div class="breadcrumb-wrapper">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city' slug=object.slug %}">Информация</a></li>
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'district' slug=object.slug %}">Информация</a></li>
             <li class="breadcrumb-item active underline">Регион. власти</li>
-            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city_communities' slug=object.slug %}" href="#">Сообщества</a></li>
-            <li class="breadcrumb-item"><a class="ajax" href="{% url 'city_organizations' slug=object.slug %}" href="#">Организации</a></li>
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'district_communities' slug=object.slug %}" href="#">Сообщества</a></li>
+            <li class="breadcrumb-item"><a class="ajax" href="{% url 'district_organizations' slug=object.slug %}" href="#">Организации</a></li>
           </ol>
         </div>
       </div>
     </div>
   </div>
-{% for elect in object.get_elects %}
-  {{ elect.name }} <br>
-{% endfor %}
+
 </section>
 {% endblock %}

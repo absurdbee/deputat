@@ -1,0 +1,32 @@
+{% if districs %}
+<div class="col-12">
+    <div class="form-group row">
+        <div class="col-sm-3 col-form-label">
+            <label for="id_district">Район</label>
+        </div>
+        <div class="col-sm-9 city_container">
+          <select class="form-control" name="district" id="id_district">
+              {% for object in districs %}
+              <option {% if object.pk == request.user.district.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+              {% endfor %}
+          </select>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if cities %}
+<div class="col-12">
+    <div class="form-group row">
+        <div class="col-sm-3 col-form-label">
+            <label for="id_city">Город</label>
+        </div>
+        <div class="col-sm-9 city_container">
+          <select class="form-control" name="city" id="id_city">
+              {% for object in cities %}
+              <option {% if object.pk == request.user.city.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+              {% endfor %}
+          </select>
+        </div>
+    </div>
+</div>
+{% endif %}

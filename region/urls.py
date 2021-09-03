@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^organizations/(?P<slug>[\w\-]+)/$', RegionOrganizationsDetailView.as_view(), name="region_organizations"),
 
     url(r'^cities/(?P<pk>\d+)/$', LoadCitiesView.as_view()),
+    url(r'^settings_cities/(?P<pk>\d+)/$', LoadSettingsCitiesView.as_view()),
     url(r'^load_left_menu_regions/$', LoadLeftMenuRegions.as_view()),
     url(r'^load_left_menu_regions_select/$', LoadLeftMenuRegionsSelect.as_view()),
     url(r'^load_left_menu_region_get_cities/(?P<slug>[\w\-]+)/$', LoadLeftMenuRegionCities.as_view()),

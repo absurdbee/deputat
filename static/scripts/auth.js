@@ -294,6 +294,27 @@ on('body', 'click', '.phone_send', function() {
     };
   });
 
+	on('body', 'change', '.select_settings_region', function() {
+    _this = this, row_variant = false;
+    var val = _this.value;
+		block = _this.nextElementSibling;
+    if (val == '') {
+      block.innerHTML = "";
+    } else {
+      var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+      link.open( 'GET', "/region/settings_cities/" + val + "/", true );
+      link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      link.onreadystatechange = function () {
+        if ( link.readyState == 4 ) {
+            if ( link.status == 200 ) {
+                block.innerHTML = link.responseText;
+            }
+        }
+    };
+    link.send( null );
+    };
+  });
+
 	on('body', 'change', '.left_menu_select_districts', function() {
 		_this = this;
 		val = _this.value;

@@ -223,17 +223,16 @@ function cities_list_load(block, link) {
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ) {
       block.innerHTML = request.responseText;
-      randomnumber = Math.floor(Math.random() * (1 - 50 + 1)) + 50;
 
         parent = block.parentElement.parentElement.parentElement;
         if (parent.classList.contains("municipal_authorities")) {
-  				city_id = "city_elects" + randomnumber, district_id = "district_elects" + randomnumber
+  				city_id = "city_elects_1", district_id = "district_elects_1"
   			}
   			else if (parent.classList.contains("organizations")) {
-  				city_id = "city_organizations" + randomnumber, district_id = "district_organizations" + randomnumber
+  				city_id = "city_organizations_2", district_id = "district_organizations_2"
   			}
   			else if (parent.classList.contains("communities")) {
-  				city_id = "city_communities" + randomnumber, district_id = "district_communities" + randomnumber
+  				city_id = "city_communities_3", district_id = "district_communities_3"
   			};
 
         input_1 = block.querySelector(".left_menu_select_districts");

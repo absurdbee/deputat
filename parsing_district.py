@@ -16,7 +16,6 @@ django.setup()
     Если вхождение есть со списком data_district_includes, значит это район
 """
 data_district_includes = ["район", "округ"]
-data_city_includes = ["поселение", "сельсовет", "наслег"]
 
 
 from region.models import Region

@@ -11,7 +11,7 @@ class UserProfileSettings(TemplateView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_my_template("profile/settings/profile.html", request.user, request.META['HTTP_USER_AGENT'])
 		if request.user.area:
-			self.cities = request.user.area.region.get_districts()
+			self.districts = request.user.area.region.get_districts()
 		return super(UserProfileSettings,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

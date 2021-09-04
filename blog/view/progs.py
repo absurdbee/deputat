@@ -111,7 +111,7 @@ class EditElectNew(TemplateView):
             try:
                 city_elects = Elect.objects.filter(city__region=region)
             except:
-                city_elects = []
+                district_elects = []
             try:
                 district_elects = Elect.objects.filter(district__region=region)
             except:

@@ -88,3 +88,19 @@ on('body', 'click', '#load_federal_elects', function() {
   }}
   link_.send();
 });
+on('body', 'click', '#load_regional_elects', function() {
+  _this = this
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', "/elect/load_regional_elects/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    _this.parentElement.parentElement.nextElementSibling.innerHTML = response.innerHTML;
+    //_this.parentElement.parentElement.nextElementSibling.nextElementSibling.innerHTML = ""
+  }}
+  link_.send();
+});

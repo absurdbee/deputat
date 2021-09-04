@@ -144,7 +144,10 @@ class Elect(models.Model):
             return '/static/images/elect_image.png'
 
     def get_first_list(self):
-        return self.list.all()[0]
+        try:
+            return self.list.all()[0]
+        except:
+            return ""
 
     def get_regions(self):
         regions = self.region.all()

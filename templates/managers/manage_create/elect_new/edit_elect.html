@@ -50,7 +50,7 @@
               {% if elect.count_regions == 1 %}
               <label>Районы</label>
               <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
-              <select name="city" id="id_city" multiple="">
+              <select name="district" id="id_district" multiple="">
                 {% for object in elect.get_region_districts %}
                   <option {% if object in elect.get_districts %}selected=""{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                 {% endfor %}

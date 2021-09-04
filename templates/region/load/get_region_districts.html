@@ -5,11 +5,3 @@
   <option value="{{ object.pk }}">{{ object.name }}</option>
   {% endfor %}
 </select>
-
-<label for="id_city" class="city_option">Город</label>
-<select class="form-control" name="city" id="id_city">
-  <option value=''>Выберите город</option>
-  {% for object in cities %}
-  <option value="{{ object.pk }}">{{ object.name }}</option>
-  {% endfor %}
-</select>

@@ -131,10 +131,9 @@ on('body', 'click', '#register_ajax', function() {
   } else if (!form.querySelector("#select_region").value){
     form.querySelector("#select_region").style.border = "1px #FF0000 solid";
     toast_error("Выберите регион!"); return
-  } else if (!form.querySelector("#id_city").value && !form.querySelector("#id_district").value){
-    form.querySelector("#id_city").style.border = "1px #FF0000 solid";
+  } else if (!form.querySelector("#id_district").value){
 		form.querySelector("#id_district").style.border = "1px #FF0000 solid";
-    toast_error("Выберите город или район!"); return
+    toast_error("Выберите район!"); return
   } else if (!form.querySelector("#date_day").value){
       form.querySelector("#date_day").style.border = "1px #FF0000 solid";
       toast_error("День рождения - обязательное поле!"); return
@@ -285,7 +284,6 @@ on('body', 'click', '.phone_send', function() {
             if ( link.status == 200 ) {
                 block.innerHTML = link.responseText;
 								if (row_variant){
-									block.querySelector(".city_option").remove()
 									block.querySelector(".district_option").remove()
 								}
             }
@@ -334,27 +332,6 @@ on('body', 'click', '.phone_send', function() {
 			}
 			else if (parent.classList.contains("communities")) {
 				url = '/district/communities/'
-			};
-      ajax_get_reload(url + slug + "/")
-  }});
-
-	on('body', 'change', '.left_menu_select_cities', function() {
-		_this = this;
-		val = _this.value;
-		option = _this.nextElementSibling.querySelector('[value=' + '"' + val + '"' + ']')
-		slug = option.getAttribute("data-slug");
-    if (val == '') {
-      return
-    } else {
-			parent = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-			if (parent.classList.contains("municipal_authorities")) {
-				url = '/city/elects/'
-			}
-			else if (parent.classList.contains("organizations")) {
-				url = '/city/organizations/'
-			}
-			else if (parent.classList.contains("communities")) {
-				url = '/city/communities/'
 			};
       ajax_get_reload(url + slug + "/")
   }});

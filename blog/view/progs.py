@@ -109,9 +109,6 @@ class EditElectNew(TemplateView):
             if elect.district:
                 _district = elect.district.all().first()
                 elect_regional_list = Elect.objects.filter(district=_district)
-            elif elect.city:
-                _city = elect.city.all().first()
-                elect_regional_list = Elect.objects.filter(city=_city)
         else:
             self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(EditElectNew,self).get(request,*args,**kwargs)

@@ -1,6 +1,7 @@
 <div class="card">
     <div class="card-body">
         <h5 class="mb-75" style="font-weight: bold;">География</h5>
+        {% if object.get_regions %}
           {% for region in object.get_regions %}
           <div class="mr-50" style="font-size:100%">
             <a class="ajax" href="{% url 'region_detail' slug=region.slug %}">
@@ -8,6 +9,16 @@
             </a>
           </div>
           {% endfor %}
+        {% else %}
+        {% for area in object.get_districts %}
+        <div class="mr-50" style="font-size:100%">
+          <a class="ajax" href="{% url 'district_elects' slug=area.slug %}">
+          {{ area.name }}
+          </a>
+        </div>
+        {% endfor %}
+        {% endif %}
+
         <div class="mt-2">
           {% if not object.is_have_year %}
             <h5 class="mb-75" style="font-weight: bold;">Дата рождения:</h5>

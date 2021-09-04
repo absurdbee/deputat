@@ -94,15 +94,17 @@ class Elect(models.Model):
 
     def get_region(self):
         if self.region:
+            return 0
             count = self.region.all().count()
             if count > 1:
                 return self.region.all()[0]
             else:
                 return self.region.all()
         elif self.district:
+            return 1
             return self.district.all()[0].region
         elif self.city:
-            return 0
+            return 2
             return self.city.all()[0].region
 
     def edit_elect(self, name, description, image, list, region, district, city, birthday, fraction, manager_id, post):

@@ -37,3 +37,7 @@ class District(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def get_elects(self):
+		from elect.models import Elect
+		return Elect.objects.filter(district=self)

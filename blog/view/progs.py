@@ -99,6 +99,7 @@ class EditElectNew(TemplateView):
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
         from elect.models import Elect
+        from itertools import chain
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect
@@ -107,7 +108,7 @@ class EditElectNew(TemplateView):
                 self.is_regional = True
         if self.is_regional:
             region = elect.get_region()
-            self.elect_regional_list = Elect.objects.filter(city__region=region) + Elect.objects.filter(district__region=region)
+            self.elect_regional_list = list(chain(Elect.objects.filter(city__region=region), Elect.objects.filter(district__region=region)))
         else:
             self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(EditElectNew,self).get(request,*args,**kwargs)

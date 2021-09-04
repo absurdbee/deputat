@@ -15,7 +15,7 @@ class CategoryListMixin(ContextMixin):
 				context["user_district"] = self.request.user.area
 			except:
 				context["user_region"] = Region.objects.first()
-				context["user_district"] = District.objects.first()
+				context["user_district"] = District2.objects.first()
 		#else:
 		#	context["user_region"] = None
 		#	context["user_city"] = None

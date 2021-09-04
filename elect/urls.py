@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/work_with_voters_elect_news/$', WorkWithVotersElectNewsView.as_view()),
     url(r'^(?P<pk>\d+)/pre_election_activities_elect_news/$', PreElectionElectNewsView.as_view()),
 
+    url(r'^load_federal_elects/$', LoadFederalElectsView.as_view()),
+    url(r'^load_regional_elects/(?P<pk>\d+)/$', LoadRegionalElectsView.as_view()),
+
     url(r'^progs/', include('elect.url.progs')),
     url(r'^votes/', include('elect.url.votes')),
 ]

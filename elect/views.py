@@ -300,3 +300,37 @@ class ElectNewWindowDetailView(ListView):
 
     def get_queryset(self):
         return self.new.get_comments()
+
+
+class LoadFederalElectsView(TemplateView):
+	template_name = "elect/load/get_custom_elects.html"
+
+	def get(self,request,*args,**kwargs):
+		from elect.models import Elect
+
+		self.elects = Elect.objects.filter(list__is_reginal=False)
+		return super(LoadFederalElectsView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadFederalElectsView,self).get_context_data(**kwargs)
+		context["get_elects"] = self.elects
+		return context
+
+
+class LoadRegionalElectsView(TemplateView):
+	template_name = "elect/load/get_custom_elects.html"
+
+	def get(self,request,*args,**kwargs):
+		from elect.models import Elect
+        from region.models import Region
+
+        region = Region.objects.get(pk=self.kwargs["pk"])
+
+		self.city_elects = Elect.objects.filter(city__region=region)
+        self.district_elects = Elect.objects.filter(district__region=region)
+		return super(LoadRegionalElectsView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadRegionalElectsView,self).get_context_data(**kwargs)
+		context["get_elects"] = self.city_elects + self.district_elects
+		return context

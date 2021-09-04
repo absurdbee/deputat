@@ -101,7 +101,7 @@ def get_page_data(html, district):
         print("Добавлен кандидат ", elect.name)
 
 def main():
-    districts = District2.objects.filter(region_id__in=[57,37])
+    districts = District2.objects.all()
     for district in districts:
         html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
         get_page_data(html, district)

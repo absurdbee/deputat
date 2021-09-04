@@ -108,7 +108,9 @@ class EditElectNew(TemplateView):
                 self.is_regional = True
         if self.is_regional:
             region = elect.get_region()
-            self.elect_regional_list = list(chain(Elect.objects.filter(city__region=region), Elect.objects.filter(district__region=region)))
+            city_elects = Elect.objects.filter(city__region=region)
+            district_elects = Elect.objects.filter(district__region=region)
+            self.elect_regional_list = list(chain(city_elects, district_elects))
         else:
             self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(EditElectNew,self).get(request,*args,**kwargs)

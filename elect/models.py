@@ -47,7 +47,7 @@ class Elect(models.Model):
         return self.name
 
     def is_have_year(self):
-        return sum(map(lambda letter: letter in self.birthday)) == 2 
+        return len(self.birthday) == 2
 
     def calculate_age(self):
         from datetime import date

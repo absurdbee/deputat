@@ -40,7 +40,7 @@ class District2(models.Model):
 
 	def get_elects(self):
 		from elect.models import Elect
-		return Elect.objects.filter(district=self)
+		return Elect.objects.filter(area=self)
 
 
 class District(models.Model):
@@ -76,7 +76,3 @@ class District(models.Model):
 
 	def __str__(self):
 		return self.name
-
-	def get_elects(self):
-		from elect.models import Elect
-		return Elect.objects.filter(district=self)

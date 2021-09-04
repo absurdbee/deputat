@@ -3,7 +3,7 @@ from region.models import Region
 
 
 class RegionAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'order']
+    list_display = ['name', 'slug', 'order', 'pk']
     search_fields = ['title']
     class Meta:
             model = Region

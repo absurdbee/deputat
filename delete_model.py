@@ -13,6 +13,5 @@ django.setup()
 
 from elect.models import Elect
 
-for elect in Elect.objects.filter(list__is_reginal=True):
-    elect.old = True
-    elect.save(update_fields=["old"])
+for elect in Elect.objects.filter(list__is_reginal=True, old=True):
+    elect.delete()

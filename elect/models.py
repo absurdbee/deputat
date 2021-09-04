@@ -93,7 +93,7 @@ class Elect(models.Model):
         return list
 
     def get_region(self):
-        count = len(self.region.all())
+        count = self.region.all().count()
         if count > 1:
             return self.region.all()[0]
         else:

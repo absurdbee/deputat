@@ -123,7 +123,7 @@ def get_page_data(html, city, district):
             pass
 
         if not is_elect_exists:
-            elect = Elect.objects.create(name=_name, birthday=old, post=_post, fraction=_fraction)
+            elect = Elect.objects.create(name=_name, birthday=old, post=_post[:390], fraction=_fraction)
             elect.list.add(_list)
             if city:
                 elect.city.add(city)

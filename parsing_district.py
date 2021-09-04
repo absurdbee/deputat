@@ -14,7 +14,7 @@ django.setup()
 
 from region.models import Region
 from district.models import District2
-from city.models import City
+
 
 for region in Region.objects.all():
     if region.name == "Удмуртская Республика (Удмуртия)":

@@ -21,7 +21,6 @@ class LoadCitiesView(TemplateView):
 	template_name = "region/load/get_region_districts.html"
 
 	def get(self,request,*args,**kwargs):
-		from city.models import City
 		from district.models import District2
 
 		self.districts = District2.objects.filter(region__pk=self.kwargs["pk"])

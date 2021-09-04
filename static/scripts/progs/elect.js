@@ -83,7 +83,8 @@ on('body', 'click', '#load_federal_elects', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    this.parentElement.parentElement.nextElementSibling.innerHTML = response.innerHTML
+    _this.parentElement.parentElement.nextElementSibling.innerHTML = response.innerHTML;
+    _this.parentElement.parentElement.nextElementSibling.nextElementSibling.innerHTML = ""
   }}
   link_.send();
 });

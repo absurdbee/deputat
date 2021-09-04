@@ -22,10 +22,10 @@ class LoadCitiesView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from city.models import City
-		from district.models import District
+		from district.models import District2
 
 		self.cities = City.objects.filter(region__pk=self.kwargs["pk"])
-		self.districts = District.objects.filter(region__pk=self.kwargs["pk"])
+		self.districts = District2.objects.filter(region__pk=self.kwargs["pk"])
 		return super(LoadCitiesView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -39,10 +39,10 @@ class LoadSettingsCitiesView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from city.models import City
-		from district.models import District
+		from district.models import District2
 
 		self.cities = City.objects.filter(region__pk=self.kwargs["pk"])
-		self.districts = District.objects.filter(region__pk=self.kwargs["pk"])
+		self.districts = District2.objects.filter(region__pk=self.kwargs["pk"])
 		return super(LoadSettingsCitiesView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

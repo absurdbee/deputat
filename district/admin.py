@@ -1,5 +1,5 @@
 from django.contrib import admin
-from district.models import District
+from district.models import District2
 
 
 class DistrictAdmin(admin.ModelAdmin):
@@ -8,6 +8,6 @@ class DistrictAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
     class Meta:
-            model = District
+            model = District2
 
-admin.site.register(District, DistrictAdmin)
+admin.site.register(District2, DistrictAdmin)

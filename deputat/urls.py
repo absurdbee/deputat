@@ -20,7 +20,6 @@ urlpatterns = [
     url(r'^search/', include('search.urls')),
     url(r'^users/', include('users.urls')),
 
-    url(r'^city/', include('city.urls')),
     url(r'^region/', include('region.urls')),
     url(r'^tags/', include('tags.urls')),
 

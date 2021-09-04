@@ -5,7 +5,7 @@
             <label for="id_district">Район</label>
         </div>
         <div class="col-sm-9 city_container">
-          <select class="form-control" name="district" id="id_district">
+          <select class="form-control" name="area" id="id_district">
               {% for object in districts %}
               <option {% if object.pk == request.user.district.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
               {% endfor %}

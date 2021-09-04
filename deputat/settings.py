@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'stst',
     'common',
     'notify',
-    'city',
     'region',
     'tags',
     'gallery',

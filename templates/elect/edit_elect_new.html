@@ -59,10 +59,9 @@
               <label>Выберите регион</label>
               <select class="form-control select_region_for_load_elects">
                 {% for object in regions %}
-                  <option {% if new.elect.get_region.pk == object.pk %}selected=""{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+                  <option selected=""{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                 {% endfor %}
               </select>
-              {{ new.elect.get_region }}
             </div>
             <div class="form-group">
               <label>Чиновник</label>

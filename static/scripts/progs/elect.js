@@ -88,7 +88,7 @@ on('body', 'click', '#load_federal_elects', function() {
   }}
   link_.send();
 });
-on('body', 'click', '#load_regional_elects', function() {
+on('body', 'click', '#load_regions_for_load_elects', function() {
   _this = this
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/elect/load_regional_elects/", true );

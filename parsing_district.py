@@ -44,7 +44,7 @@ data_district_includes = ["район", "округ"]
 
 
 from region.models import Region
-from district.models import District
+from district.models import District2
 from city.models import City
 
 for region in Region.objects.filter(id__in=[57,37]):

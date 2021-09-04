@@ -12,7 +12,7 @@ import django
 django.setup()
 
 from city.models import City
-from district.models import District
+from district.models import District2
 from lists.models import Fraction, AuthorityList
 from elect.models import Elect
 
@@ -133,7 +133,7 @@ def get_page_data(html, city, district):
 
 def main():
     cities = City.objects.filter(region_id__in=[57,37])
-    districts = District.objects.filter(region_id__in=[57,37])
+    districts = District2.objects.filter(region_id__in=[57,37])
     for city in cities:
         print("работаю с городом ", city.name)
         html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")

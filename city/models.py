@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Q
 from autoslug import AutoSlugField
 from region.models import Region
-from district.models import District
+from district.models import District2
 
 
 class City(models.Model):
@@ -10,7 +10,7 @@ class City(models.Model):
 	slug = AutoSlugField(populate_from='name', unique=True, db_index=True)
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 	region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="cities_region", blank=True, null=True, verbose_name="Регион")
-	district = models.ForeignKey(District, on_delete=models.CASCADE, related_name="cities_district", blank=True, null=True, verbose_name="Район")
+	district = models.ForeignKey(District2, on_delete=models.CASCADE, related_name="cities_district", blank=True, null=True, verbose_name="Район")
 	point = models.PositiveIntegerField(default=0, verbose_name="Общее количество кармы")
 	total_costs = models.PositiveIntegerField(default=0, verbose_name="Общие доходы граждан")
 	total_revenue = models.PositiveIntegerField(default=0, verbose_name="Общие расходы граждан")

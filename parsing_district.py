@@ -48,6 +48,7 @@ from district.models import District
 from city.models import City
 
 for region in Region.objects.filter(id__in=[83,23]):
+    print (region.name)
     if region.name == "Удмуртская Республика (Удмуртия)":
         _name = "Удмуртская Республика"
     elif region.name == "Ханты-Мансийский автономный округ - Югра (Тюменская область)":

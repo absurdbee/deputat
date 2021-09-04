@@ -401,7 +401,7 @@ class CreateManagerElect(TemplateView):
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
             post = self.form_post.save(commit=False)
-            new_post = post.create_elect(creator=request.user, name=post.name, description=post.description, image=post.image,  list=request.POST.getlist("list"), region=request.POST.getlist("region"), district=request.POST.getlist("district"), city=request.POST.getlist("city"),birthday=post.birthday, fraction=post.fraction, post=post.post)
+            new_post = post.create_elect(creator=request.user, name=post.name, description=post.description, image=post.image,  list=request.POST.getlist("list"), region=request.POST.getlist("region"), district=request.POST.getlist("district"), city=request.POST.getlist("city"),birthday=post.birthday, fraction=post.fraction, post_2=post.post_2)
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest
@@ -433,7 +433,7 @@ class EditManagerElect(TemplateView):
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
             post = self.form_post.save(commit=False)
-            new_post = post.edit_elect(name=post.name, description=post.description, image=post.image, list=request.POST.getlist("list"), region=request.POST.getlist("region"), district=request.POST.getlist("district"), city=request.POST.getlist("city"),birthday=post.birthday, fraction=post.fraction, manager_id=request.user.pk, post=post.post)
+            new_post = post.edit_elect(name=post.name, description=post.description, image=post.image, list=request.POST.getlist("list"), region=request.POST.getlist("region"), district=request.POST.getlist("district"), city=request.POST.getlist("city"),birthday=post.birthday, fraction=post.fraction, manager_id=request.user.pk, post_2=post.post_2)
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest

@@ -104,3 +104,24 @@ on('body', 'click', '#load_regions_for_load_elects', function() {
   }}
   link_.send();
 });
+
+on('body', 'change', '.select_region_for_load_elects', function() {
+  _this = this, row_variant = false;
+  var val = _this.value;
+  block = _this.parentElement.nextElementSibling;
+  if (val == '') {
+    block.innerHTML = "";
+  } else {
+    var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+    link.open( 'GET', "/elect/load_regional_elects/" + val + "/", true );
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function () {
+      if ( link.readyState == 4 ) {
+          if ( link.status == 200 ) {
+              block.innerHTML = link.responseText;
+          }
+      }
+  };
+  link.send( null );
+  };
+});

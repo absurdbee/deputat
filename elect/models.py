@@ -57,6 +57,8 @@ class Elect(models.Model):
         return self.region.all()[0].get_districts()
     def get_cities(self):
         return self.city.all()
+    def get_districts(self):
+        return self.district.all()
 
     @classmethod
     def create_elect(cls, creator, name, description, image, list, region, district, city, birthday, fraction, post):

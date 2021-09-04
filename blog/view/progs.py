@@ -120,12 +120,14 @@ class EditElectNew(TemplateView):
     def get_context_data(self,**kwargs):
         from blog.forms import SuggestElectNewForm
         from elect.models import Elect
+        from region.models import Region
 
         context=super(EditElectNew,self).get_context_data(**kwargs)
         context["form"] = SuggestElectNewForm(instance=self.new)
         context["new"] = self.new
         context["elect_regional_list"] = self.elect_regional_list
         context["elect_federal_list"] = self.elect_federal_list
+        context["regions"] = Region.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):

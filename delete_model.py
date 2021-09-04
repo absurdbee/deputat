@@ -14,10 +14,7 @@ django.setup()
 from city.models import City
 
 for city in City.objects.all():
-    if not city.link:
+    if "район" in city.name or "округ" in city.name:
+        for elect in city.get_elects():
+            elect.delete()
         city.delete()
-        print ("not link deleted!")
-    else:
-        if City.objects.filter(link=city.link).values("pk").count() > 1:
-            city.delete()
-            print ("double deleted!")

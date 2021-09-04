@@ -227,22 +227,18 @@ function cities_list_load(block, link) {
         parent = block.parentElement.parentElement.parentElement;
         console.log(parent)
         if (parent.classList.contains("municipal_authorities")) {
-  				city_id = "city_elects_1", district_id = "district_elects_1"
+  				district_id = "district_elects_1"
   			}
   			else if (parent.classList.contains("organizations")) {
-  				city_id = "city_organizations_2", district_id = "district_organizations_2"
+  				district_id = "district_organizations_2"
   			}
   			else if (parent.classList.contains("communities")) {
-  				city_id = "city_communities_3", district_id = "district_communities_3"
+  				district_id = "district_communities_3"
   			};
 
         input_1 = block.querySelector(".left_menu_select_districts");
         input_1.setAttribute("list", district_id);
   			input_1.nextElementSibling.setAttribute("id", district_id);
-
-        input_2 = block.querySelector(".left_menu_select_cities");
-        input_2.setAttribute("list", city_id);
-  			input_2.nextElementSibling.setAttribute("id", city_id);
     }
   };
   request.send( null );

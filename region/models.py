@@ -108,7 +108,5 @@ class Region(models.Model):
 		from elect.models import Elect
 		return Elect.objects.filter(region=self).exists()
 
-	def get_cities(self):
-		return self.cities_region.filter(region=self)
 	def get_districts(self):
-		return self.districts_region.filter(region=self)
+		return self.districts_region2.filter(region=self) 

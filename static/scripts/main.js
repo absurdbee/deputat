@@ -40,7 +40,7 @@ on('body', 'change', '.left_menu_regions', function() {
 
 	if (val == '') {
 		return
-	} else {cities_list_load(this.nextElementSibling.nextElementSibling, "/region/load_left_menu_region_get_cities/" + slug + "/")}
+	} else {cities_list_load(this.nextElementSibling.nextElementSibling, "/region/load_left_menu_region_get_districts/" + slug + "/")}
 });
 
 on('body', 'click', '.base_row_container', function() {
@@ -399,7 +399,7 @@ on('body', 'change', '#id_region', function() {
 		city_container.innerHTML = "";
 	} else {
 		var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-		link.open( 'GET', "/region/load_cities_for_multiple_form/" + val + "/", true );
+		link.open( 'GET', "/region/load_districts_for_multiple_form/" + val + "/", true );
 		link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		link.onreadystatechange = function () {
 			if ( link.readyState == 4 ) {

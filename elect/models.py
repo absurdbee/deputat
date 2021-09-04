@@ -136,10 +136,16 @@ class Elect(models.Model):
         ElectManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectManageLog.ITEM_EDITED)
 
     def get_region_image(self):
-        if self.region.all()[0].image:
-            return self.region.all()[0].image.url
+        if self.region.all().count() > 1:
+            if self.region.all()[0].image:
+                return self.region.all()[0].image.url
+            else:
+                return '/static/images/kreml.jpg'
         else:
-            return '/static/images/kreml.jpg'
+            if self.region.image:
+                return self.region.image.url
+            else:
+                return '/static/images/kreml.jpg'
 
     def get_image(self):
         if self.image:

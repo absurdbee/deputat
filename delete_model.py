@@ -13,5 +13,5 @@ django.setup()
 
 from elect.models import Elect
 
-for elect in Elect.objects.filter(list__is_reginal=True, old=True):
+for elect in Elect.objects.filter(list__is_reginal=True, region__name="Ямало-Ненецкий автономный округ"):
     elect.delete()

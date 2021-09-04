@@ -244,7 +244,8 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    toast_success("Новость изменена")
+    toast_success("Новость изменена");
+    close_default_window() 
   }};
   link.send(form_data);
 });

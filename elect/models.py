@@ -118,7 +118,7 @@ class Elect(models.Model):
             from district.models import District
             for district_id in district:
                 a = District.objects.get(pk=district_id)
-                elect.district.add(a)
+                self.district.add(a)
         if list:
             from lists.models import AuthorityList
             for list_id in list:

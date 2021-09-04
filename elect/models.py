@@ -142,7 +142,7 @@ class Elect(models.Model):
             else:
                 return '/static/images/kreml.jpg'
         else:
-            if self.area.all()[0].image:
+            if self.area.all()[0].region.image:
                 return self.area.all()[0].region.image.url
             else:
                 return '/static/images/kreml.jpg'

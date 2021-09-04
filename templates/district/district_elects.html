@@ -22,8 +22,9 @@
       </div>
     </div>
   </div>
-{% for elect in object.get_elects %}
-  {{ elect.name }} <br>
-{% endfor %}
+  <div class="row pt-0 is_paginate">
+    {% for object in object.get_elects %}
+      {% include 'elect/elect_index_card.html' %}
+    {% endfor %}
 </section>
 {% endblock %}

@@ -27,7 +27,7 @@ class Elect(models.Model):
     election_information = models.CharField(max_length=200, blank=True, verbose_name="Сведения об избрании")
     fraction = models.ForeignKey('lists.Fraction', blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Фракции")
     is_active = models.BooleanField(default=True, verbose_name="Активный депутат")
-    post = models.CharField(max_length=400, blank=True, null=True, verbose_name='Должность')
+    post_2 = models.CharField(max_length=400, blank=True, null=True, verbose_name='Должность')
     area = models.ManyToManyField('district.District2', blank=True, related_name='elect_area', verbose_name="Районы, за которым закреплен депутат")
 
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
@@ -60,14 +60,14 @@ class Elect(models.Model):
         return self.area.all()
 
     @classmethod
-    def create_elect(cls, creator, name, description, image, list, region, district, city, birthday, fraction, post):
+    def create_elect(cls, creator, name, description, image, list, region, district, city, birthday, fraction, post_2):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
-        if not post:
-            post = ""
+        if not post_2:
+            post_2 = ""
 
-        elect = cls.objects.create(name=name_2,description=description,post=post,image=image,birthday=birthday,fraction=fraction)
+        elect = cls.objects.create(name=name_2,description=description,post_2=post_2,image=image,birthday=birthday,fraction=fraction)
         if region:
             from region.models import Region
             for region_id in region:
@@ -103,14 +103,14 @@ class Elect(models.Model):
             return 1
             return self.area.all()[0].region
 
-    def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post):
+    def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post_2):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
-        if not post:
-            post = ""
+        if not post_2:
+            post_2 = ""
         self.name = name_2
-        self.post = post
+        self.post_2 = post_2
         self.description = description
         self.image = image
         self.birthday = birthday

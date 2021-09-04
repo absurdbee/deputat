@@ -95,7 +95,7 @@ def get_page_data(html, district):
         _post = item.find_all('p', class_="js-foldable")[0].text
         old = item.find_all('td', class_="is-hidden-mobile")[0].text
 
-        elect = Elect.objects.create(name=_name, birthday=old, post=_post[:390], fraction=_fraction)
+        elect = Elect.objects.create(name=_name, birthday=old, post_2=_post[:390], fraction=_fraction)
         elect.list.add(_list)
         elect.area.add(district)
         print("Добавлен кандидат ", elect.name)

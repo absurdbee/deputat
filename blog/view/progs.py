@@ -113,23 +113,23 @@ class EditElectNew(TemplateView):
         return super(EditElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        from blog.forms import ElectNewForm
+        from blog.forms import SuggestElectNewForm
         from elect.models import Elect
 
         context=super(EditElectNew,self).get_context_data(**kwargs)
-        context["form"] = ElectNewForm(instance=self.new)
+        context["form"] = SuggestElectNewForm(instance=self.new)
         context["new"] = self.new
         context["elect_regional_list"] = self.elect_regional_list
         context["elect_federal_list"] = self.elect_federal_list
         return context
 
     def post(self,request,*args,**kwargs):
-        from blog.forms import ElectNewForm
+        from blog.forms import SuggestElectNewForm
         from blog.models import ElectNew
         from common.templates import render_for_platform
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        self.form_post = ElectNewForm(request.POST, instance=self.new)
+        self.form_post = SuggestElectNewForm(request.POST, instance=self.new)
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
             post = self.form_post.save(commit=False)

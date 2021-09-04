@@ -22,7 +22,7 @@ class RegisterSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=True, write_only=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
-    area = serializers.CharField(required=False, write_only=True)
+    area = serializers.CharField(required=True, write_only=True)
     gender = serializers.CharField(required=True, write_only=True)
     date_day = serializers.CharField(required=True, write_only=True)
     date_month = serializers.CharField(required=True, write_only=True)

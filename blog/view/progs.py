@@ -119,7 +119,6 @@ class EditElectNew(TemplateView):
 
     def get_context_data(self,**kwargs):
         from blog.forms import SuggestElectNewForm
-        from elect.models import Elect
         from region.models import Region
 
         context=super(EditElectNew,self).get_context_data(**kwargs)
@@ -153,15 +152,30 @@ class EditManagerElectNew(TemplateView):
         from blog.models import ElectNew
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        elect = self.new.elect
+        for i in elect.list.all():
+            if i.is_reginal:
+                self.is_regional = True
+        if self.is_regional:
+            if elect.district:
+                _district = elect.district.all().first()
+                elect_regional_list = Elect.objects.filter(district=_district)
+            elif elect.city:
+                _city = elect.city.all().first()
+                elect_regional_list = Elect.objects.filter(city=_city)
+        else:
+            self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(EditManagerElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         from blog.forms import PublishElectNewForm
-        from elect.models import Elect
+        from region.models import Region
 
         context=super(EditManagerElectNew,self).get_context_data(**kwargs)
         context["form"] = PublishElectNewForm(instance=self.new)
-        context["get_elects"] = Elect.objects.only("pk")
+        context["elect_regional_list"] = self.elect_regional_list
+        context["elect_federal_list"] = self.elect_federal_list
+        context["regions"] = Region.objects.only("pk")
         context["new"] = self.new
         return context
 

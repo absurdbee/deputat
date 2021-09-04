@@ -108,8 +108,14 @@ class EditElectNew(TemplateView):
                 self.is_regional = True
         if self.is_regional:
             region = elect.get_region()
-            city_elects = Elect.objects.filter(city__region=region)
-            district_elects = Elect.objects.filter(district__region=region)
+            try:
+                city_elects = Elect.objects.filter(city__region=region)
+            except:
+                city_elects = []
+            try:
+                district_elects = Elect.objects.filter(district__region=region)
+            except:
+                district_elects = []
             if city_elects and district_elects:
                 self.elect_regional_list = list(chain(city_elects, district_elects))
             elif city_elects and not district_elects:

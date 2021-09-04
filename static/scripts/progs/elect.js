@@ -55,7 +55,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   } else if (!elect_value){
     try {
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid"
-  } catch { null };
+  } catch { form.querySelector(".radio_gender_custom").style.border = "1px #FF0000 solid" };
     toast_error("Выберите чиновника!"); return
   } else if (!elect){
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid";

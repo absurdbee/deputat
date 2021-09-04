@@ -76,9 +76,9 @@ class Elect(models.Model):
             for region_id in region:
                 a = Region.objects.get(pk=region_id)
                 elect.region.add(a)
-        if district:
+        if area:
             from district.models import District2
-            for district_id in district:
+            for district_id in area:
                 a = District2.objects.get(pk=district_id)
                 elect.area.add(a)
         if list:

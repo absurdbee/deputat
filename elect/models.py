@@ -100,9 +100,10 @@ class Elect(models.Model):
             else:
                 return self.region.all()
         elif self.district:
-            return self.district.all()[0].region[0]
+            return self.district.all()[0].region
         elif self.city:
-            return self.city.all()[0].region[0]
+            return 0
+            return self.city.all()[0].region
 
     def edit_elect(self, name, description, image, list, region, district, city, birthday, fraction, manager_id, post):
         from logs.model.manage_elect_new import ElectManageLog

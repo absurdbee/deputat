@@ -104,7 +104,7 @@ class EditElectNew(TemplateView):
         elect = self.new.elect
         for i in elect.list.all():
             if i.is_reginal:
-                self.is_reginal = True
+                self.is_regional = True
         if self.is_regional:
             region = elect.get_region()
             self.elect_regional_list = Elect.objects.filter(city__region=region) + Elect.objects.filter(district__region=region)

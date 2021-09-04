@@ -133,13 +133,14 @@ def get_page_data(html, city, district):
 
 def main():
     cities = City.objects.filter(region_id__in=[57,37])
+    districts = District.objects.filter(region_id__in=[57,37])
     for city in cities:
         print("работаю с городом ", city.name)
         html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
         get_page_data(html, city, None)
-    #for district in District.objects.all():
-    #    html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
-    #    get_page_data(html, None, district)
+    for district in districts:
+        html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
+        get_page_data(html, None, district)
 
 if __name__ == '__main__':
     main()

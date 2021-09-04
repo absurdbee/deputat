@@ -36,17 +36,16 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   form = _this.parentElement.parentElement.parentElement;
   if (form.querySelector("#id_elect")) {
     elect_value = form.querySelector("#id_elect").value;
+    xxx = form.querySelector("#data-list");
+    elect_list = xxx.querySelectorAll("option");
+    for (var i = 0; i < elect_list.length; i++){
+      if (elect_value == elect_list[i].value) {
+        elect = true;
+      }
+    }
   }
   form_data = new FormData(form);
 
-  xxx = form.querySelector("#data-list");
-  elect_list = xxx.querySelectorAll("option");
-  console.log(elect_list.length);
-  for (var i = 0; i < elect_list.length; i++){
-    if (elect_value == elect_list[i].value) {
-      elect = true; console.log("Депутат корректный"); console.log(elect_list[i].getAttribute("value"))
-    }
-  };
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!"); return

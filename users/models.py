@@ -36,7 +36,7 @@ class User(AbstractUser):
     gender = models.CharField(max_length=5, choices=GENDER, blank=True, verbose_name="Пол")
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
     #city = models.ForeignKey(City, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="город")
-    point = models.PositiveIntegerField(default=0, verbose_name="Количество кармы")
+    #point = models.PositiveIntegerField(default=0, verbose_name="Количество кармы")
     level = models.PositiveSmallIntegerField(default=1, verbose_name="Уровень")
     birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
     USERNAME_FIELD = 'phone'

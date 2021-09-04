@@ -32,9 +32,11 @@ on('body', 'click', '.elect_inert', function() {
 });
 
 on('body', 'click', '#u_create_suggested_new_btn', function() {
-  _this = this, elect = false;
+  _this = this, elect = false, elect_value = null;
   form = _this.parentElement.parentElement.parentElement;
-  elect_value = form.querySelector("#id_elect").value;
+  if (form.querySelector("#id_elect")) {
+    elect_value = form.querySelector("#id_elect").value;
+  }
   form_data = new FormData(form);
 
   xxx = form.querySelector("#data-list");

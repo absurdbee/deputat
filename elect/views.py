@@ -325,7 +325,7 @@ class LoadRegionalElectsView(TemplateView):
         from region.models import Region
 
         region = Region.objects.get(pk=self.kwargs["pk"])
-        self.district_elects = Elect.objects.filter(district__region=region)
+        self.district_elects = Elect.objects.filter(area__region=region)
         return super(LoadRegionalElectsView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

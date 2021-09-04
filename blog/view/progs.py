@@ -99,7 +99,6 @@ class EditElectNew(TemplateView):
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
         from elect.models import Elect
-        from itertools import chain
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect
@@ -150,6 +149,7 @@ class EditManagerElectNew(TemplateView):
 
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
+        from elect.models import Elect
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect

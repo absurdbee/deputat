@@ -35,7 +35,7 @@ class Organization(models.Model):
 		)
 	name = models.CharField(max_length=100, verbose_name="Название")
 	image = models.ImageField(blank=True, upload_to="organizations/")
-	city = models.ManyToManyField("city.City", related_name='+', verbose_name="Город")
+	#city = models.ManyToManyField("city.City", related_name='+', verbose_name="Город")
 	email_1 = models.EmailField(blank=True, verbose_name="Почта 1")
 	email_2 = models.EmailField(blank=True, verbose_name="Почта 2")
 	phone_1 = models.CharField(blank=True, max_length=17, verbose_name='Телефон 1')

@@ -54,7 +54,7 @@ class Elect(models.Model):
     def get_region_cities(self):
         return self.region.all()[0].get_cities()
     def get_region_districts(self):
-        return self.district.all()[0].get_districts()
+        return self.region.all()[0].get_districts()
     def get_cities(self):
         return self.city.all()
 

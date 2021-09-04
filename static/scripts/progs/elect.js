@@ -53,7 +53,9 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
   } else if (!elect_value){
-    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
+    try {
+    form.querySelector("#id_elect").style.border = "1px #FF0000 solid"
+  } catch { null };
     toast_error("Выберите чиновника!"); return
   } else if (!elect){
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid";

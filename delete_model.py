@@ -13,8 +13,8 @@ django.setup()
 
 from city.models import City
 
-for city in City.objects.all():
-    if "район" in city.name or "округ" in city.name:
-        for elect in city.get_elects():
-            elect.delete()
-        city.delete()
+cities = City.objects.filter(region_id__in=[57,37])
+
+for city in cities:
+    for elect in city.get_elects():
+        elect.delete()

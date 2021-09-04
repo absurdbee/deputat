@@ -63,7 +63,7 @@ class Elect(models.Model):
         return self.area.all()
 
     @classmethod
-    def create_elect(cls, creator, name, description, image, list, region, district, city, birthday, fraction, post_2):
+    def create_elect(cls, creator, name, description, image, list, region, area, birthday, fraction, post_2):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")

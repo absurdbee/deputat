@@ -29,9 +29,9 @@ class Elect(models.Model):
     election_information = models.CharField(max_length=200, blank=True, verbose_name="Сведения об избрании")
     fraction = models.ForeignKey('lists.Fraction', blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Фракции")
     is_active = models.BooleanField(default=True, verbose_name="Активный депутат")
-    post = models.CharField(max_length=400, blank=True, null=True, verbose_name='Должность')
+    #post = models.CharField(max_length=400, blank=True, null=True, verbose_name='Должность')
 
-    is_new = models.BooleanField(default=True, verbose_name="Активный депутат")
+    #is_new = models.BooleanField(default=True, verbose_name="Активный депутат")
 
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")

@@ -93,7 +93,11 @@ class Elect(models.Model):
         return list
 
     def get_region(self):
-        return self.region.all()[0]
+        count = len(self.region.all())
+        if count > 1:
+            return self.region.all()[0]
+        else:
+            return self.region.all()
 
     def edit_elect(self, name, description, image, list, region, district, city, birthday, fraction, manager_id, post):
         from logs.model.manage_elect_new import ElectManageLog

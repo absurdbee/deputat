@@ -219,7 +219,6 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
   form_data = new FormData(form);
   xxx = form.querySelector("#data-list");
   elect_list = xxx.querySelectorAll("option");
-  console.log(elect_list.length);
   for (var i = 0; i < elect_list.length; i++){
     if (elect_value == elect_list[i].value) {
       elect = true; console.log("Депутат корректный"); console.log(elect_list[i].getAttribute("value"))
@@ -245,10 +244,7 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    elem = link.responseText;
-    response = document.createElement("span");
-    response.innerHTML = elem;
-    document.body.querySelector("#ajax").innerHTML = response.querySelector("#ajax").innerHTML;
+    toast_success("Новость изменена")
   }};
   link.send(form_data);
 });

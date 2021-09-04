@@ -75,7 +75,7 @@ class SuggestElectNew(TemplateView):
 
         context=super(SuggestElectNew,self).get_context_data(**kwargs)
         context["form"] = SuggestElectNewForm()
-        context["get_elects"] = Elect.objects.only("pk")
+        context["get_elects"] = Elect.objects.filter(list__is_reginal=False)
         return context
 
     def post(self,request,*args,**kwargs):
@@ -94,12 +94,22 @@ class SuggestElectNew(TemplateView):
             return HttpResponseBadRequest()
 
 class EditElectNew(TemplateView):
-    template_name = "elect/edit_elect_new.html"
+    template_name, is_regional, elect_federal_list, elect_regional_list = "elect/edit_elect_new.html", False, None, None
 
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
+        from elect.models import Elect
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        elect = self.new.elect
+        for i in elect.list.all():
+            if i.is_regional:
+                self.is_regional = True
+        if self.is_regional:
+            region = elect.get_region()
+            self.elect_regional_list = Elect.objects.filter(city__region=region) + Elect.objects.filter(district__region=region)
+        else:
+            self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(EditElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -108,8 +118,9 @@ class EditElectNew(TemplateView):
 
         context=super(EditElectNew,self).get_context_data(**kwargs)
         context["form"] = ElectNewForm(instance=self.new)
-        context["get_elects"] = Elect.objects.only("pk")
         context["new"] = self.new
+        context["elect_regional_list"] = self.elect_regional_list
+        context["elect_federal_list"] = self.elect_federal_list
         return context
 
     def post(self,request,*args,**kwargs):

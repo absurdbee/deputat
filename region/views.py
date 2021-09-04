@@ -110,6 +110,20 @@ class LoadCitiesMultipleForm(TemplateView):
 		return context
 
 
+class LoadRegionForSelectRegionalElects(TemplateView):
+	template_name = "region/load_region_for_select_regional_elects.html"
+
+	def get(self,request,*args,**kwargs):
+		from region.models import Region
+
+		self.regions = Region.objects.only("pk")
+		return super(LoadRegionForSelectRegionalElects,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(LoadRegionForSelectRegionalElects,self).get_context_data(**kwargs)
+		context["regions"] = self.regions
+		return context
+
 class RegionDetailView(TemplateView, CategoryListMixin):
 	template_name = None
 

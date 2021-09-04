@@ -86,11 +86,6 @@ class Elect(models.Model):
             for list_id in list:
                 a = AuthorityList.objects.get(pk=list_id)
                 elect.list.add(a)
-        if city:
-            from city.models import City
-            for city_id in city:
-                a = City.objects.get(pk=city_id)
-                elect.city.add(a)
         ElectManageLog.objects.create(item=elect.pk, manager=creator.pk, action_type=ElectManageLog.ITEM_CREATED)
         return list
 

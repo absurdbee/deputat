@@ -2,8 +2,7 @@ from django.views.generic.base import ContextMixin
 from django.conf import settings
 from lists.models import AuthorityList
 from region.models import Region
-from city.models import City
-
+from district.models import District2
 
 class CategoryListMixin(ContextMixin):
 	def get_context_data(self,**kwargs):
@@ -12,11 +11,11 @@ class CategoryListMixin(ContextMixin):
 		context["federal_elect_list"] = AuthorityList.objects.filter(is_in_left_menu=True)
 		if self.request.user.is_authenticated:
 			try:
-				context["user_region"] = self.request.user.city.region
-				context["user_city"] = self.request.user.city
+				context["user_region"] = self.request.user.area.region
+				context["user_district"] = self.request.user.area
 			except:
 				context["user_region"] = Region.objects.first()
-				context["user_city"] = City.objects.first()
+				context["user_district"] = District.objects.first()
 		#else:
 		#	context["user_region"] = None
 		#	context["user_city"] = None

@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
 from common.utils import try_except
 from users.helpers import upload_to_user_directory
-from city.models import City
 from district.models import District2
 
 """
@@ -437,7 +436,7 @@ class User(AbstractUser):
     def plus_carma(self, value, reason):
         from users.model.profile import UserTransaction, UserProfile
         from region.models import Region
-        from city.models import City
+        from district.models import District
 
         self.point += value
         self.save(update_fields=["point"])
@@ -445,17 +444,17 @@ class User(AbstractUser):
         profile = UserProfile.objects.get(user=self)
         profile.total_costs += value
         profile.save(update_fields=["total_costs"])
-        city = self.city
-        city.total_costs += value
-        city.save(update_fields=["total_costs"])
-        region = city.region
+        district = self.area
+        district.total_costs += value
+        district.save(update_fields=["total_costs"])
+        region = district.region
         region.total_costs += value
         region.save(update_fields=["total_costs"])
 
     def minus_carma(self, value, reason):
         from users.model.profile import UserTransaction, UserProfile
         from region.models import Region
-        from city.models import City
+        from district.models import District
 
         self.point -= value
         self.save(update_fields=["point"])
@@ -464,10 +463,10 @@ class User(AbstractUser):
         profile.total_revenue += value
         profile.save(update_fields=["total_revenue"])
 
-        city = self.city
-        city.total_revenue += value
-        city.save(update_fields=["total_revenue"])
-        region = city.region
+        district = self.area
+        district.total_revenue += value
+        district.save(update_fields=["total_revenue"])
+        region = district.region
         region.total_revenue += value
         region.save(update_fields=["total_revenue"])
 

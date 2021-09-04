@@ -71,3 +71,19 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
 
   link_.send(form_data);
 });
+
+on('body', 'click', '#load_federal_elects', function() {
+  _this = this
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', "/elect/load_federal_elects/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    this.parentElement.parentElement.nextElementSibling.innerHTML = response.innerHTML
+  }}
+  link_.send();
+});

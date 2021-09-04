@@ -21,7 +21,7 @@ class Elect(models.Model):
     description = models.CharField(max_length=500, blank=True, verbose_name="Образование")
     list = models.ManyToManyField('lists.AuthorityList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
     region = models.ManyToManyField(Region, blank=True, related_name='elect_region', verbose_name="Регионы, за которым закреплен депутат")
-    district = models.ManyToManyField('district.District2', blank=True, related_name='elect_district', verbose_name="Районы, за которым закреплен депутат")
+    #district = models.ManyToManyField('district.District2', blank=True, related_name='elect_district', verbose_name="Районы, за которым закреплен депутат")
     #city = models.ManyToManyField('city.City', blank=True, related_name='elect_city', verbose_name="Города, за которым закреплен депутат")
     birthday = models.CharField(max_length=100, blank=True, null=True, verbose_name='Дата рождения')
     authorization = models.CharField(max_length=100, blank=True, null=True, verbose_name='Дата наделения полномочиями')

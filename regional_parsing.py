@@ -94,7 +94,7 @@ def get_page_data(html, district):
             _fraction = Fraction.objects.get(name="Без фракции")
         _post = item.find_all('p', class_="js-foldable")[0].text
         old = item.find_all('td', class_="is-hidden-mobile")[0].text
-        if not Elect.objects.filter(name=_name, district=district).exists():
+        if not Elect.objects.filter(name=_name, area=district).exists():
             elect = Elect.objects.create(name=_name, birthday=old, post_2=_post[:390], fraction=_fraction)
             elect.list.add(_list)
             elect.area.add(district)

@@ -36,6 +36,8 @@ class Elect(models.Model):
     inert = models.PositiveIntegerField(default=0, verbose_name="Кол-во inert")
     repost = models.PositiveIntegerField(default=0, verbose_name="Кол-во репостов")
 
+    old = models.BooleanField(default=False, verbose_name="Старый депутат")
+
     class Meta:
         verbose_name = "Чиновник"
         verbose_name_plural = "Чиновники"

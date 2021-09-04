@@ -11,10 +11,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django
 django.setup()
 
-from city.models import City
+from elect.models import Elect
 
-cities = City.objects.filter(region_id__in=[57,37])
-
-for city in cities:
-    for elect in city.get_elects():
-        elect.delete()
+for elect in Elect.objects.filter(list__is_reginal=True):
+    elect.old = True
+    elect.save(update_fields=["old"])

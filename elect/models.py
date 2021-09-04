@@ -21,17 +21,14 @@ class Elect(models.Model):
     description = models.CharField(max_length=500, blank=True, verbose_name="Образование")
     list = models.ManyToManyField('lists.AuthorityList', blank=True, related_name='elect_list', verbose_name="Орган гос. власти")
     region = models.ManyToManyField(Region, blank=True, related_name='elect_region', verbose_name="Регионы, за которым закреплен депутат")
-    #district = models.ManyToManyField('district.District2', null=True, blank=True, related_name='elect_district', verbose_name="Районы, за которым закреплен депутат")
-    #city = models.ManyToManyField('city.City', blank=True, related_name='elect_city', verbose_name="Города, за которым закреплен депутат")
     birthday = models.CharField(max_length=100, blank=True, null=True, verbose_name='Дата рождения')
     authorization = models.CharField(max_length=100, blank=True, null=True, verbose_name='Дата наделения полномочиями')
     term_of_office = models.CharField(max_length=100, blank=True, null=True, verbose_name='Срок окончания полномочий')
     election_information = models.CharField(max_length=200, blank=True, verbose_name="Сведения об избрании")
     fraction = models.ForeignKey('lists.Fraction', blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Фракции")
     is_active = models.BooleanField(default=True, verbose_name="Активный депутат")
-    #post = models.CharField(max_length=400, blank=True, null=True, verbose_name='Должность')
-
-    #is_new = models.BooleanField(default=True, verbose_name="Активный депутат")
+    post = models.CharField(max_length=400, blank=True, null=True, verbose_name='Должность')
+    area = models.ManyToManyField('district.District2', blank=True, related_name='elect_area', verbose_name="Районы, за которым закреплен депутат")
 
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
@@ -60,7 +57,7 @@ class Elect(models.Model):
     def get_cities(self):
         return self.city.all()
     def get_districts(self):
-        return self.district.all()
+        return self.area.all()
 
     @classmethod
     def create_elect(cls, creator, name, description, image, list, region, district, city, birthday, fraction, post):
@@ -80,7 +77,7 @@ class Elect(models.Model):
             from district.models import District2
             for district_id in district:
                 a = District2.objects.get(pk=district_id)
-                elect.district.add(a)
+                elect.area.add(a)
         if list:
             from lists.models import AuthorityList
             for list_id in list:
@@ -102,14 +99,11 @@ class Elect(models.Model):
                 return self.region.all()[0]
             else:
                 return self.region.all()
-        elif self.district:
+        elif self.area:
             return 1
-            return self.district.all()[0].region
-        elif self.city:
-            return 2
-            return self.city.all()[0].region
+            return self.area.all()[0].region
 
-    def edit_elect(self, name, description, image, list, region, district, city, birthday, fraction, manager_id, post):
+    def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
@@ -123,8 +117,7 @@ class Elect(models.Model):
         self.fraction = fraction
 
         self.region.clear()
-        self.district.clear()
-        self.city.clear()
+        self.area.clear()
         self.list.clear()
         self.save()
         if region:
@@ -132,21 +125,16 @@ class Elect(models.Model):
             for region_id in region:
                 a = Region.objects.get(pk=region_id)
                 self.region.add(a)
-        if district:
+        if area:
             from district.models import District2
-            for district_id in district:
+            for district_id in area:
                 a = District2.objects.get(pk=district_id)
-                self.district.add(a)
+                self.area.add(a)
         if list:
             from lists.models import AuthorityList
             for list_id in list:
                 a = AuthorityList.objects.get(pk=list_id)
                 self.list.add(a)
-        if city:
-            from city.models import City
-            for city_id in city:
-                a = City.objects.get(pk=city_id)
-                self.city.add(a)
         ElectManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectManageLog.ITEM_EDITED)
 
     def get_region_image(self):

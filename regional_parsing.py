@@ -11,7 +11,6 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django
 django.setup()
 
-from city.models import City
 from district.models import District2
 from lists.models import Fraction, AuthorityList
 from elect.models import Elect
@@ -21,7 +20,7 @@ def get_html(url):
     r = requests.get(url)
     return r.text
 
-def get_page_data(html, city, district):
+def get_page_data(html, district):
     soup = BeautifulSoup(html, 'lxml')
 
     total_self, total_er, total_ldpr, total_kprf, total_sr, total_place = "", "", "", "", "", ""
@@ -67,30 +66,17 @@ def get_page_data(html, city, district):
             total_place = summary[0].find('b').text
             man_procent = summary[1].find('b').text
 
-    if city:
-        city.name = name
-        city.total_voters = total_voters
-        city.total_place = total_place
-        city.man_procent = man_procent
-        city.total_self = total_self
-        city.total_er = total_er
-        city.total_ldpr = total_ldpr
-        city.total_sr = total_sr
-        city.total_kprf = total_kprf
-        city.save()
-        print("Город заполнен ", city.name)
-    elif district:
-        district.name = name
-        district.total_voters = total_voters
-        district.total_place = total_place
-        district.man_procent = man_procent
-        district.total_self = total_self
-        district.total_er = total_er
-        district.total_ldpr = total_ldpr
-        district.total_sr = total_sr
-        district.total_kprf = total_kprf
-        district.save()
-        print("Район заполнен ", district.name)
+    district.name = name
+    district.total_voters = total_voters
+    district.total_place = total_place
+    district.man_procent = man_procent
+    district.total_self = total_self
+    district.total_er = total_er
+    district.total_ldpr = total_ldpr
+    district.total_sr = total_sr
+    district.total_kprf = total_kprf
+    district.save()
+    print("Район заполнен ", district.name)
 
     _list = AuthorityList.objects.get(name="Кандидат")
 
@@ -109,38 +95,16 @@ def get_page_data(html, city, district):
         _post = item.find_all('p', class_="js-foldable")[0].text
         old = item.find_all('td', class_="is-hidden-mobile")[0].text
 
-        is_elect_exists = False
-        try:
-            elects = Elect.objects.filter(name=_name)
-            for i in elects:
-                if i.birthday == old:
-                    is_elect_exists = True
-                    if city:
-                        i.city.add(city)
-                    else:
-                        i.district.add(district)
-        except:
-            pass
-
-        if not is_elect_exists:
-            elect = Elect.objects.create(name=_name, birthday=old, post=_post[:390], fraction=_fraction)
-            elect.list.add(_list)
-            if city:
-                elect.city.add(city)
-            elif district:
-                elect.district.add(district)
-            print("Добавлен кандидат ", elect.name)
+        elect = Elect.objects.create(name=_name, birthday=old, post=_post[:390], fraction=_fraction)
+        elect.list.add(_list)
+        elect.area.add(district)
+        print("Добавлен кандидат ", elect.name)
 
 def main():
-    cities = City.objects.filter(region_id__in=[57,37])
     districts = District2.objects.filter(region_id__in=[57,37])
-    for city in cities:
-        print("работаю с городом ", city.name)
-        html = get_html("https://election.novayagazeta.ru/region/" + city.link + "/")
-        get_page_data(html, city, None)
     for district in districts:
         html = get_html("https://election.novayagazeta.ru/region/" + district.link + "/")
-        get_page_data(html, None, district)
+        get_page_data(html, district)
 
 if __name__ == '__main__':
     main()

@@ -1,17 +1,17 @@
-<label>Города</label>
-<p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
-
-<select name="city" id="id_city" multiple="">
-  {% for object in cities %}
-  <option value="{{ object.pk }}">{{ object.name }}</option>
-  {% endfor %}
-</select>
-
 <label>Районы / Округа</label>
 <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
 
 <select name="district" id="id_district" multiple="">
   {% for object in districts %}
+  <option value="{{ object.pk }}">{{ object.name }}</option>
+  {% endfor %}
+</select>
+
+<label>Города</label>
+<p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
+
+<select name="city" id="id_city" multiple="">
+  {% for object in cities %}
   <option value="{{ object.pk }}">{{ object.name }}</option>
   {% endfor %}
 </select>

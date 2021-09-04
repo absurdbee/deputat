@@ -25,5 +25,7 @@
 {% for elect in object.get_elects %}
   {{ elect.name }} <br>
 {% endfor %}
+
+{{ object.elect_district.all }}
 </section>
 {% endblock %}

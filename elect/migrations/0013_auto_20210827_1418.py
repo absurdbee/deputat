@@ -6,17 +6,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('city', '0002_auto_20210809_1319'),
         ('region', '0006_auto_20210809_1319'),
         ('elect', '0012_electstat'),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='elect',
-            name='city',
-            field=models.ManyToManyField(blank=True, related_name='elect_city', to='city.City', verbose_name='Города, за которым закреплен депутат'),
-        ),
+       
         migrations.AlterField(
             model_name='elect',
             name='region',

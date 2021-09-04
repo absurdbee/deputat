@@ -6,7 +6,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('city', '0001_initial'),
         ('communities', '0002_communityfollow'),
     ]
 

@@ -22,7 +22,7 @@ class RegisterSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=True, write_only=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
-    district = serializers.CharField(required=False, write_only=True)
+    area = serializers.CharField(required=False, write_only=True)
     gender = serializers.CharField(required=True, write_only=True)
     date_day = serializers.CharField(required=True, write_only=True)
     date_month = serializers.CharField(required=True, write_only=True)
@@ -59,9 +59,9 @@ class RegisterSerializer(serializers.Serializer):
 
         self.cleaned_data = self.get_cleaned_data()
         user.phone = users_count + 15600
-        district_pk = self.validated_data.get('district', '')
-        if district_pk:
-            user.district = District2.objects.get(pk=district_pk)
+        area_pk = self.validated_data.get('area', '')
+        if area_pk:
+            user.area = District2.objects.get(pk=area_pk)
         user.gender = self.validated_data.get('gender', '')
 
         self.date_day = int(self.validated_data.get('date_day', ''))

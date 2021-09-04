@@ -68,10 +68,10 @@ for region in Region.objects.filter(id__in=[57,37]):
         else:
             city_or_district = data[count][1]
 
-            if not "район" in city_or_district and not "округ" in city_or_district:
-                if not City.objects.filter(name=city_or_district, region=region).exists():
-                    City.objects.create(name=city_or_district, region=region, link=data[count][2])
-            else:
+            #if not "район" in city_or_district and not "округ" in city_or_district:
+            #    if not City.objects.filter(name=city_or_district, region=region).exists():
+            #        City.objects.create(name=city_or_district, region=region, link=data[count][2])
+            if "район" in city_or_district or "округ" in city_or_district:
                 if not District.objects.filter(name=city_or_district, region=region).exists():
                     District.objects.create(name=city_or_district, region=region, link=data[count][2])
         count += 1

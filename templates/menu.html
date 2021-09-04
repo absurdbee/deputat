@@ -126,8 +126,8 @@
             </a>
             <ul class="menu-content organizations">
               <li>
-                <a href="{% url 'city_organizations' slug=user_city.slug %}" class="d-flex align-items-center ajax" style="font-size: 65%;font-weight:bold">
-                  <span class="menu-item">{{ user_city.name }}</span>
+                <a href="{% url 'district_organizations' slug=user_district.slug %}" class="d-flex align-items-center ajax" style="font-size: 65%;font-weight:bold">
+                  <span class="menu-item">{{ user_district.name }}</span>
                 </a>
               </li>
               <li>
@@ -144,8 +144,8 @@
             </a>
             <ul class="menu-content communities">
                 <li>
-                  <a href="{% url 'city_communities' slug=user_city.slug %}" class="d-flex align-items-center ajax" style="font-size: 65%;font-weight:bold">
-                    <span class="menu-item">{{ user_city.name }}</span>
+                  <a href="{% url 'district_communities' slug=user_district.slug %}" class="d-flex align-items-center ajax" style="font-size: 65%;font-weight:bold">
+                    <span class="menu-item">{{ user_district.name }}</span>
                   </a>
                 </li>
                 <li>

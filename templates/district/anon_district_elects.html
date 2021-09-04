@@ -22,6 +22,10 @@
       </div>
     </div>
   </div>
-
+  <div class="row pt-0 is_paginate">
+    {% for object in object.get_elects %}
+      {% include 'elect/anon_elect_index_card.html' %}
+    {% endfor %}
+  </div>
 </section>
 {% endblock %}

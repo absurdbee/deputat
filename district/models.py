@@ -47,7 +47,7 @@ class District(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Название")
 	slug = AutoSlugField(populate_from='name', unique=True, db_index=True)
 	order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
-	region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="districts_region2", blank=True, null=True, verbose_name="Регион")
+	region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="districts_regio", blank=True, null=True, verbose_name="Регион")
 
 	point = models.PositiveIntegerField(default=0, verbose_name="Общее количество кармы")
 	total_costs = models.PositiveIntegerField(default=0, verbose_name="Общие доходы граждан")

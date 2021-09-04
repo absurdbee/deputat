@@ -318,19 +318,18 @@ class LoadFederalElectsView(TemplateView):
 
 
 class LoadRegionalElectsView(TemplateView):
-	template_name = "elect/load/get_custom_elects.html"
+    template_name = "elect/load/get_custom_elects.html"
 
-	def get(self,request,*args,**kwargs):
-		from elect.models import Elect
+    def get(self,request,*args,**kwargs):
+        from elect.models import Elect
         from region.models import Region
 
         region = Region.objects.get(pk=self.kwargs["pk"])
-
-		self.city_elects = Elect.objects.filter(city__region=region)
+        self.city_elects = Elect.objects.filter(city__region=region)
         self.district_elects = Elect.objects.filter(district__region=region)
-		return super(LoadRegionalElectsView,self).get(request,*args,**kwargs)
+        return super(LoadRegionalElectsView,self).get(request,*args,**kwargs)
 
-	def get_context_data(self,**kwargs):
-		context = super(LoadRegionalElectsView,self).get_context_data(**kwargs)
-		context["get_elects"] = self.city_elects + self.district_elects
-		return context
+    def get_context_data(self,**kwargs):
+        context = super(LoadRegionalElectsView,self).get_context_data(**kwargs)
+        context["get_elects"] = self.city_elects + self.district_elects
+        return context

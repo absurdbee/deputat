@@ -329,7 +329,7 @@ function profile_list_block_load(_this, block, link, actions_class) {
        };
        _this.classList.remove(actions_class, "pointer");
        _this.classList.replace("border", "active_border");
-       create_pagination(document.body.querySelector(block).innerHTML)
+       create_pagination(document.body.querySelector(block))
     }};
     request.send( null );
 }

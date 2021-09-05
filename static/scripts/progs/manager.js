@@ -35,7 +35,7 @@ function post_elect_new(_this, url, toast) {
   if ( link.readyState == 4 && link.status == 200 ) {
     close_default_window();
     toast_info(toast);
-    document.body.querySelector(".changed").remove();
+    try {document.body.querySelector(".changed").remove()} catch { null }
   }};
   link.send(form_data);
 };

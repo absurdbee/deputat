@@ -5,7 +5,7 @@
 <meta property="og:url" content="{% url 'elect_new_detail' pk=object.pk %}" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="{{ object.title }}" />
-<meta property="og:image" content="https://служународу.рус{{ object.elect.image.url }}" />
+<meta property="og:image" content="https://служународу.рус{{ object.elect.get_image }}" />
 {% endblock %}
 {% block content %}
 <div class="content mt-3 pk_saver">
@@ -31,7 +31,7 @@
                                     <div class="media">
                                       {% if object.elect %}
                                         <div class="avatar mr-50">
-                                            <img src="{{ object.elect.image.url }}" alt="Avatar" width="24" height="24">
+                                            <img src="{{ object.elect.get_image }}" alt="Avatar" width="24" height="24">
                                         </div>
                                         <div class="media-body">
                                             <small><a href="{% url 'elect_detail' pk=object.elect.pk %}" class="text-body ajax">{{ object.elect.name }}</a></small>

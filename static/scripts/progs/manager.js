@@ -34,7 +34,8 @@ function post_elect_new(_this, url, toast) {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     close_default_window();
-    toast_info(toast)
+    toast_info(toast);
+    document.body.querySelector(".changed").remove();
   }};
   link.send(form_data);
 };
@@ -96,6 +97,7 @@ on('body', 'click', '.u_photo_moderated_detail', function() {
 });
 
 on('body', 'click', '.u_publish_elect_new', function() {
+this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add("changed");
   loader = document.body.querySelector("#window_loader");
   open_fullscreen("/managers/elect_new/create_publish/" + this.parentElement.getAttribute("data-pk") + "/", loader)
 });
@@ -224,6 +226,7 @@ on('body', 'click', '#edit_blog_btn', function() {
 
 on('body', 'click', '#u_publish_elect_new_btn', function() {
   post_elect_new(this, "/managers/elect_new/create_publish/" + this.getAttribute("data-pk") + "/", "Активность опубликована!")
+
 });
 on('body', 'click', '#manager_create_elect_new_btn', function() {
   post_elect_new(this, "/managers/elect_new/create_elect_new/", "Активность создана и опубликована!")

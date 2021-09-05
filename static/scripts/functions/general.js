@@ -616,10 +616,7 @@ function on(elSelector,eventName,selector,fn) {var element = document.querySelec
 function elementInViewport(el){var bounds = el.getBoundingClientRect();return ((bounds.top + bounds.height > 0) && (window.innerHeight - bounds.top > 0));}
 
 function create_pagination(block) {
-  if (block.querySelector('.chat_container')) {
-    scrolled(block.querySelector('.chat_container'))
-  }
-  else if (block.querySelector('.is_paginate')) {
+  if (block.querySelector('.is_paginate')) {
     scrolled(block.querySelector('.is_paginate'));
     console.log("Работает пагинация для списка не постов")
   }

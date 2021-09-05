@@ -9,6 +9,7 @@ class ManagerTag(models.Model):
     class Meta:
         verbose_name = "Наш тег"
         verbose_name_plural = "Наши теги"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

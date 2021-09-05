@@ -117,6 +117,7 @@ on('body', 'click', '.prev_item', function(event) {
 on('body', 'click', '.photo_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
   this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
+  get_document_opacity_1()
 });
 
 on('body', 'click', '.u_blog_comment_photo', function() {

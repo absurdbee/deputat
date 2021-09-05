@@ -959,6 +959,7 @@ function open_elect_fullscreen(link, block, name) {
     if (name) {
       block.querySelector(".field_elect_new").value = name;
     };
+    get_document_opacity_0();
   }};
   link_.send();
 }

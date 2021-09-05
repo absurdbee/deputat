@@ -896,14 +896,16 @@ function load_chart() {
 
 function get_document_opacity_0() {
   if (document.body.querySelector(".toggle_fixed_block")) {
+    if (!document.body.querySelector(".app-user-edit")) {
     document.body.querySelector(".toggle_fixed_block").style.opacity = "0";
-  } else if (document.body.querySelector(".header-navbar")){
+  }} else if (document.body.querySelector(".header-navbar")){
     document.body.querySelector(".header-navbar").style.opacity = "0";
   }
 }
 function get_document_opacity_1() {
   if (document.body.querySelector(".toggle_fixed_block")) {
     document.body.querySelector(".toggle_fixed_block").style.opacity = "1";
+
   } else if (document.body.querySelector(".header-navbar")){
     document.body.querySelector(".header-navbar").style.opacity = "1";
   };

@@ -3,7 +3,7 @@ from region.views import *
 
 
 urlpatterns = [
-    url(r'^region/(?P<slug>[\w\-]+)/$', RegionElectView.as_view(), name='region_index'),
+    url(r'^(?P<slug>[\w\-]+)/$', RegionElectView.as_view(), name='region_index'),
     url(r'^elects/(?P<slug>[\w\-]+)/$', RegionElectDetailView.as_view(), name="region_elects"),
     url(r'^communities/(?P<slug>[\w\-]+)/$', RegionCommunitiesDetailView.as_view(), name="region_communities"),
     url(r'^organizations/(?P<slug>[\w\-]+)/$', RegionOrganizationsDetailView.as_view(), name="region_organizations"),

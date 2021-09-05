@@ -25,7 +25,7 @@ on('body', 'click', '.show_parent_next_element', function() {
 
 on('body', 'click', '.load_left_menu_regions', function(e) {
 	e.preventDefault();
-  list_load(this.parentElement.parentElement, "/region/load_left_menu_regions/"); 
+  list_load(this.parentElement.parentElement, "/region/load_left_menu_regions/");
 })
 on('body', 'click', '.load_left_menu_dropdown_regions', function(e) {
 	e.preventDefault();
@@ -182,19 +182,24 @@ link.send( null );
 })
 
 on('body', 'click', '.window_fullscreen_hide', function() {
+
   parent = this.parentElement
   parent.style.display = "none";
-  parent.getElementById("window_loader").innerHTML=""}
+  parent.getElementById("window_loader").innerHTML="";
+	get_document_opacity_1();
+}
 );
 on('body', 'click', '.photo_fullscreen_hide', function() {
   parent = this.parentElement
   parent.style.display = "none";
-  parent.getElementById("photo_loader").innerHTML=""}
+  parent.getElementById("photo_loader").innerHTML="";
+	get_document_opacity_1();}
 );
 on('body', 'click', '.create_fullscreen_hide', function() {
   parent = this.parentElement
   parent.style.display = "none";
-  parent.getElementById("create_loader").innerHTML=""}
+  parent.getElementById("create_loader").innerHTML="";
+	get_document_opacity_1();}
 );
 
 

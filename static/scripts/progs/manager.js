@@ -97,7 +97,7 @@ on('body', 'click', '.u_photo_moderated_detail', function() {
 });
 
 on('body', 'click', '.u_publish_elect_new', function() {
-this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add("changed");
+this.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add("changed");
   loader = document.body.querySelector("#window_loader");
   open_fullscreen("/managers/elect_new/create_publish/" + this.parentElement.getAttribute("data-pk") + "/", loader)
 });

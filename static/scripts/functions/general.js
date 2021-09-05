@@ -907,7 +907,8 @@ function get_document_opacity_1() {
   if (document.body.querySelector(".toggle_fixed_block")) {
     document.body.querySelector(".toggle_fixed_block").style.opacity = "1";
 
-  } else if (document.body.querySelector(".header-navbar")){
+  }
+  if (document.body.querySelector(".header-navbar")){
     document.body.querySelector(".header-navbar").style.opacity = "1";
   };
   create_pagination(document.body);

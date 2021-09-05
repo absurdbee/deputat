@@ -1,5 +1,5 @@
 {% load filters %}
-<div class="mb-1 p-1 card pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.pk }}">
+<div class="mb-1 p-1 card pag" data-pk="{{ object.pk }}">
   <div class="d-flex justify-content-start align-items-center mb-1">
     <div class="avatar mr-1">
       <a href="{% url 'user' pk=object.creator.pk %}" class="ajax">

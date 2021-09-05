@@ -36,10 +36,11 @@
             <div class="content-body news_stream mt-1 is_paginate">
               {% load notify %}
               {% for object in object_list %}
-                <div class="card mb-1 pag {% if forloop.last %}last{% endif %}">
+                <div class="card mb-1 pag">
                   {{ object|get_notify:request.user|safe }}
                 </div>
               {% endfor %}
+
             </div>
           </div>
           <div class="content-header-left col-md-3 col-12 mb-2">

@@ -67,7 +67,7 @@
                       </a>
                   </li>
               </ul>
-                <div class="match-height pag_container">
+                <div class="match-height is_paginate">
                   {% for object in object_list %}
                     {% include 'elect/anon_new_card.html' %}
                   {% empty %}
@@ -77,11 +77,6 @@
                       </div>
                     </div>
                   {% endfor %}
-                  <div class="load text-center col-md-12">
-                    {% if page_obj.has_next %}
-                      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
-                    {% endif %}
-                  </div>
                 </div>
             </div>
         </div>

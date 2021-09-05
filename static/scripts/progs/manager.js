@@ -1,5 +1,5 @@
 function post_elect_new(_this, url, toast) {
-  elect = false, elect_value = null;
+  elect = true, elect_value = null;
   form = _this.parentElement.parentElement.parentElement;
   console.log(form)
   if (form.querySelector("#id_elect")) {

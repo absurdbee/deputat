@@ -143,12 +143,12 @@ class Elect(models.Model):
             if self.region.all()[0].image:
                 return self.region.all()[0].image.url
             else:
-                return '/static/images/kreml.jpg'
+                return '/static/images/test_1.jpg'
         else:
             if self.area.all()[0].region.image:
                 return self.area.all()[0].region.image.url
             else:
-                return '/static/images/kreml.jpg'
+                return '/static/images/test_1.jpg'
 
     def get_image(self):
         if self.image:

@@ -9,16 +9,12 @@
         {% for object in region.get_all_elects %}
           {% include 'elect/anon_elect_index_card.html' %}
         {% endfor %}
+
         {% else %}
         <br>
         В регионе "{{ region.name }}" почему-то нет закрепленных за ним чиновников.
         {% endif %}
 
-        <div class="col-md-12 load text-center">
-          {% if page_obj.has_next %}
-            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
-          {% endif %}
-        </div>
       </div>
 </section>
 {% endblock %}

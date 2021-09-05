@@ -36,7 +36,7 @@
             <div class="form-group">
               <label>Чиновник</label>
               <input value="{{ new.elect.name }}" placeholder="Выберите чиновника" list="data-list" id="id_elect" class="form-control field_elect_new" name="elect">
-              <datalist id="data-list">
+              <datalist id="data-list"> 
                 {% for object in elect_federal_list %}
                 <option value="{{ object.name }}"></option>
                 {% endfor %}

@@ -214,7 +214,7 @@ class ElectNewUnverify(View):
 
 
 class PublishElectNew(TemplateView):
-    template_name = "managers/manage_create/elect_new/create_publish_elect_new.html"
+    template_name, is_regional, elect_federal_list, elect_regional_list  = "managers/manage_create/elect_new/create_publish_elect_new.html", False, None, None
 
     def get(self,request,*args,**kwargs):
         from elect.models import Elect

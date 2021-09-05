@@ -22,15 +22,57 @@
               <label>Описание</label>
               <textarea style="min-height: 200px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description">{{ new.description }}</textarea>
             </div>
+            {% if elect_federal_list %}
+            <div class="radio_gender_custom">
+                <div class="custom-control radio_left custom-radio">
+                    <input type="radio" checked="" id="load_federal_elects" name="gender" value="Man" class="custom-control-input">
+                    <label class="custom-control-label" for="load_federal_elects">Чиновник федеральный</label>
+                </div>
+                <div class="custom-control radio_right custom-radio">
+                    <input type="radio" id="load_regions_for_load_elects" name="gender" value="Fem" class="custom-control-input">
+                    <label class="custom-control-label" for="load_regions_for_load_elects">Чиновник региональный</label>
+                </div>
+            </div>
             <div class="form-group">
               <label>Чиновник</label>
-              <input id="id_elect" list="data-list" value="{{ new.elect.name }}" class="form-control" name="elect">
+              <input value="{{ new.elect.name }}" placeholder="Выберите чиновника" list="data-list" id="id_elect" class="form-control field_elect_new" name="elect">
               <datalist id="data-list">
-                {% for object in get_elects %}
+                {% for object in elect_federal_list %}
                 <option value="{{ object.name }}"></option>
                 {% endfor %}
               </datalist>
             </div>
+            <div class="form-group"></div>
+            {% else %}
+            <div class="radio_gender_custom">
+                <div class="custom-control radio_left custom-radio">
+                    <input type="radio" id="load_federal_elects" name="gender" value="Man" class="custom-control-input">
+                    <label class="custom-control-label" for="load_federal_elects">Чиновник федеральный</label>
+                </div>
+                <div class="custom-control radio_right custom-radio">
+                    <input type="radio" checked="" id="load_regions_for_load_elects" name="gender" value="Fem" class="custom-control-input">
+                    <label class="custom-control-label" for="load_regions_for_load_elects">Чиновник региональный</label>
+                </div>
+            </div>
+            <div class="form-group">
+              <label>Выберите регион</label>
+              <select class="form-control select_region_for_load_elects">
+                {% for object in regions %}
+                  <option selected="" value="{{ object.pk }}">{{ object.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Чиновник</label>
+              <input value="{{ new.elect.name }}" placeholder="Выберите чиновника" list="data-list" id="id_elect" class="form-control field_elect_new" name="elect">
+              <datalist id="data-list">
+                {% for object in elect_regional_list %}
+                <option value="{{ object.name }}"></option>
+                {% endfor %}
+              </datalist>
+            </div>
+
+            {% endif %}
             <div class="form-group">
               <label>Прикрепить объекты</label>
               <div class="card-footer border-top btn_default">

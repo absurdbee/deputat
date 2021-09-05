@@ -905,6 +905,9 @@ function open_fullscreen(link, block) {
     block.parentElement.style.display = "block";
     block.innerHTML = elem;
     init_music(block);
+    if (block.querySelector(".pag")) {
+      create_pagination(block)
+    }
   }};
   link_.send();
 }

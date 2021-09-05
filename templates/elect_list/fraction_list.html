@@ -9,11 +9,16 @@
         {% for object in fraction.get_all_elects %}
           {% include 'elect/elect_index_card.html' %}
         {% endfor %}
+        {% if page_obj.has_next %}
+        <div class="load centered m-1 next_page_list" data-link="{% url 'fraction_index' slug=fraction.slug %}?page={{ page_obj.next_page_number }}">
+            <img src="/static/images/loading.gif">
+        </div>
+        {% endif %}
+
         {% else %}
         <br>
         Во фракции "{{ fraction.name }}" почему-то нет закрепленных за ней чиновников.
         {% endif %}
-
       </div>
 </section>
 {% endblock %}

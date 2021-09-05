@@ -3,6 +3,11 @@
 {% for object in object_list %}
   {% include 'elect/new_card.html' %}
 {% endfor %}
+{% if page_obj.has_next %}
+<div class="load centered m-1 next_page_list" data-link="/elects/{{ elect.pk }}/work_with_voters_elect_news/?page={{ page_obj.next_page_number }}">
+    <img src="/static/images/loading.gif">
+</div>
+{% endif %}
 
 {% else %}
 

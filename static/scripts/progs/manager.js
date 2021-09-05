@@ -1,6 +1,7 @@
 function post_elect_new(_this, url, toast) {
-  _this = this, elect = false, elect_value = null;
+  elect = false, elect_value = null;
   form = _this.parentElement.parentElement.parentElement;
+  console.log(form)
   if (form.querySelector("#id_elect")) {
     elect_value = form.querySelector("#id_elect").value;
     xxx = form.querySelector("#data-list");

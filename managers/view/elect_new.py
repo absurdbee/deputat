@@ -217,19 +217,33 @@ class PublishElectNew(TemplateView):
     template_name = "managers/manage_create/elect_new/create_publish_elect_new.html"
 
     def get(self,request,*args,**kwargs):
+        from elect.models import Elect
+
         self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        elect = self.elect_new.elect
+        for i in elect.list.all():
+            if i.is_reginal:
+                self.is_regional = True
+        if self.is_regional:
+            if elect.district:
+                _district = elect.district.all().first()
+                elect_regional_list = Elect.objects.filter(district=_district)
+        else:
+            self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(PublishElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         from blog.forms import PublishElectNewForm
         from tags.models import ManagerTag
-        from elect.models import Elect
+        from region.models import Region
 
         context=super(PublishElectNew,self).get_context_data(**kwargs)
         context["form"] = PublishElectNewForm(instance=self.elect_new)
         context["new"] = self.elect_new
         context["tags"] = ManagerTag.objects.only("pk")
-        context["get_elects"] = Elect.objects.only("pk")
+        context["elect_regional_list"] = self.elect_regional_list
+        context["elect_federal_list"] = self.elect_federal_list
+        context["regions"] = Region.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):

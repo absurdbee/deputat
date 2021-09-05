@@ -491,22 +491,6 @@ function mob_send_change(span, _link, new_class, html) {
     link.send(null)
 }
 
-function post_send_change(parent, url, new_class, html) {
-    link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    link.open('GET', url + parent.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", true);
-    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    link.onreadystatechange = function() {
-        if (link.readyState == 4 && link.status == 200) {
-            new_span = document.createElement("span");
-            new_span.classList.add(new_class, "dropdown-item");
-            new_span.innerHTML = html;
-            parent.innerHTML = "";
-            parent.append(new_span)
-        }
-    };
-    link.send(null)
-}
-
 function open_load_fullscreen(link, block) {
     link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     link_.open('GET', link, true);
@@ -517,7 +501,6 @@ function open_load_fullscreen(link, block) {
             block.parentElement.style.display = "block";
             block.innerHTML = "";
             block.innerHTML = elem;
-            scrolled(link, block, 0);
             init_music(block);
         }
     };
@@ -633,79 +616,59 @@ function elementInViewport(el){var bounds = el.getBoundingClientRect();return ((
 
 function create_pagination(block) {
   if (block.querySelector('.chat_container')) {
-    scrolled(window.location.href, '.chat_container', target = 0)
+    scrolled(block.querySelector('.chat_container'))
   }
   else if (block.querySelector('.is_paginate')) {
-    scrolled(window.location.href, '.is_paginate', target = 0)
+    scrolled(block.querySelector('.is_paginate'));
+    console.log("Работает пагинация для списка не постов")
   }
-  else if (block.querySelector('.is_post_paginate')) {
-    scrolled(window.location.href, '.is_post_paginate', target = 1)
+  else if (block.querySelector('.is_load_paginate')) {
+    scrolled(block.querySelector('.is_load_paginate'));
+    console.log("Работает пагинация для списка в блоке")
   }
 }
 _ajax = document.getElementById('ajax');
 
 create_pagination(_ajax);
 init_music(_ajax);
-page = 2;
-loaded = false;
 
-function scrolled(link, block_id, target) {
-    // работа с прокруткой:
-    // 1. Ссылка на страницу с пагинацией
-    // 2. id блока, куда нужно грузить следующие страницы
-    // 3. Указатель на нужность работы просмотров элементов в ленте. Например, target=1 - просмотры постов в ленте
+function scrolled(_block) {
     onscroll = function() {
         try {
-          //console.log(document.body.querySelector(block_id))
-            if (document.body.querySelector(".chat_container")){
-              block_ = document.body.querySelector(block_id);
-              box_ = block_.querySelector('.first');
-              if (box_ && box_.classList.contains("first")) {
-                inViewport = elementInViewport(box_);
-                if (inViewport) {box_.classList.remove("first");top_paginate(link, block_id)}}
-            } else {_block = document.body.querySelector(block_id);
-                  box = _block.querySelector('.last');
-                  if (box && box.classList.contains("last")) {
-                    inViewport = elementInViewport(box);
-                    if (inViewport) {
-                      box.classList.remove("last");
-                      paginate(link, block_id);
-                    }
-                  };
-                  if (target == 1) {get_post_view()}}
+            box = _block.querySelector('.next_page_list');
+            if (box && box.classList.contains("next_page_list")) {
+                inViewport = elementInViewport(box);
+                if (inViewport) {
+                    box.classList.remove("next_page_list");
+                    paginate(box);
+                }
+            };
         } catch {return}
     }
-};
+}
 
-function paginate(link, block_id) {
-  // общая подгрузка списков в конец указанного блока
-    block = document.body.querySelector(block_id);
-    if (block.getElementsByClassName('pag').length === (page - 1) * 15) {
-        if (loaded) {
-            return
-        };
+function paginate(block) {
         var link_3 = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        link_3.open('GET', link + '?page=' + page++, true);
+        link_3.open('GET', location.protocol + "//" + location.host + block.getAttribute("data-link"), true);
         link_3.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         link_3.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var elem = document.createElement('span');
                 elem.innerHTML = link_3.responseText;
-                if (elem.getElementsByClassName('pag').length < 15) {
-                    loaded = true
-                };
-                if (elem.querySelector(block_id)) {
-                    xxx = document.createElement("span");
-                    xxx.innerHTML = elem.querySelector(block_id).innerHTML;
-                    block.insertAdjacentHTML('beforeend', xxx.innerHTML)
-                } else {
-                    block.insertAdjacentHTML('beforeend', elem.innerHTML)
-                }
+                if (elem.querySelector(".is_paginate")){
+                  block.parentElement.insertAdjacentHTML('beforeend', elem.querySelector(".is_paginate").innerHTML)
+                } else if (document.body.querySelector(".is_load_paginate")){
+                  block_paginate = document.body.querySelector(".is_load_paginate");
+                  if (elem.querySelector(".is_load_paginate")){
+                      block.parentElement.insertAdjacentHTML('beforeend', elem.querySelector(".is_load_paginate").innerHTML)
+                  } else {
+                    block.parentElement.insertAdjacentHTML('beforeend', elem.innerHTML)
+                  }};
+                block.remove()
             }
         }
         link_3.send();
-    }
 }
 
 function get_select() {
@@ -994,12 +957,9 @@ function ajax_get_reload(url) {
         window.history.pushState("", document.title, url);
         document.title = elem_.querySelector('title').innerHTML;
         get_select();
-        page = 2;
-        loaded = false;
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();
-        //window.onpopstate = function () {history.go(1);};
       }
     }
     ajax_link.send();

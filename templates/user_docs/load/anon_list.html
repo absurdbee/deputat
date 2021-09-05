@@ -19,7 +19,7 @@
     </h5>
   </div>
 
-<div class="row is_load_paginate no-gutters" data-link="/docs/load/{{ list.pk }}/">
+<div class="row is_load_paginate no-gutters">
 
 {% for doc in object_list %}
   {% include 'user_docs/anon_doc.html' %}
@@ -31,4 +31,5 @@
     <h6>В списке нет документов.</h6>
   </div>
 {% endfor %}
+
 </div>

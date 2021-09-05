@@ -9,10 +9,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8 col-md-7">
-                        <div class="card user-card">
-                          <h1 class="mb-0 mb-3">Жалобы на документы</h1>
+                      <h1 class="mb-0 mb-3">Жалобы на документы</h1>
+                        <div class="card user-card is_paginate">
+
                           {% for object in object_list %}
-                          <div class="pag mt-2 {% if forloop.last %}last{% endif %}" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}" style="position: relative;">
+                          <div class="pag mt-2" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}" style="position: relative;">
                               {{ object|get_doc_items|safe }}
                           </div>
                           {% empty %}

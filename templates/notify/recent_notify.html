@@ -1,6 +1,6 @@
 {% load notify %}
+<div class="is_paginate">
 {% for object in object_list %}
-
 <div class="card mb-1">
   {{ object|get_notify:request.user|safe }}
 </div>
@@ -10,3 +10,4 @@
     <p>У Вас пока нет уведомлений.</p>
 </div>
 {% endfor %}
+</div>

@@ -65,12 +65,12 @@
                       </a>
                   </li>
               </ul>
-                <div class="match-height pag_container mt-3">
+                <div class="match-height is_paginate mt-3">
                   {% for object in object_list %}
                   {% if object.is_published %}
                     {% include 'elect/new_card.html' %}
                   {% elif object.is_suggested %}
-                  <div class="mt-1 card pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.pk }}">
+                  <div class="mt-1 card pag" data-pk="{{ object.pk }}">
                     <div class="d-flex justify-content-start align-items-center mb-1">
                       <div class="avatar mr-1">
                         <a href="{% url 'elect_new_detail' pk=object.pk %}" class="ajax">
@@ -107,11 +107,7 @@
                       </div>
                     </div>
                   {% endfor %}
-                  <div class="load text-center col-md-12">
-                    {% if page_obj.has_next %}
-                      <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"><img src="/static/images/loading.gif"></a>
-                    {% endif %}
-                  </div>
+
                 </div>
             </div>
         </div>

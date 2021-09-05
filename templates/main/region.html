@@ -36,11 +36,11 @@
             <div class="content-body news_stream mt-1 is_paginate">
               {% load notify %}
               {% for object in object_list %}
-                <div class="card mb-2 pag {% if forloop.last %}last{% endif %}">
+                <div class="card mb-2 pag">
                   {{ object|get_notify:request.user|safe }}
                 </div>
               {% empty %}
-              
+
               <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
                 <div class="card-body">
                   <h3 class="card-title">Новостей региона {{ region.name }} пока нет.</h3>

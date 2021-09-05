@@ -9,10 +9,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8 col-md-7">
-                        <div class="card user-card">
-                          <h1 class="mb-0 mb-3">Оштрафованные опросы</h1>
+                      <h1 class="mb-0 mb-3">Оштрафованные опросы</h1>
+                        <div class="card user-card is_paginate">
+
                           {% for object in object_list %}
-                          <div class="pag {% if forloop.last %}last{% endif %}" data-pk="{{ object.object_id }}">
+                          <div class="pag" data-pk="{{ object.object_id }}">
                               {{ object|get_survey_items|safe }}
                           </div>
                           {% empty %}

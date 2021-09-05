@@ -106,9 +106,9 @@ class EditElectNew(TemplateView):
             if i.is_reginal:
                 self.is_regional = True
         if self.is_regional:
-            if elect.district:
-                _district = elect.district.all().first()
-                elect_regional_list = Elect.objects.filter(district=_district)
+            if elect.area:
+                _district = elect.area.all().first()
+                elect_regional_list = Elect.objects.filter(area=_district)
         else:
             self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(EditElectNew,self).get(request,*args,**kwargs)
@@ -154,9 +154,9 @@ class EditManagerElectNew(TemplateView):
             if i.is_reginal:
                 self.is_regional = True
         if self.is_regional:
-            if elect.district:
-                _district = elect.district.all().first()
-                elect_regional_list = Elect.objects.filter(district=_district)
+            if elect.area:
+                _district = elect.area.all().first()
+                elect_regional_list = Elect.objects.filter(area=_district)
             elif elect.city:
                 _city = elect.city.all().first()
                 elect_regional_list = Elect.objects.filter(city=_city)

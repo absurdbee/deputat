@@ -9,6 +9,12 @@
         {% for object in object_list %}
           {% include 'elect/anon_elect_index_card.html' %}
         {% endfor %}
+        {% if page_obj.has_next %}
+        <div class="load centered m-1 next_page_list" data-link="{% url 'authority_index' slug=list.slug %}?page={{ page_obj.next_page_number }}">
+            <img src="/static/images/loading.gif">
+        </div>
+        {% endif %}
+
         {% else %}
           В списке почему-то никого нет.
         {% endif %}

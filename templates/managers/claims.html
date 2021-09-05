@@ -32,7 +32,6 @@
         </div>
       </div>
   </li>
-  </ul>
   {% empty %}
     <div class="card centered item_empty">
       <div class="card-body">
@@ -41,5 +40,12 @@
       <h6>Жалоб пока нет.</h6>
     </div>
   {% endfor %}
+  {% if page_obj.has_next %}
+  <div class="load centered m-1 next_page_list" data-link="/managers/load_claims/{{ report.pk }}/?page={{ page_obj.next_page_number }}">
+      <img src="/static/images/loading.gif">
+  </div>
+  {% endif %}
+  </ul>
+
 </span>
   </div>

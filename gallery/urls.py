@@ -3,7 +3,7 @@ from gallery.views import *
 
 
 urlpatterns=[
-	url(r'^user/(?P<pk>\d+)/$', UserGallery.as_view(), name="user_gallery"),
+	url(r'^user_gallery/(?P<pk>\d+)/$', UserGallery.as_view(), name="user_gallery"),
 	url(r'^user_list/(?P<uuid>[0-9a-f-]+)/$', UserPhotoList.as_view(), name="user_photo_list"),
 	url(r'^user_load/(?P<pk>\d+)/$', UserLoadPhotoList.as_view()),
 	url(r'^penalty_load/(?P<pk>\d+)/$', UserLoadPenaltyPhotolist.as_view()),

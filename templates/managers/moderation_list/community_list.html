@@ -22,6 +22,11 @@
                             <h6>Жалоб пока нет...</h6>
                           </div>
                           {% endfor %}
+                          {% if page_obj.has_next %}
+                          <div class="load centered m-1 next_page_list" data-link="/managers/moderation_list/community/?page={{ page_obj.next_page_number }}">
+                              <img src="/static/images/loading.gif">
+                          </div>
+                          {% endif %}
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-5">

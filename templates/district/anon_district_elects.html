@@ -26,6 +26,11 @@
     {% for object in object.get_elects %}
       {% include 'elect/anon_elect_index_card.html' %}
     {% endfor %}
+    {% if page_obj.has_next %}
+    <div class="load centered m-1 next_page_list" data-link="{% url 'district_elects' slug=object.slug %}?page={{ page_obj.next_page_number }}">
+        <img src="/static/images/loading.gif">
+    </div>
+    {% endif %}
   </div>
 </section>
 {% endblock %}

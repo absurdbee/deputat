@@ -79,7 +79,11 @@
                         </div>
                       </div>
                     {% endfor %}
-
+                    {% if page_obj.has_next %}
+                    <div class="load centered m-1 next_page_list" data-link="/users/subscribe_elects/{{ user.pk }}/?page={{ page_obj.next_page_number }}">
+                        <img src="/static/images/loading.gif">
+                    </div>
+                    {% endif %}
                     {% else %}
                     <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
                         <div class="card-body">

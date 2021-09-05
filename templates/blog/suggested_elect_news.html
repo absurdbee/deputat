@@ -9,8 +9,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8 col-md-7">
-                        <div class="card user-card">
-                          <h1 class="mb-0 mb-1">Предложка (<span style="color:#3176C1;font-size: 80%;" class="pointer manager_elect_new_create underline">ДОБАВИТЬ НОВОСТЬ</span>)</h1>
+                      <h1 class="mb-0 mb-1">Предложка (<span style="color:#3176C1;font-size: 80%;" class="pointer manager_elect_new_create underline">ДОБАВИТЬ НОВОСТЬ</span>)</h1>
+                        <div class="card user-card is_paginate">
+
                           {% for object in object_list %}
                           <div class="mt-1 card pag">
                             <div class="d-flex justify-content-start align-items-center mb-1">
@@ -45,6 +46,11 @@
                             </div>
                           </div>
                           {% endfor %}
+                          {% if page_obj.has_next %}
+                            <div class="load centered m-1 next_page_list" data-link="/blog/suggested/?page={{ page_obj.next_page_number }}">
+                              <img src="/static/images/loading.gif">
+                            </div>
+                          {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-5">

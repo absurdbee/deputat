@@ -643,18 +643,15 @@ function scrolled(_block) {
             };
         } catch {return}
     }
-}
+};
 
 on('body', 'click', '.toggle_fixed_block', function() {
-  drop = document.body.querySelector(".notify_dropdown")
-  drop.style.display = "none";
-  drop.classList.remove = "show";
-
+  document.body.querySelector(".notify_dropdown").style.display = "none";
+  document.body.querySelector(".get_user_notify_box").classList.remove = "show";
 });
 on('body', 'click', '.main-menu', function() {
-  drop = document.body.querySelector(".notify_dropdown")
-  drop.style.display = "none";
-  drop.classList.remove = "show";
+  document.body.querySelector(".notify_dropdown").style.display = "none";
+  document.body.querySelector(".get_user_notify_box").classList.remove = "show";
 });
 
 function paginate(block) {

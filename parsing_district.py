@@ -19,7 +19,7 @@ spb_oblast_list = ["Бокситогорский муниципальный ра
 
 
 region = Region.objects.filter(name="Ленинградская область")
-for i in spb_oblast_list:
+for i in spb_oblast_list.split(","):
     response = requests.get(url= "https://election.novayagazeta.ru/api/address/?address=" + i)
     data = response.json()
     count = 0

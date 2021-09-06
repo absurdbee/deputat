@@ -645,6 +645,13 @@ function scrolled(_block) {
     }
 }
 
+on('body', 'click', '.toggle_fixed_block', function() {
+  document.body.querySelector(".notify_dropdown").style.display = "none"
+});
+on('body', 'click', '.main-menu', function() {
+  document.body.querySelector(".notify_dropdown").style.display = "none"
+});
+
 function paginate(block) {
         var link_3 = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         link_3.open('GET', location.protocol + "//" + location.host + block.getAttribute("data-link"), true);
@@ -984,6 +991,7 @@ function ajax_get_reload(url) {
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();
+        document.body.querySelector(".notify_dropdown").style.display = "none"
       }
     }
     ajax_link.send();

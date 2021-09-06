@@ -28,7 +28,7 @@ function ajax_get_reload(url) {
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();
-        //window.onpopstate = function () {history.go(1);};
+        document.body.querySelector(".notify_dropdown").style.display = "none"
       }
     }
     ajax_link.send();

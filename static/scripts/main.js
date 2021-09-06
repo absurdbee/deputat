@@ -373,9 +373,7 @@ on('body', 'click', '.get_user_notify_box', function() {
 
 	if (this.classList.contains("show")) {
 		_dropdown.style.display = "none";
-		this.classList.remove("show")
 	} else {
-		this.classList.add("show")
 		_dropdown.style.display = "block"
 	};
 	if (!count_box.classList.contains("showed") || count_box.innerHTML) {
@@ -392,6 +390,7 @@ on('body', 'click', '.get_user_notify_box', function() {
 			container.innerHTML = "";
 			container.innerHTML = elem_.innerHTML;
 			count_box.classList.add("showed");
+			create_pagination(container)
 	  }};
 	   link_.send();
 	};

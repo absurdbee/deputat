@@ -11,3 +11,4 @@ class DistrictAdmin(admin.ModelAdmin):
             model = District2
 
 admin.site.register(District2, DistrictAdmin)
+admin.site.register(District2, DistrictAdmin)

@@ -989,6 +989,9 @@ html .pace .pace-progress {
   .menu-open .main-menu {
     -webkit-transform : translate3d(0, 0, 0);
             transform : translate3d(0, 0, 0);
+  };
+  .toggle_fixed_block {
+    padding-left: 5%;
   }
 }
 

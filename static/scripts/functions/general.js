@@ -647,11 +647,11 @@ function scrolled(_block) {
 
 on('body', 'click', '.toggle_fixed_block', function() {
   document.body.querySelector(".notify_dropdown").style.display = "none";
-  document.body.querySelector(".get_user_notify_box").classList.remove(show);
+  document.body.querySelector(".get_user_notify_box").classList.remove("show");
 });
 on('body', 'click', '.main-menu', function() {
   document.body.querySelector(".notify_dropdown").style.display = "none";
-  document.body.querySelector(".get_user_notify_box").classList.remove(show);
+  document.body.querySelector(".get_user_notify_box").classList.remove("show");
 });
 
 function paginate(block) {

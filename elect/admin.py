@@ -8,8 +8,8 @@ class ElectResource(resources.ModelResource):
 
     class Meta:
         model = Elect
-        fields = ('name', 'description', 'list__name', 'region__name', 'birthday', 'authorization', 'fraction__name', 'post_2', 'area__name')
-        export_order = ('name', 'list__name', 'region__name', 'area__name', 'fraction__name', 'description', 'birthday', 'authorization', 'post_2')
+        fields = ('name', 'description', 'list__name', 'region__name', 'birthday', 'authorization', 'fraction__name', 'post_2', 'area')
+        export_order = ('name', 'list__name', 'region__name', 'area', 'fraction__name', 'description', 'birthday', 'authorization', 'post_2')
 
 class LinkElectInline(admin.TabularInline):
     model = LinkElect

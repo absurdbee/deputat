@@ -1,6 +1,12 @@
 from django.contrib import admin
 from elect.models import *
+from import_export import resources
 
+
+class ElectResource(resources.ModelResource):
+
+    class Meta:
+        model = Elect
 
 class LinkElectInline(admin.TabularInline):
     model = LinkElect

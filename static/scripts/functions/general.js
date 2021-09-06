@@ -646,10 +646,15 @@ function scrolled(_block) {
 }
 
 on('body', 'click', '.toggle_fixed_block', function() {
-  document.body.querySelector(".notify_dropdown").style.display = "none"
+  drop = document.body.querySelector(".notify_dropdown")
+  drop.style.display = "none";
+  drop.classList.remove = "show";
+
 });
 on('body', 'click', '.main-menu', function() {
-  document.body.querySelector(".notify_dropdown").style.display = "none"
+  drop = document.body.querySelector(".notify_dropdown")
+  drop.style.display = "none";
+  drop.classList.remove = "show";
 });
 
 function paginate(block) {

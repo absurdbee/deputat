@@ -1,6 +1,6 @@
 .profile-title h1, .profile-title span {
   background: rgba(0, 0, 0, 0.5);
-} 
+}
 
 .menu_close {
   position: absolute;
@@ -789,6 +789,10 @@ line-height: 1;
     border-radius: 5px;
 }
 
+.scroll_hidden::-webkit-scrollbar, .scroll_hidden::-webkit-scrollbar-thumb {
+  width: 0px;
+  background: transparent;
+}
 
 @media (min-width: 768px){
 .profile-header-nav .profile-tabs {

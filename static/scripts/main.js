@@ -46,7 +46,7 @@ on('body', 'change', '.left_menu_regions', function() {
 on('body', 'click', '.base_row_container', function() {
 	drops = document.body.querySelectorAll(".dropdown-menu");
   for (var i = 0; i < drops.length; i++){
-			drops[i].classList.remove("show")
+		try{drops[i].classList.remove("show")} catch { null }
 	}
 })
 on('body', 'click', '.stop_propagation_block', function(e) {

@@ -43,7 +43,9 @@ for i in spb_oblast_list:
     data = response.json()
     count = 0
     for i in data:
-        d = District2.objects.create(name=i, region=region, link=data[count][2])
+        _data = link=data[count][2]
+        link = _data[2]
+        d = District2.objects.create(name=i, region=region, link=link)
         count += 1
         print ("Добавлен дистрикт ", d.name)
     print ("==============================")

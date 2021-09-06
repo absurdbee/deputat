@@ -906,10 +906,12 @@ function get_document_opacity_0() {
   if (document.body.querySelector(".toggle_fixed_block")) {
     if (!document.body.querySelector(".app-user-edit")) {
     document.body.querySelector(".toggle_fixed_block").style.clipPath = "polygon(0px 0px,0px 0px,0px 0px,0px 0px)";
-  }}
+
+  }};
   if (document.body.querySelector(".navbar-expand-lg")){
     document.body.querySelector(".navbar-expand-lg").style.clipPath = "polygon(0px 0px,0px 0px,0px 0px,0px 0px)";
-  }
+  };
+  document.body.classList.add("scroll_hidden")
 }
 function get_document_opacity_1() {
   if (document.body.querySelector(".toggle_fixed_block")) {

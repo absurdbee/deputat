@@ -373,8 +373,10 @@ on('body', 'click', '.get_user_notify_box', function() {
 
 	if (this.classList.contains("show")) {
 		_dropdown.style.display = "none";
+		this.classList.remove("show")
 	} else {
-		_dropdown.style.display = "block"
+		_dropdown.style.display = "block";
+		this.classList.add("show")
 	};
 	if (!count_box.classList.contains("showed") || count_box.innerHTML) {
 		count_box.innerHTML = "";

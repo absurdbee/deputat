@@ -37,7 +37,7 @@ spb_oblast_list = [
                     ]
 
 
-region = Region.objects.filter(name="Ленинградская область")
+region = Region.objects.get(name="Ленинградская область")
 for i in spb_oblast_list:
     response = requests.get(url= "https://election.novayagazeta.ru/api/address/?address=" + i)
     data = response.json()

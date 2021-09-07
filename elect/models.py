@@ -366,7 +366,7 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif double == 5.0:
                 color = "#63BE7B"
-        return '<span style="background:' + color + '">' + double + '</span>'
+        return '<span style="background:' + color + '">' + str(double) + '</span>'
 
     def get_total_rating_double(self):
         if not ElectRating.objects.filter(elect_id=self.id).exists():

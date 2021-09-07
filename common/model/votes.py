@@ -105,7 +105,7 @@ class ElectRating(models.Model):
                 (PLUS_5, '#63BE7B'),
             )
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
-    elect = models.ForeignKey(Elect, on_delete=models.CASCADE)
+    elect = models.ForeignKey("elect.Elect", on_delete=models.CASCADE)
 
     vakcine = models.SmallIntegerField(verbose_name="Добровольность вакцинации", choices=VOTES)
     pp_825 = models.SmallIntegerField(verbose_name="Отмена пп 825", choices=VOTES)

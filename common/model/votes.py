@@ -77,3 +77,38 @@ class OrganizationCommentVotes(models.Model):
     vote = models.IntegerField(verbose_name="Голос", choices=VOTES)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     comment = models.ForeignKey(BlogComment, on_delete=models.CASCADE)
+
+
+class ElectRating(models.Model):
+    MINUS_5 = -5
+    MINUS_4 = -4
+    MINUS_3 = -3
+    MINUS_2 = -2
+    MINUS_1 = -1
+    ZERO = 0
+    PLUS_1 = 1
+    PLUS_2 = 2
+    PLUS_3 = 3
+    PLUS_4 = 4
+    PLUS_5 = 5
+    VOTES = (
+                (MINUS_5, '#F8696B'),
+                (MINUS_4, '#F98370'),
+                (MINUS_3, '#FA9D75'),
+                (MINUS_2, '#FCB77A'),
+                (MINUS_1, '#FDD17F'),
+                (ZERO, '#FFEB84'),
+                (PLUS_1, '#E0E383'),
+                (PLUS_2, '#C1DA81'),
+                (PLUS_3, '#A2D07F'),
+                (PLUS_4, '#83C77D'),
+                (PLUS_5, '#63BE7B'),
+            )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
+    elect = models.ForeignKey(Elect, on_delete=models.CASCADE)
+
+    vakcine = models.SmallIntegerField(verbose_name="Добровольность вакцинации", choices=VOTES)
+    pp_825 = models.SmallIntegerField(verbose_name="Отмена пп 825", choices=VOTES)
+    safe_family = models.SmallIntegerField(verbose_name="Защита прав семьи", choices=VOTES)
+    pro_life = models.SmallIntegerField(verbose_name="Защита жизни с момента зачатия", choices=VOTES)
+    free_vacation = models.SmallIntegerField(verbose_name="Свобода образования", choices=VOTES)

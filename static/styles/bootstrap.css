@@ -1996,7 +1996,7 @@ pre code {
 .table th, .table td {
   padding : 0.72rem;
   vertical-align : top;
-  border-top : 1px solid #EBE9F1;
+  border : 1px solid #000000;
 }
 
 .table thead th {

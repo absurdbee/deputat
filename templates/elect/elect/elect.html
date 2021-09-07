@@ -34,16 +34,15 @@
             <div class="row">
                 <div class="col-lg-3 col-12 order-2 order-lg-1">
                   <div class="">
-                    <span class="pointer u_suggested_elect_new_create" data-name="{{ object.name }}">Предложить новость</span>
+                    <p class="pointer u_suggested_elect_new_create" data-name="{{ object.name }}">ПРЕДЛОЖИТЬ НОВОСТЬ</p>
                     {% if object|is_user_subscribe:request.user.pk %}
-                      <span class="pointer subscribe_btn remove_elect_subscribe">Вы подписаны</span>
+                      <p class="pointer remove_elect_subscribe">Вы подписаны</p>
                     {% else %}
-                      <span class="pointer subscribe_btn add_elect_subscribe" data-pk="{{ object.pk }}">Подписаться</span>
+                      <p class="pointer add_elect_subscribe" data-pk="{{ object.pk }}">Подписаться</p>
                     {% endif %}
-                      <span class="pointer subscribe_btn manager_elect_edit" data-pk="{{ object.pk }}">Изменить</span>
+                      <p class="pointer manager_elect_edit" data-pk="{{ object.pk }}">Изменить</p>
                   </div>
                     <div class="list-group list-group-labels">
-                        <button class="btn mb-1 btn-outline-secondary u_suggested_elect_new_create" data-name="{{ object.name }}">Предложить новость</button>
                         <a data-href="/elect/{{ object.pk }}/all_news/" class="list-group-item list-group-item-action select_elect_news_category active">
                             <span class="align-middle">Все новости</span>
                         </a>

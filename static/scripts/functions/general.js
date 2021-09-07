@@ -911,6 +911,9 @@ function get_document_opacity_0() {
   if (document.body.querySelector(".navbar-expand-lg")){
     document.body.querySelector(".navbar-expand-lg").style.clipPath = "polygon(0px 0px,0px 0px,0px 0px,0px 0px)";
   };
+  if (document.body.querySelector(".main-menu-content")){
+    document.body.querySelector(".main-menu-content").style.clipPath = "polygon(0px 0px,0px 0px,0px 0px,0px 0px)";
+  }
   document.body.classList.add("scroll_hidden")
 }
 function get_document_opacity_1() {
@@ -921,6 +924,9 @@ function get_document_opacity_1() {
   if (document.body.querySelector(".header-navbar")){
     document.body.querySelector(".header-navbar").style.clipPath = "none";
   };
+  if (document.body.querySelector(".main-menu-content")){
+    document.body.querySelector(".main-menu-content").style.clipPath = "none";
+  }
   create_pagination(document.body);
 }
 

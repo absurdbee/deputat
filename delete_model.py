@@ -11,7 +11,14 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django
 django.setup()
 
+from common.model.votes import ElectRating
 from elect.models import Elect
 
-for elect in Elect.objects.filter(list__is_reginal=True, region__name="Ямало-Ненецкий автономный округ"):
-    elect.delete()
+if ElectRating.objects.filter(elect_id=178).exists():
+    rat = ElectRating.objects.get(elect_id=178)
+    rat.vakcine = -5
+    rat.save(update_fields=["vakcine"])
+else:
+    rat = ElectRating.objects.create(elect_id=178)
+    rat.vakcine = -5
+    rat.save(update_fields=["vakcine"])

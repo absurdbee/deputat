@@ -339,33 +339,34 @@ class Elect(models.Model):
     def get_vakcine_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '#FFEB84'
+            color = '#FFEB84'
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('vakcine'))
             double = _double['vakcine__avg']
             if double < -4 :
-                return "#F8696B"
+                color = "#F8696B"
             elif -5 < double < -3:
-                return "#F98370"
+                color = "#F98370"
             elif -4 < double < -2:
-                return "#FA9D75"
+                color = "#FA9D75"
             elif -3 < double < -1:
-                return "#FCB77A"
+                color = "#FCB77A"
             elif -2 < double < 0:
-                return "#FDD17F"
+                color = "#FDD17F"
             elif -1 < double < 1:
-                return "#FFEB84"
+                color = "#FFEB84"
             elif 0 < double < 2:
-                return "#E0E383"
+                color = "#E0E383"
             elif 1 < double < 3:
-                return "#C1DA81"
+                color = "#C1DA81"
             elif 2 < double < 4:
-                return "#A2D07F"
+                color = "#A2D07F"
             elif 3 < double < 5:
-                return "#83C77D"
+                color = "#83C77D"
             elif double == 5.0:
-                return "#63BE7B"
+                color = "#63BE7B"
+        return '<span style="background:' + color + '">' + double + '</span>'
 
     def get_total_rating_double(self):
         if not ElectRating.objects.filter(elect_id=self.id).exists():

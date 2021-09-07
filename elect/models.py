@@ -336,6 +336,42 @@ class Elect(models.Model):
             #user_wall(user, None, self.pk, "ELE", "u_elec_notify", "INE")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
+    def get_vakcine_double(self):
+        from common.model.votes import ElectRating
+        if not ElectRating.objects.filter(elect_id=self.id).exists():
+            return '#FFEB84'
+        else:
+            from django.db.models import Avg
+            double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('vakcine'))
+            if double < -4 :
+                return "#F8696B"
+            elif -5 < double < -3:
+                return "#F98370"
+            elif -4 < double < -2:
+                return "#FA9D75"
+            elif -3 < double < -1:
+                return "#FCB77A"
+            elif -2 < double < 0:
+                return "#FDD17F"
+            elif -1 < double < 1:
+                return "#FFEB84"
+            elif 0 < double < 2:
+                return "#E0E383"
+            elif 1 < double < 3:
+                return "#C1DA81"
+            elif 2 < double < 4:
+                return "#A2D07F"
+            elif 3 < double < 5:
+                return "#83C77D"
+            elif double == 5.0:
+                return "#63BE7B"
+
+    def get_total_rating_double(self):
+        if not ElectRating.objects.filter(elect_id=self.id).exists():
+            return '#FFEB84'
+        else:
+            from django.db.models import Avg
+
 
 class LinkElect(models.Model):
     title = models.CharField(max_length=255, verbose_name="Текст ссылки")

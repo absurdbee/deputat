@@ -34,6 +34,9 @@
             <div class="row">
                 <div class="col-lg-3 col-12 order-2 order-lg-1">
                   <div class="mt-1 mb-1">
+
+                    {% include 'elect/elect/table.html' %}
+                    
                     <span class="pointer u_suggested_elect_new_create" data-name="{{ object.name }}">ПРЕДЛОЖИТЬ НОВОСТЬ</span><br>
                     {% if object|is_user_subscribe:request.user.pk %}
                       <span class="pointer remove_elect_subscribe">Вы подписаны</span><br>

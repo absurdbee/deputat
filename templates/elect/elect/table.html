@@ -1,8 +1,10 @@
+
+
 <table class="table table-sm">
 	<tbody>
 		<span style="font-weight: bold;">Оценить работу чиновника:</span>
 		<tr>
-			<td><span class="font-weight-bold small">Добровольность вакцинации</span></td>
+			<td><span class="font-weight-bold small" style="background:{{ object.get_vakcine_double }}">Добровольность вакцинации</span></td>
 			<td style="">
 				<select class="elect_rating_select elect_rating_vakcine">
 						<option value="-5">-5</option>
@@ -21,19 +23,75 @@
 		</tr>
     <tr>
 			<td><span class="font-weight-bold small">Отмена пп 825</span></td>
-			<td>1,0</td>
+			<td>
+				<select class="elect_rating_select elect_rating_pp_825">
+						<option value="-5">-5</option>
+						<option value="-4">-4</option>
+						<option value="-3">-3</option>
+						<option value="-2">-2</option>
+						<option value="-1">-1</option>
+						<option value="0" selected="">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+				</select>
+			</td>
 		</tr>
     <tr>
 			<td><span class="font-weight-bold small">Защита прав семьи</span></td>
-			<td>1,0</td>
+			<td>
+				<select class="elect_rating_select elect_rating_safe_family">
+						<option value="-5">-5</option>
+						<option value="-4">-4</option>
+						<option value="-3">-3</option>
+						<option value="-2">-2</option>
+						<option value="-1">-1</option>
+						<option value="0" selected="">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+				</select>
+			</td>
 		</tr>
     <tr>
 			<td><span class="font-weight-bold small">Защита жизни с момента зачатия</span></td>
-			<td>1,0</td>
+			<td>
+				<select class="elect_rating_select elect_rating_pro_life">
+						<option value="-5">-5</option>
+						<option value="-4">-4</option>
+						<option value="-3">-3</option>
+						<option value="-2">-2</option>
+						<option value="-1">-1</option>
+						<option value="0" selected="">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+				</select>
+			</td>
 		</tr>
     <tr>
 			<td><span class="font-weight-bold small">Свобода образования</span></td>
-			<td>1,0</td>
+			<td>
+				<select class="elect_rating_select elect_rating_free_vacation">
+						<option value="-5">-5</option>
+						<option value="-4">-4</option>
+						<option value="-3">-3</option>
+						<option value="-2">-2</option>
+						<option value="-1">-1</option>
+						<option value="0" selected="">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td><span class="font-weight-bold small">Итоговый рейтинг</span></td>

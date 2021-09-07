@@ -14,11 +14,11 @@ django.setup()
 from common.model.votes import ElectRating
 from elect.models import Elect
 
-if ElectRating.objects.filter(elect_id=178).exists():
-    rat = ElectRating.objects.get(elect_id=178)
+if ElectRating.objects.filter(elect_id=178, user_id=1).exists():
+    rat = ElectRating.objects.get(elect_id=178, user_id=1)
     rat.vakcine = -5
     rat.save(update_fields=["vakcine"])
 else:
-    rat = ElectRating.objects.create(elect_id=178)
+    rat = ElectRating.objects.create(elect_id=178, user_id=1)
     rat.vakcine = -5
     rat.save(update_fields=["vakcine"])

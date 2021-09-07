@@ -107,8 +107,8 @@ class ElectRating(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Пользователь")
     elect = models.ForeignKey("elect.Elect", on_delete=models.CASCADE)
 
-    vakcine = models.SmallIntegerField(verbose_name="Добровольность вакцинации", choices=VOTES)
-    pp_825 = models.SmallIntegerField(verbose_name="Отмена пп 825", choices=VOTES)
-    safe_family = models.SmallIntegerField(verbose_name="Защита прав семьи", choices=VOTES)
-    pro_life = models.SmallIntegerField(verbose_name="Защита жизни с момента зачатия", choices=VOTES)
-    free_vacation = models.SmallIntegerField(verbose_name="Свобода образования", choices=VOTES)
+    vakcine = models.SmallIntegerField(verbose_name="Добровольность вакцинации", default=ZERO, choices=VOTES)
+    pp_825 = models.SmallIntegerField(verbose_name="Отмена пп 825", default=ZERO, choices=VOTES)
+    safe_family = models.SmallIntegerField(verbose_name="Защита прав семьи", default=ZERO, choices=VOTES)
+    pro_life = models.SmallIntegerField(verbose_name="Защита жизни с момента зачатия", default=ZERO, choices=VOTES)
+    free_vacation = models.SmallIntegerField(verbose_name="Свобода образования", default=ZERO, choices=VOTES) 

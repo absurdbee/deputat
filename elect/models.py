@@ -343,7 +343,7 @@ class Elect(models.Model):
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('vakcine'))
-            double = _double[0].vakcine
+            double = _double[0].vakcine__avg
             if double < -4 :
                 return "#F8696B"
             elif -5 < double < -3:

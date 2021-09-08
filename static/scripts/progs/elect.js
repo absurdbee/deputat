@@ -134,3 +134,23 @@ on('body', 'change', '.select_region_for_load_elects', function() {
 on('body', 'change', '.elect_rating_select', function() {
   this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.style.display = "block"
 });
+
+on('body', 'click', '.get_elect_rating_voted', function() {
+  _this = this;
+  form = _this.parentElement;
+  form_data = new FormData(form);
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/elect/votes/send_rating/" + _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    toast_info("Голос учтён!")
+  }};
+
+  link_.send(form_data);
+});

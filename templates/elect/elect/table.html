@@ -1,5 +1,33 @@
 {% if is_user_voted %}
-
+<table class="table table-sm">
+	<tbody>
+		<span style="font-weight: bold;">Рейтинг работы чиновника:</span>
+		<tr>
+			<td><span class="font-weight-bold small">Добровольность вакцинации</span></td>
+			{{ object.get_vakcine_double|safe }}
+		</tr>
+		<tr>
+			<td><span class="font-weight-bold small">Отмена пп 825</span></td>
+			{{ object.get_pp_825_double|safe }}
+		</tr>
+		<tr>
+			<td><span class="font-weight-bold small">Защита прав семьи</span></td>
+			{{ object.get_safe_family_double|safe }}
+		</tr>
+		<tr>
+			<td><span class="font-weight-bold small">Защита жизни с момента зачатия</span></td>
+			{{ object.get_pro_life_double|safe }}
+		</tr>
+		<tr>
+			<td><span class="font-weight-bold small">Свобода образования</span></td>
+			{{ object.get_free_vacation_double|safe }}
+		</tr>
+		<tr>
+			<td><span class="font-weight-bold small">Итоговый рейтинг</span></td>
+			{{ object.get_total_rating_double|safe }}
+		</tr>
+	</tbody>
+</table>
 {% else %}
 <table class="table table-sm">
 	<tbody>
@@ -99,5 +127,6 @@
 			{{ object.get_total_rating_double|safe }}
 		</tr>
 	</tbody>
+	<span class="pointer underline get_elect_rating_voted hidden">Оценить</span>
 </table>
 {% endif %}

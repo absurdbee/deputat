@@ -535,7 +535,7 @@ class ElectNew(models.Model):
 
         self.title = title
         self.description = description
-        self.elect = elect
+        self.elect = _elect
         self.attach = _attach
         self.category = category
         self.comments_enabled = comments_enabled

@@ -139,16 +139,7 @@ class Elect(models.Model):
         ElectManageLog.objects.create(item=self.pk, manager=manager_id, action_type=ElectManageLog.ITEM_EDITED)
 
     def get_region_image(self):
-        if self.region.all():
-            if self.region.all()[0].image:
-                return self.region.all()[0].image.url
-            else:
-                return '/static/images/test_2.jpg'
-        else:
-            if self.area.all()[0].region.image:
-                return self.area.all()[0].region.image.url
-            else:
-                return '/static/images/test_2.jpg'
+        return '/static/images/test_2.jpg'
 
     def get_image(self):
         if self.image:
@@ -547,6 +538,11 @@ class Elect(models.Model):
             elif avg == 5.0:
                 color = "#63BE7B"
             return '<td style="background:' + color + ';text-align: center;">' + str(avg) + '</td>'
+
+    def get_total_rating_icon(self):
+        from common.model.votes import ElectRating
+        if not ElectRating.objects.filter(elect_id=self.id).exists():
+            return '<span class="elect_rating_icon"><svg fill="#FFEB84" enable-background="new 0 0 24 24" width="24" height="24" viewBox="0 0 24 24"><g><rect x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>0</span>'
 
 
 class LinkElect(models.Model):

@@ -26,11 +26,13 @@ class ElectInert(View):
 
 
 class ElectSendRating(View):
+
     def post(self, request, **kwargs):
         if not request.is_ajax():
             raise Http404
         from common.model.votes import ElectRating
         import json
+        from django.http import HttpResponse
 
         vakcine = request.POST.get('vakcine')
         pp_825 = request.POST.get('pp_825')

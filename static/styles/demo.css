@@ -1,8 +1,11 @@
 .elect_rating_icon {
   margin-left: 25%;
-    background-color: #2C3048;
-    padding: 10px;
-    color: white;
+  background-color: #2C3048;
+  padding: 5px 5px;
+  color: white;
+}
+.elect_rating_icon svg{
+  margin-bottom: 3px;
 }
 
 .elect_rating_select {

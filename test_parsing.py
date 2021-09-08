@@ -24,9 +24,11 @@ def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
 
     tgrids = soup.find_all('div', class_='tgrid')
+    parth = 0
     for tgrid in tgrids:
         deputat_items = tgrid.find_all('div', class_='trow')
         count = 0
+        parth += 1
 
         for item in deputat_items:
             if not count == 0:
@@ -42,7 +44,7 @@ def get_page_data(html):
                 print("Образование ", deps[2].text.replace("Образование: ",""))
             count += 1
             print("--------------------")
-        print("показываю часть ", count)
+        print("показываю часть ", parth)
         print("=======================")
 
 def main():

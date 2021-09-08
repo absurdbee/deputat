@@ -401,7 +401,7 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif double == 5.0:
                 color = "#63BE7B"
-        return '<tr style="background:' + color + '">' + str(double) + '</tr>'
+        return '<td style="background:' + color + '">' + str(double) + '</td>'
     def get_safe_family_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():

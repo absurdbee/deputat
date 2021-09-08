@@ -28,19 +28,18 @@ def get_page_data(html):
     count = 0
 
     for item in deputat_items:
-        if count == 0:
-            a = 1
-        print(item)
-        print("фИО ", item.find("b").text)
-        print("Фото ", "https://gosduma-2021.com/" + item.find("img")["src"])
-        print("Партия ", item.find('p', class_='party-name').text)
+        if not count == 0:
+            print(item)
+            print("фИО ", item.find("b").text)
+            print("Фото ", "https://gosduma-2021.com/" + item.find("img")["src"])
+            print("Партия ", item.find('p', class_='party-name').text)
 
-        deps = item.find_all('ul', class_='listdep')
+            deps = item.find_all('ul', class_='listdep')
 
-        print("Должность ", item.find("p", class_='fio').text)
-        print("Возраст ", deps[1].text)
-        print("Образование ", deps[2].text)
-        count += 1
+            print("Должность ", item.find("p", class_='fio').text)
+            print("Возраст ", deps[1].text)
+            print("Образование ", deps[2].text)
+            count += 1
         print("=================================")
 
 def main():

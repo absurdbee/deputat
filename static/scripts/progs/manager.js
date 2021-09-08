@@ -41,8 +41,7 @@ function post_elect_new(_this, url, toast) {
 };
 
 function post_send_change(span, _link, new_class, html) {
-    parent = span.parentElement;
-    item = span.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    item = span.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
     pk = item.getAttribute("data-pk");
     link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     link.open('GET', _link + pk + "/", true);
@@ -52,8 +51,8 @@ function post_send_change(span, _link, new_class, html) {
             new_span = document.createElement("span");
             new_span.classList.add(new_class, "dropdown-item");
             new_span.innerHTML = html;
-            parent.innerHTML = "";
-            parent.append(new_span)
+            span.innerHTML = "";
+            span.append(new_span)
         }
     };
     link.send(null)

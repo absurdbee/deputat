@@ -38,7 +38,7 @@ def get_page_data(html, district):
 
         print("Должность ", item.find("p", class_='fio').text)
         print("Возраст ", deps[1].text)
-        print("Образование ", deps[2].text))
+        print("Образование ", deps[2].text)
         count += 1
         print("=================================")
 

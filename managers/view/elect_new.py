@@ -224,11 +224,11 @@ class PublishElectNew(TemplateView):
         try:
             for i in elect.list.all():
                 if i.is_reginal:
-                self.is_regional = True
+                    self.is_regional = True
             if self.is_regional:
                 if elect.area:
-                _district = elect.area.all().first()
-                elect_regional_list = Elect.objects.filter(area=_district)
+                    _district = elect.area.all().first()
+                    elect_regional_list = Elect.objects.filter(area=_district)
         except:
             self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(PublishElectNew,self).get(request,*args,**kwargs)

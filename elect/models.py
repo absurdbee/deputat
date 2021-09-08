@@ -542,9 +542,39 @@ class Elect(models.Model):
     def get_total_rating_icon(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<span class="elect_rating_icon"><span class="integer">0</span><svg fill="#FFEB84" enable-background="new 0 0 24 24" width="24" height="24" viewBox="0 0 24 24"><g><rect x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg></span>'
+            return '<span class="elect_rating_icon"><span class="integer">0</span><svg fill="#FFEB84" enable-background="new 0 0 20 20" width="24" height="24" viewBox="0 0 24 24"><g><rect x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg></span>'
         else:
-            return "bebe"
+            query = ElectRating.objects.filter(elect_id=self.id)
+            vakcine = query.aggregate(Avg('vakcine'))['vakcine__avg']
+            pp_825 = query.aggregate(Avg('pp_825'))['pp_825__avg']
+            safe_family = query.aggregate(Avg('safe_family'))['safe_family__avg']
+            pro_life = query.aggregate(Avg('pro_life'))['pro_life__avg']
+            free_vacation = query.aggregate(Avg('free_vacation'))['free_vacation__avg']
+            list = [vakcine, pp_825, safe_family, pro_life, free_vacation]
+            avg = sum(list) / len(list)
+            if avg < -4 :
+                color = "#F8696B"
+            elif -5 < avg < -3:
+                color = "#F98370"
+            elif -4 < avg < -2:
+                color = "#FA9D75"
+            elif -3 < avg < -1:
+                color = "#FCB77A"
+            elif -2 < avg < 0:
+                color = "#FDD17F"
+            elif -1 < avg < 1:
+                color = "#FFEB84"
+            elif 0 < avg < 2:
+                color = "#E0E383"
+            elif 1 < avg < 3:
+                color = "#C1DA81"
+            elif 2 < avg < 4:
+                color = "#A2D07F"
+            elif 3 < avg < 5:
+                color = "#83C77D"
+            elif avg == 5.0:
+                color = "#63BE7B"
+            return return '<span class="elect_rating_icon"><span class="integer">', str(avg), '</span><svg fill="', color, '" enable-background="new 0 0 20 20" width="24" height="24" viewBox="0 0 24 24"><g><rect x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg></span>'
 
 
 class LinkElect(models.Model):

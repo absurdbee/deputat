@@ -1,5 +1,8 @@
 .elect_rating_icon {
-  position: absolute
+  margin-left: 25%;
+    background-color: #2C3048;
+    padding: 10px;
+    color: white;
 }
 
 .elect_rating_select {

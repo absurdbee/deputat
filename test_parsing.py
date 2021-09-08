@@ -28,6 +28,7 @@ def get_page_data(html):
     count = 0
 
     for item in deputat_items:
+        print(item)
         if count == 0:
             pass
         print("фИО ", item.find("b").text)

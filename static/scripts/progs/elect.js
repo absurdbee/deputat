@@ -132,5 +132,5 @@ on('body', 'change', '.select_region_for_load_elects', function() {
 
 
 on('body', 'change', '.elect_rating_select', function() {
-  this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.style.display = "unset"
+  this.parentElement.parentElement.parentElement.parentElement.nextElementSibling.style.display = "block"
 });

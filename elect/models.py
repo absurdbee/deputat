@@ -42,6 +42,7 @@ class Elect(models.Model):
     class Meta:
         verbose_name = "Чиновник"
         verbose_name_plural = "Чиновники"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

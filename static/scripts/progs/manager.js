@@ -40,6 +40,25 @@ function post_elect_new(_this, url, toast) {
   link.send(form_data);
 };
 
+function post_send_change(span, _link, new_class, html) {
+    parent = span.parentElement;
+    item = span.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    pk = item.getAttribute("data-pk");
+    link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    link.open('GET', _link + pk + "/", true);
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function() {
+        if (link.readyState == 4 && link.status == 200) {
+            new_span = document.createElement("span");
+            new_span.classList.add(new_class, "dropdown-item");
+            new_span.innerHTML = html;
+            parent.innerHTML = "";
+            parent.append(new_span)
+        }
+    };
+    link.send(null)
+}
+
 on('body', 'click', '.u_elect_new_remove', function() {
   post_send_change(this.parentElement, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");
 })

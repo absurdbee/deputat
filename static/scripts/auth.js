@@ -28,7 +28,15 @@ function ajax_get_reload(url) {
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();
-        document.body.querySelector(".notify_dropdown").style.display = "none"
+				if (document.body.querySelector(".toggle_fixed_block")) {
+			    document.body.querySelector(".toggle_fixed_block").style.clipPath = "none";
+			  }
+			  if (document.body.querySelector(".header-navbar")){
+			    document.body.querySelector(".header-navbar").style.clipPath = "none";
+			  };
+			  if (document.body.querySelector(".main-menu-content")){
+			    document.body.querySelector(".main-menu-content").style.clipPath = "none";
+			  }
       }
     }
     ajax_link.send();

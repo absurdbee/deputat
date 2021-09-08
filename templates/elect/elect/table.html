@@ -96,7 +96,7 @@
 		</tr>
 		<tr>
 			<td><span class="font-weight-bold small">Итоговый рейтинг</span></td>
-			<td>{{ object.get_total_rating_double }}</td>
+			<td>{{ object.get_total_rating_double|safe }}</td>
 		</tr>
 	</tbody>
 </table>

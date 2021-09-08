@@ -33,7 +33,7 @@ def get_page_data(html):
             print("Фото ", "https://gosduma-2021.com/" + item.find("img")["src"])
             print("Партия ", item.find('p', class_='party-name').text)
 
-            deps = item.find_all('ul', class_='listdep')
+            deps = item.find_all('li')
 
             print("Должность ", item.find("p", class_='fio').text)
             print("Возраст ", deps[1].text)

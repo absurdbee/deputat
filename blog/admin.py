@@ -16,5 +16,14 @@ class BlogAdmin(admin.ModelAdmin):
         form.base_fields['creator'].initial = request.user
         return form
 
+class ElectNewAdmin(admin.ModelAdmin):
+    list_display = ['title', 'description', 'created']
+    list_filter = ['-created']
+    search_fields = ['title']
+
+    class Meta:
+            model = ElectNew
+
+
 admin.site.register(Blog, BlogAdmin)
-admin.site.register(ElectNew)
+admin.site.register(ElectNew, ElectNewAdmin)

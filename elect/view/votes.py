@@ -52,11 +52,4 @@ class ElectSendRating(View):
             rat.free_vacation = 1
             rat.save()
 
-        return HttpResponse(json.dumps({
-                "vakcine": str(vakcine),
-                "pp_825": str(pp_825),
-                "safe_family": str(safe_family),
-                "pro_life": str(pro_life),
-                "free_vacation": str(free_vacation),
-                }),
-                content_type="application/json")
+        return HttpResponse()

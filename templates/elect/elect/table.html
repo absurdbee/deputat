@@ -29,13 +29,15 @@
 	</tbody>
 </table>
 {% else %}
+<form>
+	{% csrf_token %}
 <table class="table table-sm">
 	<tbody>
 		<span style="font-weight: bold;">Оценить работу чиновника:</span>
 		<tr>
 			<td><span class="font-weight-bold small">Добровольность вакцинации</span></td>
 			<td style="">
-				<select class="elect_rating_select elect_rating_vakcine">
+				<select class="elect_rating_select elect_rating_vakcine" name="elect_rating_vakcine">
 						<option value="-5">-5</option>
 						<option value="-4">-4</option>
 						<option value="-3">-3</option>
@@ -53,7 +55,7 @@
     <tr>
 			<td><span class="font-weight-bold small">Отмена пп 825</span></td>
 			<td>
-				<select class="elect_rating_select elect_rating_pp_825">
+				<select class="elect_rating_select" name="elect_rating_pp_825">
 						<option value="-5">-5</option>
 						<option value="-4">-4</option>
 						<option value="-3">-3</option>
@@ -71,7 +73,7 @@
     <tr>
 			<td><span class="font-weight-bold small">Защита прав семьи</span></td>
 			<td>
-				<select class="elect_rating_select elect_rating_safe_family">
+				<select class="elect_rating_select" name="elect_rating_safe_family">
 						<option value="-5">-5</option>
 						<option value="-4">-4</option>
 						<option value="-3">-3</option>
@@ -89,7 +91,7 @@
     <tr>
 			<td><span class="font-weight-bold small">Защита жизни с момента зачатия</span></td>
 			<td>
-				<select class="elect_rating_select elect_rating_pro_life">
+				<select class="elect_rating_select" name="elect_rating_pro_life">
 						<option value="-5">-5</option>
 						<option value="-4">-4</option>
 						<option value="-3">-3</option>
@@ -107,7 +109,7 @@
     <tr>
 			<td><span class="font-weight-bold small">Свобода образования</span></td>
 			<td>
-				<select class="elect_rating_select elect_rating_free_vacation">
+				<select class="elect_rating_select" name="elect_rating_free_vacation">
 						<option value="-5">-5</option>
 						<option value="-4">-4</option>
 						<option value="-3">-3</option>
@@ -128,5 +130,6 @@
 		</tr>
 	</tbody>
 </table>
-<p class="pointer underline get_elect_rating_voted" style="display:none;text-align: end;">Оценить</p>
+<p type="button" class="pointer underline get_elect_rating_voted" style="display:none;text-align: end;">Оценить</p>
+</form>
 {% endif %}

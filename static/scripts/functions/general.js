@@ -14,8 +14,24 @@ function findSize(input) {
         var fileSize = e.size;
         return fileSize;
     }
-}
-
+};
+function post_send_change(span, _link, new_class, html) {
+    item = span.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    pk = item.getAttribute("data-pk");
+    link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    link.open('GET', _link + pk + "/", true);
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function() {
+        if (link.readyState == 4 && link.status == 200) {
+            new_span = document.createElement("span");
+            new_span.classList.add(new_class, "dropdown-item");
+            new_span.innerHTML = html;
+            span.innerHTML = "";
+            span.append(new_span)
+        }
+    };
+    link.send(null)
+};
 function send_form_and_toast_and_close_window(url, form) {
     form_data = new FormData(form);
     ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

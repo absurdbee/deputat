@@ -221,14 +221,15 @@ class PublishElectNew(TemplateView):
 
         self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.elect_new.elect
-        for i in elect.list.all():
-            if i.is_reginal:
+        try:
+            for i in elect.list.all():
+                if i.is_reginal:
                 self.is_regional = True
-        if self.is_regional:
-            if elect.area:
+            if self.is_regional:
+                if elect.area:
                 _district = elect.area.all().first()
                 elect_regional_list = Elect.objects.filter(area=_district)
-        else:
+        except:
             self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
         return super(PublishElectNew,self).get(request,*args,**kwargs)
 

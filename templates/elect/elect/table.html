@@ -1,5 +1,6 @@
+{% if is_user_voted %}
 
-Поле вакцины: {{ object.get_vakcine_double|safe }} <br>
+{% else %}
 <table class="table table-sm">
 	<tbody>
 		<span style="font-weight: bold;">Оценить работу чиновника:</span>
@@ -95,7 +96,8 @@
 		</tr>
 		<tr>
 			<td><span class="font-weight-bold small">Итоговый рейтинг</span></td>
-			<td>1,0</td>
+			<td>{{ object.get_total_rating_double }}</td>
 		</tr>
 	</tbody>
 </table>
+{% endif %}

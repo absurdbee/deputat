@@ -357,7 +357,7 @@ class Elect(models.Model):
     def get_vakcine_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<td style="background:#FFEB84">0</td>'
+            return '<td style="background:#FFEB84;text-align: center;">0</td>'
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('vakcine'))
@@ -384,11 +384,11 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif double == 5.0:
                 color = "#63BE7B"
-        return '<td style="background:' + color + '">' + str(double) + '</td>'
+        return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
     def get_pp_825_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<td style="background:#FFEB84">0</td>'
+            return '<td style="background:#FFEB84;text-align: center;">0</td>'
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('pp_825'))
@@ -415,11 +415,11 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif double == 5.0:
                 color = "#63BE7B"
-        return '<td style="background:' + color + '">' + str(double) + '</td>'
+        return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
     def get_safe_family_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<td style="background:#FFEB84">0</td>'
+            return '<td style="background:#FFEB84;text-align: center;">0</td>'
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('safe_family'))
@@ -446,11 +446,11 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif double == 5.0:
                 color = "#63BE7B"
-        return '<td style="background:' + color + '">' + str(double) + '</td>'
+        return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
     def get_pro_life_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<td style="background:#FFEB84">0</td>'
+            return '<td style="background:#FFEB84;text-align: center;">0</td>'
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('pro_life'))
@@ -477,11 +477,11 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif double == 5.0:
                 color = "#63BE7B"
-        return '<td style="background:' + color + '">' + str(double) + '</td>'
+        return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
     def get_free_vacation_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<td style="background:#FFEB84">0</td>'
+            return '<td style="background:#FFEB84;text-align: center;">0</td>'
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('free_vacation'))
@@ -508,12 +508,12 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif double == 5.0:
                 color = "#63BE7B"
-        return '<td style="background:' + color + '">' + str(double) + '</td>'
+        return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
 
     def get_total_rating_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<td style="background:#FFEB84">0</td>'
+            return '<td style="background:#FFEB84;text-align: center;">0</td>'
         else:
             from django.db.models import Avg
             query = ElectRating.objects.filter(elect_id=self.id)
@@ -546,7 +546,7 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif avg == 5.0:
                 color = "#63BE7B"
-            return '<td style="background:' + color + '">' + str(avg) + '</td>'
+            return '<td style="background:' + color + ';text-align: center;">' + str(avg) + '</td>'
 
 
 class LinkElect(models.Model):

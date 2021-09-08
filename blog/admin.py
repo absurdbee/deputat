@@ -18,7 +18,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 class ElectNewAdmin(admin.ModelAdmin):
     list_display = ['title', 'description', 'created']
-    list_filter = ['-created']
+    list_filter = ['created']
     search_fields = ['title']
 
     class Meta:

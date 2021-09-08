@@ -14,10 +14,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card profile-header mb-2">
-                  <div style="position: relative;">
                     <img class="card-img-top" src="{{ object.get_region_image }}" alt="Image">
-                    {{ object.get_total_rating_icon|safe }}
-                  </div>
                     <div class="position-relative">
                         <div class="profile-img-container d-flex align-items-center" style="position: absolute;bottom: -2rem;left: 2.14rem;z-index: 2;">
                             <div class="profile-img" style="border: 0.357rem solid #FFFFFF;background-color: #FFFFFF;border-radius: 0.428rem;box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);">
@@ -37,6 +34,7 @@
         <section id="profile-info">
             <div class="row">
                 <div class="col-lg-3 col-12 order-2 order-lg-1">
+                  {{ object.get_total_rating_icon|safe }}
                   <div class="mt-1 mb-1">
 
                     {% include 'elect/elect/table.html' %}

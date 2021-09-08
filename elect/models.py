@@ -542,7 +542,7 @@ class Elect(models.Model):
     def get_total_rating_icon(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<span class="elect_rating_icon"><svg fill="#FFEB84" enable-background="new 0 0 24 24" width="24" height="24" viewBox="0 0 24 24"><g><rect x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg><span class="integer">0</span></span>'
+            return '<span class="elect_rating_icon"><span class="integer">0</span><svg fill="#FFEB84" enable-background="new 0 0 24 24" width="24" height="24" viewBox="0 0 24 24"><g><rect x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg></span>'
         else:
             return "bebe"
 

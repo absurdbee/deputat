@@ -1,5 +1,5 @@
 from blog.models import ElectNew
-from elelct.models import Elect
+from elect.models import Elect
 
 def linebreaks(value, autoescape=None):
     from django.utils.html import linebreaks

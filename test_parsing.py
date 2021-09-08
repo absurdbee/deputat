@@ -20,7 +20,7 @@ def get_html(url):
     r = requests.get(url)
     return r.text
 
-def get_page_data(html, district):
+def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
 
     tgrids = soup.find_all('div', class_='tgrid')

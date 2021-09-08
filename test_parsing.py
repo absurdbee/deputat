@@ -28,7 +28,7 @@ def get_page_data(html, district):
     count = 0
 
     for item in deputat_items:
-        if count = 0:
+        if count == 0:
             pass
         print("фИО ", item.find("b").text)
         print("Фото ", "https://gosduma-2021.com/" + item.find("img")["src"])

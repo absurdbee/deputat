@@ -497,6 +497,7 @@ class Elect(models.Model):
         return '<span style="background:' + color + '">' + str(double) + '</span>'
 
     def get_total_rating_double(self):
+        from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
             return '<span style="background:#FFEB84">0</span>'
         else:

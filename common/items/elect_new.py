@@ -43,7 +43,7 @@ def wall_elect_new(user, elect_new):
     if elect_new.elect:
         elect = elect_new.elect
     else:
-        elect = Elect.objects.get(pk=1)
+        elect = Elect.objects.get(pk=62)
 
 
     return ''.join([block, '<div class="event_card" data-pk="' + str(elect_new.pk) + '"><div class="event_img text-center"><span><span>\

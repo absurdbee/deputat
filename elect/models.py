@@ -499,7 +499,7 @@ class Elect(models.Model):
     def get_total_rating_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<span style="background:#FFEB84">0</span>'
+            return '<td style="background:#FFEB84">0</td>'
         else:
             from django.db.models import Avg
             query = ElectRating.objects.filter(elect_id=self.id)

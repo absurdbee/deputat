@@ -41,6 +41,7 @@ def get_page_data(html):
                 print("Возраст ", deps[1].text.replace("Возраст: ",""))
                 print("Образование ", deps[2].text.replace("Образование: ",""))
             count += 1
+            print("--------------------")
         print("показываю часть ", count)
         print("=======================")
 

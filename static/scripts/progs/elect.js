@@ -139,9 +139,9 @@ on('body', 'click', '.get_elect_rating_voted', function() {
   _this = this;
   form = _this.parentElement;
   form_data = new FormData(form);
-
+  pk = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk");
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/elect/votes/send_rating/" + _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", true );
+  link_.open( 'POST', "/elect/votes/send_rating/" + pk + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
@@ -149,7 +149,8 @@ on('body', 'click', '.get_elect_rating_voted', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    toast_info("Голос учтён!")
+    toast_info("Голос учтён!");
+    ajax_get_reload("/elect/" + pk + "/")
   }};
 
   link_.send(form_data);

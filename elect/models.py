@@ -340,6 +340,20 @@ class Elect(models.Model):
         from common.model.votes import ElectRating
         return ElectRating.objects.filter(elect_id=self.id, user_id=user_id).exists()
 
+    def get_rating_list(self):
+        from common.model.votes import ElectRating
+        from django.db.models import Avg
+        query = ElectRating.objects.filter(elect_id=self.id)
+        vakcine = query.aggregate(Avg('vakcine'))['vakcine__avg']
+        pp_825 = query.aggregate(Avg('pp_825'))['pp_825__avg']
+        safe_family = query.aggregate(Avg('safe_family'))['safe_family__avg']
+        pro_life = query.aggregate(Avg('pro_life'))['pro_life__avg']
+        free_vacation = query.aggregate(Avg('free_vacation'))['free_vacation__avg']
+        query = [vakcine, pp_825, safe_family, pro_life, free_vacation]
+        total = avg = sum(query) / len(query)
+        query += [total]
+        return query
+
     def get_vakcine_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():

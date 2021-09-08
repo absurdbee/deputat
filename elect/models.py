@@ -339,7 +339,7 @@ class Elect(models.Model):
     def get_vakcine_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            color = '#FFEB84'
+            return '<span style="background:#FFEB84">0</span>'
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('vakcine'))

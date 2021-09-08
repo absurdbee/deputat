@@ -532,7 +532,7 @@ class Elect(models.Model):
                 color = "#83C77D"
             elif avg == 5.0:
                 color = "#63BE7B"
-            return '<span style="background:' + color + '">' + str(avg) + '</span>'
+            return '<td style="background:' + color + '">' + str(avg) + '</td>'
 
 
 class LinkElect(models.Model):

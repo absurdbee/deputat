@@ -51,7 +51,7 @@ class ElectSendRating(View):
             rat.save()
 
         return HttpResponse(json.dumps({
-                "vakcine": str(vakcine,
+                "vakcine": str(vakcine),
                 "pp_825": str(pp_825),
                 "safe_family": str(safe_family),
                 "pro_life": str(pro_life),

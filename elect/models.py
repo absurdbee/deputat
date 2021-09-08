@@ -544,6 +544,8 @@ class Elect(models.Model):
         if not ElectRating.objects.filter(elect_id=self.id).exists():
             return '<span class="elect_rating_icon"><span class="integer">0</span><svg fill="#FFEB84" enable-background="new 0 0 20 20" width="24" height="24" viewBox="0 0 24 24"><g><rect x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg></span>'
         else:
+            from django.db.models import Avg
+            
             query = ElectRating.objects.filter(elect_id=self.id)
             vakcine = query.aggregate(Avg('vakcine'))['vakcine__avg']
             pp_825 = query.aggregate(Avg('pp_825'))['pp_825__avg']

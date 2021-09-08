@@ -40,7 +40,7 @@ class ElectSendRating(View):
 
         elect = Elect.objects.get(pk=self.kwargs["pk"])
         if not ElectRating.objects.filter(elect_id=elect.id, user_id=request.user.pk).exists():
-            ElectRating.objects.create(elect_id=elect.id, user_id=request.user.pk, vakcine=vakcine,pp_825=pp_825,safe_family=safe_family,pro_life=pro_life,free_vacation)
+            ElectRating.objects.create(elect_id=elect.id, user_id=request.user.pk, vakcine=vakcine,pp_825=pp_825,safe_family=safe_family,pro_life=pro_life,free_vacation=free_vacation)
         else:
             rat = ElectRating.objects.create(elect_id=elect.id, user_id=request.user.pk)
             rat.vakcine = -5

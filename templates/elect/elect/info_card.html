@@ -54,6 +54,12 @@
             <p class="card-text">{{ object.description }}</p>
         </div>
         {% endif %}
+        {% if object.post_2 %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Должность:</h5>
+            <p class="card-text">{{ object.post_2 }}</p>
+        </div>
+        {% endif %}
         {% if object.linlelect_set.all %}
         <div class="mt-2">
             <h5 class="mb-75" style="font-weight: bold;">Ссылки:</h5>

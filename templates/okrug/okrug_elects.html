@@ -3,6 +3,9 @@
 {% block content %}
 
 <section class="container pt-sm-5 pb-4">
+  <div class="col-12">
+    <h1 class="content-header-title float-left mb-0">{{ object.name }}</h1>
+  </div>
   <div class="row pt-0 is_paginate">
     {% for object in object.get_elects %}
       {% include 'elect/elect_index_card.html' %}

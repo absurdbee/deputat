@@ -12,7 +12,7 @@
       {% endif %}
 
         {% if object.get_districts %}
-        <h5 class="mb-75" style="font-weight: bold;">Муниципальные округа</h5>
+        <h5 class="mb-75 mt-2" style="font-weight: bold;">Муниципальные округа</h5>
         {% for area in object.get_districts %}
         <div class="mr-50" style="font-size:100%">
           <a class="ajax" href="{% url 'district_elects' slug=area.slug %}">
@@ -23,12 +23,10 @@
         {% endif %}
 
         {% if object.okrug %}
-        <div class="mr-50" style="font-size:100%">
-          <h5 class="mb-75" style="font-weight: bold;">Одномандатный округ</h5>
+          <h5 class="mb-75 mt-2" style="font-weight: bold;">Одномандатный округ</h5>
           <a class="ajax" href="{% url 'okrug_elects' slug=object.okrug.slug %}">
           {{ object.okrug.name }}
           </a>
-        </div>
         {% endif %}
 
         <div class="mt-2">

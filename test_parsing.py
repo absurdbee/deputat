@@ -41,9 +41,13 @@ def get_page_data(html):
 
                 name = item.find("b").text
                 deps = item.find_all('li')
+
                 print(name)
                 print(item.find("p", class_='fio').text.replace(name + ", ",""))
-                print(deps[1].text.replace("Возраст: ",""))
+                if "Возраст" in deps[0].text:
+                    print(deps[0].text.replace("Возраст: ",""))
+                else:
+                    print(deps[1].text.replace("Возраст: ",""))
                 print(deps[2].text.replace("Образование: ",""))
             count += 1
             print("--------------------")

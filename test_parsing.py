@@ -30,7 +30,7 @@ def get_page_data(html):
     parth = 0
     for tgrid in tgrids:
         h5_count = h5_count + 2
-        print("Округ ", h5_list[h5_count].text)
+        print("Итерация: ", h5_count, "================Округ ", h5_list[h5_count].text)
         deputat_items = tgrid.find_all('div', class_='trow')
         count = 0
         parth += 1

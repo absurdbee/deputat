@@ -54,7 +54,7 @@ def get_page_data(html):
                 elif "Образование" in deps[1].text:
                     print(deps[1].text.replace("Образование: ",""))
                 else:
-                    print("Да что ж такое то а?????"))
+                    print("Да что ж такое то а?????")
             count += 1
             print("--------------------")
         print("=======================")

@@ -83,7 +83,10 @@ def get_page_data(html, region):
                         img = 'https://xn--80aietlhndtbf.xn--p1acf/static/images/elect_image.png'
                     else:
                         img = "https://gosduma-2021.com/" + item.find("img")["src"]
-                    elect.get_remote_image(img)
+                    try:
+                        elect.get_remote_image(img)
+                    except:
+                        pass
                     elect.region.add(region)
                     elect.list.add(_list)
                     print(elect.name, " добавлен!")

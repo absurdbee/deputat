@@ -54,7 +54,7 @@ def get_page_data(html):
         print("=======================")
 
 def main():
-    html = get_html("https://gosduma-2021.com/s/volgogradskaya-oblast/")
+    html = get_html("https://gosduma-2021.com/s/evreiskaya-avtonomnaya-oblast/")
     get_page_data(html)
 
 if __name__ == '__main__':

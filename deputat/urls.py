@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^organizations/', include('organizations.urls')),
     url(r'^communities/', include('communities.urls')),
     url(r'^district/', include('district.urls')),
+    url(r'^okrug/', include('okrug.urls')),
 
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^email-verification/$', TemplateView.as_view(template_name="account/email_verification.html"), name='email-verification'),

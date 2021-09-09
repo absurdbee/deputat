@@ -17,6 +17,7 @@ class AuthorityList(models.Model):
 	is_reginal = models.BooleanField(default=True, verbose_name="Региональный список")
 	is_in_left_menu = models.BooleanField(default=False, verbose_name="Выводится в левом меню")
 	is_active = models.BooleanField(default=False, verbose_name="Действующий список")
+	year = models.PositiveSmallIntegerField(default=0, verbose_name="Год четырехзначный")
 
 	def __str__(self):
 		return self.name

@@ -39,7 +39,7 @@ def get_page_data(html):
         for item in deputat_items:
             if not count == 0:
                 name = item.find("b").text
-                #print("фИО ", name)
+                print("фИО ", name)
                 #print("Фото ", "https://gosduma-2021.com/" + item.find("img")["src"])
                 #print("Партия ", item.find('p', class_='party-name').text)
 

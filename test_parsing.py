@@ -48,6 +48,7 @@ def get_page_data(html):
                     print(deps[0].text.replace("Возраст: ",""))
                 else:
                     print(deps[1].text.replace("Возраст: ",""))
+                print(deps[1].text)
                 if "Образование" in deps[1].text:
                     print(deps[1].text.replace("Образование: ",""))
                 else:

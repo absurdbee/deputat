@@ -41,7 +41,18 @@ def get_page_data(html):
                 name = item.find("b").text
                 print("фИО ", name)
                 #print("Фото ", "https://gosduma-2021.com/" + item.find("img")["src"])
-                #print("Партия ", item.find('p', class_='party-name').text)
+                patr = item.find('p', class_='party-name').text
+                if patr == "ЕДИНАЯ РОССИЯ":
+                    _patr = Fraction.objects.get(name="Единая Россия")
+                elif patr == "ЛДПР":
+                    _patr = Fraction.objects.get(name="ЛДПР")
+                elif patr == "КПРФ":
+                    _patr = Fraction.objects.get(name="КПРФ")
+                elif patr == "СПРАВЕДЛИВАЯ РОССИЯ - ЗА ПРАВДУ":
+                    _patr = Fraction.objects.get(name="Справедливая Россия")
+                else:
+                    _patr = Fraction.objects.get(slug="no_fraction")
+                print("Партия ", _patr)
 
                 deps = item.find_all('li')
 

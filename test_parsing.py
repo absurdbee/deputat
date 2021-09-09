@@ -24,14 +24,13 @@ def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
 
     h5_list = soup.find_all('h5')
-    h5_count = 0
-    for h5 in h5_list:
-        h5_count += 1
-        if not h5_count % 2 == 0:
-            print("Округ ", h5.text)
+    h5_count = -1
+    
     tgrids = soup.find_all('div', class_='tgrid')
     parth = 0
     for tgrid in tgrids:
+        h5_count = h5_count + 2
+        print("Округ ", h5_list[h5_count]h5.text)
         deputat_items = tgrid.find_all('div', class_='trow')
         count = 0
         parth += 1

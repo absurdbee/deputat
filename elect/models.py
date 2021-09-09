@@ -158,6 +158,9 @@ class Elect(models.Model):
     def get_regions(self):
         regions = self.region.all()
         return regions
+    def get_districts(self):
+        regions = self.area.all()
+        return regions
 
     def get_news(self):
         return self.new_elect.filter(type="PUB")

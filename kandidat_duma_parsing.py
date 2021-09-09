@@ -59,13 +59,24 @@ def get_page_data(html, region):
                     _patr = Fraction.objects.get(slug="no_fraction")
 
                 deps = item.find_all('li')
+                if "Возраст" in deps[0].text:
+                    _birthday=deps[0].text.replace("Возраст: ","")
+                else:
+                    _birthday=deps[1].text.replace("Возраст: ","")
+                if "Образование" in deps[2].text:
+                    _description=deps[2].text.replace("Образование: ","")
+                elif "Образование" in deps[1].text:
+                    _description=deps[1].text.replace("Образование: ","")
+                else:
+                    _description=""
+
                 if not Elect.objects.filter(name=name, region=region, okrug=okrug).exists():
                     elect = Elect.objects.create(
                                     name=name,
                                     okrug=okrug,
                                     post_2=item.find("p", class_='fio').text.replace(name + ", ",""),
-                                    birthday=deps[1].text.replace("Возраст: ",""),
-                                    description=deps[2].text.replace("Образование: ",""),
+                                    birthday=_birthday,
+                                    description=_description,
                                     fraction=_patr
                                 )
                     if item.find("img")["src"] == "/wp-content/uploads/imagefb.jpg":

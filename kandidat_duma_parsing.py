@@ -64,7 +64,7 @@ def get_page_data(html, region):
                                     name=name.text,
                                     okrug=okrug,
                                     post_2=item.find("p", class_='fio').text.replace(name + ", ",""),
-                                    birthday=deps[1].text.replace("Возраст: ","");
+                                    birthday=deps[1].text.replace("Возраст: ",""),
                                     description=deps[2].text.replace("Образование: ",""),
                                     fraction=_patr
                                 )

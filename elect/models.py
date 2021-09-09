@@ -29,6 +29,7 @@ class Elect(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="Активный депутат")
     post_2 = models.CharField(max_length=400, blank=True, null=True, verbose_name='Должность')
     area = models.ManyToManyField('district.District2', blank=True, related_name='elect_area', verbose_name="Районы, за которым закреплен депутат")
+    okrug = models.ForeignKey('okrug.Okrug', blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Одномандатный избирательный округ")
 
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")

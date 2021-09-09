@@ -14,40 +14,74 @@ django.setup()
 from region.models import Region
 from lists.models import Fraction, AuthorityList
 from elect.models import Elect
+from okrug.models import Okrug
 
 
 def get_html(url):
     r = requests.get(url)
     return r.text
 
-def get_page_data(html, district):
+def get_page_data(html, region):
     soup = BeautifulSoup(html, 'lxml')
+
+    h5_list = soup.find_all('h5')
+    h5_count = 0
 
     _list = AuthorityList.objects.get(name="Кандидат в депутаты гос. думы")
 
     tgrids = soup.find_all('div', class_='tgrid')
-    deputat_items = tgrids.find_all('div', class_='trow')
-    count = 0
+    parth = 0
+    for tgrid in tgrids:
+        if not Okrug.objects.filter(name=h5_list[h5_count].text, region=region).exists():
+            okrug = Okrug.objects.create(name=h5_list[h5_count].text, region=region)
+        else:
+            okrug = Okrug.objects.get(name=h5_list[h5_count].text, region=region)
 
-    for item in deputat_items:
-        if count = 0:
-            pass
-        person = item.find('div', class_="person-item person-item_row js-popup-trigger")
-        person_span = person.find_all('span')
+        h5_count = h5_count + 2
 
-        _name = person_span[0].text
-        try:
-            _fraction = Fraction.objects.get(name=person_span[1].text)
-        except:
-            _fraction = Fraction.objects.get(name="Без фракции")
-        _post = item.find_all('p', class_="js-foldable")[0].text
-        old = item.find_all('td', class_="is-hidden-mobile")[0].text
-        if not Elect.objects.filter(name=_name, area=district).exists():
-            elect = Elect.objects.create(name=_name, birthday=old, post_2=_post[:390], fraction=_fraction)
-            elect.list.add(_list)
-            elect.area.add(district)
-            print("Добавлен кандидат ", elect.name)
-        count += 1
+        deputat_items = tgrid.find_all('div', class_='trow')
+        count = 0
+        parth += 1
+
+        for item in deputat_items:
+            if not count == 0:
+                name = item.find("b").text
+                patr = item.find('p', class_='party-name').text
+                if patr == "ЕДИНАЯ РОССИЯ":
+                    _patr = Fraction.objects.get(name="Единая Россия")
+                elif patr == "ЛДПР":
+                    _patr = Fraction.objects.get(name="ЛДПР")
+                elif patr == "КПРФ":
+                    _patr = Fraction.objects.get(name="КПРФ")
+                elif patr == "СПРАВЕДЛИВАЯ РОССИЯ - ЗА ПРАВДУ":
+                    _patr = Fraction.objects.get(name="Справедливая Россия")
+                else:
+                    _patr = Fraction.objects.get(slug="no_fraction")
+
+                deps = item.find_all('li')
+                if not Elect.objects.filter(name=name, region=region, okrug=okrug).exists():
+                    elect = Elect.objects.create(
+                                    name=name.text,
+                                    okrug=okrug,
+                                    post_2=item.find("p", class_='fio').text.replace(name + ", ",""),
+                                    birthday=deps[1].text.replace("Возраст: ","");
+                                    description=deps[2].text.replace("Образование: ",""),
+                                    fraction=_patr
+                                )
+                    if item.find("img")["src"] == "/wp-content/uploads/imagefb.jpg":
+                        img = 'https://служународу.рус/static/images/elect_image.png'
+                    else:
+                        img = "https://gosduma-2021.com/" + item.find("img")["src"]
+                    elect.get_remote_image(img)
+                    elect.region.add(region)
+                    elect.list.add(_list)
+                    print(elect.name, " добавлен!")
+                else:
+                    elect = Elect.objects.get(name=name, region=region, okrug=okrug)
+                    print(elect.name, " уже есть!")
+            count += 1
+            print("--------------------")
+        print("=======================")
 
 def main():
     for region in Region.objects.all():

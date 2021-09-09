@@ -80,7 +80,7 @@ def get_page_data(html, region):
                                     fraction=_patr
                                 )
                     if item.find("img")["src"] == "/wp-content/uploads/imagefb.jpg":
-                        img = 'https://служународу.рус/static/images/elect_image.png'
+                        img = 'https://xn--80aietlhndtbf.xn--p1acf/static/images/elect_image.png'
                     else:
                         img = "https://gosduma-2021.com/" + item.find("img")["src"]
                     elect.get_remote_image(img)

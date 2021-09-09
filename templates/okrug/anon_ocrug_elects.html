@@ -1,0 +1,17 @@
+{% extends "base_anon.html" %}
+{% block title %}{{ object.name }}{% endblock %}
+{% block content %}
+
+<section class="container pt-sm-5 pb-4">
+  <div class="row pt-0 is_paginate">
+    {% for object in object.get_elects %}
+      {% include 'elect/elect_index_card.html' %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <div class="load centered m-1 next_page_list" data-link="{% url 'okrug_elects' slug=object.slug %}?page={{ page_obj.next_page_number }}">
+        <img src="/static/images/loading.gif">
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

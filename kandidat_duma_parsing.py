@@ -61,7 +61,7 @@ def get_page_data(html, region):
                 deps = item.find_all('li')
                 if not Elect.objects.filter(name=name, region=region, okrug=okrug).exists():
                     elect = Elect.objects.create(
-                                    name=name.text,
+                                    name=name,
                                     okrug=okrug,
                                     post_2=item.find("p", class_='fio').text.replace(name + ", ",""),
                                     birthday=deps[1].text.replace("Возраст: ",""),

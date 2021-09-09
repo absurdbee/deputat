@@ -49,10 +49,10 @@ def get_page_data(html):
                 else:
                     print(deps[1].text.replace("Возраст: ",""))
                 print(deps[1].text)
-                if "Образование" in deps[1].text:
-                    print(deps[1].text.replace("Образование: ",""))
-                else:
+                if "Образование" in deps[2].text:
                     print(deps[2].text.replace("Образование: ",""))
+                else:
+                    print(deps[1].text.replace("Образование: ",""))
             count += 1
             print("--------------------")
         print("=======================")

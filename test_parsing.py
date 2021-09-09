@@ -29,7 +29,7 @@ def get_page_data(html):
     tgrids = soup.find_all('div', class_='tgrid')
     parth = 0
     for tgrid in tgrids:
-        print("Итерация: ", h5_count, "================  Округ ", h5_list[h5_count].text)
+        print(h5_list[h5_count].text)
         h5_count = h5_count + 2
 
         deputat_items = tgrid.find_all('div', class_='trow')

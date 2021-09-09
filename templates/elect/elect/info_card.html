@@ -20,14 +20,8 @@
         {% endif %}
 
         <div class="mt-2">
-          {% if not object.is_have_year %}
-            <h5 class="mb-75" style="font-weight: bold;">Дата рождения:</h5>
-            <p class="card-text">{{ object.birthday }}</p>
-          {% elif object.birthday %}
-            <h5 class="mb-75" style="font-weight: bold;">Возраст:</h5>
-            <p class="card-text">{{ object.birthday }}</p>
-          {% endif %}
-
+          <h5 class="mb-75" style="font-weight: bold;">Дата рождения / Возраст:</h5>
+          <p class="card-text">{{ object.birthday }}</p>
         </div>
         {% if object.authorization %}
         <div class="mt-2">

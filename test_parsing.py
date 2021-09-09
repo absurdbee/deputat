@@ -25,12 +25,12 @@ def get_page_data(html):
 
     h5_list = soup.find_all('h5')
     h5_count = -1
-    
+
     tgrids = soup.find_all('div', class_='tgrid')
     parth = 0
     for tgrid in tgrids:
         h5_count = h5_count + 2
-        print("Округ ", h5_list[h5_count]h5.text)
+        print("Округ ", h5_list[h5_count].text)
         deputat_items = tgrid.find_all('div', class_='trow')
         count = 0
         parth += 1

@@ -156,7 +156,7 @@ on('body', 'click', '.get_elect_rating_voted', function() {
   link_.send(form_data);
 });
 
-on('body', 'click', '.get_elect_rating_voted', function() {
+on('body', 'click', '.remove_elect_rating_voted', function() {
   _this = this;
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

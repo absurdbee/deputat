@@ -457,7 +457,7 @@ on('body', 'click', '.phone_send', function() {
 	   request.send();
 	 });
 
-	 on('body', 'click', '.elect_search_btn', function() {
+	 on('body', 'click', '.search_page_reload', function() {
 		 _this.previousElementSibling.previousElementSibling.value = "";
 		 _this.previousElementSibling.display = "none";
 		 _this.display = "none";

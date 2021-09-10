@@ -19,6 +19,13 @@ query = Q(slug="candidate_municipal")|Q(slug="candidate_duma")
 
 lists = AuthorityList.objects.filter(query)
 
+def copy_birthday(list):
+    old = list[0].birthday
+    for i in list:
+        if not i.birthday == old:
+            return False
+    return True
+
 elects = Elect.objects.filter(list__slug="candidate_municipal")
 count = 0
 for elect in elects:
@@ -27,4 +34,5 @@ for elect in elects:
         print (count, ", Двойники: ")
 
         for el in Elect.objects.filter(name=elect.name):
-            print ( el.name , el.birthday, el.area)
+            copy_birthday(Elect.objects.filter(name=elect.name))
+            #print ( el.name , el.birthday, el.area)

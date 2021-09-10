@@ -240,7 +240,7 @@ on('body', 'click', '.ajax', function(event) {
   if (url != window.location.pathname){
     ajax_get_reload(url)
   } else {
-		mobile_menu_close();
+		clear_left_search();
 		toast_info("Вы уже на этой странице")
 	};
 })
@@ -321,7 +321,7 @@ function mobile_menu_close() {
 
 on('body', 'click', '.menu_close', function() {
   this.style.display = "none";
-  mobile_menu_close();
+  ();
 })
 
 on('body', 'click', '.menu_nav_1', function() {

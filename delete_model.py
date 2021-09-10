@@ -26,16 +26,15 @@ def copy_birthday(list):
             return False
     return True
 
-elects = Elect.objects.filter(list__slug="candidate_duma")
+elects = Elect.objects.all()
 for elect in elects:
-    print(elect)
     try:
         if elects.filter(name=elect.name).values("pk").count() > 1:
             if copy_birthday(elects.filter(name=elect.name)):
-                e = elects.filter(name=elect.name)[0]
-                for el in elects.filter(name=elect.name):
-                    if el.pk != e.pk:
-                        el.delete()
-                    print("человек удален")
+                #e = elects.filter(name=elect.name)[0]
+                #for el in elects.filter(name=elect.name):
+                #    if el.pk != e.pk:
+                #        el.delete()
+                print(elects.filter(name=elect.name))
     except:
         pass

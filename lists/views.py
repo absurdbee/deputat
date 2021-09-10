@@ -20,8 +20,10 @@ class AuthorityListView(ListView, CategoryListMixin):
 		return self.list.get_elects()
 
 	def get_context_data(self,**kwargs):
+		from region.models import Region
 		context = super(AuthorityListView,self).get_context_data(**kwargs)
 		context["list"] = self.list
+		context["regions"] = Region.objects.only("pk")
 		return context
 
 

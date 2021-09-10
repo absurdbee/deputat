@@ -43,6 +43,12 @@ class OkrugElectDetailView(TemplateView, CategoryListMixin):
 		return super(OkrugElectDetailView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
+		from region.models import Region
+		from lists.models import AuthorityList
+
 		context=super(OkrugElectDetailView,self).get_context_data(**kwargs)
 		context["object"] = self.okrug
+		context["region"] = self.okrug.region
+		context["regions"] = Region.objects.only("pk")
+		context["list"] = AuthorityList.objects.get(slug="candidate_duma")
 		return context

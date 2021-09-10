@@ -2,10 +2,43 @@
 {% block title %}{{ object.name }}{% endblock %}
 {% block content %}
 
-<div class="col-12">
-  <h1 class="content-header-title">{{ object.name }}</h1>
-</div>
 <section class="container pt-sm-5 pb-4">
+  <div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <h1 class="content-header-title float-left mb-0">{{ list.name }} - {{ region.name }} - {{ object.name }}</h1>
+        </div>
+        <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a class="ajax" href="{% url 'authority_index' slug=list.slug %}">
+                {{ list.name }}
+              </a>
+            </li>
+            <li class="breadcrumb-item">
+              <select class="form-control active small_select select_federal_authority_list_regions underline" data-slug="{{ list.slug }}">
+                  {% for object in regions %}
+                  <option value="">Выберите регион</option>
+                  <option {% if object.pk == region.pk %}selected=''{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+                  {% endfor %}
+              </select>
+            </li>
+            <li class="breadcrumb-item">
+              {% if okrug %}
+              <select class="form-control small_select select_federal_authority_list_okrug" list-pk="{{ list.pk }}">
+                  {% for okrug in okrug %}
+                  <option value="">Выберите округ</option>
+                  <option {% if object.pk == okrug.pk %}selected=''{% endif %} value="{{ object.slug }}">{{ okrug.name }}</option>
+                  {% endfor %}
+              </select>
+              {% endif %}
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row pt-0 is_paginate">
     {% for object in object.get_elects %}
       {% include 'elect/elect_index_card.html' %}

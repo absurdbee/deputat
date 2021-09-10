@@ -12,13 +12,13 @@
         </div>
         <div class="breadcrumb-wrapper">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item active underline">
+            <li class="breadcrumb-item">
               <a class="ajax" href="{% url 'authority_index' slug=list.slug %}">
                 Все чиновники
               </a>
             </li>
             <li class="breadcrumb-item">
-              <select class="form-control small_select select_federal_authority_list_regions" data-slug="{{ list.slug }}">
+              <select class="form-control active small_select select_federal_authority_list_regions underline" data-slug="{{ list.slug }}">
                   {% for object in regions %}
                   <option value="">Выберите регион</option>
                   <option {% if object.pk == region.pk %}selected=''{% endif %} value="{{ object.pk }}">{{ object.name }}</option>

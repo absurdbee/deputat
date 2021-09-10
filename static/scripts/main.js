@@ -321,7 +321,7 @@ function mobile_menu_close() {
 
 on('body', 'click', '.menu_close', function() {
   this.style.display = "none";
-  ();
+  mobile_menu_close();
 })
 
 on('body', 'click', '.menu_nav_1', function() {

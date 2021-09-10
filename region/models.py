@@ -26,6 +26,9 @@ class Region(models.Model):
 	def get_elects(self):
 		from elect.models import Elect
 		return Elect.objects.filter(region=self)
+	def get_list_elects(self, list):
+		from elect.models import Elect
+		return Elect.objects.filter(region=self, list=list)
 
 	def get_elects_ids(self):
 		from elect.models import Elect
@@ -109,4 +112,4 @@ class Region(models.Model):
 		return Elect.objects.filter(region=self).exists()
 
 	def get_districts(self):
-		return self.districts_region2.filter(region=self) 
+		return self.districts_region2.filter(region=self)

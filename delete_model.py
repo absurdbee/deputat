@@ -27,12 +27,11 @@ def copy_birthday(list):
     return True
 
 elects = Elect.objects.filter(list__slug="candidate_municipal")
-count = 0
 for elect in elects:
-    if Elect.objects.filter(name=elect.name).values("pk").count() > 2:
-        count += 1
-        print (count, ", Двойники: ")
-
-        for el in Elect.objects.filter(name=elect.name):
-            print(copy_birthday(Elect.objects.filter(name=elect.name)))
-            #print ( el.name , el.birthday, el.area)
+    if elects.filter(name=elect.name).values("pk").count() > 2:
+        if copy_birthday(elects.filter(name=elect.name)):
+            e = elects.filter(name=elect.name)[0]
+            for el in elects.filter(name=elect.name):
+                e.area.add(el.area.all()[0])
+                el.delete()
+            print ("Успешно сдвоены люди!")

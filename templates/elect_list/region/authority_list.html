@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Депутаты | {{ list.name }} | {{ region.name }}{% endblock %}
+{% load filters %}
+{% block content %}
+
+<section class="container pt-sm-5 pb-4">
+  <div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <h1 class="content-header-title float-left mb-0">{{ list.name }} - {{ region.name }}</h1>
+        </div>
+        <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active underline">
+              <a class="ajax" href="{% url 'authority_index' slug=list.slug %}">
+                Все чиновники
+              </a>
+            </li>
+            <li class="breadcrumb-item">
+              <select class="form-control small_select select_federal_authority_list_regions" list-pk="{{ list.pk }}">
+                  {% for object in regions %}
+                  <option {% if object.pk == region.pk %}selected=''{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+                  {% endfor %}
+              </select>
+            </li>
+            <li class="breadcrumb-item">
+              {% if okrug %}
+              <select class="form-control small_select select_federal_authority_list_okrug" list-pk="{{ list.pk }}">
+                  {% for object in okrug %}
+                  <option value="{{ object.pk }}">{{ object.name }}</option>
+                  {% endfor %}
+              </select>
+              {% elif districts %}
+              <select class="form-control small_select select_federal_authority_list_district" list-pk="{{ list.pk }}">
+                  {% for object in districts %}
+                  <option value="{{ object.pk }}">{{ object.name }}</option>
+                  {% endfor %}
+              </select>
+              {% endif %}
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div class="row pt-0 is_paginate">
+        {% for object in object_list %}
+          {% include 'elect/elect_index_card.html' %}
+
+        {% empty %}
+          В списке почему-то никого нет.
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <div class="load centered m-1 next_page_list" data-link="{% url 'authority_index' slug=list.slug %}?page={{ page_obj.next_page_number }}">
+            <img src="/static/images/loading.gif">
+        </div>
+        {% endif %}
+      </div>
+    </section>
+{% endblock %}

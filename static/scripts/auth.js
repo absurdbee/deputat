@@ -383,6 +383,8 @@ on('body', 'click', '.phone_send', function() {
 		}
 	});
 
+
+
 	on('body', 'click', '.recovery_phone_send', function() {
 	  block = this.parentElement.parentElement;
 	  phone = block.querySelector('#id_first_number').value + block.querySelector('#phone').value;
@@ -436,3 +438,19 @@ on('body', 'click', '.phone_send', function() {
 	    };
 	    request.send()
 	});
+
+	on('body', 'click', '.elect_search_btn', function() {
+		_this = this;
+	  field = _this.previousElementSibling;
+	   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+	   request.open( 'GET', "/search/elect_filter/?name=" + field.value, true );
+	   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	   request.onreadystatechange = function () {
+	     if ( request.readyState == 4 && request.status == 200) {
+	       response = request.responseText;
+	       block = document.body.querySelector(".toggle_fixed_block").innerHTML = "";
+				 block.innerHTML = response.innerHTML;
+				 _this.nextElementSibling.style.display = "unset"
+	     }}}
+	   request.send();
+	  })

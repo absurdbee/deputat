@@ -243,8 +243,9 @@ on('body', 'click', '.ajax', function(event) {
 		if (window.location.pathname == "/") {
 			clear_left_search();
 			ajax_get_reload(url)
+		} else {
+			toast_info("Вы уже на этой странице")
 		}
-		toast_info("Вы уже на этой странице")
 	};
 })
 

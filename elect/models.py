@@ -358,11 +358,7 @@ class Elect(models.Model):
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('vakcine'))
             double = _double['vakcine__avg']
-            if double < -4 :
-                color = "#F8696B"
-            elif -5 < double < -3:
-                color = "#F98370"
-            elif -4 < double < -2:
+            if double < -2:
                 color = "#FA9D75"
             elif -3 < double < -1:
                 color = "#FCB77A"
@@ -374,12 +370,8 @@ class Elect(models.Model):
                 color = "#E0E383"
             elif 1 < double < 3:
                 color = "#C1DA81"
-            elif 2 < double < 4:
+            else:
                 color = "#A2D07F"
-            elif 3 < double < 5:
-                color = "#83C77D"
-            elif double == 5.0:
-                color = "#63BE7B"
         return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
     def get_pp_825_double(self):
         from common.model.votes import ElectRating
@@ -389,11 +381,7 @@ class Elect(models.Model):
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('pp_825'))
             double = _double['pp_825__avg']
-            if double < -4 :
-                color = "#F8696B"
-            elif -5 < double < -3:
-                color = "#F98370"
-            elif -4 < double < -2:
+            if double < -2:
                 color = "#FA9D75"
             elif -3 < double < -1:
                 color = "#FCB77A"
@@ -405,12 +393,8 @@ class Elect(models.Model):
                 color = "#E0E383"
             elif 1 < double < 3:
                 color = "#C1DA81"
-            elif 2 < double < 4:
+            else:
                 color = "#A2D07F"
-            elif 3 < double < 5:
-                color = "#83C77D"
-            elif double == 5.0:
-                color = "#63BE7B"
         return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
     def get_safe_family_double(self):
         from common.model.votes import ElectRating
@@ -420,11 +404,7 @@ class Elect(models.Model):
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('safe_family'))
             double = _double['safe_family__avg']
-            if double < -4 :
-                color = "#F8696B"
-            elif -5 < double < -3:
-                color = "#F98370"
-            elif -4 < double < -2:
+            if double < -2:
                 color = "#FA9D75"
             elif -3 < double < -1:
                 color = "#FCB77A"
@@ -436,12 +416,8 @@ class Elect(models.Model):
                 color = "#E0E383"
             elif 1 < double < 3:
                 color = "#C1DA81"
-            elif 2 < double < 4:
+            else:
                 color = "#A2D07F"
-            elif 3 < double < 5:
-                color = "#83C77D"
-            elif double == 5.0:
-                color = "#63BE7B"
         return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
     def get_pro_life_double(self):
         from common.model.votes import ElectRating
@@ -451,11 +427,7 @@ class Elect(models.Model):
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('pro_life'))
             double = _double['pro_life__avg']
-            if double < -4 :
-                color = "#F8696B"
-            elif -5 < double < -3:
-                color = "#F98370"
-            elif -4 < double < -2:
+            if double < -2:
                 color = "#FA9D75"
             elif -3 < double < -1:
                 color = "#FCB77A"
@@ -467,12 +439,8 @@ class Elect(models.Model):
                 color = "#E0E383"
             elif 1 < double < 3:
                 color = "#C1DA81"
-            elif 2 < double < 4:
+            else:
                 color = "#A2D07F"
-            elif 3 < double < 5:
-                color = "#83C77D"
-            elif double == 5.0:
-                color = "#63BE7B"
         return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
     def get_free_vacation_double(self):
         from common.model.votes import ElectRating
@@ -482,11 +450,7 @@ class Elect(models.Model):
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('free_vacation'))
             double = _double['free_vacation__avg']
-            if double < -4 :
-                color = "#F8696B"
-            elif -5 < double < -3:
-                color = "#F98370"
-            elif -4 < double < -2:
+            if double < -2:
                 color = "#FA9D75"
             elif -3 < double < -1:
                 color = "#FCB77A"
@@ -498,12 +462,8 @@ class Elect(models.Model):
                 color = "#E0E383"
             elif 1 < double < 3:
                 color = "#C1DA81"
-            elif 2 < double < 4:
+            else:
                 color = "#A2D07F"
-            elif 3 < double < 5:
-                color = "#83C77D"
-            elif double == 5.0:
-                color = "#63BE7B"
         return '<td style="background:' + color + ';text-align: center;">' + str(double) + '</td>'
 
     def get_total_rating_double(self):
@@ -520,11 +480,7 @@ class Elect(models.Model):
             free_vacation = query.aggregate(Avg('free_vacation'))['free_vacation__avg']
             list = [vakcine, pp_825, safe_family, pro_life, free_vacation]
             avg = sum(list) / len(list)
-            if avg < -4 :
-                color = "#F8696B"
-            elif -5 < avg < -3:
-                color = "#F98370"
-            elif -4 < avg < -2:
+            if avg < -2:
                 color = "#FA9D75"
             elif -3 < avg < -1:
                 color = "#FCB77A"
@@ -536,12 +492,8 @@ class Elect(models.Model):
                 color = "#E0E383"
             elif 1 < avg < 3:
                 color = "#C1DA81"
-            elif 2 < avg < 4:
+            else:
                 color = "#A2D07F"
-            elif 3 < avg < 5:
-                color = "#83C77D"
-            elif avg == 5.0:
-                color = "#63BE7B"
             return '<td style="background:' + color + ';text-align: center;">' + str(avg) + '</td>'
 
     def get_total_rating_icon(self):
@@ -559,11 +511,7 @@ class Elect(models.Model):
             free_vacation = query.aggregate(Avg('free_vacation'))['free_vacation__avg']
             list = [vakcine, pp_825, safe_family, pro_life, free_vacation]
             avg = sum(list) / len(list)
-            if avg < -4 :
-                color = "#F8696B"
-            elif -5 < avg < -3:
-                color = "#F98370"
-            elif -4 < avg < -2:
+            if avg < -2:
                 color = "#FA9D75"
             elif -3 < avg < -1:
                 color = "#FCB77A"
@@ -575,12 +523,8 @@ class Elect(models.Model):
                 color = "#E0E383"
             elif 1 < avg < 3:
                 color = "#C1DA81"
-            elif 2 < avg < 4:
+            else:
                 color = "#A2D07F"
-            elif 3 < avg < 5:
-                color = "#83C77D"
-            elif avg == 5.0:
-                color = "#63BE7B"
             return '<span class="elect_rating_icon"><span class="integer">' + str(avg) + '</span><svg fill="' + color + '" enable-background="new 0 0 20 20" width="24" height="24" viewBox="0 0 24 24"><g><rect x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg></span>'
 
 

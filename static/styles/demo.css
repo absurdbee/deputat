@@ -1,3 +1,12 @@
+.search_input {
+  height: 1.5rem;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-left: 20px;
+  width: 85%;
+  padding: 0;
+}
+
 .elect_rating_icon {
   margin-left: 25%;
   background-color: #2C3048;

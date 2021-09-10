@@ -30,7 +30,7 @@
               <select class="form-control small_select select_federal_authority_list_okrug" list-pk="{{ list.pk }}">
                   {% for object in okrug %}
                   <option value="">Выберите округ</option>
-                  <option value="{{ object.pk }}">{{ object.name }}</option>
+                  <option value="{{ object.slug }}">{{ object.name }}</option>
                   {% endfor %}
               </select>
               {% elif districts %}

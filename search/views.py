@@ -1,6 +1,7 @@
 from django.views.generic.base import TemplateView
 from generic.mixins import CategoryListMixin
 from common.templates import get_small_template
+from django.views.generic import ListView
 
 
 class SearchView(TemplateView, CategoryListMixin):

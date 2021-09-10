@@ -35,7 +35,11 @@ for elect in elects:
             for el in elects.filter(name=elect.name):
                 try:
                     e.area.add(el.area.all()[0])
-                    el.delete()
-                    print (el.area.all()[0])
+                    if el.pk != e.pk:
+                        el.delete()
+                        print (el.area.all()[0])
+                    print("Округ добавлен, человек удален")
                 except:
-                    el.delete()
+                    if el.pk != e.pk:
+                        el.delete()
+                        print("Округа нет, человек удален")

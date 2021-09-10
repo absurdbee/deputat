@@ -34,5 +34,5 @@ for elect in elects:
         print (count, ", Двойники: ")
 
         for el in Elect.objects.filter(name=elect.name):
-            copy_birthday(Elect.objects.filter(name=elect.name))
+            print(copy_birthday(Elect.objects.filter(name=elect.name)))
             #print ( el.name , el.birthday, el.area)

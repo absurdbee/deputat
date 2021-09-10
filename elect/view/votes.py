@@ -65,7 +65,7 @@ class ElectDeleteRating(View):
 
         elect = Elect.objects.get(pk=self.kwargs["pk"])
 
-        if ElectRating.objects.filter(elect_id=elect.pk, user_pk=request.user.pk).exists():
-            rat = ElectRating.objects.get(elect_id=elect.pk, user_pk=request.user.pk)
+        if ElectRating.objects.filter(elect_id=elect.pk, user_id=request.user.pk).exists():
+            rat = ElectRating.objects.get(elect_id=elect.pk, user_id=request.user.pk)
             rat.delete()
         return HttpResponse()

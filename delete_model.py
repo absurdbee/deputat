@@ -27,15 +27,14 @@ def copy_birthday(list):
     return True
 
 elects = Elect.objects.all()
-count = 0
 for elect in elects:
     if elect.list.all()[0]:
-        print("ok")
+        pass
+    else:
+        elect.delete()
+        print("Удален без органа власти")
     #@else:
     #elect.delete()
-    count += 1
-    if count == 10:
-        break
     #try:
     #    if elects.filter(name=elect.name).values("pk").count() > 1:
     #        if copy_birthday(elects.filter(name=elect.name)):

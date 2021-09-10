@@ -20,19 +20,23 @@
             <li class="breadcrumb-item">
               <select class="form-control small_select select_federal_authority_list_regions" data-slug="{{ list.slug }}">
                   {% for object in regions %}
+                  <option value="">Выберите регион</option>
                   <option {% if object.pk == region.pk %}selected=''{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                   {% endfor %}
               </select>
-              &nbsp;&nbsp;
+            </li>
+            <li class="breadcrumb-item">
               {% if okrug %}
               <select class="form-control small_select select_federal_authority_list_okrug" list-pk="{{ list.pk }}">
                   {% for object in okrug %}
+                  <option value="">Выберите округ</option>
                   <option value="{{ object.pk }}">{{ object.name }}</option>
                   {% endfor %}
               </select>
               {% elif districts %}
               <select class="form-control small_select select_federal_authority_list_district" list-pk="{{ list.pk }}">
                   {% for object in districts %}
+                  <option value="">Выберите округ</option>
                   <option value="{{ object.pk }}">{{ object.name }}</option>
                   {% endfor %}
               </select>

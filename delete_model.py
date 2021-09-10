@@ -29,7 +29,10 @@ def copy_birthday(list):
 elects = Elect.objects.all()
 count = 0
 for elect in elects:
-    print(elect.list.all()[0])
+    if elect.list.all()[0]:
+        print("ok")
+    #@else:
+    #elect.delete()
     count += 1
     if count == 10:
         break

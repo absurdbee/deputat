@@ -28,18 +28,21 @@ def copy_birthday(list):
 
 elects = Elect.objects.filter(list__slug="candidate_municipal")
 for elect in elects:
-    if elects.filter(name=elect.name).values("pk").count() > 2:
-        if copy_birthday(elects.filter(name=elect.name)):
-            e = elects.filter(name=elect.name)[0]
-            print (e)
-            for el in elects.filter(name=elect.name):
-                try:
-                    e.area.add(el.area.all()[0])
-                    if el.pk != e.pk:
-                        el.delete()
-                        print (el.area.all()[0])
-                    print("Округ добавлен, человек удален")
-                except:
-                    if el.pk != e.pk:
-                        el.delete()
-                        print("Округа нет, человек удален")
+    try:
+        if elects.filter(name=elect.name).values("pk").count() > 2:
+            if copy_birthday(elects.filter(name=elect.name)):
+                e = elects.filter(name=elect.name)[0]
+                print (e)
+                for el in elects.filter(name=elect.name):
+                    try:
+                        e.area.add(el.area.all()[0])
+                        if el.pk != e.pk:
+                            el.delete()
+                            print (el.area.all()[0])
+                        print("Округ добавлен, человек удален")
+                    except:
+                        if el.pk != e.pk:
+                            el.delete()
+                            print("Округа нет, человек удален")
+    except:
+        pass

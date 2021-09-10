@@ -21,7 +21,7 @@ class AllElectSearch(ListView):
         return super(AllElectSearch,self).get(request,*args,**kwargs)
 
     def get_queryset(self):
-        from elects.models import Elect
+        from elect.models import Elect
         return Elect.objects.filter(name__icontains=self.query)
 
     def get_context_data(self,**kwargs):

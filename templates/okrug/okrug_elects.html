@@ -7,7 +7,7 @@
     <div class="content-header-left col-md-9 col-12 mb-2">
       <div class="row breadcrumbs-top">
         <div class="col-12">
-          <h1 class="content-header-title float-left mb-0">{{ list.name }} - {{ region.name }} - {{ object.name }}</h1>
+          <h1 class="content-header-title float-left mb-0">{{ object.name }}</h1>
         </div>
         <div class="breadcrumb-wrapper">
           <ol class="breadcrumb">
@@ -27,9 +27,9 @@
             <li class="breadcrumb-item">
               {% if okrug %}
               <select class="form-control small_select select_federal_authority_list_okrug" list-pk="{{ list.pk }}">
-                  {% for okrug in okrug %}
+                  {% for ok in okrug %}
                   <option value="">Выберите округ</option>
-                  <option {% if object.pk == okrug.pk %}selected=''{% endif %} value="{{ object.slug }}">{{ okrug.name }}</option>
+                  <option {% if object.pk == ok.pk %}selected=''{% endif %} value="{{ ok.slug }}">{{ ok.name }}</option>
                   {% endfor %}
               </select>
               {% endif %}

@@ -28,10 +28,10 @@ def copy_birthday(list):
 
 elects = Elect.objects.all()
 for elect in elects:
-    if elect.list.all()[0]:
-        pass
-    else:
-        elect.delete()
+    try:
+        elect.list.all()[0]
+    except:
+        #elect.delete()
         print("Удален без органа власти")
     #@else:
     #elect.delete()

@@ -33,6 +33,9 @@ for elect in elects:
             e = elects.filter(name=elect.name)[0]
             print (e)
             for el in elects.filter(name=elect.name):
-                e.area.add(el.area.all()[0])
-                el.delete()
-                print (el.area.all()[0])
+                try:
+                    e.area.add(el.area.all()[0])
+                    el.delete()
+                    print (el.area.all()[0])
+                except:
+                    el.delete()

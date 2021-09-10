@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^dislike/(?P<pk>\d+)/$', ElectDislike.as_view()),
     url(r'^inert/(?P<pk>\d+)/$', ElectInert.as_view()),
     url(r'^send_rating/(?P<pk>\d+)/$', ElectSendRating.as_view()),
+    url(r'^delete_rating/(?P<pk>\d+)/$', ElectDeleteRating.as_view()),
 ]

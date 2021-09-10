@@ -32,6 +32,6 @@ for elect in elects:
         if copy_birthday(elects.filter(name=elect.name)):
             e = elects.filter(name=elect.name)[0]
             for el in elects.filter(name=elect.name):
-                e.area.add(el.area.all()[0])
-                el.delete()
-            print ("Успешно сдвоены люди!")
+            #    e.area.add(el.area.all()[0])
+            #    el.delete()
+                print (el.area.all()[0])

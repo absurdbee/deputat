@@ -461,5 +461,5 @@ on('body', 'click', '.phone_send', function() {
 		 this.previousElementSibling.previousElementSibling.value = "";
 		 this.previousElementSibling.display = "none";
 		 this.display = "none";
-		 ajax_get_reload(document.href)
+		 ajax_get_reload(window.location.href) 
 		});

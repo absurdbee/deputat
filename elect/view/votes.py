@@ -56,7 +56,7 @@ class ElectSendRating(View):
 
 
 class ElectDeleteRating(View):
-    def post(self, request, **kwargs):
+    def get(self, request, **kwargs):
         if not request.is_ajax():
             raise Http404
         from common.model.votes import ElectRating

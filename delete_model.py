@@ -31,7 +31,8 @@ for elect in elects:
     if elects.filter(name=elect.name).values("pk").count() > 2:
         if copy_birthday(elects.filter(name=elect.name)):
             e = elects.filter(name=elect.name)[0]
-            for el in elects.filter(name=elect.name):
-            #    e.area.add(el.area.all()[0])
-            #    el.delete()
-                print (el.area.all()[0])
+            print (e)
+            #for el in elects.filter(name=elect.name):
+                #e.area.add(el.area.all()[0])
+                #el.delete()
+                #print (el.area.all()[0])

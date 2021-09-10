@@ -451,6 +451,6 @@ on('body', 'click', '.phone_send', function() {
 	       block = document.body.querySelector(".toggle_fixed_block").innerHTML = "";
 				 block.innerHTML = response.innerHTML;
 				 _this.nextElementSibling.style.display = "unset"
-	     }}}
+	     }}
 	   request.send();
 	  })

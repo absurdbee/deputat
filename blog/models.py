@@ -438,7 +438,7 @@ class ElectNew(models.Model):
         from notify.models import Wall, Notify
         from common.notify.progs import user_send_wall, user_send_notify
         try:
-            _elect = Elect.objects.get(name=elect)
+            _elect = Elect.objects.filter(name=elect).first()
         except:
             _elect = None
         _attach = str(attach)

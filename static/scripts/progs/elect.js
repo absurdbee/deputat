@@ -160,7 +160,7 @@ on('body', 'click', '.remove_elect_rating_voted', function() {
   _this = this;
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/elect/votes/delete_rating/" + _this.getAttribute("data-pk") + "/", true );
+  link_.open( 'GET', "/elect/votes/delete_rating/" + _this.getAttribute("data-pk") + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

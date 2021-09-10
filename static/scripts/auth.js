@@ -375,7 +375,7 @@ on('body', 'click', '.phone_send', function() {
 		} else {ajax_get_reload("/region/" + slug + "/")}
 	});
 
-	on('body', 'change', '.elect_search_input', function() {
+	on('body', 'keyup', '.elect_search_input', function() {
 		if (this.value == "") {
 			this.nextElementSibling.style.display = "none"
 		} else {
@@ -404,7 +404,7 @@ on('body', 'click', '.phone_send', function() {
 	 request.send();
 	});
 
-	on('body', 'keyup', '#recover_secret_key', function() {
+	on('body', 'click', '#recover_secret_key', function() {
 	    form = this.parentElement.parentElement;
 			form_data = new FormData(form);
 

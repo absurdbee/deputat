@@ -1,22 +1,42 @@
 {% extends "base_anon.html" %}
 {% block title %}Депутаты | {{ list.name }}{% endblock %}
+{% load filters %}
 {% block content %}
 
 <section class="container pt-sm-5 pb-4">
-      <h2 class="h3 text-sm-left m-0">{{ list.name }}</h2>
+  <div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <h1 class="content-header-title float-left mb-0">{{ list.name }}</h1>
+        </div>
+        <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active underline">Все чиновники</li>
+            <li class="breadcrumb-item">
+              <select class="form-control small_select select_federal_authority_list_regions" data-slug="{{ list.slug }}">
+                  {% for object in regions %}
+                  <option value="">Выбрать регион</option>
+                  <option value="{{ object.pk }}">{{ object.name }}</option>
+                  {% endfor %}
+              </select>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
       <div class="row pt-0 is_paginate">
-        {% if object_list %}
         {% for object in object_list %}
-          {% include 'elect/anon_elect_index_card.html' %}
+          {% include 'elect/elect_index_card.html' %}
+
+        {% empty %}
+          В списке почему-то никого нет.
         {% endfor %}
         {% if page_obj.has_next %}
         <div class="load centered m-1 next_page_list" data-link="{% url 'authority_index' slug=list.slug %}?page={{ page_obj.next_page_number }}">
             <img src="/static/images/loading.gif">
         </div>
-        {% endif %}
-
-        {% else %}
-          В списке почему-то никого нет.
         {% endif %}
       </div>
     </section>

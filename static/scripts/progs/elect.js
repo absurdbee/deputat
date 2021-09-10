@@ -155,3 +155,20 @@ on('body', 'click', '.get_elect_rating_voted', function() {
 
   link_.send(form_data);
 });
+
+on('body', 'click', '.get_elect_rating_voted', function() {
+  _this = this;
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/elect/votes/delete_rating/" + _this.getAttribute("data-pk") + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    toast_info("Голос сброшен!");
+    ajax_get_reload("/elect/" + _this.getAttribute("data-pk") + "/")
+  }};
+
+  link_.send();
+});

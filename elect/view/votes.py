@@ -53,3 +53,19 @@ class ElectSendRating(View):
             rat.save()
 
         return HttpResponse()
+
+
+class ElectDeleteRating(View):
+    def post(self, request, **kwargs):
+        if not request.is_ajax():
+            raise Http404
+        from common.model.votes import ElectRating
+        from elect.models import Elect
+        from django.http import HttpResponse
+
+        elect = Elect.objects.get(pk=self.kwargs["pk"])
+
+        if ElectRating.objects.filter(elect_id=elect.pk, user_pk=request.user.pk).exists():
+            rat = ElectRating.objects.get(elect_id=elect.pk, user_pk=request.user.pk)
+            rat.delete()
+        return HttpResponse()

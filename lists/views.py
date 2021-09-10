@@ -58,7 +58,7 @@ class RegionAuthorityListView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		return self.list.get_elects()
+		return self.region.get_elects()
 
 
 class FractionList(ListView, CategoryListMixin):

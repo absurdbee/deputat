@@ -31,7 +31,7 @@ for elect in elects:
     try:
         elect.list.all()[0]
     except:
-        #elect.delete()
+        elect.delete()
         print("Удален без органа власти")
     #@else:
     #elect.delete()

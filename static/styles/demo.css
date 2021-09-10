@@ -44,6 +44,17 @@
   background-image: none !important;
   padding-right: 0 !important;
 }
+.small_select {
+  height: 1.5rem;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-left: 20px;
+  width: 85%;
+  padding: 0;
+  border: none;
+  background-image: none !important;
+  padding-right: 0 !important;
+}
 
 .remove_elect_subscribe {
   color: #41cd52;

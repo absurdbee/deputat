@@ -14,7 +14,7 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item active underline">Все чиновники</li>
             <li class="breadcrumb-item">
-              <select class="form-control left_menu_select select_federal_authority_list_regions" list-pk="{{ list.pk }}">
+              <select class="form-control small_select select_federal_authority_list_regions" list-pk="{{ list.pk }}">
                   {% for object in regions %}
                   <option value="{{ object.pk }}">{{ object.name }}</option>
                   {% endfor %}

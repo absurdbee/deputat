@@ -342,6 +342,13 @@ on('body', 'click', '.phone_send', function() {
       ajax_get_reload(url + slug + "/")
   }});
 
+	on('body', 'change', '.select_federal_authority_list_regions', function() {
+    if (this.value == '') {
+      return
+    } else {
+      ajax_get_reload("/list/authority_region/" + this.value + "/")
+  }});
+
 	on('body', 'click', '.left_menu_select', function() {
 		if (this.value) {
 			this.value = "";

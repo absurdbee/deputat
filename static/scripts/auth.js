@@ -448,7 +448,7 @@ on('body', 'click', '.phone_send', function() {
 	   request.onreadystatechange = function () {
 	     if ( request.readyState == 4 && request.status == 200) {
 	       response = request.responseText;
-	       block = document.body.querySelector(".toggle_fixed_block").innerHTML = "";
+	       block = document.body.querySelector(".toggle_fixed_block");
 				 block.innerHTML = "";
 				 block.innerHTML = response;
 				 _this.nextElementSibling.style.display = "unset"

@@ -24,10 +24,10 @@ function ajax_get_reload(url) {
         window.scrollTo(0,0);
         window.history.pushState("", document.title, url);
         document.title = elem_.querySelector('title').innerHTML;
-        get_select();
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();
+				clear_left_search();
 				if (document.body.querySelector(".toggle_fixed_block")) {
 			    document.body.querySelector(".toggle_fixed_block").style.clipPath = "none";
 			  }
@@ -458,9 +458,14 @@ on('body', 'click', '.phone_send', function() {
 	   request.send();
 	 });
 
+function clear_left_search() {
+	btn = document.body.querySelector(".search_page_reload");
+	btn.previousElementSibling.previousElementSibling.value = "";
+	btn.previousElementSibling.style.display = "none";
+	btn.style.display = "none";
+}
+
 	 on('body', 'click', '.search_page_reload', function() {
-		 this.previousElementSibling.previousElementSibling.value = "";
-		 this.previousElementSibling.style.display = "none";
-		 this.style.display = "none";
-		 ajax_get_reload(window.location.href)
+		 clear_left_search()
+		 ajax_get_reload(window.location.href);
 		});

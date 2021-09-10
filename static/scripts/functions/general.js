@@ -1009,7 +1009,7 @@ function ajax_get_reload(url) {
         window.scrollTo(0,0);
         window.history.pushState("", document.title, url);
         document.title = elem_.querySelector('title').innerHTML;
-        get_select();
+        clear_left_search();
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();

@@ -459,7 +459,7 @@ on('body', 'click', '.phone_send', function() {
 
 	 on('body', 'click', '.search_page_reload', function() {
 		 this.previousElementSibling.previousElementSibling.value = "";
-		 this.previousElementSibling.display = "none";
-		 this.display = "none";
-		 ajax_get_reload(window.location.href) 
+		 this.previousElementSibling.style.display = "none";
+		 this.style.display = "none";
+		 ajax_get_reload(window.location.href)
 		});

@@ -376,7 +376,7 @@ on('body', 'click', '.phone_send', function() {
 	});
 
 	on('body', 'change', '.elect_search_input', function() {
-		if (this.value.trim() == "") {
+		if (this.value == "") {
 			this.nextElementSibling.style.display = "none"
 		} else {
 			this.nextElementSibling.style.display = "unset"

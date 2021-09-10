@@ -375,6 +375,16 @@ on('body', 'click', '.phone_send', function() {
 		} else {ajax_get_reload("/region/" + slug + "/")}
 	});
 
+	on('body', 'change', '.elect_search_input', function() {
+		_this = this;
+		val = _this.value;
+		option = _this.nextElementSibling.querySelector('[value=' + '"' + val + '"' + ']')
+		slug = option.getAttribute("data-slug");
+
+		if (val == '') {
+			return
+		} else {ajax_get_reload("/region/" + slug + "/")}
+	});
 
 	on('body', 'click', '.recovery_phone_send', function() {
 	  block = this.parentElement.parentElement;

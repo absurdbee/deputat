@@ -21,7 +21,7 @@ lists = AuthorityList.objects.filter(query)
 
 elects = Elect.objects.all()
 for elect in elects:
-    if Elect.objects.filter(name=elect.name).values("pk").count > 2:
+    if Elect.objects.filter(name=elect.name).values("pk").count() > 2:
         print (" Двойники: ")
         for el in Elect.objects.filter(name=elect.name):
             print ( el.name , ", ", el.list)

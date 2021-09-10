@@ -13,11 +13,11 @@ class SearchView(TemplateView, CategoryListMixin):
 
 
 class AllElectSearch(ListView):
-    template_name, paginate_by = None, 15
+    template_name, paginate_by = None, 20
 
     def get(self,request,*args,**kwargs):
         self.template_name = get_small_template("search/elect_search.html", request.user, request.META['HTTP_USER_AGENT'])
-        self.query = request.GET.get('name') 
+        self.query = request.GET.get('name')
         return super(AllElectSearch,self).get(request,*args,**kwargs)
 
     def get_queryset(self):

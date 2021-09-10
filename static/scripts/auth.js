@@ -451,7 +451,15 @@ on('body', 'click', '.phone_send', function() {
 	       block = document.body.querySelector(".toggle_fixed_block");
 				 block.innerHTML = "";
 				 block.innerHTML = response;
-				 _this.nextElementSibling.style.display = "unset"
+				 _this.nextElementSibling.style.display = "unset";
+				 mobile_menu_close();
 	     }}
 	   request.send();
-	  })
+	 });
+
+	 on('body', 'click', '.elect_search_btn', function() {
+		 _this.previousElementSibling.previousElementSibling.value = "";
+		 _this.previousElementSibling.display = "none";
+		 _this.display = "none";
+		 ajax_get_reload(document.href)
+		});

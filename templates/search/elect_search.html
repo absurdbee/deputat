@@ -22,7 +22,7 @@
         {% endfor %}
 
         {% if page_obj.has_next %}
-        <div class="load centered m-1 next_page_list" data-link="/search/elect_filter/?page={{ page_obj.next_page_number }}?name={{ query }}">
+        <div class="load centered m-1 next_page_list" data-link="/search/elect_filter/?page={{ page_obj.next_page_number }}&name={{ query }}">
             <img src="/static/images/loading.gif">
         </div>
         {% endif %}

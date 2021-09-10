@@ -34,7 +34,8 @@
             <div class="row">
                 <div class="col-lg-3 col-12 order-2 order-lg-1">
                   {{ object.get_total_rating_icon|safe }}
-                  <table class="mt-1 mb-1 table table-sm">
+                  <div class="mt-1 mb-1">
+                  <table class="table table-sm">
                   	<tbody>
                   		<span style="font-weight: bold;">Рейтинг работы чиновника:</span>
                   		<tr>
@@ -63,6 +64,7 @@
                   		</tr>
                   	</tbody>
                   </table>
+                  </div>
                     <div class="list-group list-group-labels">
                         <a data-href="/elect/{{ object.pk }}/all_news/" class="list-group-item list-group-item-action select_elect_news_category active">
                             <span class="align-middle">Все новости</span>

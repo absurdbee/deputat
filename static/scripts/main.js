@@ -240,7 +240,10 @@ on('body', 'click', '.ajax', function(event) {
   if (url != window.location.pathname){
     ajax_get_reload(url)
   } else {
-		clear_left_search();
+		if (window.location.pathname == "/") {
+			clear_left_search();
+			ajax_get_reload(url)
+		}
 		toast_info("Вы уже на этой странице")
 	};
 })

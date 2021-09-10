@@ -38,10 +38,10 @@ class RegionAuthorityListView(ListView, CategoryListMixin):
 		else:
 			self.list = AuthorityList.objects.get(slug=self.kwargs["slug"])
 		self.region = Region.objects.get(pk=self.kwargs["pk"])
-		if self.region.slug == "candidate_municipal":
+		if self.list.slug == "candidate_municipal":
 			from district.models import District2
 			self.districts = District2.objects.filter(region=self.region)
-		elif self.region.slug == "candidate_duma":
+		elif self.list.slug == "candidate_duma":
 			from okrug.models import Okrug
 			self.okrug = Okrug.objects.filter(region=self.region)
 		self.template_name = get_full_template("elect_list/region/" , "authority_list.html", request.user, request.META['HTTP_USER_AGENT'])
@@ -58,7 +58,7 @@ class RegionAuthorityListView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		return self.region.get_list_elects(self.list) 
+		return self.region.get_list_elects(self.list)
 
 
 class FractionList(ListView, CategoryListMixin):

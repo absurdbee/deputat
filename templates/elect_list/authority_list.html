@@ -16,6 +16,7 @@
             <li class="breadcrumb-item">
               <select class="form-control small_select select_federal_authority_list_regions" data-slug="{{ list.slug }}">
                   {% for object in regions %}
+                  <option value="">Выбрать регион</option>
                   <option value="{{ object.pk }}">{{ object.name }}</option>
                   {% endfor %}
               </select>

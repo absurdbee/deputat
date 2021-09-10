@@ -1,0 +1,30 @@
+<section class="container pt-sm-5 pb-4">
+  <div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <h1 class="content-header-title float-left mb-0">{{ query }}Результаты поиска</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+      <div class="row pt-0 is_paginate">
+        {% for object in object_list %}
+
+        {% if request.user.is_authenticated %}
+          {% include 'elect/elect_index_card.html' %}
+        {% else %}
+          {% include 'elect/anon_elect_index_card.html' %}
+        {% endif %}
+
+        {% empty %}
+          Ничего не найдено.
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <div class="load centered m-1 next_page_list" data-link="/search/elect_filter/?page={{ page_obj.next_page_number }}">
+            <img src="/static/images/loading.gif">
+        </div>
+        {% endif %}
+      </div>
+    </section>

@@ -453,6 +453,7 @@ on('body', 'click', '.phone_send', function() {
 				 block.innerHTML = response;
 				 _this.nextElementSibling.style.display = "unset";
 				 mobile_menu_close();
+				 create_pagination(block);
 	     }}
 	   request.send();
 	 });

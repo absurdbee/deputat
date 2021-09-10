@@ -28,6 +28,7 @@ def copy_birthday(list):
 
 elects = Elect.objects.filter(list__slug="candidate_duma")
 for elect in elects:
+    print(elect)
     try:
         if elects.filter(name=elect.name).values("pk").count() > 1:
             if copy_birthday(elects.filter(name=elect.name)):

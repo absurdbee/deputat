@@ -32,7 +32,7 @@ for elect in elects:
     print(elect.list)
     count += 1
     if count == 10:
-        return
+        break
     #try:
     #    if elects.filter(name=elect.name).values("pk").count() > 1:
     #        if copy_birthday(elects.filter(name=elect.name)):

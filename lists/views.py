@@ -27,6 +27,40 @@ class AuthorityListView(ListView, CategoryListMixin):
 		return context
 
 
+class RegionAuthorityListView(ListView, CategoryListMixin):
+	template_name, paginate_by, districts, okrug = None, 20, None, None
+
+	def get(self,request,*args,**kwargs):
+		from region.models import Region
+
+		if self.kwargs["slug"] == None:
+			self.list = AuthorityList.objects.first()
+		else:
+			self.list = AuthorityList.objects.get(slug=self.kwargs["slug"])
+		self.region = Region.objects.get(pk=self.kwargs["pk"])
+		if self.region.slug == "candidate_municipal":
+			from district.models import District2
+			self.districts = District2.objects.filter(region=self.region)
+		elif self.region.slug == "candidate_duma":
+			from okrug.models import Okrug
+			self.okrug = Okrug.objects.filter(region=self.region)
+		self.template_name = get_full_template("elect_list/region/" , "authority_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(RegionAuthorityListView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from region.models import Region
+		context = super(RegionAuthorityListView,self).get_context_data(**kwargs)
+		context["list"] = self.list
+		context["regions"] = Region.objects.only("pk")
+		context["region"] = self.region
+		context["districts"] = self.districts
+		context["okrug"] = self.okrug
+		return context
+
+	def get_queryset(self):
+		return self.list.get_elects()
+
+
 class FractionList(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 20
 

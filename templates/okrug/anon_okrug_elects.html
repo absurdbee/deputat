@@ -2,13 +2,46 @@
 {% block title %}{{ object.name }}{% endblock %}
 {% block content %}
 
-<div class="col-12">
-  <h1 class="content-header-title">{{ object.name }}</h1>
-</div>
 <section class="container pt-sm-5 pb-4">
+  <div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+      <div class="row breadcrumbs-top">
+        <div class="col-12">
+          <h1 class="content-header-title float-left mb-0">{{ object.name }}</h1>
+        </div>
+        <div class="breadcrumb-wrapper">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a class="ajax" href="{% url 'authority_index' slug=list.slug %}">
+                {{ list.name }}
+              </a>
+            </li>
+            <li class="breadcrumb-item">
+              <select class="form-control active small_select select_federal_authority_list_regions underline" data-slug="{{ list.slug }}">
+                <option value="">Выберите регион</option>
+                {% for object in regions %}
+                  <option {% if object.pk == region.pk %}selected=''{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+                {% endfor %}
+              </select>
+            </li>
+            <li class="breadcrumb-item">
+              {% if okrug %}
+              <select class="form-control small_select select_federal_authority_list_okrug" list-pk="{{ list.pk }}">
+                <option value="">Выберите округ</option>
+                {% for ok in okrug %}
+                  <option {% if object.pk == ok.pk %}selected=''{% endif %} value="{{ ok.slug }}">{{ ok.name }}</option>
+                {% endfor %}
+              </select>
+              {% endif %}
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row pt-0 is_paginate">
     {% for object in object.get_elects %}
-      {% include 'elect/elect_index_card.html' %}
+      {% include 'elect/anon_elect_index_card.html' %}
     {% endfor %}
     {% if page_obj.has_next %}
     <div class="load centered m-1 next_page_list" data-link="{% url 'okrug_elects' slug=object.slug %}?page={{ page_obj.next_page_number }}">

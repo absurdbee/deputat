@@ -15,10 +15,10 @@
             <li class="breadcrumb-item active underline">Все чиновники</li>
             <li class="breadcrumb-item">
               <select class="form-control small_select select_federal_authority_list_regions" data-slug="{{ list.slug }}">
-                  {% for object in regions %}
-                  <option value="">Выбрать регион</option>
+                <option value="">Выбрать регион</option>
+                {% for object in regions %}
                   <option value="{{ object.pk }}">{{ object.name }}</option>
-                  {% endfor %}
+                {% endfor %}
               </select>
             </li>
           </ol>
@@ -28,7 +28,7 @@
   </div>
       <div class="row pt-0 is_paginate">
         {% for object in object_list %}
-          {% include 'elect/elect_index_card.html' %}
+          {% include 'elect/anon_elect_index_card.html' %}
 
         {% empty %}
           В списке почему-то никого нет.

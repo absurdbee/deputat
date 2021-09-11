@@ -753,12 +753,13 @@ line-height: 1;
 }
 .event_name .card-text {
   display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -ms-inline-flexbox;
-    display: inline-flex;
-    font-weight: 400;
-    margin: 0.3rem 0 0.5rem;
-    font-size: 0.875rem;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-weight: 400;
+  margin: 0.3rem 0 0.5rem;
+  font-size: 0.875rem;
+  flex-wrap: wrap;
 }
 .event_name .card-text a{
   font-weight: 600;

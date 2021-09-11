@@ -303,17 +303,17 @@ class ElectNewWindowDetailView(ListView):
         return self.new.get_comments()
 
 
-class LoadFederalElectsView(TemplateView):
+class LoadSenatElectsView(TemplateView):
 	template_name = "elect/load/get_custom_elects.html"
 
 	def get(self,request,*args,**kwargs):
 		from elect.models import Elect
 
-		self.elects = Elect.objects.filter(list__is_reginal=False)
-		return super(LoadFederalElectsView,self).get(request,*args,**kwargs)
+		self.elects = Elect.objects.filter(list__slug="senat")
+		return super(LoadSenatElectsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		context = super(LoadFederalElectsView,self).get_context_data(**kwargs)
+		context = super(LoadSenatElectsView,self).get_context_data(**kwargs)
 		context["get_elects"] = self.elects
 		return context
 

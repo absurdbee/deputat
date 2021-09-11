@@ -187,8 +187,8 @@ class Blog(models.Model):
         return self.view
 
     def get_image(self):
-        if self.image:
-            return self.image.url
+        if self.elect.image:
+            return self.elect.image.url
         else:
             return '/static/images/elect_image.png'
 
@@ -399,8 +399,8 @@ class ElectNew(models.Model):
         return reverse('elect_new_detail',kwargs={"pk":self.pk})
 
     def get_image(self):
-        if self.image:
-            return self.image.url
+        if self.elect.image:
+            return self.elect.image.url
         else:
             return '/static/images/elect_image.png'
 

@@ -31,6 +31,15 @@ class Elect(models.Model):
     area = models.ManyToManyField('district.District2', blank=True, related_name='elect_area', verbose_name="Районы, за которым закреплен депутат")
     okrug = models.ForeignKey('okrug.Okrug', blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Одномандатный избирательный округ")
 
+    vk = models.CharField(max_length=100, blank=True, null=True, verbose_name='Ссылка на VK')
+    fb = models.CharField(max_length=100, blank=True, null=True, verbose_name='Ссылка на Facebook')
+    ig = models.CharField(max_length=100, blank=True, null=True, verbose_name='Ссылка на Instagram')
+    tg = models.CharField(max_length=100, blank=True, null=True, verbose_name='Ссылка на Telegram')
+    tw = models.CharField(max_length=100, blank=True, null=True, verbose_name='Ссылка на Twitter')
+    mail = models.CharField(max_length=100, blank=True, null=True, verbose_name='Электронная почта')
+    phone = models.CharField(max_length=100, blank=True, null=True, verbose_name='Телефон')
+    address = models.CharField(max_length=100, blank=True, null=True, verbose_name='Адрес (приёмная)')
+
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
     dislike = models.PositiveIntegerField(default=0, verbose_name="Кол-во дизлайков")

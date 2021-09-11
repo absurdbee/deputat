@@ -93,7 +93,7 @@ on('body', 'click', '#load_senat', function() {
   link_.send();
 });
 on('body', 'click', '.load_regions_for_load_elects', function() {
-  _this = this
+  _this = this;
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/region/load_region_for_select_regional_elects/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -103,21 +103,31 @@ on('body', 'click', '.load_regions_for_load_elects', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    _this.parentElement.parentElement.parentElement.nextElementSibling.innerHTML = response.innerHTML;
-    _this.parentElement.parentElement.parentElement.style.border = "none"
+
+    parent = _this.parentElement.parentElement.parentElement;
+
+    parent.setAttribute("data-slug", "");
+
+    if (_this.classList.contains("state_duma")) {
+      parent.setAttribute("data-slug", "state_duma")
+    } else if (_this.classList.contains("candidate_duma")) {
+      parent.setAttribute("data-slug", "candidate_duma")
+    } else if (_this.classList.contains("candidate_municipal")) {
+      parent.setAttribute("data-slug", "candidate_municipal")
+    };
+    parent.nextElementSibling.innerHTML = response.innerHTML;
+    parent.style.border = "none"
   }}
   link_.send();
 });
 
 on('body', 'change', '.select_region_for_load_elects', function() {
-  _this = this, row_variant = false;
-  var val = _this.value;
+  _this = this;
   block = _this.parentElement.nextElementSibling;
-  if (val == '') {
-    block.innerHTML = "";
-  } else {
+  if (_this.value == '') {block.innerHTML = ""}
+  else {
     var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-    link.open( 'GET', "/elect/load_regional_elects/" + val + "/", true );
+    link.open( 'GET', "/elect/load_regional_elects/" + _this.value + "/" + _this.parentElement.previousElementSibling.getAttribute("data-slug") + "/", true );
     link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     link.onreadystatechange = function () {
       if ( link.readyState == 4 ) {

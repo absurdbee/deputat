@@ -9,5 +9,6 @@ django.setup()
 from users.model.profile import *
 from users.model.settings import *
 from elect.models import Elect
+from gallery.models import Photo
 
-print(Elect.objects.get(name="Куринный Алексей Владимирович"))
+print('<img src="' + Photo.objects.get(pk=647).file + '>')

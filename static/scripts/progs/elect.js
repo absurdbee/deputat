@@ -104,7 +104,7 @@ on('body', 'click', '.load_regions_for_load_elects', function() {
     response = document.createElement("span");
     response.innerHTML = elem;
     _this.parentElement.parentElement.parentElement.nextElementSibling.innerHTML = response.innerHTML;
-    _this.parentElement.parentElement.style.border = "none"
+    _this.parentElement.parentElement.parentElement.style.border = "none"
   }}
   link_.send();
 });

@@ -420,7 +420,7 @@ class ElectNew(models.Model):
         from elect.models import Elect
         from common.processing import get_elect_new_processing
         try:
-            _elect = Elect.objects.get(name=elect)
+            _elect = Elect.objects.filter(name=elect).first()
         except:
             _elect = None
         _attach = str(attach)
@@ -472,7 +472,7 @@ class ElectNew(models.Model):
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         try:
-            _elect = Elect.objects.get(name=elect)
+            _elect = Elect.objects.filter(name=elect).first()
         except Elect.DoesNotExist:
             _elect = None
         self.title = title
@@ -493,7 +493,7 @@ class ElectNew(models.Model):
         _attach = str(attach)
         _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
         try:
-            _elect = Elect.objects.get(name=elect)
+            _elect = Elect.objects.filter(name=elect).first()
         except Elect.DoesNotExist:
             _elect = None
         self.title = title
@@ -529,7 +529,7 @@ class ElectNew(models.Model):
         # экранируем проблемы с получением депутата. Он должен быть точно, но в БД мы прописали null=True,
         # так как мы не хотим, чтобы при удалении депутата связанные с ним активности также удалились.
         try:
-            _elect = Elect.objects.get(name=elect)
+            _elect = Elect.objects.filter(name=elect).first()
         except Elect.DoesNotExist:
             _elect = Elect.objects.get(pk=94)
 

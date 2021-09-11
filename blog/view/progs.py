@@ -151,13 +151,13 @@ class EditManagerElectNew(TemplateView):
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect
         elect_list = elect.list.all().first()
-        if elect_list.slug = "senat":
+        if elect_list.slug == "senat":
             self.senat = True
-        elif elect_list.slug = "state_duma":
+        elif elect_list.slug == "state_duma":
             self.state_duma = True
-        elif elect_list.slug = "candidate_duma":
+        elif elect_list.slug == "candidate_duma":
             self.candidate_duma = True
-        elif elect_list.slug = "candidate_municipal":
+        elif elect_list.slug == "candidate_municipal":
             self.candidate_municipal = True
         return super(EditManagerElectNew,self).get(request,*args,**kwargs)
 

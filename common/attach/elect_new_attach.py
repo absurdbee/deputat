@@ -7,12 +7,12 @@ def get_u_blog_attach(comment, user):
     block = ''
     for item in comment.attach.split(","):
         if item[:3] == "pho":
-            #try:
-            from gallery.models import Photo
-            photo = Photo.objects.get(query, pk=item[3:])
-            block = ''.join([block, '<div class="row_item"><div class="progressive replace image_fit_200 u_blog_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
-            #except:
-            #    pass
+            try:
+                from gallery.models import Photo
+                photo = Photo.objects.get(query, pk=item[3:])
+                block = ''.join([block, '<div class="row_item"><div class="progressive replace image_fit_200 u_blog_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+            except:
+                pass
         elif item[:3] == "vid":
             try:
                 from video.models import Video
@@ -164,12 +164,12 @@ def get_u_elect_new_attach(comment, user):
     block = ''
     for item in comment.attach.split(","):
         if item[:3] == "pho":
-            try:
-                from gallery.models import Photo
-                photo = Photo.objects.get(query, pk=item[3:])
-                block = ''.join([block, '<div class="row_item"><div class="progressive replace image_fit u_elect_new_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
-            except:
-                pass
+            #try:
+            from gallery.models import Photo
+            photo = Photo.objects.get(query, pk=item[3:])
+            block = ''.join([block, '<div class="row_item"><div class="progressive replace image_fit u_elect_new_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+            #except:
+            #    pass
         elif item[:3] == "vid":
             try:
                 from video.models import Video

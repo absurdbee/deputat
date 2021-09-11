@@ -73,7 +73,7 @@
               <div class="form-group">
                 <span>
                   <label class="mt-1">Чиновник</label>
-                  <input placeholder="Выберите чиновника" list="data-list" id="id_elect" class="form-control field_elect_new" name="elect">
+                  <input placeholder="Выберите чиновника" value="{{ new.elect.name }}" list="data-list" id="id_elect" class="form-control field_elect_new" name="elect">
                   <datalist id="data-list">
                     {% for object in elect_lists %}
                       <option value="{{ object.name }}"></option>

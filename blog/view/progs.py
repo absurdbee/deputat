@@ -151,7 +151,7 @@ class EditManagerElectNew(TemplateView):
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect
         if elect.region:
-            elect_region = elect.region.all()[0]
+            elect_region = elect.region.all().first()
         elif elect.okrug:
             elect_region = elect.okrug.region
         else:

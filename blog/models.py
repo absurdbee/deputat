@@ -190,7 +190,7 @@ class Blog(models.Model):
         if self.image:
             return self.image.url
         else:
-            return '/static/images/no_photo.jpg'
+            return '/static/images/elect_image.png'
 
     def get_manager_tags(self):
         from tags.models import ManagerTag
@@ -399,10 +399,10 @@ class ElectNew(models.Model):
         return reverse('elect_new_detail',kwargs={"pk":self.pk})
 
     def get_image(self):
-        try:
-            return self.elect.image.url
-        except:
-            return '/static/images/no_photo.jpg'
+        if self.image:
+            return self.image.url
+        else:
+            return '/static/images/elect_image.png'
 
     def get_manager_tags(self):
         from tags.models import ManagerTag

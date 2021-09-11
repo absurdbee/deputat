@@ -94,7 +94,7 @@ class SuggestElectNew(TemplateView):
             return HttpResponseBadRequest()
 
 class EditElectNew(TemplateView):
-    template_name, is_regional, elect_federal_list, elect_regional_list = "elect/edit_elect_new.html", False, None, None
+    template_name, senat, state_duma, candidate_duma, candidate_municipal, senat_elect_list, elect_region, elect_lists = "elect/edit_elect_new.html", False, False, False, False, None, None, None
 
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
@@ -102,26 +102,42 @@ class EditElectNew(TemplateView):
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect
-        for i in elect.list.all():
-            if i.is_reginal:
-                self.is_regional = True
-        if self.is_regional:
-            if elect.area:
-                _district = elect.area.all().first()
-                elect_regional_list = Elect.objects.filter(area=_district)
+        if elect.region:
+            self.elect_region = elect.region.all().first()
+        elif elect.okrug:
+            self.elect_region = elect.okrug.region
         else:
-            self.elect_federal_list = Elect.objects.filter(list__is_reginal=False)
+            self.elect_region = elect.area.all().first().region
+        self.elect_list = elect.list.all().first()
+
+        if self.elect_list.slug == "senat":
+            self.senat = True
+            self.senat_elect_list = Elect.objects.filter(list__slug=self.elect_list.slug)
+        elif self.elect_list.slug == "state_duma":
+            self.state_duma = True
+            self.elect_lists = Elect.objects.filter(list__slug=self.elect_list.slug, region=self.elect_region)
+        elif self.elect_list.slug == "candidate_duma":
+            self.candidate_duma = True
+            self.elect_lists = Elect.objects.filter(list__slug=self.elect_list.slug, region=self.elect_region)
+        elif self.elect_list.slug == "candidate_municipal":
+            self.candidate_municipal = True
+            self.elect_lists = Elect.objects.filter(list__slug=self.elect_list.slug, region=self.elect_region)
         return super(EditElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        from blog.forms import SuggestElectNewForm
+        from blog.forms import PublishElectNewForm
         from region.models import Region
 
         context=super(EditElectNew,self).get_context_data(**kwargs)
         context["form"] = SuggestElectNewForm(instance=self.new)
+        context["senat"] = self.senat
+        context["senat_elect_list"] = self.senat_elect_list
+        context["state_duma"] = self.state_duma
+        context["candidate_duma"] = self.candidate_duma
+        context["candidate_municipal"] = self.candidate_municipal
         context["new"] = self.new
-        context["elect_regional_list"] = self.elect_regional_list
-        context["elect_federal_list"] = self.elect_federal_list
+        context["elect_region_pk"] = self.elect_region.pk
+        context["elect_lists"] = self.elect_lists
         context["regions"] = Region.objects.only("pk")
         return context
 

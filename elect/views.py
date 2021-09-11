@@ -324,9 +324,16 @@ class LoadRegionalElectsView(TemplateView):
     def get(self,request,*args,**kwargs):
         from elect.models import Elect
         from region.models import Region
+        from lists.models import AuthorityList
 
         region = Region.objects.get(pk=self.kwargs["pk"])
-        self.district_elects = Elect.objects.filter(area__region=region)
+        list = AuthorityList.objects.get(slug=self.kwargs["slug"])
+        if list.slug == "state_duma":
+            self.district_elects = Elect.objects.filter(region=region, list=list)
+        elif list.slug == "candidate_duma":
+            self.district_elects = Elect.objects.filter(okrug__region=region, list=list)
+        elif list.slug == "candidate_municipal":
+            self.district_elects = Elect.objects.filter(area__region=region, list=list)
         return super(LoadRegionalElectsView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

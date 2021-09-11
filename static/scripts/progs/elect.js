@@ -75,10 +75,10 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   link_.send(form_data);
 });
 
-on('body', 'click', '#load_federal_elects', function() {
+on('body', 'click', '#load_senat', function() {
   _this = this
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', "/elect/load_federal_elects/", true );
+  link_.open( 'GET', "/elect/load_senat_elects/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {
@@ -92,7 +92,7 @@ on('body', 'click', '#load_federal_elects', function() {
   }}
   link_.send();
 });
-on('body', 'click', '#load_regions_for_load_elects', function() {
+on('body', 'click', '.load_regions_for_load_elects', function() {
   _this = this
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/region/load_region_for_select_regional_elects/", true );

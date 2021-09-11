@@ -6,7 +6,7 @@ from django import forms
 class SuggestElectNewForm(forms.ModelForm):
 	class Meta:
 		model = ElectNew
-		fields = ['title', 'description', 'category', ]
+		fields = ['title', 'description', 'category']
 class PublishElectNewForm(forms.ModelForm):
 	class Meta:
 		model = ElectNew

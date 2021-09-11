@@ -11,4 +11,4 @@ from users.model.settings import *
 from elect.models import Elect
 from gallery.models import Photo
 
-print('<img src="' + Photo.objects.get(pk=647).file + '>')
+print('<img src="' + Photo.objects.get(pk=647).file.url + '>')

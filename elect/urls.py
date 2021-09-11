@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/pre_election_activities_elect_news/$', PreElectionElectNewsView.as_view()),
 
     url(r'^load_senat_elects/$', LoadSenatElectsView.as_view()),
-    url(r'^load_regional_elects/(?P<pk>\d+)/(?P<slug>[0-9a-f-]+)/$', LoadRegionalElectsView.as_view()),
+    url(r'^load_regional_elects/(?P<pk>\d+)/(?P<slug>[\w\-]+)/$', LoadRegionalElectsView.as_view()),
 
     url(r'^progs/', include('elect.url.progs')),
     url(r'^votes/', include('elect.url.votes')),

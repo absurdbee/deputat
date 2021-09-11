@@ -171,7 +171,7 @@ class EditManagerElectNew(TemplateView):
         elif elect.okrug:
             self.elect_region = elect.okrug.region
         else:
-            self.elect_region = elect.area.all()[0].region
+            self.elect_region = elect.area.all().first().region
         self.elect_list = elect.list.all().first()
 
         if self.elect_list.slug == "senat":

@@ -8,11 +8,13 @@
                   </a>
                 </li>
             </ul>
+            {% if not request.user.is_manager %}
             <ul class="nav navbar-nav bookmark-icons">
                 <li class="nav-item d-none d-lg-block">
                   <button class="btn btn-outline-secondary btn-sm u_suggested_elect_new_create">Предложить новость</button>
                 </li>
             </ul>
+            {% endif %}
         </div>
         <ul class="nav navbar-nav align-items-center ml-auto">
           {% if request.user.is_manager or request.user.is_superuser %}

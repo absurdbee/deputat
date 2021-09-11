@@ -20,14 +20,24 @@
               <label>Описание</label>
               <textarea type="text" rows="2" name="description" class="form-control custom_supported" id="id_description"></textarea>
             </div>
-            <div class="radio_gender_custom">
+            <div class="form-group">
+              <label>Орган власти чиновника</label>
+              <div class="custom-control radio_right custom-radio">
+                  <input type="radio" id="load_senat" name="lists" value="senat" class="custom-control-input">
+                  <label class="custom-control-label" for="load_senat">Сенат</label>
+              </div>
+
                 <div class="custom-control radio_left custom-radio">
-                    <input type="radio" id="load_federal_elects" name="gender" value="Man" class="custom-control-input">
-                    <label class="custom-control-label" for="load_federal_elects">Чиновник федеральный</label>
+                    <input type="radio" id="load_state_duma" name="lists" value="state_duma" class="state_duma load_regions_for_load_elects custom-control-input">
+                    <label class="custom-control-label" for="load_state_duma">Гос.дума</label>
+                </div>
+                <div class="custom-control radio_left custom-radio">
+                    <input type="radio" id="load_candidate_duma" name="lists" value="candidate_duma" class="candidate_duma load_regions_for_load_elects custom-control-input">
+                    <label class="custom-control-label" for="load_candidate_duma">Кандидаты в Гос. думу</label>
                 </div>
                 <div class="custom-control radio_right custom-radio">
-                    <input type="radio" id="load_regions_for_load_elects" name="gender" value="Fem" class="custom-control-input">
-                    <label class="custom-control-label" for="load_regions_for_load_elects">Чиновник региональный</label>
+                    <input type="radio" id="load_candidate_municipal" name="lists" value="candidate_municipal" class="candidate_municipal load_regions_for_load_elects custom-control-input">
+                    <label class="custom-control-label" for="load_candidate_municipal">	Кандидат в депутаты мун. округа</label>
                 </div>
             </div>
             <div class="form-group first_form_group"></div>

@@ -142,7 +142,7 @@ class EditElectNew(TemplateView):
             return HttpResponseBadRequest()
 
 class EditManagerElectNew(TemplateView):
-    template_name, senat, state_duma, candidate_duma, candidate_municipal, senat_elect_list, elect_region = "elect/edit_manager_elect_new.html", False, False, False, False, None, None
+    template_name, senat, state_duma, candidate_duma, candidate_municipal, senat_elect_list, elect_region, elect_lists = "elect/edit_manager_elect_new.html", False, False, False, False, None, None, None
 
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew

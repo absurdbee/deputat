@@ -75,7 +75,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   link_.send(form_data);
 });
 
-on('body', 'click', '#load_state_duma', function() {
+on('body', 'click', '#load_senat', function() {
   _this = this
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'GET', "/elect/load_senat_elects/", true );
@@ -86,9 +86,9 @@ on('body', 'click', '#load_state_duma', function() {
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
-    _this.parentElement.parentElement.nextElementSibling.innerHTML = response.innerHTML;
-    _this.parentElement.parentElement.nextElementSibling.nextElementSibling.innerHTML = "";
-    _this.parentElement.parentElement.style.border = "none"
+    _this.parentElement.parentElement.parentElement.nextElementSibling.innerHTML = response.innerHTML;
+    _this.parentElement.parentElement.parentElement.nextElementSibling.nextElementSibling.innerHTML = "";
+    _this.parentElement.parentElement.parentElement.style.border = "none"
   }}
   link_.send();
 });

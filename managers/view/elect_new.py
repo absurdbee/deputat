@@ -219,7 +219,7 @@ class PublishElectNew(TemplateView):
     def get(self,request,*args,**kwargs):
         from elect.models import Elect
 
-        self.elect_new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect
         if elect.region:
             self.elect_region = elect.region.all().first()

@@ -151,12 +151,12 @@ class EditManagerElectNew(TemplateView):
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect
         if elect.region:
-            elect_region = elect.region.all().first()
+            self.elect_region = elect.region.all().first()
         elif elect.okrug:
-            elect_region = elect.okrug.region
+            self.elect_region = elect.okrug.region
         else:
-            elect_region = elect.area.all().first().region
-        elect_list = elect.list.all().first()
+            self.elect_region = elect.area.all().first().region
+        self.elect_list = elect.list.all().first()
 
         if elect_list.slug == "senat":
             self.senat = True

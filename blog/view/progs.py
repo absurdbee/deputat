@@ -160,16 +160,16 @@ class EditManagerElectNew(TemplateView):
 
         if elect_list.slug == "senat":
             self.senat = True
-            self.senat_elect_list = Elect.objects.filter(list__slug=senat)
+            self.senat_elect_list = Elect.objects.filter(list__slug=elect_list.slug)
         elif elect_list.slug == "state_duma":
             self.state_duma = True
-            self.elect_list = Elect.objects.filter(list__slug=state_duma, region=elect_region)
+            self.elect_list = Elect.objects.filter(list__slug=state_duma, region=elect_list.slug)
         elif elect_list.slug == "candidate_duma":
             self.candidate_duma = True
-            self.elect_list = Elect.objects.filter(list__slug=candidate_duma, region=elect_region)
+            self.elect_list = Elect.objects.filter(list__slug=candidate_duma, region=elect_list.slug)
         elif elect_list.slug == "candidate_municipal":
             self.candidate_municipal = True
-            self.elect_list = Elect.objects.filter(list__slug=candidate_municipal, region=elect_region)
+            self.elect_list = Elect.objects.filter(list__slug=candidate_municipal, region=elect_list.slug)
         return super(EditManagerElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

@@ -142,7 +142,7 @@ class EditElectNew(TemplateView):
             return HttpResponseBadRequest()
 
 class EditManagerElectNew(TemplateView):
-    template_name, senat, state_duma, candidate_duma, candidate_municipal = "elect/edit_manager_elect_new.html", False, False, False, False
+    template_name, senat, state_duma, candidate_duma, candidate_municipa, senat_elect_list, elect_region_pk = "elect/edit_manager_elect_new.html", False, False, False, False, None, None
 
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
@@ -150,15 +150,26 @@ class EditManagerElectNew(TemplateView):
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
         elect = self.new.elect
+        if elect.region:
+            elect_region = elect.region
+        elif elect.okrug:
+            elect_region = elect.okrug.region
+        else:
+            elect_region = elect.area.all()[0].region
         elect_list = elect.list.all().first()
+
         if elect_list.slug == "senat":
             self.senat = True
+            self.senat_elect_list = Elect.objects.filter(list__slug=senat)
         elif elect_list.slug == "state_duma":
             self.state_duma = True
+            self.elect_list = Elect.objects.filter(list__slug=state_duma, region=elect_region)
         elif elect_list.slug == "candidate_duma":
             self.candidate_duma = True
+            self.elect_list = Elect.objects.filter(list__slug=candidate_duma, region=elect_region)
         elif elect_list.slug == "candidate_municipal":
             self.candidate_municipal = True
+            self.elect_list = Elect.objects.filter(list__slug=candidate_municipal, region=elect_region)
         return super(EditManagerElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -168,10 +179,13 @@ class EditManagerElectNew(TemplateView):
         context=super(EditManagerElectNew,self).get_context_data(**kwargs)
         context["form"] = PublishElectNewForm(instance=self.new)
         context["senat"] = self.senat
+        context["senat_elect_list"] = self.senat_elect_list
         context["state_duma"] = self.state_duma
         context["candidate_duma"] = self.candidate_duma
         context["candidate_municipal"] = self.candidate_municipal
         context["new"] = self.new
+        context["elect_region_pk"] = self.elect_region.pk
+        context["elect_list"] = self.elect_list
         return context
 
     def post(self,request,*args,**kwargs):

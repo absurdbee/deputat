@@ -125,7 +125,7 @@ class EditElectNew(TemplateView):
         return super(EditElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        from blog.forms import PublishElectNewForm
+        from blog.forms import SuggestElectNewForm
         from region.models import Region
 
         context=super(EditElectNew,self).get_context_data(**kwargs)

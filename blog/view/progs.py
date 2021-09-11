@@ -186,6 +186,7 @@ class EditManagerElectNew(TemplateView):
         context["new"] = self.new
         context["elect_region_pk"] = self.elect_region.pk
         context["elect_lists"] = self.elect_lists
+        context["regions"] = Region.objects.only("pk")
         return context
 
     def post(self,request,*args,**kwargs):

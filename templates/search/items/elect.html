@@ -1,16 +1,15 @@
 <div class="media">
-  <input type="hidden" name="elect" value="{{ object.name }}">
-        <figure>
-            <img src="{{ object.get_image }}" style="width:30px;" alt="image">
-        </figure>
+    <figure>
+        <img src="{{ object.get_image }}" style="width:35px;" alt="image">
+    </figure>
     <div class="media-body pl-1">
         <h6 class="my-0">{{ object.name }}</h6>
-        <span>
-          {% for reg in object.get_location %}
-            {{ reg.name }} &nbsp;
-          {% endfor %}
-          {% for list in object.list.all %}
-            {{ list.name }} &nbsp;
-          {% endfor %}
+        <span style="font-size:90%">
+        {% for reg in object.get_location %}
+          {{ reg.name }} &nbsp;
+        {% endfor %}
+        {% for list in object.list.all %}
+          {{ list.name }} &nbsp;
+        {% endfor %}
     </div>
 </div>

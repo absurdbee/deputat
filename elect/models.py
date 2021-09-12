@@ -118,10 +118,10 @@ class Elect(models.Model):
         from district.models import District2
         if self.region:
             return self.region.all()
-        elif District2.objects.filter(elect_area=this).exists():
+        elif self.area:
             return District2.objects.filter(elect_area=this)
         elif self.okrug:
-            return self.okrug
+            return self.okrug.name
         else:
             return 0
 

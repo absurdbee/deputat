@@ -14,6 +14,7 @@ function post_elect_new(_this, url, toast) {
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
   } else if (!elect_id){
+    form.querySelector(".search_elect_field").style.border = "1px #FF0000 solid";
     toast_error("Выберите чиновника!"); return
   } else { _this.disabled = true };
 

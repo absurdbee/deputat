@@ -65,6 +65,38 @@
               <label>Фракция (если есть)</label>
               {{ form.fraction }}
             </div>
+            <div class="form-group">
+              <label>Ссылка на VK</label>
+              <input type="text" value="{{ elect.vk }}" name="vk" class="form-control" id="id_vk">
+            </div>
+            <div class="form-group">
+              <label>Ссылка на Facebook</label>
+              <input type="text" value="{{ elect.fb }}" name="fb" class="form-control" id="id_fb">
+            </div>
+            <div class="form-group">
+              <label>Ссылка на Instagram</label>
+              <input type="text" value="{{ elect.ig }}" name="ig" class="form-control" id="id_ig">
+            </div>
+            <div class="form-group">
+              <label>Ссылка на Telegram</label>
+              <input type="text" value="{{ elect.tg }}" name="tg" class="form-control" id="id_tg">
+            </div>
+            <div class="form-group">
+              <label>Ссылка на Twitter</label>
+              <input type="text" value="{{ elect.tw }}" name="tw" class="form-control" id="id_tw">
+            </div>
+            <div class="form-group">
+              <label>Электронная почта</label>
+              <input type="text" value="{{ elect.mail }}" name="mail" class="form-control" id="id_mail">
+            </div>
+            <div class="form-group">
+              <label>Телефон</label>
+              <input type="text" value="{{ elect.phone }}" name="phone" class="form-control" id="id_phone">
+            </div>
+            <div class="form-group">
+              <label>Адрес (приёмная)</label>
+              <input type="text" value="{{ elect.address }}" name="address" class="form-control" id="id_address">
+            </div>
         </div>
         <div class="card-footer">
             <button class="btn custom_color border create_fullscreen_hide_2" style="position: absolute;">Отмена</button>

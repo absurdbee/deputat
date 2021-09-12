@@ -6,9 +6,18 @@
         <h6 class="my-0">{{ object.name }}</h6>
         <span style="font-size:90%">
 
-        {% for reg in object.get_xxx %}
-          {{ reg }} &nbsp;
-        {% endfor %} | 
+        {% if object.get_regions %}
+          {% for reg in object.get_regions %}
+            {{ reg }} &nbsp;
+            {% endfor %}
+        {% elif object.get_districts %}
+          {% for area in object.get_districts %}
+            {{ area }} &nbsp;
+          {% endfor %}
+        {% elif object.okrug %}
+          {{ object.okrug.region }}
+        {% else %}
+            |
         {% for list in object.list.all %}
           {{ list.name }} &nbsp;
         {% endfor %}

@@ -121,7 +121,7 @@ class Elect(models.Model):
         elif self.okrug:
             return self.okrug
         else:
-            return []
+            return 0
 
     def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post_2):
         from logs.model.manage_elect_new import ElectManageLog

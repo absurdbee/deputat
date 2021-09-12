@@ -1,32 +1,22 @@
 function post_elect_new(_this, url, toast) {
-  elect = true, elect_value = null;
+  elect_id = false;
   form = _this.parentElement.parentElement.parentElement;
-  console.log(form)
-  if (form.querySelector("#id_elect")) {
-    elect_value = form.querySelector("#id_elect").value;
-    xxx = form.querySelector("#data-list");
-    elect_list = xxx.querySelectorAll("option");
-    for (var i = 0; i < elect_list.length; i++){
-      if (elect_value == elect_list[i].value) {
-        elect = true;
-      }
-    }
-  }
   form_data = new FormData(form);
-
+  try {
+    if (form.querySelector("#id_elect").value){
+      elect_id = true;
+      form.querySelector("#id_elect").style.border = "1px #FF0000 solid"
+    }} catch { null };
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!"); return
   } else if (!form.querySelector("#id_description").value){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
-  } else if (!elect_value){
-    try {form.querySelector("#id_elect").style.border = "1px #FF0000 solid"} catch { form.querySelector(".radio_gender_custom").style.border = "1px #FF0000 solid" };
+  } else if (!elect_id){
     toast_error("Выберите чиновника!"); return
-  } else if (!elect){
-    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
-    toast_error("Выберите чиновника из списка!"); return
   } else { _this.disabled = true };
+
 
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'POST', url, true );

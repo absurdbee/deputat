@@ -194,5 +194,6 @@ on('body', 'click', '.accept_elect_for_add_elect_new', function() {
   $input.setAttribute("value", this.getAttribute("data-pk"));
   $input.setAttribute("type", "hidden");
   $input.setAttribute("name", "elect");
+  $input.setAttribute("id", "id_elect");
   block.append($input)
 });

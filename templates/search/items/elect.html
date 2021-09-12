@@ -12,7 +12,7 @@
             {% endfor %}
         {% elif object.get_districts %}
           {% for area in object.get_districts %}
-            {{ area }} &nbsp;
+            {{ area.region }} &nbsp;
           {% endfor %}
         {% elif object.okrug %}
           {{ object.okrug.region }}

@@ -187,7 +187,7 @@ on('body', 'click', '.accept_elect_for_add_elect_new', function() {
   block = this.parentElement.parentElement;
   elect = this.parentElement;
   this.classList.remove("accept_elect_for_add_elect_new", "pointer");
-  block.innerHTML = this.parentElement.innerHTML;
+  block.innerHTML = "<label>Чиновник</label>" + this.parentElement.innerHTML;
   field = block.previousElementSibling.querySelector(".search_elect_field");
   field.value = "";
   $input = document.createElement("input");

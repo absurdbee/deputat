@@ -458,6 +458,24 @@ on('body', 'click', '.phone_send', function() {
 	   request.send();
 	 });
 
+	 on('body', 'click', '.search_elect_for_add_elect_new', function() {
+ 		_this = this;
+ 	  field = _this.parentElement.previousElementSibling;
+		if (field.value) {
+ 	   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+ 	   request.open( 'GET', "/search/elect_add_elect_new_filter/?name=" + field.value, true );
+ 	   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+ 	   request.onreadystatechange = function () {
+ 	     if ( request.readyState == 4 && request.status == 200) {
+ 	       response = request.responseText;
+ 	       block = _this.parentElement.parentElement.nextElementSibling;
+ 				 block.innerHTML = "";
+ 				 block.innerHTML = response;
+ 	     }}
+ 	   request.send();
+	 }
+ 	 });
+
 function clear_left_search() {
 	btn = document.body.querySelector(".search_page_reload");
 	btn.previousElementSibling.previousElementSibling.value = "";

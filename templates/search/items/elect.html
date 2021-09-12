@@ -5,8 +5,8 @@
     <div class="media-body pl-1">
         <h6 class="my-0">{{ object.name }}</h6>
         <span style="font-size:90%">
-          {{ object.get_location }}
-        {% for reg in object.get_location %}
+
+        {% for reg in object.get_regions %}
           {{ reg.name }} &nbsp;
         {% endfor %}
         {% for list in object.list.all %}

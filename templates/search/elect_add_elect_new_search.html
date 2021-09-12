@@ -1,3 +1,4 @@
+<span class="is_load_paginate">
 {% for object in object_list %}
   {% include 'search/items/elect.html' %}
 {% empty %}
@@ -8,3 +9,4 @@
     <img src="/static/images/loading.gif">
 </div>
 {% endif %}
+</span>

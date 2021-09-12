@@ -28,3 +28,21 @@ class AllElectSearch(ListView):
         context=super(AllElectSearch,self).get_context_data(**kwargs)
         context["query"] = self.query
         return context
+
+
+class ElectAddElectNewSearch(ListView):
+    template_name, paginate_by = None, 20
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("search/elect_add_elect_new_search.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.query = request.GET.get('name')
+        return super(ElectAddElectNewSearch,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        from elect.models import Elect
+        return Elect.objects.filter(name__icontains=self.query)
+
+    def get_context_data(self,**kwargs):
+        context=super(ElectAddElectNewSearch,self).get_context_data(**kwargs)
+        context["query"] = self.query
+        return context

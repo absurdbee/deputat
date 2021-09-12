@@ -171,10 +171,10 @@ class Elect(models.Model):
         return regions
 
     def get_xxx(self):
-        if object.get_regions():
-            return object.get_regions()
-        elif object.get_districts():
-            return object.get_districts()
+        if self.get_regions():
+            return self.get_regions()
+        elif self.get_districts():
+            return self.get_districts()
         elif self.okrug:
             return [self.okrug]
 

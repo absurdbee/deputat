@@ -461,6 +461,7 @@ on('body', 'click', '.phone_send', function() {
 	 on('body', 'click', '.search_elect_for_add_elect_new', function() {
  		_this = this;
  	  field = _this.parentElement.previousElementSibling;
+		field.style.border = "border: 1px solid #D8D6DE;"
 		if (field.value.length > 4) {
  	   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
  	   request.open( 'GET', "/search/elect_add_elect_new_filter/?name=" + field.value, true );

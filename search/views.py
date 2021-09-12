@@ -42,5 +42,5 @@ class ElectAddElectNewSearch(TemplateView):
         from elect.models import Elect
         context=super(ElectAddElectNewSearch,self).get_context_data(**kwargs)
         context["query"] = self.query
-        context["list"] = Elect.objects.filter(name__icontains=self.query)
+        context["list"] = Elect.objects.filter(name__icontains=self.query).exclude(list__slug="candidate_municipal")
         return context

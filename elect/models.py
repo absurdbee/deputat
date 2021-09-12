@@ -104,6 +104,7 @@ class Elect(models.Model):
         return list
 
     def get_region(self):
+        from district.models import District2
         if self.region:
             return self.region.all()
         elif self.area:
@@ -114,10 +115,11 @@ class Elect(models.Model):
             return []
 
     def get_location(self):
+        from district.models import District2
         if self.region:
             return self.region.all()
-        elif self.area:
-            return self.area
+        elif District2.objects.filter(elect_area=this).exists():
+            return District2.objects.filter(elect_area=this)
         elif self.okrug:
             return self.okrug
         else:

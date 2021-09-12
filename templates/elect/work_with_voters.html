@@ -18,7 +18,7 @@
       Если у Вас есть чем поделиться с общественностью об этом чиновнике - Вы можете предложить новость
     </p>
     {% if request.user.is_authenticated %}
-    {% if request.user.is_elect_manager %}
+    {% if request.user.is_elect_new_manager %}
       <a class="btn btn-secondary manager_elect_new_create btn-sm pointer" data-name="{{ elect.name }}">Создать новость</a>
     {% else %}
       <a class="btn btn-secondary u_suggested_elect_new_create btn-sm pointer" data-name="{{ elect.name }}">Предложить новость</a>

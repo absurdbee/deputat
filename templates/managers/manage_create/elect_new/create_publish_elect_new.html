@@ -23,62 +23,18 @@
               <textarea style="min-height: 200px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description">{{ new.description }}</textarea>
             </div>
             <div class="form-group">
-              <label>Орган власти чиновника</label>
-              <div>
-              <div class="custom-control radio_right custom-radio">
-                  <input {% if senat %}checked {% endif %}type="radio" id="load_senat" name="lists" value="senat" class="custom-control-input">
-                  <label class="custom-control-label" for="load_senat">Сенат</label>
+              <div class="input-group input-group-merge mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon-search2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+                </div>
+                <input type="text" class="form-control search_elect_field" placeholder="Найти чиновника..." aria-label="Найти чиновника..." aria-describedby="basic-addon-search2">
+                <div class="input-group-append" id="button-addon2">
+                  <button class="btn btn-outline-primary search_elect_for_add_elect_new" type="button">Найти</button>
+                </div>
               </div>
+              <div style="max-height: 500px;overflow: auto;"></div>
+            </div>
 
-                <div class="custom-control radio_left custom-radio">
-                    <input {% if state_duma %}checked {% endif %}type="radio" id="load_state_duma" name="lists" value="state_duma" class="state_duma load_regions_for_load_elects custom-control-input">
-                    <label class="custom-control-label" for="load_state_duma">Гос.дума</label>
-                </div>
-                <div class="custom-control radio_left custom-radio">
-                    <input {% if candidate_duma %}checked {% endif %}type="radio" id="load_candidate_duma" name="lists" value="candidate_duma" class="candidate_duma load_regions_for_load_elects custom-control-input">
-                    <label class="custom-control-label" for="load_candidate_duma">Кандидаты в Гос. думу</label>
-                </div>
-                <div class="custom-control radio_right custom-radio">
-                    <input {% if candidate_municipal %}checked {% endif %}type="radio" id="load_candidate_municipal" name="lists" value="candidate_municipal" class="candidate_municipal load_regions_for_load_elects custom-control-input">
-                    <label class="custom-control-label" for="load_candidate_municipal">	Кандидат в депутаты мун. округа</label>
-                </div>
-                </div>
-            </div>
-            <div class="form-group">
-              {% if senat %}
-              <span>
-                <label class="mt-1">Чиновник</label>
-                <input value="{{ new.elect.name }}" placeholder="Выберите чиновника" list="data-list" id="id_elect" class="form-control field_elect_new" name="elect">
-                <datalist id="data-list">
-                  {% for object in senat_elect_list %}
-                    <option value="{{ object.name }}"></option>
-                  {% endfor %}
-                </datalist>
-              </span>
-              {% else %}
-                <label class="mt-2">Выберите регион</label>
-                <select class="form-control select_region_for_load_elects">
-                  {% for object in regions %}
-                    <option {% if object.pk == elect_region_pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
-                  {% endfor %}
-                </select>
-              {% endif %}
-            </div>
-            <div class="form-group">
-              {% if not senat %}
-              <div class="form-group">
-                <span>
-                  <label class="mt-1">Чиновник</label>
-                  <input placeholder="Выберите чиновника" value="{{ new.elect.name }}" list="data-list" id="id_elect" class="form-control field_elect_new" name="elect">
-                  <datalist id="data-list">
-                    {% for object in elect_lists %}
-                      <option value="{{ object.name }}"></option>
-                    {% endfor %}
-                  </datalist>
-                </span>
-              </div>
-              {% endif %}
-            </div>
             <div class="form-group">
               <label>Прикрепить объекты</label>
               <div class="card-footer border-top btn_default">

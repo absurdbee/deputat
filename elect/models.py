@@ -114,17 +114,6 @@ class Elect(models.Model):
         else:
             return []
 
-    def get_location(self):
-        from district.models import District2
-        if self.region:
-            return self.region.all()
-        elif self.area:
-            return District2.objects.filter(elect_area=this)
-        elif self.okrug:
-            return self.okrug.name
-        else:
-            return 0
-
     def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post_2):
         from logs.model.manage_elect_new import ElectManageLog
 
@@ -180,6 +169,14 @@ class Elect(models.Model):
     def get_districts(self):
         regions = self.area.all()
         return regions
+
+    def get_xxx(self):
+        if object.get_regions():
+            return object.get_regions()
+        elif object.get_districts():
+            return object.get_districts()
+        elif self.okrug:
+            return [self.okrug]
 
     def get_news(self):
         return self.new_elect.filter(type="PUB")

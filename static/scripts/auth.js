@@ -471,6 +471,7 @@ on('body', 'click', '.phone_send', function() {
  	       block = _this.parentElement.parentElement.nextElementSibling;
  				 block.innerHTML = "";
  				 block.innerHTML = response;
+				 scrolled(block)
  	     }}
  	   request.send();
 	 }

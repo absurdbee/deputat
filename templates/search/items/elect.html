@@ -2,12 +2,10 @@
         <figure>
             <img src="{{ object.get_image }}" style="width:50px;" alt="image">
         </figure>
-    <div class="media-body">
+    <div class="media-body pl-1">
         <h6 class="my-0 mt-1">{{ object.name }}</h6>
         <span>
-          {% for reg in object.get_regions %}
-            {{ reg.name }}&nbsp;
-          {% endfor %}
+          {{ object.get_region }}, 
           {% for list in object.list.all %}
             {{ list.name }}
           {% endfor %}

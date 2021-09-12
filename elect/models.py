@@ -174,7 +174,7 @@ class Elect(models.Model):
         if self.get_regions():
             return self.get_regions()
         elif self.get_districts():
-            return self.get_districts()[0].region
+            return self.get_districts()[0].region.name
         elif self.okrug:
             return [self.okrug.region]
 

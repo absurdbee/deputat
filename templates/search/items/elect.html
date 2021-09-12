@@ -5,9 +5,11 @@
     <div class="media-body pl-1">
         <h6 class="my-0 mt-1">{{ object.name }}</h6>
         <span>
-          {{ object.get_region }}, 
+          {% for reg in object.get_region %}
+            {{ reg.name }} &nbsp;
+          {% endfor %}
           {% for list in object.list.all %}
-            {{ list.name }}
+            {{ list.name }} &nbsp;
           {% endfor %}
     </div>
 </div>

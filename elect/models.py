@@ -105,15 +105,13 @@ class Elect(models.Model):
 
     def get_region(self):
         if self.region:
-            return 0
-            count = self.region.all().count()
-            if count > 1:
-                return self.region.all()[0]
-            else:
-                return self.region.all()
+            return self.region.all()
         elif self.area:
-            return 1
             return self.area.all()[0].region
+        elif self.okrug:
+            return self.okrug.region
+        else:
+            return []
 
     def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post_2):
         from logs.model.manage_elect_new import ElectManageLog

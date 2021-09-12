@@ -117,7 +117,7 @@ class Elect(models.Model):
         if self.region:
             return self.region.all()
         elif self.area:
-            return self.area.all()[0]
+            return self.area
         elif self.okrug:
             return self.okrug
         else:

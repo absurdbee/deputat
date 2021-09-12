@@ -1,7 +1,10 @@
 on('body', 'click', '.u_suggested_elect_new_create', function() {
   loader = document.body.querySelector("#window_loader");
-  this.getAttribute("data-name") ? name = this.getAttribute("data-name") : name = "";
-  open_elect_fullscreen("/blog/progs/suggest_elect_new/", loader, name)
+  if (this.getAttribute("data-name")) {
+    open_elect_fullscreen("/blog/progs/suggest_elect_new/", loader, this.getAttribute("data-name"))
+  } else {
+    open_fullscreen("/blog/progs/suggest_elect_new/", loader)
+  }
 });
 
 on('body', 'click', '.elect_new_window', function() {

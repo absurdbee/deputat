@@ -75,7 +75,11 @@ on('body', 'click', '.manager_elect_new_create', function() {
 });
 on('body', 'click', '.manager_elect_new_create', function() {
   loader = document.body.querySelector("#window_loader");
-  open_elect_fullscreen("/managers/elect_new/create_elect_new/", loader)
+  if (this.getAttribute("data-name")) {
+    open_elect_fullscreen("/managers/elect_new/create_elect_new/", loader, this.getAttribute("data-name"))
+  } else {
+    open_fullscreen("/managers/elect_new/create_elect_new/", loader)
+  }
 });
 
 on('body', 'click', '.penalty_photo', function() {

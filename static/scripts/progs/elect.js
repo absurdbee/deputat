@@ -182,3 +182,11 @@ on('body', 'click', '.remove_elect_rating_voted', function() {
 
   link_.send();
 });
+
+on('body', 'click', '.accept_elect_for_add_elect_new', function() {
+  block = this.parentElement.parentElement
+  block.innerHTML = this.parentElement.innerHTML;
+  field = block.previousElementSibling;
+  field.value = "";
+
+});

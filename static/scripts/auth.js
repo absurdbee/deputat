@@ -461,7 +461,7 @@ on('body', 'click', '.phone_send', function() {
 	 on('body', 'click', '.search_elect_for_add_elect_new', function() {
  		_this = this;
  	  field = _this.parentElement.previousElementSibling;
-		if (field.value) {
+		if (field.value.length > 4) {
  	   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
  	   request.open( 'GET', "/search/elect_add_elect_new_filter/?name=" + field.value, true );
  	   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -474,7 +474,7 @@ on('body', 'click', '.phone_send', function() {
 				 scrolled(block)
  	     }}
  	   request.send();
-	 }
+	 } else {toast_info("Поиск работает от пяти символов")}
  	 });
 
 function clear_left_search() {

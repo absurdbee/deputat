@@ -5,21 +5,24 @@
     <div class="media-body pl-1">
         <h6 class="my-0">{{ object.name }}</h6>
         <span style="font-size:90%">
-
+        <span class="elect_regions">
         {% if object.get_regions %}
           {% for reg in object.get_regions %}
-            {{ reg }} &nbsp;
-            {% endfor %}
+            {{ reg }}
+          {% endfor %}
         {% elif object.get_districts %}
           {% for area in object.get_districts %}
-            {{ area.region }} &nbsp;
+            {{ area.region }}
           {% endfor %}
         {% elif object.okrug %}
           {{ object.okrug.region }}
         {% endif %}
+        </span>
             |
+        <span class="elect_lists">
         {% for list in object.list.all %}
           {{ list.name }} &nbsp;
         {% endfor %}
+        </span>
     </div>
 </div>

@@ -184,9 +184,15 @@ on('body', 'click', '.remove_elect_rating_voted', function() {
 });
 
 on('body', 'click', '.accept_elect_for_add_elect_new', function() {
-  block = this.parentElement.parentElement
+  block = this.parentElement.parentElement;
+  elect = this.parentElement;
+  elect.classList.remove("accept_elect_for_add_elect_new", "pointer");
   block.innerHTML = this.parentElement.innerHTML;
-  field = block.previousElementSibling;
+  field = block.previousElementSibling.querySelector(".search_elect_field");
   field.value = "";
-
+  $input = document.createElement("input");
+  $input.setAttribute("value", this.getAttribute("data-pk"));
+  $input.setAttribute("type", "hidden");
+  $input.setAttribute("name", "elect");
+  block.append($input)
 });

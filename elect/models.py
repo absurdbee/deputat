@@ -176,7 +176,7 @@ class Elect(models.Model):
         elif self.get_districts():
             return self.get_districts()
         elif self.okrug:
-            return [self.okrug]
+            return [self.okrug.region.name]
 
     def get_news(self):
         return self.new_elect.filter(type="PUB")

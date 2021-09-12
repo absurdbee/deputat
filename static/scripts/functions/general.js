@@ -995,7 +995,7 @@ function open_elect_fullscreen(link, block, name) {
       elect_name = content.querySelector("h1").innerHTML;
       elect_src = content.querySelector(".img_elect_page").getAttribute("src");
       elect_pk = content.getAttribute("data-pk");
-      elect_box.innerHTML = '<label>Чиновник</label><div class="media border" style="margin-bottom:5px" data-pk="' + elect_pk + '"><img src="' + elect_src + '" style="width:35px;" alt="image"><div class="media-body pl-1"><h6 class="my-0">' + elect_name + '</h6></div></div>'
+      elect_box.innerHTML = '<label>Чиновник</label><input value="' + elect_pk + '" type="hidden" name="elect" id="id_elect"><div class="media border" style="margin-bottom:5px"><img src="' + elect_src + '" style="width:35px;" alt="image"><div class="media-body pl-1"><h6 class="my-0">' + elect_name + '</h6></div></div>'
     };
     get_document_opacity_0();
   }};

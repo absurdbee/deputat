@@ -16,7 +16,7 @@
           {% endfor %}
         {% elif object.okrug %}
           {{ object.okrug.region }}
-        {% else %}
+        {% endif %}
             |
         {% for list in object.list.all %}
           {{ list.name }} &nbsp;

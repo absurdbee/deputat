@@ -113,6 +113,16 @@ class Elect(models.Model):
         else:
             return []
 
+    def get_location(self):
+        if self.region:
+            return self.region.all()
+        elif self.area:
+            return self.area.all()
+        elif self.okrug:
+            return self.okrug.region
+        else:
+            return []
+
     def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post_2):
         from logs.model.manage_elect_new import ElectManageLog
 

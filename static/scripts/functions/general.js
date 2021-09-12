@@ -993,7 +993,7 @@ function open_elect_fullscreen(link, block, name) {
       elect_box = block.querySelector(".elect_block");
       content = document.body.querySelector(".content-body");
       elect_name = content.querySelector("h1").innerHTML;
-      elect_src = content.querySelector(".rounded img-fluid").getAttribute("src");
+      elect_src = content.querySelector(".img_elect_page").getAttribute("src");
       elect_pk = content.getAttribute("data-pk");
       elect_box.innerHTML = '<label>Чиновник</label><div class="media border" style="margin-bottom:5px" data-pk="' + elect_pk + '"><img src="' + elect_src + '" style="width:35px;" alt="image"><div class="media-body pl-1"><h6 class="my-0">' + elect_name + '</h6></div></div>'
     };

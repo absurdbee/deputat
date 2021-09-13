@@ -45,7 +45,9 @@
                     {% else %}
                       <span class="pointer add_elect_subscribe" data-pk="{{ object.pk }}">ПОДПИСАТЬСЯ</span><br>
                     {% endif %}
-                    <span class="pointer manager_elect_edit" data-pk="{{ object.pk }}">ИЗМЕНИТЬ</span>
+                    {% if request.user.is_elect_new_manager %}
+                      <span class="pointer manager_elect_edit" data-pk="{{ object.pk }}">ИЗМЕНИТЬ</span>
+                    {% endif %}
                   </div>
                     <div class="list-group list-group-labels">
                         <a data-href="/elect/{{ object.pk }}/all_news/" class="list-group-item list-group-item-action select_elect_news_category active">

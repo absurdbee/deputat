@@ -66,9 +66,8 @@
 }
 
 .remove_elect_subscribe {
-  color: #41cd52;
-  border: 1px solid #41cd52;
   width: fit-content;
+  text-transform: uppercase;
 }
 .add_elect_subscribe {
   width: fit-content;
@@ -77,12 +76,6 @@
 .menu-title {
   font-weight: bold;
   font-size: 78%;
-}
-.remove_elect_subscribe:hover, .remove_elect_subscribe:active {
-  color: #FFFFFF;
-  border: 1px solid #FFFFFF;
-  background-color: #41cd52;
-  width: fit-content;
 }
 
 .resent_notify  {

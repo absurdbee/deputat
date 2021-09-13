@@ -71,6 +71,7 @@
 }
 .add_elect_subscribe {
   width: fit-content;
+  text-transform: uppercase;
 }
 
 .menu-title {

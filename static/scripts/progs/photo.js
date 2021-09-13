@@ -164,16 +164,16 @@ on('body', 'click', '.u_load_profile_photo_list', function() {
 });
 
 on('body', 'click', '.u_load_attach_photo_list', function() {
-
+  _this = this;
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  request.open( 'GET', "/users/load/u_photo_list_load/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", true );
+  request.open( 'GET', "/users/load/u_photo_list_load/" + _this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", true );
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ){
         elem_ = document.createElement('span');
         elem_.innerHTML = request.responseText;
        document.body.querySelector(".load_block").innerHTML = elem_.querySelector(".load_block").innerHTML;
-       class_to_add = this.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
+       class_to_add = _this.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
        for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add("u_load_attach_photo_list", "pointer");
        };

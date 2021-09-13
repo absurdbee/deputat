@@ -100,7 +100,7 @@ class ElectRating(models.Model):
     elect = models.ForeignKey("elect.Elect", on_delete=models.CASCADE)
 
     vakcine = models.SmallIntegerField(verbose_name="Добровольность вакцинации", default=ZERO, choices=VOTES)
-    pp_825 = models.SmallIntegerField(verbose_name="Отмена пп 825", default=ZERO, choices=VOTES)
+    pp_825 = models.SmallIntegerField(verbose_name="Отмена обязательной вакцинации по приказу минздрава 825", default=ZERO, choices=VOTES)
     safe_family = models.SmallIntegerField(verbose_name="Защита прав семьи", default=ZERO, choices=VOTES)
     pro_life = models.SmallIntegerField(verbose_name="Защита жизни с момента зачатия", default=ZERO, choices=VOTES)
     free_vacation = models.SmallIntegerField(verbose_name="Свобода образования", default=ZERO, choices=VOTES)

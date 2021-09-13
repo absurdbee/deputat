@@ -32,10 +32,10 @@ def get_page_data(html, region):
     tgrids = soup.find_all('div', class_='tgrid')
     parth = 0
     for tgrid in tgrids:
-        if not Okrug.objects.filter(name=h5_list[h5_count].text, region=region).exists():
-            okrug = Okrug.objects.create(name=h5_list[h5_count].text, region=region)
-        else:
-            okrug = Okrug.objects.get(name=h5_list[h5_count].text, region=region)
+        #if not Okrug.objects.filter(name=h5_list[h5_count].text, region=region).exists():
+        #    okrug = Okrug.objects.create(name=h5_list[h5_count].text, region=region)
+        #else:
+        #    okrug = Okrug.objects.get(name=h5_list[h5_count].text, region=region)
 
         h5_count = h5_count + 2
 
@@ -55,44 +55,69 @@ def get_page_data(html, region):
                     _patr = Fraction.objects.get(name="КПРФ")
                 elif patr == "СПРАВЕДЛИВАЯ РОССИЯ - ЗА ПРАВДУ":
                     _patr = Fraction.objects.get(name="Справедливая Россия")
+                elif patr == "Гражданская Платформа":
+                    _patr = Fraction.objects.get(name="Гражданская Платформа")
+                elif patr == "ЗЕЛЕНАЯ АЛЬТЕРНАТИВА":
+                    _patr = Fraction.objects.get(name="Зеленая Альтернатива")
+                elif patr == "Зеленые":
+                    _patr = Fraction.objects.get(name="Зеленые")
+                elif patr == "КОММУНИСТЫ РОССИИ":
+                    _patr = Fraction.objects.get(name="Коммунисты России")
+                elif patr == "НОВЫЕ ЛЮДИ":
+                    _patr = Fraction.objects.get(name="Новые люди")
+                elif patr == "Партия пенсионеров":
+                    _patr = Fraction.objects.get(name="Партия пенсионеров")
+                elif patr == "ПАРТИЯ РОСТА":
+                    _patr = Fraction.objects.get(name="Партия роста")
+                elif patr == "РПСС":
+                    _patr = Fraction.objects.get(name="РПСС")
+                elif patr == "РОДИНА":
+                    _patr = Fraction.objects.get(name="Родина")
+                elif patr == "ЯБЛОКО":
+                    _patr = Fraction.objects.get(name="Яблоко")
                 else:
                     _patr = Fraction.objects.get(slug="no_fraction")
 
-                deps = item.find_all('li')
-                if "Возраст" in deps[0].text:
-                    _birthday=deps[0].text.replace("Возраст: ","")
-                else:
-                    _birthday=deps[1].text.replace("Возраст: ","")
-                if "Образование" in deps[2].text:
-                    _description=deps[2].text.replace("Образование: ","")
-                elif "Образование" in deps[1].text:
-                    _description=deps[1].text.replace("Образование: ","")
-                else:
-                    _description=""
+                #deps = item.find_all('li')
+                #if "Возраст" in deps[0].text:
+                #    _birthday=deps[0].text.replace("Возраст: ","")
+                #else:
+                #    _birthday=deps[1].text.replace("Возраст: ","")
+                #if "Образование" in deps[2].text:
+                #    _description=deps[2].text.replace("Образование: ","")
+                #elif "Образование" in deps[1].text:
+                #    _description=deps[1].text.replace("Образование: ","")
+                #else:
+                #    _description=""
 
-                if not Elect.objects.filter(name=name, region=region, okrug=okrug).exists():
-                    elect = Elect.objects.create(
-                                    name=name,
-                                    okrug=okrug,
-                                    post_2=item.find("p", class_='fio').text.replace(name + ", ",""),
-                                    birthday=_birthday,
-                                    description=_description,
-                                    fraction=_patr
-                                )
-                    if item.find("img")["src"] == "/wp-content/uploads/imagefb.jpg":
-                        img = 'https://xn--80aietlhndtbf.xn--p1acf/static/images/elect_image.png'
-                    else:
-                        img = "https://gosduma-2021.com/" + item.find("img")["src"]
-                    try:
-                        elect.get_remote_image(img)
-                    except:
-                        pass
-                    elect.region.add(region)
-                    elect.list.add(_list)
-                    print(elect.name, " добавлен!")
-                else:
-                    elect = Elect.objects.get(name=name, region=region, okrug=okrug)
-                    print(elect.name, " уже есть!")
+                #if not Elect.objects.filter(name=name, region=region, okrug=okrug).exists():
+                #    elect = Elect.objects.create(
+                #                    name=name,
+                #                    okrug=okrug,
+                #                    post_2=item.find("p", class_='fio').text.replace(name + ", ",""),
+                #                    birthday=_birthday,
+                #                    description=_description,
+                #                    fraction=_patr
+                #                )
+                #    if item.find("img")["src"] == "/wp-content/uploads/imagefb.jpg":
+                #        img = 'https://xn--80aietlhndtbf.xn--p1acf/static/images/elect_image.png'
+                #    else:
+                #        img = "https://gosduma-2021.com/" + item.find("img")["src"]
+                #    try:
+                #        elect.get_remote_image(img)
+                #    except:
+                #        pass
+                #    elect.region.add(region)
+                #    elect.list.add(_list)
+                #    print(elect.name, " добавлен!")
+                #else:
+                try:
+                    elect = Elect.objects.get(name=name, region=region,list=_list)
+                    elect.fraction = _patr
+                    elect.save([update_fields="fraction"])
+                    print("Фракция обновлена")
+                except:
+                    print("Что то не так!")
             count += 1
             print("--------------------")
         print("=======================")
@@ -331,7 +356,6 @@ def main():
         elif region.name == "Ульяновская область":
             html = get_html("https://gosduma-2021.com/s/ulyanovskaya-oblast/")
             get_page_data(html, region)
-
         elif region.name == "Хабаровский край":
             html = get_html("https://gosduma-2021.com/s/habarovskii-krai/")
             get_page_data(html, region)

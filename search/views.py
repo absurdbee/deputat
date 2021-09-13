@@ -44,3 +44,23 @@ class ElectAddElectNewSearch(TemplateView):
         context["query"] = self.query
         context["list"] = Elect.objects.filter(name__icontains=self.query).exclude(list__slug="candidate_municipal")
         return context
+
+
+class TagsSearch(ListView):
+    template_name, paginate_by = None, 20
+
+    def get(self,request,*args,**kwargs):
+        from tags import ManagerTag
+
+        self.template_name = get_small_template("search/tag_search.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.tag = ManagerTag.objects.get(pk=self.kwargs["pk"])
+        return super(TagsSearch,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        from blog.models import ElectNew
+        return ElectNew.objects.filter(tags=self.tag)
+
+    def get_context_data(self,**kwargs):
+        context=super(TagsSearch,self).get_context_data(**kwargs)
+        context["tag"] = self.tag
+        return context

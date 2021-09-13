@@ -82,9 +82,9 @@ on('body', 'click', '#edit_user_private_btn', function() {
 on('body', 'click', '.remove_elect_subscribe', function() {
   _this = this;
   if (_this.getAttribute) {
-    pk = _this.getAttribute("data-pk")
+    pk = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk")
   }
-  else {pk = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk")};
+  else {pk = _this.getAttribute("data-pk")};
   console.log(_this);
   console.log(_this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

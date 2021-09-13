@@ -164,5 +164,21 @@ on('body', 'click', '.u_load_profile_photo_list', function() {
 });
 
 on('body', 'click', '.u_load_attach_photo_list', function() {
-  profile_list_block_load(this, ".load_block", "/users/load/u_photo_list_load/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", "u_load_attach_photo_list");
+
+  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  request.open( 'GET', "/users/load/u_photo_list_load/" + this.parentElement.parentElement.parentElement.getAttribute("data-uuid") + "/", true );
+  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  request.onreadystatechange = function () {
+    if ( request.readyState == 4 && request.status == 200 ){
+        elem_ = document.createElement('span');
+        elem_.innerHTML = request.responseText;
+       document.body.querySelector(".load_block").innerHTML = elem_.querySelector(".load_block").innerHTML;
+       class_to_add = _this.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
+       for (var i = 0; i < class_to_add.length; i++) {
+         class_to_add[i].classList.add("u_load_attach_photo_list", "pointer");
+       };
+       _this.classList.remove("u_load_attach_photo_list", "pointer");
+       create_pagination(document.body.querySelector(".load_block"))
+    }};
+    request.send( null );
 });

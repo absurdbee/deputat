@@ -67,35 +67,35 @@
             </div>
             <div class="form-group">
               <label>Ссылка на VK</label>
-              <input type="text" value="{{ elect.vk }}" name="vk" class="form-control" id="id_vk">
+              <input type="text" {% if elect.vk == "None" %}value=""{% else %}value="{{ elect.vk }}"{% endif %} name="vk" class="form-control" id="id_vk">
             </div>
             <div class="form-group">
               <label>Ссылка на Facebook</label>
-              <input type="text" value="{{ elect.fb }}" name="fb" class="form-control" id="id_fb">
+              <input type="text" {% if elect.fb == "None" %}value=""{% else %}value="{{ elect.fb }}"{% endif %} name="fb" class="form-control" id="id_fb">
             </div>
             <div class="form-group">
               <label>Ссылка на Instagram</label>
-              <input type="text" value="{{ elect.ig }}" name="ig" class="form-control" id="id_ig">
+              <input type="text" {% if elect.ig == "None" %}value=""{% else %}value="{{ elect.ig }}"{% endif %} name="ig" class="form-control" id="id_ig">
             </div>
             <div class="form-group">
               <label>Ссылка на Telegram</label>
-              <input type="text" value="{{ elect.tg }}" name="tg" class="form-control" id="id_tg">
+              <input type="text" {% if elect.tg == "None" %}value=""{% else %}value="{{ elect.tg }}"{% endif %} name="tg" class="form-control" id="id_tg">
             </div>
             <div class="form-group">
               <label>Ссылка на Twitter</label>
-              <input type="text" value="{{ elect.tw }}" name="tw" class="form-control" id="id_tw">
+              <input type="text" {% if elect.tw == "None" %}value=""{% else %}value="{{ elect.tw }}"{% endif %} name="tw" class="form-control" id="id_tw">
             </div>
             <div class="form-group">
               <label>Электронная почта</label>
-              <input type="text" value="{{ elect.mail }}" name="mail" class="form-control" id="id_mail">
+              <input type="text" {% if elect.mail == "None" %}value=""{% else %}value="{{ elect.mail }}"{% endif %} name="mail" class="form-control" id="id_mail">
             </div>
             <div class="form-group">
               <label>Телефон</label>
-              <input type="text" value="{{ elect.phone }}" name="phone" class="form-control" id="id_phone">
+              <input type="text" {% if elect.phone == "None" %}value=""{% else %}value="{{ elect.phone }}"{% endif %} name="phone" class="form-control" id="id_phone">
             </div>
             <div class="form-group">
               <label>Адрес (приёмная)</label>
-              <input type="text" value="{{ elect.address }}" name="address" class="form-control" id="id_address">
+              <input type="text" {% if elect.address == "None" %}value=""{% else %}value="{{ elect.address }}"{% endif %} name="address" class="form-control" id="id_address">
             </div>
         </div>
         <div class="card-footer">

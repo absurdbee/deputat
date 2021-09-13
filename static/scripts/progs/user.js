@@ -107,7 +107,8 @@ on('body', 'click', '.add_elect_subscribe', function() {
     pk = _this.getAttribute("data-pk")
   }
   else {pk = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk")};
-
+  console.log(_this);
+  console.log(_this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/elect/progs/subscribe/" + pk + "/", true );
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

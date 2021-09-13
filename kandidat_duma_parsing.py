@@ -27,7 +27,7 @@ def get_page_data(html, region):
     h5_list = soup.find_all('h5')
     h5_count = 0
 
-    _list = AuthorityList.objects.get(name="Кандидат в депутаты гос. думы")
+    _list = AuthorityList.objects.get(slug="candidate_duma")
 
     tgrids = soup.find_all('div', class_='tgrid')
     parth = 0

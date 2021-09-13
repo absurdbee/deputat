@@ -214,33 +214,12 @@ class ElectNewUnverify(View):
 
 
 class PublishElectNew(TemplateView):
-    template_name, senat, state_duma, candidate_duma, candidate_municipal, senat_elect_list, elect_region, elect_lists  = "managers/manage_create/elect_new/create_publish_elect_new.html", False, False, False, False, None, None, None
+    template_name  = "managers/manage_create/elect_new/create_publish_elect_new.html"
 
     def get(self,request,*args,**kwargs):
         from elect.models import Elect
 
         self.new = ElectNew.objects.get(pk=self.kwargs["pk"])
-        elect = self.new.elect
-        if elect.region:
-            self.elect_region = elect.region.all().first()
-        elif elect.okrug:
-            self.elect_region = elect.okrug.region
-        else:
-            self.elect_region = elect.area.all().first().region
-        self.elect_list = elect.list.all().first()
-
-        if self.elect_list.slug == "senat":
-            self.senat = True
-            self.senat_elect_list = Elect.objects.filter(list__slug=self.elect_list.slug)
-        elif self.elect_list.slug == "state_duma":
-            self.state_duma = True
-            self.elect_lists = Elect.objects.filter(list__slug=self.elect_list.slug, region=self.elect_region)
-        elif self.elect_list.slug == "candidate_duma":
-            self.candidate_duma = True
-            self.elect_lists = Elect.objects.filter(list__slug=self.elect_list.slug, region=self.elect_region)
-        elif self.elect_list.slug == "candidate_municipal":
-            self.candidate_municipal = True
-            self.elect_lists = Elect.objects.filter(list__slug=self.elect_list.slug, region=self.elect_region)
         return super(PublishElectNew,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -249,15 +228,8 @@ class PublishElectNew(TemplateView):
         from region.models import Region
 
         context=super(PublishElectNew,self).get_context_data(**kwargs)
-        context["senat"] = self.senat
-        context["senat_elect_list"] = self.senat_elect_list
-        context["state_duma"] = self.state_duma
-        context["candidate_duma"] = self.candidate_duma
-        context["candidate_municipal"] = self.candidate_municipal
         context["new"] = self.new
-        context["elect_region_pk"] = self.elect_region.pk
-        context["elect_lists"] = self.elect_lists
-        context["regions"] = Region.objects.only("pk")
+        context["form"] = PublishElectNewForm(instance=self.new)
         return context
 
     def post(self,request,*args,**kwargs):

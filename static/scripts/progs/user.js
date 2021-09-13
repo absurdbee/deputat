@@ -81,7 +81,10 @@ on('body', 'click', '#edit_user_private_btn', function() {
 
 on('body', 'click', '.remove_elect_subscribe', function() {
   _this = this;
-  pk = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk"); name = _this.getAttribute("data-name")
+  if (_this.getAttribute) {
+    pk = _this.getAttribute("data-pk")
+  }
+  else {pk = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk")};
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/elect/progs/unsubscribe/" + pk + "/", true );
@@ -100,7 +103,10 @@ link.send( null );
 
 on('body', 'click', '.add_elect_subscribe', function() {
   _this = this;
-  pk = _this.getAttribute("data-pk"); name = _this.getAttribute("data-name")
+  if (_this.getAttribute) {
+    pk = _this.getAttribute("data-pk")
+  } 
+  else {pk = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk")};
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', "/elect/progs/subscribe/" + pk + "/", true );

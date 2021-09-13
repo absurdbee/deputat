@@ -41,7 +41,7 @@
 
                     <span class="pointer u_suggested_elect_new_create" data-name="{{ object.name }}">ПРЕДЛОЖИТЬ НОВОСТЬ</span><br>
                     {% if object|is_user_subscribe:request.user.pk %}
-                      <span class="pointer remove_elect_subscribe">ОТПИСАТЬСЯ</span><br>
+                      <span class="pointer remove_elect_subscribe" data-pk="{{ object.pk }}">ОТПИСАТЬСЯ</span><br>
                     {% else %}
                       <span class="pointer add_elect_subscribe" data-pk="{{ object.pk }}">ПОДПИСАТЬСЯ</span><br>
                     {% endif %}

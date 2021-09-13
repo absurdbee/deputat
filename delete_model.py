@@ -18,20 +18,12 @@ from django.db.models import Q
 
 
 for elect in Elect.objects.all():
-    if elect.vk == "None":
-        elect.vk = ""
-    if elect.fb == "None":
-        elect.fb = ""
-    if elect.ig == "None":
-        elect.ig = ""
-    if elect.tg == "None":
-        elect.tg = ""
-    if elect.tw == "None":
-        elect.tw = ""
-    if elect.mail == "None":
-        elect.mail = ""
-    if elect.phone == "None":
-        elect.phone = ""
-    if elect.address == "None":
-        elect.address = ""
+    elect.vk = ""
+    elect.fb = ""
+    elect.ig = ""
+    elect.tg = ""
+    elect.tw = ""
+    elect.mail = ""
+    elect.phone = ""
+    elect.address = ""
     elect.save()

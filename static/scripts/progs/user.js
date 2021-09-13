@@ -103,9 +103,9 @@ link.send( null );
 
 on('body', 'click', '.add_elect_subscribe', function() {
   _this = this;
-  if (_this.getAttribute) {
+  if (_this.getAttribute.getAttribute("data-pk")) {
     pk = _this.getAttribute("data-pk")
-  } 
+  }
   else {pk = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk")};
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

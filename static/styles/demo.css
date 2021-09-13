@@ -30,6 +30,8 @@
   -moz-appearance: none;
   appearance: none;
   width: 30px;
+  text-align-last: center;
+  text-align: center;
 }
 
 .profile-title h1, .profile-title span {

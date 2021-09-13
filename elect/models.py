@@ -81,9 +81,6 @@ class Elect(models.Model):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
-        if not post_2:
-            post_2 = ""
-
         elect = cls.objects.create(name=name_2,description=description,post_2=post_2,image=image,birthday=birthday,fraction=fraction,vk=vk, tg=tg, tw=tw, ig=ig, fb=fb, mail=mail, phone=phone, address=phone)
         if region:
             from region.models import Region
@@ -118,8 +115,6 @@ class Elect(models.Model):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
-        if not post_2:
-            post_2 = ""
         self.name = name_2
         self.post_2 = post_2
         self.description = description

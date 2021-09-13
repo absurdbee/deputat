@@ -29,6 +29,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  width: 30px;
 }
 
 .profile-title h1, .profile-title span {

@@ -15,33 +15,23 @@ from elect.models import Elect
 from lists.models import AuthorityList
 from django.db.models import Q
 
-query = Q(slug="candidate_municipal")|Q(slug="candidate_duma")
 
-lists = AuthorityList.objects.filter(query)
 
-def copy_birthday(list):
-    old = list[0].birthday
-    for i in list:
-        if not i.birthday == old:
-            return False
-    return True
-
-elects = Elect.objects.all()
-for elect in elects:
-    try:
-        elect.list.all()[0]
-    except:
-        elect.delete()
-        print("Удален без органа власти")
-    #@else:
-    #elect.delete()
-    #try:
-    #    if elects.filter(name=elect.name).values("pk").count() > 1:
-    #        if copy_birthday(elects.filter(name=elect.name)):
-    #            #e = elects.filter(name=elect.name)[0]
-    #            #for el in elects.filter(name=elect.name):
-    #            #    if el.pk != e.pk:
-    #            #        el.delete()
-    #            print(elects.filter(name=elect.name))
-    #except:
-    #    pass
+for elect in Elect.objects.all():
+    if elect.vk == "None":
+        elect.vk = ""
+    if elect.fb == "None":
+        elect.fb = ""
+    if elect.ig == "None":
+        elect.ig = ""
+    if elect.tg == "None":
+        elect.tg = ""
+    if elect.tw == "None":
+        elect.tw = ""
+    if elect.mail == "None":
+        elect.mail = ""
+    if elect.phone == "None":
+        elect.phone = ""
+    if elect.address == "None":
+        elect.address = ""
+    elect.save()

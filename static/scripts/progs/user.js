@@ -110,7 +110,7 @@ on('body', 'click', '.add_elect_subscribe', function() {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
           _this.classList.add("remove_elect_subscribe"); _this.classList.remove("add_elect_subscribe");
-          _this.innerHTML = 'Вы подписаны'
+          _this.innerHTML = 'Отписаться'
           toast_info("Подписка оформлена");
         }
     }

@@ -114,7 +114,7 @@ def get_page_data(html, region):
                 try:
                     elect = Elect.objects.get(name=name, region=region,list=_list)
                     elect.fraction = _patr
-                    elect.save([update_fields="fraction"])
+                    elect.save(update_fields=["fraction"])
                     print("Фракция обновлена")
                 except:
                     print("Что то не так!")

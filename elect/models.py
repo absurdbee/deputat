@@ -38,7 +38,7 @@ class Elect(models.Model):
     tw = models.CharField(max_length=100, blank=True, null=True, verbose_name='Ссылка на Twitter')
     mail = models.CharField(max_length=100, blank=True, null=True, verbose_name='Электронная почта')
     phone = models.CharField(max_length=100, blank=True, null=True, verbose_name='Телефон')
-    address = models.CharField(max_length=100, blank=True, null=True, verbose_name='Адрес (приёмная)')
+    address = models.CharField(max_length=100, blank=True, verbose_name='Адрес (приёмная)')
 
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")

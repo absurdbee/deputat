@@ -76,5 +76,54 @@
             <p class="card-text">{% for edu in object.linlelect_set.all %}{{ edu.title }}: {{ edu.link }}<br>{% endfor %}</p>
         </div>
         {% endif %}
+
+        {% if object.vk %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Ссылка на VK:</h5>
+            <p class="card-text">{{ object.vk }}</p>
+        </div>
+        {% endif %}
+        {% if object.fb %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Ссылка на Facebook:</h5>
+            <p class="card-text">{{ object.fb }}</p>
+        </div>
+        {% endif %}
+        {% if object.ig %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Ссылка на Instagram:</h5>
+            <p class="card-text">{{ object.ig }}</p>
+        </div>
+        {% endif %}
+        {% if object.tg %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Ссылка на Telegram:</h5>
+            <p class="card-text">{{ object.tg }}</p>
+        </div>
+        {% endif %}
+        {% if object.tw %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Ссылка на Twitter:</h5>
+            <p class="card-text">{{ object.tw }}</p>
+        </div>
+        {% endif %}
+        {% if object.mail %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Электронная почта:</h5>
+            <p class="card-text">{{ object.mail }}</p>
+        </div>
+        {% endif %}
+        {% if object.phone %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Телефон:</h5>
+            <p class="card-text">{{ object.phone }}</p>
+        </div>
+        {% endif %}
+        {% if object.address %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Адрес (приёмная):</h5>
+            <p class="card-text">{{ object.address }}</p>
+        </div>
+        {% endif %}
     </div>
 </div>

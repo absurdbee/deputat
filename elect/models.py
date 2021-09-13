@@ -518,7 +518,7 @@ class Elect(models.Model):
     def get_manager_total_rating_double(self):
         from common.model.votes import ElectRating
         if not ElectRating.objects.filter(elect_id=self.id).exists():
-            return '<td style="background:#FFEB84;text-align: right;"><span>0</span></td>'
+            return '<td style="background:#FFEB84;text-align: center;"><span>0</span></td>'
         else:
             from django.db.models import Avg
             query = ElectRating.objects.filter(elect_id=self.id)

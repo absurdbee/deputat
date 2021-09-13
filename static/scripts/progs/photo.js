@@ -173,7 +173,7 @@ on('body', 'click', '.u_load_attach_photo_list', function() {
         elem_ = document.createElement('span');
         elem_.innerHTML = request.responseText;
        document.body.querySelector(".load_block").innerHTML = elem_.querySelector(".load_block").innerHTML;
-       class_to_add = _this.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
+       class_to_add = _this.parentElement.parentElement.parentElement.parentElement.parentElement.querySelectorAll(".list_toggle")
        for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add("u_load_attach_photo_list", "pointer");
        };

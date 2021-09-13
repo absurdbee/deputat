@@ -515,6 +515,35 @@ class Elect(models.Model):
             else:
                 color = "#A2D07F"
             return '<td style="background:' + color + ';text-align: right;"><span>' + str(avg) + '</span></td>'
+    def get_manager_total_rating_double(self):
+        from common.model.votes import ElectRating
+        if not ElectRating.objects.filter(elect_id=self.id).exists():
+            return '<td style="background:#FFEB84;text-align: right;"><span>0</span></td>'
+        else:
+            from django.db.models import Avg
+            query = ElectRating.objects.filter(elect_id=self.id)
+            vakcine = query.aggregate(Avg('vakcine'))['vakcine__avg']
+            pp_825 = query.aggregate(Avg('pp_825'))['pp_825__avg']
+            safe_family = query.aggregate(Avg('safe_family'))['safe_family__avg']
+            pro_life = query.aggregate(Avg('pro_life'))['pro_life__avg']
+            free_vacation = query.aggregate(Avg('free_vacation'))['free_vacation__avg']
+            list = [vakcine, pp_825, safe_family, pro_life, free_vacation]
+            avg = sum(list) / len(list)
+            if avg < -2:
+                color = "#FA9D75"
+            elif -3 < avg < -1:
+                color = "#FCB77A"
+            elif -2 < avg < 0:
+                color = "#FDD17F"
+            elif -1 < avg < 1:
+                color = "#FFEB84"
+            elif 0 < avg < 2:
+                color = "#E0E383"
+            elif 1 < avg < 3:
+                color = "#C1DA81"
+            else:
+                color = "#A2D07F"
+            return '<td style="background:' + color + ';text-align: center;"><span>' + str(avg) + '</span></td>'
 
     def get_total_rating_icon(self):
         from common.model.votes import ElectRating

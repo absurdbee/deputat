@@ -40,7 +40,7 @@
                     {% include 'elect/elect/table.html' %}
 
                     {% if request.user.is_elect_new_manager %}
-                      <span class="pointer manager_elect_edit" data-pk="{{ object.pk }}">ИЗМЕНИТЬ</span>
+                      <span class="pointer manager_elect_edit" data-pk="{{ object.pk }}">ИЗМЕНИТЬ</span><br>
                       <span class="pointer manager_elect_new_create" data-name="{{ object.name }}">ПРЕДЛОЖИТЬ НОВОСТЬ</span><br>
                     {% else %}
                       <span class="pointer u_suggested_elect_new_create" data-name="{{ object.name }}">ПРЕДЛОЖИТЬ НОВОСТЬ</span><br>

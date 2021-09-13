@@ -20,7 +20,7 @@ class UserProfileSettings(TemplateView, CategoryListMixin):
 
 		context = super(UserProfileSettings,self).get_context_data(**kwargs)
 		context["form"] = UserForm()
-		context["regions"] = Region.objects.only("pk")
+		context["regions"] = Region.objects.exclude(name="Все регионы")
 		context["districts"] = self.districts
 		return context
 

@@ -469,7 +469,7 @@ on('body', 'click', '.phone_send', function() {
  	 });
 
 function clear_left_search() {
-	document.body.querySelector(".elect_search_input").style.display = "none";
+	return
 }
 
 	 on('body', 'click', '.search_page_reload', function() {

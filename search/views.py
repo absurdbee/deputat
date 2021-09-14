@@ -25,7 +25,7 @@ class SearchView(ListView):
         return context
 
     def get_queryset(self):
-        from blog import ElectNew
+        from blog.models import ElectNew
         from elect.models import Elect
         from itertools import chain
 

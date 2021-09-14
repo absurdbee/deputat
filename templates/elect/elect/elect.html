@@ -43,7 +43,7 @@
                       {{ vote. safe_family }},
                       {{ vote. pro_life }},
                       {{ vote. free_vacation }}
-                    {% endfor %}
+                    {% endfor %}<br>
                     {% include 'elect/elect/table.html' %}
 
                     {% if request.user.is_elect_new_manager %}

@@ -30,7 +30,7 @@
         {% if object.okrug %}
           <h5 class="mb-75 mt-2" style="font-weight: bold;">Одномандатный округ</h5>
           <a class="ajax" href="{% url 'okrug_elects' slug=object.okrug.slug %}">
-          {{ object.okrug.name }}
+            {{ object.okrug.name }}
           </a>
         {% endif %}
         {% if object.birthday %}
@@ -55,7 +55,9 @@
         {% if object.fraction %}
         <div class="mt-2">
             <h5 class="mb-75" style="font-weight: bold;">Фракция:</h5>
-            <p class="card-text">{{ object.fraction }}</p>
+            <a class="ajax" href="{% url 'fraction_index' slug=object.fraction.slug %}">
+              {{ object.fraction }}
+            </a>
         </div>
         {% endif %}
         {% if object.election_information %}
@@ -68,13 +70,6 @@
         <div class="mt-2">
             <h5 class="mb-75" style="font-weight: bold;">Образование:</h5>
             <p class="card-text">{{ object.description }}</p>
-        </div>
-        {% endif %}
-
-        {% if object.linlelect_set.all %}
-        <div class="mt-2">
-            <h5 class="mb-75" style="font-weight: bold;">Ссылки:</h5>
-            <p class="card-text">{% for edu in object.linlelect_set.all %}{{ edu.title }}: {{ edu.link }}<br>{% endfor %}</p>
         </div>
         {% endif %}
 

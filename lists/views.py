@@ -66,7 +66,7 @@ class FractionList(ListView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.list = Fraction.objects.get(slug=self.kwargs["slug"])
-		self.template_name = get_full_template("elect_list/fraction_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("elect_list/", "fraction_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(FractionList,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -82,7 +82,7 @@ class ElectListsView(TemplateView, CategoryListMixin):
 	template_name = None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_full_template("elect_list/all_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("elect_list/", "all_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(ElectListsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

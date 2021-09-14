@@ -1,0 +1,5 @@
+{% if object.votes_on %}
+  {% include 'elect/anon_new_card.html' %}
+{% else %}
+  {% include 'search/items/anon_elect_index_card.html' %}
+{% endif %}

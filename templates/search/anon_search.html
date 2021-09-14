@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_anon.html" %}
 {% block title %}
 Поиск
 {% if all %} - {{ all }}
@@ -54,7 +54,7 @@
                   {% if tag %}
 
                     {% for object in object_list %}
-                      {% include 'elect/new_card.html' %}
+                      {% include 'elect/anon_new_card.html' %}
                     {% endfor %}
                     {% if page_obj.has_next %}
                     <div class="load centered m-1 next_page_list" data-link="/search/?tag_name={{ tag }}&?page={{ page_obj.next_page_number }}">
@@ -65,7 +65,7 @@
                   {% elif elect %}
 
                     {% for object in object_list %}
-                      {% include 'search/items/elect_index_card.html' %}
+                      {% include 'search/items/anon_elect_index_card.html' %}
                     {% endfor %}
                     {% if page_obj.has_next %}
                     <div class="load centered m-1 next_page_list" data-link="/search/?elect_name={{ elect }}&?page={{ page_obj.next_page_number }}">
@@ -76,7 +76,7 @@
                   {% else %}
 
                     {% for object in object_list %}
-                      {% include 'search/items/all_item.html' %}
+                      {% include 'search/items/anon_all_item.html' %}
                     {% endfor %}
                     {% if page_obj.has_next %}
                     <div class="load centered m-1 next_page_list" data-link="/search/?all_name={{ all }}&?page={{ page_obj.next_page_number }}">

@@ -62,7 +62,7 @@ class Elect(models.Model):
         ids = re.findall(r'https://[\S]+', self.vk)
         text = ""
         for i in ids:
-            text += '<a target="_blank" href="' + i + '">' + i + "</a>"
+            text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"
         return text
 
     def is_have_year(self):

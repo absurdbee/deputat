@@ -67,7 +67,8 @@ on('body', 'click', '.nav_search_btn', function() {
 		btns[i].classList.remove("active")
 	};
 	this.classList.add("active");
-	link.open( 'GET', this.getAttribute("data-href"), true );
+	value = document.body.querySelector(".elect_search_input_2");
+	link.open( 'GET', this.getAttribute("data-href") + value.value, true );
 	link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 	link.onreadystatechange = function () {
 		if ( link.readyState == 4 ) {

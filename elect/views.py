@@ -54,10 +54,12 @@ class ElectDetailView(TemplateView, CategoryListMixin):
         return super(ElectDetailView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
+        from common.model.votes import ElectRating
         context=super(ElectDetailView,self).get_context_data(**kwargs)
         context["object"] = self.elect
         context["last_articles"] = ElectNew.objects.filter(type="PUB")[:6]
         context["is_user_voted"] = self.elect.is_user_voted(self.request.user.pk)
+        context["voted"] = ElectRating.objects.filter(elect=self.elect)
         return context
 
 

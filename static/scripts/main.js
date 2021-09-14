@@ -15,7 +15,14 @@ on('body', 'keydown', '.form-control', function(e) {
   if (e.keyCode == 13) {
 		if (this.classList.contains("custom_supported")){
 			this.setAttribute("rows", this.getAttribute("rows")*1 + 1);
-		} else {e.preventDefault()}
+		}
+		else if (this.classList.contains("elect_search_input")){
+			// нажатие на enter формы поиска
+			if (this.value.length < 3) {
+				toast_info("Поиск работает от 3х букв"); return
+			} else { ajax_get_reload("/search/?all_name=" + this.value)}
+		}
+		else {e.preventDefault()}
   }
 })
 

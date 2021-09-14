@@ -65,7 +65,7 @@
                   {% elif elect %}
 
                     {% for object in object_list %}
-                      {% include 'elect/elect_index_card.html' %}
+                      {% include 'search/items/elect_index_card.html' %}
                     {% endfor %}
                     {% if page_obj.has_next %}
                     <div class="load centered m-1 next_page_list" data-link="/search/?elect_name={{ elect }}&?page={{ page_obj.next_page_number }}">

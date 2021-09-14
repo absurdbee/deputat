@@ -11,6 +11,8 @@
 <div class="content-body">
     <section class="app-user-edit">
         <div class="card">
+          <div class="row">
+          <div class="col-md-8">
             <div class="card-body">
               <div class="input-group mb-3">
                   <input type="text" value="{% if all %}{{ all }}{% elif tag %}{{ tag }}{% elif elect %}{{ elect }}{% endif %}" class="form-control" placeholder="Поиск">
@@ -96,6 +98,8 @@
                 </div>
             </div>
         </div>
+        </div>
+        <div class="col-md-4"></div>
     </section>
 </div>
 {% endblock %}

@@ -29,13 +29,13 @@ on('body', 'keydown', '.form-control', function(e) {
 			var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
 			btn_box = document.body.querySelector(".nav-pills");
 			active = btn_box.querySelector(".active");
-			if (active).classList.contains("all_btn") {
+			if (active.classList.contains("all_btn")) {
 				q = "all_name="
 			}
-			else if (active).classList.contains("elect_btn") {
+			else if (active.classList.contains("elect_btn")) {
 				q = "elect_name="
 			}
-			else if (active).classList.contains("tags_btn") {
+			else if (active.classList.contains("tags_btn")){
 				q = "all_name="
 			};
 

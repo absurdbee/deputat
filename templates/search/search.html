@@ -31,7 +31,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a data-href="/search/?elect_name={{ elect }}" class="nav-link d-flex align-items-center {% if not tag %}active{% endif %}">
+                      <a data-href="/search/?elect_name={{ elect }}" class="nav-link d-flex align-items-center {% if not tag and not all %}active{% endif %}">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
                               <path d="M12 20h9"></path>
                               <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
@@ -40,7 +40,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a data-href="/search/?tag_name={{ tag }}" class="nav-link d-flex align-items-center {% if not elect %}active{% endif %}">
+                      <a data-href="/search/?tag_name={{ tag }}" class="nav-link d-flex align-items-center {% if not elect and not all %}active{% endif %}">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
                               <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                               <circle cx="8.5" cy="7" r="4"></circle>

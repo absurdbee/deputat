@@ -1024,7 +1024,7 @@ function ajax_get_reload(url) {
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();
-        document.body.querySelector(".notify_dropdown").style.display = "none";
+        try{document.body.querySelector(".notify_dropdown").style.display = "none"}catch{null};
         if (document.body.querySelector(".toggle_fixed_block")) {
           document.body.querySelector(".toggle_fixed_block").style.clipPath = "none";
         }

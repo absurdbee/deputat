@@ -4,20 +4,24 @@ from common.templates import get_small_template
 from django.views.generic import ListView
 
 
-class SearchView(TemplateView, ListView):
+class SearchView(ListView):
     template_name, paginate_by = None, 20
 
     def get(self,request,*args,**kwargs):
         self.tag = request.GET.get('tag_name')
         self.elect = request.GET.get('elect_name')
         self._all = request.GET.get('all_name')
-        self.template_name = get_small_template("search/search.html", request.user, request.META['HTTP_USER_AGENT'])
+        if request.user.is_authenticated:
+            self.template_name = "search/search.html"
+        else:
+            self.template_name = "search/anon_search.html"
         return super(SearchView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context=super(SearchView,self).get_context_data(**kwargs)
         context["tag"] = self.tag
         context["elect"] = self.elect
+        context["all"] = self._all
         return context
 
     def get_queryset(self):

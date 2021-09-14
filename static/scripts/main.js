@@ -17,10 +17,42 @@ on('body', 'keydown', '.form-control', function(e) {
 			this.setAttribute("rows", this.getAttribute("rows")*1 + 1);
 		}
 		else if (this.classList.contains("elect_search_input")){
-			// нажатие на enter формы поиска
+			// нажатие на enter формы поиска на левой панели
 			if (this.value.length < 3) {
 				toast_info("Поиск работает от 3х букв"); return
 			} else { ajax_get_reload("/search/?all_name=" + this.value)}
+		} else if (this.classList.contains("elect_search_input_2")){
+			// нажатие на enter формы поиска на странице поиска
+			if (this.value.length < 3) {
+				toast_info("Поиск работает от 3х букв"); return
+			};
+			var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+			btn_box = document.body.querySelector(".nav-pills");
+			active = btn_box.querySelector(".active");
+			if (active).classList.contains("all_btn") {
+				q = "all_name="
+			}
+			else if (active).classList.contains("elect_btn") {
+				q = "elect_name="
+			}
+			else if (active).classList.contains("tags_btn") {
+				q = "all_name="
+			};
+
+		  link.open( 'GET', "/search/?" + q + this.value, true );
+		  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		  link.onreadystatechange = function () {
+		    if ( link.readyState == 4 ) {
+		        if ( link.status == 200 ) {
+							block = document.body.querySelector(".search_container");
+							elem_ = document.createElement('span');
+							elem_.innerHTML = link_.responseText;
+							block.innerHTML = "";
+							block.innerHTML = elem_.querySelector(".search_container").innerHTML;
+		        }
+		    }
+		};
+		link.send( null );
 		}
 		else {e.preventDefault()}
   }
@@ -114,7 +146,7 @@ on('body', 'click', '.map_selector', function() {
   link.onreadystatechange = function () {
     if ( link.readyState == 4 ) {
         if ( link.status == 200 ) {
-            block.innerHTML = link.responseText;
+            block = link.responseText;
         }
     }
 };

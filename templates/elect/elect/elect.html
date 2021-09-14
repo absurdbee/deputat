@@ -38,12 +38,12 @@
                   <div class="mt-1 mb-1">
 
                     {% for vote in voted %}
-                      {{ vote. vakcine }},
-                      {{ vote. pp_825 }},
-                      {{ vote. safe_family }},
-                      {{ vote. pro_life }},
-                      {{ vote. free_vacation }}
-                    {% endfor %}<br>
+                      {{ vote.vakcine }},
+                      {{ vote.pp_825 }},
+                      {{ vote.safe_family }},
+                      {{ vote.pro_life }},
+                      {{ vote.free_vacation }}<br>
+                    {% endfor %}
                     {% include 'elect/elect/table.html' %}
 
                     {% if request.user.is_elect_new_manager %}

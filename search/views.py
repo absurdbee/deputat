@@ -4,12 +4,34 @@ from common.templates import get_small_template
 from django.views.generic import ListView
 
 
-class SearchView(TemplateView, CategoryListMixin):
-    template_name = None
+class SearchView(TemplateView, ListView):
+    template_name, paginate_by = None, 20
 
     def get(self,request,*args,**kwargs):
+        self.tag = request.GET.get('tag_name')
+        self.elect = request.GET.get('elect_name')
+        self._all = request.GET.get('all_name')
         self.template_name = get_small_template("search/search.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(SearchView,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context=super(SearchView,self).get_context_data(**kwargs)
+        context["tag"] = self.tag
+        context["elect"] = self.elect
+        return context
+
+    def get_queryset(self):
+        from blog import ElectNew
+        from elect.models import Elect
+        from itertools import chain
+
+        if self._all:
+            query = Q(name__icontains=self._all)|Q(description__icontains=self._all)
+            return list(chain(ElectNew.objects.filter(query), Elect.objects.filter(name__icontains=self._all)))
+        elif self.tag:
+            return ElectNew.objects.filter(tags=self.tag)
+        elif self.elect:
+            return Elect.objects.filter(name__icontains=self.elect)
 
 
 class AllElectSearch(ListView):

@@ -38,7 +38,7 @@ def wall_elect_new(user, elect_new):
         comments_enabled = 'style="display:none"'
 
     for tag in elect_new.get_manager_tags():
-        tags += '<a class="pointer tag_go_search" data-pk="' + str(tag.pk) + '">' + tag.name + '</a>'
+        tags += '<a class="pointer tag_go_search" data-name="' + tag.name + '">' + tag.name + '</a>'
 
     if elect_new.elect:
         elect = elect_new.elect

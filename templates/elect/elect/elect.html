@@ -36,6 +36,14 @@
                 <div class="col-lg-3 col-12 order-2 order-lg-1" style="margin-top: 7px;">
                   {{ object.get_total_rating_icon|safe }}
                   <div class="mt-1 mb-1">
+                    {% for vote in voted %}
+                    {{ vote.user %}: 
+                      {{ vote.vakcine }},
+                      {{ vote.pp_825 }},
+                      {{ vote.safe_family }},
+                      {{ vote.pro_life }},
+                      {{ vote.free_vacation }}<br>
+                    {% endfor %}
 
                     {% include 'elect/elect/table.html' %}
 

@@ -62,7 +62,7 @@ on('body', 'click', '.nav_search_btn', function() {
 		return
 	};
 	var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-	btns = document.body.querySelectorAll(".nav_search_btn");
+	btns = document.body.querySelectorAll(".nav-link"); 
 	for (var i = 0; i < btns.length; i++){
 		btns[i].classList.remove("active")
 	};

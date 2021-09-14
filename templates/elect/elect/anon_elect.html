@@ -22,7 +22,11 @@
                             </div>
                             <div class="profile-title ml-2">
                               <h1 class="text-white">{{ object.name }}</h1>
-                              <span class="text-white">{{ object.get_first_list }}</span>
+                              <span class="text-white">
+                                <a class="ajax" href="{% url 'authority_index' slug=object.get_first_list.slug %}">
+                                  {{ object.get_first_list }}
+                                </a>
+                              </span>
                             </div>
                         </div>
                     </div>

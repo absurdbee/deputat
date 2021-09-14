@@ -79,7 +79,7 @@
                   {% else %}
 
                     {% for object in object_list %}
-                      {% include 'elect/all_item.html' %}
+                      {% include 'search/items/all_item.html' %}
                     {% endfor %}
                     {% if page_obj.has_next %}
                     <div class="load centered m-1 next_page_list" data-link="/search/?all_name={{ all }}&?page={{ page_obj.next_page_number }}">

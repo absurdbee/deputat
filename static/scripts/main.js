@@ -46,7 +46,7 @@ on('body', 'keydown', '.form-control', function(e) {
 		        if ( link.status == 200 ) {
 							block = document.body.querySelector(".search_container");
 							elem_ = document.createElement('span');
-							elem_.innerHTML = link_.responseText;
+							elem_.innerHTML = link.responseText;
 							block.innerHTML = "";
 							block.innerHTML = elem_.querySelector(".search_container").innerHTML;
 		        }

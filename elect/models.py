@@ -63,7 +63,7 @@ class Elect(models.Model):
         text = ""
         for i in ids:
             text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"
-        return text
+        return text.replace(",", "")
 
     def is_have_year(self):
         return len(self.birthday) == 2

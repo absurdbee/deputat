@@ -668,8 +668,10 @@ on('body', 'click', '.toggle_fixed_block', function() {
   } catch { null }
 });
 on('body', 'click', '.main-menu', function() {
-  document.body.querySelector(".notify_dropdown").style.display = "none";
-  document.body.querySelector(".get_user_notify_box").classList.remove("show");
+  try{
+    document.body.querySelector(".notify_dropdown").style.display = "none";
+    document.body.querySelector(".get_user_notify_box").classList.remove("show");
+  } catch { null }
 });
 function paginate(block) {
         var link_3 = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

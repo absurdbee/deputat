@@ -377,7 +377,7 @@ class Elect(models.Model):
         else:
             from django.db.models import Avg
             _double = ElectRating.objects.filter(elect_id=self.id).aggregate(Avg('vakcine'))
-            double = _double['vakcine__avg']
+            double = round(_double['vakcine__avg'],1)
             if double < -2:
                 color = "#FA9D75"
             elif -3 < double < -1:

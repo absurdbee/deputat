@@ -76,7 +76,11 @@
         {% if object.vk %}
         <div class="mt-2">
             <h5 class="mb-75" style="font-weight: bold;">Ссылка на VK:</h5>
-            <p class="card-text">{{ object.vk }}</p>
+            <p class="card-text">
+              <a target="_blank" href="{{ object.vk }}">
+                {{ object.vk }}
+              </a>
+            </p>
         </div>
         {% endif %}
         {% if object.fb %}

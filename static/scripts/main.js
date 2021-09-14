@@ -57,6 +57,33 @@ on('body', 'keydown', '.form-control', function(e) {
 		else {e.preventDefault()}
   }
 })
+on('body', 'click', '.nav_search_btn', function() {
+	if (this.classList.contains("active")) {
+		return
+	};
+	var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+	btns = document.body.querySelectorAll(".nav_search_btn");
+	for (var i = 0; i < btns.length; i++){
+		btns[i].classList.remove("active")
+	};
+	this.classList.add("active");
+	link.open( 'GET', this.getAttribute("data-href"), true );
+	link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	link.onreadystatechange = function () {
+		if ( link.readyState == 4 ) {
+				if ( link.status == 200 ) {
+					block = document.body.querySelector(".search_container");
+					elem_ = document.createElement('span');
+					elem_.innerHTML = link.responseText;
+					block.innerHTML = "";
+					block.innerHTML = elem_.querySelector(".search_container").innerHTML;
+				}
+		}
+};
+link.send( null );
+	block = document.body.querySelector(".search_container");
+
+})
 
 on('body', 'click', '.show_parent_next_element', function() {
   this.parentElement.nextElementSibling.style.display = "block"

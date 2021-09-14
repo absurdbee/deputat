@@ -90,3 +90,7 @@ class Fraction(models.Model):
 		ordering = ["order", "name"]
 		verbose_name = "Фракция"
 		verbose_name_plural = "Фракции"
+
+	def get_elects(self):
+		from elect.models import Elect
+		return Elect.objects.filter(fraction=self)

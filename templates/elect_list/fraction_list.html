@@ -1,13 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Фракция Госдумы | {{ fraction.name }}{% endblock %}
+{% block title %}Фракция Госдумы | {{ list.name }}{% endblock %}
 {% block content %}
 
 <section class="container pt-sm-5 pb-4">
       <h2 class="h3 text-sm-left m-0">{{ list.name }}</h2>
       <div class="row pt-0 is_paginate">
-        {% if fraction.get_all_elects %}
-        {% for object in fraction.get_all_elects %}
+        {% for object in object_list %}
           {% include 'elect/elect_index_card.html' %}
+
+        {% empty %}
+          В списке почему-то никого нет.
         {% endfor %}
         {% if page_obj.has_next %}
         <div class="load centered m-1 next_page_list" data-link="{% url 'fraction_index' slug=fraction.slug %}?page={{ page_obj.next_page_number }}">
@@ -17,8 +19,9 @@
 
         {% else %}
         <br>
-        Во фракции "{{ fraction.name }}" почему-то нет закрепленных за ней чиновников.
+        Во фракции "{{ list.name }}" почему-то нет закрепленных за ней чиновников.
         {% endif %}
+
       </div>
 </section>
 {% endblock %}

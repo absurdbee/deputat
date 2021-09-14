@@ -59,7 +59,7 @@ class Elect(models.Model):
 
     def vk_links(self):
         import re
-        ids = re.findall(r'https://[\S]+', self.pk)
+        ids = re.findall(r'https://[\S]+', self.vk)
         text = ""
         for i in ids:
             text += '<a target="_blank" href="' + i + '">' + i + "</a>"

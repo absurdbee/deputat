@@ -57,6 +57,14 @@ class Elect(models.Model):
     def __str__(self):
         return self.name
 
+    def vk_links(self):
+        import re
+        ids = re.findall(r'https://[\S]+', self.pk)
+        text = ""
+        for i in ids:
+            text += '<a target="_blank" href="' + i + '">' + i + "</a>"
+        return text
+
     def is_have_year(self):
         return len(self.birthday) == 2
 

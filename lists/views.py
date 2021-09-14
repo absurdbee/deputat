@@ -65,6 +65,7 @@ class FractionList(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 20
 
 	def get(self,request,*args,**kwargs):
+		self.list = Fraction.objects.get(slug=self.kwargs["slug"])
 		self.template_name = get_small_template("elect_list/fraction_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(FractionList,self).get(request,*args,**kwargs)
 

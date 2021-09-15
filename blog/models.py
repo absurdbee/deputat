@@ -404,6 +404,18 @@ class ElectNew(models.Model):
         else:
             return '/static/images/elect_image.png'
 
+    def get_format_description(self):
+        import re
+
+        ids = re.findall(r'http://[\S]+', self.description)
+        text = ""
+        for i in ids:
+            if "служународу.рус" in i:
+                text += '<a class="ajax" href="' + i + '">' + i + "</a><br>"
+            else:
+                text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"
+        return text
+
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return self.tags.all()

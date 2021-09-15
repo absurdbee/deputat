@@ -73,12 +73,12 @@
                 <div class="my-1 py-25">
                     {% for name in post.get_manager_tags %}
                     <a href="{% url 'manager_tag' name=name %}">
-                        <div class="badge badge-pill badge-light-danger mr-50">name</div>
+                        <div class="badge badge-pill badge-light-danger mr-50">{{ name }}</div>
                     </a>
                     {% endfor %}
                 </div>
                 <p class="card-text mb-2">
-                    {{ object.description|safe }}
+                    {{ object.get_format_description|safe }}
                 </p>
                 {% if object.attach %}
                 {{ object|get_attach:request.user|safe }}

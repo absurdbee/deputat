@@ -419,7 +419,7 @@ class ElectNew(models.Model):
                     _loop[count] = _text.replace(p, '<a class="ajax" href="' + p + '">' + p + '</a>')
                 else:
                     _loop[count] = _text.replace(p, '<a target="_blank" href="' + p + '">' + p + '</a>')
-             return _loop[count]
+            return _loop[count]
         else:
             return _text
 

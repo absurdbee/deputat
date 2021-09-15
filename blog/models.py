@@ -414,15 +414,15 @@ class ElectNew(models.Model):
         if http or https:
             for p in http:
                 if "служународу.рус" in p:
-                    _text.replace(p, '<a class="ajax" href="' + p + '">' + p + '</a>')
+                    text = _text.replace(p, '<a class="ajax" href="' + p + '">' + p + '</a>')
                 else:
-                    _text.replace(p, '<a target="_blank" href="' + p + '">' + p + '</a>')
+                    text = _text.replace(p, '<a target="_blank" href="' + p + '">' + p + '</a>')
             for s in https:
                 if "служународу.рус" in s:
-                    _text.replace(s, '<a class="ajax" href="' + s + '">' + s + '</a>')
+                    text = _text.replace(s, '<a class="ajax" href="' + s + '">' + s + '</a>')
                 else:
-                    _text.replace(s, '<a target="_blank" href="' + s + '">' + s + '</a>')
-            return _text
+                    text = _text.replace(s, '<a target="_blank" href="' + s + '">' + s + '</a>')
+            return text
         else:
             return _text
 

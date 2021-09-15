@@ -422,7 +422,7 @@ class ElectNew(models.Model):
                     _text.replace(s, '<a class="ajax" href="' + s + '">' + s + '</a>')
                 else:
                     _text.replace(s, '<a target="_blank" href="' + s + '">' + s + '</a>')
-            return text
+            return _text
         else:
             return _text
 

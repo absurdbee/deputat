@@ -419,9 +419,9 @@ class ElectNew(models.Model):
                 this += 1
                 next += 1
                 if "служународу.рус" in p:
-                    _loop[next] = _loop[this].replace(p, '<a class="ajax" href="' + p + '">' + p + '</a>')
+                    _loop[next] = _loop[this].replace(p, '<a class="ajax underline" href="' + p + '">' + p + '</a>')
                 else:
-                    _loop[next] = _loop[this].replace(p, '<a target="_blank" href="' + p + '">' + p + '</a>')
+                    _loop[next] = _loop[this].replace(p, '<a class="underline" target="_blank" href="' + p + '">' + p + '</a>')
             return _loop[next]
         else:
             return _text

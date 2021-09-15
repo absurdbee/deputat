@@ -407,7 +407,7 @@ class ElectNew(models.Model):
     def get_format_description(self):
         import re
 
-        ids = re.findall(r'[httphttps]://[\S]+', self.description)
+        ids = re.findall(r'[http|https]://[\S]+', self.description)
         _text, text = self.description, ""
 
         if ids:

@@ -413,7 +413,7 @@ class ElectNew(models.Model):
         _loop = [t1,t2,t3,t4,t5,t6,t7]
         t1 = _text
         if http:
-            count = 1
+            count = 0
             for p in http:
                 count += 1
 

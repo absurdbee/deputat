@@ -411,10 +411,10 @@ class ElectNew(models.Model):
         text = ""
         for i in ids:
             if "служународу.рус" in i:
-                text += '<a class="ajax" href="' + i + '">' + i + "</a><br>"
+                self.description.replace(i, '<a class="ajax" href="' + i + '">' + i + '</a>')
             else:
-                text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"
-        return text
+                self.description.replace(i, '<a target="_blank" href="' + i + '">' + i + '</a>')
+        return self.description
 
     def get_manager_tags(self):
         from tags.models import ManagerTag

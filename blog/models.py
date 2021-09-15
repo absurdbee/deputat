@@ -408,7 +408,8 @@ class ElectNew(models.Model):
         import re
 
         ids = re.findall(r'http://[\S]+', self.description)
-        _text = self.description
+        _text, text = self.description, ""
+
         for i in ids:
             if "служународу.рус" in i:
                 text = _text.replace(i, '<a class="ajax" href="' + i + '">' + i + '</a>')

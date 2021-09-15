@@ -409,14 +409,17 @@ class ElectNew(models.Model):
 
         http = re.findall(r'https?://[\S]+', self.description)
         _text, text = self.description, ""
+        _loop = [t1,t2,t3,t4,t5,t6]
 
         if http:
+            count = 0
             for p in http:
+                count += 1
                 if "служународу.рус" in p:
-                    text = _text.replace(p, '<a class="ajax" href="' + p + '">' + p + '</a>')
+                    _loop[count] = _text.replace(p, '<a class="ajax" href="' + p + '">' + p + '</a>')
                 else:
-                    text = _text.replace(p, '<a target="_blank" href="' + p + '">' + p + '</a>')
-            return text
+                    _loop[count] = _text.replace(p, '<a target="_blank" href="' + p + '">' + p + '</a>')
+             return _loop[count]
         else:
             return _text
 

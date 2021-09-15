@@ -37,7 +37,7 @@
                                         Ваша новость еще на рассмотрении у модератора.
                                     </p>
                                     <p class="card-text mb-2">
-                                        {{ object.description|safe }}
+                                        {{ object.get_format_description|safe }}
                                     </p>
                                     {% if object.attach %}
                                     {{ object|get_attach:request.user|safe }}

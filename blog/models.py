@@ -413,15 +413,15 @@ class ElectNew(models.Model):
         _loop = [t1,t2,t3,t4,t5,t6,t7]
         t1 = _text
         if http:
-            this = 0
-            next = 1
+            this = -1
+            next = 0
             for p in http:
+                this += 1
+                next += 1
                 if "служународу.рус" in p:
                     _loop[next] = _loop[this].replace(p, '<a class="ajax" href="' + p + '">' + p + '</a>')
                 else:
                     _loop[next] = _loop[this].replace(p, '<a target="_blank" href="' + p + '">' + p + '</a>')
-                this += 1
-                next += 1
             return _loop[next]
         else:
             return _text

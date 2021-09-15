@@ -408,12 +408,12 @@ class ElectNew(models.Model):
         import re
 
         ids = re.findall(r'https://[\S]+', self.description)
-        text = self.description
+        _text = self.description
         for i in ids:
             if "служународу.рус" in i:
-                text.replace(i, '<a class="ajax" href="' + i + '">' + i + '</a>')
+                text = _text.replace(i, '<a class="ajax" href="' + i + '">' + i + '</a>')
             else:
-                text.replace(i, '<a target="_blank" href="' + i + '">' + i + '</a>')
+                text =_text.replace(i, '<a target="_blank" href="' + i + '">' + i + '</a>')
         return text
 
     def get_manager_tags(self):

@@ -408,10 +408,10 @@ class ElectNew(models.Model):
         import re
 
         http = re.findall(r'https?://[\S]+', self.description)
-        _text, text = self.description, ""
-        t1, t2, t3, t4, t5, t6 ,t7 = "", "", "", "", "", "", ""
+        _text = self.description
+        t1, t2, t3, t4, t5, t6 ,t7 = _text, "", "", "", "", "", ""
         _loop = [t1,t2,t3,t4,t5,t6,t7]
-        t1 = _text
+
         if http:
             this = -1
             next = 0

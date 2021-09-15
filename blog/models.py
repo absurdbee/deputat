@@ -407,21 +407,15 @@ class ElectNew(models.Model):
     def get_format_description(self):
         import re
 
-        http = re.findall(r'http://[\S]+', self.description)
-        https = re.findall(r'https://[\S]+', self.description)
+        http = re.findall(r'https?://[\S]+', self.description)
         _text, text = self.description, ""
 
-        if http or https:
+        if https:
             for p in http:
                 if "служународу.рус" in p:
                     text = _text.replace(p, '<a class="ajax" href="' + p + '">' + p + '</a>')
                 else:
                     text = _text.replace(p, '<a target="_blank" href="' + p + '">' + p + '</a>')
-            for s in https:
-                if "служународу.рус" in s:
-                    text = _text.replace(s, '<a class="ajax" href="' + s + '">' + s + '</a>')
-                else:
-                    text = _text.replace(s, '<a target="_blank" href="' + s + '">' + s + '</a>')
             return text
         else:
             return _text

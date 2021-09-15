@@ -409,7 +409,7 @@ class ElectNew(models.Model):
 
         http = re.findall(r'https?://[\S]+', self.description)
         _text, text = self.description, ""
-        _loop = [t1,t2,t3,t4,t5,t6]
+        _loop = ["t1","t2","t3","t4","t5","t6"]
 
         if http:
             count = 0

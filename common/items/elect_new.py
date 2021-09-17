@@ -69,13 +69,17 @@ def notify_elect_new(user, notify):
     from blog.models import ElectNew
     new = ElectNew.objects.get(pk=notify.object_id)
 
+    if notify.is_unread():
+        i = " (новое)"
+    else:
+        i = ""
     if notify.is_have_user_set():
-        return ''.join(['<div class=""><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' <span class="pointer show_all_notifies_user_set underline">', notify.count_user_set_act(), '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+        return ''.join(['<div class=""><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' <span class="pointer show_all_notifies_user_set underline">', notify.count_user_set_act(), '</span></p><p class="mb-0 small_2">', notify.get_created(), i, '</p></div></div></div>'])
     elif notify.is_have_object_set():
         first_notify = notify.get_first_object_set()
-        return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(first_notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', first_notify.creator.get_name(), '</a> и ещё ', str(notify.count_object_set()), first_notify.get_verb_display(), ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+        return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(first_notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', first_notify.creator.get_name(), '</a> и ещё ', str(notify.count_object_set()), first_notify.get_verb_display(), ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span></p><p class="mb-0 small_2">', notify.get_created(), i,'</p></div></div></div>'])
     else:
-        return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+        return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span></p><p class="mb-0 small_2">', notify.get_created(), i,'</p></div></div></div>'])
 
 def notify_comment_elect_new(user, notify):
     from common.model.comments import ElectNewComment
@@ -85,13 +89,17 @@ def notify_comment_elect_new(user, notify):
         new = comment.parent.new
     else:
         new = comment.new
+    if notify.is_unread():
+        i = " (новое)"
+    else:
+        i = ""
     if notify.is_have_user_set():
-        return ''.join(['<div class=""><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' <span class="pointer show_all_notifies_user_set underline">', notify.count_user_set_comment(), '</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+        return ''.join(['<div class=""><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' <span class="pointer show_all_notifies_user_set underline">', notify.count_user_set_comment(), '</span></p><p class="mb-0 small_2">', notify.get_created(), i, '</p></div></div></div>'])
     elif notify.is_have_object_set():
         first_notify = notify.get_first_object_set()
-        return ''.join(['<div class="" data-pk="', str(new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(first_notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', first_notify.creator.get_name(), '</a> и ещё ', str(notify.count_object_set()), first_notify.get_verb_display(), ' комментарий к новости <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+        return ''.join(['<div class="" data-pk="', str(new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(first_notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', first_notify.creator.get_name(), '</a> и ещё ', str(notify.count_object_set()), first_notify.get_verb_display(), ' комментарий к новости <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), i, '</p></div></div></div>'])
     else:
-        return ''.join(['<div class="" data-pk="', str(new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' комментарий к новости <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+        return ''.join(['<div class="" data-pk="', str(new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' комментарий к новости <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), i, '</p></div></div></div>'])
 
 def get_notify_elect_new(user, notify):
     # мы поняли, что тип "Активность", теперь пробьем по его verb
@@ -100,7 +108,11 @@ def get_notify_elect_new(user, notify):
         from blog.models import ElectNew
         try:
             new = ElectNew.objects.get(pk=notify.object_id)
-            return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small">Ваша новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> прошла проверку модератора и опубликована. Благодарим.</p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
+            if notify.is_unread():
+                i = " (новое)"
+            else:
+                i = ""
+            return ''.join(['<div class="" data-pk="', str(notify.object_id), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small">Ваша новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', new.title, '</span> прошла проверку модератора и опубликована. Благодарим.</p><p class="mb-0 small_2">', notify.get_created(), i, '</p></div></div></div>'])
         except:
             return ''
     elif 'LIK' in verb or 'DIS' in verb or 'INE' in verb:

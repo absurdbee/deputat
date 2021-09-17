@@ -62,7 +62,7 @@ on('body', 'click', '.nav_search_btn', function() {
 		return
 	};
 	var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-	btns = document.body.querySelectorAll(".nav-link"); 
+	btns = document.body.querySelectorAll(".nav-link");
 	for (var i = 0; i < btns.length; i++){
 		btns[i].classList.remove("active")
 	};
@@ -452,25 +452,35 @@ on('body', 'click', '.get_user_notify_box', function() {
 		_dropdown.style.display = "block";
 		this.classList.add("show")
 	};
-	if (!count_box.classList.contains("showed") || count_box.innerHTML) {
-		count_box.innerHTML = "";
-		container = _dropdown.querySelector(".notify_box");
 
-		link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-	  link_.open( 'GET', "/notify/recent/", true );
-	  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-	  link_.onreadystatechange = function () {
-	  if ( this.readyState == 4 && this.status == 200 ) {
-			elem_ = document.createElement('span');
-			elem_.innerHTML = link_.responseText;
-			container.innerHTML = "";
-			container.innerHTML = elem_.innerHTML;
-			count_box.classList.add("showed");
-			create_pagination(container)
-	  }};
-	   link_.send();
-	};
+	container = _dropdown.querySelector(".notify_box");
 
+	link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+	 link_.open( 'GET', "/notify/recent/", true );
+	 link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	 link_.onreadystatechange = function () {
+	 if ( this.readyState == 4 && this.status == 200 ) {
+		elem_ = document.createElement('span');
+		elem_.innerHTML = link_.responseText;
+		container.innerHTML = "";
+		container.innerHTML = elem_.innerHTML;
+		count_box.classList.add("showed");
+		create_pagination(container);
+
+		if (count_box.innerHTML) {
+			//count_box.innerHTML = "";
+			//link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+			//link.open( 'GET', "/notify/all_read/", true );
+			//link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			//link.onreadystatechange = function () {
+			// if ( this.readyState == 4 && this.status == 200 ) {
+			//	 console.log("Уведы прочитаны!")
+			// }};
+			// link.send();
+
+		}
+	 }};
+	 link_.send();
 })
 
 on('body', 'change', '#id_region', function() {

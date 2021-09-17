@@ -1,8 +1,9 @@
 from django.views.generic import ListView
-from common.templates import get_my_template, get_small_template
 from django.views.generic.base import TemplateView
+from common.templates import get_my_template, get_small_template
 from notify.models import Notify, Wall
 from generic.mixins import CategoryListMixin
+from django.views import View
 
 
 class AllNotifyView(ListView, CategoryListMixin):
@@ -51,3 +52,9 @@ class NewWall(TemplateView):
 		context=super(NewWall,self).get_context_data(**kwargs)
 		context["object"] = self.notify
 		return context
+
+
+class AllReadNotifyView(View):
+	def get(self,request,*args,**kwargs):
+		Notify.objects.filter(recipient_id=request.user.pk, status="U").update(status="R")
+		return super(AllReadNotifyView,self).get(request,*args,**kwargs)

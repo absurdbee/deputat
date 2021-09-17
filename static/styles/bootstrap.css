@@ -4521,16 +4521,6 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
           justify-content : space-between;
 }
 
-.navbar-brand {
-  display : inline-block;
-  padding-top : -0.367rem;
-  padding-bottom : -0.367rem;
-  margin-right : 1rem;
-  font-size : 2rem;
-  line-height : inherit;
-  white-space : nowrap;
-}
-
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration : none;
 }

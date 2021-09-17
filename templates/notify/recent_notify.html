@@ -1,7 +1,7 @@
 {% load notify %}
 <div class="is_paginate">
 {% for object in object_list %}
-<div class="pag" style="margin-bottom:10px">
+<div class="pag" style="margin-bottom:7px">
   {{ object|get_notify:request.user|safe }}
 </div>
 

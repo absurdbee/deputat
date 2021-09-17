@@ -468,15 +468,15 @@ on('body', 'click', '.get_user_notify_box', function() {
 		create_pagination(container);
 
 		if (count_box.innerHTML) {
-			//count_box.innerHTML = "";
-			//link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-			//link.open( 'GET', "/notify/all_read/", true );
-			//link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-			//link.onreadystatechange = function () {
-			// if ( this.readyState == 4 && this.status == 200 ) {
-			//	 console.log("Уведы прочитаны!")
-			// }};
-			// link.send();
+			count_box.innerHTML = "";
+			link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+			link.open( 'GET', "/notify/all_read/", true );
+			link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+			link.onreadystatechange = function () {
+			 if ( this.readyState == 4 && this.status == 200 ) {
+				 console.log("Уведы прочитаны!")
+			 }}; 
+			 link.send();
 
 		}
 	 }};

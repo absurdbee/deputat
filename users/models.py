@@ -386,7 +386,7 @@ class User(AbstractUser):
 
     def get_user_notify(self):
         from notify.models import Notify
-        query = Q(recipient_id=self.pk)|(creator_id__in=self.get_user_profile_notify_ids())
+        query = Q(recipient_id=self.pk)|Q(creator_id__in=self.get_user_profile_notify_ids())
         query.add(Q(Q(user_set__isnull=True, object_set__isnull=True)|Q(status="U")), Q.AND)
         return Notify.objects.filter(query)
 

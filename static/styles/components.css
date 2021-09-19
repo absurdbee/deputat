@@ -487,7 +487,6 @@ html .pace .pace-progress {
 .main-menu.menu-light .navigation li a {
   color : #625F6E;
   padding : 0px 10px 0px 10px;
-  line-height : 0.8;
 }
 
 .main-menu.menu-light .navigation li a span.menu-sub-title {
@@ -709,18 +708,6 @@ html .pace .pace-progress {
   margin-top : 7px !important;
 }
 
-.main-menu.menu-dark .navigation > li > ul li:not(.has-sub) {
-  margin : 0 15px;
-}
-
-.main-menu.menu-dark .navigation > li > ul li.has-sub > a {
-  margin : 0 15px;
-}
-
-.main-menu.menu-dark .navigation > li > ul li.has-sub > ul > li {
-  margin : 0 15px;
-}
-
 .main-menu.menu-dark .navigation > li.open:not(.menu-item-closing) > a, .main-menu.menu-dark .navigation > li.sidebar-group-active > a {
   color : #C3C3C3;
   background : #0C102A;
@@ -859,7 +846,9 @@ html .pace .pace-progress {
 
 .main-menu .navbar-header .navbar-brand .brand-logo svg {
   position: absolute;
-  top: 7px;
+  top: 12px;
+  left: 5px;
+  width: 90%;
 }
 
 .main-menu .navbar-header .navbar-brand .brand-text {
@@ -930,6 +919,7 @@ html .pace .pace-progress {
 .navigation li {
   position : relative;
   white-space : nowrap;
+  margin-bottom: 5px;
 }
 
 .navigation li a {

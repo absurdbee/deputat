@@ -708,7 +708,7 @@ class ElectNew(models.Model):
             from django.http import Http404
             raise Http404
         if ElectNewVotes2.objects.filter(new=self, user=user).exists():
-            item = ElectNewVotes2.objects.filter(new=self, user=user).first()
+            item = ElectNewVotes2.objects.get(new=self, user=user)
             if item.vote == ElectNewVotes2.DISLIKE:
                 item.vote = ElectNewVotes2.LIKE
                 item.save(update_fields=['vote'])
@@ -771,8 +771,9 @@ class ElectNew(models.Model):
         if not self.votes_on:
             from django.http import Http404
             raise Http404
+
         try:
-            item = ElectNewVotes2.objects.filter(new=self, user=user).first()
+            item = ElectNewVotes2.objects.get(new=self, user=user)
             if item.vote == ElectNewVotes2.LIKE:
                 item.vote = ElectNewVotes2.DISLIKE
                 item.save(update_fields=['vote'])
@@ -832,7 +833,7 @@ class ElectNew(models.Model):
             from django.http import Http404
             raise Http404
         try:
-            item = ElectNewVotes2.objects.filter(new=self, user=user).first()
+            item = ElectNewVotes2.objects.get(new=self, user=user)
             if item.vote == ElectNewVotes2.LIKE:
                 item.vote = ElectNewVotes2.INERT
                 item.save(update_fields=['vote'])

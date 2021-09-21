@@ -34,7 +34,7 @@
   text-align: center;
 }
 
-.profile-title h1, .profile-title span {
+.profile-title h1, .profile-title a {
   background: rgba(0, 0, 0, 0.5);
 }
 

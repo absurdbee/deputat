@@ -7,6 +7,11 @@
   height: 200px;
   width: 100%;
 }
+.small_elect_img {
+  object-fit: cover;
+  height: 120px;
+  width: 100%;
+}
 
 .elect_search_input {
   height: 1.5rem;

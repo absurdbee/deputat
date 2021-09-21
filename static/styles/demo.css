@@ -2,6 +2,12 @@
   height: 170px
 }
 
+.elect_img {
+  object-fit: cover;
+  height: 200px;
+  width: 100%;
+}
+
 .elect_search_input {
   height: 1.5rem;
   font-size: 10px;

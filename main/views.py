@@ -74,7 +74,8 @@ class MainDocsView(ListView, CategoryListMixin):
 		return super(MainDocsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
-		return []
+		from common.notify.progs import get_news
+		return get_news()
 
 
 class MyNewsView(ListView, CategoryListMixin):

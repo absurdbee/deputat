@@ -71,7 +71,6 @@ class MainDocsView(ListView, CategoryListMixin):
 		from region.models import Region
 
 		self.template_name = get_full_template("main/", "docs.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.region = Region.objects.get(slug=self.kwargs["slug"])
 		return super(MainDocsView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):

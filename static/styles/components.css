@@ -23,7 +23,7 @@ html .content {
 }
 
 html .content.app-content {
-  padding : 0.3rem 2rem 0;
+  padding : 0.3rem 0.5rem 0;
 }
 
 html .content.app-content.show-overlay .content-overlay {

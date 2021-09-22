@@ -10,21 +10,18 @@
 
     <link rel="stylesheet" media="all" type="text/css" href="/static/styles/bootstrap.css">
     <link rel="stylesheet" media="all" type="text/css" href="/static/styles/bootstrap-extended.css">
-		<link rel="stylesheet" media="all" type="text/css" href="/static/styles/components.css">
+		<link rel="stylesheet" media="all" type="text/css" href="/static/styles/components.css?ver2">
     <link rel="stylesheet" media="none" onload="if(media!='all')media='all'" type="text/css" href="/static/styles/dark-layout.css">
 		<link rel="stylesheet" media="none" onload="if(media!='all')media='all'" type="text/css" href="/static/styles/demo.css?ver7">
 		<link rel="stylesheet" media="none" onload="if(media!='all')media='all'" type="text/css" href="/static/styles/plyr.min.css">
 </head>
 
-<body class="navbar-floating footer-static">
-		<div class="row base_row_container" style="margin-right: 7px;margin-left: 7px;">
-			<div class="col-xl-2 col-lg-0 no_gutters">
-				{% include "anon_menu.html" %}
-			</div>
-			<div class="col-xl-10 col-lg-12 no_gutters desctop_custom_width">
-				{% include "anon_navbar.html" %}
+<body class="navbar-floating">
+		<div class="base_row_container">
+			{% include "menu.html" %}
+			{% include "navbar.html" %}
 
-		<div class="content">
+		<div class="content app-content">
       <div class="content-overlay"></div>
 			<span id="ajax">
 				<span id="reload_block">
@@ -44,7 +41,6 @@
 					</div>
 				</span>
 			</span>
-		</div>
 		</div>
 		</div>
 

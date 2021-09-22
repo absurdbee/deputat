@@ -942,7 +942,7 @@ html .pace .pace-progress {
   opacity : 0.65;
   pointer-events : none;
 }
-@media (max-width: 1173px) {
+@media (max-width: 1075px) {
   .main-menu {
     -webkit-transform : translate3d(-240px, 0, 0);
             transform : translate3d(-240px, 0, 0);

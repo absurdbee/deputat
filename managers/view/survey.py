@@ -6,7 +6,7 @@ from survey.models import Survey, SurveyList
 from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
-from common.templates import get_detect_platform_template
+from common.templates import get_detect_platform_template, render_for_platform
 from logs.model.manage_survey import SurveyManageLog
 from managers.forms import ModeratedForm, ReportForm
 

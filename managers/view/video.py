@@ -7,7 +7,7 @@ from managers.forms import ModeratedForm
 from django.views.generic.base import TemplateView
 from managers.models import Moderated
 from django.http import Http404
-from common.templates import get_detect_platform_template
+from common.templates import get_detect_platform_template, render_for_platform
 from logs.model.manage_video import VideoManageLog
 
 

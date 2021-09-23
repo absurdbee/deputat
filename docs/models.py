@@ -130,7 +130,7 @@ class DocList(models.Model):
         return self.doc_list.filter(Q(type="PUB")|Q(type="PRI"))
 
     def get_items(self):
-        return self.doc_list.filter(type="PUB")
+        return self.doc_list.exclude(type__contains="_")
 
     def get_penalty_items(self):
         return self.doc_list.filter(type__contains="_CLO")

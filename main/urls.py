@@ -9,5 +9,5 @@ urlpatterns = [
 	url(r'^main_stat/$', MainStatView.as_view()),
 	url(r'^main_docs/$', MainDocsView.as_view()),
 	url(r'^my_news/$', MyNewsView.as_view()),
-	url(r'^draft_news/$', DraftNewsView.as_view()), 
+	url(r'^draft_news/$', DraftNewsView.as_view()),
 ]

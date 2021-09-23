@@ -374,14 +374,14 @@ class CreateManagerDocList(TemplateView):
         return super(CreateManagerDocList,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        from docs.forms import DocListForm
+        from docs.forms import DoclistForm
         context = super(CreateManagerDocList,self).get_context_data(**kwargs)
-        context["form_post"] = DocListForm()
+        context["form_post"] = DoclistForm()
         return context
 
     def post(self,request,*args,**kwargs):
         from docs.forms import DocListForm
-        form_post= DocListForm(request.POST)
+        form_post= DoclistForm(request.POST)
         if request.is_ajax() and form_post.is_valid():
             list = form_post.save(commit=False)
             new_list = list.create_manager_list(creator=request.user, name=list.name, description=list.description, order=list.order)
@@ -396,7 +396,7 @@ class EditManagerDocList(TemplateView):
         return super(EditManagerDocList,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        from docs.forms import DocListForm
+        from docs.forms import DoclistForm
         context = super(EditManagerDocList,self).get_context_data(**kwargs)
         context["list"] = DocList.objects.get(uuid=self.kwargs["uuid"])
         return context
@@ -404,7 +404,7 @@ class EditManagerDocList(TemplateView):
     def post(self,request,*args,**kwargs):
         from docs.forms import DocListForm
         self.list = DocList.objects.get(uuid=self.kwargs["uuid"])
-        self.form = DocListForm(request.POST,instance=self.list)
+        self.form = DoclistForm(request.POST,instance=self.list)
         if request.is_ajax() and self.form.is_valid():
             list = self.form.save(commit=False)
             list.edit_manager_list(name=list.name, description=list.description, order=list.order, manager_id=request.user.pk)

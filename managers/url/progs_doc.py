@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListDocUnverify.as_view()),
 
     url(r'^create_doc/$', CreateManagerDoc.as_view()),
-    url(r'^edit_doc/$', EditManagerDoc.as_view()),
+    url(r'^edit_doc/(?P<pk>\d+)/$', EditManagerDoc.as_view()),
     url(r'^create_list/$', CreateManagerDocList.as_view()),
-    url(r'^edit_list/$', EditManagerDocList.as_view()),
+    url(r'^edit_list/(?P<uuid>[0-9a-f-]+)/$', EditManagerDocList.as_view()),
 ]

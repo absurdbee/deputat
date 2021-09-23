@@ -72,7 +72,7 @@ class MainDocsView(ListView, CategoryListMixin):
 
 		self.template_name = get_full_template("main/", "docs.html", request.user, request.META['HTTP_USER_AGENT'])
 		uuid = request.GET.get('uuid')
-		if self.uuid:
+		if uuid:
 			self.list = DocList.objects.get(uuid=uuid)
 		else:
 			self.list = DocList.objects.filter(type=DocList.MANAGER).first()

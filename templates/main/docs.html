@@ -1,113 +1,54 @@
-{% load static %}
-<!doctype html>
-<html class="loading" lang="en">
-<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta property="og:type" content="website" />
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>{% block title %}{% endblock %}</title>
-		{% block meta %}{% endblock %}
+{% extends "base.html" %}
+{% block title %}Главная страница{% endblock %}
+{% block content %}
 
-    <link rel="stylesheet" media="all" type="text/css" href="/static/styles/bootstrap.css">
-    <link rel="stylesheet" media="all" type="text/css" href="/static/styles/bootstrap-extended.css">
-		<link rel="stylesheet" media="all" type="text/css" href="/static/styles/components.css">
-    <link rel="stylesheet" media="none" onload="if(media!='all')media='all'" type="text/css" href="/static/styles/dark-layout.css">
-		<link rel="stylesheet" media="none" onload="if(media!='all')media='all'" type="text/css" href="/static/styles/demo.css?ver7">
-		<link rel="stylesheet" media="none" onload="if(media!='all')media='all'" type="text/css" href="/static/styles/plyr.min.css">
-</head>
+        <div class="content-wrapper row">
+          <div class="content-header-left col-md-9 col-12">
+            {% include 'main/breadcrumb.html' %}
 
-<body class="navbar-floating">
-		<div class="base_row_container" style="margin-right: 7px;margin-left: 7px;">
-			{% include "menu.html" %}
-			<div class="no_gutters desctop_custom_width content">
-				{% include "navbar.html" %}
-
-		<div class="content app-content">
-      <div class="content-overlay"></div>
-			<span id="ajax">
-				<span id="reload_block">
-					<div class="toggle_fixed_block">
-            <div class="content-wrapper row">
-              <div class="content-header-left col-md-9 col-12">
-                {% include 'main/breadcrumb.html' %}
-
-                <div class="content-header">
-                    <div class="content-header-left">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
-                        <a class="btn btn-outline-primary main_nav active">
-                          <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-flag"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
-                          <span class="d-none d-sm-block">Россия</span>
-                        </a>
-                        <a class="btn btn-outline-primary ajax main_nav" href="/main_region/{{ request.user.area.region.slug }}/">
-                          <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                          <span class="d-none d-sm-block">Мой&nbsp;регион</span>
-                        </a>
-                        <a class="btn btn-outline-primary ajax main_nav" href="/main_map/">
-                          <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
-                          <span class="d-none d-sm-block">Карта&nbsp;РФ</span>
-                        </a>
-                        <a class="btn btn-outline-primary ajax main_nav" href="/main_stat/">
-                          <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
-                          <span class="d-none d-sm-block">Законопроекты</span>
-                        </a>
-                        <a class="btn btn-outline-primary ajax main_nav" href="/main_docs/">
-                          <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                          <span class="d-none d-sm-block">Документы</span>
-                        </a>
-                      </div>
-                    </div>
-                </div>
-
-                <div class="content-body news_stream mt-1 is_paginate">
-                  {% load notify %}
-                  {% for object in object_list %}
-                    <div class="card mb-1 pag">
-                      {{ object|get_notify:request.user|safe }}
-                    </div>
-                  {% endfor %}
-                  {% if page_obj.has_next %}
-                  <div class="load centered m-1 next_page_list" data-link="{% url 'main' %}?page={{ page_obj.next_page_number }}">
-                      <img src="/static/images/loading.gif">
+            <div class="content-header">
+                <div class="content-header-left">
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons" style="width: 100%;">
+                    <a href="/" class="btn btn-outline-primary main_nav ajax">
+                      <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-flag"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                      <span class="d-none d-sm-block">Россия</span>
+                    </a>
+                    <a class="btn btn-outline-primary ajax main_nav" href="/main_region/{{ request.user.area.region.slug }}/">
+                      <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                      <span class="d-none d-sm-block">Мой&nbsp;регион</span>
+                    </a>
+                    <a class="btn btn-outline-primary ajax main_nav" href="/main_map/">
+                      <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                      <span class="d-none d-sm-block">Карта&nbsp;РФ</span>
+                    </a>
+                    <a class="btn btn-outline-primary ajax main_nav" href="/main_stat/">
+                      <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+                      <span class="d-none d-sm-block">Законопроекты</span>
+                    </a>
+                    <a class="btn btn-outline-primary ajax main_nav active">
+                      <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                      <span class="d-none d-sm-block">Документы</span>
+                    </a>
                   </div>
-                  {% endif %}
                 </div>
-              </div>
-              <div class="content-header-left col-md-3 col-12 mb-2">
-                {% include 'main/right_panel.html' %}
-              </div>
             </div>
-					</div>
 
-					<div class="card mb-3 window_fullscreen border" style="display:none">
-					  <div id="window_loader" style="position:relative;"></div>
-					</div>
-					<div class="card mb-3 open_50 window_2_fullscreen border" style="display:none">
-					  <div id="window_loader_2" style="position:relative;"></div>
-					</div>
-					<div class="card mb-3 photo_fullscreen open_100 border" style="display:none">
-					  <div id="photo_loader" style="position:relative;"></div>
-					</div>
-					<div class="card mb-3 create_fullscreen open_200 border" style="display:none">
-					  <div id="create_loader" class="loader_0"></div>
-					</div>
-					<div class="card mb-3 border worker_fullscreen open_300" style="display:none">
-					  <div id="worker_loader" style="margin-top:30px"></div>
-					</div>
-				</span>
-			</span>
-		</div>
-		</div>
-		</div>
-
-		<div class="sidenav-overlay"></div>
-		<div class="drag-target"></div>
-
-		<script defer src="/static/scripts/lib/plyr.min.js" type="text/javascript"></script>
-		<script defer src="/static/scripts/lib/websocketbridge.js" type="text/javascript"></script>
-		<script defer src="/static/scripts/get.js" type="text/javascript"></script>
-		<script defer src="/static/scripts/progs/socket.js" type="text/javascript"></script>
-		{% if request.user.is_manager %}
-			<script defer src="/static/scripts/progs/manager.js?ver2"></script>
-		{% endif %}
-</body>
-</html>
+            <div class="content-body news_stream mt-1 is_paginate">
+              {% load notify %}
+              {% for object in object_list %}
+                <div class="card mb-1 pag">
+                  {{ object|get_notify:request.user|safe }}
+                </div>
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <div class="load centered m-1 next_page_list" data-link="{% url 'main' %}?page={{ page_obj.next_page_number }}">
+                  <img src="/static/images/loading.gif">
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="content-header-left col-md-3 col-12 mb-2">
+            {% include 'main/right_panel.html' %}
+          </div>
+        </div>
+{% endblock %}

@@ -41,7 +41,7 @@
             <div class="media mt-3 uuid_saver" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
               <h5 class="mt-1">{{ list.name }} ({{ list.count_items }})
                 {% if request.user.is_doc_manager %}
-                  <span class="pointer badge badge-light-success u_doc_add">Добавить документ</span>
+                  <span class="pointer badge badge-light-success u_manager_doc_add">Добавить документ</span>
                   <span class="pointer badge badge-light-secondary staff_doc_list_edit">Изменить альбом</span>
                   <span class="pointer badge badge-light-danger staff_doc_list_remove">Удалить альбом</span>
                 {% endif %}
@@ -50,7 +50,7 @@
                 {% elif request.user.pk in list.get_users_ids %}
                   <span class="pointer badge badge-light-danger u_uncopy_doc_list">Удалить альбом из коллекции</span>
                 {% endif %}
-                <span class="pointer badge badge-light-primary copy_link" data-link="/main/main_docs/?uuid={{list.uuid}}">Копировать ссылку</span>
+                <span class="pointer badge badge-light-primary copy_link" data-link="/main_docs/?uuid={{list.uuid}}">Копировать ссылку</span>
               </h5>
             </div>
 
@@ -61,7 +61,7 @@
                   {% include 'user_docs/doc.html' %}
                 {% endfor %}
                 {% if page_obj.has_next %}
-                  <div class="load centered m-1 next_page_list" data-link="/main/user_docs/?uuid={{list.uuid}}&?page={{ page_obj.next_page_number }}">
+                  <div class="load centered m-1 next_page_list" data-link="/main_docs/?uuid={{list.uuid}}&?page={{ page_obj.next_page_number }}">
                     <img src="/static/images/loading.gif">
                   </div>
                 {% endif %}

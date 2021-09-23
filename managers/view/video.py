@@ -310,8 +310,11 @@ class CreateManagerVideo(TemplateView):
 
     def get_context_data(self,**kwargs):
         from video.forms import VideoForm
+        from video.models import VideoList
+
         context = super(CreateManagerVideo,self).get_context_data(**kwargs)
         context["form_post"] = VideoForm()
+        context["get_lists"] = VideoList.objects.filter(type=VideoList.MANAGER)
         return context
 
     def post(self,request,*args,**kwargs):
@@ -335,9 +338,12 @@ class EditManagerVideo(TemplateView):
 
     def get_context_data(self,**kwargs):
         from video.forms import VideoForm
+        from video.models import VideoList
+
         context = super(EditManagerVideo,self).get_context_data(**kwargs)
         context["form_post"] = VideoForm(instance=self.video)
         context["video"] = self.video
+        context["get_lists"] = VideoList.objects.filter(type=VideoList.MANAGER)
         return context
 
     def post(self,request,*args,**kwargs):

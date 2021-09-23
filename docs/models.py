@@ -374,7 +374,7 @@ class Doc(models.Model):
         #for user_id in creator.get_user_news_notify_ids():
         #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="DOC", object_id=doc.pk, verb="ITE")
         #    user_send_notify(doc.pk, creator.pk, user_id, None, "create_manager_doc_notify")
-        DocManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=DocManageLog.ITEM_CREATED)
+        DocManageLog.objects.create(item=doc.pk, manager=creator.pk, action_type=DocManageLog.ITEM_CREATED)
         return doc
 
     def edit_doc(self, title, file, lists, is_public):

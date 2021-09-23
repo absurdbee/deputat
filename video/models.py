@@ -428,7 +428,7 @@ class Video(models.Model):
         #for user_id in creator.get_user_news_notify_ids():
         #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VID", object_id=video.pk, verb="ITE")
         #    user_send_notify(video.pk, creator.pk, user_id, None, "create_u_video_notify")
-        VideoManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=VideoManageLog.ITEM_CREATED)
+        VideoManageLog.objects.create(item=video.pk, manager=creator.pk, action_type=VideoManageLog.ITEM_CREATED)
         return video
 
     def edit_video(self, title, uri, image, file, lists, is_public):

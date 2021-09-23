@@ -44,6 +44,36 @@ on('body', 'click', '.u_blog_restore', function() {
   post_send_change(this.parentElement, "/blog/progs/restore_blog/", "u_blog_restore", "Удалить");
 })
 
+on('body', 'click', '.staff_doc_list_add', function() {
+  loader = document.body.querySelector("#create_loader");
+  open_fullscreen("/manager/progs_doc/create_list/", loader)
+});
+on('body', 'click', '.staff_doc_list_edit', function() {
+  list = document.body.querySelectorAll('.cover_block');
+  for (var i = 0; i < list.length; i++) {
+    list[i].classList.remove("list_active")
+  }
+  block = this.parentElement.parentElement;
+  block.classList.add("list_active");
+  uuid = block.getAttribute('data-uuid');
+  loader = document.body.querySelector("#create_loader");
+  open_fullscreen("/manager/progs_doc/edit_list/" + uuid + "/", loader)
+});
+
+on('body', 'click', '.staff_doc_add', function() {
+  loader = document.body.querySelector("#create_loader");
+  open_fullscreen("/manager/progs_doc/create_doc/", loader)
+});
+on('body', 'click', '.staff_doc_edit', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  blocks = document.body.querySelectorAll('.col-sm-12');
+  for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_doc")}
+
+  parent.parentElement.parentElement.parentElement.classList.add("edited_doc")
+  loader = document.body.querySelector("#create_loader");
+  open_fullscreen("/manager/progs_doc/edit_doc/" + parent.getAttribute("data-pk") +"/", loader)
+});
+
 on('body', 'click', '.u_edit_blog', function() {
   loader = document.body.querySelector("#window_loader");
   open_fullscreen("/blog/progs/edit_blog/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
@@ -75,7 +105,7 @@ on('body', 'click', '.manager_elect_new_create', function() {
 });
 on('body', 'click', '.manager_elect_new_create', function() {
   loader = document.body.querySelector("#window_loader");
-  if (this.getAttribute("data-name")) { 
+  if (this.getAttribute("data-name")) {
     open_elect_fullscreen("/managers/elect_new/create_elect_new/", loader, this.getAttribute("data-name"))
   } else {
     open_fullscreen("/managers/elect_new/create_elect_new/", loader)

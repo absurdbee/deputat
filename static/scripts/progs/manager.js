@@ -46,7 +46,7 @@ on('body', 'click', '.u_blog_restore', function() {
 
 on('body', 'click', '.staff_doc_list_add', function() {
   loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/manager/progs_doc/create_list/", loader)
+  open_fullscreen("/managers/progs_doc/create_list/", loader)
 });
 on('body', 'click', '.staff_doc_list_edit', function() {
   list = document.body.querySelectorAll('.cover_block');
@@ -57,12 +57,12 @@ on('body', 'click', '.staff_doc_list_edit', function() {
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
   loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/manager/progs_doc/edit_list/" + uuid + "/", loader)
+  open_fullscreen("/managers/progs_doc/edit_list/" + uuid + "/", loader)
 });
 
 on('body', 'click', '.staff_doc_add', function() {
   loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/manager/progs_doc/create_doc/", loader)
+  open_fullscreen("/managers/progs_doc/create_doc/", loader)
 });
 on('body', 'click', '.staff_doc_edit', function() {
   parent = this.parentElement.parentElement.parentElement;
@@ -71,7 +71,7 @@ on('body', 'click', '.staff_doc_edit', function() {
 
   parent.parentElement.parentElement.parentElement.classList.add("edited_doc")
   loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/manager/progs_doc/edit_doc/" + parent.getAttribute("data-pk") +"/", loader)
+  open_fullscreen("/managers/progs_doc/edit_doc/" + parent.getAttribute("data-pk") +"/", loader)
 });
 
 on('body', 'click', '.u_edit_blog', function() {

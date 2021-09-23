@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Документы портала{% endblock %}
+{% load filters %}
 {% block content %}
 
         <div class="content-wrapper row">
@@ -51,7 +52,7 @@
                 {% endif %}
                 <span class="pointer badge badge-light-primary copy_link" data-link="/main/main_docs/?uuid=list.uuid">Копировать ссылку</span>
               </h5>
-            </div> 
+            </div>
 
             <div class="row is_paginate no-gutters">
                 {% if object_list %}

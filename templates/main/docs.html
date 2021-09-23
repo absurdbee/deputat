@@ -57,7 +57,7 @@
                 {% if object_list %}
 
                 {% for doc in object_list %}
-                  {% include 'user_docs/doc.html' %}
+                  {% include 'user_docs/staff_doc.html' %}
                 {% endfor %}
                 {% if page_obj.has_next %}
                   <div class="load centered m-1 next_page_list" data-link="/main_docs/?uuid={{list.uuid}}&?page={{ page_obj.next_page_number }}">

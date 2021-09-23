@@ -33,17 +33,127 @@ function post_elect_new(_this, url, toast) {
 
 on('body', 'click', '.u_elect_new_remove', function() {
   post_send_change(this.parentElement, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");
-})
+});
 on('body', 'click', '.u_elect_new_restore', function() {
   post_send_change(this.parentElement, "/blog/progs/restore_elect_new/", "u_elect_new_remove", "Удалить");
-})
+});
 on('body', 'click', '.u_blog_remove', function() {
   post_send_change(this.parentElement, "/blog/progs/delete_blog/", "u_blog_restore", "Отмена");
-})
+});
 on('body', 'click', '.u_blog_restore', function() {
   post_send_change(this.parentElement, "/blog/progs/restore_blog/", "u_blog_restore", "Удалить");
-})
+});
 
+
+on('body', 'click', '#manager_create_doc_btn', function() {
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+  lists = form.querySelector("#id_list");
+  selectedOptions = lists.selectedOptions;
+  try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
+  input_file = form.querySelector("#id_file");
+  val = false;
+  for (var i = 0; i < selectedOptions.length; i++) {
+    if(selectedOptions[i].value) {val = true}
+  }
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!")
+  } else if (!val){
+    form.querySelector("#id_list").style.border = "1px #FF0000 solid";
+    toast_error("Выберите список!")
+  }
+  else if (!format){
+    input_file.style.border = "1px #FF0000 solid";
+    toast_error("Загрузите документ!")
+  }
+  else if (findSize(input_file)> 5242880) {
+    toast_error("Файл не должен превышать 5 Мб!"),
+    input_file.style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else if (format != "pdf" && format != "doc" && format != "docx" && format != "txt") {
+    toast_error("Допустим формат файла pdf, doc, docx, txt!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else { _this.disabled = true };
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/managers/progs_doc/create_doc/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    get_preview(response, "doc");
+    toast_info("Документ создан!")
+    close_create_window();
+  }};
+
+  link_.send(form_data);
+});
+on('body', 'click', '#u_edit_doc_btn', function() {
+  form = this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+
+  try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
+  input_file = form.querySelector("#id_file");
+
+  lists = form.querySelector("#id_list");
+  selectedOptions = lists.selectedOptions;
+  val = false;
+  for (var i = 0; i < selectedOptions.length; i++) {
+    if(selectedOptions[i].value) {val = true}
+  }
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!"); return
+  } else if (!val){
+    form.querySelector("#id_list").style.border = "1px #FF0000 solid";
+    toast_error("Выберите список!"); return
+  }
+  else if (!format){
+    input_file.style.border = "1px #FF0000 solid";
+    toast_error("Загрузите документ!"); return
+  }
+  else if (findSize(input_file)> 5242880) {
+    toast_error("Файл не должен превышать 5 Мб!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else if (format != "pdf" && format != "doc" && format != "docx" && format != "txt") {
+    toast_error("Допустим формат файла pdf, doc, docx, txt!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else { this.disabled = true }
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/managers/progs_doc/edit_doc/" + form.getAttribute("data-pk") + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Документ изменен!")
+    close_create_window();
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    doc = document.body.querySelector(".edited_doc");
+    doc.innerHTML = response.querySelector(".pag").innerHTML;
+  }};
+
+  link_.send(form_data);
+});
 on('body', 'click', '.staff_doc_list_add', function() {
   loader = document.body.querySelector("#create_loader");
   open_fullscreen("/managers/progs_doc/create_list/", loader)

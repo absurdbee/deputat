@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Документы портала{% endblock %}
+{% block title %}Главная страница{% endblock %}
 {% block content %}
 
         <div class="content-wrapper row">
@@ -33,48 +33,17 @@
                 </div>
             </div>
 
-            {% include 'main/doc_lists.html' %}
+            <div class="content-body news_stream mt-1 is_paginate">
+              {% load notify %}
+              {% for object in object_list %}
 
-            <span class="load_block">
-
-            <div class="media mt-3 uuid_saver" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
-              <h5 class="mt-1">{{ list.name }} ({{ list.count_items }})
-                {% if request.user.is_doc_manager %}
-                  <span class="pointer badge badge-light-success u_doc_add">Добавить документ</span>
-                  <span class="pointer badge badge-light-secondary staff_doc_list_edit">Изменить альбом</span>
-                  <span class="pointer badge badge-light-danger staff_doc_list_remove">Удалить альбом</span>
-                {% endif %}
-                {% if list|is_user_can_add_list:request.user.pk %}
-                  <span class="pointer badge badge-light-success u_copy_doc_list">Добавить альбом в коллекцию</span>
-                {% elif request.user.pk in list.get_users_ids %}
-                  <span class="pointer badge badge-light-danger u_uncopy_doc_list">Удалить альбом из коллекции</span>
-                {% endif %}
-                <span class="pointer badge badge-light-primary copy_link" data-link="/main/main_docs/?uuid=list.uuid">Копировать ссылку</span>
-              </h5>
-            </div> 
-
-            <div class="row is_paginate no-gutters">
-                {% if object_list %}
-
-                {% for doc in object_list %}
-                  {% include 'user_docs/doc.html' %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                  <div class="load centered m-1 next_page_list" data-link="/main/user_docs/?uuid=list.uuid&?page={{ page_obj.next_page_number }}">
-                    <img src="/static/images/loading.gif">
-                  </div>
-                {% endif %}
-
-                {% else %}
-                <div class="card centered item_empty">
-                  <div class="card-body">
-                  <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                  </div>
-                  <h6>В списке нет документов.</h6>
-                </div>
-                {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <div class="load centered m-1 next_page_list" data-link="/main/main_docs/?page={{ page_obj.next_page_number }}">
+                  <img src="/static/images/loading.gif">
               </div>
-              </span>
+              {% endif %}
+            </div>
           </div>
           <div class="content-header-left col-md-3 col-12 mb-2">
             {% include 'main/right_panel.html' %}

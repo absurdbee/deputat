@@ -68,14 +68,29 @@ class MainDocsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from region.models import Region
+		from docs.models import DocList
 
 		self.template_name = get_full_template("main/", "docs.html", request.user, request.META['HTTP_USER_AGENT'])
+		uuid = request.GET.get('uuid')
+		if self.uuid:
+			self.list = DocList.objects.get(uuid=uuid)
+		else:
+			self.list = DocList.objects.filter(type=DocList.MANAGER).first()
 		return super(MainDocsView,self).get(request,*args,**kwargs)
 
+	def get_context_data(self,**kwargs):
+		from docs.models import DocList
+
+		context = super(MainDocsView,self).get_context_data(**kwargs)
+		context['list'] = self.list
+		context['get_lists'] = DocList.objects.filter(type=DocList.MANAGER)
+		return context
+
 	def get_queryset(self):
-		from common.notify.progs import get_news
-		return get_news()
+		if self.list:
+			return self.list.get_items()
+		else:
+			return []
 
 
 class MyNewsView(ListView, CategoryListMixin):

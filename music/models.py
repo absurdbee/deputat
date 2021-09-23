@@ -449,7 +449,7 @@ class Music(models.Model):
         #for user_id in creator.get_user_news_notify_ids():
         #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUS", object_id=track.pk, verb="ITE")
         #    user_send_notify(track.pk, creator.pk, user_id, None, "create_manager_track_notify")
-        AudioManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=AudioManageLog.ITEM_CREATED)
+        AudioManageLog.objects.create(item=track.pk, manager=creator.pk, action_type=AudioManageLog.ITEM_CREATED)
         return track
 
     def edit_track(self, title, file, lists, is_public):

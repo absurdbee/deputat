@@ -72,10 +72,13 @@ class MainDocsView(ListView, CategoryListMixin):
 
 		self.template_name = get_full_template("main/", "docs.html", request.user, request.META['HTTP_USER_AGENT'])
 		uuid = request.GET.get('uuid')
+		self.get_lists = DocList.objects.filter(type=DocList.MANAGER)
 		if uuid:
 			self.list = DocList.objects.get(uuid=uuid)
 		else:
-			self.list = DocList.objects.filter(type=DocList.MANAGER).first()
+			self.list = self.get_lists.first()
+		self.count_lists = self.get_lists.values("pk").count()
+
 		return super(MainDocsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -83,7 +86,8 @@ class MainDocsView(ListView, CategoryListMixin):
 
 		context = super(MainDocsView,self).get_context_data(**kwargs)
 		context['list'] = self.list
-		context['get_lists'] = DocList.objects.filter(type=DocList.MANAGER)
+		context['get_lists'] = self.get_lists
+		context['count_lists'] = self.count_lists
 		return context
 
 	def get_queryset(self):

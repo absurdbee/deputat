@@ -293,7 +293,7 @@ class BlogComment(models.Model):
     def get_format_text(self):
         import re
 
-        http = re.findall(r'https?://[\S]+', self.description)
+        http = re.findall(r'https?://[\S]+', self.text)
         _text = self.text
         t1, t2, t3, t4, t5, t6 ,t7 = _text, "", "", "", "", "", ""
         _loop = [t1,t2,t3,t4,t5,t6,t7]
@@ -343,7 +343,7 @@ class ElectNewComment(models.Model):
     def get_format_text(self):
         import re
 
-        http = re.findall(r'https?://[\S]+', self.description)
+        http = re.findall(r'https?://[\S]+', self.text)
         _text = self.text
         t1, t2, t3, t4, t5, t6 ,t7 = _text, "", "", "", "", "", ""
         _loop = [t1,t2,t3,t4,t5,t6,t7]
@@ -873,7 +873,7 @@ class OrganizationComment(models.Model):
     def get_format_text(self):
         import re
 
-        http = re.findall(r'https?://[\S]+', self.description)
+        http = re.findall(r'https?://[\S]+', self.text)
         _text = self.text
         t1, t2, t3, t4, t5, t6 ,t7 = _text, "", "", "", "", "", ""
         _loop = [t1,t2,t3,t4,t5,t6,t7]

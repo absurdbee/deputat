@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="comment_footer" data-pk="{{ reply.pk }}">
-            <span class="card-text">{{ reply.text }}</span><br>
+            <span class="card-text">{{ reply.get_format_text|safe }}</span><br>
             <div class="row no-gutters">
 
               {% if reply.attach %}

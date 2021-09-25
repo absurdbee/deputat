@@ -19,7 +19,7 @@ from django.db.models import Q
 
 for elect in Elect.objects.all():
     count = 0
-    if Elect.objects.filter(name=elect.name).values.count() > 1:
+    if Elect.objects.filter(name=elect.name).values("pk").count() > 1:
         count += 1
         print("---------- Прогон ", count, "-----------")
         for i in Elect.objects.filter(name=elect.name):

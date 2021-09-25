@@ -18,12 +18,9 @@ from django.db.models import Q
 
 
 for elect in Elect.objects.all():
-    elect.vk = ""
-    elect.fb = ""
-    elect.ig = ""
-    elect.tg = ""
-    elect.tw = ""
-    elect.mail = ""
-    elect.phone = ""
-    elect.address = ""
-    elect.save()
+    count = 0
+    if Elect.objects.filter(name=elect.name).values.count() > 1:
+        count += 1
+        print("---------- Прогон ", count, "-----------")
+        for i in Elect.objects.filter(name=elect.name):
+            print("Имя: " , i.name,  " | Возраст: " , i.birthday,  " | Список: " , i.get_first_list())

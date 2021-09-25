@@ -17,9 +17,10 @@ from django.db.models import Q
 
 
 count = 0
+lists =  Q(list__slug="candidate_duma")|Q(list__slug="state_duma")
 for elect in Elect.objects.all():
 
-    if Elect.objects.filter(name=elect.name, list__slug="candidate_municipal").values("pk").count() > 1:
+    if Elect.objects.filter(lists, name=elect.name).values("pk").count() > 1:
         count += 1
         print("---------- Прогон ", count, "-----------")
         for i in Elect.objects.filter(name=elect.name):

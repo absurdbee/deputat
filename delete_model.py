@@ -16,10 +16,10 @@ from lists.models import AuthorityList
 from django.db.models import Q
 
 
-
+count = 0
 for elect in Elect.objects.all():
-    count = 0
-    if Elect.objects.filter(name=elect.name).values("pk").count() > 1:
+
+    if Elect.objects.filter(name=elect.name, list_slug="candidate_duma").values("pk").count() > 1:
         count += 1
         print("---------- Прогон ", count, "-----------")
         for i in Elect.objects.filter(name=elect.name):

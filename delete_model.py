@@ -26,4 +26,4 @@ for elect in Elect.objects.filter(list=candidate_list):
     if elect.old:
         count += 1
         print("прогон ", count)
-        #elect.delete()
+        elect.delete()

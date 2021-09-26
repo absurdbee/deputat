@@ -39,6 +39,7 @@ class Elect(models.Model):
     mail = models.CharField(max_length=100, blank=True, default="", verbose_name='Электронная почта')
     phone = models.CharField(max_length=100, blank=True, default="", verbose_name='Телефон')
     address = models.CharField(max_length=100, blank=True, default="", verbose_name='Адрес (приёмная)')
+    site = models.CharField(max_length=100, blank=True, default="", verbose_name='Сайт')
 
     view = models.PositiveIntegerField(default=0, verbose_name="Кол-во просмотров")
     like = models.PositiveIntegerField(default=0, verbose_name="Кол-во лайков")
@@ -47,7 +48,6 @@ class Elect(models.Model):
     repost = models.PositiveIntegerField(default=0, verbose_name="Кол-во репостов")
 
     old = models.BooleanField(default=False, verbose_name="Старый депутат")
-    #is_new = models.BooleanField(default=False, verbose_name="Старый депутат")
 
     class Meta:
         verbose_name = "Чиновник"

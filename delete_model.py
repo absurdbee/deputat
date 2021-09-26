@@ -21,5 +21,5 @@ candidate_list = AuthorityList.objects.get(slug="candidate_duma")
 
 lists = Q(list__slug="candidate_duma")|Q(list__slug="state_duma")
 
-for elect in Elect.objects.filter(list_slug="state_duma"):
+for elect in Elect.objects.filter(list__slug="state_duma"):
     print(elect, " | ", _elect.get_lists())

@@ -25,3 +25,5 @@ for elect in Elect.objects.all():
         print("---------- Прогон ", count, "-----------")
         for i in Elect.objects.filter(name=elect.name):
             print("Имя: " , i.name,  " | Возраст: " , i.birthday,  " | Список: " , i.get_first_list())
+        elects = Elect.objects.filter(lists, name=elect.name)
+        

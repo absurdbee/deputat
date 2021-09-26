@@ -22,8 +22,9 @@ candidate_list = AuthorityList.objects.get(slug="candidate_duma")
 
 lists = Q(list__slug="candidate_duma")|Q(list__slug="state_duma")
 
-for elect in Elect.objects.filter(list=deputat_list):
+for elect in Elect.objects.filter(list=candidate_list):
     if elect.list.all().count() > 1:
         count += 1
         print("прогон ", count)
-        print(elect, " Старый")
+        elect.old = False
+        elect.save(update_fields=["old"])

@@ -21,11 +21,11 @@
                                 <img src="{{ object.get_image }}" class="rounded img-fluid img_elect_page small_elect_img" style="width: 120px;" alt="Card image">
                             </div>
                             <div class="profile-title ml-2">
-                                <h1 class="text-white">{{ object.name }}</h1>{{ object.old }}
+                                <h1 class="text-white">{{ object.name }}</h1>
                                 {% for list in object.get_lists %}
                                 <a class="ajax text-white" href="{% url 'authority_index' slug=list.slug %}">
                                   {{ list.name }}
-                                </a>
+                                </a>  
                                 {% endfor %}
                             </div>
                         </div>

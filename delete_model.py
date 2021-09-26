@@ -29,8 +29,12 @@ for elect in Elect.objects.all():
 
         #берем обе копии депутата - одна в госдуме, вторая - новый кандидат
         elects = Elect.objects.filter(lists, name=elect.name)
-        current_elect = elects.objects.get(list=deputat_list)
-        delete_elect = elects.objects.get(list=candidate_list)
+        if elects[0].get_first_list() == deputat_list:
+            current_elect = elects[0]
+            delete_elect = elects[1]
+        else:
+            current_elect = elects[1]
+            delete_elect = elects[0]
 
         # депутату из думы присваиваем новый список, ведь он теперь и депутат
         current_elect.list.add(candidate_list)

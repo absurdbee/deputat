@@ -16,6 +16,7 @@ from blog.models import ElectNew
 from lists.models import AuthorityList
 from django.db.models import Q
 
+count = 0
 deputat_list = AuthorityList.objects.get(slug="state_duma")
 candidate_list = AuthorityList.objects.get(slug="candidate_duma")
 
@@ -23,4 +24,6 @@ lists = Q(list__slug="candidate_duma")|Q(list__slug="state_duma")
 
 for elect in Elect.objects.filter(list__slug="state_duma"):
     if elect.list.all().count() > 1:
+        count += 1
+        print("Прогон ", count)
         print(elect, " | ", elect.get_lists())

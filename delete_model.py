@@ -26,4 +26,4 @@ for elect in Elect.objects.filter(list=deputat_list):
     if elect.list.all().count() > 1:
         count += 1
         print("прогон ", count)
-        #print(elect, " Старый")
+        print(elect, " Старый")

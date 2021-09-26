@@ -207,6 +207,9 @@ class Elect(models.Model):
         except:
             return ""
 
+    def get_lists(self):
+        return self.list.all()
+
     def get_regions(self):
         regions = self.region.all()
         return regions

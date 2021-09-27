@@ -652,17 +652,6 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   font-weight : 500;
 }
 
-.btn[class*='bg-gradient-'] {
-  -webkit-transition : all 0.2s ease;
-          transition : all 0.2s ease;
-}
-
-.btn[class*='bg-gradient-']:hover {
-  -webkit-transform : translateY(-2px);
-      -ms-transform : translateY(-2px);
-          transform : translateY(-2px);
-}
-
 .btn.btn-icon {
   padding : 0.715rem 0.736rem;
 }

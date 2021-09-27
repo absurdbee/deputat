@@ -679,14 +679,6 @@ body.dark-layout {
   background-image : url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23b4b7bd\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' class=\'feather feather-chevron-down\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'%3E%3C/polyline%3E%3C/svg%3E');
 }
 
-.dark-layout .was-validated .form-control:invalid, .dark-layout .form-control.is-invalid {
-  border-color : #EA5455 !important;
-}
-
-.dark-layout .was-validated .form-control:valid, .dark-layout .form-control.is-valid {
-  border-color : #28C76F !important;
-}
-
 .dark-layout .wizard .steps ul .disabled a, .dark-layout .wizard .steps ul .done a {
   color : #B4B7BD !important;
 }
@@ -816,52 +808,6 @@ body.dark-layout {
 
 .dark-layout .table.table-striped tbody tr:nth-of-type(odd) {
   background-color : #242B3D;
-}
-
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-copy, .dark-layout .dataTables_wrapper .dt-buttons .buttons-excel, .dark-layout .dataTables_wrapper .dt-buttons .buttons-pdf, .dark-layout .dataTables_wrapper .dt-buttons .buttons-print, .dark-layout .dataTables_wrapper .dt-buttons .btn-secondary, .dark-layout .dataTables_wrapper .dt-buttons [class*='buttons-'] {
-  background-color : #161D31 !important;
-}
-
-.dark-layout .dataTables_wrapper .dt-buttons .buttons-copy:active, .dark-layout .dataTables_wrapper .dt-buttons .buttons-excel:active, .dark-layout .dataTables_wrapper .dt-buttons .buttons-pdf:active, .dark-layout .dataTables_wrapper .dt-buttons .buttons-print:active, .dark-layout .dataTables_wrapper .dt-buttons .btn-secondary:active, .dark-layout .dataTables_wrapper .dt-buttons [class*='buttons-']:active {
-  background-color : #3176c1 !important;
-  color : #FFFFFF;
-}
-
-.dark-layout .dataTables_wrapper .dt-button-collection > div[role='menu'] {
-  box-shadow : 0 4px 24px 0 rgba(34, 41, 47, 0.24);
-}
-
-.dark-layout .dataTables_wrapper .table.dataTable tr.group td {
-  background-color : #242B3D;
-  color : #D0D2D6;
-}
-
-.dark-layout .dataTables_wrapper .table.dataTable thead .sorting:before, .dark-layout .dataTables_wrapper .table.dataTable thead .sorting_asc:before, .dark-layout .dataTables_wrapper .table.dataTable thead .sorting_desc:before {
-  background-image : url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23b4b7bd\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' class=\'feather feather-chevron-up\'%3E%3Cpolyline points=\'18 15 12 9 6 15\'%3E%3C/polyline%3E%3C/svg%3E');
-}
-
-.dark-layout .dataTables_wrapper .table.dataTable thead .sorting:after, .dark-layout .dataTables_wrapper .table.dataTable thead .sorting_asc:after, .dark-layout .dataTables_wrapper .table.dataTable thead .sorting_desc:after {
-  background-image : url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23b4b7bd\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' class=\'feather feather-chevron-down\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'%3E%3C/polyline%3E%3C/svg%3E');
-}
-
-.dark-layout .dataTables_wrapper .table.dataTable thead .sorting:before, .dark-layout .dataTables_wrapper .table.dataTable thead .sorting:after {
-  opacity : 0.5;
-}
-
-.dark-layout .dataTables_wrapper .table.dataTable thead .sorting_asc:before {
-  opacity : 1;
-}
-
-.dark-layout .dataTables_wrapper .table.dataTable thead .sorting_asc:after {
-  opacity : 0.5;
-}
-
-.dark-layout .dataTables_wrapper .table.dataTable thead .sorting_desc:after {
-  opacity : 1;
-}
-
-.dark-layout .dataTables_wrapper .table.dataTable thead .sorting_desc:before {
-  opacity : 0.5;
 }
 
 .dark-layout .ag-grid-btns .filter-btn {
@@ -1403,23 +1349,6 @@ body.dark-layout {
 
 .dark-layout .app-calendar .fc .fc-list .fc-list-event td, .dark-layout .app-calendar .fc th .fc-list-event td {
   border-color : #3B4253;
-}
-
-.dark-layout .invoice-list-wrapper .dataTables_wrapper .invoice-list-dataTable-header {
-  background-color : #283046;
-  border-color : #3B4253;
-}
-
-.dark-layout .invoice-list-wrapper .dataTables_wrapper .invoice-data-table {
-  background-color : #283046;
-}
-
-.dark-layout .invoice-list-wrapper .dataTables_wrapper .invoice-data-table tbody .selected-row-bg {
-  background-color : #3B4253;
-}
-
-.dark-layout .invoice-list-wrapper .dataTables_wrapper .invoice-data-table td {
-  background-color : inherit;
 }
 
 .dark-layout .invoice-edit .invoice-preview-card .invoice-product-details, .dark-layout .invoice-add .invoice-preview-card .invoice-product-details {

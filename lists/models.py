@@ -1,14 +1,19 @@
 from django.db import models
 from django.db.models import Q
 
-"""
-	Группируем все таблицы списков здесь:
-	1. Списки депутатов,
-	2. категории новостей о депутатах,
-	3. Категории блога,
-	4. Регионы России (для закрепления за ними депутатов),
-	5. Фракции (для депутатов гос. думы)
-"""
+
+class AuthorityListCategory(models.Model):
+	name = models.CharField(max_length=100,verbose_name="Название категории блога")
+	order = models.PositiveSmallIntegerField(default=0,verbose_name="Порядковый номер")
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		ordering = ["order", "name"]
+		verbose_name = "Категория органа власти"
+		verbose_name_plural = "Категории органов власти"
+
 
 class AuthorityList(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Список депутатов")
@@ -17,7 +22,7 @@ class AuthorityList(models.Model):
 	is_reginal = models.BooleanField(default=True, verbose_name="Региональный список")
 	is_in_left_menu = models.BooleanField(default=False, verbose_name="Выводится в левом меню")
 	is_active = models.BooleanField(default=False, verbose_name="Действующий список")
-	year = models.PositiveSmallIntegerField(default=0, verbose_name="Год четырехзначный")
+	category = models.ForeignKey(AuthorityListCategory, on_delete=models.CASCADE, related_name="+", blank=True, null=True, verbose_name="Категория органа власти")
 
 	def __str__(self):
 		return self.name

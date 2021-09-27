@@ -3,7 +3,7 @@ from lists.models import *
 
 
 class AuthorityListAdmin(admin.ModelAdmin):
-    list_display = ['name','slug','order']
+    list_display = ['name','slug','category','order']
     search_fields = ('name',)
     class Meta:
         model = AuthorityList

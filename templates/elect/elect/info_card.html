@@ -60,6 +60,16 @@
             </a>
         </div>
         {% endif %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Полит. карьера:</h5>
+            <p class="card-text">
+              {% for list in object.get_lists %}
+              <a class="ajax text-white" href="{% url 'authority_index' slug=list.slug %}">
+                {{ list.name }}
+              </a><br>
+              {% endfor %}
+            </p>
+        </div>
         {% if object.election_information %}
         <div class="mt-2">
             <h5 class="mb-75" style="font-weight: bold;">Сведения об избрании:</h5>

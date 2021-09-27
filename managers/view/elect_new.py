@@ -390,8 +390,11 @@ class CreateManagerElect(TemplateView):
 
     def get_context_data(self,**kwargs):
         from elect.forms import ElectForm
+        from lists.models import AuthorityList
+
         context=super(CreateManagerElect,self).get_context_data(**kwargs)
         context["form"] = ElectForm()
+        context["lists"] = AuthorityList.objects.all()
         return context
 
     def post(self,request,*args,**kwargs):
@@ -418,10 +421,12 @@ class EditManagerElect(TemplateView):
 
     def get_context_data(self,**kwargs):
         from elect.forms import ElectForm
+        from lists.models import AuthorityList
 
         context=super(EditManagerElect,self).get_context_data(**kwargs)
         context["form"] = ElectForm(instance=self.elect)
         context["elect"] = self.elect
+        context["lists"] = AuthorityList.objects.all()
         return context
 
     def post(self,request,*args,**kwargs):

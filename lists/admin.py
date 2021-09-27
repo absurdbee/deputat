@@ -1,5 +1,5 @@
 from django.contrib import admin
-from lists.models import AuthorityList, ElectNewsCategory, BlogCategory, Fraction
+from lists.models import *
 
 
 class AuthorityListAdmin(admin.ModelAdmin):
@@ -29,4 +29,5 @@ class FractionAdmin(admin.ModelAdmin):
 admin.site.register(AuthorityList, AuthorityListAdmin)
 admin.site.register(BlogCategory, BlogCategoryAdmin)
 admin.site.register(ElectNewsCategory)
+admin.site.register(AuthorityListCategory)
 admin.site.register(Fraction, FractionAdmin)

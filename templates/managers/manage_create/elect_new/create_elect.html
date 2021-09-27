@@ -36,7 +36,8 @@
               {{ form.list }}
               <select name="list" id="id_list" multiple="">
                 {% for list in lists %}
-                <option value="{{ list.pk }}">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</option>
+                  <option value="{{ list.pk }}">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</option>
+                {% endfor %}
               </select>
             </div>
             <div class="form-group">

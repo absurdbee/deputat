@@ -17,7 +17,7 @@
         </div>
         <span class="text-success">
           <a class="ajax text-success" href="{% url 'authority_index' slug=object.get_first_list.slug %}">
-            {{ object.get_first_list }}
+            {% if object.get_first_list.category %}{{ object.get_first_list.category.name }} {% endif %} {{ object.get_first_list }}
           </a>
         </span>
         <span class="delivery-date" style="margin-top: 1.2rem;margin-bottom: 0.25rem;">

@@ -33,7 +33,6 @@
             <div class="form-group">
               <label>Орган власти</label>
               <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
-              {{ form.list }}
               <select name="list" id="id_list" multiple="">
                 {% for list in lists %}
                   <option value="{{ list.pk }}">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</option>

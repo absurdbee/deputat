@@ -65,7 +65,7 @@
             <p class="card-text">
               {% for list in object.get_lists %}
               <a class="ajax" href="{% url 'authority_index' slug=list.slug %}">
-                {{ list.name }}
+                {% if list.category %}{{ list.category.name }} {% endif %} {{ list.name }}
               </a><br>
               {% endfor %}
             </p>

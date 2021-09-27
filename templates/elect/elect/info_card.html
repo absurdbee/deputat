@@ -64,7 +64,7 @@
             <h5 class="mb-75" style="font-weight: bold;">Полит. карьера:</h5>
             <p class="card-text">
               {% for list in object.get_lists %}
-              <a class="ajax text-white" href="{% url 'authority_index' slug=list.slug %}">
+              <a class="ajax" href="{% url 'authority_index' slug=list.slug %}">
                 {{ list.name }}
               </a><br>
               {% endfor %}

@@ -23,7 +23,7 @@
                             <div class="profile-title ml-2">
                               <h1 class="text-white">{{ object.name }}</h1>
                               <a class="ajax text-white" href="{% url 'authority_index' slug=object.get_first_list.slug %}">
-                                {{ object.get_first_list }}
+                                {% if object.get_first_list.category %}{{ object.get_first_list.category.name }} {% endif %}{{ object.get_first_list }}
                               </a>
                             </div>
                         </div>

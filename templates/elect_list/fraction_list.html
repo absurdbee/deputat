@@ -12,7 +12,7 @@
           В списке почему-то никого нет.
         {% endfor %}
         {% if page_obj.has_next %}
-        <div class="load centered m-1 next_page_list" data-link="{% url 'fraction_index' slug=fraction.slug %}?page={{ page_obj.next_page_number }}">
+        <div class="load centered m-1 next_page_list" data-link="{% url 'fraction_index' slug=list.slug %}?page={{ page_obj.next_page_number }}">
             <img src="/static/images/loading.gif">
         </div>
         {% endif %}

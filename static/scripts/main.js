@@ -307,12 +307,7 @@ on('body', 'click', '.ajax', function(event) {
   if (url != window.location.pathname){
     ajax_get_reload(url)
   } else {
-		if (window.location.pathname == "/") {
-			clear_left_search();
-			ajax_get_reload(url)
-		} else {
-			toast_info("Вы уже на этой странице")
-		}
+		toast_info("Вы уже на этой странице")
 	};
 })
 
@@ -475,7 +470,7 @@ on('body', 'click', '.get_user_notify_box', function() {
 			link.onreadystatechange = function () {
 			 if ( this.readyState == 4 && this.status == 200 ) {
 				 console.log("Уведы прочитаны!")
-			 }}; 
+			 }};
 			 link.send();
 
 		}

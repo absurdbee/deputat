@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Депутаты | {{ list.name }}{% endblock %}
+{% block title %}Депутаты | {% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}{% endblock %}
 {% load filters %}
 {% block content %}
 
@@ -8,7 +8,7 @@
     <div class="content-header-left col-md-9 col-12 mb-2">
       <div class="row breadcrumbs-top">
         <div class="col-12">
-          <h1 class="content-header-title float-left mb-0">{{ list.name }}</h1>
+          <h1 class="content-header-title float-left mb-0">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</h1>
         </div>
         <div class="breadcrumb-wrapper">
           <ol class="breadcrumb">

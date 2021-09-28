@@ -83,6 +83,15 @@
         </div>
         {% endif %}
 
+        {% if object.site %}
+        <div class="mt-2">
+            <h5 class="mb-75" style="font-weight: bold;">Сайт:</h5>
+            <p class="card-text">
+              {{ object.site }}
+            </p>
+        </div>
+        {% endif %}
+
         {% if object.vk %}
         <div class="mt-2">
             <h5 class="mb-75" style="font-weight: bold;">Ссылка на VK:</h5>

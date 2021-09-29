@@ -542,10 +542,6 @@ html .pace .pace-progress {
   top : 1px;
 }
 
-.main-menu.menu-light .navigation > li > ul li.has-sub > a {
-  margin : 0 15px;
-}
-
 .main-menu.menu-light .navigation > li > ul li.has-sub > ul > li {
   margin : 0 15px;
 }

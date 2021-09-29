@@ -14,6 +14,9 @@ class AuthorityListCategory(models.Model):
 		verbose_name = "Категория органа власти"
 		verbose_name_plural = "Категории органов власти"
 
+	def get_lists(self):
+		return AuthorityList.objects.filter(category=self)
+
 
 class AuthorityList(models.Model):
 	name = models.CharField(max_length=100, verbose_name="Список депутатов")

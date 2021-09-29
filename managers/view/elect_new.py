@@ -394,7 +394,7 @@ class CreateManagerElect(TemplateView):
 
         context=super(CreateManagerElect,self).get_context_data(**kwargs)
         context["form"] = ElectForm()
-        context["lists"] = AuthorityList.objects.all()
+        context["lists"] = AuthorityList.objects.filter(is_active=True)
         return context
 
     def post(self,request,*args,**kwargs):
@@ -426,7 +426,7 @@ class EditManagerElect(TemplateView):
         context=super(EditManagerElect,self).get_context_data(**kwargs)
         context["form"] = ElectForm(instance=self.elect)
         context["elect"] = self.elect
-        context["lists"] = AuthorityList.objects.all()
+        context["lists"] = AuthorityList.objects.filter(is_active=True)
         return context
 
     def post(self,request,*args,**kwargs):

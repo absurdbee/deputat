@@ -597,10 +597,6 @@ html .pace .pace-progress {
   font-size: 85%;
 }
 
-.main-menu.menu-light .navigation > li ul li ul a {
-  padding : 10px 15px 10px 53px;
-}
-
 .main-menu.menu-light .navigation > li ul .has-sub:not(.open) > ul {
   display : none;
 }

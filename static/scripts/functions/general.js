@@ -57,6 +57,8 @@ function create_fullscreen(url, type_class) {
           $parent_div.style.opacity = "1";
 
           get_document_opacity_0();
+          init_music($loader);
+
           if ($loader.querySelector(".next_page_list")) {
             $loader.onscroll = function() {
               box = $loader.querySelector('.next_page_list');
@@ -135,6 +137,7 @@ function create_elect_fullscreen(url, name) {
           };
           $parent_div.style.opacity = "1";
           get_document_opacity_0();
+
           if (name) {
             elect_box = $loader.querySelector(".elect_block");
             content = document.body.querySelector(".content-body");
@@ -178,6 +181,7 @@ function change_this_fullscreen(_this, type_class) {
             $loader.style.overflowY = "auto";
           };
           $parent_div.style.opacity = "1";
+          init_music($loader);
       }
   };
   link.send();
@@ -1138,7 +1142,6 @@ function ajax_get_reload(url) {
         window.scrollTo(0,0);
         window.history.pushState("", document.title, url);
         document.title = elem_.querySelector('title').innerHTML;
-        clear_left_search();
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();

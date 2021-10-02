@@ -323,7 +323,7 @@ class Music(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
     uri = models.CharField(max_length=255, blank=True, null=True)
     list = models.ManyToManyField(SoundList, related_name='playlist', blank=True)
-    media_list = ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='media_list', null=True, blank=True, verbose_name="Медиа-список")
+    media_list = models.ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='media_list', null=True, blank=True, verbose_name="Медиа-список")
     type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
     community = models.ForeignKey('communities.Community', related_name='track_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")

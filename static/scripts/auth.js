@@ -27,16 +27,7 @@ function ajax_get_reload(url) {
         create_pagination(rtr);
         init_music(rtr);
         mobile_menu_close();
-				clear_left_search();
-				if (document.body.querySelector(".toggle_fixed_block")) {
-			    document.body.querySelector(".toggle_fixed_block").style.clipPath = "none";
-			  }
-			  if (document.body.querySelector(".header-navbar")){
-			    document.body.querySelector(".header-navbar").style.clipPath = "none";
-			  };
-			  if (document.body.querySelector(".main-menu-content")){
-			    document.body.querySelector(".main-menu-content").style.clipPath = "none";
-			  }
+				get_document_opacity_1(rtr);
       }
     }
     ajax_link.send();

@@ -137,46 +137,39 @@ class MediaList(models.Model):
 		get_media_list_processing(list, MediaList.LIST)
 		return list
 
-    def edit_list(self, name, description, order):
-        from common.processing import get_media_list_processing
+	def edit_list(self, name, description, order):
+		from common.processing import get_media_list_processing
 
-        if not order:
-            order = 1
-        self.name = name
-        self.description = description
-        self.order = order
-        self.save()
-        get_media_list_processing(self, MediaList.LIST)
-        return self
+		if not order:
+			order = 1
+		self.name = name
+		self.description = description
+		self.order = order
+		self.save()
+		get_media_list_processing(self, MediaList.LIST)
+		return self
 
-    def is_item_in_list(self, item_id):
-        return self.media_list.filter(type="PUB").exists()
+	def is_item_in_list(self, item_id):
+		return self.media_list.filter(type="PUB").exists()
 
-    def is_not_empty(self):
-        return self.media_list.filter(type="PUB").values("pk").exists()
+	def is_not_empty(self):
+		return self.media_list.filter(type="PUB").values("pk").exists()
 
-    def get_items(self):
-        return self.media_list.filter(type="PUB")
+	def get_items(self):
+		return self.media_list.filter(type="PUB")
 
-    def count_items(self):
-        return self.media_list.filter(Q(type="PUB")|Q(type="PRI")).values("pk").count()
+	def count_items(self):
+		return self.media_list.filter(Q(type="PUB")|Q(type="PRI")).values("pk").count()
 
 	def is_deleted(self):
-        return self.type == "_DEL"
+		return self.type == "_DEL"
 
 	def delete_list(self):
-        from notify.models import Notify, Wall
-        self.type = MediaList.DELETED
-        self.save(update_fields=['type'])
-        if Notify.objects.filter(type="MEL", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="MEL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="MEL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MEL", object_id=self.pk, verb="ITE").update(status="C")
-    def abort_delete_list(self):
-        from notify.models import Notify, Wall
-        self.type = MediaList.LIST
-        self.save(update_fields=['type'])
-        if Notify.objects.filter(type="MEL", object_id=self.pk, verb="ITE").exists():
-            Notify.objects.filter(type="MEL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="MEL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MEL", object_id=self.pk, verb="ITE").update(status="R")
+		from notify.models import Notify, Wall
+		self.type = MediaList.DELETED
+		self.save(update_fields=['type'])
+
+	def abort_delete_list(self):
+		from notify.models import Notify, Wall
+		self.type = MediaList.LIST
+		self.save(update_fields=['type'])

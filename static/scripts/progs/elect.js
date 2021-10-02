@@ -14,7 +14,7 @@ on('body', 'click', '.elect_new_window', function() {
 on('body', 'click', '.elect_new_window_comment', function() {
   loader = document.body.querySelector("#window_loader");
   document.body.querySelector(".notify_dropdown") ? document.body.querySelector(".notify_dropdown").classList.remove("show") : null;
-  open_scroll_fullscreen("/elect/new_window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+  create_fullscreen("/elect/new_window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "window_fullscreen")
 });
 
 on('body', 'click', '.elect_like', function() {

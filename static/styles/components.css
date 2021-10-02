@@ -411,7 +411,7 @@ html .pace .pace-progress {
   overflow : scroll;
 }
 
-.sidenav-overlay {
+.sidenav-overlay, .body_overlay {
   position : fixed;
   top : 0;
   left : 0;

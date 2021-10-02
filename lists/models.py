@@ -102,3 +102,81 @@ class Fraction(models.Model):
 	def get_elects(self):
 		from elect.models import Elect
 		return Elect.objects.filter(fraction=self)
+
+
+class MediaList(models.Model):
+	LIST = 'LIS'
+    DELETED = '_DEL'
+    TYPE = (
+        (MAIN, 'Основной'),
+        (DELETED, 'Удалённый'),
+    )
+
+    name = models.CharField(max_length=255)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_medialist', on_delete=models.CASCADE, verbose_name="Создатель")
+    order = models.PositiveIntegerField(default=1)
+    uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
+    description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
+	type = models.CharField(max_length=4, choices=TYPE, default=LIST, verbose_name="Тип листа")
+
+    def __str__(self):
+        return self.name + " " + self.creator.get_full_name()
+
+    class Meta:
+        verbose_name = "медийный список"
+        verbose_name_plural = "медийные списки"
+        ordering = ['order']
+
+    @classmethod
+    def create_list(cls, creator, name, description, order):
+        from common.processing import get_media_list_processing
+        if not order:
+            order = 1
+
+        list = cls.objects.create(creator=creator,name=name,description=description,order=order)
+        get_media_list_processing(list, MediaList.LIST)
+        return list
+
+    def edit_list(self, name, description, order):
+        from common.processing import get_media_list_processing
+
+        if not order:
+            order = 1
+        self.name = name
+        self.description = description
+        self.order = order
+        self.save()
+        get_media_list_processing(self, MediaList.LIST)
+        return self
+
+    def is_item_in_list(self, item_id):
+        return self.media_list.filter(type="PUB").exists()
+
+    def is_not_empty(self):
+        return self.media_list.filter(type="PUB").values("pk").exists()
+
+    def get_items(self):
+        return self.media_list.filter(type="PUB")
+
+    def count_items(self):
+        return self.media_list.filter(Q(type="PUB")|Q(type="PRI")).values("pk").count()
+
+	def is_deleted(self):
+        return self.type == "_DEL"
+
+	def delete_list(self):
+        from notify.models import Notify, Wall
+        self.type = MediaList.DELETED
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="MEL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MEL", object_id=self.pk, verb="ITE").update(status="C")
+        if Wall.objects.filter(type="MEL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MEL", object_id=self.pk, verb="ITE").update(status="C")
+    def abort_delete_list(self):
+        from notify.models import Notify, Wall
+        self.type = MediaList.LIST
+        self.save(update_fields=['type'])
+        if Notify.objects.filter(type="MEL", object_id=self.pk, verb="ITE").exists():
+            Notify.objects.filter(type="MEL", object_id=self.pk, verb="ITE").update(status="R")
+        if Wall.objects.filter(type="MEL", object_id=self.pk, verb="ITE").exists():
+            Wall.objects.filter(type="MEL", object_id=self.pk, verb="ITE").update(status="R")

@@ -24,7 +24,7 @@ function post_elect_new(_this, url, toast) {
   link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
-    close_default_window();
+    close_fullscreen();
     toast_info(toast);
     try {document.body.querySelector(".changed").remove()} catch { null }
   }};
@@ -93,7 +93,7 @@ on('body', 'click', '#manager_create_doc_btn', function() {
     response.innerHTML = elem;
     get_preview(response, "doc");
     toast_info("Документ создан!")
-    close_create_window();
+    close_fullscreen();
   }};
 
   link_.send(form_data);
@@ -144,7 +144,7 @@ on('body', 'click', '#u_edit_doc_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Документ изменен!")
-    close_create_window();
+    close_fullscreen();
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;
@@ -266,7 +266,7 @@ on('body', 'click', '#create_blog_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Новость создана!")
-    close_default_window()
+    close_fullscreen()
   } else { _this.disabled = false }};
 
   link_.send(form_data);
@@ -296,7 +296,7 @@ on('body', 'click', '#create_elect_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Чиновник создан!")
-    close_default_window()
+    close_fullscreen()
   } else { _this.disabled = false }};
 
   link_.send(form_data);
@@ -326,7 +326,7 @@ on('body', 'click', '#edit_elect_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Чиновник изменён!")
-    close_default_window()
+    close_fullscreen()
   } else { _this.disabled = false }};
 
   link_.send(form_data);
@@ -356,8 +356,8 @@ on('body', 'click', '#edit_blog_btn', function() {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    toast_info("Новость изменена!")
-    close_default_window()
+    toast_info("Новость изменена!");
+    close_fullscreen()
   }};
 
   link_.send(form_data);

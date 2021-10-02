@@ -66,7 +66,7 @@ on('#ajax', 'click', '#u_edit_password_btn', function() {
     toast_error("Пароли не совпадают!"); return
   };
   send_form_and_toast('/rest-auth/password/change/', form, "Пароль изменён!")
-  close_create_window();
+  close_fullscreen();
 });
 
 on('body', 'click', '#edit_user_about_btn', function() {
@@ -215,7 +215,7 @@ on('body', 'click', '#change_code_send', function() {
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-          close_create_window();
+          close_fullscreen();
           toast_info("Телефон изменён")
         }
     };
@@ -255,7 +255,7 @@ on('body', 'click', '#u_deputat_send_btn', function() {
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-          close_create_window();
+          close_fullscreen();
           toast_info("Заявка отправлена!")
         }
     };
@@ -273,7 +273,7 @@ on('body', 'click', '#u_secret_key_btn', function() {
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-          close_create_window();
+          close_fullscreen();
           toast_info("Секретное выражение установлено!")
         }
     };

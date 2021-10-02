@@ -4807,7 +4807,7 @@ input[type='submit'].btn-block, input[type='reset'].btn-block, input[type='butto
   color : #FFFFFF;
 }
 
-.card {
+.card, .card_fullscreen {
   position : relative;
   display : -webkit-box;
   display : -webkit-flex;

@@ -315,11 +315,11 @@ on('body', 'click', '.photo_load_one', function() {
   uuid = _this.parentElement.getAttribute('list-uuid');
   src = _this.parentElement.getAttribute("data-href");
   if (document.body.querySelector(".current_file_dropdown")){
-    check_photo_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, photo_pk) ? null : (photo_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, photo_pk, uuid, src), close_create_window())
+    check_photo_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, photo_pk) ? null : (photo_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, photo_pk, uuid, src), close_fullscreen())
   } else if (document.body.querySelector(".attach_block")){
-    check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, uuid, src), close_create_window())
+    check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, uuid, src), close_fullscreen())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, uuid, src), close_create_window())
+    check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, uuid, src), close_fullscreen())
   }
 });
 
@@ -367,11 +367,11 @@ on('body', 'click', '.doc_attach_list', function() {
   pk = _this.getAttribute('data-pk');
   count = _this.parentElement.querySelector(".count").innerHTML;
   if (document.body.querySelector(".current_file_dropdown")){
-    check_doc_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_create_window())
+    check_doc_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (doc_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_fullscreen())
   } else if (document.body.querySelector(".attach_block")){
-    check_doc_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_list_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
+    check_doc_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (doc_list_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_fullscreen())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_doc_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_list_message_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
+    check_doc_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (doc_list_message_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_fullscreen())
   }
 });
 on('body', 'click', '.video_attach_list', function() {
@@ -380,11 +380,11 @@ on('body', 'click', '.video_attach_list', function() {
   pk = _this.getAttribute('data-pk');
   count = _this.parentElement.querySelector(".count").innerHTML;
   if (document.body.querySelector(".current_file_dropdown")){
-    check_video_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_create_window())
+    check_video_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_fullscreen())
   } else if (document.body.querySelector(".attach_block")){
-    check_video_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_list_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
+    check_video_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_list_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_fullscreen())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_video_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_list_message_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
+    check_video_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_list_message_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_fullscreen())
   }
 });
 on('body', 'click', '.music_attach_list', function() {
@@ -393,11 +393,11 @@ on('body', 'click', '.music_attach_list', function() {
   pk = _this.getAttribute('data-pk');
   count = _this.parentElement.querySelector(".count").innerHTML;
   if (document.body.querySelector(".current_file_dropdown")){
-    check_playlist_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_create_window())
+    check_playlist_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (playlist_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, name, pk, count), close_fullscreen())
   } else if (document.body.querySelector(".attach_block")){
-    check_playlist_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (playlist_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_create_window())
+    check_playlist_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (playlist_post_attach(document.body.querySelector(".attach_block"), name, pk, count), close_fullscreen())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_playlist_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (playlist_message_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_create_window())
+    check_playlist_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (playlist_message_attach(document.body.querySelector(".message_attach_block"), name, pk, count), close_fullscreen())
   }
 });
 
@@ -407,11 +407,11 @@ on('body', 'click', '.video_load_one', function() {
   uuid = _this.getAttribute('list-pk');
   src = _this.getAttribute('src');
   if (document.body.querySelector(".current_file_dropdown")){
-    check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src), close_create_window())
+    check_video_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (video_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, pk, uuid, src), close_fullscreen())
   } else if (document.body.querySelector(".attach_block")){
-    check_video_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_post_attach(document.body.querySelector(".attach_block"), pk, uuid, src), close_create_window())
+    check_video_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (video_post_attach(document.body.querySelector(".attach_block"), pk, uuid, src), close_fullscreen())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, uuid, src), close_create_window())
+    check_video_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (video_message_attach(document.body.querySelector(".message_attach_block"), pk, uuid, src), close_fullscreen())
   }
 });
 on('body', 'click', '.video_load_several', function() {
@@ -436,10 +436,10 @@ on('body', 'click', '.photo_attach_list', function() {
   pk = _this.getAttribute('data-pk');
   count = _this.parentElement.querySelector(".count").innerHTML;
   if (document.body.querySelector(".current_file_dropdown")){
-    check_photo_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_create_window())
+    check_photo_list_in_block(document.body.querySelector(".current_file_dropdown").parentElement.parentElement.parentElement.previousElementSibling, _this, pk) ? null : (photo_list_comment_attach(document.body.querySelector(".current_file_dropdown").parentElement.parentElement, src, title, pk, count), close_fullscreen())
   } else if (document.body.querySelector(".attach_block")){
-    check_photo_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (photo_list_post_attach(document.body.querySelector(".attach_block"), src, title, pk, count), close_create_window())
+    check_photo_list_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (photo_list_post_attach(document.body.querySelector(".attach_block"), src, title, pk, count), close_fullscreen())
   } else if (document.body.querySelector(".message_attach_block")){
-    check_photo_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (photo_list_message_attach(document.body.querySelector(".message_attach_block"), src, title, pk, count), close_create_window())
+    check_photo_list_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (photo_list_message_attach(document.body.querySelector(".message_attach_block"), src, title, pk, count), close_fullscreen())
   }
 });

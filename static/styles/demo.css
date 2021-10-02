@@ -1,6 +1,13 @@
 #id_tags {
   height: 170px
 }
+#fullscreen_loader {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  top: 10px;
+  bottom: 0;
+}
 
 .elect_search_input {
   height: 1.5rem;

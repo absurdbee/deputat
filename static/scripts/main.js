@@ -118,33 +118,6 @@ on('body', 'click', '.base_row_container', function() {
 })
 on('body', 'click', '.stop_propagation_block', function(e) {
 	e.stopPropagation()
-})
-
-function close_create_window() {
-    document.querySelector(".create_fullscreen").style.display = "none";
-    document.getElementById("create_loader").innerHTML = "";
-		get_document_opacity_1()
-}
-function close_default_window() {
-    document.querySelector(".window_fullscreen").style.display = "none";
-    document.getElementById("window_loader").innerHTML = "";
-		get_document_opacity_1()
-}
-function close_worker_window() {
-    document.querySelector(".worker_fullscreen").style.display = "none";
-    document.getElementById("worker_loader").innerHTML = "";
-		get_document_opacity_1()
-}
-function close_photo_window() {
-    document.querySelector(".photo_fullscreen").style.display = "none";
-    document.getElementById("photo_loader").innerHTML = "";
-		get_document_opacity_1()
-}
-on('body', 'click', '.create_fullscreen_hide_2', function() {
-  this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";
-  this.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
-	get_document_opacity_1()
-
 });
 on('body', 'click', '.window_fullscreen_hide_2', function() {
   this.parentElement.parentElement.parentElement.parentElement.parentElement.style.display = "none";

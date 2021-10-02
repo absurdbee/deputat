@@ -1,7 +1,139 @@
-var ready = (callback) => {
-  if (document.readyState != "loading") callback();
-  else document.addEventListener("DOMContentLoaded", callback);
+on('body', 'click', '.body_overlay', function() {
+  container = document.body.querySelector("#fullscreens_container");
+  if (container.innerHTML) {
+    container.querySelector(".card_fullscreen").remove();
+  };
+  if (!container.innerHTML) {get_document_opacity_1(document.body);}
+});
+
+function create_fullscreen(url, type_class) {
+  container = document.body.querySelector("#fullscreens_container");
+  try {count_items = container.querySelectorAll(".card").length} catch {count_items = 0};
+
+  $parent_div = document.createElement("div");
+  $parent_div.classList.add("card_fullscreen", "mb-3", "border", type_class);
+  $parent_div.style.zIndex = 100 + count_items;
+  $parent_div.style.opacity = "0";
+
+  if (document.body.querySelector(".desctop_nav")) {
+    hide_svg = '<svg class="svg_default" style="position:fixed;" width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'
+  } else { hide_svg = "" };
+  $hide_span = document.createElement("span");
+  $hide_span.classList.add("this_fullscreen_hide");
+  $loader = document.createElement("div");
+
+  $loader.setAttribute("id", "fullscreen_loader");
+  $hide_span.innerHTML = hide_svg;
+  $parent_div.append($hide_span);
+  $parent_div.append($loader);
+  $parent_div.append(create_gif_loading ());
+  container.prepend($parent_div);
+
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  link.open('GET', url, true);
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          $load_div.remove();
+          elem = link.responseText;
+
+          $loader.innerHTML = elem;
+          height = $loader.scrollHeight*1 + 30;
+          if (height < 500 && !$loader.querySelector(".data_display")) {
+            $parent_div.style.height = height + "px";
+            $loader.style.overflowY = "unset";
+
+            _height = (window.innerHeight - height - 50) / 2;
+            $parent_div.style.top = _height + "px";
+            prev_next_height = _height*1 + 50 + "px";
+            try {$loader.querySelector(".prev_item").style.top = "-" + prev_next_height}catch {null};
+            try {$loader.querySelector(".next_item").style.top = "-" + prev_next_height}catch {null}
+          } else {
+            $parent_div.style.height = "100%";
+            $parent_div.style.top = "15px";
+            $loader.style.overflowY = "auto";
+          };
+          $parent_div.style.opacity = "1";
+
+          get_document_opacity_0();
+          if ($loader.querySelector(".next_page_list")) {
+            $loader.onscroll = function() {
+              box = $loader.querySelector('.next_page_list');
+              if (box && box.classList.contains("next_page_list")) {
+                  inViewport = elementInViewport(box);
+                  if (inViewport) {
+                      box.remove();
+                      var link_3 = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                      link_3.open('GET', location.protocol + "//" + location.host + box.getAttribute("data-link"), true);
+                      link_3.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+                      link_3.onreadystatechange = function() {
+                          if (this.readyState == 4 && this.status == 200) {
+                              var elem = document.createElement('span');
+                              elem.innerHTML = link_3.responseText;
+                              $loader.querySelector(".is_block_paginate").insertAdjacentHTML('beforeend', elem.querySelector(".is_block_paginate").innerHTML);
+                            }
+                      }
+                      link_3.send();
+                  }
+              };
+            }
+          }
+      }
+  };
+  link.send();
 };
+
+
+function change_this_fullscreen(_this, type_class) {
+  _this.parentElement.classList.contains("col") ? $loader = _this.parentElement.parentElement.parentElement.parentElement : $loader = _this.parentElement.parentElement;
+  $loader.innerHTML = "";
+  $parent_div.style.opacity = "0";
+  $parent_div.style.height = "35px";
+
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  link.open('GET', _this.getAttribute("href"), true);
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          elem = link.responseText;
+          $loader.innerHTML = elem;
+          height = $loader.scrollHeight*1 + 30;
+          $parent_div = $loader.parentElement
+          if (height < 500 && !$loader.querySelector(".data_display")){
+            $parent_div.style.height = height + "px";
+            _height = (window.innerHeight - height - 50) / 2;
+            $parent_div.style.top = _height + "px";
+            prev_next_height = _height*1 + 50 + "px";
+            $loader.style.overflowY = "unset";
+            try {$loader.querySelector(".prev_item").style.top = "-" + prev_next_height}catch {null};
+            try {$loader.querySelector(".next_item").style.top = "-" + prev_next_height}catch {null}
+          } else {
+            $parent_div.style.height = "100%";
+            $parent_div.style.top = "15px";
+            $loader.style.overflowY = "auto";
+          };
+          $parent_div.style.opacity = "1";
+      }
+  };
+  link.send();
+};
+function close_fullscreen() {
+  container = document.body.querySelector("#fullscreens_container");
+  container.querySelector(".card_fullscreen").remove();
+  if (!container.innerHTML) {
+    get_document_opacity_1(document.body.querySelector(".main-container"));
+  }
+};
+
+on('body', 'click', '.this_fullscreen_hide', function() {
+  close_fullscreen()
+});
+on('body', 'click', '.this_mob_fullscreen_hide', function() {
+  close_fullscreen()
+});
 
 function validateEmail(email){var re = /\S+@\S+\.\S+/;return re.test(email)};
 function scrollToBottom(id) {document.querySelector(id).scrollIntoView(false);}
@@ -39,9 +171,7 @@ function send_form_and_toast_and_close_window(url, form) {
     ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     ajax_link.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            close_worker_window();
-            close_default_window();
-            close_create_window();
+            close_fullscreen();
             toast_info("Жалоба отправлена!");
         }
     }
@@ -95,7 +225,7 @@ function send_user_sanction(_this, form, url, old_class, new_class, toast) {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info(toast);
-    close_worker_window();
+    close_fullscreen();
     if (document.body.querySelector(".pk_saver")) {
       _this.innerHTML = "Отменить";
       _this.classList.replace(old_class, new_class)
@@ -125,7 +255,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info(toast);
-    close_worker_window();
+    close_fullscreen();
 
     if (document.body.querySelector(".load_block")){
       document.body.querySelector(".load_block").innerHTML = '<div class="card mt-3 centered"><div class="card-body" style="margin-top: 10%;">  <svg class="thumb_big svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div><h6>Сущность блокирована.</h6></div>'
@@ -168,9 +298,7 @@ function send_window_sanction_post(form, url, toast) {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info(toast);
-    close_worker_window();
-    close_default_window();
-    close_photo_window();
+    close_fullscreen();
 
     if (document.body.querySelector(".changed")){
       div.remove();
@@ -204,8 +332,7 @@ function send_window_sanction_get(_this, url, toast) {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info(toast);
-    close_worker_window();
-    close_default_window();
+    close_fullscreen();
 
     if (document.body.querySelector(".load_block")){
       document.body.querySelector(".load_block").innerHTML = '<div class="card mt-3 centered"><div class="card-body" style="margin-top: 10%;">  <svg class="thumb_big svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div><h6>Сущность блокирована.</h6></div>'
@@ -275,7 +402,7 @@ function media_list_edit(_this, url) {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    close_create_window();
+    close_fullscreen();
     name = form.querySelector('#id_name').value;
     list = document.body.querySelector( '[data-uuid=' + '"' + uuid + '"' + ']' );
     list.querySelector('.list_name') ? list.querySelector('.list_name').innerHTML = name : null;
@@ -537,7 +664,7 @@ function post_and_load_object_page(form, url_post, url_1) {
             rtr = document.getElementById('ajax');
             rtr.innerHTML = ajax.innerHTML;
             window.scrollTo(0, 0);
-            close_create_window();
+            close_fullscreen();
             document.title = elem_.querySelector('title').innerHTML;
             uuid = rtr.querySelector(".uuid_saver").getAttribute("data-uuid");
             window.history.pushState(null, "vfgffgfgf", url_1 + uuid + '/')
@@ -923,30 +1050,18 @@ function load_chart() {
 }; load_chart();
 
 function get_document_opacity_0() {
-  if (document.body.querySelector(".toggle_fixed_block")) {
-    if (!document.body.querySelector(".app-user-edit")) {
-    document.body.querySelector(".toggle_fixed_block").style.clipPath = "polygon(0px 0px,0px 0px,0px 0px,0px 0px)";
-
-  }};
-  if (document.body.querySelector(".navbar-expand-lg")){
-    document.body.querySelector(".navbar-expand-lg").style.clipPath = "polygon(0px 0px,0px 0px,0px 0px,0px 0px)";
-  };
-  if (document.body.querySelector(".main-menu-content")){
-    document.body.querySelector(".main-menu-content").style.clipPath = "polygon(0px 0px,0px 0px,0px 0px,0px 0px)";
-  }
-  document.body.classList.add("scroll_hidden")
+  document.body.style.overflow = "hidden";
+  document.body.style.marginRight = "4px";
+  overlay = document.body.querySelector(".body_overlay");
+  overlay.style.visibility = "unset";
+  overlay.style.opacity = "1";
 }
-function get_document_opacity_1() {
-  if (document.body.querySelector(".toggle_fixed_block")) {
-    document.body.querySelector(".toggle_fixed_block").style.clipPath = "none";
-  }
-  if (document.body.querySelector(".header-navbar")){
-    document.body.querySelector(".header-navbar").style.clipPath = "none";
-  };
-  if (document.body.querySelector(".main-menu-content")){
-    document.body.querySelector(".main-menu-content").style.clipPath = "none";
-  }
-  create_pagination(document.body);
+function get_document_opacity_1(block) {
+  document.body.style.overflow = "scroll";
+  document.body.style.marginRight = "0";
+  overlay = document.body.querySelector(".body_overlay");
+  overlay.style.visibility = "hidden";
+  overlay.style.opacity = "0";
 }
 
 function open_fullscreen(link, block) {

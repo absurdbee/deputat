@@ -28,22 +28,7 @@
 					<div class="toggle_fixed_block">
 						{% block content %}
 						{% endblock %}
-					</div>
-
-					<div class="card mb-3 window_fullscreen border" style="display:none">
-					  <div id="window_loader" style="position:relative;"></div>
-					</div>
-					<div class="card mb-3 open_50 window_2_fullscreen border" style="display:none">
-					  <div id="window_loader_2" style="position:relative;"></div>
-					</div>
-					<div class="card mb-3 photo_fullscreen open_100 border" style="display:none">
-					  <div id="photo_loader" style="position:relative;"></div>
-					</div>
-					<div class="card mb-3 create_fullscreen open_200 border" style="display:none">
-					  <div id="create_loader" class="loader_0"></div>
-					</div>
-					<div class="card mb-3 border worker_fullscreen open_300" style="display:none">
-					  <div id="worker_loader" style="margin-top:30px"></div>
+						<div id="fullscreens_container"></div>
 					</div>
 				</span>
 			</span>
@@ -51,6 +36,7 @@
 		</div>
 
 		<div class="sidenav-overlay"></div>
+		<div class="body_overlay"></div>
 		<div class="drag-target"></div>
 
 		<script defer src="/static/scripts/lib/plyr.min.js" type="text/javascript"></script>

@@ -100,8 +100,8 @@ on('body', 'click', '#u_create_survey_btn', function() {
       uuid = document.body.querySelector(".pk_saver").getAttribute("data-uuid"),
       check_span1(response.querySelector('.span1'), uuid, response.innerHTML),
       document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null) : get_preview(response, "survey");
-    toast_info("Опрос создан!")
-    close_create_window();
+    toast_info("Опрос создан!");
+    close_fullscreen()
   }};
 
   link_.send(form_data);
@@ -138,7 +138,7 @@ on('body', 'click', '#u_edit_survey_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Документ изменен!")
-    close_create_window();
+    close_fullscreen();
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;

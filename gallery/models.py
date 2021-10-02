@@ -324,7 +324,7 @@ class Photo(models.Model):
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     list = models.ManyToManyField(PhotoList, related_name="photo_list", blank=True)
-    media_list = ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='media_list', null=True, blank=True, verbose_name="Медиа-список")
+    media_list = models.ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='media_list', null=True, blank=True, verbose_name="Медиа-список")
     file = ProcessedImageField(format='JPEG', options={'quality': 100}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")

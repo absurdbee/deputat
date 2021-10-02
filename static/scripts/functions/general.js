@@ -1113,6 +1113,7 @@ function get_document_opacity_0() {
   overlay = document.body.querySelector(".body_overlay");
   overlay.style.visibility = "unset";
   overlay.style.opacity = "1";
+  document.body.querySelector(".main-menu").style.zIndex = "100";
 }
 function get_document_opacity_1(block) {
   document.body.style.overflow = "scroll";
@@ -1120,6 +1121,7 @@ function get_document_opacity_1(block) {
   overlay = document.body.querySelector(".body_overlay");
   overlay.style.visibility = "hidden";
   overlay.style.opacity = "0";
+  document.body.querySelector(".main-menu").style.zIndex = "1031";
 };
 
 function ajax_get_reload(url) {

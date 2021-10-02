@@ -108,7 +108,7 @@ class MediaList(models.Model):
 	LIST = 'LIS'
 	DELETED = '_DEL'
 	TYPE = (
-		(MAIN, 'Основной'),
+		(LIST, 'Основной'),
 		(DELETED, 'Удалённый'),
 	)
 

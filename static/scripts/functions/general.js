@@ -72,7 +72,7 @@ function create_fullscreen(url, type_class) {
                           if (this.readyState == 4 && this.status == 200) {
                               var elem = document.createElement('span');
                               elem.innerHTML = link_3.responseText;
-                              $loader.querySelector(".is_block_paginate").insertAdjacentHTML('beforeend', elem.querySelector(".is_block_paginate").innerHTML);
+                              $loader.querySelector(".is_load_paginate").insertAdjacentHTML('beforeend', elem.querySelector(".is_load_paginate").innerHTML);
                             }
                       }
                       link_3.send();
@@ -85,7 +85,7 @@ function create_fullscreen(url, type_class) {
   link.send();
 };
 
-function create_elect_fullscreen(url, name) { 
+function create_elect_fullscreen(url, name) {
   container = document.body.querySelector("#fullscreens_container");
   try {count_items = container.querySelectorAll(".card").length} catch {count_items = 0};
 
@@ -136,7 +136,7 @@ function create_elect_fullscreen(url, name) {
           $parent_div.style.opacity = "1";
           get_document_opacity_0();
           if (name) {
-            elect_box = block.querySelector(".elect_block");
+            elect_box = $loader.querySelector(".elect_block");
             content = document.body.querySelector(".content-body");
             elect_name = content.querySelector("h1").innerHTML;
             elect_src = content.querySelector(".img_elect_page").getAttribute("src");

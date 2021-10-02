@@ -1,6 +1,5 @@
 on('body', 'click', '.u_photo_list_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/gallery/user_progs/add_list/", loader)
+  create_fullscreen("/gallery/user_progs/add_list/", "worker_fullscreen");
 });
 on('body', 'click', '.u_photo_list_edit', function() {
   list = document.body.querySelectorAll('.cover_block');
@@ -10,8 +9,7 @@ on('body', 'click', '.u_photo_list_edit', function() {
   block = this.parentElement.parentElement;
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/gallery/user_progs/edit_list/" + uuid + "/", loader)
+  create_fullscreen("/gallery/user_progs/edit_list/" + uuid + "/", "worker_fullscreen");
 });
 
 on('body', 'click', '.u_photo_list_remove', function() {
@@ -82,15 +80,13 @@ on('body', 'click', '.u_remove_photo_from_list', function() {
 on('body', 'click', '.u_photo_detail', function() {
   pk = this.getAttribute('photo-pk');
   this.parentElement.getAttribute('data-uuid') ? uuid = this.parentElement.getAttribute('data-uuid') : uuid = this.getAttribute('data-uuid')
-  loader = document.body.querySelector("#photo_loader");
-  open_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", loader)
+  create_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", "photo_fullscreen");
 });
 
 on('body', 'click', '.u_photo_preview', function() {
   pk = this.getAttribute('photo-pk');
   uuid = this.getAttribute('data-uuid');
-  loader = document.body.querySelector("#photo_loader");
-  open_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", loader)
+  create_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", "photo_fullscreen");
 });
 
 on('body', 'click', '.next_item', function(event) {
@@ -113,33 +109,28 @@ on('body', 'click', '.photo_fullscreen_hide_2', function() {
 on('body', 'click', '.u_blog_comment_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  loader = document.body.querySelector("#photo_loader");
-  open_fullscreen("/gallery/blog_comment_photo/" + comment_pk + "/" + photo_pk + "/", loader)
+  create_fullscreen("/gallery/blog_comment_photo/" + comment_pk + "/" + photo_pk + "/", "photo_fullscreen");
 });
 on('body', 'click', '.u_elect_new_comment_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  loader = document.body.querySelector("#photo_loader");
-  open_fullscreen("/gallery/elect_new_comment_photo/" + comment_pk + "/" + photo_pk + "/", loader)
+  create_fullscreen("/gallery/elect_new_comment_photo/" + comment_pk + "/" + photo_pk + "/", "photo_fullscreen");
 });
 on('body', 'click', '.u_blog_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  loader = document.body.querySelector("#photo_loader");
-  open_fullscreen("/gallery/blog_photo/" + comment_pk + "/" + photo_pk + "/", loader)
+  create_fullscreen("/gallery/blog_photo/" + comment_pk + "/" + photo_pk + "/", "photo_fullscreen");
 });
 on('body', 'click', '.u_elect_new_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  loader = document.body.querySelector("#photo_loader");
-  open_fullscreen("/gallery/elect_new_photo/" + comment_pk + "/" + photo_pk + "/", loader)
+  create_fullscreen("/gallery/elect_new_photo/" + comment_pk + "/" + photo_pk + "/", "photo_fullscreen");
 });
 
 on('body', 'click', '.u_load_photo_list', function() {
   parent = this.parentElement.parentElement;
   pk = parent.getAttribute("photolist-pk");
-  loader = document.body.querySelector("#window_loader_2");
-  open_fullscreen("/gallery/user_load/" + pk + "/", loader)
+  create_fullscreen("/gallery/user_load/" + pk + "/", "window_fullscreen");
 });
 
 on('body', 'click', '.u_copy_photo_list', function() {

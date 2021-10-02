@@ -85,6 +85,68 @@ function create_fullscreen(url, type_class) {
   link.send();
 };
 
+function create_elect_fullscreen(url, name) { 
+  container = document.body.querySelector("#fullscreens_container");
+  try {count_items = container.querySelectorAll(".card").length} catch {count_items = 0};
+
+  $parent_div = document.createElement("div");
+  $parent_div.classList.add("card_fullscreen", "mb-3", "border", "worker_fullscreen");
+  $parent_div.style.zIndex = 100 + count_items;
+  $parent_div.style.opacity = "0";
+
+  if (document.body.querySelector(".desctop_nav")) {
+    hide_svg = '<svg class="svg_default" style="position:fixed;" width="30" height="30" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'
+  } else { hide_svg = "" };
+  $hide_span = document.createElement("span");
+  $hide_span.classList.add("this_fullscreen_hide");
+  $loader = document.createElement("div");
+
+  $loader.setAttribute("id", "fullscreen_loader");
+  $hide_span.innerHTML = hide_svg;
+  $parent_div.append($hide_span);
+  $parent_div.append($loader);
+  $parent_div.append(create_gif_loading ());
+  container.prepend($parent_div);
+
+  link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  link.open('GET', url, true);
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          $load_div.remove();
+          elem = link.responseText;
+
+          $loader.innerHTML = elem;
+          height = $loader.scrollHeight*1 + 30;
+          if (height < 500 && !$loader.querySelector(".data_display")) {
+            $parent_div.style.height = height + "px";
+            $loader.style.overflowY = "unset";
+
+            _height = (window.innerHeight - height - 50) / 2;
+            $parent_div.style.top = _height + "px";
+            prev_next_height = _height*1 + 50 + "px";
+            try {$loader.querySelector(".prev_item").style.top = "-" + prev_next_height}catch {null};
+            try {$loader.querySelector(".next_item").style.top = "-" + prev_next_height}catch {null}
+          } else {
+            $parent_div.style.height = "100%";
+            $parent_div.style.top = "15px";
+            $loader.style.overflowY = "auto";
+          };
+          $parent_div.style.opacity = "1";
+          get_document_opacity_0();
+          if (name) {
+            elect_box = block.querySelector(".elect_block");
+            content = document.body.querySelector(".content-body");
+            elect_name = content.querySelector("h1").innerHTML;
+            elect_src = content.querySelector(".img_elect_page").getAttribute("src");
+            elect_pk = content.getAttribute("data-pk");
+            elect_box.innerHTML = '<label>Чиновник</label><input value="' + elect_pk + '" type="hidden" name="elect" id="id_elect"><div class="media border" style="margin-bottom:5px"><img src="' + elect_src + '" style="width:35px;" alt="image"><div class="media-body pl-1"><h6 class="my-0">' + elect_name + '</h6></div></div>'
+          };
+      }
+  };
+  link.send();
+};
 
 function change_this_fullscreen(_this, type_class) {
   _this.parentElement.classList.contains("col") ? $loader = _this.parentElement.parentElement.parentElement.parentElement : $loader = _this.parentElement.parentElement;
@@ -191,22 +253,19 @@ function get_profile_sanction_window(_this, url) {
   else if (document.body.querySelector(".pk_saver")){
     pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
   }
-  loader = document.getElementById("worker_loader");
-  open_fullscreen(url + pk + "/", loader)
+  create_fullscreen(url + pk + "/", "worker_fullscreen");
 }
 function get_item_sanction_window(_this, block, url) {
     _this.parentElement.parentElement.getAttribute("data-uuid")
      ?  uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
      : (uuid = _this.getAttribute("data-uuid"), block.classList.add("changed"));
-  loader = document.getElementById("worker_loader");
-  open_fullscreen(url + uuid + "/", loader)
+  create_fullscreen(url + uuid + "/", "worker_fullscreen");
 }
 function get_music_doc_sanction_window(_this, block, url) {
     _this.parentElement.parentElement.parentElement.getAttribute("data-pk")
      ?  (block = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk"), block.classList.add("changed"))
      : (pk = _this.getAttribute("data-pk"), block.classList.add("changed"));
-  loader = document.getElementById("worker_loader");
-  open_fullscreen(url + pk + "/", loader)
+  create_fullscreen(url + pk + "/", "worker_fullscreen");
 }
 
 function send_user_sanction(_this, form, url, old_class, new_class, toast) {
@@ -282,8 +341,7 @@ function open_manager_window(_this, url) {
     uuid = div.getAttribute("data-pk"), div.classList.add("changed");
   }
   div = document.body.querySelector(".changed");
-  loader = document.getElementById("worker_loader");
-  open_fullscreen(url + uuid + "/", loader)
+  create_fullscreen(url + uuid + "/", "worker_fullscreen");
 }
 function send_window_sanction_post(form, url, toast) {
   // отправляем данные формы применеия санкций на странице списка или в модерском отделе модерации
@@ -1062,64 +1120,7 @@ function get_document_opacity_1(block) {
   overlay = document.body.querySelector(".body_overlay");
   overlay.style.visibility = "hidden";
   overlay.style.opacity = "0";
-}
-
-function open_fullscreen(link, block) {
-  var link_, elem;
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', link, true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    elem = link_.responseText;
-    block.parentElement.style.display = "block";
-    block.innerHTML = elem;
-    init_music(block);
-    if (block.querySelector(".pag")) {
-      create_pagination(block)
-    };
-    get_document_opacity_0();
-
-  }};
-  link_.send();
-}
-function open_scroll_fullscreen(link, block) {
-  var link_, elem;
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', link, true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    elem = link_.responseText;
-    block.parentElement.style.display = "block";
-    block.innerHTML = elem;
-    init_music(block);
-    scrollToBottom(".comments_block_container");
-  }};
-  link_.send();
-}
-function open_elect_fullscreen(link, block, name) {
-  var link_, elem;
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'GET', link, true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    elem = link_.responseText;
-    block.parentElement.style.display = "block";
-    block.innerHTML = elem;
-    if (name) {
-      elect_box = block.querySelector(".elect_block");
-      content = document.body.querySelector(".content-body");
-      elect_name = content.querySelector("h1").innerHTML;
-      elect_src = content.querySelector(".img_elect_page").getAttribute("src");
-      elect_pk = content.getAttribute("data-pk");
-      elect_box.innerHTML = '<label>Чиновник</label><input value="' + elect_pk + '" type="hidden" name="elect" id="id_elect"><div class="media border" style="margin-bottom:5px"><img src="' + elect_src + '" style="width:35px;" alt="image"><div class="media-body pl-1"><h6 class="my-0">' + elect_name + '</h6></div></div>'
-    };
-    get_document_opacity_0();
-  }};
-  link_.send();
-}
+};
 
 function ajax_get_reload(url) {
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

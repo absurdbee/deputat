@@ -1113,7 +1113,7 @@ function get_document_opacity_0() {
   overlay = document.body.querySelector(".body_overlay");
   overlay.style.visibility = "unset";
   overlay.style.opacity = "1";
-  document.body.querySelector(".main-menu").style.zIndex = "100";
+  document.body.querySelector(".main-menu").style.zIndex = "10";
 }
 function get_document_opacity_1(block) {
   document.body.style.overflow = "scroll";

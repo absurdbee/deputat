@@ -1,10 +1,8 @@
 on('body', 'click', '.u_survey_list_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/survey/user_progs/add_list/", loader)
+  create_fullscreen("/survey/user_progs/add_list/", "worker_fullscreen");
 });
 on('body', 'click', '.u_survey_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/survey/user_progs/create_survey/", loader)
+  create_fullscreen("/survey/user_progs/create_survey/", "worker_fullscreen");
 });
 on('body', 'click', '.u_survey_edit', function() {
   parent = this.parentElement.parentElement.parentElement;
@@ -12,8 +10,7 @@ on('body', 'click', '.u_survey_edit', function() {
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_survey")}
 
   parent.parentElement.parentElement.parentElement.classList.add("edited_survey")
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/survey/user_progs/edit_survey/" + parent.getAttribute("data-pk") +"/", loader)
+  create_fullscreen("/survey/user_progs/edit_survey/" + parent.getAttribute("data-pk") +"/", "worker_fullscreen");
 });
 on('body', 'click', '.u_survey_list_edit', function() {
   list = document.body.querySelectorAll('.cover_block');
@@ -23,8 +20,7 @@ on('body', 'click', '.u_survey_list_edit', function() {
   block = this.parentElement.parentElement.parentElement.parentElement;
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/survey/user_progs/edit_list/" + uuid + "/", loader)
+  create_fullscreen("/survey/user_progs/edit_list/" + uuid +"/", "worker_fullscreen");
 });
 
 on('body', 'click', '.u_survey_list_remove', function() {
@@ -186,8 +182,7 @@ on('body', 'click', '.u_survey_abort_remove', function() {
 on('body', 'click', '.u_load_survey_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("surveylist-pk");
-  loader = document.body.querySelector("#window_loader_2");
-  open_fullscreen("/survey/user_load/" + pk + "/", loader)
+  create_fullscreen("/survey/user_load/" + pk + "/", "window_fullscreen");
 });
 
 on('body', 'click', '.u_load_profile_survey_list', function() {

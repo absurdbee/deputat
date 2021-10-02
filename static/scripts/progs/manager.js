@@ -155,8 +155,7 @@ on('body', 'click', '#u_edit_doc_btn', function() {
   link_.send(form_data);
 });
 on('body', 'click', '.staff_doc_list_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/managers/progs_doc/create_list/", loader)
+  create_fullscreen("/managers/progs_doc/create_list/", "worker_fullscreen");
 });
 on('body', 'click', '.staff_doc_list_edit', function() {
   list = document.body.querySelectorAll('.cover_block');
@@ -166,13 +165,11 @@ on('body', 'click', '.staff_doc_list_edit', function() {
   block = this.parentElement.parentElement;
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/managers/progs_doc/edit_list/" + uuid + "/", loader)
+  create_fullscreen("/managers/progs_doc/edit_list/" + uuid + "/", "worker_fullscreen");
 });
 
 on('body', 'click', '.staff_doc_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/managers/progs_doc/create_doc/", loader)
+  create_fullscreen("/managers/progs_doc/create_doc/", "worker_fullscreen");
 });
 on('body', 'click', '.staff_doc_edit', function() {
   parent = this.parentElement.parentElement.parentElement;
@@ -180,65 +177,52 @@ on('body', 'click', '.staff_doc_edit', function() {
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_doc")}
 
   parent.parentElement.parentElement.parentElement.classList.add("edited_doc")
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/managers/progs_doc/edit_doc/" + parent.getAttribute("data-pk") +"/", loader)
+  create_fullscreen("/managers/progs_doc/edit_doc/" + parent.getAttribute("data-pk") +"/", "worker_fullscreen");
 });
 
 on('body', 'click', '.u_edit_blog', function() {
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/blog/progs/edit_blog/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+  create_fullscreen("/blog/progs/edit_blog/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.u_edit_elect_new', function() {
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/blog/progs/edit_manager_elect_new/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+  create_fullscreen("/blog/progs/edit_manager_elect_new/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "window_fullscreen");
 });
 
 on('body', 'click', '.manager_elect_create', function(e) {
   e.preventDefault();
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/managers/elect_new/create_elect/", loader)
+  create_fullscreen("/managers/elect_new/create_elect/", "worker_fullscreen");
 });
 on('body', 'click', '.manager_elect_edit', function() {
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/managers/elect_new/edit_elect/" + this.getAttribute("data-pk") + "/", loader)
+  create_fullscreen("/managers/elect_new/edit_elect/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");
 });
 
 on('body', 'click', '.manager_blog_create', function(e) {
   e.preventDefault();
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/blog/progs/add_blog/", loader)
+  create_fullscreen("/blog/progs/add_blog/", "worker_fullscreen");
 });
 
 on('body', 'click', '.manager_elect_new_create', function() {
   loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/managers/elect_new/create_elect_new/", loader)
-});
-on('body', 'click', '.manager_elect_new_create', function() {
-  loader = document.body.querySelector("#window_loader");
   if (this.getAttribute("data-name")) {
-    open_elect_fullscreen("/managers/elect_new/create_elect_new/", loader, this.getAttribute("data-name"))
+    create_elect_fullscreen("/managers/elect_new/create_elect_new/", this.getAttribute("data-name"))
   } else {
-    open_fullscreen("/managers/elect_new/create_elect_new/", loader)
+    create_fullscreen("/managers/elect_new/create_elect_new/", "window_fullscreen");
   }
 });
 
 on('body', 'click', '.penalty_photo', function() {
   this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/gallery/penalty_photo/" + pk + "/", loader)
+  create_fullscreen("/gallery/penalty_photo/" + pk + "/", "photo_fullscreen");
 });
 on('body', 'click', '.u_photo_moderated_detail', function() {
   this.parentElement.parentElement.classList.add("changed");
   pk = this.getAttribute('photo-pk');
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/gallery/moderated_photo/" + pk + "/", loader)
+  create_fullscreen("/gallery/moderated_photo/" + pk + "/", "photo_fullscreen");
 });
 
 on('body', 'click', '.u_publish_elect_new', function() {
-this.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add("changed");
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/managers/elect_new/create_publish/" + this.parentElement.getAttribute("data-pk") + "/", loader)
+  this.parentElement.parentElement.parentElement.parentElement.parentElement.classList.add("changed");
+  create_fullscreen("/managers/elect_new/create_publish/" + this.parentElement.getAttribute("data-pk") + "/", "window_fullscreen");
 });
 
 on('body', 'click', '#create_blog_btn', function() {
@@ -380,55 +364,55 @@ on('body', 'click', '.show_object_reports', function() {
   } else {
     pk = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("obj-pk")
   }
-  open_fullscreen("/managers/load_claims/" + pk + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/managers/load_claims/" + pk + "/", "window_fullscreen");
 });
 
 on('body', 'click', '.u_load_penalty_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/music/penalty_load/" + parent.getAttribute("playlist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/music/penalty_load/" + parent.getAttribute("playlist-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.u_load_penalty_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/video/penalty_load/" + parent.getAttribute("videolist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/video/penalty_load/" + parent.getAttribute("videolist-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.u_load_penalty_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/docs/penalty_load/" + parent.getAttribute("doclist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/docs/penalty_load/" + parent.getAttribute("doclist-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.u_load_penalty_survey_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/survey/penalty_load/" + parent.getAttribute("surveylist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/survey/penalty_load/" + parent.getAttribute("surveylist-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.u_load_penalty_photo_list', function() {
   parent = this.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/gallery/penalty_load/" + parent.getAttribute("photolist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/gallery/penalty_load/" + parent.getAttribute("photolist-pk") + "/", "window_fullscreen");
 });
 
 
 on('body', 'click', '.u_load_moderated_photo_list', function() {
   parent = this.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/gallery/moderated_load/" + parent.getAttribute("photolist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/gallery/moderated_load/" + parent.getAttribute("photolist-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.u_load_moderated_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/music/moderated_load/" + parent.getAttribute("playlist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/music/moderated_load/" + parent.getAttribute("playlist-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.u_load_moderated_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/video/moderated_load/" + parent.getAttribute("videolist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/video/moderated_load/" + parent.getAttribute("videolist-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.u_load_moderated_doc_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   parent.parentElement.classList.add("changed");
-  open_fullscreen("/docs/moderated_load/" + parent.getAttribute("doclist-pk") + "/", document.body.querySelector("#window_loader"))
+  create_fullscreen("/docs/moderated_load/" + parent.getAttribute("doclist-pk") + "/", "window_fullscreen");
 });
 
 on('body', 'click', '.create_user_close', function() {

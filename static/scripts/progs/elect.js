@@ -1,16 +1,15 @@
 on('body', 'click', '.u_suggested_elect_new_create', function() {
   loader = document.body.querySelector("#window_loader");
   if (this.getAttribute("data-name")) {
-    open_elect_fullscreen("/blog/progs/suggest_elect_new/", loader, this.getAttribute("data-name"))
+    create_elect_fullscreen("/blog/progs/suggest_elect_new/", this.getAttribute("data-name"))
   } else {
-    open_fullscreen("/blog/progs/suggest_elect_new/", loader)
+    create_fullscreen("/blog/progs/suggest_elect_new/", "window_fullscreen");
   }
 });
 
 on('body', 'click', '.elect_new_window', function() {
-  loader = document.body.querySelector("#window_loader");
   document.body.querySelector(".notify_dropdown") ? document.body.querySelector(".notify_dropdown").classList.remove("show") : null;
-  open_fullscreen("/elect/new_window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+  create_fullscreen("/elect/new_window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.elect_new_window_comment', function() {
   loader = document.body.querySelector("#window_loader");

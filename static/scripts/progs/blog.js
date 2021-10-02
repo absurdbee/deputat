@@ -101,12 +101,10 @@ function send_inert(item, url){
 }
 
 on('body', 'click', '.blog_window', function() {
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/blog/window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+  create_fullscreen("/blog/window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "window_fullscreen");
 });
 on('body', 'click', '.blog_window_comment', function() {
-  loader = document.body.querySelector("#window_loader");
-  open_scroll_fullscreen("/blog/window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", loader)
+  create_fullscreen("/blog/window/" + this.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "window_fullscreen");
 });
 
 on('body', 'click', '.elect_new_like', function() {
@@ -209,8 +207,7 @@ on('body', 'click', '.edit_elect_new_comment', function() {
 
 on('body', 'click', '.edit_elect_new', function() {
   clear_comment_dropdown();
-  loader = document.body.querySelector("#window_loader");
-  open_fullscreen("/blog/progs/edit_elect_new/" + this.parentElement.getAttribute("data-pk") + "/", loader)
+  create_fullscreen("/blog/progs/edit_elect_new/" + this.parentElement.getAttribute("data-pk") + "/", "worker_fullscreen");
 });
 on('body', 'click', '#u_edit_elect_new_btn', function() {
   _this = this, elect = false;
@@ -358,26 +355,22 @@ on('body', 'click', '.electnewReplyParentComment', function() {
 on('body', 'click', '.u_load_comment_photo', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen('/users/load/u_photo_comment_load/', loader)
+  create_fullscreen('/users/load/u_photo_comment_load/', "window_fullscreen");
 });
 on('body', 'click', '.u_load_doc', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen('/users/load/u_doc_load/', loader)
+  create_fullscreen('/users/load/u_doc_load/', "window_fullscreen");
 });
 on('body', 'click', '.u_load_video', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen('/users/load/u_video_load/', loader)
+  create_fullscreen('/users/load/u_video_load/', "window_fullscreen");
 });
 on('body', 'click', '.u_load_music', function() {
   check_attach_block_message_post();
   this.classList.add("current_file_dropdown");
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen('/users/load/u_music_load/', loader)
+  create_fullscreen('/users/load/u_music_load/', "window_fullscreen");
 });
 
 on('body', 'change', '#u_photo_comment_attach', function() {

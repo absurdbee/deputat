@@ -1,10 +1,8 @@
 on('body', 'click', '.u_video_list_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/video/user_progs/add_list/", loader)
+  create_fullscreen("/video/user_progs/add_list/", "worker_fullscreen")
 });
 on('body', 'click', '.u_video_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/video/user_progs/create_video/", loader)
+  create_fullscreen("/video/user_progs/create_video/", "worker_fullscreen")
 });
 on('body', 'click', '.u_video_edit', function() {
   pk = this.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("video-pk");
@@ -14,26 +12,13 @@ on('body', 'click', '.u_video_edit', function() {
     cur_video = document.body.querySelector('[video-pk=' + '"' + pk + '"' + ']')
     cur_video.classList.add("edited_video")
   } catch { null }
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/video/user_progs/edit_video/" + pk +"/", loader)
+  create_fullscreen("/video/user_progs/edit_video/" + pk +"/", "worker_fullscreen")
 });
-
-on('body', 'click', '.next_video', function(event) {
-  event.preventDefault();
-  this.style.display = "none";
-  open_fullscreen(this.getAttribute('href'), document.getElementById('photo_loader'));
-})
-on('body', 'click', '.prev_video', function(event) {
-  event.preventDefault();
-  this.style.display = "none";
-  open_fullscreen(this.getAttribute('href'), document.getElementById('photo_loader'));
-})
 
 on('body', 'click', '.u_video_detail', function() {
   video_pk = this.getAttribute('video-pk');
   uuid = this.parentElement.getAttribute("data-uuid");
-  loader = document.body.querySelector("#photo_loader");
-  open_fullscreen("/video/user_detail/" + video_pk + "/" + uuid + "/", loader)
+  create_fullscreen("/video/user_detail/" + video_pk + "/" + uuid + "/", "window_fullscreen")
 });
 
 on('body', 'click', '#u_edit_video_list_btn', function() {
@@ -42,8 +27,7 @@ on('body', 'click', '#u_edit_video_list_btn', function() {
 
 on('body', 'click', '.u_video_list_edit', function() {
   uuid = this.parentElement.parentElement.getAttribute('data-uuid');
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/video/user_progs/edit_list/" + uuid + "/", loader)
+  create_fullscreen("/video/user_progs/edit_list/" + uuid + "/", "worker_fullscreen")
 });
 
 on('body', 'click', '.u_video_list_remove', function() {
@@ -255,8 +239,7 @@ on('body', 'click', '.u_video_abort_remove', function() {
 on('body', 'click', '.u_load_video_list', function() {
   parent = this.parentElement.parentElement.parentElement;
   pk = parent.getAttribute("videolist-pk");
-  loader = document.body.querySelector("#window_loader_2");
-  open_fullscreen("/video/user_load/" + pk + "/", loader)
+  create_fullscreen("/video/user_load/" + pk + "/", "window_fullscreen")
 });
 
 on('body', 'click', '.u_load_profile_video_list', function() {

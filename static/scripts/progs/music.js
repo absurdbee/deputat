@@ -1,10 +1,8 @@
 on('body', 'click', '.u_track_list_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/music/user_progs/add_list/", loader)
+  create_fullscreen("/music/user_progs/add_list/", "worker_fullscreen");
 });
 on('body', 'click', '.u_track_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/music/user_progs/create_track/", loader)
+  create_fullscreen("/music/user_progs/create_track/", "worker_fullscreen");
 });
 
 on('body', 'click', '.u_copy_playlist', function() {
@@ -20,17 +18,14 @@ on('body', 'click', '.u_track_edit', function() {
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_track")}
 
   parent.parentElement.parentElement.parentElement.classList.add("edited_track")
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/music/user_progs/edit_track/" + parent.getAttribute("data-pk") +"/", loader)
+  create_fullscreen("/music/user_progs/edit_track/" + parent.getAttribute("data-pk") +"/", "worker_fullscreen");
 });
 on('body', 'click', '.u_playlist_add', function() {
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/music/user_progs/create_list/", loader)
+  create_fullscreen("/music/user_progs/create_list/", "worker_fullscreen");
 });
 on('body', 'click', '.u_playlist_edit', function() {
   uuid = this.parentElement.parentElement.getAttribute('data-uuid');
-  loader = document.body.querySelector("#create_loader");
-  open_fullscreen("/music/user_progs/edit_list/" + uuid + "/", loader)
+  create_fullscreen("/music/user_progs/edit_list/" + uuid + "/", "worker_fullscreen");
 });
 
 on('body', 'click', '.u_playlist_remove', function() {
@@ -213,7 +208,7 @@ on('body', 'click', '.u_track_abort_remove', function() {
 
 on('body', 'click', '.u_load_playlist', function() {
   parent = this.parentElement.parentElement.parentElement;
-  open_fullscreen("/music/user_load/" + parent.getAttribute("playlist-pk") + "/", document.body.querySelector("#create_loader_2"))
+  create_fullscreen("/music/user_load/" + parent.getAttribute("playlist-pk") + "/", "window_fullscreen");
 });
 
 on('body', 'click', '.u_load_profile_playlist', function() {

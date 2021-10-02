@@ -7,14 +7,6 @@ from region.models import Region
 from django.db.models import Q
 
 
-"""
-    Группируем все таблицы о чиновниках здесь:
-    1. Таблица чиновника,
-    2. Таблица ссылки чиновника, много ссылок к одному чиновнику
-    3. Таблица образования чиновника, много дипломов к одному чиновнику
-    4. Таблица подписки пользователя на чиновника
-"""
-
 class Elect(models.Model):
     name = models.CharField(max_length=255, verbose_name="ФИО")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")

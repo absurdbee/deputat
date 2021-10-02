@@ -337,6 +337,7 @@ class Video(models.Model):
     uri = models.CharField(max_length=255, blank=True, null=True, verbose_name="Ссылка на видео")
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     list = models.ManyToManyField(VideoList, related_name="video_list", blank=True, verbose_name="Альбом")
+    media_list = ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='media_list', null=True, blank=True, verbose_name="Медиа-список")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="video_creator", on_delete=models.CASCADE, verbose_name="Создатель")
     type = models.CharField(choices=TYPE, default=PROCESSING, max_length=5)
     file = models.FileField(upload_to=upload_to_video_directory, blank=True, null=True, validators=[validate_file_extension], verbose_name="Видеозапись")

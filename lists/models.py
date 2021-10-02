@@ -106,36 +106,36 @@ class Fraction(models.Model):
 
 class MediaList(models.Model):
 	LIST = 'LIS'
-    DELETED = '_DEL'
-    TYPE = (
-        (MAIN, 'Основной'),
-        (DELETED, 'Удалённый'),
-    )
+	DELETED = '_DEL'
+	TYPE = (
+		(MAIN, 'Основной'),
+		(DELETED, 'Удалённый'),
+	)
 
-    name = models.CharField(max_length=255)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_medialist', on_delete=models.CASCADE, verbose_name="Создатель")
-    order = models.PositiveIntegerField(default=1)
-    uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
-    description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
+	name = models.CharField(max_length=255)
+	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_medialist', on_delete=models.CASCADE, verbose_name="Создатель")
+	order = models.PositiveIntegerField(default=1)
+	uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
+	description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
 	type = models.CharField(max_length=4, choices=TYPE, default=LIST, verbose_name="Тип листа")
 
-    def __str__(self):
-        return self.name + " " + self.creator.get_full_name()
+	def __str__(self):
+		return self.name + " " + self.creator.get_full_name()
 
-    class Meta:
-        verbose_name = "медийный список"
-        verbose_name_plural = "медийные списки"
-        ordering = ['order']
+	class Meta:
+		verbose_name = "медийный список"
+		verbose_name_plural = "медийные списки"
+		ordering = ['order']
 
-    @classmethod
-    def create_list(cls, creator, name, description, order):
-        from common.processing import get_media_list_processing
-        if not order:
-            order = 1
+	@classmethod
+	def create_list(cls, creator, name, description, order):
+		from common.processing import get_media_list_processing
+		if not order:
+			order = 1
 
-        list = cls.objects.create(creator=creator,name=name,description=description,order=order)
-        get_media_list_processing(list, MediaList.LIST)
-        return list
+		list = cls.objects.create(creator=creator,name=name,description=description,order=order)
+		get_media_list_processing(list, MediaList.LIST)
+		return list
 
     def edit_list(self, name, description, order):
         from common.processing import get_media_list_processing

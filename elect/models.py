@@ -113,7 +113,7 @@ class Elect(models.Model):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
-        elect = cls.objects.create(name=name_2,description=description,post_2=post_2,image=image,birthday=birthday,fraction=fraction,vk=vk, tg=tg, tw=tw, ig=ig, fb=fb, mail=mail, phone=phone, address=adress, site=site)
+        elect = cls.objects.create(name=name_2,description=description,post_2=post_2,image=image,birthday=birthday,fraction=fraction,vk=vk, tg=tg, tw=tw, ig=ig, fb=fb, mail=mail, phone=phone, address=address, site=site)
         if region:
             from region.models import Region
             for region_id in region:

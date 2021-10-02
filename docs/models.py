@@ -296,7 +296,7 @@ class Doc(models.Model):
     file = models.FileField(upload_to=upload_to_doc_directory, validators=[validate_file_extension], verbose_name="Документ")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     list = models.ManyToManyField(DocList, related_name='doc_list', blank=True)
-    media_list = models.ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='media_list', null=True, blank=True, verbose_name="Медиа-список")
+    media_list = models.ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='+', null=True, blank=True, verbose_name="Медиа-список")
     type = models.CharField(choices=TYPE, default=PROCESSING, max_length=5)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
     community = models.ForeignKey('communities.Community', related_name='doc_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")

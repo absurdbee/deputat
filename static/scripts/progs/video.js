@@ -141,7 +141,7 @@ on('body', 'click', '#u_create_video_btn', function() {
     response.innerHTML = elem;
     get_preview(response, "video");
     toast_info("Видеозапись создана!")
-    close_create_window();
+    close_fullscreen();
   }};
 
   link_.send(form_data);
@@ -212,8 +212,7 @@ on('body', 'click', '#u_edit_video_btn', function() {
       video = document.body.querySelector(".edited_video");
       video.innerHTML = response.querySelector(".pag").innerHTML
     } catch { null };
-    close_create_window();
-    close_photo_window();
+    close_fullscreen();
   }};
 
   link_.send(form_data);

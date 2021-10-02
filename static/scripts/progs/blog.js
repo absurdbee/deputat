@@ -245,7 +245,7 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
   link.onreadystatechange = function () {
   if ( link.readyState == 4 && link.status == 200 ) {
     toast_success("Новость изменена");
-    close_default_window() 
+    close_fullscreen()
   }};
   link.send(form_data);
 });
@@ -400,7 +400,7 @@ on('body', 'change', '#u_photo_comment_attach', function() {
     photo_comment_upload_attach(photo_list, document.body.querySelector(".current_file_dropdown").parentElement.parentElement
     );
     }
-    close_create_window();
+    close_fullscreen()
   }
   link_.send(form_data);
 });
@@ -426,7 +426,7 @@ on('body', 'change', '#u_photo_attach', function() {
     photo_post_upload_attach(photo_list, document.body.querySelector(".attach_block")
     );
     }
-    close_create_window();
+    close_fullscreen()
   }
   link_.send(form_data);
 });

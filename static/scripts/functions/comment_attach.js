@@ -26,7 +26,7 @@ function is_full_dropdown(){
   dropdown = document.body.querySelector(".current_file_dropdown").parentElement.parentElement;
   if (dropdown.classList.contains("files_two")){
     dropdown.style.display = "none";
-    close_create_window()
+    close_fullscreen()
   }
   if (dropdown.classList.contains("files_one") || dropdown.classList.contains("files_null")){
     dropdown.style.display = "block"}
@@ -97,8 +97,8 @@ function photo_comment_upload_attach(photo_list, dropdown){
     attach_block.append(div);
     add_file_dropdown()
     is_full_dropdown();
-  }
-close_create_window()
+  };
+  close_fullscreen()
 }
 
 function video_comment_attach(dropdown, pk, uuid, src){

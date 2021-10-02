@@ -113,7 +113,7 @@ on('body', 'click', '#u_create_track_btn', function() {
     get_preview(response, "track");
     toast_info("Аудиозапись создана!");
     init_music(document.body);
-    close_create_window();
+    close_fullscreen()
   } else { _this.disabled = true }};
   link_.send(form_data);
 });
@@ -165,7 +165,7 @@ on('body', 'click', '#u_edit_track_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Аудиозапись изменена!")
-    close_create_window();
+    close_fullscreen();
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;

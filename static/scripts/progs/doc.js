@@ -109,7 +109,7 @@ on('body', 'click', '#u_create_doc_btn', function() {
     response.innerHTML = elem;
     get_preview(response, "doc");
     toast_info("Документ создан!")
-    close_create_window();
+    close_fullscreen()
   }};
 
   link_.send(form_data);
@@ -161,7 +161,7 @@ on('body', 'click', '#u_edit_doc_btn', function() {
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
     toast_info("Документ изменен!")
-    close_create_window();
+    close_fullscreen();
     elem = link_.responseText;
     response = document.createElement("span");
     response.innerHTML = elem;

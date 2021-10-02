@@ -10,7 +10,7 @@
         <div class="item-name" style="order: 0 !important;">
             <h6 class="mb-0">
               <a href="{% url 'elect_detail' pk=object.pk %}" class="text-body ajax">
-                {{ object.name }}
+                {% if object.get_first_list.category %}{{ object.get_first_list.category.name }} {% endif %}{{ object.name }}
               </a>
             </h6>
         </div>

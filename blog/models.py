@@ -11,12 +11,6 @@ from elect.models import Elect
 from lists.models import ElectNewsCategory
 from autoslug import AutoSlugField
 
-"""
-    Группируем все таблицы новостей здесь:
-    1. Новости всего проекта,
-    2. Лента депутата - его высказывания, выборы, работа с избирателями
-"""
-
 
 class Blog(models.Model):
     PUBLISHED, DELETED = 'PUB','_DEL'

@@ -1,3 +1,13 @@
+function create_gif_loading () {
+  $load_gif = document.createElement("img");
+  $load_gif.setAttribute("src", "/static/images/loading.gif");
+  $load_gif.style.width = "40px";
+  $load_div = document.createElement("div");
+  $load_div.classList.add("centered", "m-1");
+  $load_div.append($load_gif);
+  return $load_div
+};
+
 function check_photo_in_block(block, _this, pk) {
     if (block.querySelector('[photo-pk=' + '"' + pk + '"' + ']')) {
         _this.parentElement.parentElement.setAttribute("tooltip", "Изображение уже выбрано");

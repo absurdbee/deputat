@@ -422,8 +422,6 @@ html .pace .pace-progress {
   display : block;
   visibility : hidden;
   opacity : 0;
-  -webkit-transition : all 0.5s ease;
-          transition : all 0.5s ease;
 }
 .body_overlay {
   position: fixed;

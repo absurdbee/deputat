@@ -697,22 +697,6 @@ function mob_send_change(span, _link, new_class, html) {
     link.send(null)
 }
 
-function open_load_fullscreen(link, block) {
-    link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    link_.open('GET', link, true);
-    link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    link_.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            elem = link_.responseText;
-            block.parentElement.style.display = "block";
-            block.innerHTML = "";
-            block.innerHTML = elem;
-            init_music(block);
-        }
-    };
-    link_.send();
-}
-
 function post_and_load_object_page(form, url_post, url_1) {
     form_data = new FormData(form);
     var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

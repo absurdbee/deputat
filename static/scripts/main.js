@@ -404,9 +404,7 @@ on('body', 'click', '.hide_comment_form', function() {
 
 on('body', 'click', '.create_ajax', function() {
   link = this.getAttribute("data-href");
-    loader = document.getElementById("create_loader");
-    open_load_fullscreen(link, loader);
-    init_music(loader)
+    create_fullscreen(link, "window_fullscreen");
 });
 
 on('body', 'click', '.get_user_notify_box', function() {

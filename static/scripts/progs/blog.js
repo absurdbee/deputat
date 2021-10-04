@@ -427,33 +427,28 @@ on('body', 'change', '#u_photo_attach', function() {
 on('body', 'click', '.u_select_photo', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.body.querySelector("#create_loader");
-  open_load_fullscreen('/users/load/u_photo_load/', loader)
+  create_fullscreen('/users/load/u_photo_load/', "window_fullscreen");
 });
 on('body', 'click', '.u_select_survey', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.body.querySelector("#create_loader");
-  open_load_fullscreen('/users/load/u_survey_load/', loader)
+  create_fullscreen('/users/load/u_survey_load/', "window_fullscreen");
 });
 
 on('body', 'click', '.u_select_video', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.body.querySelector("#create_loader");
-  open_load_fullscreen('/users/load/u_video_load/', loader)
+  create_fullscreen('/users/load/u_video_load/', "window_fullscreen");
 });
 on('body', 'click', '.u_select_music', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.body.querySelector("#create_loader");
-  open_load_fullscreen('/users/load/u_music_load/', loader)
+  create_fullscreen('/users/load/u_music_load/', "window_fullscreen");
 });
 on('body', 'click', '.u_select_doc', function() {
   this.parentElement.parentElement.previousElementSibling.classList.add("attach_block");
   clear_comment_dropdown();
-  loader = document.body.querySelector("#create_loader");
-  open_load_fullscreen('/users/load/u_doc_load/', loader)
+  create_fullscreen('/users/load/u_doc_load/', "window_fullscreen");
 });
 
 

@@ -106,7 +106,7 @@ def main():
                 data_region = "Чувашская Республика - Чувашия"
             region = Region.objects.get(name=data_region)
             region.elect_region.add(new_elect)
-            if image:
+            if data["image"]:
                 new_elect.get_remote_image(data["image"])
 
             list = AuthorityList.objects.get(slug="senat")

@@ -17,6 +17,7 @@
 </head>
 
 <body class="navbar-floating {% if request.user.is_theme_dark %}dark-layout{% endif %}">
+	{{ request.user.is_theme_dark }}
 		<div class="base_row_container">
 				{% include "menu.html" %}
 				{% include "navbar.html" %}

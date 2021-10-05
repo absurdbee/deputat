@@ -55,7 +55,7 @@ class User(AbstractUser):
 
     def is_theme_dark(self):
         from users.model.profile import UserProfile
-        profile = UserProfile.objects.filter(user=self)
+        profile = UserProfile.objects.get(user=self)
         return profile.theme == 2
 
     def get_last_location(self):

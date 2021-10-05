@@ -539,7 +539,7 @@ body.dark-layout {
   background :         linear-gradient(#3B4253, transparent);
 }
 
-.dark-layout .card, .dark-layout.card_fullscreen {
+.dark-layout .card, .dark-layout .card_fullscreen {
   background-color : #283046;
   box-shadow : 0 4px 24px 0 rgba(34, 41, 47, 0.24);
 }

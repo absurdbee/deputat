@@ -1,5 +1,7 @@
 from django.views.generic import ListView
 from common.templates import get_my_template
+from django.http import HttpResponse
+from django.views import View
 
 
 class UserLoadPhoto(ListView):
@@ -152,3 +154,14 @@ class UserLoadDocList(ListView):
 
 	def get_queryset(self):
 		return self.list.get_items()
+
+
+class ChangeTheme(View):
+	def get(self,request,*args,**kwargs):
+		from users.model.profile import UserProfile
+		theme = request.GET.get('theme')
+
+		profile = UserProfile.objects.get(user=request.user)
+		profile.theme = theme
+		profile.save(update_fields=["theme"])
+		return HttpResponse()

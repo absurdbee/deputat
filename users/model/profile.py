@@ -110,7 +110,7 @@ class UserProfile(models.Model):
     theme = models.PositiveSmallIntegerField(choices=THEME, default=WHITE, verbose_name="Тема")
 
     class Meta:
-        verbose_name = "Информация о пользователе"
+        verbose_name = "Информация о пользователе "
         verbose_name_plural = "Информация о пользователях"
 
     def __str__(self):

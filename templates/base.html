@@ -16,7 +16,7 @@
 		<link rel="stylesheet" media="none" onload="if(media!='all')media='all'" type="text/css" href="/static/styles/plyr.min.css">
 </head>
 
-<body class="navbar-floating">
+<body class="navbar-floating {% if request.user.is_theme_dark %}dark-layout{% endif %}">
 		<div class="base_row_container">
 				{% include "menu.html" %}
 				{% include "navbar.html" %}

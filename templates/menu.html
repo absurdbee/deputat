@@ -1,4 +1,4 @@
-<div class="main-menu menu-fixed menu-light menu-shadow">
+<div class="main-menu menu-fixed {% if request.user.is_theme_dark %}menu-dark{% else %}menu-light{% endif %} menu-shadow">
   <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item mr-auto">

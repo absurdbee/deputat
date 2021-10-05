@@ -53,6 +53,11 @@ class User(AbstractUser):
         else:
             return verb
 
+    def is_theme_dark(self, verb):
+        from users.model.profile import UserProfile
+        profile = UserProfile.objects.filter(user=self)
+        return profile.theme == 2
+
     def get_last_location(self):
         from users.model.profile import UserLocation
         return UserLocation.objects.filter(user=self).first()

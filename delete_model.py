@@ -20,7 +20,7 @@ count = 0
 deputat_list = AuthorityList.objects.get(slug="state_duma")
 candidate_list = AuthorityList.objects.get(slug="candidate_duma")
 
-lists = Q(list__slug="candidate_duma")|Q(list__slug="state_duma")
+lists = Q(list__slug="candidate_duma")
 
 for elect in Elect.objects.filter(list=candidate_list):
     if elect.old:

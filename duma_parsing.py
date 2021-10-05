@@ -1,6 +1,7 @@
 import sys,os
 import re
 import requests
+import time
 from bs4 import BeautifulSoup
 
 project_dir = '../deputat/deputat/'
@@ -12,6 +13,7 @@ django.setup()
 
 from lists.models import *
 from elect.models import *
+
 
 def get_html(url):
     r = requests.get(url)
@@ -54,10 +56,10 @@ def get_page_data(html):
         _name = _name.replace('\n', '').replace('<h2 class="person__title person__title--l"><span itemprop="name">', '').replace('<br/>', ' ').replace('</span></h2>', '').replace('</h2>', '')
 
     #description
-    description = soup.find('div', class_='article__lead article__lead--person')
-    if not description:
-        description = soup.find('div', class_='page__lead')
-    description = description.text
+    #description = soup.find('div', class_='article__lead article__lead--person')
+    #if not description:
+    #    description = soup.find('div', class_='page__lead')
+    description = ""
 
     #image
     image = soup.find('img', class_='person__image person__image--mobile')
@@ -98,21 +100,19 @@ def get_page_data(html):
 
 
 def main():
-    html = get_html("http://duma.gov.ru/duma/deputies/")
+    html = get_html("http://duma.gov.ru/duma/deputies/7/")
     lists = get_links(html)
+    candidate_list = AuthorityList.objects.get(slug="candidate_duma")
+    new_list = AuthorityList.objects.get(slug="state_duma_21_26")
+
     for url in lists:
         html = get_html(url)
         data = get_page_data(html)
-        try:
-            regions_query = data["region_list"].split(",")
-            for region_name in regions_query:
-                if Region.objects.filter(name=region_name).exists():
-                    pass
-                else:
-                    region = Region.objects.create(name=region_name)
-        except:
-            pass
-        if not Elect.objects.filter(name=data["name"]).exists():
+        if Elect.objects.filter(list=candidate_list, name=data["name"]).exists():
+            elect = Elect.objects.get(list=candidate_list, name=data["name"])
+            elect.list.add(new_list)
+            print("Этот уже есть... ", data["name"])
+        else:
             if data["fraction"] == '«ЕДИНАЯ РОССИЯ»':
                 current_fraction = Fraction.objects.get(slug="edinaya_russia")
             elif data["fraction"] == "СПРАВЕДЛИВАЯ РОССИЯ":
@@ -124,7 +124,7 @@ def main():
             elif data["fraction"] == "Депутаты, не входящие во фракции":
                 current_fraction = Fraction.objects.get(slug="no_fraction")
 
-            new_elect = Elect.objects.create(name=data["name"], description=data["description"], birthday=data["birthday"], authorization=data["authorization"], election_information=data["election_information"], fraction=current_fraction)
+            new_elect = Elect.objects.create(name=data["name"], birthday=data["birthday"], authorization=data["authorization"], election_information=data["election_information"], fraction=current_fraction)
             regions_query = data["region_list"]
             if regions_query:
                 regions_query = data["region_list"].split(",")
@@ -135,10 +135,9 @@ def main():
                     except:
                         pass
             new_elect.get_remote_image(data["elect_image"])
-            list = AuthorityList.objects.get(slug="state_duma")
-            list.elect_list.add(new_elect)
-            get_educations_for_elect(html, new_elect)
-            print(data["name"])
+            elect.list.add(new_list)
+            print("Этот создан! ", data["name"])
+        time.sleep(2)
 
 if __name__ == '__main__':
     main()

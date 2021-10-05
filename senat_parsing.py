@@ -107,7 +107,10 @@ def main():
                 data_region = "Удмуртская Республика (Удмуртия)"
             elif data_region == "Чувашская Республика":
                 data_region = "Чувашская Республика - Чувашия"
-            region = Region.objects.get(name=data_region)
+            try:
+                region = Region.objects.get(name=data_region)
+            except:
+                region = Region.objects.create(name=data_region)
             region.elect_region.add(new_elect)
             if data["image"]:
                 new_elect.get_remote_image(data["image"])

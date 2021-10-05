@@ -311,7 +311,7 @@ on('body', 'click', '.nav-link-style', function() {
   navbar.style.boxShadow = "inherit";
 
 	var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  request.open( 'GET', "/users/progs/change_theme/?theme=" + theme, true );
+  request.open( 'GET', "/users/load/change_theme/?theme=" + theme, true );
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ){

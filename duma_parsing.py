@@ -135,7 +135,7 @@ def main():
                     except:
                         pass
             new_elect.get_remote_image(data["elect_image"])
-            elect.list.add(new_list)
+            new_elect.list.add(new_list)
             print("Этот создан! ", data["name"])
         time.sleep(2)
 

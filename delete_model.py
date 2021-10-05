@@ -22,8 +22,6 @@ candidate_list = AuthorityList.objects.get(slug="candidate_duma")
 
 lists = Q(list__slug="candidate_duma")
 
-for elect in Elect.objects.filter(list=candidate_list):
-    if elect.old:
-        count += 1
-        print("прогон ", count)
-        elect.delete()
+for elect in Elect.objects.filter(list=None):
+    print("Этот удален! ", elect.name)
+    elect.delete()

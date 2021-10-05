@@ -53,7 +53,7 @@ class User(AbstractUser):
         else:
             return verb
 
-    def is_theme_dark(self, verb):
+    def is_theme_dark(self):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.filter(user=self)
         return profile.theme == 2

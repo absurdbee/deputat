@@ -69,6 +69,9 @@ class UserProfile(models.Model):
     MEDICAL = 'MED'
     IT = 'IT'
 
+    WHITE = 1
+    BLACK = 2
+
     EDUCATIONS = (
         (NO_VALUE, 'Не выбрано'),
         (EDUCATION_HIGH, 'Высшее образование'),
@@ -81,6 +84,11 @@ class UserProfile(models.Model):
         (MEDICAL, 'Медицина'),
         (IT, 'IT'),
     )
+    THEME = (
+        (WHITE, 'Светлый фон'),
+        (BLACK, 'Темный фон'),
+    )
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile', verbose_name="Пользователь")
     education = models.CharField(max_length=5, choices=EDUCATIONS, default=NO_VALUE, verbose_name="Образование")
     employment = models.CharField(max_length=5, choices=EMPLOYMENT, default=NO_VALUE, verbose_name="Сфера занятости")
@@ -99,6 +107,7 @@ class UserProfile(models.Model):
     comments = models.PositiveIntegerField(default=0, verbose_name="Кол-во комментов")
     total_costs = models.PositiveIntegerField(default=0, verbose_name="Доходы")
     total_revenue = models.PositiveIntegerField(default=0, verbose_name="Расходы")
+    theme = models.PositiveSmallIntegerField(choices=THEME, default=WHITE, verbose_name="Тема")
 
     class Meta:
         verbose_name = "Информация о пользователе"

@@ -1,6 +1,7 @@
 import sys,os
 import re
 import requests
+import time
 from bs4 import BeautifulSoup
 
 project_dir = '../deputat/deputat/'
@@ -36,11 +37,11 @@ def get_page_data(html):
 
     person__description = soup.find('div', class_='person__description__grid')
 
-    description = soup.find('div', class_='person__additional_top')
-    if description:
-        description = description.text
-    else:
-        description = ""
+    #description = soup.find('div', class_='person__additional_top')
+    #if description:
+    #    description = description.text
+    #else:
+    description = ""
 
     img_container = soup.find('div', class_='content__in')
     image = soup.find('img', class_='person_img')
@@ -76,10 +77,13 @@ def get_page_data(html):
 def main():
     html = get_html("http://council.gov.ru/structure/members/")
     lists = get_links(html)
+    _list = AuthorityList.objects.get(slug="senat")
     for url in lists:
         html = get_html(url)
         data = get_page_data(html)
-        if not Elect.objects.filter(name=data["name"]).exists():
+        if Elect.objects.filter(list=_list, name=data["name"]).exists():
+            print("сенатор уже есть - ", data["name"])
+        else:
             new_elect = Elect.objects.create(
                                                 name=data["name"],
                                                 description=data["description"],
@@ -106,7 +110,8 @@ def main():
 
             for edu_item in data["educations_list"]:
                 EducationElect.objects.create(elect=new_elect, title=edu_item[6:], year=edu_item[:4])
-            print(data["name"])
+            print("новый сенатор - ", data["name"])
+        time.sleep(3)
 
 if __name__ == '__main__':
     main()

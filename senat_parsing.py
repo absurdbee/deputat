@@ -44,7 +44,11 @@ def get_page_data(html):
     description = ""
 
     img_container = soup.find('div', class_='content__in')
-    image = soup.find('img', class_='person_img')
+    try:
+        image = soup.find('img', class_='person_img')
+        image_src = image['src']
+    except:
+        image_src = None
 
     person_info = soup.find('div', class_='person_info_private')
     birthday = person_info.find_all('p')[0].text
@@ -63,7 +67,7 @@ def get_page_data(html):
     region = soup.find('a', class_='region_name_link').text
 
     data = {'name': name.text,
-            'image': image['src'],
+            'image': image_src,
             'description': description.strip().replace('\n', ''),
             'educations_list': edu_list,
             'region': region,
@@ -102,8 +106,8 @@ def main():
                 data_region = "Чувашская Республика - Чувашия"
             region = Region.objects.get(name=data_region)
             region.elect_region.add(new_elect)
-
-            new_elect.get_remote_image(data["image"])
+            if image:
+                new_elect.get_remote_image(data["image"])
 
             list = AuthorityList.objects.get(slug="senat")
             list.elect_list.add(new_elect)

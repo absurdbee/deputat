@@ -302,7 +302,7 @@ on('body', 'click', '.nav-link-style', function() {
 		theme = 2;
 		if ($body.querySelector('.elect_detail_banner')) {
 			img = $body.querySelector('.elect_detail_banner');
-			img.setAttribute("src", "/media/images/test_1.jpg")
+			img.setAttribute("src", "/static/media/images/test_1.jpg")
 		}
   } else if ($body.classListcontains('dark-layout')){
     $body.classList.remove("dark-layout");
@@ -313,7 +313,7 @@ on('body', 'click', '.nav-link-style', function() {
 		if ($body.querySelector('.elect_detail_banner')) {
 			console.log("elect_detail_banner!")
 			img = $body.querySelector('.elect_detail_banner');
-			img.setAttribute("src", "/media/images/test_2.jpg")
+			img.setAttribute("src", "/static/media/images/test_2.jpg")
 		}
   }
   navbar.style.background = "inherit";

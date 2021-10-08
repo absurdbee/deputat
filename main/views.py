@@ -132,3 +132,27 @@ class DraftNewsView(ListView, CategoryListMixin):
 			return get_draft_news(self.request.user)
 		else:
 			return []
+
+
+class MainDocListView(ListView, CategoryListMixin):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from lists.models import MediaList
+		from common.templates import get_full_template
+
+		self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
+		if request.user.is_manager():
+			self.media_list = self.list.get_staff_items()
+		else:
+			self.media_list = self.list.get_items()
+		self.template_name = get_full_template(self.list, "main/list/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MainDocListView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(MainDocListView,self).get_context_data(**kwargs)
+		context['list'] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.media_list

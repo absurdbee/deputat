@@ -31,6 +31,13 @@ function post_elect_new(_this, url, toast) {
   link.send(form_data);
 };
 
+on('body', 'click', '.media_list_add', function() {
+  create_fullscreen("/docs/user_progs/add_list/", "worker_fullscreen");
+});
+on('body', 'click', '.u_doc_add', function() {
+  create_fullscreen("/docs/user_progs/create_doc/", "worker_fullscreen");
+});
+
 on('body', 'click', '.u_elect_new_remove', function() {
   post_send_change(this.parentElement, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");
 });

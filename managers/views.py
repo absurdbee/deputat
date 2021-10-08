@@ -39,3 +39,59 @@ class LoadClaims(ListView):
 
     def get_queryset(self):
         return self.obj.reports.all()
+
+
+class CreateMediaList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        from common.templates import get_managers_template
+
+        self.template_name = get_managers_template("managers/manage_create/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(CreateMediaList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from lists.forms import MedialistForm
+
+        context = super(CreateMediaList,self).get_context_data(**kwargs)
+        context["form_post"] = MedialistForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from lists.forms import MedialistForm
+
+        form_post = MedialistForm(request.POST)
+        if request.is_ajax() and form_post.is_valid() and request.user.is_manager():
+            list = form_post.save(commit=False)
+            new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order)
+            return render_for_platform(request, 'main/list/list.html',{'list': new_list})
+        else:
+            return HttpResponseBadRequest()
+
+
+class EditMediaList(TemplateView):
+    def get(self,request,*args,**kwargs):
+        from common.templates import get_managers_template
+
+        self.template_name = get_managers_template("managers/manage_create/edit_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(EditMediaList,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from lists.forms import MedialistForm
+        from lists.models import MediaList
+
+        context = super(EditMediaList,self).get_context_data(**kwargs)
+        context["list"] = MediaList.objects.get(uuid=self.kwargs["uuid"])
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from lists.forms import MedialistForm
+        from lists.models import MediaList
+
+        self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
+        self.form = MedialistForm(request.POST,instance=self.list)
+        if request.is_ajax() and self.form.is_valid() and request.user.is_manager():
+            list = self.form.save(commit=False)
+            list.edit_list(name=list.name, description=list.description, order=list.order, manager_id=request.user.pk)
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
+        return super(EditMediaList,self).get(request,*args,**kwargs)

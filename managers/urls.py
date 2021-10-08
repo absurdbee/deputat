@@ -7,6 +7,9 @@ urlpatterns = [
     url(r'^high_officer/$', SuperManagersView.as_view(), name='super_managers'),
     url(r'^load_claims/(?P<pk>\d+)/$', LoadClaims.as_view()),
 
+    url(r'^create_media_list/$', CreateMediaList.as_view()),
+    url(r'^edit_media_list/(?P<uuid>[0-9a-f-]+)/$', EditMediaList.as_view()),
+
     url(r'^progs_user/', include('managers.url.progs_user')),
     url(r'^progs_community/', include('managers.url.progs_community')),
     url(r'^progs_survey/', include('managers.url.progs_survey')),

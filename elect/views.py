@@ -25,7 +25,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
                     ElectNumbers.objects.create(user=request.user.pk, elect=self.elect.pk, platform=0)
                 self.elect.view += 1
                 self.elect.save(update_fields=["view"])
-            if request.user.is_theme_dark:
+            if request.user.is_theme_dark():
                 self.get_theme_image = "/static/images/test_1.jpg"
             else:
                 self.get_theme_image = "/static/images/test_2.jpg"

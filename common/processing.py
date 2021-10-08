@@ -1,3 +1,8 @@
+def get_media_list_processing(list, type):
+    list.type = type
+    list.save(update_fields=['type'])
+    return list
+
 def get_community_processing(name, description):
     return True
 

@@ -202,7 +202,7 @@ class Elect(models.Model):
             return ""
 
     def get_lists(self):
-        return self.list.all()
+        return self.list.all().order_by("order")
 
     def get_regions(self):
         regions = self.region.all()

@@ -6,18 +6,8 @@ from django.views.generic import ListView
 from common.templates import get_small_template
 
 
-"""
-    Группируем все представления депутата здесь:
-    1. Страница отдельного депутата,
-    2. Список всех новостей депутата для подгрузки
-	3. Список новостей о высказываниях депутата для подгрузки
-	4. Список новостей о работа с избирателями депутата для подгрузки
-	5. Список новостей о предвыборная деятельности депутата для подгрузки
-	6. Страница отдельной новости депутата
-"""
-
 class ElectDetailView(TemplateView, CategoryListMixin):
-    template_name = None
+    template_name, get_theme_image = None, None
 
     def get(self,request,*args,**kwargs):
         import re
@@ -35,6 +25,10 @@ class ElectDetailView(TemplateView, CategoryListMixin):
                     ElectNumbers.objects.create(user=request.user.pk, elect=self.elect.pk, platform=0)
                 self.elect.view += 1
                 self.elect.save(update_fields=["view"])
+            if request.user.is_theme_dark:
+                self.get_theme_image = "/static/images/test_1.jpg"
+            else:
+                self.get_theme_image = "/static/images/test_2.jpg"
             return super(ElectDetailView,self).get(request,*args,**kwargs)
         else:
             if not "elect_" + str(self.elect.pk) in request.COOKIES:
@@ -60,6 +54,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
         context["last_articles"] = ElectNew.objects.filter(type="PUB")[:6]
         context["is_user_voted"] = self.elect.is_user_voted(self.request.user.pk)
         context["voted"] = ElectRating.objects.filter(elect=self.elect)
+        context["get_theme_image"] = self.get_theme_image
         return context
 
 

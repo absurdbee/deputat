@@ -304,7 +304,7 @@ on('body', 'click', '.nav-link-style', function() {
 			img = $body.querySelector('.elect_detail_banner');
 			img.setAttribute("src", "/static/media/images/test_1.jpg")
 		}
-  } else if ($body.classListcontains('dark-layout')){
+  } else if ($body.classList.contains('dark-layout')){
     $body.classList.remove("dark-layout");
     mainMenu.classList.remove('menu-dark'); mainMenu.classList.add('menu-light');
     navbar.classList.remove('navbar-dark'); navbar.classList.add('navbar-light');

@@ -197,7 +197,7 @@ class Elect(models.Model):
 
     def get_first_list(self):
         try:
-            return self.list.all()[0]
+            return self.list.all().order_by("order")[0]
         except:
             return ""
 

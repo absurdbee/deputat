@@ -323,7 +323,7 @@ class Music(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True)
     uri = models.CharField(max_length=255, blank=True, null=True)
     list = models.ManyToManyField(SoundList, related_name='playlist', blank=True)
-    media_list = models.ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='+', null=True, blank=True, verbose_name="Медиа-список")
+    media_list = models.ManyToManyField("lists.MediaList", related_name='+', blank=True, verbose_name="Медиа-список")
     type = models.CharField(max_length=5, choices=TYPE, default=PROCESSING, verbose_name="Тип")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, db_index=False, on_delete=models.CASCADE, verbose_name="Создатель")
     community = models.ForeignKey('communities.Community', related_name='track_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
@@ -434,6 +434,7 @@ class Music(models.Model):
     def create_manager_track(cls, creator, title, file, lists):
         from common.processing import get_music_processing
         from logs.model.manage_audio import AudioManageLog
+        from lists.models import MediaList
 
         if not lists:
             from rest_framework.exceptions import ValidationError
@@ -441,20 +442,18 @@ class Music(models.Model):
 
         track = cls.objects.create(creator=creator,title=title,file=file)
         for list_id in lists:
-            track_list = SoundList.objects.get(pk=list_id)
-            track_list.playlist.add(track)
-
+            track_list = MediaList.objects.get(pk=list_id)
+            track_list.media_list.add(track)
         get_music_processing(track, Music.MANAGER)
-        from common.notify.progs import user_send_notify, user_send_wall
-
-        #for user_id in creator.get_user_news_notify_ids():
-        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUS", object_id=track.pk, verb="ITE")
-        #    user_send_notify(track.pk, creator.pk, user_id, None, "create_manager_track_notify")
         AudioManageLog.objects.create(item=track.pk, manager=creator.pk, action_type=AudioManageLog.ITEM_CREATED)
         return track
 
     def edit_track(self, title, file, lists, is_public):
         from common.processing import get_music_processing
+
+        if not lists:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового элемента")
 
         self.title = title
         self.file = file

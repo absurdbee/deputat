@@ -324,7 +324,7 @@ class Photo(models.Model):
     )
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     list = models.ManyToManyField(PhotoList, related_name="photo_list", blank=True)
-    media_list = models.ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='+', null=True, blank=True, verbose_name="Медиа-список")
+    media_list = models.ManyToManyField("lists.MediaList", related_name='+', blank=True, verbose_name="Медиа-список")
     file = ProcessedImageField(format='JPEG', options={'quality': 100}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)])
     preview = ProcessedImageField(format='JPEG', options={'quality': 60}, upload_to=upload_to_photo_directory, processors=[Transpose(), ResizeToFit(width=102, upscale=False)])
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
@@ -385,6 +385,7 @@ class Photo(models.Model):
     def create_manager_photo(cls, creator, image, list):
         from common.processing import get_photo_processing
         from logs.model.manage_photo import PhotoManageLog
+        from lists.models import MediaList
 
         if not list:
             from rest_framework.exceptions import ValidationError
@@ -392,15 +393,10 @@ class Photo(models.Model):
 
         photo = cls.objects.create(creator=creator,preview=image,file=image)
         for list_id in lists:
-            photo_list = PhotoList.objects.get(pk=list_id)
-            photo_list.photo_list.add(photo)
+            photo_list = MediaList.objects.get(pk=list_id)
+            photo_list.media_list.add(photo)
 
         get_photo_processing(photo, Photo.MANAGER)
-        from common.notify.progs import user_send_notify, user_send_wall
-
-        #for user_id in creator.get_user_news_notify_ids():
-        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="PHO", object_id=photo.pk, verb="ITE")
-        #    user_send_notify(photo.pk, creator.pk, user_id, None, "create_manager_photo_notify")
         PhotoManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=PhotoManageLog.ITEM_CREATED)
         return photo
 

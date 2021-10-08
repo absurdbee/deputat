@@ -31,3 +31,5 @@ admin.site.register(BlogCategory, BlogCategoryAdmin)
 admin.site.register(ElectNewsCategory)
 admin.site.register(AuthorityListCategory)
 admin.site.register(Fraction, FractionAdmin)
+
+admin.site.register(MediaList)

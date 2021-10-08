@@ -337,7 +337,7 @@ class Video(models.Model):
     uri = models.CharField(max_length=255, blank=True, null=True, verbose_name="Ссылка на видео")
     uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
     list = models.ManyToManyField(VideoList, related_name="video_list", blank=True, verbose_name="Альбом")
-    media_list = models.ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='+', null=True, blank=True, verbose_name="Медиа-список")
+    media_list = models.ManyToManyField("lists.MediaList", related_name='+', blank=True, verbose_name="Медиа-список")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="video_creator", on_delete=models.CASCADE, verbose_name="Создатель")
     type = models.CharField(choices=TYPE, default=PROCESSING, max_length=5)
     file = models.FileField(upload_to=upload_to_video_directory, blank=True, null=True, validators=[validate_file_extension], verbose_name="Видеозапись")
@@ -405,8 +405,7 @@ class Video(models.Model):
     def create_manager_video(cls, creator, title, file, image, uri, lists):
         from common.processing import get_video_processing
         from logs.model.manage_video import VideoManageLog
-        from common.notify.progs import user_send_notify
-        from notify.models import Notify
+        from lists.models import MediaList
 
         if not lists:
             from rest_framework.exceptions import ValidationError
@@ -421,14 +420,10 @@ class Video(models.Model):
         video = cls.objects.create(creator=creator,title=title,image=image,file=file,uri=current_uri)
 
         for list_id in lists:
-            video_list = VideoList.objects.get(pk=list_id)
-            video_list.video_list.add(video)
+            video_list = MediaList.objects.get(pk=list_id)
+            video_list.media_list.add(video)
 
         get_video_processing(video, Video.MANAGER)
-
-        #for user_id in creator.get_user_news_notify_ids():
-        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="VID", object_id=video.pk, verb="ITE")
-        #    user_send_notify(video.pk, creator.pk, user_id, None, "create_u_video_notify")
         VideoManageLog.objects.create(item=video.pk, manager=creator.pk, action_type=VideoManageLog.ITEM_CREATED)
         return video
 

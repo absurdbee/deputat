@@ -296,7 +296,7 @@ class Doc(models.Model):
     file = models.FileField(upload_to=upload_to_doc_directory, validators=[validate_file_extension], verbose_name="Документ")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
     list = models.ManyToManyField(DocList, related_name='doc_list', blank=True)
-    media_list = models.ForeignKey("lists.MediaList", on_delete=models.CASCADE, related_name='+', null=True, blank=True, verbose_name="Медиа-список")
+    media_list = models.ManyToManyField("lists.MediaList", related_name='+', blank=True, verbose_name="Медиа-список")
     type = models.CharField(choices=TYPE, default=PROCESSING, max_length=5)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
     community = models.ForeignKey('communities.Community', related_name='doc_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
@@ -359,6 +359,7 @@ class Doc(models.Model):
     def create_manager_doc(cls, creator, title, file, lists):
         from common.processing import get_doc_processing
         from logs.model.manage_doc import DocManageLog
+        from lists.models import MediaList
 
         if not lists:
             from rest_framework.exceptions import ValidationError
@@ -366,20 +367,18 @@ class Doc(models.Model):
 
         doc = cls.objects.create(creator=creator,title=title,file=file)
         for list_id in lists:
-            doc_list = DocList.objects.get(pk=list_id)
-            doc_list.doc_list.add(doc)
-
+            list = MediaList.objects.get(pk=list_id)
+            list.media_list.add(doc)
         get_doc_processing(doc, Doc.MANAGER)
-        from common.notify.progs import user_send_notify, user_send_wall
-
-        #for user_id in creator.get_user_news_notify_ids():
-        #    Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="DOC", object_id=doc.pk, verb="ITE")
-        #    user_send_notify(doc.pk, creator.pk, user_id, None, "create_manager_doc_notify")
         DocManageLog.objects.create(item=doc.pk, manager=creator.pk, action_type=DocManageLog.ITEM_CREATED)
         return doc
 
     def edit_doc(self, title, file, lists, is_public):
         from common.processing import get_doc_processing
+
+        if not lists:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового элемента")
 
         self.title = title
         self.file = file
@@ -390,16 +389,25 @@ class Doc(models.Model):
         else:
             get_doc_processing(self, Doc.PRIVATE)
             self.make_private()
+        self.doc_list.clear()
+        for list_id in lists:
+            doc_list = DocList.objects.get(pk=list_id)
+            doc_list.doc_list.add(self)
         return self.save()
 
     def edit_manager_doc(self, title, file, lists, manager_id):
         from common.processing import get_doc_processing
         from logs.model.manage_doc import DocManageLog
 
+        if not lists:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError("Не выбран список для нового элемента")
+
+        get_doc_processing(self, Doc.MANAGER)
+
         self.title = title
         self.file = file
         self.lists = lists
-        get_doc_processing(self, Doc.MANAGER)
         DocManageLog.objects.create(item=self.pk, manager=manager_id, action_type=DocManageLog.ITEM_EDITED)
         return self.save()
 

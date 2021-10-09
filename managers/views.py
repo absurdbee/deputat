@@ -58,6 +58,7 @@ class CreateMediaList(TemplateView):
 
     def post(self,request,*args,**kwargs):
         from lists.forms import MedialistForm
+        from common.templates import render_for_platform
 
         form_post = MedialistForm(request.POST)
         if request.is_ajax() and form_post.is_valid() and request.user.is_manager():

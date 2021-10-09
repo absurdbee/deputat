@@ -391,10 +391,10 @@ class Photo(models.Model):
             from rest_framework.exceptions import ValidationError
             raise ValidationError("Не выбран список для нового элемента")
 
-        photo = cls.objects.create(creator=creator,preview=image,file=image)
-        for list_id in lists:
-            photo_list = MediaList.objects.get(pk=list_id)
-            photo_list.media_list.add(photo)
+        photo = cls.objects.create(creator=creator,preview=image,file=image, list=list)
+        photo.media_list.add(list)
+        list.count += 1
+        list.save(update_fields=["count"])
 
         get_photo_processing(photo, Photo.MANAGER)
         PhotoManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=PhotoManageLog.ITEM_CREATED)

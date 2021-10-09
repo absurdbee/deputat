@@ -1,0 +1,42 @@
+{% extends "base_anon.html" %}
+{% block title %}{{ list.name }} | Архив портала{% endblock %}
+{% block content %}
+
+<div class="container mt-3 pk_saver">
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="ajax" href="/main_docs/">Архив</a></li>
+            <li class="breadcrumb-item active">{{ list.name }} ({{ list.count_items }})</li>
+        </ol>
+    </div>
+    <span class="load_block">
+
+        <div class="media mt-3" style="padding-left: 7px;">
+            <h5 class="mt-1">
+                {{ list.name }} ({{ list.count_items }})
+            </h5>
+        </div>
+
+        <div class="row is_paginate no-gutters">
+            {% if object_list %}
+
+            {% for object in object_list %}
+              {% include 'user_docs/anon_doc.html' %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <div class="load centered m-1 next_page_list" data-link="/docs/user_list/{{ list.uuid }}/?page={{ page_obj.next_page_number }}">
+                <img src="/static/images/loading.gif">
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="card centered item_empty">
+                <div class="card-body">
+                </div>
+                <h6>Список пустой.</h6>
+            </div>
+            {% endif %}
+        </div>
+    </span>
+</div>
+
+{% endblock %}

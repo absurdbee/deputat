@@ -39,7 +39,11 @@
             <span class="load_block">
 
             <div class="media mt-3 uuid_saver" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
-              <h5 class="second_list_name mt-1" data-name="{{ list.name }}">{{ list.name }} ({{ list.count_items }})
+              <h5 class="mt-1">
+                <span class="second_list_name mt-1" data-name="{{ list.name }}">
+                  {{ list.name }}
+                </span>
+                ({{ list.count_items }})
                 {% if request.user.is_manager %}
                   <span class="pointer underline add_doc_in_media_list">+ файл</span>
                   <span class="pointer underline add_photo_in_media_list">+ фото</span>

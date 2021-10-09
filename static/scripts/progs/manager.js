@@ -43,7 +43,7 @@ on('body', 'click', '.edit_media_list', function() {
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
   create_fullscreen("/managers/edit_media_list/" + uuid + "/", "worker_fullscreen");
-});
+}); 
 
 on('body', 'click', '.u_elect_new_remove', function() {
   post_send_change(this.parentElement, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");

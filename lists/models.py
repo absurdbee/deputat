@@ -116,7 +116,7 @@ class MediaList(models.Model):
 
 	name = models.CharField(max_length=255)
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='creator_medialist', on_delete=models.CASCADE, verbose_name="Создатель")
-	owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, related_name='owner_medialist', on_delete=models.CASCADE, verbose_name="Владелец")
+	owner = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='owner_medialist', on_delete=models.CASCADE, verbose_name="Владелец")
 	order = models.PositiveIntegerField(default=1)
 	uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
 	description = models.CharField(max_length=200, blank=True, verbose_name="Описание")

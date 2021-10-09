@@ -4,6 +4,7 @@ from common.templates import get_managers_template
 from generic.mixins import CategoryListMixin
 from django.http import HttpResponse
 from lists.models import MediaList
+from django.views import View
 
 
 class ManagersView(TemplateView, CategoryListMixin):

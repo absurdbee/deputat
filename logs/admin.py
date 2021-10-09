@@ -7,8 +7,10 @@ from logs.model.manage_elect_new import *
 from logs.model.manage_survey import *
 from logs.model.manage_doc import *
 from logs.model.manage_blog import *
+from logs.model.manage_media import *
 
-#admin.site.register(PostManageLog)
+
+admin.site.register(MediaManageLog)
 #admin.site.register(PostWorkerManageLog)
 #admin.site.register(PostCreateWorkerManageLog)
 

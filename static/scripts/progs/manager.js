@@ -31,11 +31,18 @@ function post_elect_new(_this, url, toast) {
   link.send(form_data);
 };
 
-on('body', 'click', '.media_list_add', function() {
-  create_fullscreen("/docs/user_progs/add_list/", "worker_fullscreen");
+on('body', 'click', '.add_media_list', function() {
+  create_fullscreen("/managers/add_list/", "worker_fullscreen");
 });
-on('body', 'click', '.u_doc_add', function() {
-  create_fullscreen("/docs/user_progs/create_doc/", "worker_fullscreen");
+on('body', 'click', '.edit_media_list', function() {
+  list = document.body.querySelectorAll('.cover_block');
+  for (var i = 0; i < list.length; i++) {
+    list[i].classList.remove("list_active")
+  }
+  block = this.parentElement.parentElement;
+  block.classList.add("list_active");
+  uuid = block.getAttribute('data-uuid');
+  create_fullscreen("/managers/progs_doc/edit_list/" + uuid + "/", "worker_fullscreen");
 });
 
 on('body', 'click', '.u_elect_new_remove', function() {
@@ -160,19 +167,6 @@ on('body', 'click', '#u_edit_doc_btn', function() {
   }};
 
   link_.send(form_data);
-});
-on('body', 'click', '.staff_doc_list_add', function() {
-  create_fullscreen("/managers/progs_doc/create_list/", "worker_fullscreen");
-});
-on('body', 'click', '.staff_doc_list_edit', function() {
-  list = document.body.querySelectorAll('.cover_block');
-  for (var i = 0; i < list.length; i++) {
-    list[i].classList.remove("list_active")
-  }
-  block = this.parentElement.parentElement;
-  block.classList.add("list_active");
-  uuid = block.getAttribute('data-uuid');
-  create_fullscreen("/managers/progs_doc/edit_list/" + uuid + "/", "worker_fullscreen");
 });
 
 on('body', 'click', '.staff_doc_add', function() {

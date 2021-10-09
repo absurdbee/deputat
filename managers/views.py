@@ -62,7 +62,7 @@ class CreateMediaList(TemplateView):
         if request.is_ajax() and form_post.is_valid() and request.user.is_manager():
             list = form_post.save(commit=False)
             new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order)
-            return render_for_platform(request, 'main/list/list.html',{'list': new_list})
+            return render_for_platform(request, 'main/media.html',{'list': new_list})
         else:
             return HttpResponseBadRequest()
 

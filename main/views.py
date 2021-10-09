@@ -68,13 +68,13 @@ class MainDocsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from docs.models import DocList
+		from lists.models import MediaList
 
 		self.template_name = get_full_template("main/", "docs.html", request.user, request.META['HTTP_USER_AGENT'])
 		uuid = request.GET.get('uuid')
-		self.get_lists = DocList.objects.filter(type=DocList.MANAGER)
+		self.get_lists = MediaList.objects.filter(type=MediaList.LIST)
 		if uuid:
-			self.list = DocList.objects.get(uuid=uuid)
+			self.list = MediaList.objects.get(uuid=uuid)
 		else:
 			self.list = self.get_lists.first()
 		self.count_lists = self.get_lists.values("pk").count()
@@ -82,8 +82,6 @@ class MainDocsView(ListView, CategoryListMixin):
 		return super(MainDocsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		from docs.models import DocList
-
 		context = super(MainDocsView,self).get_context_data(**kwargs)
 		context['list'] = self.list
 		context['get_lists'] = self.get_lists
@@ -152,6 +150,7 @@ class MainDocListView(ListView, CategoryListMixin):
 	def get_context_data(self,**kwargs):
 		context = super(MainDocListView,self).get_context_data(**kwargs)
 		context['list'] = self.list
+		context['lists'] = self.list
 		return context
 
 	def get_queryset(self):

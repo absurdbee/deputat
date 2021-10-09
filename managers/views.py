@@ -100,7 +100,7 @@ class EditMediaList(TemplateView):
         return super(EditMediaList,self).get(request,*args,**kwargs)
 
 
-class MediaListUserDelete(View):
+class UserMediaListDelete(View):
     def get(self,request,*args,**kwargs):
         list = MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and request.user.is_manager() and list.type != MediaList.LIST:
@@ -109,7 +109,7 @@ class MediaListUserDelete(View):
         else:
             raise Http404
 
-class MediaListUserAbortDelete(View):
+class UserMediaListAbortDelete(View):
     def get(self,request,*args,**kwargs):
         list = MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and request.user.is_manager() and list.type != MediaList.DELETED:

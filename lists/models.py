@@ -156,11 +156,14 @@ class MediaList(models.Model):
 	def is_item_in_list(self, item_id):
 		return self.media_list.filter(type="PUB").exists()
 
-	def is_not_empty(self):
-		return self.media_list.filter(type="PUB").values("pk").exists()
-
 	def get_items(self):
-		return self.media_list.filter(type="PUB")
+		from itertools import chain
+
+		docs = self.doc_media_list.filter(type="MAN")
+		photos = self.photo_media_list.filter(type="MAN")
+		videos = self.video_media_list.filter(type="MAN")
+		tracks = self.media_playlist.filter(type="MAN")
+		return list(chain(docs, photos, videos, tracks))
 
 	def count_items(self):
 		return self.count

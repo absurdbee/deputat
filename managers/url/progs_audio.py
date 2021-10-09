@@ -31,6 +31,4 @@ urlpatterns = [
 
     url(r'^create_track/$', CreateManagerTrack.as_view()),
     url(r'^edit_track/$', EditManagerTrack.as_view()),
-    url(r'^create_list/$', CreateManagerMusicList.as_view()),
-    url(r'^edit_list/$', EditManagerMusicList.as_view()),
 ]

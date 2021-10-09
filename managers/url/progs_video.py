@@ -31,6 +31,4 @@ urlpatterns = [
 
     url(r'^create_video/$', CreateManagerVideo.as_view()),
     url(r'^edit_video/$', EditManagerVideo.as_view()),
-    url(r'^create_list/$', CreateManagerVideoList.as_view()),
-    url(r'^edit_list/$', EditManagerVideoList.as_view()),
 ]

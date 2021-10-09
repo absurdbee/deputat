@@ -176,16 +176,16 @@ class MediaList(models.Model):
 	def is_deleted(self):
 		return self.type == "_DEL"
 
-	def delete_list(self):
+	def delete_list(self, manager_id):
 		from logs.model.manage_media import MediaManageLog
 
 		self.type = MediaList.DELETED
 		self.save(update_fields=['type'])
-		MediaManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=MediaManageLog.LIST_DELETED)
+		MediaManageLog.objects.create(item=self.pk, manager=manager_id, action_type=MediaManageLog.LIST_DELETED)
 
-	def abort_delete_list(self):
+	def abort_delete_list(self, manager_id):
 		from logs.model.manage_media import MediaManageLog
 
 		self.type = MediaList.LIST
 		self.save(update_fields=['type'])
-		MediaManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=MediaManageLog.LIST_RECOVER)
+		MediaManageLog.objects.create(item=self.pk, manager=manager_id, action_type=MediaManageLog.LIST_RECOVER)

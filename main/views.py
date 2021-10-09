@@ -74,7 +74,7 @@ class MainMediaView(ListView, CategoryListMixin):
 		uuid = request.GET.get('uuid')
 		self.get_lists = MediaList.objects.filter(type=MediaList.LIST)
 		if uuid:
-			self.list = MediaList.objects.get(pk=uuid)
+			self.list = MediaList.objects.get(uuid=uuid)
 		else:
 			self.list = self.get_lists.first()
 		self.count_lists = self.get_lists.values("pk").count()

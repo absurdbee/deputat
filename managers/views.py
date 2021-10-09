@@ -105,7 +105,7 @@ class UserMediaListDelete(View):
     def get(self,request,*args,**kwargs):
         list = MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and request.user.is_manager() and list.type == MediaList.LIST:
-            list.delete_list()
+            list.delete_list(request.user.pk)
             return HttpResponse()
         else:
             raise Http404
@@ -114,7 +114,7 @@ class UserMediaListAbortDelete(View):
     def get(self,request,*args,**kwargs):
         list = MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and request.user.is_manager() and list.type == MediaList.DELETED:
-            list.abort_delete_list()
+            list.abort_delete_list(request.user.pk)
             return HttpResponse()
         else:
             raise Http404

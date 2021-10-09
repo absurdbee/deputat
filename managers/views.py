@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from common.templates import get_managers_template
 from generic.mixins import CategoryListMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from lists.models import MediaList
 from django.views import View
 

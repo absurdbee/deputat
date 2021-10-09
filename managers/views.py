@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from common.templates import get_managers_template
 from generic.mixins import CategoryListMixin
 from django.http import HttpResponse
+from lists.models import MediaList
 
 
 class ManagersView(TemplateView, CategoryListMixin):
@@ -79,7 +80,6 @@ class EditMediaList(TemplateView):
 
     def get_context_data(self,**kwargs):
         from lists.forms import MedialistForm
-        from lists.models import MediaList
 
         context = super(EditMediaList,self).get_context_data(**kwargs)
         context["list"] = MediaList.objects.get(uuid=self.kwargs["uuid"])
@@ -87,7 +87,6 @@ class EditMediaList(TemplateView):
 
     def post(self,request,*args,**kwargs):
         from lists.forms import MedialistForm
-        from lists.models import MediaList
 
         self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
         self.form = MedialistForm(request.POST,instance=self.list)
@@ -99,3 +98,22 @@ class EditMediaList(TemplateView):
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
         return super(EditMediaList,self).get(request,*args,**kwargs)
+
+
+class MediaListUserDelete(View):
+    def get(self,request,*args,**kwargs):
+        list = MediaList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and request.user.is_manager() and list.type != MediaList.LIST:
+            list.delete_list()
+            return HttpResponse()
+        else:
+            raise Http404
+
+class MediaListUserAbortDelete(View):
+    def get(self,request,*args,**kwargs):
+        list = MediaList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and request.user.is_manager() and list.type != MediaList.DELETED:
+            list.abort_delete_list()
+            return HttpResponse()
+        else:
+            raise Http404

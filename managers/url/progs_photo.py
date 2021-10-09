@@ -30,6 +30,4 @@ urlpatterns = [
     url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListPhotoUnverify.as_view()),
 
     url(r'^create_photo/$', CreateManagerPhoto.as_view()),
-    url(r'^create_list/$', CreateManagerPhotoList.as_view()),
-    url(r'^edit_list/$', EditManagerPhotoList.as_view()),
 ]

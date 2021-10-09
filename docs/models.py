@@ -368,7 +368,9 @@ class Doc(models.Model):
         doc = cls.objects.create(creator=creator,title=title,file=file)
         for list_id in lists:
             list = MediaList.objects.get(pk=list_id)
-            list.media_list.add(doc)
+            photo.media_list.add(doc)
+            list.count += 1
+            list.save(update_fields=["count"])
         get_doc_processing(doc, Doc.MANAGER)
         DocManageLog.objects.create(item=doc.pk, manager=creator.pk, action_type=DocManageLog.ITEM_CREATED)
         return doc

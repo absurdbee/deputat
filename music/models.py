@@ -442,8 +442,10 @@ class Music(models.Model):
 
         track = cls.objects.create(creator=creator,title=title,file=file)
         for list_id in lists:
-            track_list = MediaList.objects.get(pk=list_id)
-            track_list.media_list.add(track)
+            list = MediaList.objects.get(pk=list_id)
+            track.media_list.add(list)
+            list.count += 1
+            list.save(update_fields=["count"])
         get_music_processing(track, Music.MANAGER)
         AudioManageLog.objects.create(item=track.pk, manager=creator.pk, action_type=AudioManageLog.ITEM_CREATED)
         return track

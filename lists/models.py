@@ -121,6 +121,7 @@ class MediaList(models.Model):
 	uuid = models.UUIDField(default=uuid.uuid4, verbose_name="uuid")
 	description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
 	type = models.CharField(max_length=4, choices=TYPE, default=LIST, verbose_name="Тип листа")
+	count = models.PositiveIntegerField(default=0)
 
 	def __str__(self):
 		return self.name + " " + self.creator.get_full_name()
@@ -162,7 +163,7 @@ class MediaList(models.Model):
 		return self.media_list.filter(type="PUB")
 
 	def count_items(self):
-		return self.media_list.filter(Q(type="PUB")|Q(type="PRI")).values("pk").count()
+		return self.count
 
 	def is_deleted(self):
 		return self.type == "_DEL"

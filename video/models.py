@@ -420,8 +420,10 @@ class Video(models.Model):
         video = cls.objects.create(creator=creator,title=title,image=image,file=file,uri=current_uri)
 
         for list_id in lists:
-            video_list = MediaList.objects.get(pk=list_id)
-            video_list.media_list.add(video)
+            list = MediaList.objects.get(pk=list_id)
+            video.media_list.add(list)
+            list.count += 1
+            list.save(update_fields=["count"])
 
         get_video_processing(video, Video.MANAGER)
         VideoManageLog.objects.create(item=video.pk, manager=creator.pk, action_type=VideoManageLog.ITEM_CREATED)

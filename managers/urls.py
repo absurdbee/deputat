@@ -9,6 +9,8 @@ urlpatterns = [
 
     url(r'^create_media_list/$', CreateMediaList.as_view()),
     url(r'^edit_media_list/(?P<uuid>[0-9a-f-]+)/$', EditMediaList.as_view()),
+    url(r'^delete_list/(?P<uuid>[0-9a-f-]+)/$', UserMediaListDelete.as_view()),
+    url(r'^abort_delete_list/(?P<uuid>[0-9a-f-]+)/$', UserMediaListAbortDelete.as_view()),
 
     url(r'^progs_user/', include('managers.url.progs_user')),
     url(r'^progs_community/', include('managers.url.progs_community')),

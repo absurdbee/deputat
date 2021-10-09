@@ -134,15 +134,19 @@ class MediaList(models.Model):
 	@classmethod
 	def create_list(cls, creator, name, description, order):
 		from common.processing import get_media_list_processing
+		from logs.model.manage_media import MediaManageLog
+
 		if not order:
 			order = 1
 
 		list = cls.objects.create(creator=creator,name=name,description=description,order=order)
 		get_media_list_processing(list, MediaList.LIST)
+		MediaManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=MediaManageLog.LIST_CREATED)
 		return list
 
 	def edit_list(self, name, description, order, manager_id):
 		from common.processing import get_media_list_processing
+		from logs.model.manage_media import MediaManageLog
 
 		if not order:
 			order = 1
@@ -151,6 +155,7 @@ class MediaList(models.Model):
 		self.order = order
 		self.save()
 		get_media_list_processing(self, MediaList.LIST)
+		MediaManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=MediaManageLog.LIST_EDITED)
 		return self
 
 	def is_item_in_list(self, item_id):
@@ -172,11 +177,15 @@ class MediaList(models.Model):
 		return self.type == "_DEL"
 
 	def delete_list(self):
-		from notify.models import Notify, Wall
+		from logs.model.manage_media import MediaManageLog
+
 		self.type = MediaList.DELETED
 		self.save(update_fields=['type'])
+		MediaManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=MediaManageLog.LIST_DELETED)
 
 	def abort_delete_list(self):
-		from notify.models import Notify, Wall
+		from logs.model.manage_media import MediaManageLog
+
 		self.type = MediaList.LIST
 		self.save(update_fields=['type'])
+		MediaManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=MediaManageLog.LIST_RECOVER)

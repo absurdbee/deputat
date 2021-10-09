@@ -1,4 +1,4 @@
-{% extends "base_anon.html" %}
+{% extends "base.html" %}
 {% block title %}Архив портала{% endblock %}
 {% load filters %}
 {% block content %}
@@ -40,6 +40,13 @@
 
             <div class="media mt-3 uuid_saver" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
               <h5 class="mt-1">{{ list.name }} ({{ list.count_items }})
+                {% if request.user.is_manager %}
+                  <span class="pointer badge badge-light-link add_doc_in_media_list">+ файл</span>
+                  <span class="pointer badge badge-light-link add_photo_in_media_list">+ фото</span>
+                  <span class="pointer badge badge-light-link add_track_in_media_list">+ аудио</span>
+                  <span class="pointer badge badge-light-link add_video_in_media_list">+ видео</span>
+                  <span class="pointer badge badge-light-secondary edit_media_list">Изменить альбом</span>
+                {% endif %}
                 <span class="pointer badge badge-light-primary copy_link" data-link="/main_docs/?uuid={{list.uuid}}">Копировать ссылку</span>
               </h5>
             </div>
@@ -47,28 +54,25 @@
             <div class="row is_paginate no-gutters">
                 {% if object_list %}
 
-                {% for doc in object_list %}
-                  {% include 'user_docs/anon_doc.html' %}
+                {% for object in object_list %}
+                  {% include 'user_docs/staff_doc.html' %}
                 {% endfor %}
                 {% if page_obj.has_next %}
-                  <div class="load centered m-1 next_page_list" data-link="/main_docs/?uuid={{list.uuid}}&?page={{ page_obj.next_page_number }}">
+                  <div class="load centered m-1 next_page_list" data-link="/main_media/?uuid={{list.uuid}}&?page={{ page_obj.next_page_number }}">
                     <img src="/static/images/loading.gif">
                   </div>
                 {% endif %}
 
                 {% else %}
                 <div class="card centered item_empty">
-                  <div class="card-body">
-                  <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                  </div>
-                  <h6>В списке нет документов.</h6>
+                  <h6>Список пустой.</h6>
                 </div>
                 {% endif %}
               </div>
               </span>
           </div>
           <div class="content-header-left col-md-3 col-12 mb-2">
-            {% include 'main/anon_right_panel.html' %}
+            {% include 'main/right_panel.html' %}
           </div>
         </div>
 {% endblock %}

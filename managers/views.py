@@ -2,6 +2,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from common.templates import get_managers_template
 from generic.mixins import CategoryListMixin
+from django.http import HttpResponse
 
 
 class ManagersView(TemplateView, CategoryListMixin):
@@ -64,6 +65,7 @@ class CreateMediaList(TemplateView):
             new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order)
             return render_for_platform(request, 'main/media.html',{'list': new_list})
         else:
+            from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
 
 
@@ -93,5 +95,6 @@ class EditMediaList(TemplateView):
             list.edit_list(name=list.name, description=list.description, order=list.order, manager_id=request.user.pk)
             return HttpResponse()
         else:
+            from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
         return super(EditMediaList,self).get(request,*args,**kwargs)

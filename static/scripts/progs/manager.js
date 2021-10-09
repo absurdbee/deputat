@@ -79,6 +79,12 @@ on('body', 'click', '#add_media_list_btn', function() {
 on('body', 'click', '#edit_media_list_btn', function() {
   media_list_edit(this, "/managers/edit_media_list/")
 });
+on('body', 'click', '.media_list_remove', function() {
+  media_list_delete(this, "/managers/delete_list/", "media_list_remove", "media_list_recover")
+});
+on('body', 'click', '.media_list_recover', function() {
+  media_list_recover(this, "/managers/abort_delete_list/", "media_list_recover", "media_list_remove")
+});
 
 on('body', 'click', '.u_elect_new_remove', function() {
   post_send_change(this.parentElement, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");

@@ -4,7 +4,7 @@ from main.views import *
 
 urlpatterns = [
 	url(r'^$', MainPageView.as_view(), name="main"),
-	url(r'^main_region/(?P<slug>[\w\-]+)/$', MainRegionView.as_view()),
+	url(r'^main_region/(?P<pk>\d+)/$', MainRegionView.as_view()),
 	url(r'^main_map/$', MainMapView.as_view()),
 	url(r'^main_stat/$', MainStatView.as_view()),
 	url(r'^main_media/$', MainMediaView.as_view()),

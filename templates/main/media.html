@@ -45,10 +45,10 @@
                 </span>
                 ({{ list.count_items }})
                 {% if request.user.is_manager %}
-                  <span class="pointer underline add_doc_in_media_list">+ файл</span>
-                  <span class="pointer underline add_photo_in_media_list">+ фото</span>
-                  <span class="pointer underline add_track_in_media_list">+ аудио</span>
-                  <span class="pointer underline add_video_in_media_list">+ видео</span>
+                  <span class="pointer border add_doc_in_media_list">+ файл</span>
+                  <span class="pointer border add_photo_in_media_list">+ фото</span>
+                  <span class="pointer border add_track_in_media_list">+ аудио</span>
+                  <span class="pointer border add_video_in_media_list">+ видео</span>
                   <span class="pointer badge badge-light-secondary edit_media_list">Изменить альбом</span>
                 {% endif %}
                 <span class="pointer badge badge-light-primary copy_link" data-link="/main_media/?uuid={{list.uuid}}">Копировать ссылку</span>

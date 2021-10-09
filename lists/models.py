@@ -141,7 +141,7 @@ class MediaList(models.Model):
 
 		list = cls.objects.create(creator=creator,name=name,description=description,order=order)
 		get_media_list_processing(list, MediaList.LIST)
-		MediaManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=MediaManageLog.LIST_CREATED)
+		MediaManageLog.objects.create(item=list.pk, manager=creator.pk, action_type=MediaManageLog.LIST_CREATED)
 		return list
 
 	def edit_list(self, name, description, order, manager_id):

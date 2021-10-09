@@ -73,6 +73,9 @@ on('body', 'click', '#add_media_list_btn', function() {
   }
   ajax_link.send(form_data);
 });
+on('body', 'click', '#edit_media_list_btn', function() {
+  media_list_edit(this, "/managers/edit_media_list/")
+});
 
 on('body', 'click', '.u_elect_new_remove', function() {
   post_send_change(this.parentElement, "/blog/progs/delete_elect_new/", "u_elect_new_restore", "Отмена");

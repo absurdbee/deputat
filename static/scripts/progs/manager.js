@@ -32,7 +32,7 @@ function post_elect_new(_this, url, toast) {
 };
 
 on('body', 'click', '.add_media_list', function() {
-  create_fullscreen("/managers/add_list/", "worker_fullscreen");
+  create_fullscreen("/managers/create_media_list/", "worker_fullscreen");
 });
 on('body', 'click', '.edit_media_list', function() {
   list = document.body.querySelectorAll('.cover_block');
@@ -42,7 +42,7 @@ on('body', 'click', '.edit_media_list', function() {
   block = this.parentElement.parentElement;
   block.classList.add("list_active");
   uuid = block.getAttribute('data-uuid');
-  create_fullscreen("/managers/progs_doc/edit_list/" + uuid + "/", "worker_fullscreen");
+  create_fullscreen("/managers/edit_media_list/" + uuid + "/", "worker_fullscreen");
 });
 
 on('body', 'click', '.u_elect_new_remove', function() {

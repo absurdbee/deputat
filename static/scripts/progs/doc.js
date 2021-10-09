@@ -211,6 +211,9 @@ on('body', 'click', '.u_load_doc_list', function() {
 on('body', 'click', '.u_load_profile_doc_list', function() {
   profile_list_block_load(this, ".load_block", "/docs/user_list/" + this.getAttribute("data-uuid") + "/", "u_load_profile_doc_list");
 });
+on('body', 'click', '.load_media_list', function() {
+  profile_list_block_load(this, ".load_block", "/main/media_list/?uuid=" + this.getAttribute("data-uuid") + "/", "load_media_list");
+});
 
 on('body', 'click', '.u_load_attach_doc_list', function() {
   profile_list_block_load(this, ".load_block", "/users/load/u_doc_list_load/" + this.getAttribute("data-uuid") + "/", "u_load_attach_doc_list");

@@ -141,7 +141,7 @@ class MediaList(models.Model):
 		get_media_list_processing(list, MediaList.LIST)
 		return list
 
-	def edit_list(self, name, description, order):
+	def edit_list(self, name, description, order, manager_id):
 		from common.processing import get_media_list_processing
 
 		if not order:

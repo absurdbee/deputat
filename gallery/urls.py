@@ -18,6 +18,7 @@ urlpatterns=[
 	url(r'^preview_photo/(?P<pk>\d+)/$', GetUserPhoto.as_view()),
 	url(r'^penalty_photo/(?P<pk>\d+)/$', GetUserPenaltyPhoto.as_view()),
 	url(r'^moderated_photo/(?P<pk>\d+)/$', GetUserModeratedPhoto.as_view()),
+	url(r'^manager_photo/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', ProectMediaPhoto.as_view(), name="media_list_photo"),
 
 	url(r'^user_progs/', include('gallery.url.user_progs')),
 ]

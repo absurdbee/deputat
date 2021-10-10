@@ -330,3 +330,25 @@ class UserLoadModeratedPhotolist(ListView):
 
 	def get_queryset(self):
 		return self.list.get_items()
+
+
+class ProectMediaPhoto(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from lists.models import MediaList
+		from common.templates import get_full_template
+
+		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
+		self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
+		self.photos = self.list.get_items()
+		self.template_name = get_full_template(self.photo, "main/list/", "photo.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
+		return super(ProectMediaPhoto,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(ProectMediaPhoto,self).get_context_data(**kwargs)
+		context["object"] = self.photo
+		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="MAN").order_by('pk').first()
+		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="MAN").order_by('-pk').first()
+		context["list"] = self.list
+		return context

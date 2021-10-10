@@ -62,10 +62,18 @@
             </div>
 
             <div class="row is_paginate no-gutters">
-                {% if object_list %}
+              {% if object_list %}
 
                 {% for object in object_list %}
-                  {% include 'user_docs/staff_doc.html' %}
+                  {% if object.is_photo %}
+                    {% include 'main/list/photo.html' %}
+                  {% elif object.is_video %}
+                    {% include 'main/list/video.html' %}
+                  {% elif object.is_track %}
+                    {% include 'main/list/track.html' %}
+                  {% elif object.is_doc %}
+                    {% include 'main/list/doc.html' %}
+                  {% else %}
                 {% endfor %}
                 {% if page_obj.has_next %}
                   <div class="load centered m-1 next_page_list" data-link="/main_media/?uuid={{list.uuid}}&?page={{ page_obj.next_page_number }}">
@@ -73,13 +81,13 @@
                   </div>
                 {% endif %}
 
-                {% else %}
+              {% else %}
                 <div class="card centered item_empty">
                   <h6>Список пустой.</h6>
                 </div>
-                {% endif %}
-              </div>
-              </span>
+              {% endif %}
+            </div>
+          </span>
           </div>
           <div class="content-header-left col-md-3 col-12 mb-2">
             {% include 'main/right_panel.html' %}

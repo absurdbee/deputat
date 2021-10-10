@@ -300,6 +300,7 @@ class Doc(models.Model):
     type = models.CharField(choices=TYPE, default=PROCESSING, max_length=5)
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='doc_creator', null=False, blank=False, verbose_name="Создатель")
     community = models.ForeignKey('communities.Community', related_name='doc_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
+    is_doc = models.BooleanField(default=True)
 
     class Meta:
         ordering = ["-created"]

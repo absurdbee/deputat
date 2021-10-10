@@ -331,6 +331,7 @@ class Photo(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='photo_creator', null=False, blank=False, verbose_name="Создатель")
     type = models.CharField(max_length=6, choices=TYPE, default=PROCESSING, verbose_name="Тип изображения")
     community = models.ForeignKey('communities.Community', related_name='photo_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
+    is_photo = models.BooleanField(default=True)
 
     class Meta:
         indexes = (BrinIndex(fields=['created']),)

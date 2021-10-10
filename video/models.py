@@ -342,6 +342,7 @@ class Video(models.Model):
     type = models.CharField(choices=TYPE, default=PROCESSING, max_length=5)
     file = models.FileField(upload_to=upload_to_video_directory, blank=True, null=True, validators=[validate_file_extension], verbose_name="Видеозапись")
     community = models.ForeignKey('communities.Community', related_name='video_community', on_delete=models.CASCADE, null=True, blank=True, verbose_name="Сообщество")
+    is_doc = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Видео-ролики"

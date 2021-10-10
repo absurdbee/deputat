@@ -29,5 +29,5 @@ urlpatterns = [
     url(r'^list_create_claim/(?P<uuid>[0-9a-f-]+)/$', ListPhotoClaimCreate.as_view()),
     url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListPhotoUnverify.as_view()),
 
-    url(r'^create_photo/$', CreateManagerPhoto.as_view()),
+    url(r'^create_photo/(?P<uuid>[0-9a-f-]+)/$', CreateManagerPhoto.as_view()),
 ]

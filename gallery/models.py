@@ -397,7 +397,7 @@ class Photo(models.Model):
         list.save(update_fields=["count"])
 
         get_photo_processing(photo, Photo.MANAGER)
-        PhotoManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=PhotoManageLog.ITEM_CREATED)
+        PhotoManageLog.objects.create(item=photo.pk, manager=creator.pk, action_type=PhotoManageLog.ITEM_CREATED)
         return photo
 
     def is_list_exists(self):

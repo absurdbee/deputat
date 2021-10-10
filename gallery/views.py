@@ -346,9 +346,12 @@ class ProectMediaPhoto(TemplateView):
 		return super(ProectMediaPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
+		from lists.models import MediaList
+
 		context = super(ProectMediaPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
 		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="MAN").order_by('pk').first()
 		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="MAN").order_by('-pk').first()
 		context["list"] = self.list
+		context["get_lists"] = MediaList.objects.filter(owner__isnull=True)
 		return context

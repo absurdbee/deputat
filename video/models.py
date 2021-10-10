@@ -492,6 +492,15 @@ class Video(models.Model):
     def get_list_uuid(self):
         return self.list.all()[0].uuid
 
+    def get_media_lists(self):
+        return self.media_list.all()
+
+    def is_have_item_in_user_media_list(self, user_id):
+        for list in self.get_media_lists():
+            if list.owner.id == user_id:
+                return True
+        return False
+
     def make_private(self):
         from notify.models import Notify, Wall
         self.type = Video.PRIVATE

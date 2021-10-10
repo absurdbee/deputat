@@ -341,6 +341,15 @@ class Music(models.Model):
     def get_lists(self):
         return self.list.all()
 
+    def get_media_lists(self):
+        return self.media_list.all()
+
+    def is_have_item_in_user_media_list(self, user_id):
+        for list in self.get_media_lists():
+            if list.owner.id == user_id:
+                return True
+        return False
+
     def get_mp3(self):
         url = self.uri + '/stream?client_id=3ddce5652caa1b66331903493735ddd64d'
         url.replace("\\?", "%3f")

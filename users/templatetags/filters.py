@@ -39,6 +39,13 @@ def is_user_subscribe(elect, user_pk):
 @register.filter
 def item_in_list(list, item_id):
     return list.is_item_in_list(item_id)
+@register.filter
+def photo_in_media_list(list, item_id):
+    return list.is_photo_in_list(item_id)
+
+@register.filter
+def is_have_item_in_media_list(item, user_id):
+    return item.is_have_item_in_user_media_list(user_id)
 
 @register.filter
 def get_attach(obj, request_user):

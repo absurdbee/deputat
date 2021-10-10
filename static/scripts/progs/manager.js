@@ -247,10 +247,10 @@ on('body', 'click', '.media_video_edit', function() {
 });
 
 on('body', 'change', '#media_photo_add', function() {
-  uuid = this.parentElement.parentElement.getAttribute("data-uuid");
-  form_data = new FormData(document.body.querySelector("#add_photos"));
+  form = this.parentElement;
+  form_data = new FormData(form);
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/managers/progs_photo/create_photo/" + uuid + "/", true );
+  link_.open( 'POST', "/managers/progs_photo/create_photo/" + form.getAttribute("data-uuid") + "/", true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
   link_.onreadystatechange = function () {

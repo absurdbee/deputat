@@ -302,8 +302,10 @@ class ListPhotoCloseDelete(View):
 
 class CreateManagerPhoto(View):
     def post(self, request, *args, **kwargs):
+        from lists.models import MediaList
+
         if request.is_ajax():
-            list, photos = PhotoList.objects.get(uuid=self.kwargs["uuid"]), []
+            list, photos = MediaList.objects.get(uuid=self.kwargs["uuid"]), []
             for p in request.FILES.getlist('file'):
                 photo = Photo.create_manager_photo(creator=request.user, image=p, list=list)
                 photos += [photo]

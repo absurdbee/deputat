@@ -100,7 +100,7 @@ on('body', 'click', '.u_blog_restore', function() {
 });
 
 
-on('body', 'click', '#manager_create_doc_btn', function() {
+on('body', 'click', '#_create_media_doc_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
@@ -153,7 +153,7 @@ on('body', 'click', '#manager_create_doc_btn', function() {
 
   link_.send(form_data);
 });
-on('body', 'click', '#u_edit_doc_btn', function() {
+on('body', 'click', '#edit_media_doc_btn', function() {
   form = this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);
 
@@ -210,16 +210,58 @@ on('body', 'click', '#u_edit_doc_btn', function() {
   link_.send(form_data);
 });
 
-on('body', 'click', '.staff_doc_add', function() {
+on('body', 'click', '.media_doc_add', function() {
   create_fullscreen("/managers/progs_doc/create_doc/", "worker_fullscreen");
 });
-on('body', 'click', '.staff_doc_edit', function() {
+on('body', 'click', '.media_doc_edit', function() {
   parent = this.parentElement.parentElement.parentElement;
   blocks = document.body.querySelectorAll('.col-sm-12');
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_doc")}
 
   parent.parentElement.parentElement.parentElement.classList.add("edited_doc")
   create_fullscreen("/managers/progs_doc/edit_doc/" + parent.getAttribute("data-pk") +"/", "worker_fullscreen");
+});
+
+on('body', 'click', '.media_track_add', function() {
+  create_fullscreen("/managers/progs_audio/create_track/", "worker_fullscreen");
+});
+on('body', 'click', '.media_track_edit', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  blocks = document.body.querySelectorAll('.col-sm-12');
+  for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_track")}
+
+  parent.parentElement.parentElement.parentElement.classList.add("edited_track")
+  create_fullscreen("/managers/progs_audio/edit_track/" + parent.getAttribute("data-pk") +"/", "worker_fullscreen");
+});
+
+on('body', 'click', '.media_video_add', function() {
+  create_fullscreen("/managers/progs_video/create_video/", "worker_fullscreen");
+});
+on('body', 'click', '.media_video_edit', function() {
+  parent = this.parentElement.parentElement.parentElement;
+  blocks = document.body.querySelectorAll('.col-sm-12');
+  for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_video")}
+
+  parent.parentElement.parentElement.parentElement.classList.add("edited_doc")
+  create_fullscreen("/managers/progs_video/edit_video/" + parent.getAttribute("data-pk") +"/", "worker_fullscreen");
+});
+
+on('body', 'change', '#media_photo_add', function() {
+  uuid = this.parentElement.parentElement.getAttribute("data-uuid");
+  form_data = new FormData(document.body.querySelector("#add_photos"));
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/managers/progs_photo/create_photo/" + uuid + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    document.body.querySelector(".is_paginate").insertAdjacentHTML('afterBegin', response.innerHTML);
+    document.body.querySelector(".item_empty") ? document.body.querySelector(".item_empty").style.display = "none" : null
+  }}
+  link_.send(form_data);
 });
 
 on('body', 'click', '.u_edit_blog', function() {

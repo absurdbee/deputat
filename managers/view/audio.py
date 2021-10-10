@@ -319,11 +319,11 @@ class CreateManagerTrack(TemplateView):
 
     def get_context_data(self,**kwargs):
         from music.forms import TrackForm
-        from music.models import SoundList
+        from lists.models import MediaList
 
         context = super(CreateManagerTrack,self).get_context_data(**kwargs)
         context["form_post"] = TrackForm()
-        context["get_lists"] = SoundList.objects.filter(type=SoundList.MANAGER)
+        context["get_lists"] = MediaList.objects.filter(owner__isnull=True)
         return context
 
     def post(self,request,*args,**kwargs):
@@ -347,12 +347,12 @@ class EditManagerTrack(TemplateView):
 
     def get_context_data(self,**kwargs):
         from music.forms import TrackForm
-        from music.models import SoundList
+        from lists.models import MediaList
 
         context = super(EditManagerTrack,self).get_context_data(**kwargs)
         context["form_post"] = TrackForm(instance=self.track)
         context["track"] = self.track
-        context["get_lists"] = SoundList.objects.filter(type=SoundList.MANAGER)
+        context["get_lists"] = MediaList.objects.filter(owner__isnull=True)
         return context
 
     def post(self,request,*args,**kwargs):

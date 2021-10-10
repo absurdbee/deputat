@@ -319,11 +319,11 @@ class CreateManagerDoc(TemplateView):
 
     def get_context_data(self,**kwargs):
         from docs.forms import DocForm
-        from docs.models import DocList
+        from lists.models import MediaList
 
         context = super(CreateManagerDoc,self).get_context_data(**kwargs)
         context["form_post"] = DocForm()
-        context["get_lists"] = DocList.objects.filter(type=DocList.MANAGER)
+        context["get_lists"] = MediaList.objects.filter(owner__isnull=True)
         return context
 
     def post(self,request,*args,**kwargs):
@@ -347,12 +347,12 @@ class EditManagerDoc(TemplateView):
 
     def get_context_data(self,**kwargs):
         from docs.forms import DocForm
-        from docs.models import DocList
+        from lists.models import MediaList
 
         context = super(EditManagerDoc,self).get_context_data(**kwargs)
         context["form_post"] = DocForm(instance=self.doc)
         context["doc"] = self.doc
-        context["get_lists"] = DocList.objects.filter(type=DocList.MANAGER)
+        context["get_lists"] = MediaList.objects.filter(owner__isnull=True)
         return context
 
     def post(self,request,*args,**kwargs):

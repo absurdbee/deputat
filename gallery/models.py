@@ -391,7 +391,7 @@ class Photo(models.Model):
             from rest_framework.exceptions import ValidationError
             raise ValidationError("Не выбран список для нового элемента")
 
-        photo = cls.objects.create(creator=creator,preview=image,file=image, list=list)
+        photo = cls.objects.create(creator=creator,preview=image,file=image)
         photo.media_list.add(list)
         list.count += 1
         list.save(update_fields=["count"])

@@ -158,8 +158,10 @@ class MediaList(models.Model):
 		MediaManageLog.objects.create(item=self.pk, manager=creator.pk, action_type=MediaManageLog.LIST_EDITED)
 		return self
 
-	def is_item_in_list(self, item_id):
-		return self.media_list.filter(type="PUB").exists()
+	def is_photo_in_list(self, item_id):
+		from gallery.models import Photo
+		
+		return Photo.objects.filter(media_list=self, id=item_id).exists()
 
 	def get_items(self):
 		from itertools import chain

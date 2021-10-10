@@ -342,6 +342,15 @@ class Photo(models.Model):
     def get_lists(self):
         return self.list.all()
 
+    def get_media_lists(self):
+        return self.media_list.all()
+
+    def is_have_item_in_user_media_list(self, user_id):
+        for list in self.get_media_lists():
+            if list.owner.id == user_id:
+                return True
+        return False
+
     def get_list_uuid(self):
         return self.list.all()[0].uuid
     def get_media_list_uuid(self):

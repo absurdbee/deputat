@@ -83,6 +83,12 @@ on('body', 'click', '.u_photo_detail', function() {
   create_fullscreen("/gallery/photo/" + pk + "/" + uuid + "/", "photo_fullscreen");
 });
 
+on('body', 'click', '.media_photo_detail', function() {
+  pk = this.getAttribute('photo-pk');
+  this.parentElement.getAttribute('data-uuid') ? uuid = this.parentElement.getAttribute('data-uuid') : uuid = this.getAttribute('data-uuid')
+  create_fullscreen("/gallery/media_photo/" + pk + "/" + uuid + "/", "photo_fullscreen");
+});
+
 on('body', 'click', '.u_photo_preview', function() {
   pk = this.getAttribute('photo-pk');
   uuid = this.getAttribute('data-uuid');

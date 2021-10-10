@@ -45,14 +45,15 @@
                 </span>
                 ({{ list.count_items }})
                 {% if request.user.is_manager %}
-                <form id="add_photos" data-uuid="{{ list.uuid }}">
-                {% csrf_token %}
-                  <input type="file" id="media_photo_add" accept="image/*" name="file" style="display:none" multiple="multiple">
-                  <span class="pointer border media_photo_add">+ фото</span>
-                </form>
-                  <span class="pointer border media_doc_add">+ файл</span>
-                  <span class="pointer border media_track_add">+ аудио</span>
-                  <span class="pointer border media_video_add">+ видео</span>
+                  <form id="add_photos" data-uuid="{{ list.uuid }}">
+                    {% csrf_token %}
+                    <input type="file" id="media_photo_add" accept="image/*" name="file" style="display:none" multiple="multiple">
+                    <span class="pointer border previous_click">+ фото</span>
+
+                    <span class="pointer border media_doc_add">+ файл</span>
+                    <span class="pointer border media_track_add">+ аудио</span>
+                    <span class="pointer border media_video_add">+ видео</span>
+                  </form>
                   <span class="pointer badge badge-light-secondary edit_media_list">Изменить альбом</span>
                   <span class="pointer badge badge-light-danger media_list_remove">Удалить альбом</span>
                 {% endif %}

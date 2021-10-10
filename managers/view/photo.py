@@ -308,7 +308,7 @@ class CreateManagerPhoto(View):
             list, photos = MediaList.objects.get(uuid=self.kwargs["uuid"]), []
             for p in request.FILES.getlist('file'):
                 photo = Photo.create_manager_photo(creator=request.user, image=p, list=list)
-                photos += [photo]
+                photos += [photo] 
             return render_for_platform(request, 'managers/manage_create/photo/new_manager_photos.html',{'object_list': photos})
         else:
             raise Http404

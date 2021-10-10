@@ -1,4 +1,4 @@
-<div class="media_photo_detail col-md-4 pointer pag" photo-pk="{{ object.pk }}">
+<div class="media_photo_detail row_item pag" photo-pk="{{ object.pk }}">
   <div class="progressive replace" data-href="{{ object.file.url }}">
     {% if object.preview %}
       <img class="preview image_fit_200" src="{{ object.preview.url }}" alt="img">

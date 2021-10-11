@@ -80,7 +80,7 @@ class ShowElectRatingVoters(ListView):
         from common.templates import get_managers_template
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
-        self.template_name = get_managers_template("load/elect_rating_voters.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_managers_template("elect/load/elect_rating_voters.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ShowElectRatingVoters,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

@@ -393,7 +393,6 @@ on('body', 'change', '#u_photo_comment_attach', function() {
     photo_comment_upload_attach(photo_list, document.body.querySelector(".current_file_dropdown").parentElement.parentElement
     );
     }
-    close_fullscreen()
   }
   link_.send(form_data);
 });
@@ -419,7 +418,6 @@ on('body', 'change', '#u_photo_attach', function() {
     photo_post_upload_attach(photo_list, document.body.querySelector(".attach_block")
     );
     }
-    close_fullscreen()
   }
   link_.send(form_data);
 });

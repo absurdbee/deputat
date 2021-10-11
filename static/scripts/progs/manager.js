@@ -36,7 +36,7 @@ on('body', 'click', '.add_media_list', function() {
 });
 
 on('body', 'click', '.show_elect_rating_voters', function() {
-  create_fullscreen("/elect/votes/show_elect_rating_voters/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "worker_fullscreen");
+  create_fullscreen("/elect/votes/show_elect_rating_voters/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "window_fullscreen");
 });
 
 on('body', 'click', '.edit_media_list', function() {

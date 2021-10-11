@@ -77,7 +77,7 @@ class ShowElectRatingVoters(ListView):
     paginate_by = 15
 
     def get(self,request,*args,**kwargs):
-        from common.template import get_manager_template
+        from common.templates import get_manager_template
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
         self.template_name = get_manager_template("load/elect_rating_voters.html", request.user, request.META['HTTP_USER_AGENT'])

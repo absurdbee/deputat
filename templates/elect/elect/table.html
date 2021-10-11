@@ -33,7 +33,7 @@
 	{% csrf_token %}
 <table class="table table-sm">
 	<tbody>
-		<span style="font-weight: bold;">Оценить работу чиновника:</span>
+		<span style="font-weight: bold;">Оценить работу чиновника (<span class="pointer show_elect_rating_voters">?</span>)</span>
 		<tr>
 			<td><span class="font-weight-bold small">Добровольность вакцинации</span></td>
 			<td style="">
@@ -116,7 +116,7 @@
 {% else %}
 <table class="table table-sm">
 	<tbody>
-		<span style="font-weight: bold;">Рейтинг работы чиновника:</span>
+		<span style="font-weight: bold;">Рейтинг работы чиновника (<span class="pointer show_elect_rating_voters">?</span>)</span>
 		<tr>
 			<td><span class="font-weight-bold small">Добровольность вакцинации</span></td>
 			{{ object.get_vakcine_double|safe }}

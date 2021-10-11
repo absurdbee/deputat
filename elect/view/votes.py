@@ -1,7 +1,7 @@
 from django.views import View
 from elect.models import Elect
 from django.http import Http404
-from django.views.generic.base import TemplateView
+from django.views.generic import ListView
 
 
 class ElectLike(View):
@@ -72,8 +72,9 @@ class ElectDeleteRating(View):
         return HttpResponse()
 
 
-class ShowElectRatingVoters(TemplateView):
+class ShowElectRatingVoters(ListView):
     template_name = None
+    paginate_by = 15
 
     def get(self,request,*args,**kwargs):
         from common.template import get_manager_template
@@ -86,3 +87,6 @@ class ShowElectRatingVoters(TemplateView):
         context = super(ShowElectRatingVoters,self).get_context_data(**kwargs)
         context["elect"] = self.elect
         return context
+
+    def get_queryset(self):
+        return self.elect.get_ratings()

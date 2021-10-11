@@ -393,6 +393,16 @@ class Elect(models.Model):
         from common.model.votes import ElectRating
         return ElectRating.objects.filter(elect_id=self.id, user_id=user_id).exists()
 
+    def get_rating_voters(self):
+        from users.models import User
+        from common.model.votes import ElectRating
+
+        ids = ElectRating.objects.filter(elect_id=self.id).values("user_id")
+        return User.objects.filter(id__in=[i['user_id'] for i in ids])
+
+    def get_ratings(self):
+        return ElectRating.objects.filter(elect_id=self.id)
+
     def get_rating_list(self):
         from common.model.votes import ElectRating
         from django.db.models import Avg

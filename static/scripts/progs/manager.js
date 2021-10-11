@@ -34,6 +34,11 @@ function post_elect_new(_this, url, toast) {
 on('body', 'click', '.add_media_list', function() {
   create_fullscreen("/managers/create_media_list/", "worker_fullscreen");
 });
+
+on('body', 'click', '.show_elect_rating_voters', function() {
+  create_fullscreen("/elect/votes/show_elect_rating_voters/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("data-pk") + "/", "worker_fullscreen");
+});
+
 on('body', 'click', '.edit_media_list', function() {
   list = document.body.querySelectorAll('.cover_block');
   for (var i = 0; i < list.length; i++) {

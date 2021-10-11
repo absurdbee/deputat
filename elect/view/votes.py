@@ -1,6 +1,7 @@
 from django.views import View
 from elect.models import Elect
 from django.http import Http404
+from django.views.generic.base import TemplateView
 
 
 class ElectLike(View):
@@ -69,3 +70,19 @@ class ElectDeleteRating(View):
             rat = ElectRating.objects.get(elect_id=elect.pk, user_id=request.user.pk)
             rat.delete()
         return HttpResponse()
+
+
+class ShowElectRatingVoters(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        from common.template import get_manager_template
+
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        self.template_name = get_manager_template("load/elect_rating_voters.html", request.user, request.META['HTTP_USER_AGENT'])
+        return super(ShowElectRatingVoters,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        context = super(ShowElectRatingVoters,self).get_context_data(**kwargs)
+        context["elect"] = self.elect
+        return context

@@ -401,6 +401,8 @@ class Elect(models.Model):
         return User.objects.filter(id__in=[i['user_id'] for i in ids])
 
     def get_ratings(self):
+        from common.model.votes import ElectRating
+        
         return ElectRating.objects.filter(elect_id=self.id)
 
     def get_rating_list(self):

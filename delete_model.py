@@ -21,7 +21,7 @@ deputat_list = AuthorityList.objects.get(slug="state_duma")
 candidate_list = AuthorityList.objects.get(slug="candidate_duma")
 
 lists = Q(list__slug="state_duma") | Q(list__slug="state_duma_21_26")
-elects = Elect.objects.filter(list__slug="state_duma")
+elects = Elect.objects.filter(list__slug="state_duma_21_26")
 
 for elect in elects:
     #if elects.filter(name=elect.name).count() > 1:

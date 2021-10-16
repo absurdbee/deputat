@@ -25,23 +25,16 @@ lists = Q(list__slug="state_duma") | Q(list__slug="state_duma_21_26")
 elects = Elect.objects.filter(lists)
 
 for elect in elects:
-    # если есть двойники (их не больше 2)
     if elects.filter(name=elect.name).count() > 1:
         count += 1
         print(count)
-        print(elect.name)
-        # если у этого чиновника есть активности и он с нового списка
-        if ElectNew.objects.filter(elect=elect).exists() and new_list in elect.get_lists():
-            # получаем старого чиновника
-            _elect = elects.get(name=elect.name, list=deputat_list)
-            # все активности нового переводим на стпрого
-            for new in ElectNew.objects.filter(elect=elect):
-                new.elect = _elect
-                new.save(update_fields=["elect"])
-            # удаляем чиновника
-            #elect.delete()
-        # если у чиновника нет активностей и он с нового списка, то удаляем его
-    if not ElectNew.objects.filter(elect=elect).exists() and new_list in elect.get_lists():
-        elect.delete()
+        #print(elect.name)
+        #if ElectNew.objects.filter(elect=elect).exists() and new_list in elect.get_lists():
+        #    _elect = elects.get(name=elect.name, list=deputat_list)
+        #    for new in ElectNew.objects.filter(elect=elect):
+        #        new.elect = _elect
+        #        new.save(update_fields=["elect"])
+    #if not ElectNew.objects.filter(elect=elect).exists() and new_list in elect.get_lists():
+    #    elect.delete()
 
     print("---------------")

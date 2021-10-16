@@ -21,14 +21,14 @@ deputat_list = AuthorityList.objects.get(slug="state_duma")
 candidate_list = AuthorityList.objects.get(slug="candidate_duma")
 
 lists = Q(list__slug="state_duma") | Q(list__slug="state_duma_21_26")
-elects = Elect.objects.filter(lists)
+elects = Elect.objects.filter(ist__slug="state_duma")
 
 for elect in elects:
-    if elects.filter(name=elect.name).count() > 2:
-        print("Есть совпедение", elect.name)
-        if ElectNew.objects.filter(elect=elect).exists():
-            print("Имеет активности", elect.name)
-            elect_lists = elect.get_lists()
-            for list in elect_lists:
-                print(list.name)
-        print("---------------")
+    #if elects.filter(name=elect.name).count() > 1:
+    #    print("Есть совпедение", elect.name)
+    if ElectNew.objects.filter(elect=elect).exists():
+        print("Имеет активности", elect.name)
+        elect_lists = elect.get_lists()
+        for list in elect_lists:
+            print(list.name)
+    print("---------------")

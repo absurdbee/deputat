@@ -33,9 +33,9 @@ for elect in elects:
         # если у этого чиновника есть активности и он с нового списка
         if ElectNew.objects.filter(elect=elect).exists() and new_list in elect.get_lists():
             # получаем старого чиновника
-            _elect = elects.filter(name=elect.name, list=deputat_list)
+            _elect = elects.get(name=elect.name, list=deputat_list)
             # все активности нового переводим на стпрого
-            for new in ElectNew.objects.get(elect=elect):
+            for new in ElectNew.objects.filter(elect=elect):
                 new.elect = _elect
                 new.save(update_fields=["elect"])
             # удаляем чиновника

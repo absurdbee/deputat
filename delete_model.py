@@ -29,7 +29,7 @@ for elect in elects:
     if elects.filter(name=elect.name).count() > 1:
         count += 1
         print(count)
-        print(name)
+        print(elect.name)
         # если у этого чиновника есть активности и он с нового списка
         if ElectNew.objects.filter(elect=elect).exists() and elect.list == new_list:
             # получаем старого чиновника

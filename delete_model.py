@@ -41,7 +41,7 @@ for elect in elects:
             # удаляем чиновника
             elect.delete()
         # если у чиновника нет активностей и он с нового списка, то удаляем его
-    if not ElectNew.objects.filter(elect=elect).exists() and elect.list == new_list:
+    if not ElectNew.objects.filter(elect=elect).exists() and new_list in elect.get_lists():
         elect.delete()
 
     print("---------------")

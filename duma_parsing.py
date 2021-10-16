@@ -100,9 +100,10 @@ def get_page_data(html):
 
 
 def main():
-    html = get_html("http://duma.gov.ru/duma/deputies/7/")
+    html = get_html("http://duma.gov.ru/duma/deputies/8/")
     lists = get_links(html)
     candidate_list = AuthorityList.objects.get(slug="candidate_duma")
+    deputat_list = AuthorityList.objects.get(slug="state_duma")
     new_list = AuthorityList.objects.get(slug="state_duma_21_26")
 
     for url in lists:
@@ -110,6 +111,10 @@ def main():
         data = get_page_data(html)
         if Elect.objects.filter(list=candidate_list, name=data["name"]).exists():
             elect = Elect.objects.get(list=candidate_list, name=data["name"])
+            elect.list.add(new_list)
+            print("Этот уже есть... ", data["name"])
+        elif Elect.objects.filter(list=deputat_list, name=data["name"]).exists():
+            elect = Elect.objects.get(list=deputat_list, name=data["name"])
             elect.list.add(new_list)
             print("Этот уже есть... ", data["name"])
         else:

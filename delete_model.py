@@ -35,7 +35,7 @@ for elect in elects:
             # получаем старого чиновника
             _elect = elects.filter(name=elect.name, list=deputat_list)
             # все активности нового переводим на стпрого
-            for new in ElectNew.objects.filter(elect=elect):
+            for new in ElectNew.objects.get(elect=elect):
                 new.elect = _elect
                 new.save(update_fields=["elect"])
             # удаляем чиновника

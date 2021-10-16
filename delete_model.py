@@ -21,7 +21,11 @@ deputat_list = AuthorityList.objects.get(slug="state_duma")
 candidate_list = AuthorityList.objects.get(slug="candidate_duma")
 
 lists = Q(list__slug="candidate_duma")
+elects = Elect.objects.filter(list__slug="state_duma_21_26")
 
-for elect in Elect.objects.filter(list=None):
-    print("Этот удален! ", elect.name)
-    elect.delete()
+for elect in elects:
+    if ElectNew.objects.filter(elect=elect).exists():
+        print("Имеет активности", elect.name)
+        elect_lists = elect.get_lists()
+        for list in elect_lists:
+            print(list.name)

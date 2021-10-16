@@ -39,7 +39,7 @@ for elect in elects:
                 new.elect = _elect
                 new.save(update_fields=["elect"])
             # удаляем чиновника
-            elect.delete()
+            #elect.delete()
         # если у чиновника нет активностей и он с нового списка, то удаляем его
     if not ElectNew.objects.filter(elect=elect).exists() and new_list in elect.get_lists():
         elect.delete()

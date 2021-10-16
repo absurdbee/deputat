@@ -31,7 +31,7 @@ for elect in elects:
         print(count)
         print(elect.name)
         # если у этого чиновника есть активности и он с нового списка
-        if ElectNew.objects.filter(elect=elect).exists() and elect.list == new_list:
+        if ElectNew.objects.filter(elect=elect).exists() and new_list in elect.get_lists():
             # получаем старого чиновника
             _elect = elects.filter(name=elect.name, list=deputat_list)
             # все активности нового переводим на стпрого

@@ -13,6 +13,11 @@ function show_hide_password(target){
 
 on('body', 'click', '.load_media_list', function() {
   profile_list_block_load(this, ".load_block", "/main_media/?uuid=" + this.getAttribute("data-uuid"), "load_media_list");
+	l = this.parentElement.parentElement.querySelectorAll(".list_toggle")
+	for (var i = 0; i < l.length; i++) {
+		l[i].style.fontWeight = "200"
+	};
+	this.style.fontWeight = "bold"
 });
 
 on('body', 'keydown', '.form-control', function(e) {

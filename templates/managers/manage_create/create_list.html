@@ -29,7 +29,7 @@
               <select name="parent" id="id_parent">
                 <option value="" selected="">---------</option>
                 {% for list in media_lists %}
-                  <option value="list.pk">{{ list.name }}</option>
+                  <option value="{{ list.pk }}">{{ list.name }}</option>
                 {% endfor %}
               </select>
             </div>

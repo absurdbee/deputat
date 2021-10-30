@@ -14,9 +14,7 @@ function show_hide_password(target){
 on('body', 'click', '.load_media_list', function(el) {
 	_this = this;
 	path = el.path[0] + "";
-	console.log(path[8]);
-	console.log(path[8] == "H");
-	if (path.indexOf('<path') != -1 ) {
+	if (path[8] == "S") {
 		if (_this.parentElement.parentElement.classList.contains("open")) {
 			_this.parentElement.parentElement.classList.remove("open");
 			svg = _this.querySelector("svg");

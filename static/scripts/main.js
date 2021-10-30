@@ -13,9 +13,8 @@ function show_hide_password(target){
 
 on('body', 'click', '.load_media_list', function(el) {
 	_this = this;
-	path = el.path[0] + "";
-	console.log(path.ToString());
-	console.log(path.innerHTML);
+	path = el.path + "";
+	console.log(path);
 	console.log(path.indexOf('<path') != -1 );
 	if (path.indexOf('<path') != -1 ) {
 		if (_this.parentElement.parentElement.classList.contains("open")) {

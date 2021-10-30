@@ -9,10 +9,10 @@
   bottom: 0;
 }
 
-.nav-item .has-sub ul {
+.nav-item .has-sub .menu-content {
   display: none;
 }
-.nav-item .has-sub .open ul {
+.nav-item .has-sub .open .menu-content {
   display: block;
 }
 

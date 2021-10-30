@@ -58,7 +58,8 @@
 						<span class="second_list_name mt-1" data-name="{{ list.name }}">
 							{{ list.name }}
 						</span>
-            ({{ list.count_items }}) {% if request.user.is_manager %}
+            ({{ list.count_items }})
+						{% if request.user.is_manager %}
             <span class="dropdown">
               <span class="btn_default pointer">
                 Добавить
@@ -76,7 +77,8 @@
             </span>
 
 						<span class="pointer badge badge-light-secondary edit_media_list">Изменить альбом</span>
-						<span class="pointer badge badge-light-danger media_list_remove">Удалить альбом</span> {% endif %} <span class="pointer badge badge-light-primary copy_link" data-link="/main_media/?uuid={{list.uuid}}">Копировать ссылку</span>
+						<span class="pointer badge badge-light-danger media_list_remove">Удалить альбом</span>
+					{% endif %} <span class="pointer badge badge-light-primary copy_link" data-link="/main_media/?uuid={{list.uuid}}">Копировать ссылку</span>
 					</h5>
 				</div>
 

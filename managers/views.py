@@ -65,7 +65,7 @@ class CreateMediaList(TemplateView):
         form_post = MedialistForm(request.POST)
         if request.is_ajax() and form_post.is_valid() and request.user.is_manager():
             list = form_post.save(commit=False)
-            new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order)
+            new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order, parent=list.parent)
             return render_for_platform(request, 'main/media.html',{'list': new_list})
         else:
             from django.http import HttpResponseBadRequest
@@ -93,7 +93,7 @@ class EditMediaList(TemplateView):
         self.form = MedialistForm(request.POST,instance=self.list)
         if request.is_ajax() and self.form.is_valid() and request.user.is_manager():
             list = self.form.save(commit=False)
-            list.edit_list(name=list.name, description=list.description, order=list.order, manager_id=request.user.pk)
+            list.edit_list(name=list.name, description=list.description, order=list.order, parent=list.parent, manager_id=request.user.pk)
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest

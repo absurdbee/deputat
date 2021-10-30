@@ -6,4 +6,4 @@ class MedialistForm(forms.ModelForm):
 
 	class Meta:
 		model = MediaList
-		fields = ['name', 'order']
+		fields = ['name', 'order', 'parent']

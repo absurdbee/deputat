@@ -12,15 +12,16 @@ function show_hide_password(target){
 };
 
 on('body', 'click', '.load_media_list', function(el) {
+	_this = this;
 	console.log(el.path[0]);
 	if (el.path[0] = "svg.a_has_sub_alt") {
-		if (el.parentElement.parentElement.classList.contains("open")) {
-			el.parentElement.parentElement.classList.remove("open");
-			svg = this.querySelector("svg");
+		if (_this.parentElement.parentElement.classList.contains("open")) {
+			_this.parentElement.parentElement.classList.remove("open");
+			svg = _this.querySelector("svg");
 			svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/>'
 		} else {
-			this.parentElement.parentElement.classList.add("open");
-			if (this.querySelector("svg")) {
+			_this.parentElement.parentElement.classList.add("open");
+			if (_this.querySelector("svg")) {
 				svg = this.querySelector("svg");
 				svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/>'
 			}

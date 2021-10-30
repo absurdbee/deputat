@@ -815,3 +815,181 @@ on('body', 'click', '.create_blog_comment_rejected', function() {
 on('body', 'click', '.create_blog_rejected', function() {
   send_window_sanction_get(this, "/managers/progs_blog/create_rejected/", "Жалобы отклонены")
 });
+
+
+on('body', 'click', '#create_media_video_btn', function() {
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+
+  try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
+  input_file = form.querySelector("#id_file");
+  if (form.querySelector("#id_uri").value){
+    input_file.value = "";
+  }
+
+  lists = form.querySelector("#id_list");
+  selectedOptions = lists.selectedOptions;
+  val = false;
+  for (var i = 0; i < selectedOptions.length; i++) {
+    if(selectedOptions[i].value) {val = true}
+  }
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!")
+  }
+  else if (!form.querySelector("#id_uri").value){
+    if (!format) {
+      input_file.style.border = "1px #FF0000 solid";
+      form.querySelector("#id_uri").style.border = "1px #FF0000 solid";
+      toast_error("Загрузите файл или вставьте ссылку!"); return
+    }
+    else if (findSize(input_file)> 5242880) {
+      toast_error("Файл не должен превышать 5 Мб!"),
+      form.querySelector(".form_file").style.color = "red";
+      _this.disabled = false; return
+    }
+    else if (format != "mp4" && format != "mpeg4" && format != "avi") {
+      toast_error("Допустим формат файла mp4, mpeg4, avi!"),
+      form.querySelector(".form_file").style.color = "red";
+      _this.disabled = false; return
+    }
+  }
+  else if (!form.querySelector("#id_image")){
+    form.querySelector("#id_image").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите обложку к видео!"); return
+  }
+  else if (!val){
+    form.querySelector("#id_list").style.border = "1px #FF0000 solid";
+    toast_error("Выберите список!"); return
+  }
+  else { _this.disabled = true }
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/managers/progs_video/create_video/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    get_preview(response, "video");
+    toast_info("Видеозапись создана!")
+    close_fullscreen();
+  }};
+
+  link_.send(form_data);
+});
+
+on('body', 'click', '#create_media_doc_btn', function() {
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+  lists = form.querySelector("#id_list");
+  selectedOptions = lists.selectedOptions;
+  try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
+  input_file = form.querySelector("#id_file");
+  val = false;
+  for (var i = 0; i < selectedOptions.length; i++) {
+    if(selectedOptions[i].value) {val = true}
+  }
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!")
+  } else if (!val){
+    form.querySelector("#id_list").style.border = "1px #FF0000 solid";
+    toast_error("Выберите список!")
+  }
+  else if (!format){
+    input_file.style.border = "1px #FF0000 solid";
+    toast_error("Загрузите документ!")
+  }
+  else if (findSize(input_file)> 5242880) {
+    toast_error("Файл не должен превышать 5 Мб!"),
+    input_file.style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else if (format != "pdf" && format != "doc" && format != "docx" && format != "txt") {
+    toast_error("Допустим формат файла pdf, doc, docx, txt!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else { _this.disabled = true };
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/managers/progs_doc/create_doc/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    get_preview(response, "doc");
+    toast_info("Документ создан!")
+    close_fullscreen()
+  }};
+
+  link_.send(form_data);
+});
+
+on('body', 'click', '#create_media_track_btn', function() {
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+
+  try {format = form.querySelector("#id_file").files[0].name.split(".").splice(-1,1)[0]} catch { format = null };
+  input_file = form.querySelector("#id_file");
+
+  lists = form.querySelector("#id_list");
+  selectedOptions = lists.selectedOptions;
+  val = false;
+  for (var i = 0; i < selectedOptions.length; i++) {
+    if(selectedOptions[i].value) {val = true}
+  }
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!"); return
+  } else if (!val){
+    form.querySelector("#id_list").style.border = "1px #FF0000 solid";
+    toast_error("Выберите список!"); return
+  }
+  else if (!format){
+    input_file.style.border = "1px #FF0000 solid";
+    toast_error("Загрузите аудиозапись!"); return
+  }
+  else if (findSize(input_file)> 5242880) {
+    toast_error("Файл не должен превышать 5 Мб!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else if (format != "ogg" && format != "mp3" && format != "wav") {
+    toast_error("Допустим формат файла ogg, mp3, wav!"),
+    form.querySelector(".form_file").style.color = "red";
+    _this.disabled = false;
+    return
+  }
+  else { _this.disabled = true }
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/managers/progs_audio/create_track/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    elem = link_.responseText;
+    response = document.createElement("span");
+    response.innerHTML = elem;
+    get_preview(response, "track");
+    toast_info("Аудиозапись создана!");
+    init_music(document.body);
+    close_fullscreen()
+  } else { _this.disabled = true }};
+  link_.send(form_data);
+});

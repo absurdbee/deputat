@@ -164,8 +164,16 @@ class MediaList(models.Model):
 
 	def is_photo_in_list(self, item_id):
 		from gallery.models import Photo
-
 		return Photo.objects.filter(media_list=self, id=item_id).exists()
+	def is_track_in_list(self, item_id):
+		from music.models import Music
+		return Music.objects.filter(media_list=self, id=item_id).exists()
+	def is_video_in_list(self, item_id):
+		from video.models import Video
+		return Video.objects.filter(media_list=self, id=item_id).exists()
+	def is_doc_in_list(self, item_id):
+		from docs.models import Doc
+		return Doc.objects.filter(media_list=self, id=item_id).exists()
 
 	def get_items(self):
 		from itertools import chain

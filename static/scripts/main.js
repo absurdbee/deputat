@@ -11,13 +11,28 @@ function show_hide_password(target){
 	return false;
 };
 
-on('body', 'click', '.load_media_list', function() {
-  profile_list_block_load(this, ".load_block", "/main_media/?uuid=" + this.getAttribute("data-uuid"), "load_media_list");
-	l = this.parentElement.parentElement.querySelectorAll(".list_toggle")
-	for (var i = 0; i < l.length; i++) {
-		l[i].style.fontWeight = "200"
-	};
-	this.style.fontWeight = "bold"
+on('body', 'click', '.load_media_list', function(el) {
+	console.log(el);
+	if (el.classList.contains("a_has_sub_alt")) {
+		if (el.parentElement.parentElement.classList.contains("open")) {
+			el.parentElement.parentElement.classList.remove("open");
+			svg = this.querySelector("svg");
+			svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/>'
+		} else {
+			this.parentElement.parentElement.classList.add("open");
+			if (this.querySelector("svg")) {
+				svg = this.querySelector("svg");
+				svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/>'
+			}
+		}
+	} else {
+  		profile_list_block_load(this, ".load_block", "/main_media/?uuid=" + this.getAttribute("data-uuid"), "load_media_list");
+			l = this.parentElement.parentElement.querySelectorAll(".list_toggle")
+			for (var i = 0; i < l.length; i++) {
+				l[i].style.fontWeight = "200"
+			};
+			this.style.fontWeight = "bold"
+		}
 });
 
 on('body', 'keydown', '.form-control', function(e) {
@@ -353,7 +368,7 @@ on('body', 'click', '.a_has_sub', function() {
 	}
 });
 
-on('body', 'click', '.a_has_sub_alt', function() {
+on('body', 'click', '.a_has_sub_al', function() {
 	if (this.parentElement.parentElement.classList.contains("open")) {
 		this.parentElement.parentElement.classList.remove("open");
 		if (this.querySelector("svg")) {

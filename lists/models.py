@@ -136,25 +136,26 @@ class MediaList(models.Model):
 		return self.media_list_parent.filter(type="LIS")
 
 	@classmethod
-	def create_list(cls, creator, name, description, order):
+	def create_list(cls, creator, name, description, order, parent):
 		from common.processing import get_media_list_processing
 		from logs.model.manage_media import MediaManageLog
 
 		if not order:
 			order = 1
 
-		list = cls.objects.create(creator=creator,name=name,description=description,order=order)
+		list = cls.objects.create(creator=creator,name=name,parent=parent,description=description,order=order)
 		get_media_list_processing(list, MediaList.LIST)
 		MediaManageLog.objects.create(item=list.pk, manager=creator.pk, action_type=MediaManageLog.LIST_CREATED)
 		return list
 
-	def edit_list(self, name, description, order, manager_id):
+	def edit_list(self, name, description, order, parent, manager_id):
 		from common.processing import get_media_list_processing
 		from logs.model.manage_media import MediaManageLog
 
 		if not order:
 			order = 1
 		self.name = name
+		self.parent = parent
 		self.description = description
 		self.order = order
 		self.save()

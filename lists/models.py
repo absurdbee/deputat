@@ -122,6 +122,7 @@ class MediaList(models.Model):
 	description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
 	type = models.CharField(max_length=4, choices=TYPE, default=LIST, verbose_name="Тип листа")
 	count = models.PositiveIntegerField(default=0)
+	parent = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='media_list_parent', null=True, blank=True, verbose_name="Родительский список")
 
 	def __str__(self):
 		return self.name + " " + self.creator.get_full_name()
@@ -160,7 +161,7 @@ class MediaList(models.Model):
 
 	def is_photo_in_list(self, item_id):
 		from gallery.models import Photo
-		
+
 		return Photo.objects.filter(media_list=self, id=item_id).exists()
 
 	def get_items(self):

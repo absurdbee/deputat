@@ -339,7 +339,7 @@ class ProectMediaPhoto(TemplateView):
 		from lists.models import MediaList
 		from common.templates import get_full_template
 
-		self.photo = Photo.objects.get(pk=self.kwargs["photo_pk"])
+		self.photo = Photo.objects.get(pk=self.kwargs["pk"])
 		self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
 		self.photos = self.list.get_items()
 		self.template_name = get_full_template(self.photo, "main/list/", "photo.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())

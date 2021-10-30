@@ -34,9 +34,14 @@
                 </div>
             </div>
 
-            {% include 'main/media_lists.html' %}
+            <div class="row">
+                <div class="col-md-4">
+                  
+                </div>
 
-            <span class="load_block">
+
+            <span class="load_block col-md-4">
+
 
             <div class="media mt-3 uuid_saver" data-uuid="{{ list.uuid }}" style="padding-left: 7px;">
               <h5 class="mt-1">
@@ -88,6 +93,7 @@
               {% endif %}
             </div>
           </span>
+          </div>
           </div>
           <div class="content-header-left col-md-3 col-12 mb-2">
             {% include 'main/right_panel.html' %}

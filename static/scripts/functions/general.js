@@ -514,7 +514,7 @@ function media_list_recover(_this, url, old_class, new_class) {
 
 function profile_list_block_load(_this, block, link, actions_class) {
   // подгрузка списков в профиле пользователя
-
+  console.log(_this);
   if (_this.getAttribute("href")) {
     return
   }

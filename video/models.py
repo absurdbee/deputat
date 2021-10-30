@@ -495,10 +495,11 @@ class Video(models.Model):
     def get_media_lists(self):
         return self.media_list.all()
 
-    def is_have_item_in_user_media_list(self, user_id):
-        for list in self.get_media_lists():
-            if list.owner.id == user_id:
-                return True
+    def is_item_in_user_media_list(self, user_id):
+        from lists.models import MediaList
+        if MediaList.objects.filter(owner_id=user_id).exists():
+            list = MediaList.objects.filter(owner_id=user_id)[0]
+            return list.is_video_in_list(self.pk)
         return False
 
     def make_private(self):
@@ -604,6 +605,3 @@ class Video(models.Model):
             return self.image.url
         else:
             return "/static/images/list.jpg"
-
-    def get_lists(self):
-        return self.list.all()

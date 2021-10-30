@@ -15,8 +15,8 @@ on('body', 'click', '.load_media_list', function(el) {
 	_this = this;
 	path = el.path[0] + "";
 	if (path[8] == "S") {
-		if (_this.parentElement.parentElement.classList.contains("open")) {
-			_this.parentElement.parentElement.classList.remove("open");
+		if (_this.parentElement.classList.contains("open")) {
+			_this.parentElement.classList.remove("open");
 			svg = _this.querySelector("svg");
 			svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/>'
 		} else {

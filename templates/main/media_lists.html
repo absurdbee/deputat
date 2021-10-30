@@ -4,9 +4,9 @@
 {% for object in get_lists %}
 {% if object.get_children %}
 <li class="nav-item has-sub open">
-  <a class="d-flex align-items-center pointer a_has_sub">
+  <a class="d-flex align-items-center pointer a_has_sub load_media_list list_toggle">
     <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/></svg>
-    <span class="text-truncate load_media_list list_toggle" data-uuid="{{ object.uuid }}">{{ object.name }}</span>
+    <span class="text-truncate" data-uuid="{{ object.uuid }}">{{ object.name }}</span>
   </a>
   <ul class="menu-content">
     {% for list in object.get_children %}
@@ -16,8 +16,8 @@
 </li>
 {% else %}
 <li class="nav-item has-sub open">
-  <a class="d-flex align-items-center pointer">
-    <span class="text-truncate load_media_list list_toggle" data-uuid="{{ object.uuid }}">{{ object.name }}</span>
+  <a class="d-flex align-items-center pointer load_media_list list_toggle">
+    <span class="text-truncate" data-uuid="{{ object.uuid }}">{{ object.name }}</span>
   </a>
 </li>
 {% endif %}

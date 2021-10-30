@@ -343,15 +343,15 @@ class ProectMediaPhoto(TemplateView):
 		self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
 		self.photos = self.list.get_items()
 		self.template_name = get_full_template("main/list/", "photo.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(ProectMediaPhoto,self).get(request,*args,**kwargs) 
+		return super(ProectMediaPhoto,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		from lists.models import MediaList
 
 		context = super(ProectMediaPhoto,self).get_context_data(**kwargs)
 		context["object"] = self.photo
-		context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="MAN").order_by('pk').first()
-		context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="MAN").order_by('-pk').first()
+		#context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="MAN").order_by('pk').first()
+		#context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="MAN").order_by('-pk').first()
 		context["list"] = self.list
 		context["get_lists"] = MediaList.objects.filter(owner__isnull=True)
 		return context

@@ -12,7 +12,7 @@
 .has-sub .menu-content {
   display: none;
 }
-.has-sub .open .menu-content {
+.has-sub.open .menu-content {
   display: block;
 }
 

@@ -9,7 +9,11 @@ function show_hide_password(target){
 		input.setAttribute('type', 'password');
 	}
 	return false;
-}
+};
+
+on('body', 'click', '.load_media_list', function() {
+  profile_list_block_load(this, ".load_block", "/main_media/?uuid=" + this.getAttribute("data-uuid"), "load_media_list");
+});
 
 on('body', 'keydown', '.form-control', function(e) {
   if (e.keyCode == 13) {

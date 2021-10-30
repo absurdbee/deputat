@@ -133,7 +133,7 @@ class MediaList(models.Model):
 		ordering = ['order']
 
 	def get_children(self):
-        return self.media_list_parent.filter(type="LIS")
+		return self.media_list_parent.filter(type="LIS")
 
 	@classmethod
 	def create_list(cls, creator, name, description, order):

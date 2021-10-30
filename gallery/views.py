@@ -342,8 +342,8 @@ class ProectMediaPhoto(TemplateView):
 		self.photo = Photo.objects.get(pk=self.kwargs["pk"])
 		self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
 		self.photos = self.list.get_items()
-		self.template_name = get_full_template(self.photo, "main/list/", "photo.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(ProectMediaPhoto,self).get(request,*args,**kwargs)
+		self.template_name = get_full_template("main/list/", "photo.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(ProectMediaPhoto,self).get(request,*args,**kwargs) 
 
 	def get_context_data(self,**kwargs):
 		from lists.models import MediaList

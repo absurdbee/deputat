@@ -14,7 +14,7 @@ function show_hide_password(target){
 on('body', 'click', '.load_media_list', function(el) {
 	_this = this;
 	console.log(el.path[0]);
-	if (el.path[0].classList.contains("a_has_sub_alt")) {
+	if (el.path[0].indexOf('<path') != -1 ) { 
 		if (_this.parentElement.parentElement.classList.contains("open")) {
 			_this.parentElement.parentElement.classList.remove("open");
 			svg = _this.querySelector("svg");

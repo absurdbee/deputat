@@ -605,6 +605,3 @@ class Video(models.Model):
             return self.image.url
         else:
             return "/static/images/list.jpg"
-
-    def get_lists(self):
-        return self.list.all()

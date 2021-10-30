@@ -47,6 +47,16 @@ class User(AbstractUser):
     def __str__(self):
         return self.first_name + " " + self.last_name
 
+    def get_media_lists(self):
+        from lists.models import MediaList
+        return MediaList.objects.filter(type=MediaList.LIST, owner=None)
+    def is_have_media_list(self):
+        from lists.models import MediaList
+        return MediaList.objects.filter(type=MediaList.LIST, owner_id=self.pk).exists()
+    def get_media_list(self):
+        from lists.models import MediaList
+        return MediaList.objects.filter(type=MediaList.LIST, owner_id=self.pk)[0]
+
     def get_verb_gender(self, verb):
         if self.is_women():
             return "W" + verb

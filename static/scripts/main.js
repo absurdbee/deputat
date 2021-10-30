@@ -20,7 +20,7 @@ on('body', 'click', '.load_media_list', function(el) {
 			svg = _this.querySelector("svg");
 			svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 17l5-5-5-5v10z"/>'
 		} else {
-			_this.parentElement.parentElement.classList.add("open");
+			_this.parentElement.classList.add("open");
 			if (_this.querySelector("svg")) {
 				svg = this.querySelector("svg");
 				svg.innerHTML = '<path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/>'

@@ -1,18 +1,13 @@
-<ul class="navigation navigation-main">
-
-{% for object in get_lists %}
 <li class="nav-item has-sub open">
   <a class="d-flex align-items-center pointer a_has_sub">
     <svg height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/></svg>
-    <span class="menu-title text-truncate">{{ object.name }}</span>
+    <span class="menu-title text-truncate">{{ list.name }}</span>
   </a>
-  {% if object.get_children %}
+  {% if list.get_children %}
   <ul class="menu-content">
-    {% for list in object.get_children %}
+    {% for list in list.get_children %}
       {% include 'main/list/menu_item.html' %}
     {% endfor %}
   </ul>
   {% endif %}
 </li>
-{% endfor %}
-</ul>

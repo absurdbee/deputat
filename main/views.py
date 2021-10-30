@@ -72,7 +72,7 @@ class MainMediaView(ListView, CategoryListMixin):
 
 		self.template_name = get_full_template("main/", "media.html", request.user, request.META['HTTP_USER_AGENT'])
 		uuid = request.GET.get('uuid')
-		self.get_lists = MediaList.objects.filter(type=MediaList.LIST)
+		self.get_lists = MediaList.objects.filter(type=MediaList.LIST, parent=None)
 		if uuid:
 			self.list = MediaList.objects.get(uuid=uuid)
 		else:

@@ -132,6 +132,9 @@ class MediaList(models.Model):
 		verbose_name_plural = "медийные списки"
 		ordering = ['order']
 
+	def get_children(self):
+        return self.media_list_parent.filter(type="LIS")
+
 	@classmethod
 	def create_list(cls, creator, name, description, order):
 		from common.processing import get_media_list_processing

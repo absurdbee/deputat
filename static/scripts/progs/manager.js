@@ -883,7 +883,7 @@ on('body', 'click', '#create_media_video_btn', function() {
   link_.send(form_data);
 });
 
-on('body', 'click', '#create_media_doc_btn', function() {
+on('body', 'click', '#media_create_doc_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;
   form_data = new FormData(form);

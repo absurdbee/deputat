@@ -9,6 +9,13 @@
   bottom: 0;
 }
 
+.nav-item .has-sub ul {
+  display: none;
+}
+.nav-item .has-sub .open ul {
+  display: block;
+}
+
 .elect_search_input {
   height: 1.5rem;
   font-size: 10px;

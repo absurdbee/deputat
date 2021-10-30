@@ -26,7 +26,12 @@
             </div>
             <div class="form-group">
               <label>Альбом-родитель</label>
-              {{ form_post.parent }}
+              <select name="parent" id="id_parent">
+                <option value="" selected="">---------</option>
+                {% for list in media_lists %}
+                  <option value="list.pk">{{ list.name }}</option>
+                {% endfor %}
+              </select>
             </div>
         </div>
         <div class="card-footer">

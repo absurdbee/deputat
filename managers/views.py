@@ -52,10 +52,10 @@ class CreateMediaList(TemplateView):
         return super(CreateMediaList,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        from lists.forms import MedialistForm
+        from lists.models import MediaList
 
         context = super(CreateMediaList,self).get_context_data(**kwargs)
-        context["form_post"] = MedialistForm()
+        context["media_lists"] = MediaList.objects.filter(type=MediaList.LIST, parent=None, owner=None)
         return context
 
     def post(self,request,*args,**kwargs):
@@ -80,10 +80,11 @@ class EditMediaList(TemplateView):
         return super(EditMediaList,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-        from lists.forms import MedialistForm
+        from lists.models import MediaList
 
         context = super(EditMediaList,self).get_context_data(**kwargs)
         context["list"] = MediaList.objects.get(uuid=self.kwargs["uuid"])
+        context["media_lists"] = MediaList.objects.filter(type=MediaList.LIST, parent=None, owner=None)
         return context
 
     def post(self,request,*args,**kwargs):

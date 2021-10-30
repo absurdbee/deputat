@@ -14,8 +14,8 @@ function show_hide_password(target){
 on('body', 'click', '.load_media_list', function(el) {
 	_this = this;
 	path = el.path[0] + "";
-	console.log(path.replace("<", ""));
-	console.log(path[0]);
+	console.log(path[8]);
+	console.log(path[8] == "H");
 	if (path.indexOf('<path') != -1 ) {
 		if (_this.parentElement.parentElement.classList.contains("open")) {
 			_this.parentElement.parentElement.classList.remove("open");

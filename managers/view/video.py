@@ -395,7 +395,7 @@ class RemoveVideoFromMediaList(View):
 
         video, list = Video.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_video_in_list(video.pk) and request.user.is_manager():
-            video.media_list.remove(video)
+            video.media_list.remove(list)
             return HttpResponse()
         else:
             raise Http404

@@ -391,7 +391,7 @@ class AddTrackInMediaList(View):
 
         track, list = Music.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and not list.is_track_in_list(track.pk) and request.user.is_manager():
-            list.media_list.add(track)
+            track.media_list.add(list)
             return HttpResponse()
         else:
             raise Http404
@@ -402,7 +402,7 @@ class RemoveTrackFromMediaList(View):
 
         track, list = Music.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_track_in_list(track.pk) and request.user.is_manager():
-            list.media_list.remove(track)
+            track.media_list.remove(list)
             return HttpResponse()
         else:
             raise Http404

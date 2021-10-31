@@ -185,7 +185,7 @@ class ManagerVideoDetail(TemplateView):
         self.video = Video.objects.get(pk=self.kwargs["pk"])
         self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
         self.videos = self.list.get_items()
-        self.template_name = get_full_template("user_video/media_detail/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
+        self.template_name = get_full_template("user_video/media_detail/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ManagerVideoDetail,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

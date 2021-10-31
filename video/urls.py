@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^user_detail/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', UserVideoDetail_2.as_view(), name='u_video'),
     url(r'^user_list/(?P<uuid>[0-9a-f-]+)/$', UserVideoList.as_view(), name='user_video_list'),
     url(r'^video_detail/(?P<pk>\d+)/$', UserVideoDetail.as_view()),
-    url(r'^manager_video_detail/(?P<pk>\d+)/$', ManagerVideoDetail.as_view()),
+    url(r'^media_video_detail/(?P<pk>\d+)/$', ManagerVideoDetail.as_view()),
 
     url(r'^user_progs/', include('video.url.user_progs')),
 ]

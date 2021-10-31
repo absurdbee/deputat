@@ -33,4 +33,6 @@ urlpatterns = [
     url(r'^edit_track/$', EditManagerTrack.as_view()),
     url(r'^delete_track/(?P<pk>\d+)/$', ManagerTrackRemove.as_view()),
     url(r'^abort_delete_track/(?P<pk>\d+)/$', ManagerTrackAbortRemove.as_view()),
+    url(r'^add_track_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', AddTrackInMediaList.as_view()),
+    url(r'^remove_track_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', RemoveTrackFromMediaList.as_view()),
 ]

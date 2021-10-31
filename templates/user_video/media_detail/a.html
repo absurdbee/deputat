@@ -1,7 +1,7 @@
 {% load filters %}
 
 <div class="data_display pt-4" data-uuid="{{ object.uuid }}" data-pk="{{ object.creator.pk }}">
-  <div class="row" style="margin-right: -10px;margin-left: -10px;">
+  <div class="row">
 
     {% if request.user.is_manager %}
 

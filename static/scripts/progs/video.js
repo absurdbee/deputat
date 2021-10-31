@@ -20,6 +20,11 @@ on('body', 'click', '.u_video_detail', function() {
   uuid = this.parentElement.getAttribute("data-uuid");
   create_fullscreen("/video/user_detail/" + video_pk + "/" + uuid + "/", "window_fullscreen")
 });
+on('body', 'click', '.media_video_detail', function() {
+  video_pk = this.getAttribute('video-pk');
+  uuid = this.parentElement.previousElementSibling.getAttribute("data-uuid");
+  create_fullscreen("/video/media_video_detail/" + video_pk + "/" + uuid + "/", "window_fullscreen")
+});
 
 on('body', 'click', '#u_edit_video_list_btn', function() {
   media_list_edit(this, "/video/user_progs/edit_list/")

@@ -173,3 +173,22 @@ class UserLoadModeratedVideoList(ListView):
 
 	def get_queryset(self):
 		return self.list.get_items()
+
+
+class ManagerVideoDetail(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        from common.templates import get_full_template
+        from lists.models import MediaList
+
+        self.video = Video.objects.get(pk=self.kwargs["pk"])
+        self.list = MediaList.objects.get(uuid=self.kwargs["uuid"])
+        self.videos = self.list.get_items()
+        self.template_name = get_full_template("user_video/media_detail/", "a.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_video_manager())
+        return super(ManagerVideoDetail,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        c = super(ManagerVideoDetail,self).get_context_data(**kwargs)
+        c['object'], c['list'] = self.video, self.list
+        return c

@@ -353,5 +353,5 @@ class ProectMediaPhoto(TemplateView):
 		#context["next"] = self.photos.filter(pk__gt=self.photo.pk, type="MAN").order_by('pk').first()
 		#context["prev"] = self.photos.filter(pk__lt=self.photo.pk, type="MAN").order_by('-pk').first()
 		context["list"] = self.list
-		context["get_lists"] = MediaList.objects.filter(owner__isnull=True)
+		context["get_lists"] = MediaList.objects.filter(owner__isnull=True, type="LIS")
 		return context

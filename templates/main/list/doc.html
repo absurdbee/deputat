@@ -1,0 +1,55 @@
+{% load filters %}
+<div class="col-md-6 col-sm-12 pag" style="padding:3px">
+    <div class="media border p-1">
+        <div class="media-body doc_media_body">
+            <h6 class="pointer" style="width: 84%;overflow: hidden;">
+                <a href="{{ doc.file.url }}" target="_blank" rel="nofollow">{{ doc.title }}</a>
+            </h6>
+            <span class="small">{{ doc.file.size|filesizeformat }} | {{ doc.get_mime_type }}</span>
+            <span class='span_btn' data-pk="{{ doc.pk }}">
+
+              {% if request.user.is_manager %}
+              <span class='dropdown' style="position: inherit;" data-pk="{{ doc.pk }}">
+                <a class='btn_default pointer drop' title="Добавить в плейлист">
+                  <svg fill='currentColor' style="width:25px;height:25px;" class='svg_default' viewBox="0 0 24 24"><path d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/><path d='M0 0h24v24H0z' fill='none'/></svg>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" style="top: 42px;">
+                    {% for list in request.user.get_media_lists %}
+                      <span data-uuid="{{ list.uuid }}">
+                        {% if list|item_in_list:doc.pk %}
+                          <span class="dropdown-item remove_doc_from_media_list">
+                            <svg fill="currentColor" style="width:15px;height:15px;" class="svg_default" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                            {{ list.name }}
+                          </span>
+                        {% else %}
+                          <span class="dropdown-item add_doc_in_media_list" style="padding-left: 30px;">{{ list.name }}</span>
+                        {% endif %}
+                      </span>
+                    {% endfor %}
+                </div>
+              </span>
+                {% endif %}
+                <div class="dropdown" style="position: inherit;">
+                    <a class="btn_default drop pointer">
+                        <svg class="svg_info" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" style="top: 42px;">
+                      {% if request.user.is_manager %}
+                        <span class="dropdown-item media_doc_edit">Изменить</span>
+                        <span class="dropdown-item media_doc_remove">Удалить</span>
+                      {% endif %}
+                      <span class="dropdown-item copy_link" data-link="/docs/doc_detail/{{ doc.uuid }}/">Копировать ссылку</span>
+                      {% if object|is_have_item_in_media_list:request.user.pk %}
+                        <a class="dropdown-item remove_doc_from_media_list_collection pointer">Убрать из медиа-списка</a>
+                      {% else %}
+                        <a class="dropdown-item add_doc_in_media_list_collection pointer">Добавить в медиа-список</a>
+                      {% endif %}
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
+</div>

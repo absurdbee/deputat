@@ -42,6 +42,15 @@ def item_in_list(list, item_id):
 @register.filter
 def photo_in_media_list(list, item_id):
     return list.is_photo_in_list(item_id)
+@register.filter
+def video_in_media_list(list, item_id):
+    return list.is_video_in_list(item_id)
+@register.filter
+def track_in_media_list(list, item_id):
+    return list.is_track_in_list(item_id)
+@register.filter
+def doc_in_media_list(list, item_id):
+    return list.is_doc_in_list(item_id)
 
 @register.filter
 def is_have_item_in_media_list(item, user_id):

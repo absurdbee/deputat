@@ -1023,13 +1023,13 @@ on('body', 'click', '.mob_media_photo_abort_remove', function() {
 });
 
 on('body', 'click', '.mob_media_video_remove', function() {
-  mob_send_change(this, "/managers/progs_photo/delete_video/", "mob_media_video_abort_remove", "Отмена");
+  mob_send_change(this, "/managers/progs_video/delete_video/", "mob_media_video_abort_remove", "Отмена");
   post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
   post.querySelector(".content_block").style.display = "none";
   post.querySelector(".image_card").style.opacity = "0.5";
 });
 on('body', 'click', '.mob_media_video_abort_remove', function() {
-  mob_send_change(this, "/managers/progs_photo/abort_delete_video/", "mob_media_video_remove", "Удалить");
+  mob_send_change(this, "/managers/progs_video/abort_delete_video/", "mob_media_video_remove", "Удалить");
   post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
   post.querySelector(".content_block").style.display = "unset";
   post.querySelector(".image_card").style.opacity = "1";

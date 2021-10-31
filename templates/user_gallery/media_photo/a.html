@@ -12,7 +12,7 @@
     {% if request.user.is_manager %}
 
     <div class="col dropdown" style="padding:5px;" data-pk="{{ object.pk }}">
-      <a type="button" class="btn btn-sm" style="width: -webkit-fill-available">
+      <a type="button" class="btn btn-sm border" style="width: -webkit-fill-available">
           Списки
       </a>
       <div class="dropdown-menu border" style="width:100%">
@@ -24,7 +24,7 @@
                 {{ list.name }}
               </span>
             {% else %}
-              <span class="dropdown-item add_video_in_media_list" style="padding-left: 30px;">{{ list.name }}</span>
+              <span class="dropdown-item add_photo_in_media_list" style="padding-left: 30px;">{{ list.name }}</span>
             {% endif %}
           </span>
         {% endfor %}

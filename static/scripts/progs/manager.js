@@ -993,3 +993,18 @@ on('body', 'click', '#create_media_track_btn', function() {
   } else { _this.disabled = true }};
   link_.send(form_data);
 });
+
+
+on('body', 'click', '.add_video_in_media_list', function() {
+  add_item_in_list(this, '/managers/progs_video/add_video_in_list/', 'add_video_in_media_list', 'remove_video_from_media_list')
+});
+on('body', 'click', '.remove_video_from_media_list', function() {
+  remove_item_from_list(this, '/managers/progs_video/remove_video_from_list/', 'remove_video_from_media_list', 'add_video_in_media_list', ".mob_media_video_remove")
+});
+
+on('body', 'click', '.add_photo_in_media_list', function() {
+  add_item_in_list(this, '/managers/progs_photo/add_photo_in_list/', 'add_photo_in_media_list', 'remove_photo_from_media_list')
+});
+on('body', 'click', '.remove_photo_from_media_list', function() {
+  remove_item_from_list(this, '/managers/progs_photo/remove_photo_from_list/', 'remove_photo_from_media_list', 'add_photo_in_media_list', ".mob_media_photo_remove")
+});

@@ -366,3 +366,21 @@ class EditManagerDoc(TemplateView):
             return render_for_platform(request, 'user_docs/new_doc.html',{'doc': self.doc})
         else:
             return HttpResponseBadRequest()
+
+class ManagerDocRemove(View):
+    def get(self, request, *args, **kwargs):
+        doc = Doc.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and request.user.is_manager():
+            doc.delete_doc(None)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class ManagerDocAbortRemove(View):
+    def get(self, request, *args, **kwargs):
+        doc = Doc.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and request.user.is_manager():
+            doc.abort_delete_doc(None)
+            return HttpResponse()
+        else:
+            raise Http404

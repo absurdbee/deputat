@@ -366,3 +366,21 @@ class EditManagerTrack(TemplateView):
             return render_for_platform(request, 'user_music/new_track.html',{'object': self.track})
         else:
             return HttpResponseBadRequest()
+
+
+class ManagerTrackRemove(View):
+    def get(self, request, *args, **kwargs):
+        track = Music.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and request.user.is_manager():
+            track.delete_track(None)
+            return HttpResponse()
+        else:
+            raise Http404
+class ManagerTrackAbortRemove(View):
+    def get(self,request,*args,**kwargs):
+        track = Music.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and request.user.is_manager():
+            track.abort_delete_track(None)
+            return HttpResponse()
+        else:
+            raise Http404

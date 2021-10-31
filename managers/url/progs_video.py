@@ -31,4 +31,6 @@ urlpatterns = [
 
     url(r'^create_video/$', CreateManagerVideo.as_view()),
     url(r'^edit_video/$', EditManagerVideo.as_view()),
+    url(r'^delete_video/(?P<uuid>[0-9a-f-]+)/$', ManagerVideoRemove.as_view()),
+    url(r'^abort_delete_video/(?P<uuid>[0-9a-f-]+)/$', ManagerVideoAbortRemove.as_view()),
 ]

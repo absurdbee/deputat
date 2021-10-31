@@ -31,4 +31,6 @@ urlpatterns = [
 
     url(r'^create_doc/$', CreateManagerDoc.as_view()),
     url(r'^edit_doc/(?P<pk>\d+)/$', EditManagerDoc.as_view()),
+    url(r'^remove_doc/(?P<pk>\d+)/$', ManagerDocRemove.as_view()),
+    url(r'^abort_remove_doc/(?P<pk>\d+)/$', ManagerDocAbortRemove.as_view()),
 ]

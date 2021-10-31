@@ -376,3 +376,26 @@ class ManagerVideoAbortRemove(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class AddVideoInMediaList(View):
+    def get(self, request, *args, **kwargs):
+        from lists.models import MediaList
+
+        video, list = Video.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and not list.is_video_in_list(video.pk) and request.user.is_manager():
+            list.media_list.add(video)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class RemoveVideoFromMediaList(View):
+    def get(self, request, *args, **kwargs):
+        from lists.models import MediaList
+
+        video, list = Video.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and list.is_video_in_list(video.pk) and request.user.is_manager():
+            list.media_list.remove(video)
+            return HttpResponse()
+        else:
+            raise Http404

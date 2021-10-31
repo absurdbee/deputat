@@ -384,3 +384,25 @@ class ManagerDocAbortRemove(View):
             return HttpResponse()
         else:
             raise Http404
+
+class AddDocInMediaList(View):
+    def get(self, request, *args, **kwargs):
+        from lists.models import MediaList
+
+        doc, list = Doc.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and not list.is_doc_in_list(doc.pk) and request.user.is_manager():
+            list.media_list.add(doc)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class RemoveDocFromMediaList(View):
+    def get(self, request, *args, **kwargs):
+        from lists.models import MediaList
+
+        doc, list = Doc.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and list.is_doc_in_list(doc.pk) and request.user.is_manager():
+            list.media_list.remove(doc)
+            return HttpResponse()
+        else:
+            raise Http404

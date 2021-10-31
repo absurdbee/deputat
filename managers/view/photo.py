@@ -331,3 +331,26 @@ class ManagerPhotoAbortDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class AddPhotoInMediaList(View):
+    def get(self, request, *args, **kwargs):
+        from lists.models import MediaList
+
+        photo, list = Photo.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and not list.is_photo_in_list(photo.pk) and request.user.is_manager():
+            list.media_list.add(photo)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class RemovePhotoFromMediaList(View):
+    def get(self, request, *args, **kwargs):
+        from lists.models import MediaList
+
+        photo, list = Photo.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and list.is_photo_in_list(photo.pk) and request.user.is_manager():
+            list.media_list.remove(photo)
+            return HttpResponse()
+        else:
+            raise Http404

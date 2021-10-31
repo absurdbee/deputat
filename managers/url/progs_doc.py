@@ -33,4 +33,6 @@ urlpatterns = [
     url(r'^edit_doc/(?P<pk>\d+)/$', EditManagerDoc.as_view()),
     url(r'^remove_doc/(?P<pk>\d+)/$', ManagerDocRemove.as_view()),
     url(r'^abort_remove_doc/(?P<pk>\d+)/$', ManagerDocAbortRemove.as_view()),
+    url(r'^add_doc_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', AddDocInMediaList.as_view()),
+    url(r'^remove_doc_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', RemoveDocFromMediaList.as_view()),
 ]

@@ -308,7 +308,26 @@ class CreateManagerPhoto(View):
             list, photos = MediaList.objects.get(uuid=self.kwargs["uuid"]), []
             for p in request.FILES.getlist('file'):
                 photo = Photo.create_manager_photo(creator=request.user, image=p, list=list)
-                photos += [photo] 
+                photos += [photo]
             return render_for_platform(request, 'managers/manage_create/photo/new_manager_photos.html',{'object_list': photos})
+        else:
+            raise Http404
+
+
+class ManagerPhotoDelete(View):
+    def get(self,request,*args,**kwargs):
+        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and request.user.is_manager():
+            photo.delete_photo(None)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class ManagerPhotoAbortDelete(View):
+    def get(self,request,*args,**kwargs):
+        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and request.user.is_manager():
+            photo.abort_delete_photo(None)
+            return HttpResponse()
         else:
             raise Http404

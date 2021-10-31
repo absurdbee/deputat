@@ -357,3 +357,22 @@ class EditManagerVideo(TemplateView):
             return render_for_platform(request, 'user_video/new_video.html',{'object': self.video})
         else:
             return HttpResponseBadRequest()
+
+
+class ManagerVideoRemove(View):
+    def get(self, request, *args, **kwargs):
+        video = Video.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and request.user.is_manager():
+            video.delete_video(None)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class ManagerVideoAbortRemove(View):
+    def get(self, request, *args, **kwargs):
+        video = Video.objects.get(uuid=self.kwargs["uuid"])
+        if request.is_ajax() and request.user.is_manager():
+            video.abort_delete_video(None)
+            return HttpResponse()
+        else:
+            raise Http404

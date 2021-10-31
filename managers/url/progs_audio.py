@@ -31,4 +31,6 @@ urlpatterns = [
 
     url(r'^create_track/$', CreateManagerTrack.as_view()),
     url(r'^edit_track/$', EditManagerTrack.as_view()),
+    url(r'^delete_track/(?P<pk>\d+)/$', ManagerTrackRemove.as_view()),
+    url(r'^abort_delete_track/(?P<pk>\d+)/$', ManagerTrackAbortRemove.as_view()),
 ]

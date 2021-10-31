@@ -391,7 +391,7 @@ class AddDocInMediaList(View):
 
         doc, list = Doc.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and not list.is_doc_in_list(doc.pk) and request.user.is_manager():
-            list.media_list.add(doc)
+            doc.media_list.add(list)
             return HttpResponse()
         else:
             raise Http404
@@ -402,7 +402,7 @@ class RemoveDocFromMediaList(View):
 
         doc, list = Doc.objects.get(pk=self.kwargs["pk"]), MediaList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_doc_in_list(doc.pk) and request.user.is_manager():
-            list.media_list.remove(doc)
+            doc.media_list.remove(list)
             return HttpResponse()
         else:
             raise Http404

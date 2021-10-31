@@ -189,6 +189,8 @@ class ManagerVideoDetail(TemplateView):
         return super(ManagerVideoDetail,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
+        from lists.models import MediaList
+        
         c = super(ManagerVideoDetail,self).get_context_data(**kwargs)
-        c['object'], c['list'] = self.video, self.list
+        c['object'], c['list'], c['get_lists'] = self.video, self.list, MediaList.objects.filter(owner__isnull=True, type="LIS")
         return c

@@ -1068,7 +1068,7 @@ function ajax_get_reload(url) {
         rtr = document.getElementById('ajax');
         rtr.innerHTML = ajax.innerHTML;
         window.scrollTo(0,0);
-        window.history.pushState("", document.title, url);
+        window.history.pushState(null, "vfgffgfgf", url);
         document.title = elem_.querySelector('title').innerHTML;
         create_pagination(rtr);
         init_music(rtr);
@@ -1076,7 +1076,6 @@ function ajax_get_reload(url) {
         try{document.body.querySelector(".notify_dropdown").style.display = "none"}catch{null};
         get_document_opacity_1(rtr);
         $serf_history.push(url);
-        console.log($serf_history);
       }
     }
     ajax_link.send();

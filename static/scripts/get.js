@@ -22,7 +22,6 @@ window.addEventListener('popstate', function (e) {
           title = elem_.querySelector('title').innerHTML;
           window.history.pushState(null, "vfgffgfgf", $serf_history.slice(-1));
           document.title = title;
-          if_list(rtr);
           create_pagination(rtr);
           get_document_opacity_1();
           $serf_history.push(document.location.href);

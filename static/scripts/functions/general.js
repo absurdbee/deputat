@@ -1076,6 +1076,7 @@ function ajax_get_reload(url) {
         try{document.body.querySelector(".notify_dropdown").style.display = "none"}catch{null};
         get_document_opacity_1(rtr);
         $serf_history.push(url);
+        console.log($serf_history);
       }
     }
     ajax_link.send();

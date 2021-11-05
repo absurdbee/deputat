@@ -1033,6 +1033,7 @@ function get_document_opacity_1(block) {
 };
 
 function ajax_get_reload(url) {
+  $serf_history.push(url);
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
     ajax_link.open( 'GET', url, true );
     ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -1051,7 +1052,6 @@ function ajax_get_reload(url) {
         mobile_menu_close();
         try{document.body.querySelector(".notify_dropdown").style.display = "none"}catch{null};
         get_document_opacity_1(rtr);
-        $serf_history.push(url);
       }
     }
     ajax_link.send();

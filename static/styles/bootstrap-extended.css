@@ -1401,9 +1401,6 @@ input[type='number']::-webkit-inner-spin-button, input[type='number']::-webkit-o
   .header-navbar .navbar-nav .nav-item {
     float : left;
   }
-  .toggle_fixed_block {
-    padding-left: 0
-  }
 }
 
 @media (max-width: 767px) {

@@ -1059,7 +1059,7 @@ function ajax_get_reload(url) {
 
 window.addEventListener('popstate', function (e) {
   e.preventDefault();
-  console.log("list ", $serf_history.slice(-1));
+  console.log("list", $serf_history);
   console.log("current", $serf_history.slice(-1));
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
   ajax_link.open('GET', $serf_history.slice(-1), true);

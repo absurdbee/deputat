@@ -1059,6 +1059,7 @@ function ajax_get_reload(url) {
 
 window.addEventListener('popstate', function (e) {
   e.preventDefault();
+  $serf_history.pop();
   console.log("list", $serf_history);
   console.log("current", $serf_history.slice(-1));
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
@@ -1077,7 +1078,6 @@ window.addEventListener('popstate', function (e) {
           document.title = title;
           create_pagination(rtr);
           get_document_opacity_1();
-          $serf_history.push(document.location.href);
       }
   }
   ajax_link.send()

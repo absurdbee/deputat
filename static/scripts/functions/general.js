@@ -1,28 +1,4 @@
 var $serf_history = [];
-window.addEventListener('popstate', function (e) {
-  e.preventDefault();
-
-  var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  ajax_link.open('GET', $serf_history.slice(-1), true);
-  ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  ajax_link.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          elem_ = document.createElement('span');
-          elem_.innerHTML = ajax_link.responseText;
-          ajax = elem_.querySelector("#reload_block");
-          rtr = document.getElementById('ajax');
-          rtr.innerHTML = ajax.innerHTML;
-          window.scrollTo(0, 0);
-          title = elem_.querySelector('title').innerHTML;
-          window.history.pushState(null, "vfgffgfgf", $serf_history.slice(-1));
-          document.title = title;
-          create_pagination(rtr);
-          get_document_opacity_1();
-          $serf_history.push($serf_history.slice(-1));
-      }
-  }
-  ajax_link.send()
-});
 
 on('body', 'click', '.body_overlay', function() {
   container = document.body.querySelector("#fullscreens_container");
@@ -1080,6 +1056,31 @@ function ajax_get_reload(url) {
     }
     ajax_link.send();
 };
+
+window.addEventListener('popstate', function (e) {
+  e.preventDefault();
+
+  var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  ajax_link.open('GET', $serf_history.slice(-1), true);
+  ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  ajax_link.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          elem_ = document.createElement('span');
+          elem_.innerHTML = ajax_link.responseText;
+          ajax = elem_.querySelector("#reload_block");
+          rtr = document.getElementById('ajax');
+          rtr.innerHTML = ajax.innerHTML;
+          window.scrollTo(0, 0);
+          title = elem_.querySelector('title').innerHTML;
+          window.history.pushState(null, "vfgffgfgf", $serf_history.slice(-1));
+          document.title = title;
+          create_pagination(rtr);
+          get_document_opacity_1();
+          $serf_history.push(document.location.href);
+      }
+  }
+  ajax_link.send()
+});
 
 function send_comment(form, block, link, prepend) {
     form_comment = new FormData(form);

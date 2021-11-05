@@ -243,7 +243,7 @@ on('body', 'click', '.media_video_add', function() {
   create_fullscreen("/managers/progs_video/create_video/", "worker_fullscreen");
 });
 on('body', 'click', '.media_video_edit', function() {
-  parent = this.parentElement.parentElement.parentElement;
+  parent = this.parentElement.parentElement.parentElement.parentElement;
   blocks = document.body.querySelectorAll('.col-sm-12');
   for (var i = 0; i < blocks.length; i++) {blocks[i].classList.remove("edited_video")}
 

@@ -376,7 +376,7 @@ class Doc(models.Model):
         doc = cls.objects.create(creator=creator,title=title,file=file)
         for list_id in lists:
             list = MediaList.objects.get(pk=list_id)
-            doc.media_list.add(doc)
+            doc.media_list.add(list)
             list.count += 1
             list.save(update_fields=["count"])
         get_doc_processing(doc, Doc.MANAGER)

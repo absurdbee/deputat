@@ -151,7 +151,7 @@ on('body', 'click', '.window_fullscreen_hide_2', function() {
 });
 on('body', 'click', '.previous_click', function(event) {
   this.previousElementSibling.click();
-})
+});
 on('body', 'click', '.map_selector', function() {
   slug = this.getAttribute("data-slug");
   text = this.getAttribute("data-name");
@@ -251,32 +251,28 @@ on('body', 'click', '.select_elect_news_category', function() {
     }
 };
 link.send( null );
-})
+});
 
 on('body', 'click', '.window_fullscreen_hide', function() {
-
   parent = this.parentElement
   parent.style.display = "none";
   parent.getElementById("window_loader").innerHTML="";
 	get_document_opacity_1();
-}
-);
+});
 on('body', 'click', '.photo_fullscreen_hide', function() {
   parent = this.parentElement
   parent.style.display = "none";
   parent.getElementById("photo_loader").innerHTML="";
-	get_document_opacity_1();}
-);
+	get_document_opacity_1();
+});
 on('body', 'click', '.create_fullscreen_hide', function() {
   parent = this.parentElement
   parent.style.display = "none";
   parent.getElementById("create_loader").innerHTML="";
-	get_document_opacity_1();}
-);
-
+	get_document_opacity_1();
+});
 
 on('body', 'click', '.sel__box__options', function() {
-
   block = this.parentElement.parentElement.nextElementSibling;
   map = this.parentElement.parentElement.parentElement.previousElementSibling;
 
@@ -307,7 +303,7 @@ on('body', 'click', '.ajax', function(event) {
   } else {
 		toast_info("Вы уже на этой странице")
 	};
-})
+});
 
 
 /////////////////////////////////////////////////////

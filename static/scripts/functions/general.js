@@ -1,3 +1,5 @@
+var $serf_history = [];
+
 on('body', 'click', '.body_overlay', function() {
   container = document.body.querySelector("#fullscreens_container");
   if (container.innerHTML) {
@@ -242,7 +244,7 @@ function send_form_and_toast_and_close_window(url, form) {
         }
     }
     ajax_link.send(form_data);
-}
+};
 
 function get_profile_sanction_window(_this, url) {
   if(_this.parentElement.classList.contains("btn_console")){
@@ -258,19 +260,20 @@ function get_profile_sanction_window(_this, url) {
     pk = document.body.querySelector(".pk_saver").getAttribute("data-pk")
   }
   create_fullscreen(url + pk + "/", "worker_fullscreen");
-}
+};
+
 function get_item_sanction_window(_this, block, url) {
     _this.parentElement.parentElement.getAttribute("data-uuid")
      ?  uuid = _this.parentElement.parentElement.getAttribute("data-uuid")
      : (uuid = _this.getAttribute("data-uuid"), block.classList.add("changed"));
   create_fullscreen(url + uuid + "/", "worker_fullscreen");
-}
+};
 function get_music_doc_sanction_window(_this, block, url) {
     _this.parentElement.parentElement.parentElement.getAttribute("data-pk")
      ?  (block = _this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, pk = _this.parentElement.parentElement.parentElement.getAttribute("data-pk"), block.classList.add("changed"))
      : (pk = _this.getAttribute("data-pk"), block.classList.add("changed"));
   create_fullscreen(url + pk + "/", "worker_fullscreen");
-}
+};
 
 function send_user_sanction(_this, form, url, old_class, new_class, toast) {
   form_data = new FormData(form);
@@ -298,7 +301,7 @@ function send_user_sanction(_this, form, url, old_class, new_class, toast) {
   }};
 
   link_.send(form_data);
-}
+};
 
 function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   form_data = new FormData(form);
@@ -329,7 +332,7 @@ function send_item_sanction(_this, form, url, old_class, new_class, toast) {
   }};
 
   link_.send(form_data);
-}
+};
 
 function open_manager_window(_this, url) {
   if (document.body.querySelector(".changed")) {
@@ -346,7 +349,7 @@ function open_manager_window(_this, url) {
   }
   div = document.body.querySelector(".changed");
   create_fullscreen(url + uuid + "/", "worker_fullscreen");
-}
+};
 function send_window_sanction_post(form, url, toast) {
   // отправляем данные формы применеия санкций на странице списка или в модерском отделе модерации
   form_data = new FormData(form);
@@ -371,10 +374,10 @@ function send_window_sanction_post(form, url, toast) {
   }};
 
   link_.send(form_data);
-}
+};
 function clean_body_changed_class() {
   document.body.querySelector(".changed") ? (changed = document.body.querySelector(".changed"), changed.classList.remove("changed")) : null
-}
+};
 function send_window_sanction_get(_this, url, toast) {
   // работа санкций при открытом окне списков и элементов - посылка сигнала без формы
   if (document.body.querySelector(".changed")) {
@@ -403,7 +406,7 @@ function send_window_sanction_get(_this, url, toast) {
   }};
 
   link_.send();
-}
+};
 
 function list_load(block, link) {
   // грузим что-то по ссылке link в блок block
@@ -418,7 +421,7 @@ function list_load(block, link) {
     }
   };
   request.send( null );
-}
+};
 
 function cities_list_load(block, link) {
   // грузим что-то по ссылке link в блок block
@@ -447,7 +450,7 @@ function cities_list_load(block, link) {
     }
   };
   request.send( null );
-}
+};
 
 function media_list_edit(_this, url) {
   form = _this.parentElement.parentElement.parentElement;
@@ -472,7 +475,7 @@ function media_list_edit(_this, url) {
     toast_success("Список изменен")
   }}
   link_.send(form_data);
-}
+};
 function media_list_delete(_this, url, old_class, new_class) {
   uuid = _this.parentElement.parentElement.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -490,7 +493,7 @@ function media_list_delete(_this, url, old_class, new_class) {
     _this.innerHTML = "Восстановить список";
   }}
   link_.send();
-}
+};
 function media_list_recover(_this, url, old_class, new_class) {
   uuid = _this.parentElement.parentElement.getAttribute('data-uuid');
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -510,7 +513,7 @@ function media_list_recover(_this, url, old_class, new_class) {
     _this.innerHTML = "Удалить список";
   }}
   link_.send();
-}
+};
 
 function profile_list_block_load(_this, block, link, actions_class) {
   // подгрузка списков в профиле пользователя
@@ -536,20 +539,20 @@ function profile_list_block_load(_this, block, link, actions_class) {
        create_pagination(document.body.querySelector(block))
     }};
     request.send( null );
-}
+};
 function init_music(block) {
   audios = block.querySelectorAll("audio");
   for (var i = 0; i < audios.length; i++) {
     player = new Plyr(audios[i]);
   };
   block.querySelector("#player") ? video = new Plyr(block.querySelector("#player")) : null
-}
+};
 
 function check_span1(span1, uuid, response) {
   if (span1.classList.contains(uuid)){
     document.body.querySelector(".is_paginate").insertAdjacentHTML('afterBegin', response)
   }
-}
+};
 function get_preview(response, type) {
   if (document.body.querySelector(".current_file_dropdown")){
     if (type == "doc") {
@@ -636,7 +639,7 @@ function add_item_in_list(_this, url, old_class, new_class) {
     _this.prepend(span)
   }};
   link.send( null );
-}
+};
 function remove_item_from_list(_this, url, old_class, new_class, check_class) {
   parent = _this.parentElement;
   uuid = parent.getAttribute("data-uuid");
@@ -658,7 +661,7 @@ function remove_item_from_list(_this, url, old_class, new_class, check_class) {
     _this.querySelector("svg").remove();
   }};
   link.send( null );
-}
+};
 
 function mob_send_change(span, _link, new_class, html) {
     parent = span.parentElement;
@@ -676,7 +679,7 @@ function mob_send_change(span, _link, new_class, html) {
         }
     };
     link.send(null)
-}
+};
 
 function mob_send_change(span, _link, new_class, html) {
     parent = span.parentElement;
@@ -694,7 +697,7 @@ function mob_send_change(span, _link, new_class, html) {
         }
     };
     link.send(null)
-}
+};
 
 function post_and_load_object_page(form, url_post, url_1) {
     form_data = new FormData(form);
@@ -716,7 +719,7 @@ function post_and_load_object_page(form, url_post, url_1) {
         }
     }
     ajax_link.send(form_data)
-}
+};
 
 on('body', 'click', '.photo_preview_delete', function() {
   parent = this.parentElement;
@@ -867,7 +870,7 @@ function paginate(block) {
             }
         }
         link_3.send();
-}
+};
 
 function get_select() {
   on('body', 'hover', '#russia_map path', function() {
@@ -879,10 +882,7 @@ function get_select() {
     }
     if (this.style.fill != "#897FF1"){
     this.style.fill = "#FFFFFF";
-  }
-
-  },
-
+  }},
   function(){
     svg_list = this.parentElement.querySelectorAll("path");
     for (var i = 0; i < svg_list.length; i++) {
@@ -891,7 +891,8 @@ function get_select() {
     }
     }
   });
-}; get_select();
+};
+get_select();
 
 function send_form_and_toast(url, form, toast) {
     form_data = new FormData(form);
@@ -904,7 +905,7 @@ function send_form_and_toast(url, form, toast) {
         }
     }
     ajax_link.send(form_data);
-}
+};
 
 function get_image_priview(ggg, img) {
     entrou = false;
@@ -942,19 +943,19 @@ function get_image_priview(ggg, img) {
 function toast_success(text){
   var toasts = new ToastManager();
   toasts.showSuccess(text);
-}
+};
 function toast_error(text){
   var toasts = new ToastManager();
   toasts.showError(text);
-}
+};
 function toast_info(text){
   var toasts = new ToastManager();
   toasts.showInfo(text);
-}
+};
 function toast_warning(text){
   var toasts = new ToastManager();
   toasts.showWarning(text);
-}
+};
 
 function comment_delete(_this, _link, _class){
   data = _this.parentElement.parentElement;
@@ -974,7 +975,7 @@ function comment_delete(_this, _link, _class){
     comment.style.display = "none";
   }};
   link.send( );
-}
+};
 
 function item_delete(_this, _link, old_class, new_class){
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
@@ -986,7 +987,7 @@ function item_delete(_this, _link, old_class, new_class){
     _this.innerHTML = "Отменить";
   }};
   link.send( );
-}
+};
 function item_restore(_this, _link, old_class, new_class){
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', _link + _this.parentElement.getAttribute("data-pk") + "/", true );
@@ -997,7 +998,7 @@ function item_restore(_this, _link, old_class, new_class){
     _this.innerHTML = "Удалить";
   }};
   link.send( );
-}
+};
 
 function comment_abort_delete(_this, _link){
   comment = _this.parentElement.nextElementSibling;
@@ -1012,87 +1013,7 @@ function comment_abort_delete(_this, _link){
     block.remove();
   }};
   link.send();
-}
-
-function load_chart() {
-    try {
-        var ctx = document.querySelector('#canvas');
-        var dates = ctx.getAttribute('dates').split(",");
-        var data_1 = ctx.getAttribute('data_views').split(",");
-        var data_2 = ctx.getAttribute('data_member_views').split(",");
-        var data_3 = ctx.getAttribute('data_likes').split(",");
-        var data_4 = ctx.getAttribute('data_dislikes').split(",");
-        var label_1 = ctx.getAttribute('label_views');
-        var label_2 = ctx.getAttribute('label_member_views');
-        var label_3 = ctx.getAttribute('label_likes');
-        var label_4 = ctx.getAttribute('label_dislikes');
-        var config = {
-            type: 'line',
-            data: {
-                labels: dates,
-                datasets: [{
-                    label: label_1,
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: data_1,
-                    fill: false,
-                }, {
-                    label: label_2,
-                    fill: false,
-                    backgroundColor: 'rgb(54, 162, 235)',
-                    borderColor: 'rgb(54, 162, 235)',
-                    data: data_2,
-                }, {
-                    label: label_3,
-                    fill: false,
-                    backgroundColor: 'rgb(54, 162, 235)',
-                    borderColor: 'rgb(54, 162, 235)',
-                    data: data_3,
-                }, {
-                    label: label_4,
-                    fill: false,
-                    backgroundColor: 'rgb(54, 162, 235)',
-                    borderColor: 'rgb(54, 162, 235)',
-                    data: data_4,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                title: {
-                    display: true,
-                    text: ''
-                },
-                tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                hover: {
-                    mode: 'nearest',
-                    intersect: true
-                },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: ''
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: ''
-                        }
-                    }]
-                }
-            }
-        };
-        ctx.getContext('2d');
-        window.myLine = new Chart(ctx, config)
-    } catch {return}
-}; load_chart();
+};
 
 function get_document_opacity_0() {
   document.body.style.overflow = "hidden";
@@ -1101,7 +1022,7 @@ function get_document_opacity_0() {
   overlay.style.visibility = "unset";
   overlay.style.opacity = "1";
   document.body.querySelector(".main-menu").style.zIndex = "10";
-}
+};
 function get_document_opacity_1(block) {
   document.body.style.overflow = "scroll";
   document.body.style.marginRight = "0";
@@ -1129,11 +1050,12 @@ function ajax_get_reload(url) {
         init_music(rtr);
         mobile_menu_close();
         try{document.body.querySelector(".notify_dropdown").style.display = "none"}catch{null};
-        get_document_opacity_1(rtr)
+        get_document_opacity_1(rtr);
+        $serf_history.push(url);
       }
     }
     ajax_link.send();
-}
+};
 
 function send_comment(form, block, link, prepend) {
     form_comment = new FormData(form);
@@ -1166,4 +1088,4 @@ function send_comment(form, block, link, prepend) {
         }
     };
     link_.send(form_comment)
-}
+};

@@ -1,5 +1,5 @@
-<div class="col-md-4 media_video_detail pointer pag" video-pk="{{ object.pk }}">
-  <div class="blog-header-img"> 
+<div class="row_item media_video_detail pointer pag" video-pk="{{ object.pk }}">
+  <div class="blog-header-img">
     {% if object.image %}
       <img style="width: 100%;object-fit: cover;height: 200px;" src="{{ object.image.url }}" alt="img">
     {% else %}

@@ -25,7 +25,7 @@ window.addEventListener('popstate', function (e) {
           create_pagination(rtr);
           get_document_opacity_1();
           $serf_history.push(document.location.href);
-
+          console.log($serf_history)
       }
   }
   ajax_link.send()

@@ -13,7 +13,7 @@
             <a class='btn_default pointer drop' title="Добавить в список">
               <svg fill='currentColor' style="width:25px;height:25px;" class='svg_default' viewBox="0 0 24 24"><path d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/><path d='M0 0h24v24H0z' fill='none'/></svg>
             </a>
-            <div class="dropdown-menu dropdown-menu-right" style="top: 23px;">
+            <div class="dropdown-menu dropdown-menu-right" style="top: 44px;">
                 {% for list in request.user.get_media_lists %}
                   <span data-uuid="{{ list.uuid }}">
                     {% if list|item_in_list:doc.pk %}
@@ -36,7 +36,7 @@
                       <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
                   </svg>
               </a>
-              <div class="dropdown-menu dropdown-menu-right" style="top: 23px;">
+              <div class="dropdown-menu dropdown-menu-right" style="top: 44px;">
                 {% if request.user.is_manager %}
                   <span class="dropdown-item media_doc_edit">Изменить</span>
                   <span class="dropdown-item media_doc_remove">Удалить</span>

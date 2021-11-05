@@ -24,8 +24,7 @@ window.addEventListener('popstate', function (e) {
           document.title = title;
           create_pagination(rtr);
           get_document_opacity_1();
-          $serf_history.push(document.location.href);
-          console.log($serf_history)
+          $serf_history.push($serf_history.slice(-1));
       }
   }
   ajax_link.send()

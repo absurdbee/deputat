@@ -1,3 +1,10 @@
+on('body', 'click', '.add_doc_in_media_list', function() {
+  add_item_in_list(this, '/managers/progs_doc/add_doc_in_list/', 'add_doc_in_media_list', 'remove_doc_from_media_list')
+});
+on('body', 'click', '.remove_doc_from_media_list', function() {
+  remove_item_from_list(this, '/managers/progs_doc/remove_doc_from_list/', 'remove_doc_from_media_list', 'add_doc_in_media_list', ".mob_media_photo_remove")
+});
+
 on('body', 'click', '.u_doc_list_add', function() {
   create_fullscreen("/docs/user_progs/add_list/", "worker_fullscreen");
 });
@@ -181,7 +188,7 @@ on('body', 'click', '.u_doc_remove', function() {
     div.classList.add("col-md-6", "col-sm-12");
     div.style.padding = "20px";
     div.style.display =  "block";
-    div.innerHTML = "Запись удалена. <span class='u_doc_abort_remove pointer underline' data-pk='" + pk + "'>Восстановить</span>";
+    div.innerHTML = "Документ удален. <span class='u_doc_abort_remove pointer underline' data-pk='" + pk + "'>Восстановить</span>";
     item = saver.parentElement.parentElement.parentElement;
     item.style.display = "none"; item.parentElement.insertBefore(div, item)
   }};

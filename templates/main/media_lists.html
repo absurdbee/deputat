@@ -4,8 +4,8 @@
 {% for object in get_lists %}
 {% if object.get_children %}
 <li class="nav-item has-sub open">
-  <a {% if forloop.first %}style="font-weight:bold"{% endif %} class="d-flex align-items-center pointer load_media_list list_toggle" data-uuid="{{ object.uuid }}">
-    <svg class="a_has_sub_alt" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/></svg>
+  <a {% if forloop.first %}style="font-weight:bold"{% endif %} class="d-flex align-items-center pointer media_list load_media_list media_list list_toggle" data-uuid="{{ object.uuid }}">
+    <svg class="a_has_sub_alt" height="34px" viewBox="0 0 24 24" width="34px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/></svg>
     <span class="text-truncate">{{ object.name }}</span>
   </a>
   <ul class="menu-content">

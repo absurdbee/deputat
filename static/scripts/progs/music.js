@@ -2,7 +2,7 @@ on('body', 'click', '.add_track_in_media_list', function() {
   add_item_in_list(this, '/managers/progs_audio/add_track_in_list/', 'add_track_in_media_list', 'remove_track_from_media_list')
 });
 on('body', 'click', '.remove_track_from_media_list', function() {
-  remove_item_from_list(this, '/managers/progs_audio/remove_track_from_list/', 'remove_track_from_media_list', 'add_track_in_media_list', ".mob_media_photo_remove")
+  remove_item_from_list(this, '/managers/progs_audio/remove_track_from_list/', 'remove_track_from_media_list', 'add_track_in_media_list', ".media_track_remove")
 });
 
 on('body', 'click', '.u_track_list_add', function() {

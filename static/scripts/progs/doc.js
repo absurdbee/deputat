@@ -5,6 +5,13 @@ on('body', 'click', '.remove_doc_from_media_list', function() {
   remove_item_from_list(this, '/managers/progs_doc/remove_doc_from_list/', 'remove_doc_from_media_list', 'add_doc_in_media_list', ".media_doc_remove")
 });
 
+on('body', 'click', '.add_doc_in_media_list_collection', function() {
+  item_send_change(this, "/docs/user_progs/add_doc_in_media_list/", "remove_doc_from_media_list_collection", "Убрать из медиа-списка")
+});
+on('body', 'click', '.remove_doc_from_media_list_collection', function() {
+  item_send_change(this, "/docs/user_progs/remove_doc_from_media_list/", "add_doc_in_media_list_collection", "Добавить в медиа-список")
+});
+
 on('body', 'click', '.u_doc_list_add', function() {
   create_fullscreen("/docs/user_progs/add_list/", "worker_fullscreen");
 });

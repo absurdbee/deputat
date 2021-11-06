@@ -56,26 +56,33 @@ on('body', 'click', '.mob_user_photo_remove', function() {
   post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
   post.querySelector(".content_block").style.display = "none";
   post.querySelector(".image_card").style.opacity = "0.5";
-})
+});
 on('body', 'click', '.mob_user_photo_abort_remove', function() {
   mob_send_change(this, "/gallery/user_progs/abort_delete/", "mob_user_photo_remove", "Удалить");
   post = this.parentElement.parentElement.parentElement.parentElement.parentElement;
   post.querySelector(".content_block").style.display = "unset";
   post.querySelector(".image_card").style.opacity = "1";
-})
+});
 on('body', 'click', '.mob_u_photo_off_private', function() {
   mob_send_change(this, "/gallery/user_progs/off_private/", "mob_u_photo_on_private", "Вкл. приватность")
-})
+});
 on('body', 'click', '.mob_u_photo_on_private', function() {
   mob_send_change(this, "/gallery/user_progs/on_private/", "mob_u_photo_off_private", "Выкл. приватность")
-})
+});
+
+on('body', 'click', '.add_photo_in_media_list_collection', function() {
+  mob_send_change(this, "/gallery/user_progs/add_photo_in_media_list/", "remove_photo_in_media_list_collection", "Убрать из медиа-списка")
+});
+on('body', 'click', '.remove_photo_in_media_list_collection', function() {
+  mob_send_change(this, "/gallery/user_progs/remove_photo_in_media_list/", "add_photo_in_media_list_collection", "Добавить в медиа-список")
+});
 
 on('body', 'click', '.u_add_photo_in_list', function() {
   add_item_in_list(this, '/gallery/user_progs/add_photo_in_list/', 'u_add_photo_in_list', 'u_remove_photo_from_list')
-})
+});
 on('body', 'click', '.u_remove_photo_from_list', function() {
   remove_item_from_list(this, '/gallery/user_progs/remove_photo_from_list/', 'u_remove_photo_from_list', 'u_add_photo_in_list', ".mob_user_photo_remove")
-})
+});
 
 on('body', 'click', '.u_photo_detail', function() {
   pk = this.getAttribute('photo-pk');

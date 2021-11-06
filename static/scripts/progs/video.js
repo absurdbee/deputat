@@ -1,3 +1,10 @@
+on('body', 'click', '.add_photo_in_media_list_collection', function() {
+  mob_send_change(this, "/video/user_progs/add_video_in_media_list/", "remove_video_in_media_list_collection", "Убрать из медиа-списка")
+});
+on('body', 'click', '.remove_photo_in_media_list_collection', function() {
+  mob_send_change(this, "/video/user_progs/remove_video_in_media_list/", "add_video_in_media_list_collection", "Добавить в медиа-список")
+});
+
 on('body', 'click', '.u_video_list_add', function() {
   create_fullscreen("/video/user_progs/add_list/", "worker_fullscreen")
 });

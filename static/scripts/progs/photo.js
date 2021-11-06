@@ -71,10 +71,10 @@ on('body', 'click', '.mob_u_photo_on_private', function() {
 });
 
 on('body', 'click', '.add_photo_in_media_list_collection', function() {
-  mob_send_change(this, "/gallery/user_progs/add_photo_in_media_list/", "remove_photo_in_media_list_collection", "Убрать из медиа-списка")
+  mob_send_change(this, "/gallery/user_progs/add_photo_in_media_list/", "remove_photo_from_media_list_collection", "Убрать из медиа-списка")
 });
-on('body', 'click', '.remove_photo_in_media_list_collection', function() {
-  mob_send_change(this, "/gallery/user_progs/remove_photo_in_media_list/", "add_photo_in_media_list_collection", "Добавить в медиа-список")
+on('body', 'click', '.remove_photo_from_media_list_collection', function() {
+  mob_send_change(this, "/gallery/user_progs/remove_photo_from_media_list/", "add_photo_in_media_list_collection", "Добавить в медиа-список")
 });
 
 on('body', 'click', '.u_add_photo_in_list', function() {

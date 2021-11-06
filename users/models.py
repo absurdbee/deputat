@@ -61,7 +61,7 @@ class User(AbstractUser):
         if MediaList.objects.filter(type=MediaList.LIST, owner_id=self.pk).exists():
             return MediaList.objects.filter(type=MediaList.LIST, owner_id=self.pk)[0]
         else:
-            list = MediaList.objects.create(type=MediaList.LIST, creator_id=self.pk, owner_id=self.pk)[0]
+            list = MediaList.objects.create(type=MediaList.LIST, creator_id=self.pk, owner_id=self.pk)
             return list
 
     def get_verb_gender(self, verb):

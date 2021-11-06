@@ -58,6 +58,24 @@ class RemoveDocInUserDocList(View):
         else:
             raise Http404
 
+class AddDocInUserMediaList(View):
+    def get(self, request, *args, **kwargs):
+        doc, list = Doc.objects.get(pk=self.kwargs["pk"]), request.user.get_or_create_media_list()
+        if request.is_ajax() and not list.is_doc_in_list(doc.pk):
+            doc.media_list.add(list)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class RemoveDocInUserMediaList(View):
+    def get(self, request, *args, **kwargs):
+        doc, list = Doc.objects.get(pk=self.kwargs["pk"]),request.user.get_or_create_media_list()
+        if request.is_ajax() and list.is_doc_in_list(doc.pk) and list.creator.pk == request.user.pk:
+            doc.media_list.remove(list)
+            return HttpResponse()
+        else:
+            raise Http404
+
 class UserDoclistCreate(TemplateView):
     form_post = None
 

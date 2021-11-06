@@ -45,7 +45,7 @@ class User(AbstractUser):
         verbose_name_plural = 'пользователи'
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return self.first_name + " " +  self.last_name
 
     def get_media_lists(self):
         from lists.models import MediaList
@@ -56,6 +56,13 @@ class User(AbstractUser):
     def get_media_list(self):
         from lists.models import MediaList
         return MediaList.objects.filter(type=MediaList.LIST, owner_id=self.pk)[0]
+    def get_or_create_media_list(self):
+        from lists.models import MediaList
+        if MediaList.objects.filter(type=MediaList.LIST, owner_id=self.pk).exists():
+            return MediaList.objects.filter(type=MediaList.LIST, owner_id=self.pk)[0]
+        else:
+            list = MediaList.objects.create(type=MediaList.LIST, creator_id=self.pk, owner_id=self.pk)[0]
+            return list
 
     def get_verb_gender(self, verb):
         if self.is_women():

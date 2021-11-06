@@ -17,4 +17,6 @@ urlpatterns = [
 
     url(r'^add_doc_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', AddDocInUserDocList.as_view()),
     url(r'^remove_doc_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', RemoveDocInUserDocList.as_view()),
+    url(r'^add_doc_in_media_list/(?P<pk>\d+)/$', AddDocInUserMediaList.as_view()),
+    url(r'^remove_doc_from_media_list/(?P<pk>\d+)/$', RemoveDocInUserMediaList.as_view()),
 ]

@@ -365,7 +365,7 @@ on('body', 'click', '.a_has_sub', function() {
 	}
 });
 
-on('body', 'click', '.a_has_sub_al', function() {
+on('body', 'click', '.a_has_sub_alt', function() {
 	if (this.parentElement.parentElement.classList.contains("open")) {
 		this.parentElement.parentElement.classList.remove("open");
 		if (this.querySelector("svg")) {

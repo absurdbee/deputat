@@ -19,4 +19,6 @@ urlpatterns = [
 
     url(r'^add_video_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', AddVideoInUserVideoList.as_view()),
     url(r'^remove_video_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', RemoveVideoInUserVideoList.as_view()),
+    url(r'^add_video_in_media_list/(?P<pk>\d+)/$', AddVideoInUserMediaList.as_view()),
+    url(r'^remove_video_from_media_list/(?P<pk>\d+)/$', RemoveVideoInUserMediaList.as_view()),
 ]

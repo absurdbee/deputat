@@ -19,4 +19,6 @@ urlpatterns = [
     url(r'^abort_delete_track/(?P<pk>\d+)/$', UserTrackAbortRemove.as_view()),
     url(r'^add_track_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', AddTrackInUserPlayList.as_view()),
     url(r'^remove_track_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', RemoveTrackInUserPlayList.as_view()),
+    url(r'^add_track_in_media_list/(?P<pk>\d+)/$', AddTrackInUserMediaList.as_view()),
+    url(r'^remove_track_from_media_list/(?P<pk>\d+)/$', RemoveTrackInUserMediaList.as_view()),
 ]

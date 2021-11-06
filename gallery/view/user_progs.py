@@ -109,7 +109,7 @@ class PhotoListUserCreate(TemplateView):
             if not list.description:
                 list.description = "Без описания"
             new_list = list.create_list(creator=request.user, name=list.name, description=list.description, order=list.order, community=None, is_public=request.POST.get("is_public"))
-            return render_for_platform(request, 'user_gallery/list/my_list.html',{'list': new_list}) 
+            return render_for_platform(request, 'user_gallery/list/my_list.html',{'list': new_list})
         else:
             return HttpResponseBadRequest()
         return super(PhotoListUserCreate,self).get(request,*args,**kwargs)
@@ -183,6 +183,25 @@ class RemovePhotoInUserPhotoList(View):
         list = PhotoList.objects.get(uuid=self.kwargs["uuid"])
         if request.is_ajax() and list.is_item_in_list(photo.pk) and list.creator.pk == request.user.pk:
             list.photo_list.remove(photo)
+            return HttpResponse()
+        else:
+            raise Http404
+
+
+class AddPhotoInUserMediaList(View):
+    def get(self, request, *args, **kwargs):
+        photo, list = Photo.objects.get(pk=self.kwargs["pk"]), request.user.get_or_create_media_list()
+        if request.is_ajax() and not list.is_photo_in_list(photo.pk):
+            photo.media_list.add(list)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class RemovePhotoInUserMediaList(View):
+    def get(self, request, *args, **kwargs):
+        photo, list = Photo.objects.get(pk=self.kwargs["pk"]),request.user.get_or_create_media_list()
+        if request.is_ajax() and list.is_photo_in_list(photo.pk) and list.creator.pk == request.user.pk:
+            photo.media_list.remove(list)
             return HttpResponse()
         else:
             raise Http404

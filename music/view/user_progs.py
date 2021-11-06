@@ -212,3 +212,22 @@ class UserTrackEdit(TemplateView):
             return render_for_platform(request, 'user_music/new_track.html',{'object': self.track})
         else:
             return HttpResponseBadRequest()
+
+
+class AddTrackInUserMediaList(View):
+    def get(self, request, *args, **kwargs):
+        track, list = Music.objects.get(pk=self.kwargs["pk"]), request.user.get_or_create_media_list()
+        if request.is_ajax() and not list.is_track_in_list(track.pk):
+            track.media_list.add(list)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class RemoveTrackInUserMediaList(View):
+    def get(self, request, *args, **kwargs):
+        track, list = Music.objects.get(pk=self.kwargs["pk"]),request.user.get_or_create_media_list()
+        if request.is_ajax() and list.is_track_in_list(track.pk) and list.creator.pk == request.user.pk:
+            track.media_list.remove(list)
+            return HttpResponse()
+        else:
+            raise Http404

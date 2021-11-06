@@ -189,3 +189,22 @@ class UserVideolistAbortDelete(View):
             return HttpResponse()
         else:
             raise Http404
+
+
+class AddVideoInUserMediaList(View):
+    def get(self, request, *args, **kwargs):
+        video, list = Video.objects.get(pk=self.kwargs["pk"]), request.user.get_or_create_media_list()
+        if request.is_ajax() and not list.is_video_in_list(video.pk):
+            video.media_list.add(list)
+            return HttpResponse()
+        else:
+            raise Http404
+
+class RemoveVideoInUserMediaList(View):
+    def get(self, request, *args, **kwargs):
+        video, list = Video.objects.get(pk=self.kwargs["pk"]),request.user.get_or_create_media_list()
+        if request.is_ajax() and list.is_video_in_list(video.pk) and list.creator.pk == request.user.pk:
+            video.media_list.remove(list)
+            return HttpResponse()
+        else:
+            raise Http404

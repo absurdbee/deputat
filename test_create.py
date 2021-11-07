@@ -12,7 +12,4 @@ from elect.models import Elect
 from blog.models import ElectNew
 
 for elect in Elect.objects.filter(list__slug="candidate_municipal"):
-    if ElectNew.objects.filter(elect=elect):
-        print ("Чиновник имеет активности", elect)
-    else:
-        elect.delete()
+    elect.delete()

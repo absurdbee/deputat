@@ -168,7 +168,7 @@ class MediaListView(ListView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.user = request.user
-		self.list = user.get_or_create_media_list()
+		self.list = self.user.get_or_create_media_list()
 		self.template_name = get_full_template("profile/media_list/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MediaListView,self).get(request,*args,**kwargs)
 

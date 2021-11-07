@@ -1,9 +1,9 @@
 {% load filters %}
 
 <div class="col-md-6 col-sm-12 pag" style="padding:3px">
-  <div class="media border" style="position: absolute;top: 9px;left: 8px;">
+  <div class="media border">
       <div class="media-body music_media_body" style="line-height: 8px;">
-        <span>{{ object.title }}</span>
+        <span style="position: absolute;top: 9px;left: 8px;">{{ object.title }}</span>
         <div class="audio_div">
           <audio id="player" class="audio_player">
             <source src="{{ object.file.url }}" type="audio/mp3" />

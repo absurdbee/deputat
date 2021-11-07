@@ -9,6 +9,8 @@ django.setup()
 from users.model.profile import *
 from users.model.settings import *
 from elect.models import Elect
-from gallery.models import Photo
+from blog.models import ElectNew
 
-print('<img src="' + Photo.objects.get(pk=647).file.url + '>')
+for elect in Elect.objects.filter(list__slug="candidate_municipal"):
+    if ElectNew.objects.filter(elect=elect):
+        print ("Чиновник имеет активности", elect)

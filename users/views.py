@@ -160,3 +160,23 @@ class UserTransactionsView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		return self.user.get_transactions()
+
+
+class MediaListView(ListView, CategoryListMixin):
+	template_name = None
+	paginate_by = 15
+
+	def get(self,request,*args,**kwargs):
+		self.user = User.objects.get(pk=self.kwargs["pk"])
+		self.list = self.user.get_or_create_media_list()
+		self.template_name = get_full_template("profile/media_list/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MediaListView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context=super(MediaListView,self).get_context_data(**kwargs)
+		context["user"] = self.user
+		context["list"] = self.list
+		return context
+
+	def get_queryset(self):
+		return self.list.get_items()

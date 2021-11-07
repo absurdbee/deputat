@@ -29,7 +29,7 @@ def user_notify(creator, action_community_id, object_id, type, socket_name, verb
 
     for user_id in recipient_ids:
         if Notify.objects.filter(recipient_id=user_id, action_community_id=action_community_id, created__gt=today, type=type, verb=current_verb).exists():
-            notify = Notify.objects.get(recipient_id=user_id, action_community_id=action_community_id, type=type, created__gt=today, verb=current_verb)
+            notify = Notify.objects.filter(recipient_id=user_id, action_community_id=action_community_id, type=type, created__gt=today, verb=current_verb).first()
             Notify.objects.create(creator_id=creator.pk, action_community_id=action_community_id, recipient_id=user_id, object_id=object_id, type=type, verb=current_verb, user_set=notify)
         elif Notify.objects.filter(recipient_id=user_id, object_id=object_id, type=type, created__gt=today, verb=verb).exists():
             notify = Notify.objects.get(recipient_id=user_id, object_id=object_id, type=type, created__gt=today, verb=verb)

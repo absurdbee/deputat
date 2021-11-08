@@ -339,6 +339,16 @@ class Photo(models.Model):
         verbose_name_plural = 'Фото'
         ordering = ["-created"]
 
+    def get_mime_type(self):
+        import magic
+
+        file = self.file
+        initial_pos = file.tell()
+        file.seek(0)
+        mime_type = magic.from_buffer(file.read(1024), mime=True)
+        file.seek(initial_pos)
+        return mime_type
+
     def get_lists(self):
         return self.list.all()
 

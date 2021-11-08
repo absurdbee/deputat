@@ -3,12 +3,12 @@
 
 <div class="col-12 pag" style="padding:3px">
   <div class="media border p-1">
-    <figure class="media_photo_detail" photo-pk="{{ object.pk }}">
+    <figure class="media_photo_detail pointer" photo-pk="{{ object.pk }}">
         <img class="preview image_fit_40" src="{{ object.file.url }}" alt="img">
     </figure>
       <div class="media-body music_media_body" style="line-height: 8px;">
         <h6 class="pointer media_photo_detail" style="width: 84%;overflow: hidden;" photo-pk="{{ object.pk }}">
-            <a href="{{ object.file.url }}" target="_blank" rel="nofollow">Изображение</a>
+          Изображение
         </h6>
         <span class="small">{{ object.file.size|filesizeformat }} | {{ object.get_mime_type }}</span>
         <span class='span_btn' data-pk="{{ object.pk }}" style="margin-top: -20px;">

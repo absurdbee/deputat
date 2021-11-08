@@ -353,6 +353,16 @@ class Video(models.Model):
     def __str__(self):
         return self.title
 
+    def get_mime_type(self):
+        import magic
+
+        file = self.file
+        initial_pos = file.tell()
+        file.seek(0)
+        mime_type = magic.from_buffer(file.read(1024), mime=True)
+        file.seek(initial_pos)
+        return mime_type
+
     @classmethod
     def create_video(cls, creator, title, file, image, uri, lists, is_public, community):
         from common.processing import get_video_processing

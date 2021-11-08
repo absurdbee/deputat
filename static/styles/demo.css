@@ -505,6 +505,11 @@ a {
   height: 50px;
   width:100%
 }
+.image_fit_40{
+  object-fit: cover;
+  height: 40px;
+  width:100%
+}
 .image_fit_small{
   object-fit: cover;
   height: 120px;

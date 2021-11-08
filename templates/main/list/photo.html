@@ -3,7 +3,9 @@
 
 <div class="col-12 pag" style="padding:3px">
   <div class="media border p-1">
-      <img class="image_fit_40 media_photo_detail pointer" photo-pk="{{ object.pk }}" src="{{ object.file.url }}" alt="img">
+      <span>
+        <img class="image_fit_40 media_photo_detail pointer" photo-pk="{{ object.pk }}" src="{{ object.file.url }}" alt="img">
+      </span>
       <div class="media-body music_media_body" style="line-height:8px;padding-left:7px;">
         <h6 class="pointer media_photo_detail" style="width:84%;overflow:hidden;" photo-pk="{{ object.pk }}">
           Изображение

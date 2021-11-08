@@ -29,7 +29,7 @@ on('body', 'click', '.u_video_detail', function() {
 });
 on('body', 'click', '.media_video_detail', function() {
   video_pk = this.getAttribute('video-pk');
-  uuid = this.parentElement.previousElementSibling.getAttribute("data-uuid");
+  uuid = this.parentElement.parentElement.parentElement.parentElement.previousElementSibling.getAttribute('data-uuid');
   create_fullscreen("/video/media_video_detail/" + video_pk + "/" + uuid + "/", "window_fullscreen")
 });
 

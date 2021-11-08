@@ -7,5 +7,5 @@ class TermsView(TemplateView, CategoryListMixin):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.template_name = get_full_template("terms/terms.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_full_template("terms/" , "terms.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(TermsView,self).get(request,*args,**kwargs)

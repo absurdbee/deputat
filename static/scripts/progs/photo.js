@@ -92,7 +92,7 @@ on('body', 'click', '.u_photo_detail', function() {
 
 on('body', 'click', '.media_photo_detail', function() {
   pk = this.getAttribute('photo-pk');
-  uuid = this.parentElement.previousElementSibling.getAttribute('data-uuid')
+  uuid = this.parentElement.parentElement.parentElement.previousElementSibling.getAttribute('data-uuid')
   create_fullscreen("/gallery/media_photo/" + pk + "/" + uuid + "/", "photo_fullscreen");
 });
 

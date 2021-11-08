@@ -1,13 +1,29 @@
-<div class="row_item media_video_detail pointer pag" video-pk="{{ object.pk }}">
-  <div class="blog-header-img">
-    {% if object.image %}
-      <img style="width: 100%;object-fit: cover;height: 200px;" src="{{ object.image.url }}" alt="img">
-    {% else %}
-      <img style="width: 100%;object-fit: cover;height: 200px;" src="/static/images/list.jpg" alt="img">
-    {% endif %}
-  </div>
-  <div style="line-height: .2;">
-    <h5 class="text-truncate w-100">{{ object.title }}</h5>
-    <span class="small">{{ object.get_created }}</span>
+
+{% load filters %}
+
+<div class="col-12 pag" style="padding:3px">
+  <div class="media border p-1">
+      <span>
+        <img class="image_fit_40 media_video_detail pointer" video-pk="{{ object.pk }}" src="{{ object.file.url }}" alt="img">
+      </span>
+      <div class="media-body music_media_body" style="line-height:8px;padding-left:7px;">
+        <h6 class="pointer media_video_detail" style="width:84%;overflow:hidden;" video-pk="{{ object.pk }}">
+          Изображение
+        </h6>
+        <span class="small">{{ object.file.size|filesizeformat }} | {{ object.get_mime_type }}</span>
+        <span class='span_btn' data-pk="{{ object.pk }}" style="margin-top: -20px;">
+          <div class="dropdown" style="position: inherit;">
+              <a class="btn_default drop pointer">
+                  <svg class="svg_info" style="padding-top: 2px;" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                  </svg>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" style="top: 44px;">
+                <span class="dropdown-item copy_link" data-link="/video/video_detail/{{ object.pk }}/">Копировать ссылку</span>
+              </div>
+          </div>
+        </span>
+      </div>
   </div>
 </div>

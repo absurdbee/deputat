@@ -2,7 +2,7 @@
 <li class="nav-item has-sub open">
   <a class="d-flex align-items-center a_has_sub pointer load_media_list media_list list_toggle" data-uuid="{{ list.uuid }}">
     <svg class="a_has_sub_alt" height="34px" viewBox="0 0 24 24" width="34px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5H7z"/></svg>
-    <span class="menu-title text-truncate">{{ list.name }}</span>
+    <span class="text-truncate" style="font-size: 78%;">{{ list.name }}</span>
   </a>
   <ul class="menu-content">
     {% for list in list.get_children %}
@@ -13,14 +13,7 @@
 {% else %}
 <li class="nav-item has-sub open">
   <a class="d-flex align-items-center pointer load_media_list media_list list_toggle" data-uuid="{{ list.uuid }}">
-    <span class="menu-title text-truncate">{{ list.name }}</span>
+    <span class="text-truncate" style="font-size: 78%;">{{ list.name }}</span>
   </a>
-  {% if list.get_children %}
-  <ul class="menu-content">
-    {% for list in list.get_children %}
-      {% include 'main/list/menu_item.html' %}
-    {% endfor %}
-  </ul>
-  {% endif %}
 </li>
 {% endif %}

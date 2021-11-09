@@ -167,9 +167,11 @@ class MediaListView(ListView, CategoryListMixin):
 	paginate_by = 15
 
 	def get(self,request,*args,**kwargs):
+		from common.templates import get_my_template
+
 		self.user = request.user
 		self.list = self.user.get_or_create_media_list()
-		self.template_name = get_full_template("profile/media_list/", "list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("profile/media_list/list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MediaListView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

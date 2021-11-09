@@ -36,6 +36,7 @@ class User(AbstractUser):
     device = models.CharField(max_length=5, choices=DEVICE, blank=True, verbose_name="Оборудование")
     #point = models.PositiveIntegerField(default=0, verbose_name="Количество кармы")
     area = models.ForeignKey('district.District2', blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Районы, за которым закреплен депутат")
+    city = models.ForeignKey('city.City', blank=True, null=True, on_delete=models.SET_NULL, verbose_name="Города")
     level = models.PositiveSmallIntegerField(default=1, verbose_name="Уровень")
     birthday = models.DateField(blank=True, null=True, verbose_name='День рождения')
     USERNAME_FIELD = 'phone'
@@ -71,7 +72,7 @@ class User(AbstractUser):
             return verb
 
     def get_publish_or_created_elect_news_count(self):
-        from logs.model.manage_elect_new import ElectNewManageLog 
+        from logs.model.manage_elect_new import ElectNewManageLog
 
         query =  Q(action_type='ICRE')|Q(action_type='IPUB')
         return ElectNewManageLog.objects.filter(query, manager=self.pk).values("pk").count()

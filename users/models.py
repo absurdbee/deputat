@@ -70,6 +70,12 @@ class User(AbstractUser):
         else:
             return verb
 
+    def get_publish_or_created_elect_news_count(self):
+        from logs.manage_elect_new import ElectNewManageLog
+
+        query =  Q(action_type='ICRE')|Q(action_type='IPUB')
+        return ElectNewManageLog.objects.filter(query, manager=self.pk).values("pk").count()
+
     def is_theme_dark(self):
         from users.model.profile import UserProfile
         profile = UserProfile.objects.get(user=self)

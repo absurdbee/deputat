@@ -30,7 +30,7 @@ on('body', 'click', '.load_media_list', function(el) {
   		profile_list_block_load(_this, ".load_block", "/main_media/?uuid=" + _this.getAttribute("data-uuid"), "load_media_list");
 			l = document.body.querySelectorAll(".list_toggle")
 			for (var i = 0; i < l.length; i++) {
-				l[i].querySelector(".text-truncate").style.fontWeight = "200"
+				l[i].querySelector(".text-truncate").style.borderBottom = "none"
 			};
 			_this.querySelector(".text-truncate").style.borderBottom = "1px #3176c1 solid"
 		}

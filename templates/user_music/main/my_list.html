@@ -25,7 +25,6 @@
               <span class="d-none d-sm-block">Лента</span>
           </a>
       </li>
-      {% if user.user_private.subscribers %}
       <li class="nav-item">
           <a href="{% url 'subscribe_elects' pk=user.pk %}" class="nav-link d-flex align-items-center ajax">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
@@ -34,6 +33,15 @@
                   <polyline points="17 11 19 13 23 9"></polyline>
               </svg>
               <span class="d-none d-sm-block">Подписки</span>
+          </a>
+      </li>
+      {% if user.is_have_media_list %}
+      <li class="nav-item">
+          <a href="{% url 'user_media_list' %}" class="nav-link d-flex align-items-center ajax">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span class="d-none d-sm-block">Добавлено</span>
           </a>
       </li>
       {% endif %}
@@ -88,7 +96,7 @@
             <img src="/static/images/loading.gif">
           </div>
         {% endif %}
-        
+
         {% else %}
         <div class="card centered item_empty">
           <div class="card-body">

@@ -10,9 +10,9 @@ from logs.model.manage_blog import *
 from logs.model.manage_media import *
 
 
-admin.site.register(MediaManageLog)
-#admin.site.register(PostWorkerManageLog)
-#admin.site.register(PostCreateWorkerManageLog)
+#admin.site.register(MediaManageLog)
+admin.site.register(ElectNewManageLog)
+#admin.site.register(ElectNewWorkerManageLog)
 
 #admin.site.register(AudioManageLog)
 #admin.site.register(AudioWorkerManageLog)

@@ -382,6 +382,34 @@ class Moderated(models.Model):
         # кол-во жалоб на пользователя
         return self.reports.count()
 
+    @classmethod
+    def count_moderated_users(cls):
+        return cls.objects.filter(type="USE").values("pk").count()
+    @classmethod
+    def count_moderated_communities(cls):
+        return cls.objects.filter(type="COM").values("pk").count()
+    @classmethod
+    def count_moderated_elect_news(cls):
+        return cls.objects.filter(type__contains="ELE").values("pk").count()
+    @classmethod
+    def count_moderated_blog(cls):
+        return cls.objects.filter(type__contains="BLO").values("pk").count()
+    @classmethod
+    def count_moderated_photo(cls):
+        return cls.objects.filter(type__contains="PH").values("pk").count()
+    @classmethod
+    def count_moderated_music(cls):
+        return cls.objects.filter(type__contains="MU").values("pk").count()
+    @classmethod
+    def count_moderated_doc(cls):
+        return cls.objects.filter(type__contains="DO").values("pk").count()
+    @classmethod
+    def count_moderated_video(cls):
+        return cls.objects.filter(type__contains="VI").values("pk").count()
+    @classmethod
+    def count_moderated_survey(cls):
+        return cls.objects.filter(type__contains="SU").values("pk").count()
+        
     def reports_count_ru(self):
         count = self.reports_count()
         a = count % 10

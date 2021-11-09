@@ -15,6 +15,20 @@ class ManagersView(TemplateView, CategoryListMixin):
             self.template_name = get_managers_template("managers/managers.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(ManagersView,self).get(request,*args,**kwargs)
 
+    def get_context_data(self,**kwargs):
+        from managers.models import Moderated
+        context = super(ManagersView,self).get_context_data(**kwargs)
+        context["count_moderated_users"] = Moderated.count_moderated_users()
+        context["count_moderated_communities"] = Moderated.count_moderated_communities()
+        context["count_moderated_elect_news"] = Moderated.count_moderated_elect_news()
+        context["count_moderated_blog"] = Moderated.count_moderated_blog()
+        context["count_moderated_photo"] = Moderated.count_moderated_photo()
+        context["count_moderated_music"] = Moderated.count_moderated_music()
+        context["count_moderated_doc"] = Moderated.count_moderated_doc()
+        context["count_moderated_video"] = Moderated.count_moderated_video()
+        context["count_moderated_survey"] = Moderated.count_moderated_survey()
+        return context
+
 class SuperManagersView(TemplateView, CategoryListMixin):
     template_name = None
 

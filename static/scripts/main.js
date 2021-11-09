@@ -32,7 +32,7 @@ on('body', 'click', '.load_media_list', function(el) {
 			for (var i = 0; i < l.length; i++) {
 				l[i].style.fontWeight = "200"
 			};
-			_this.style.fontWeight = "bold"
+			_this.style.borderBottom = "1px #3176c1 solid"
 		}
 });
 

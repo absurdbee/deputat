@@ -40,22 +40,10 @@
               <input type="text" value="{{ elect.post_2 }}" name="post_2" class="form-control" id="id_post">
             </div>
 
-            <div class="form-group is_region_multiple">
+            <div class="form-group">
               <label>Регионы</label>
               <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
               {{ form.region }}
-            </div>
-
-            <div class="form-group">
-              {% if elect.count_regions == 1 %}
-              <label>Районы</label>
-              <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
-              <select name="area" id="id_district" multiple="">
-                {% for object in elect.get_region_districts %}
-                  <option {% if object in elect.get_districts %}selected=""{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
-                {% endfor %}
-              </select>
-              {% endif %}
             </div>
             <div class="form-group">
               <label>Дата рождения</label><br>

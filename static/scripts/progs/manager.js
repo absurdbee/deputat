@@ -64,19 +64,7 @@ on('body', 'click', '#add_media_list_btn', function() {
   ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   ajax_link.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          elem_ = document.createElement('span');
-          elem_.innerHTML = ajax_link.responseText;
-          ajax = elem_.querySelector(".load_block");
-
-          ul = document.body.querySelector(".media_lists_ul");
-          uuid = elem_.querySelector(".uuid_saver").getAttribute("data-uuid");
-          $li = document.createElement("li");
-          $li.classList.add("list-item");
-          $li.style.width = "200px";
-          $li.style.float = "left";
-          $li.innerHTML = '<div class="card file-manager-item folder pointer load_media_list list_toggle border" data-uuid="' + uuid + '"><div class="card-img-top file-logo-wrapper"><span><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></span></div><div class="card-body pt-0"><div class="content-wrapper"><p class="card-text file-name mb-0 list_name" style="text-align: left;" data-name="' + _name.value + '">' + _name.value + '</p><p class="card-text file-size mb-0">0</p></div><small class="file-accessed">Архивный список</small></div></div>'
-          ul.prepend($li);
-          close_fullscreen();
+          ajax_get_reload(window.location.href);
       }
   }
   ajax_link.send(form_data);

@@ -10,6 +10,9 @@ from users.model.profile import *
 from users.model.settings import *
 from elect.models import Elect
 from blog.models import ElectNew
+from logs.model.manage_elect_new import ElectNewManageLog
 
-for elect in Elect.objects.filter(list__slug="candidate_municipal"):
-    elect.delete()
+for log in ElectNewManageLog.objects.all():
+    if log.action_type == 'CCLO':
+        log.action_type == 'IPUB'
+        log.save(update_fields=["action_type"])

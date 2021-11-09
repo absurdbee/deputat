@@ -71,7 +71,7 @@ class User(AbstractUser):
             return verb
 
     def get_publish_or_created_elect_news_count(self):
-        from logs.model.manage_elect_new import ElectNewManageLog
+        from logs.model.manage_elect_new import ElectNewManageLog 
 
         query =  Q(action_type='ICRE')|Q(action_type='IPUB')
         return ElectNewManageLog.objects.filter(query, manager=self.pk).values("pk").count()

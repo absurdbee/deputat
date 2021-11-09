@@ -291,16 +291,8 @@ body.dark-layout {
   color : #D0D2D6 !important;
 }
 
-.dark-layout .main-menu-content .navigation-main li ul .open > a, .dark-layout .main-menu-content .navigation-main li ul .sidebar-group-active > a {
-  background-color : #161D31;
-}
-
 .dark-layout .main-menu-content .navigation-main .nav-item i, .dark-layout .main-menu-content .navigation-main .nav-item svg {
   color : #D0D2D6;
-}
-
-.dark-layout .main-menu-content .navigation-main .nav-item.open > a {
-  background-color : #161D31 !important;
 }
 
 .dark-layout .main-menu-content .navigation-main .nav-item a:after {

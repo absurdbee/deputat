@@ -32,7 +32,7 @@ on('body', 'click', '.load_media_list', function(el) {
 			for (var i = 0; i < l.length; i++) {
 				l[i].querySelector(".text-truncate").style.borderBottom = "none"
 			};
-			_this.querySelector(".text-truncate").style.borderBottom = "1px #3176c1 solid"
+			_this.querySelector(".text-truncate").style.borderBottom = "1px #3176c1 dotted"
 		}
 });
 

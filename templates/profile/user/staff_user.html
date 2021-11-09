@@ -107,6 +107,14 @@
                                                     </div>
                                                     <p class="card-text mb-0" style="margin-left: auto;">{{ user.profile.elect_news }}</p>
                                                 </div>
+                                                {% if request.user.is_supermanager %}
+                                                <div class="d-flex flex-wrap my-50">
+                                                    <div class="user-info-title">
+                                                        <span class="card-text user-info-title font-weight-bold mb-0">Активностей менеджера</span>
+                                                    </div>
+                                                    <p class="card-text mb-0" style="margin-left: auto;">{{ user.get_publish_or_created_elect_news_count }}</p>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>

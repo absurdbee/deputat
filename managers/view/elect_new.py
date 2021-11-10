@@ -453,7 +453,7 @@ class DeleteManagerElect(View):
 
         if request.is_ajax() and request.user.is_supermanager():
             self.elect.is_deleted = True
-            self.save(update_fields=["is_deleted"])
+            self.elect.save(update_fields=["is_deleted"])
         return HttpResponse()
 
 class RestoreManagerElect(View):
@@ -464,5 +464,5 @@ class RestoreManagerElect(View):
 
         if request.is_ajax() and request.user.is_supermanager():
             self.elect.is_deleted = False
-            self.save(update_fields=["is_deleted"])
+            self.elect.save(update_fields=["is_deleted"])
         return HttpResponse()

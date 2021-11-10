@@ -6,7 +6,7 @@ from generic.mixins import CategoryListMixin
 
 
 class UserProfileSettings(TemplateView, CategoryListMixin):
-	template_name, form, cities, districts = None, None, None, None
+	template_name, form, cities, citys = None, None, None, None
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_my_template("profile/settings/profile.html", request.user, request.META['HTTP_USER_AGENT'])

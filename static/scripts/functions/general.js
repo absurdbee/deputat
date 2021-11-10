@@ -277,6 +277,17 @@ function get_music_doc_sanction_window(_this, block, url) {
   create_fullscreen(url + pk + "/", "worker_fullscreen");
 };
 
+function get_comment_sanction_window(_this, url) {
+  pk = _this.parentElement.parentElement.getAttribute("data-pk");
+  block = _this.parentElement.parentElement.parentElement.parentElement
+  list = block.parentElement.querySelectorAll(".pag");
+  for (var i = 0; i < list.length; i++) {
+    list[i].classList.remove("changed");
+  };
+  block.classList.add("changed");
+  create_fullscreen(url + pk + "/", "worker_fullscreen");
+};
+
 function send_user_sanction(_this, form, url, old_class, new_class, toast) {
   form_data = new FormData(form);
   if (document.body.querySelector(".pk_saver")){

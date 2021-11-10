@@ -735,7 +735,9 @@ on('body', 'click', '.create_track_close', function() {
   open_manager_window(this, "/managers/progs_audio/create_close/")
 });
 on('body', 'click', '.create_track_rejected', function() {
-  send_window_sanction_get(this, "/managers/progs_audio/create_rejected/", "Жалобы отклонены")
+  _this = this;
+  send_window_sanction_get(_this, "/managers/progs_audio/create_rejected/", "Жалобы отклонены");
+  _this.parentElement.parentElement.parentElement.parentElement.parentElement.remove()
 });
 on('body', 'click', '.reject_suggested_elect_new', function() {
   send_window_sanction_get(this, "/managers/elect_new/suggest_rejected/", "Активность отклонена")

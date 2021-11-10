@@ -446,7 +446,7 @@ class EditManagerElect(TemplateView):
 
 
 class DeleteManagerElect(View):
-    def post(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         from elect.models import Elect
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
@@ -457,7 +457,7 @@ class DeleteManagerElect(View):
         return HttpResponse()
 
 class RestoreManagerElect(View):
-    def post(self,request,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         from elect.models import Elect
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])

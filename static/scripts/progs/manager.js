@@ -662,6 +662,20 @@ on('body', 'click', '.photo_unverify', function() {
   send_window_sanction_get(this, "/managers/progs_photo/unverify/", "Верификация отменена")
 });
 
+on('body', 'click', '.remove_elect_new_comment_close', function() {
+  send_sanction_comments_get(this, "/managers/elect_new/comment_delete_close/", "Комментарий восстановлен")
+});
+on('body', 'click', '.elect_new_comment_unverify', function() {
+  send_sanction_comments_get(this, "/managers/elect_new/comment_unverify/", "Верификация отменена")
+});
+
+on('body', 'click', '.remove_blog_comment_close', function() {
+  send_sanction_comments_get(this, "/managers/progs_blog/comment_delete_close/", "Комментарий восстановлен")
+});
+on('body', 'click', '.blog_comment_unverify', function() {
+  send_sanction_comments_get(this, "/managers/progs_blog/comment_unverify/", "Верификация отменена")
+});
+
 on('body', 'click', '.remove_playlist_close', function() {
   send_window_sanction_get(this, "/managers/progs_audio/list_delete_close/", "Плейлист восстановлен")
 });

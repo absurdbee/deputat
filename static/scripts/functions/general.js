@@ -733,7 +733,7 @@ function string_send_change(span, _link, new_class, old_class, html) {
     link.onreadystatechange = function() {
         if (link.readyState == 4 && link.status == 200) {
             span.innerHTML = html;
-            span.classListreplace(old_class, new_class)
+            span.classList.replace(old_class, new_class) 
         }
     };
     link.send(null)

@@ -190,10 +190,12 @@ function change_this_fullscreen(_this, type_class) {
 };
 function close_fullscreen() {
   container = document.body.querySelector("#fullscreens_container");
+  try{
   container.querySelector(".card_fullscreen").remove();
   if (!container.innerHTML) {
     get_document_opacity_1(document.body.querySelector(".main-container"));
   }
+} catch {null}
 };
 
 on('body', 'click', '.this_fullscreen_hide', function() {

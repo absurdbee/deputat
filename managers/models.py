@@ -487,12 +487,14 @@ class Moderated(models.Model):
     def delete_close(self, object, manager_id):
         obj = ModerationPenalty.objects.get(moderated_object=self, type=self.type, object_id=self.object_id)
         obj.delete()
-        if self.type == "USE" or self.type == "COM" or self.type[:3] == "ELN" or self.type[:3] == "BLO":
-            object.abort_close_item()
-        elif object.community:
-            object.abort_close_item(object.community)
-        else:
-            object.abort_close_item(None)
+        try:
+            if object.community:
+                object.abort_close_item(object.community)
+        except:
+            if self.type == "USE" or self.type == "COM" or self.type[:3] == "ELN" or self.type[:3] == "BLO":
+                object.abort_close_item()
+            else:
+                object.abort_close_item(None)
         self.delete()
     def delete_suspend(self, manager_id):
         obj = ModerationPenalty.objects.get(moderated_object=self, type=self.type, object_id=self.object_id)

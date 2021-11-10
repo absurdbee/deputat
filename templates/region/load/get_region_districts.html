@@ -1,7 +1,0 @@
-<label for="id_district" class="district_option">Район</label>
-<select class="form-control" name="area" id="id_district">
-  <option value=''>Выберите район</option>
-  {% for object in districts %}
-  <option value="{{ object.pk }}">{{ object.name }}</option>
-  {% endfor %}
-</select>

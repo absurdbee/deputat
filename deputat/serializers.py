@@ -5,7 +5,7 @@ from allauth.account.utils import setup_user_email
 from rest_framework import serializers
 from rest_framework.response import Response
 from users.models import User
-from district.models import District2
+from city.models import City
 from common.utils import get_location
 from datetime import date, datetime
 from django.utils import timezone
@@ -22,7 +22,7 @@ class RegisterSerializer(serializers.Serializer):
     last_name = serializers.CharField(required=True, write_only=True)
     password1 = serializers.CharField(required=True, write_only=True)
     password2 = serializers.CharField(required=True, write_only=True)
-    area = serializers.CharField(required=True, write_only=True)
+    city = serializers.CharField(required=True, write_only=True)
     gender = serializers.CharField(required=True, write_only=True)
     date_day = serializers.CharField(required=True, write_only=True)
     date_month = serializers.CharField(required=True, write_only=True)
@@ -59,9 +59,9 @@ class RegisterSerializer(serializers.Serializer):
 
         self.cleaned_data = self.get_cleaned_data()
         user.phone = users_count + 15600
-        area_pk = self.validated_data.get('area', '')
-        if area_pk:
-            user.area = District2.objects.get(pk=area_pk)
+        city_pk = self.validated_data.get('city', '')
+        if city_pk:
+            user.city = City.objects.get(pk=city_pk)
         user.gender = self.validated_data.get('gender', '')
 
         self.date_day = int(self.validated_data.get('date_day', ''))
@@ -76,5 +76,8 @@ class RegisterSerializer(serializers.Serializer):
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         user.save()
-        get_location(request, user)
+        try:
+            get_location(request, user)
+        except:
+            pass
         return user

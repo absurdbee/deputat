@@ -1,0 +1,16 @@
+{% if districts %}
+<div class="col-12">
+    <div class="form-group row">
+        <div class="col-sm-3 col-form-label">
+            <label for="id_district">Город</label>
+        </div>
+        <div class="col-sm-9 city_container">
+          <select class="form-control" name="city" id="id_city">
+              {% for object in citys %}
+              <option {% if object.pk == request.user.city.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+              {% endfor %}
+          </select>
+        </div>
+    </div>
+</div>
+{% endif %}

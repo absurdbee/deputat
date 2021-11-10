@@ -18,31 +18,31 @@ class RegionElectView(TemplateView, CategoryListMixin):
 		return context
 
 class LoadCitiesView(TemplateView):
-	template_name = "region/load/get_region_districts.html"
+	template_name = "region/load/get_region_citys.html"
 
 	def get(self,request,*args,**kwargs):
-		from district.models import District2
+		from city.models import City
 
-		self.districts = District2.objects.filter(region__pk=self.kwargs["pk"])
+		self.citys = City.objects.filter(region__pk=self.kwargs["pk"])
 		return super(LoadCitiesView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(LoadCitiesView,self).get_context_data(**kwargs)
-		context["districts"] = self.districts
+		context["citys"] = self.citys
 		return context
 
-class LoadSettingsDistrictsView(TemplateView):
-	template_name = "region/load/get_settings_districts.html"
+class LoadSettingsCitiesView(TemplateView):
+	template_name = "region/load/get_settings_citys.html"
 
 	def get(self,request,*args,**kwargs):
-		from district.models import District2
+		from city.models import City
 
-		self.districts = District2.objects.filter(region__pk=self.kwargs["pk"])
-		return super(LoadSettingsDistrictsView,self).get(request,*args,**kwargs)
+		self.citys = City.objects.filter(region__pk=self.kwargs["pk"])
+		return super(LoadSettingsCitiesView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		context = super(LoadSettingsDistrictsView,self).get_context_data(**kwargs)
-		context["districts"] = self.districts
+		context = super(LoadSettingsCitiesView,self).get_context_data(**kwargs)
+		context["citys"] = self.citys
 		return context
 
 class LoadLeftMenuRegions(TemplateView):

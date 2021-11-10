@@ -113,3 +113,5 @@ class Region(models.Model):
 
 	def get_districts(self):
 		return self.districts_region2.filter(region=self)
+	def get_cities(self):
+		return self.cities_region.filter(region=self)

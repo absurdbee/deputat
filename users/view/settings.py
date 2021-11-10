@@ -10,8 +10,8 @@ class UserProfileSettings(TemplateView, CategoryListMixin):
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_my_template("profile/settings/profile.html", request.user, request.META['HTTP_USER_AGENT'])
-		if request.user.area:
-			self.districts = request.user.area.region.get_districts()
+		if request.user.city:
+			self.citys = request.user.city.region.get_cities()
 		return super(UserProfileSettings,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -21,7 +21,7 @@ class UserProfileSettings(TemplateView, CategoryListMixin):
 		context = super(UserProfileSettings,self).get_context_data(**kwargs)
 		context["form"] = UserForm()
 		context["regions"] = Region.objects.exclude(name="Все регионы")
-		context["districts"] = self.districts
+		context["citys"] = self.citys
 		return context
 
 	def post(self,request,*args,**kwargs):

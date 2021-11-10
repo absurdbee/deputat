@@ -30,9 +30,6 @@ class UserProfileSettings(TemplateView, CategoryListMixin):
 		self.form = UserForm(request.POST, request.FILES, instance=request.user)
 		if request.is_ajax() and self.form.is_valid():
 			self.form.save()
-			city = request.FILES.get('city')
-			request.user.city_id = city
-			request.user.save(update_fields=["city"])
 			photo_input = request.FILES.get('s_avatar')
 			if photo_input:
 				request.user.create_s_avatar(photo_input)

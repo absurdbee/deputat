@@ -11,6 +11,7 @@
         </div>
         <p class="card-text mb-0" style="margin-left: auto;">{{ user.date_joined }}</p>
     </div>
+    {{ request.user.city }}
     {% if user.user_private.city %}
     <div class="d-flex flex-wrap my-50">
         <div class="user-info-title">

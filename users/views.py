@@ -11,7 +11,7 @@ class AuthView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		if request.user.is_authenticated:
-			self.template_name = "profile/user_news.html"
+			self.template_name = "main/mainpage.html"
 		else:
 			self.template_name = "account/login.html"
 		return super(AuthView,self).get(request,*args,**kwargs)
@@ -21,7 +21,7 @@ class SignupView(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		if request.user.is_authenticated:
-			self.template_name = "profile/user_news.html"
+			self.template_name = "main/mainpage.html"
 		else:
 			self.template_name = "account/signup.html"
 		return super(SignupView,self).get(request,*args,**kwargs)

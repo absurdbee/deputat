@@ -726,6 +726,18 @@ function item_send_change(span, _link, new_class, html) {
     link.send(null)
 };
 
+function item_send_change(span, _link, new_class, html) {
+    link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+    link.open('GET', _link + span.getAttribute("data-pk") + "/", true);
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function() {
+        if (link.readyState == 4 && link.status == 200) {
+            span.innerHTML = html;
+        }
+    };
+    link.send(null)
+};
+
 function post_and_load_object_page(form, url_post, url_1) {
     form_data = new FormData(form);
     var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');

@@ -1,3 +1,11 @@
+on('body', 'click', '.manager_elect_delete', function() {
+  string_send_change(this, "/managers/elect_new/delete_elect/", "manager_elect_restore", "ОТМЕНА")
+});
+on('body', 'click', '.manager_elect_restore', function() {
+  string_send_change(this, "/managers/elect_new/restore_elect/", "manager_elect_delete", "УДАЛИТЬ")
+});
+
+
 function post_elect_new(_this, url, toast) {
   elect_id = false;
   form = _this.parentElement.parentElement.parentElement;

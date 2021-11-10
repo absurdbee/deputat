@@ -384,55 +384,55 @@ class Moderated(models.Model):
 
     @classmethod
     def count_moderated_users(cls):
-        count = cls.objects.filter(type="USE").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type="USE", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''
     @classmethod
     def count_moderated_communities(cls):
-        count = cls.objects.filter(type="COM").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type="COM", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''
     @classmethod
     def count_moderated_elect_news(cls):
-        count = cls.objects.filter(type__contains="ELE").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type__contains="EL", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''
     @classmethod
     def count_moderated_blog(cls):
-        count = cls.objects.filter(type__contains="BLO").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type__contains="BLO", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''
     @classmethod
     def count_moderated_photo(cls):
-        count = cls.objects.filter(type__contains="PH").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type__contains="PH", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''
     @classmethod
     def count_moderated_music(cls):
-        count = cls.objects.filter(type__contains="MU").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type__contains="MU", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''
     @classmethod
     def count_moderated_doc(cls):
-        count = cls.objects.filter(type__contains="DO").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type__contains="DO", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''
     @classmethod
     def count_moderated_video(cls):
-        count = cls.objects.filter(type__contains="VI").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type__contains="VI", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''
     @classmethod
     def count_moderated_survey(cls):
-        count = cls.objects.filter(type__contains="SU").exclude(status=Moderated.REJECTED).values("pk").count()
+        count = cls.objects.filter(type__contains="SU", status=Moderated.PENDING).values("pk").count()
         if count:
             return count
         return ''

@@ -69,14 +69,14 @@
                             <div class="col-sm-9">
                               <select class="form-control select_settings_region" id="select_region">
                                   {% for object in regions %}
-                                  <option {% if object.pk == request.user.area.region.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
+                                  <option {% if object.pk == request.user.city.region.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                                   {% endfor %}
                               </select>
                             </div>
                         </div>
                     </div>
                     <div>
-                    {% if cities %}
+                    {% if citys %}
                     <div class="col-12">
                         <div class="form-group row">
                             <div class="col-sm-3 col-form-label">
@@ -84,7 +84,7 @@
                             </div>
                             <div class="col-sm-9 city_container">
                               <select class="form-control" name="city" id="id_city">
-                                  {% for object in cities %}
+                                  {% for object in citys %}
                                   <option {% if object.pk == request.user.city.pk %}selected{% endif %} value="{{ object.pk }}">{{ object.name }}</option>
                                   {% endfor %}
                               </select>

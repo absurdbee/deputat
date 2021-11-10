@@ -726,13 +726,14 @@ function item_send_change(span, _link, new_class, html) {
     link.send(null)
 };
 
-function string_send_change(span, _link, new_class, html) {
+function string_send_change(span, _link, new_class, old_class, html) {
     link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
     link.open('GET', _link + span.getAttribute("data-pk") + "/", true);
     link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     link.onreadystatechange = function() {
         if (link.readyState == 4 && link.status == 200) {
             span.innerHTML = html;
+            span.classListreplace(old_class, new_class)
         }
     };
     link.send(null)

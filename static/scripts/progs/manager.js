@@ -1,8 +1,8 @@
 on('body', 'click', '.manager_elect_delete', function() {
-  string_send_change(this, "/managers/elect_new/delete_elect/", "manager_elect_restore", "ОТМЕНА")
+  string_send_change(this, "/managers/elect_new/delete_elect/", "manager_elect_restore", "manager_elect_delete", "ОТМЕНА")
 });
 on('body', 'click', '.manager_elect_restore', function() {
-  string_send_change(this, "/managers/elect_new/restore_elect/", "manager_elect_delete", "УДАЛИТЬ")
+  string_send_change(this, "/managers/elect_new/restore_elect/", "manager_elect_delete", "manager_elect_restore", "УДАЛИТЬ")
 });
 
 

@@ -217,7 +217,7 @@ class BlogComment(models.Model):
                 Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").update(status="C")
         if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
             Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="C")
-    def abort_close_item(self):
+    def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = BlogComment.PUBLISHED
@@ -538,7 +538,7 @@ class ElectNewComment(models.Model):
                 Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").update(status="C")
         if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
             Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="C")
-    def abort_close_item(self):
+    def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = ElectNewComment.PUBLISHED
@@ -809,7 +809,7 @@ class OrganizationComment(models.Model):
                 Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").update(status="C")
         if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
             Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="C")
-    def abort_close_item(self):
+    def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
             self.type = OrganizationComment.PUBLISHED

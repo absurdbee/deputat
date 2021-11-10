@@ -43,7 +43,7 @@ class LoadSettingsCitiesView(TemplateView):
 	def get_context_data(self,**kwargs):
 		context = super(LoadSettingsCitiesView,self).get_context_data(**kwargs)
 		context["citys"] = self.citys
-		return context
+		return context 
 
 class LoadLeftMenuRegions(TemplateView):
 	template_name = "region/load_left_menu_regions.html"

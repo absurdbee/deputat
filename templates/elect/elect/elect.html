@@ -42,6 +42,9 @@
                   <div class="mt-1 mb-1">
 
                     {% include 'elect/elect/table.html' %}
+                    {% if request.user.is_supermanager %}
+                      <span class="pointer manager_elect_delete" data-pk="{{ object.pk }}">УДАЛИТЬ</span><br>
+                    {% endif %}
 
                     {% if request.user.is_elect_new_manager %}
                       <span class="pointer manager_elect_edit" data-pk="{{ object.pk }}">ИЗМЕНИТЬ</span><br>

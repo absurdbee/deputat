@@ -421,6 +421,20 @@ function send_window_sanction_get(_this, url, toast) {
   link_.send();
 };
 
+function send_sanction_comments_get(_this, url, toast) {
+  div = _this.parentElement.parentElement.parentElement.parentElement;
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'GET', url + div.getAttribute("data-pk") + "/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info(toast);
+    div.remove()
+  }};
+  link_.send();
+};
+
 function list_load(block, link) {
   // грузим что-то по ссылке link в блок block
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

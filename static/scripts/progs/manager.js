@@ -597,10 +597,17 @@ on('body', 'click', '.u_close_survey_list', function() {
 })
 on('body', 'click', '.u_close_doc_list', function() {
   get_item_sanction_window(this, "", "/managers/progs_doc/list_create_close/")
-})
+});
 on('body', 'click', '.u_close_doc', function() {
   get_music_doc_sanction_window(this, "", "/managers/progs_doc/create_close/")
-})
+});
+
+on('body', 'click', '.close_elect_new_comment', function() {
+  get_comment_sanction_window(this, "/managers/elect_new/comment_create_close/")
+});
+on('body', 'click', '.close_blog_comment', function() {
+  get_comment_sanction_window(this, "/managers/progs_blog/comment_create_close/")
+});
 
 on('body', 'click', '#create_blog_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_blog/create_close/", "Новость закрыта")

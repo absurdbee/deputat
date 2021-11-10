@@ -487,7 +487,7 @@ class Moderated(models.Model):
     def delete_close(self, object, manager_id):
         obj = ModerationPenalty.objects.get(moderated_object=self, type=self.type, object_id=self.object_id)
         obj.delete()
-        if self.type == "USE" or self.type == "COM" or self.type == "ELN" or self.type == "BLO":
+        if self.type == "USE" or self.type == "COM" or self.type[:3] == "ELN" or self.type[:3] == "BLO":
             object.abort_close_item()
         elif object.community:
             object.abort_close_item(object.community)
@@ -516,7 +516,7 @@ class Moderated(models.Model):
             community = Community.objects.get(pk=self.object_id)
             community.abort_close_item()
             community.abort_suspend_item()
-        elif self.type == "ELN" or self.type == "BLO":
+        elif self.type[:3] == "ELN" or self.type[:3] == "BLO":
             object.abort_close_item(None)
         elif object.community:
             object.abort_close_item(object.community)

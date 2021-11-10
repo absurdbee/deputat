@@ -726,7 +726,7 @@ function item_send_change(span, _link, new_class, html) {
     link.send(null)
 };
 
-function item_send_change(span, _link, new_class, html) {
+function string_send_change(span, _link, new_class, html) {
     link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
     link.open('GET', _link + span.getAttribute("data-pk") + "/", true);
     link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

@@ -291,8 +291,8 @@ on('body', 'click', '.phone_send', function() {
   });
 
 	on('body', 'change', '.select_settings_region', function() {
-    _this = this, row_variant = false;
-    var val = _this.value;
+    _this = this;
+    val = _this.value;
 		block = _this.parentElement.parentElement.parentElement.nextElementSibling;
     if (val == '') {
       block.innerHTML = "";

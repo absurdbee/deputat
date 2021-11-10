@@ -13,9 +13,7 @@
                         <div class="card user-card is_paginate">
 
                           {% for object in object_list %}
-                          <div class="pag mt-2" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}" style="position: relative;">
-                              {{ object|get_blog_items:request.user|safe }}
-                          </div>
+                              {{ object|get_blog_items:request.user|safe }} 
                           {% empty %}
                           <div class="card centered mt-5">
                             <div class="card-body">

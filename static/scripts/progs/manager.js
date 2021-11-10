@@ -645,6 +645,9 @@ on('body', 'click', '#create_survey_list_close_btn', function() {
 on('body', 'click', '#create_blog_comment_close_btn', function() {
   send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/progs_blog/comment_create_close/", "Комментарий закрыт")
 });
+on('body', 'click', '#create_elect_new_comment_close_btn', function() {
+  send_window_sanction_post(this.parentElement.parentElement.parentElement,"/managers/elect_new/comment_create_close/", "Комментарий закрыт")
+});
 
 on('body', 'click', '.remove_photo_list_close', function() {
   send_window_sanction_get(this, "/managers/progs_photo/list_delete_close/", "Фотоальбом восстановлен")

@@ -311,7 +311,7 @@ class CommentBlogCloseCreate(TemplateView):
 
     def get_context_data(self,**kwargs):
         context = super(CommentBlogCloseCreate,self).get_context_data(**kwargs)
-        context["object"] = self.comment
+        context["comment"] = self.comment
         return context
 
     def post(self,request,*args,**kwargs):

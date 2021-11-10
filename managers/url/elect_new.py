@@ -34,5 +34,7 @@ urlpatterns = [
     url(r'^comment_unverify/(?P<pk>\d+)/$', CommentElectNewUnverify.as_view()),
 
     url(r'^create_elect/$', CreateManagerElect.as_view()),
-    url(r'^edit_elect/(?P<pk>\d+)/$', EditManagerElect.as_view()), 
+    url(r'^edit_elect/(?P<pk>\d+)/$', EditManagerElect.as_view()),
+    url(r'^delete_elect/(?P<pk>\d+)/$', DeleteManagerElect.as_view()),
+    url(r'^restore_elect/(?P<pk>\d+)/$', RestoreManagerElect.as_view()), 
 ]

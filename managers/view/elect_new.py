@@ -443,3 +443,26 @@ class EditManagerElect(TemplateView):
         else:
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
+
+
+class DeleteManagerElect(View):
+    def post(self,request,*args,**kwargs):
+        from elect.models import Elect
+
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+
+        if request.is_ajax() and request.user.is_supermanager():
+            self.elect.is_deleted = True
+            self.save(update_fields=["is_deleted"])
+        return HttpResponse()
+
+class RestoreManagerElect(View):
+    def post(self,request,*args,**kwargs):
+        from elect.models import Elect
+
+        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+
+        if request.is_ajax() and request.user.is_supermanager():
+            self.elect.is_deleted = False
+            self.save(update_fields=["is_deleted"])
+        return HttpResponse()

@@ -22,6 +22,6 @@ class ElectNewLogs(ListView):
         return context
 
     def get_queryset(self):
-        from logs.models import ElectNewManageLog
+        from logs.model.manage_elect_new import ElectNewManageLog
 
         return ElectNewManageLog.objects.filter(manager=self.user.pk)

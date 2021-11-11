@@ -12,6 +12,8 @@ urlpatterns = [
     url(r'^delete_list/(?P<uuid>[0-9a-f-]+)/$', UserMediaListDelete.as_view()),
     url(r'^abort_delete_list/(?P<uuid>[0-9a-f-]+)/$', UserMediaListAbortDelete.as_view()),
 
+    url(r'^logs/', include('managers.url.logs')),
+
     url(r'^progs_user/', include('managers.url.progs_user')),
     url(r'^progs_community/', include('managers.url.progs_community')),
     url(r'^progs_survey/', include('managers.url.progs_survey')),

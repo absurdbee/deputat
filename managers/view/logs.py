@@ -2,6 +2,7 @@ from django.views.generic import ListView
 from django.http import Http404
 from generic.mixins import CategoryListMixin
 from common.templates import get_managers_template
+from users.models import User
 
 
 class ElectNewLogs(ListView):

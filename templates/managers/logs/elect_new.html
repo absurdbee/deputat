@@ -1,0 +1,52 @@
+<div class="card mb-4 mt-4">
+  <div class="row">
+    <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
+      <a class="btn btn-sm border this_fullscreen_hide" style="width: -webkit-fill-available;">
+        <svg fill="currentColor" class="svg_default" style="width: 17px;" viewBox="0 0 24 24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="media mt-3" style="display:flex;align-items: flex-start;padding-left: 7px;padding-right: 7px;">
+      <h5 class="mt-1" style="flex: 1;">Разделы</h5>
+    </div>
+    <div class="row no-gutters" style="overflow-x: auto;">
+      <div class="col-12">
+        <ul style="width:max-content;list-style: none;">
+          <li class="list_item">
+            <div class="card file-manager-item folder manager_load_logs_elect_new pointer list_toggle border" data-uuid="{{ object.uuid }}">
+              <div class="card-body pt-0">
+                <div class="content-wrapper">
+                  <p class="card-text file-name mb-0 list_name" style="text-align: left;">Депутаты и активности</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="load_block">
+      {% if object_list %}
+      <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate">
+        {% for object in object_list %}
+        {{ object.get_action_type_display }} {{ object.get_item_preview }}
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <div class="load centered m-1 next_page_list" data-link="/managers/logs/elect_new/{{ user.pk }}/?page={{ page_obj.next_page_number }}">
+          <img src="/static/images/loading.gif">
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="card mb-3 centered">
+        <h5 style="text-align: center;margin: 20px;"> Действий нет.</h5>
+      </div>
+      {% endif %}
+    </span>
+  </div>
+</div>

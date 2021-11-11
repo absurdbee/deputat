@@ -18,12 +18,8 @@
       <div class="col-12">
         <ul style="width:max-content;list-style: none;">
           <li class="list_item">
-            <div class="card file-manager-item folder manager_load_logs_elect_new pointer list_toggle border" data-uuid="{{ object.uuid }}">
-              <div class="card-body pt-0">
-                <div class="content-wrapper">
-                  <p class="card-text file-name mb-0 list_name" style="text-align: left;">Депутаты и активности</p>
-                </div>
-              </div>
+            <div class="manager_load_logs_elect_new pointer list_toggle">
+              <p class="card-text file-name mb-0 list_name underline">Депутаты и активности</p>
             </div>
           </li>
         </ul>
@@ -34,7 +30,7 @@
       {% if object_list %}
       <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate">
         {% for object in object_list %}
-        {{ object.get_action_type_display }} {{ object.get_item_preview }}
+          {{ object.get_action_type_display }} {{ object.get_item_preview }}<br>
         {% endfor %}
         {% if page_obj.has_next %}
         <div class="load centered m-1 next_page_list" data-link="/managers/logs/elect_new/{{ user.pk }}/?page={{ page_obj.next_page_number }}">

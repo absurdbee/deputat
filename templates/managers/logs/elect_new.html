@@ -32,7 +32,7 @@
       {% if object_list %}
       <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate">
         {% for object in object_list %}
-          {{ object.get_action_type_display }} {{ object.get_item_preview }}<br>
+          {{ object.get_action_type_display }} - {{ object.get_item_preview|safe }}<br>
         {% endfor %}
         {% if page_obj.has_next %}
         <div class="load centered m-1 next_page_list" data-link="/managers/logs/elect_new/{{ user.pk }}/?page={{ page_obj.next_page_number }}">

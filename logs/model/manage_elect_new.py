@@ -31,11 +31,11 @@ class ElectNewManageLog(models.Model):
             if "I" in self.action_type:
                 from blog.models import ElectNew
                 new = ElectNew.objects.get(pk=self.item)
-                return '<span data-pk="' + new.pk + '"><span><span><span class="elect_new_window pointer underline" style="font-weight: bold;">' +  new.title + '</span></span></span></span>'
+                return '<span data-pk="' + str(new.pk) + '"><span><span><span class="elect_new_window pointer underline" style="font-weight: bold;">' +  new.title + '</span></span></span></span>'
             else:
-                from common.model.commnets import ElectNewComment
-                commnet = ElectNewComment.objects.get(pk=self.item)
-                return commnet.text[:25]
+                from common.model.comments import ElectNewComment
+                comment = ElectNewComment.objects.get(pk=self.item)
+                return comment.text[:25]
         except:
             return "Ошибка"
 

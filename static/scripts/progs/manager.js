@@ -1,3 +1,8 @@
+on('body', 'click', '.show_logs_elect_new', function() {
+  create_fullscreen("/managers/logs/elect_new/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");  
+});
+
+
 on('body', 'click', '.manager_elect_delete', function() {
   string_send_change(this, "/managers/elect_new/delete_elect/", "manager_elect_restore", "manager_elect_delete", "ОТМЕНА")
 });

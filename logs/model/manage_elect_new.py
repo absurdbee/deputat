@@ -35,7 +35,7 @@ class ElectNewManageLog(models.Model):
             else:
                 from common.model.comments import ElectNewComment
                 comment = ElectNewComment.objects.get(pk=self.item)
-                return comment.text[:25] + " к активности " + '<span data-pk="' + str(new.pk) + '"><span><span><span><span class="elect_new_window pointer underline" style="font-weight: bold;">' +  new.title + '</span></span></span></span></span>'
+                return comment.text[:25] + " к активности " + '<span data-pk="' + str(new.pk) + '"><span><span><span><span class="elect_new_window pointer underline" style="font-weight: bold;">' +  comment.new.title + '</span></span></span></span></span>'
         except:
             return "Ошибка"
 

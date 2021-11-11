@@ -26,6 +26,21 @@ class ElectNewManageLog(models.Model):
         verbose_name_plural = "Логи менеджеров активностей депутатов"
         ordering=["-created"]
 
+    def get_item_preview(self):
+        try:
+            if "I" in self.action_type:
+                from blog.models import ElectNew
+                new = ElectNew.objects.get(pk=self.item)
+                return new.title
+            else:
+                from common.model.commnets import ElectNewComment
+                commnet = ElectNewComment.objects.get(pk=self.item)
+                return commnet.text[:25]
+        except:
+            return "Ошибка"
+
+
+
 
 class ElectNewWorkerManageLog(models.Model):
     CREATE_ADMIN = 'CA'

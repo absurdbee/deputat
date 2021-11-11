@@ -14,8 +14,11 @@ class ElectDetailView(TemplateView, CategoryListMixin):
         MOBILE_AGENT_RE = re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
         from stst.models import ElectNumbers
         from common.templates import get_full_template
+        from django.http import Http404
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        if self.elect.is_deleted:
+            raise Http404
         self.template_name = get_full_template("elect/elect/" , "elect.html", request.user, request.META['HTTP_USER_AGENT'])
         if request.user.is_authenticated:
             if not ElectNumbers.objects.filter(user=request.user.pk, elect=self.elect.pk).exists():

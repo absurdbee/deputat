@@ -6,7 +6,7 @@ from users.models import User
 
 
 class ElectNewLogs(ListView):
-    template_name, paginate_by = None, 15
+    template_name, paginate_by = None, 30
 
     def get(self,request,*args,**kwargs):
         if request.user.is_supermanager():

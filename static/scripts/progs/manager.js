@@ -5,12 +5,12 @@ on('body', 'click', '.show_logs_elect_new', function() {
 on('body', 'click', '.select_manager_logs', function() {
   _this = this;
   lists_block = _this.parentElement;
-  slug = _this.getAttribute("data-link");
+  slug = lists_block.getAttribute("data-link");
   if (slug == lists_block.getAttribute("data-link")) {
     return
   };
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  request.open( 'GET', "/managers/logs/" + slug + _this.getAttribute("data-pk") + "/", true );
+  request.open( 'GET', "/managers/logs/" + slug + lists_block.getAttribute("data-pk") + "/", true );
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ){

@@ -18,7 +18,7 @@ on('body', 'click', '.select_manager_logs', function() {
       elem_ = document.createElement('span');
       elem_.innerHTML = request.responseText;
       block = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
-      block.innerHTML = elem_.querySelector(block).innerHTML;
+      block.innerHTML = elem_.querySelector(".load_block").innerHTML;
       class_to_add = document.body.querySelectorAll(".list_toggle")
       for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add("select_manager_logs", "pointer");

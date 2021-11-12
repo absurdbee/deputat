@@ -19,14 +19,14 @@ on('body', 'click', '.select_manager_logs', function() {
       elem_.innerHTML = request.responseText;
       block = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
       block.innerHTML = elem_.querySelector(".load_block").innerHTML;
-      class_to_add = document.body.querySelectorAll(".list_toggle")
+      class_to_add = lists_block.querySelectorAll(".list_toggle")
       for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add("select_manager_logs", "pointer");
          _this.classList.remove("underline");
       };
      _this.classList.remove("select_manager_logs", "pointer");
      _this.classList.add("underline");
-     create_pagination(document.body.querySelector(block))
+     create_pagination(block)
     }};
     request.send( null );
 });

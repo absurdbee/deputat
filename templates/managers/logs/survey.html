@@ -1,0 +1,80 @@
+<div class="card mb-4 mt-4">
+  <div class="row">
+    <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
+      <a class="btn btn-sm border this_fullscreen_hide" style="width: -webkit-fill-available;">
+        <svg fill="currentColor" class="svg_default" style="width: 17px;" viewBox="0 0 24 24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="row no-gutters" style="overflow-x: auto;">
+      <div class="col-12">
+        <ul style="width:max-content;list-style:none;padding-left:0;" data-pk="{{ user.pk }}" data-link="/survey/">
+          <li class="list_item_small">
+            <div class="list_toggle select_manager_logs pointer" data-link="/elect_new/">
+              <p class="list_name">Депутаты/активности</p>
+            </div>
+          </li>
+          <li class="list_item_small">
+            <div class="select_manager_logs pointer list_toggle" data-link="/user/">
+              <p class="card-text mb-0 list_name">Пользователи</p>
+            </div>
+          </li>
+          <li class="list_item_small">
+            <div class="select_manager_logs pointer list_toggle" data-link="/community/">
+              <p class="card-text mb-0 list_name">Сообщества</p>
+            </div>
+          </li>
+          <li class="list_item_small">
+            <div class="select_manager_logs pointer list_toggle" data-link="/doc/">
+              <p class="card-text mb-0 list_name">Файлы</p>
+            </div>
+          </li>
+          <li class="list_item_small">
+            <div class="select_manager_logs pointer list_toggle" data-link="/audio/">
+              <p class="card-text mb-0 list_name">Аудио</p>
+            </div>
+          </li>
+          <li class="list_item_small">
+            <div class="select_manager_logs pointer list_toggle" data-link="/video/">
+              <p class="card-text mb-0 list_name">Видео</p>
+            </div>
+          </li>
+          <li class="list_item_small">
+            <div class="select_manager_logs pointer list_toggle" data-link="/photo/">
+              <p class="card-text mb-0 list_name">Фото</p>
+            </div>
+          </li>
+          <li class="list_item_small">
+            <div class="select_manager_logs pointer list_toggle" data-link="/blog/">
+              <p class="card-text mb-0 list_name">Блог</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <span class="mt-1 load_block">
+      {% if object_list %}
+      <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate">
+        {% for object in object_list %}
+          <p>{{ object.created }}: {{ object.get_action_type_display }} - {{ object.get_item_preview|safe }}<p>
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <div class="load centered m-1 next_page_list" data-link="/managers/logs/survey/{{ user.pk }}/?page={{ page_obj.next_page_number }}">
+          <img src="/static/images/loading.gif">
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="card mb-3 centered">
+        <h5 style="text-align: center;margin: 20px;"> Действий нет.</h5>
+      </div>
+      {% endif %}
+    </span>
+  </div>
+</div>

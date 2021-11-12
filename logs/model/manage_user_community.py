@@ -24,7 +24,7 @@ class UserManageLog(models.Model):
         (SUSPENDED_HIDE, 'Разморожен'),
         (WARNING_BANNER, 'Выставлен предупреждающий баннер'),
         (WARNING_BANNER_HIDE, 'Убран предупреждающий баннер'),
-        (REJECT, 'Жалоба отклонена'),
+        (REJECT, 'Жалобы отклонены'),
         (UNVERIFY, 'Проверка убрана'),
         (CREATE, 'Создано'),
         (PUBLISH, 'Одобрено'),
@@ -68,7 +68,7 @@ class CommunityManageLog(models.Model):
         (SUSPENDED_HIDE, 'Разморожен'),
         (WARNING_BANNER, 'Выставлен предупреждающий баннер'),
         (WARNING_BANNER_HIDE, 'Убран предупреждающий баннер'),
-        (REJECT, 'Жалоба отклонена'),
+        (REJECT, 'Жалобы отклонены'),
         (UNVERIFY, 'Проверка убрана'),
     )
 

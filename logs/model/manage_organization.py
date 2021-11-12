@@ -11,7 +11,7 @@ class OrganizationManageLog(models.Model):
     ACTION_TYPES = (
         (ITEM_CLOSED, 'Элемент закрыт'),(COMMENT_CLOSED, 'Комментарий закрыт'),
         (ITEM_CLOSED_HIDE, 'Элемент восстановлен'),(COMMENT_CLOSED_HIDE, 'Комментарий восстановлен'),
-        (ITEM_REJECT, 'Жалоба на элемент отклонена'),(COMMENT_REJECT, 'Жалоба на комментарий отклонена'),
+        (ITEM_REJECT, 'Жалобы на элемент отклонены'),(COMMENT_REJECT, 'Жалобы на комментарий отклонены'),
         (ITEM_UNVERIFY, 'Проверка на элемент убрана'),(COMMENT_UNVERIFY, 'Проверка на комментарий убрана'),
     )
 

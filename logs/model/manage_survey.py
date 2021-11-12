@@ -11,7 +11,7 @@ class SurveyManageLog(models.Model):
     ACTION_TYPES = (
         (LIST_CREATED, 'Список создан'),(LIST_EDITED, 'Список изменен'),(LIST_CLOSED, 'Список закрыт'),(ITEM_CREATED, 'Элемент создан'),(ITEM_EDITED, 'Элемент изменен'),(ITEM_CLOSED, 'Элемент закрыт'),(COMMENT_CLOSED, 'Комментарий закрыт'),
         (LIST_CLOSED_HIDE, 'Список восстановлен'),(ITEM_CLOSED_HIDE, 'Элемент восстановлен'),(COMMENT_CLOSED_HIDE, 'Комментарий восстановлен'),
-        (LIST_REJECT, 'Жалоба на список отклонена'),(ITEM_REJECT, 'Жалоба на элемент отклонена'),(COMMENT_REJECT, 'Жалоба на комментарий отклонена'),
+        (LIST_REJECT, 'Жалобы на список отклонены'),(ITEM_REJECT, 'Жалобы на элемент отклонены'),(COMMENT_REJECT, 'Жалоба на комментарий отклонены'),
         (LIST_UNVERIFY, 'Проверка на список убрана'),(ITEM_UNVERIFY, 'Проверка на элемент убрана'),(COMMENT_UNVERIFY, 'Проверка на комментарий убрана'),
     )
 
@@ -25,6 +25,14 @@ class SurveyManageLog(models.Model):
         verbose_name = "Лог менеджера опросов"
         verbose_name_plural = "Логи менеджеров опросов"
         ordering=["-created"]
+
+    def get_item_preview(self):
+        try:
+            from survey.models import Survey
+            survey = Survey.objects.get(pk=self.item)
+            return '<a href="/survey/survey_detail/' + str(survey.pk) + '" class="underline" target="_blank" style="font-weight: bold;">' +  survey.title + '</a>'
+        except:
+            return "Ошибка"
 
 
 class SurveyWorkerManageLog(models.Model):

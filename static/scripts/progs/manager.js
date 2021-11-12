@@ -4,8 +4,7 @@ on('body', 'click', '.show_logs_elect_new', function() {
 
 on('body', 'click', '.select_manager_logs', function() {
   _this = this;
-  lists_block = _this.parentElement.parentElement.parentElement;
-  console.log("lists_block", lists_block)
+  lists_block = _this.parentElement.parentElement;
   slug = lists_block.getAttribute("data-link");
   if (slug == _this.getAttribute("data-link")) {
     return

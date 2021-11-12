@@ -11,6 +11,13 @@ function show_hide_password(target){
 	return false;
 };
 
+on('body', 'click', '.why_publish', function() {
+	create_fullscreen("/terms/window_about/", "window_fullscreen");
+});
+on('body', 'click', '.how_to_publish', function() {
+	create_fullscreen("/terms/window_about/", "window_fullscreen");
+});
+
 on('body', 'click', '.load_media_list', function(el) {
 	_this = this;
 	path = el.path[0] + "";

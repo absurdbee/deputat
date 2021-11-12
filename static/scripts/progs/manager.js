@@ -6,7 +6,7 @@ on('body', 'click', '.select_manager_logs', function() {
   _this = this;
   lists_block = _this.parentElement;
   slug = lists_block.getAttribute("data-link");
-  if (slug == lists_block.getAttribute("data-link")) {
+  if (slug == _this.getAttribute("data-link")) {
     return
   };
   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

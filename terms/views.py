@@ -11,5 +11,5 @@ class TermsView(TemplateView, CategoryListMixin):
         return super(TermsView,self).get(request,*args,**kwargs)
 
 
-class TermsView(WindowAboutView):
+class WindowAboutView(TemplateView):
     template_name = "terms/window_about.html"

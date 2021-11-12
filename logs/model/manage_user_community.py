@@ -42,12 +42,12 @@ class UserManageLog(models.Model):
         ordering=["-created"]
 
     def get_item_preview(self):
-        try:
+        #try:
             from user.models import User
             user = User.objects.get(pk=self.user)
             return '<a href="/users/' + str(user.pk) + '/" class="underline" target="_blank" style="font-weight: bold;">' +  user.get_full_name() + '</a>'
-        except:
-            return "Ошибка"
+        #except:
+        #    return "Ошибка"
 
 class CommunityManageLog(models.Model):
     CLOSED = 'CLO'

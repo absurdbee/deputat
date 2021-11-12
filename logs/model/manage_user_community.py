@@ -41,6 +41,14 @@ class UserManageLog(models.Model):
         verbose_name_plural = "Логи менеджеров пользоватетей"
         ordering=["-created"]
 
+    def get_item_preview(self):
+        try:
+            from user.models import User
+            user = User.objects.get(pk=self.user)
+            return '<a href="/users/' + str(user.pk) + '/" class="underline" target="_blank" style="font-weight: bold;">' +  user.get_full_name() + '</a>'
+        except:
+            return "Ошибка"
+
 class CommunityManageLog(models.Model):
     CLOSED = 'CLO'
     CLOSED_HIDE = 'CLOH'
@@ -74,6 +82,14 @@ class CommunityManageLog(models.Model):
         verbose_name = "Лог менеджера сообществ"
         verbose_name_plural = "Логи менеджеров сообществ"
         ordering=["-created"]
+
+    def get_item_preview(self):
+        try:
+            from communities.models import Community
+            community = Community.objects.get(pk=self.community)
+            return '<a href="/communities/' + str(community.pk) + '/" class="underline" target="_blank" style="font-weight: bold;">' +  community.name + '</a>'
+        except:
+            return "Ошибка"
 
 
 class UserWorkerManageLog(models.Model):

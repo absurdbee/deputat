@@ -4,7 +4,8 @@ from managers.view.logs import *
 
 urlpatterns = [
     url(r'^elect_new/(?P<pk>\d+)/$', ElectNewLogs.as_view()),
-    #url(r'^community/$', ModerationCommunity.as_view()),
+    url(r'^user/(?P<pk>\d+)/$', UserLogs.as_view()),
+    url(r'^community/$', CommunityLogs.as_view()),
     #url(r'^elect_new/$', ModerationElectNew.as_view()),
     #url(r'^blog/$', ModerationBlog.as_view()),
     #url(r'^photo/$', ModerationPhoto.as_view()),

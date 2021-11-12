@@ -17,7 +17,7 @@ on('body', 'click', '.select_manager_logs', function() {
       lists_block.setAttribute("data-link", slug);
       elem_ = document.createElement('span');
       elem_.innerHTML = request.responseText;
-      block = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
+      block = _this.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
       block.innerHTML = elem_.querySelector(".load_block").innerHTML;
       class_to_add = lists_block.querySelectorAll(".list_toggle")
       for (var i = 0; i < class_to_add.length; i++) {

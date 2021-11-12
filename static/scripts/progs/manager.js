@@ -1,6 +1,61 @@
 on('body', 'click', '.show_logs_elect_new', function() {
-  create_fullscreen("/managers/logs/elect_new/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");  
+  create_fullscreen("/managers/logs/elect_new/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");
 });
+
+on('body', 'click', '.select_manager_logs', function() {
+  _this = this;
+  lists_block = _this.parentElement;
+  slug = _this.getAttribute("data-link");
+  if (slug == lists_block.getAttribute("data-link")) {
+    return
+  };
+  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  request.open( 'GET', "/managers/logs/" + slug + _this.getAttribute("data-pk") + "/", true );
+  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  request.onreadystatechange = function () {
+    if ( request.readyState == 4 && request.status == 200 ){
+      lists_block.setAttribute("data-link", slug);
+      elem_ = document.createElement('span');
+      elem_.innerHTML = request.responseText;
+      block = _this.parentElement.parentElement.parentElement.parentElement.parentElement;
+      block.innerHTML = elem_.querySelector(block).innerHTML;
+      class_to_add = document.body.querySelectorAll(".list_toggle")
+      for (var i = 0; i < class_to_add.length; i++) {
+         class_to_add[i].classList.add("select_manager_logs", "pointer");
+         _this.classList.remove("underline");
+      };
+     _this.classList.remove("select_manager_logs", "pointer");
+     _this.classList.add("underline");
+     create_pagination(document.body.querySelector(block))
+    }};
+    request.send( null );
+});
+
+function profile_list_block_load(_this, block, link, actions_class) {
+  // подгрузка списков в профиле пользователя
+  if (_this.getAttribute("href")) {
+    return
+  }
+  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  request.open( 'GET', link, true );
+  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  request.onreadystatechange = function () {
+    if ( request.readyState == 4 && request.status == 200 ){
+        elem_ = document.createElement('span');
+        elem_.innerHTML = request.responseText;
+       document.body.querySelector(block).innerHTML = elem_.querySelector(block).innerHTML;
+       init_music(document.body.querySelector(block));
+       class_to_add = document.body.querySelectorAll(".list_toggle")
+       for (var i = 0; i < class_to_add.length; i++) {
+         class_to_add[i].classList.add(actions_class, "pointer");
+         class_to_add[i].classList.replace("active_border", "border");
+       };
+       _this.classList.remove(actions_class, "pointer");
+       _this.classList.replace("border", "active_border");
+       create_pagination(document.body.querySelector(block))
+    }};
+    request.send( null );
+};
 
 
 on('body', 'click', '.manager_elect_delete', function() {

@@ -14,7 +14,7 @@ on('body', 'click', '.select_manager_logs', function() {
   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   request.onreadystatechange = function () {
     if ( request.readyState == 4 && request.status == 200 ){
-      lists_block.setAttribute("data-link", slug);
+      lists_block.setAttribute("data-link", _this.getAttribute("data-link"));
       elem_ = document.createElement('span');
       elem_.innerHTML = request.responseText;
       block = lists_block.parentElement.parentElement.nextElementSibling;

@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <div class="card-body">
+  <div class="card-body load_block">
     <div class="row no-gutters" style="overflow-x: auto;">
       <div class="col-12">
         <ul style="width:max-content;list-style:none;padding-left:0;" data-pk="{{ user.pk }}" data-link="/community/">
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <span class="load_block mt-1">
+    <span class="mt-1">
       {% if object_list %}
       <div style="padding-bottom:10px;display: flex; flex-wrap: wrap;" class="is_load_paginate">
         {% for object in object_list %}

@@ -11,7 +11,7 @@ class AudioManageLog(models.Model):
     ACTION_TYPES = (
         (LIST_CREATED, 'Список создан'),(LIST_EDITED, 'Список изменен'),(LIST_CLOSED, 'Список закрыт'),(ITEM_CREATED, 'Элемент создан'),(ITEM_EDITED, 'Элемент изменен'),(ITEM_CLOSED, 'Элемент закрыт'),(COMMENT_CLOSED, 'Комментарий закрыт'),
         (LIST_CLOSED_HIDE, 'Список восстановлен'),(ITEM_CLOSED_HIDE, 'Элемент восстановлен'),(COMMENT_CLOSED_HIDE, 'Комментарий восстановлен'),
-        (LIST_REJECT, 'Жалоба на список отклонена'),(ITEM_REJECT, 'Жалоба на элемент отклонена'),(COMMENT_REJECT, 'Жалоба на комментарий отклонена'),
+        (LIST_REJECT, 'Жалобы на список отклонены'),(ITEM_REJECT, 'Жалобы на элемент отклонены'),(COMMENT_REJECT, 'Жалобы на комментарий отклонены'),
         (LIST_UNVERIFY, 'Проверка на список убрана'),(ITEM_UNVERIFY, 'Проверка на элемент убрана'),(COMMENT_UNVERIFY, 'Проверка на комментарий убрана'),
     )
 
@@ -25,6 +25,14 @@ class AudioManageLog(models.Model):
         verbose_name = "Лог менеджера аудиозаписей"
         verbose_name_plural = "Логи менеджеров аудиозаписей"
         ordering=["-created"]
+
+    def get_item_preview(self):
+        try:
+            from music.models import Music
+            music = Music.objects.get(pk=self.item)
+            return '<a href="/music/track_detail/' + str(music.pk) + '" class="underline" target="_blank" style="font-weight: bold;">' +  music.title + '</a>'
+        except:
+            return "Ошибка"
 
 
 class AudioWorkerManageLog(models.Model):

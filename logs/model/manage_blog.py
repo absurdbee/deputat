@@ -11,7 +11,7 @@ class BlogManageLog(models.Model):
     ACTION_TYPES = (
         (LIST_CLOSED, 'Список закрыт'),(ITEM_CREATED, 'Новость создана'),(ITEM_EDITED, 'Элемент изменён'),(ITEM_CLOSED, 'Элемент закрыт'),(COMMENT_CLOSED, 'Комментарий закрыт'),
         (LIST_CLOSED_HIDE, 'Список восстановлен'),(ITEM_CLOSED_HIDE, 'Элемент восстановлен'),(COMMENT_CLOSED_HIDE, 'Комментарий восстановлен'),
-        (LIST_REJECT, 'Жалоба на список отклонена'),(ITEM_REJECT, 'Жалоба на элемент отклонена'),(COMMENT_REJECT, 'Жалоба на комментарий отклонена'),
+        (LIST_REJECT, 'Жалобы на список отклонены'),(ITEM_REJECT, 'Жалобы на элемент отклонены'),(COMMENT_REJECT, 'Жалобы на комментарий отклонены'),
         (LIST_UNVERIFY, 'Проверка на список убрана'),(ITEM_UNVERIFY, 'Проверка на элемент убрана'),(COMMENT_UNVERIFY, 'Проверка на комментарий убрана'),
     )
 
@@ -25,6 +25,19 @@ class BlogManageLog(models.Model):
         verbose_name = "Лог менеджера блога"
         verbose_name_plural = "Логи менеджеров блога"
         ordering=["-created"]
+
+    def get_item_preview(self):
+        try:
+            if "I" in self.action_type:
+                from blog.models import Blog
+                new = Blog.objects.get(pk=self.item)
+                return '<span data-pk="' + str(new.pk) + '"><span><span><span><span class="blog_window pointer underline" style="font-weight: bold;">' +  new.title + '</span></span></span></span></span>'
+            else:
+                from common.model.comments import BlogComment
+                comment = BlogComment.objects.get(pk=self.item)
+                return '"' + comment.text[:25] + '" к активности ' + '<span data-pk="' + str(comment.blog.pk) + '"><span><span><span><span class="blog_window pointer underline" style="font-weight: bold;">' +  comment.blog.title + '</span></span></span></span></span>'
+        except:
+            return "Ошибка"
 
 
 class BlogWorkerManageLog(models.Model):

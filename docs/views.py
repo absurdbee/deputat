@@ -12,7 +12,7 @@ class UserDocDetail(TemplateView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_full_template
 
-		self.doc = Doc.objects.get(uuid=self.kwargs["uuid"])
+		self.doc = Doc.objects.get(pk=self.kwargs["pk"])
 		self.template_name = get_full_template("docs/detail/user/", "u.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(UserDocDetail,self).get(request,*args,**kwargs)
 

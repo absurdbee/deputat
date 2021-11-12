@@ -22,7 +22,7 @@ on('body', 'click', '.select_manager_logs', function() {
       class_to_add = lists_block.querySelectorAll(".list_toggle")
       for (var i = 0; i < class_to_add.length; i++) {
          class_to_add[i].classList.add("select_manager_logs", "pointer");
-         _this.classList.remove("underline");
+         class_to_add[i].classList.remove("underline");
       };
      _this.classList.remove("select_manager_logs", "pointer");
      _this.classList.add("underline");

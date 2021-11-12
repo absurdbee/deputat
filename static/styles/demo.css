@@ -1,3 +1,8 @@
+.list_item_small {
+  float: left;
+  margin-right: 10px
+}
+
 #id_tags {
   height: 170px
 }

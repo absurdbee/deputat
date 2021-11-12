@@ -13,7 +13,7 @@
   <div class="card-body">
     <div class="row no-gutters" style="overflow-x: auto;">
       <div class="col-12">
-        <ul style="width:max-content;list-style:none;padding-left:0;" data-pk="{{ user.pk }}" data-link="/elect_new/">
+        <ul style="width:max-content;list-style:none;padding-left:0;" data-pk="{{ user.pk }}" data-link="/community/">
           <li class="list_item_small">
             <div class="list_toggle">
               <p class="list_name select_manager_logs pointer" data-link="/elect_new/">Депутаты/активности</p>
@@ -65,7 +65,7 @@
           <p>{{ object.created }}: {{ object.get_action_type_display }} - {{ object.get_item_preview|safe }}<p>
         {% endfor %}
         {% if page_obj.has_next %}
-        <div class="load centered m-1 next_page_list" data-link="/managers/logs/elect_new/{{ user.pk }}/?page={{ page_obj.next_page_number }}">
+        <div class="load centered m-1 next_page_list" data-link="/managers/logs/community/{{ user.pk }}/?page={{ page_obj.next_page_number }}">
           <img src="/static/images/loading.gif">
         </div>
         {% endif %}

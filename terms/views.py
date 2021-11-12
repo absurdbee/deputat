@@ -9,3 +9,7 @@ class TermsView(TemplateView, CategoryListMixin):
     def get(self,request,*args,**kwargs):
         self.template_name = get_full_template("terms/" , "terms.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(TermsView,self).get(request,*args,**kwargs)
+
+
+class TermsView(WindowAboutView):
+    template_name = "terms/window_about.html"

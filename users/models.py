@@ -237,7 +237,7 @@ class User(AbstractUser):
         return ElectNew.objects.filter(creator_id=self.pk, type="PUB", community__isnull=True)
     def get_my_news(self):
         from blog.models import ElectNew
-        query = Q((creator_id=self.pk)|Q(community__isnull=True)) & Q(Q(type="PUB")|Q(type="SUG")|Q(type="REJ"))
+        query = Q(Q(creator_id=self.pk)|Q(community__isnull=True)) & Q(Q(type="PUB")|Q(type="SUG")|Q(type="REJ"))
         query.add(Q(elect_id__in=self.get_elect_subscribers_ids(), type="PUB"), Q.AND)
         return ElectNew.objects.filter(query)
 

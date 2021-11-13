@@ -256,8 +256,6 @@ class User(AbstractUser):
     def get_elect_subscribers(self):
         from elect.models import Elect
 
-        elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk).values("elect_id")
-        elect_ids = [elect['elect_id'] for elect in elect_subscribers]
         return Elect.objects.filter(id__in=self.get_elect_subscribers_ids())
 
     def is_have_elect_subscribers(self):

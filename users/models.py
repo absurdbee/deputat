@@ -237,18 +237,26 @@ class User(AbstractUser):
         return ElectNew.objects.filter(creator_id=self.pk, type="PUB", community__isnull=True)
     def get_my_news(self):
         from blog.models import ElectNew
-        return ElectNew.objects.filter(creator_id=self.pk, community__isnull=True).filter(Q(type="PUB")|Q(type="SUG")|Q(type="REJ"))
+        query = Q((creator_id=self.pk)|Q(community__isnull=True)) & (Q(type="PUB")|Q(type="SUG")|Q(type="REJ"))
+        query.add(Q(elect_id__in=self.get_elect_subscribers_ids(), type="PUB"), Q.AND)
+        return ElectNew.objects.filter(query)
 
     def get_news_count(self):
         from blog.models import ElectNew
         return ElectNew.objects.filter(creator_id=self.pk, community__isnull=True).values("pk").count()
 
+    def get_elect_subscribers_ids(self):
+        from elect.models import SubscribeElect
+
+        elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk).values("elect_id")
+        return [elect['elect_id'] for elect in elect_subscribers]
+
     def get_elect_subscribers(self):
-        from elect.models import Elect, SubscribeElect
+        from elect.models import Elect
 
         elect_subscribers = SubscribeElect.objects.filter(user_id=self.pk).values("elect_id")
         elect_ids = [elect['elect_id'] for elect in elect_subscribers]
-        return Elect.objects.filter(id__in=elect_ids)
+        return Elect.objects.filter(id__in=self.get_elect_subscribers_ids())
 
     def is_have_elect_subscribers(self):
         from elect.models import Elect, SubscribeElect

@@ -11,8 +11,8 @@ class CategoryListMixin(ContextMixin):
 		context["elect_list_cats"] = AuthorityListCategory.objects.only("pk")
 		if self.request.user.is_authenticated:
 			try:
-				context["user_region"] = self.request.user.area.region
-				context["user_district"] = self.request.user.area
+				context["user_region"] = self.request.user.city.region
+				#context["user_district"] = self.request.user.area
 			except:
 				context["user_region"] = Region.objects.first()
 				context["user_district"] = District2.objects.first()

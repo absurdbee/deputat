@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from docs.helpers import validate_file_extension
+from quan.helpers import validate_file_extension
 
 
 class QuestionsCategory(models.Model):

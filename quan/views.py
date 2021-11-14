@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView
-from quan.models import Question, QuestionsCategory
+from quan.models import *
 from common.templates import get_detect_platform_template
 
 
@@ -88,10 +88,23 @@ class CreateSupport(TemplateView):
             support.save()
             files = request.FILES.getlist('files')
             if files:
-                from quan.models import SupportFile
                 for file in files:
                     SupportFile.objects.create(support=support, file=file)
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
+
+
+class SupportList(ListView, CategoryListMixin):
+    template_name, paginate_by = None, 15
+
+    def get(self,request,*args,**kwargs):
+        if request.user.is_supermanager():
+            self.template_name = get_detect_platform_template("quan/support_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(SupportList,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        return Support.objects.all()

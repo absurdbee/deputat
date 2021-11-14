@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from quan.helpers import validate_file_extension
+from django.contrib.postgres.indexes import BrinIndex
 
 
 class QuestionsCategory(models.Model):
@@ -68,6 +69,7 @@ class Support(models.Model):
 	type = models.CharField(choices=CATEGORY, default=QUESTIONS, max_length=2, verbose_name="Тема")
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='support_creator', on_delete=models.CASCADE, verbose_name="Пользователь")
 	description = models.TextField(max_length=3000, blank=True, verbose_name="Описание")
+	created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создано")
 
 	def __str__(self):
 		return self.creator.get_full_name()
@@ -75,6 +77,8 @@ class Support(models.Model):
 	class Meta:
 		verbose_name = "Обращение в тех. поддержку"
 		verbose_name_plural = "Обращения в тех. поддержку"
+		ordering = ["-created"]
+		indexes = (BrinIndex(fields=['created']),)
 
 
 class SupportFile(models.Model):

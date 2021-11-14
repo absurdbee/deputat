@@ -78,6 +78,7 @@ class CreateSupport(TemplateView):
 
     def post(self,request,*args,**kwargs):
         from quan.forms import SupportForm
+        from django.http import HttpResponse
 
         self.form_post = SupportForm(request.POST)
 

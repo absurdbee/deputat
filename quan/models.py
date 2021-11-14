@@ -82,7 +82,7 @@ class Support(models.Model):
 		indexes = (BrinIndex(fields=['created']),)
 
 	def get_files(self):
-		SupportFile.objects.filter(support_id=self.pk)
+		return SupportFile.objects.filter(support_id=self.pk)
 
 
 class SupportFile(models.Model):

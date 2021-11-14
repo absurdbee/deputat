@@ -6,7 +6,7 @@ class FilesInline(admin.TabularInline):
 
 class SupportAdmin(admin.ModelAdmin):
     inlines = [
-        SupportFile,
+        FilesInline,
     ]
     list_display = ['creator', 'type', 'description']
     search_fields = ('description')

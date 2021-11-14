@@ -70,11 +70,11 @@ class Support(models.Model):
 	description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
 
 	def __str__(self):
-		return self.type
+		return self.creator
 
 	class Meta:
-		verbose_name = "Голос"
-		verbose_name_plural = "Голоса"
+		verbose_name = "Обращение в тех. поддержку"
+		verbose_name_plural = "Обращения в тех. поддержку"
 
 
 class SupportFile(models.Model):

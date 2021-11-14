@@ -31,10 +31,11 @@
                   <p class="card-text mb-2">
                       {{ object.description }}
                   </p>
+                  {% for i in object.get_files %}
+                    <a target="_blank" href="{{ i.file.url }}">Файл</a>
+                  {% endfor %}
                 </div>
-                {% for i in object.get_files %}
-                  <a target="_blank" href="{{ i.file.url }}">Файл</a> 
-                {% endfor %}
+
               </div>
               {% empty %}
               <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">

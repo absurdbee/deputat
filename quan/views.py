@@ -2,6 +2,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import ListView
 from quan.models import *
 from common.templates import get_detect_platform_template
+from generic.mixins import CategoryListMixin
 
 
 class QuanView(TemplateView):

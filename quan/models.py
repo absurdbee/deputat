@@ -61,11 +61,13 @@ class Support(models.Model):
 	COOPERATION = 'CO'
 	TECHNICAL_PROBLEMS = 'TP'
 	PROJECT_ASSISTANCE = 'PA'
+	COPYRIGHT_HOLDERS = 'CH'
 	CATEGORY = (
 		(TECHNICAL_PROBLEMS, 'Обращение в техподдержку'),
 		(QUESTIONS, 'Вопрос / предложение'),
 		(COOPERATION, 'Сотрудничество'),
 		(PROJECT_ASSISTANCE, 'Помощь проекту'),
+		(COPYRIGHT_HOLDERS, 'Для правообладателей'),
 	)
 	type = models.CharField(choices=CATEGORY, default=QUESTIONS, max_length=2, verbose_name="Тема")
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='support_creator', on_delete=models.CASCADE, verbose_name="Пользователь")

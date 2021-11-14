@@ -83,7 +83,7 @@ class CreateSupport(TemplateView):
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
             support = self.form_post.save()
-            images = request.POST.getlist('images')
+            images = request.POST.getlist('files')
             if images:
                 from quan.models import SupportImage
                 for image in images:

@@ -20,7 +20,7 @@
                       <div class="media-body">
                         <h5 class="mb-0">
                           <a target="_blank" href="{% url 'user' pk=object.creator.pk %}">
-                            {{ object.creator.get_full_name }}
+                            {{ object.creator.get_full_name|safe }}
                           </a>
                         </h5>
                         <small class="text-muted">{{ object.created }}</small>

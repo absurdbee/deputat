@@ -361,7 +361,7 @@ class EditManagerVideo(TemplateView):
 
 class ManagerVideoRemove(View):
     def get(self, request, *args, **kwargs):
-        video = Video.objects.get(uuid=self.kwargs["uuid"])
+        video = Video.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_manager():
             video.delete_video(None)
             return HttpResponse()
@@ -370,7 +370,7 @@ class ManagerVideoRemove(View):
 
 class ManagerVideoAbortRemove(View):
     def get(self, request, *args, **kwargs):
-        video = Video.objects.get(uuid=self.kwargs["uuid"])
+        video = Video.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_manager():
             video.abort_delete_video(None)
             return HttpResponse()

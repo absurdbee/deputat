@@ -535,3 +535,41 @@ on('body', 'change', '#id_region', function() {
 	link.send( null );
 	};
 });
+
+on('body', 'click', '#create_support_message_btn', function() {
+  _this = this;
+  form = _this.parentElement.parentElement.parentElement;
+  form_data = new FormData(form);
+	files = form.querySelector("#id_files")
+	if (files.length) {
+		for (var i = 0; i < files.length; i++) {
+			if (findSize(files[i])> 5242880) {
+		    toast_error("Файлы не должен превышать 5 Мб!"),
+		    _this.disabled = false;
+		    return
+		  }
+		};
+		if (files.length > 10) {
+	      toast_error("Не больше 10 файлов");
+				return
+	  }
+	}
+
+  else if (!form.querySelector("#id_description").value){
+    form.querySelector("#id_description").style.border = "1px #FF0000 solid";
+    toast_error("Напишите сообщение!")
+	}
+  else { _this.disabled = true };
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/quan/create_support/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Сообщение отправлено!")
+    close_fullscreen()
+  }};
+
+  link_.send(form_data);
+});

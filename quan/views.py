@@ -87,7 +87,7 @@ class CreateSupport(TemplateView):
             if images:
                 from quan.models import SupportImage
                 for image in images:
-                    SupportImage.objects.create(support=support, image=image)
+                    SupportImage.objects.create(support=support, image=image, creator=request.user)
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest

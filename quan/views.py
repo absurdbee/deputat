@@ -64,3 +64,31 @@ class HowPublishView(TemplateView):
     def get(self,request,*args,**kwargs):
         self.template_name = get_detect_platform_template("quan/how_to_publish.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(HowPublishView,self).get(request,*args,**kwargs)
+
+
+class CreateSupport(TemplateView):
+    template_name = "quan/create_support.html"
+
+    def get_context_data(self,**kwargs):
+        from quan.forms import SupportForm
+
+        context=super(CreateSupport,self).get_context_data(**kwargs)
+        context["form"] = SupportForm()
+        return context
+
+    def post(self,request,*args,**kwargs):
+        from quan.forms import SupportForm
+
+        self.form_post = SupportForm(request.POST)
+
+        if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
+            support = self.form_post.save()
+            images = request.POST.getlist('images')
+            if images:
+                from quan.models import SupportImage
+                for image in images:
+                    SupportImage.objects.create(support=support, image=image)
+            return HttpResponse()
+        else:
+            from django.http import HttpResponseBadRequest
+            return HttpResponseBadRequest()

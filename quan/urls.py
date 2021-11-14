@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^where_to_apply/$', WhereApplyView.as_view()),
     url(r'^why_publish/$', WhyPublishView.as_view()),
     url(r'^how_to_publish/$', HowPublishView.as_view()),
+
+    url(r'^create_support/$', CreateSupport.as_view()),
 ]

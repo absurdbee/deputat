@@ -80,7 +80,7 @@ class CreateSupport(TemplateView):
         from quan.forms import SupportForm
         from django.http import HttpResponse
 
-        self.form_post = SupportForm(request.POST)
+        self.form_post = SupportForm(request.POST, request.FILES)
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_authenticated:
             support = self.form_post.save(commit=False)

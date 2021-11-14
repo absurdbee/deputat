@@ -3,10 +3,10 @@ from django.conf.urls import url
 
 
 urlpatterns=[
-    url(r'^delete/(?P<uuid>[0-9a-f-]+)/$', UserPhotoDelete.as_view()),
-    url(r'^abort_delete/(?P<uuid>[0-9a-f-]+)/$', UserPhotoAbortDelete.as_view()),
-    url(r'^on_private/(?P<uuid>[0-9a-f-]+)/$', UserOnPrivatePhoto.as_view()),
-    url(r'^off_private/(?P<uuid>[0-9a-f-]+)/$', UserOffPrivatePhoto.as_view()),
+    url(r'^delete/(?P<pk>\d+)/$', UserPhotoDelete.as_view()),
+    url(r'^abort_delete/(?P<pk>\d+)/$', UserPhotoAbortDelete.as_view()),
+    url(r'^on_private/(?P<pk>\d+)/$', UserOnPrivatePhoto.as_view()),
+    url(r'^off_private/(?P<pk>\d+)/$', UserOffPrivatePhoto.as_view()),
 
     url(r'^add_photo/(?P<uuid>[0-9a-f-]+)/$', AddPhotoIntUserList.as_view()),
     url(r'^add_attach_photo/$', AttachPhotoInUserList.as_view()),

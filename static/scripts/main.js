@@ -557,7 +557,8 @@ on('body', 'click', '#create_support_message_btn', function() {
 
   else if (!form.querySelector("#id_description").value){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
-    toast_error("Напишите сообщение!")
+    toast_error("Напишите сообщение!");
+		return
 	}
   else { _this.disabled = true };
 

@@ -54,11 +54,6 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon ficon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
               </a>
             </li>
-            <li class="nav-item nav-search" tooltip="Поиск" flow="down">
-              <a class="nav-link nav-link-search">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search ficon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-              </a>
-            </li>
             <li class="nav-item dropdown-notification mr-25">
               <a class="nav-link get_user_notify_box">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell ficon"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -69,6 +64,11 @@
               <div class="notify_box" style="height: 450px;padding: 5px;overflow-y: auto;"></div>
               <a class="btn btn-primary btn-block ajax" href="{% url 'all_notify' %}">Все уведомления</a>
             </div>
+            <li class="nav-item d-none d-lg-block create_support_message pointer" tooltip="Техподдержка" flow="down">
+              <a class="nav-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather ficon"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+              </a>
+            </li>
 
             <li class="nav-item dropdown dropdown-user">
               <a class="nav-link dropdown-toggle dropdown-user-link userpic" data-pk="{{ request.user.pk }}">

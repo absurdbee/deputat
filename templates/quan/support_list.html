@@ -32,7 +32,7 @@
                       {{ object.description }}
                   </p>
                 </div>
-                {% for i in object.supportfile.all %}
+                {% for i in object.get_files %} 
                   <a target="_blank" href="{{ i.file.url }}">Файл</a><br>
                 {% endfor %}
               </div>

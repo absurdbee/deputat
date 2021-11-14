@@ -60,7 +60,7 @@ class Support(models.Model):
 	TECHNICAL_PROBLEMS = 'TP'
 	PROJECT_ASSISTANCE = 'PA'
 	CATEGORY = (
-		(TECHNICAL_PROBLEMS, 'Обращение в техподеержку'),
+		(TECHNICAL_PROBLEMS, 'Обращение в техподдержку'),
 		(QUESTIONS, 'Вопрос / предложение'),
 		(COOPERATION, 'Сотрудничество'),
 		(PROJECT_ASSISTANCE, 'Помощь проекту'),

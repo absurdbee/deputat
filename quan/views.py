@@ -86,11 +86,11 @@ class CreateSupport(TemplateView):
             support = self.form_post.save(commit=False)
             support.creator = request.user
             support.save()
-            images = request.FILES.getlist('files')
-            if images:
+            files = request.FILES.getlist('files')
+            if files:
                 from quan.models import SupportFile
-                for image in images:
-                    SupportFile.objects.create(support=support, image=image)
+                for file in images:
+                    SupportFile.objects.create(support=support, file=file)
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest

@@ -3,5 +3,5 @@ from policy.views import PolicyView
 
 
 urlpatterns = [
-    url(r'^$', PolicyView.as_view(), name='policy'),
+    url(r'^(?P<pk>\d+)/$', PolicyView.as_view(), name='policy'),
 ]

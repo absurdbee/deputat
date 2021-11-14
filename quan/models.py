@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
-from pilkit.processors import ResizeToFill, ResizeToFit, Transpose
-from imagekit.models import ProcessedImageField
+from docs.helpers import validate_file_extension
 
 
 class QuestionsCategory(models.Model):
@@ -78,9 +77,9 @@ class Support(models.Model):
 		verbose_name_plural = "Голоса"
 
 
-class SupportImage(models.Model):
+class SupportFile(models.Model):
 	support = models.ForeignKey(Support, on_delete=models.CASCADE, null=True)
-	image = ProcessedImageField(verbose_name='Изображение', format='JPEG',options={'quality': 100}, processors=[Transpose(), ResizeToFit(width=1024, upscale=False)],upload_to="support/")
+	file = models.FileField(upload_to="support/", validators=[validate_file_extension], verbose_name="Файл")
 
 	def __str__(self):
 		return str(self.pk)

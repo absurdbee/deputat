@@ -30,8 +30,8 @@ urlpatterns = [
     url(r'^list_unverify/(?P<uuid>[0-9a-f-]+)/$', ListPhotoUnverify.as_view()),
 
     url(r'^create_photo/(?P<uuid>[0-9a-f-]+)/$', CreateManagerPhoto.as_view()),
-    url(r'^delete/(?P<uuid>[0-9a-f-]+)/$', ManagerPhotoDelete.as_view()),
-    url(r'^abort_delete/(?P<uuid>[0-9a-f-]+)/$', ManagerPhotoAbortDelete.as_view()),
+    url(r'^delete/(?P<pk>\d+)/$', ManagerPhotoDelete.as_view()),
+    url(r'^abort_delete/(?P<pk>\d+)/$', ManagerPhotoAbortDelete.as_view()),
     url(r'^add_photo_in_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', AddPhotoInMediaList.as_view()),
     url(r'^remove_photo_from_list/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', RemovePhotoFromMediaList.as_view()),
 ]

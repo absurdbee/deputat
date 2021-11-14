@@ -316,7 +316,7 @@ class CreateManagerPhoto(View):
 
 class ManagerPhotoDelete(View):
     def get(self,request,*args,**kwargs):
-        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        photo = Photo.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_manager():
             photo.delete_photo(None)
             return HttpResponse()
@@ -325,7 +325,7 @@ class ManagerPhotoDelete(View):
 
 class ManagerPhotoAbortDelete(View):
     def get(self,request,*args,**kwargs):
-        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        photo = Photo.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and request.user.is_manager():
             photo.abort_delete_photo(None)
             return HttpResponse()

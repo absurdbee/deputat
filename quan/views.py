@@ -86,7 +86,7 @@ class CreateSupport(TemplateView):
             support = self.form_post.save(commit=False)
             support.creator = request.user
             support.save()
-            images = request.POST.getlist('files')
+            images = request.FILES.getlist('files')
             if images:
                 from quan.models import SupportFile
                 for image in images:

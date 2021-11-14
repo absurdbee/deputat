@@ -89,7 +89,7 @@ class CreateSupport(TemplateView):
             files = request.FILES.getlist('files')
             if files:
                 from quan.models import SupportFile
-                for file in images:
+                for file in files:
                     SupportFile.objects.create(support=support, file=file)
             return HttpResponse()
         else:

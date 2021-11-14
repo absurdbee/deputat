@@ -1,3 +1,4 @@
 from django.contrib import admin
+from terms.models import Terms
 
-# Register your models here.
+admin.site.register(Terms)

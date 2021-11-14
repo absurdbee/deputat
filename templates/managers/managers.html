@@ -152,6 +152,17 @@
         </div>
       </div>
       {% endif %}
+      {% if request.user.is_supermanager %}
+      <div class="col-12 col-md-4">
+        <div class="card mb-2 box-shadow-large">
+          <div class="text-center">
+            <h4 class="content-color-primary">Техподдержка</h4>
+            <a href="/quan/support_list/" class="btn-link ajax">Список <span class="badge badge-light-success">{{ count_moderated_survey }}</span></a>
+            <br>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
 

@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^how_to_publish/$', HowPublishView.as_view()),
 
     url(r'^create_support/$', CreateSupport.as_view()),
+    url(r'^support_list/$', SupportList.as_view()),
     url(r'^(?P<cat_name>[\w\-]+)/$', QuanCategoryView.as_view(), name='quan_categories'),
     url(r'^$', QuanView.as_view(), name='quan'),
 ]

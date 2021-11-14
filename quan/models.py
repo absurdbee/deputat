@@ -70,7 +70,7 @@ class Support(models.Model):
 	description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
 
 	def __str__(self):
-		return self.creator
+		return self.creator.get_full_name()
 
 	class Meta:
 		verbose_name = "Обращение в тех. поддержку"
@@ -80,6 +80,3 @@ class Support(models.Model):
 class SupportFile(models.Model):
 	support = models.ForeignKey(Support, on_delete=models.CASCADE, null=True)
 	file = models.FileField(upload_to="support/", validators=[validate_file_extension], verbose_name="Файл")
-
-	def __str__(self):
-		return str(self.pk)

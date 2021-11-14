@@ -65,7 +65,7 @@ class Support(models.Model):
 		(TECHNICAL_PROBLEMS, 'Тех. проблема'),
 		(PROJECT_ASSISTANCE, 'Помощь проекту'),
 	)
-	type = models.CharField(choices=CATEGORY, default=QUESTIONS, max_length=2)
+	type = models.CharField(choices=CATEGORY, default=QUESTIONS, max_length=2, verbose_name="Тема")
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='support_creator', on_delete=models.CASCADE, verbose_name="Пользователь")
 	description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
 

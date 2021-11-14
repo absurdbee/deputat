@@ -81,6 +81,9 @@ class Support(models.Model):
 		ordering = ["-created"]
 		indexes = (BrinIndex(fields=['created']),)
 
+	def get_files(self):
+		SupportFile.objects.filter(support_id=self.pk)
+
 
 class SupportFile(models.Model):
 	support = models.ForeignKey(Support, on_delete=models.CASCADE, null=True)

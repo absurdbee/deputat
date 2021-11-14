@@ -54,7 +54,7 @@ class AttachPhotoInUserList(View):
 
 class UserPhotoDelete(View):
     def get(self,request,*args,**kwargs):
-        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        photo = Photo.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and photo.creator.pk == request.user.pk:
             photo.delete_photo(None)
             return HttpResponse()
@@ -63,7 +63,7 @@ class UserPhotoDelete(View):
 
 class UserPhotoAbortDelete(View):
     def get(self,request,*args,**kwargs):
-        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        photo = Photo.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and photo.creator.pk == request.user.pk:
             photo.abort_delete_photo(None)
             return HttpResponse()
@@ -72,7 +72,7 @@ class UserPhotoAbortDelete(View):
 
 class UserOnPrivatePhoto(View):
     def get(self,request,*args,**kwargs):
-        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        photo = Photo.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and photo.creator.pk == request.user.pk:
             photo.make_private()
             return HttpResponse()
@@ -81,7 +81,7 @@ class UserOnPrivatePhoto(View):
 
 class UserOffPrivatePhoto(View):
     def get(self,request,*args,**kwargs):
-        photo = Photo.objects.get(uuid=self.kwargs["uuid"])
+        photo = Photo.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax() and photo.creator.pk == request.user.pk:
             photo.make_publish()
             return HttpResponse()

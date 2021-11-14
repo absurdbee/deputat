@@ -693,9 +693,9 @@ function remove_item_from_list(_this, url, old_class, new_class, check_class) {
 function mob_send_change(span, _link, new_class, html) {
     parent = span.parentElement;
     item = span.parentElement.parentElement.parentElement.parentElement.parentElement;
-    item.getAttribute("data-uuid") ? uuid = item.getAttribute("data-uuid") : uuid = item.getAttribute("good-pk"); link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    pk = item.getAttribute("data-pk");
     link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-    link.open('GET', _link + uuid + "/", true);
+    link.open('GET', _link + pk + "/", true);
     link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     link.onreadystatechange = function() {
         if (link.readyState == 4 && link.status == 200) {
@@ -733,7 +733,7 @@ function string_send_change(span, _link, new_class, old_class, html) {
     link.onreadystatechange = function() {
         if (link.readyState == 4 && link.status == 200) {
             span.innerHTML = html;
-            span.classList.replace(old_class, new_class) 
+            span.classList.replace(old_class, new_class)
         }
     };
     link.send(null)

@@ -9,7 +9,6 @@ class SupportAdmin(admin.ModelAdmin):
         FilesInline,
     ]
     list_display = ['creator', 'type', 'description']
-    search_fields = ('description')
     model = Support
 
 

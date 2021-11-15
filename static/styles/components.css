@@ -374,9 +374,7 @@ html .pace .pace-progress {
   html body.navbar-hidden .app-content {
     padding : calc(2rem - 0.8rem) calc(2rem - 0.8rem) 0 calc(2rem - 0.8rem) !important;
   }
-  .profile-header {
-    margin-top: 80px
-  }
+
   .profile-header h1{
     font-size: 120%
   }

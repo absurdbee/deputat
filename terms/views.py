@@ -13,10 +13,9 @@ class TermsView(TemplateView, CategoryListMixin):
         return super(TermsView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
-		context=super(SignupView,self).get_context_data(**kwargs)
-		context["regions"] = Region.objects.exclude(name="Все регионы")
-		context["last_version"] = self.last_version
-		return context
+        context=super(TermsView,self).get_context_data(**kwargs)
+        context["last_version"] = self.last_version
+        return context
 
 
 class WindowAboutView(TemplateView):

@@ -4,6 +4,7 @@ from quan.models import *
 from common.templates import get_detect_platform_template
 from generic.mixins import CategoryListMixin
 from django.views import View
+from django.http import HttpResponse, Http404
 
 
 class QuanView(TemplateView):
@@ -80,7 +81,6 @@ class CreateSupport(TemplateView):
 
     def post(self,request,*args,**kwargs):
         from quan.forms import SupportForm
-        from django.http import HttpResponse
 
         self.form_post = SupportForm(request.POST, request.FILES)
 

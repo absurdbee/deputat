@@ -73,6 +73,7 @@ class Support(models.Model):
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='support_creator', on_delete=models.CASCADE, verbose_name="Пользователь")
 	description = models.TextField(max_length=3000, blank=True, verbose_name="Описание")
 	created = models.DateTimeField(default=timezone.now, verbose_name="Создано")
+	is_reed = models.BooleanField(default=False, verbose_name="Прочитано")
 
 	def __str__(self):
 		return self.creator.get_full_name()

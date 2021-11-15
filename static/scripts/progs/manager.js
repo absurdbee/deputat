@@ -1188,7 +1188,7 @@ on('body', 'click', '.media_track_abort_remove', function() {
 });
 
 
-on('body', 'click', '#add_media_list_btn', function() {
+on('body', 'click', '.get_read_support_message', function() {
   _this = this;
   var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
   ajax_link.open('GET', "/quan/read_support_message/" + _this.getAttribute("data-pk") + "/", true);

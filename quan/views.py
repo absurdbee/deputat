@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from quan.models import *
 from common.templates import get_detect_platform_template
 from generic.mixins import CategoryListMixin
+from django.views import View
 
 
 class QuanView(TemplateView):
@@ -109,3 +110,14 @@ class SupportList(ListView, CategoryListMixin):
 
     def get_queryset(self):
         return Support.objects.all()
+
+
+class ReadSupportMessage(View):
+    def get(self, request, *args, **kwargs):
+        message  = Support.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and request.user.is_supermanager():
+            message.is_read = True
+            message.save(update_fields=["is_read"])
+            return HttpResponse()
+        else:
+            raise Http404

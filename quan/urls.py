@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^create_support/$', CreateSupport.as_view()),
     url(r'^support_list/$', SupportList.as_view()),
     url(r'^(?P<cat_name>[\w\-]+)/$', QuanCategoryView.as_view(), name='quan_categories'),
+    url(r'^read_support_message/(?P<pk>\d+)/$', ReadSupportMessage.as_view()), 
     url(r'^$', QuanView.as_view(), name='quan'),
 ]

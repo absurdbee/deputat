@@ -17,6 +17,8 @@ class ManagersView(TemplateView, CategoryListMixin):
 
     def get_context_data(self,**kwargs):
         from managers.models import Moderated
+        from quan.models import Support
+
         context = super(ManagersView,self).get_context_data(**kwargs)
         context["count_moderated_users"] = Moderated.count_moderated_users()
         context["count_moderated_communities"] = Moderated.count_moderated_communities()
@@ -27,6 +29,7 @@ class ManagersView(TemplateView, CategoryListMixin):
         context["count_moderated_doc"] = Moderated.count_moderated_doc()
         context["count_moderated_video"] = Moderated.count_moderated_video()
         context["count_moderated_survey"] = Moderated.count_moderated_survey()
+        context["count_support_message"] = Support.objects.filter(is_read=False).values("pk").count()
         return context
 
 class SuperManagersView(TemplateView, CategoryListMixin):

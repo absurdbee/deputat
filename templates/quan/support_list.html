@@ -25,8 +25,8 @@
                         </h5>
                         <small class="text-muted">{{ object.created }}</small>
                         {% if not object.is_reed %}
-                          <span class="badge badge-pill badge-light-warning">Новое</span>
-                        {% endif %}
+                          <span class="badge badge-pill badge-light-warning get_read_support_message">Рассмотреть</span>
+                        {% endif %} 
                       </div>
                     </div>
                     <div class="badge badge-pill badge-light-primary">{{ object.get_type_display }}</div>

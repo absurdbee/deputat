@@ -1186,3 +1186,17 @@ on('body', 'click', '.media_track_abort_remove', function() {
   }};
   link.send();
 });
+
+
+on('body', 'click', '#add_media_list_btn', function() {
+  _this = this;
+  var ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  ajax_link.open('GET', "/quan/read_support_message/" + _this.getAttribute("data-pk") + "/", true);
+  ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  ajax_link.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        _this.remove()
+      }
+  }
+  ajax_link.send( null );
+});

@@ -76,7 +76,7 @@ class Support(models.Model):
 	is_reed = models.BooleanField(default=False, verbose_name="Прочитано")
 
 	def __str__(self):
-		return self.creator.get_full_name()
+		return self.creator.get_full_name() 
 
 	class Meta:
 		verbose_name = "Обращение в тех. поддержку"

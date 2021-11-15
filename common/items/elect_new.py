@@ -62,12 +62,17 @@ def wall_elect_new(user, elect_new):
     <span class="inerts_count margin_right_5">', str(elect_new.inerts_count()), '</span></span><span class="dropdown"><span title="Поделиться" class="btn_default pointer get_elect_new_repost"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg><span class="repost_count margin_right_5">', str(elect_new.count_reposts()), '</span></span><div class="dropdown-menu" style="top: -162px;" data-pk="', str(elect_new.pk), '" data-link="/elect/new/', str(elect_new.pk),'" data-title="', elect_new.title,'"><span class="dropdown-header" style="font-weight:bold">Поделиться</span><span class="dropdown-item elect_new_share_vkontakte">VKontakte</span><span class="dropdown-item elect_new_share_facebook">Facebook</span><span class="dropdown-item elect_new_share_twitter">Twitter</span><span class="dropdown-item elect_new_share_telegram">Telegram</span></div></span><span ', comments_enabled, ' title="Комментарий" class="btn_default elect_new_window_comment" style="cursor:pointer;margin-right: 5px;"><svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg><span class="comment-count margin_right_5">', str(elect_new.count_comments()), '</span></span><span title="Просмотры" style="right: 0;"><svg fill="currentColor" width="22" height="22" class="svg_default" style="padding-bottom: 2px;font-size:17px" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z"/></svg>', str(elect_new.count_views()), '</span></div></div><div class="load_full_data"></div></div></div>'])
 
 def get_wall_elect_new(user, notify):
-    if notify.type == "ELN":
-        return wall_elect_new(user, ElectNew.objects.get(pk=notify.object_id))
+    new = ElectNew.objects.get(pk=notify.object_id)
+    if "_" in new.type:
+        return ''
+    elif notify.type == "ELN":
+        return wall_elect_new(user, new)
 
 def notify_elect_new(user, notify):
     from blog.models import ElectNew
     new = ElectNew.objects.get(pk=notify.object_id)
+    if "_" in new.type:
+        return ''
 
     if notify.is_unread():
         i = " (новое)"
@@ -85,6 +90,8 @@ def notify_comment_elect_new(user, notify):
     from common.model.comments import ElectNewComment
 
     comment = ElectNewComment.objects.get(pk=notify.object_id)
+    if "_" in comment.type:
+        return ''
     if comment.parent:
         new = comment.parent.new
     else:
@@ -108,6 +115,8 @@ def get_notify_elect_new(user, notify):
         from blog.models import ElectNew
         try:
             new = ElectNew.objects.get(pk=notify.object_id)
+            if "_" in new.type:
+                return ''
             if notify.is_unread():
                 i = " (новое)"
             else:
@@ -128,10 +137,14 @@ def get_notify_comment_elect_new(user, notify):
     elif 'COM' in verb:
         from common.model.comments import ElectNewComment
         comment = ElectNewComment.objects.get(pk=notify.object_id)
+        if "_" in comment.type:
+            return ''
         return notify_comment_elect_new(user, notify)
         #return ''.join(['<div class="" data-pk="', str(comment.new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' новость <span class="elect_new_window pointer underline" style="font-weight: bold;">', comment.new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])
     elif 'REP' in verb:
         from common.model.comments import ElectNewComment
         comment = ElectNewComment.objects.get(pk=notify.object_id)
+        if "_" in comment.type:
+            return ''
         return notify_comment_elect_new(user, notify)
         #return ''.join(['<div class="" data-pk="', str(comment.parent.new.pk), '"><div class="media"><figure>•</figure><div class="media-body pl-1"><p class="mb-0 small"><a href="/users/', str(notify.creator.pk), '/" class="ajax" style="font-weight: bold;">', notify.creator.get_name(), '</a>', notify.get_verb_display(), ' коммент', comment.parent.text[:50], '... к новости <span class="elect_new_window pointer underline" style="font-weight: bold;">', comment.new.title, '</span> : <span>', comment.text[:50], '...</span></p><p class="mb-0 small_2">', notify.get_created(), '</p></div></div></div>'])

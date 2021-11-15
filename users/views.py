@@ -28,8 +28,11 @@ class SignupView(TemplateView):
 
 	def get_context_data(self,**kwargs):
 		from region.models import Region
+		from terms.models import Terms
+
 		context=super(SignupView,self).get_context_data(**kwargs)
 		context["regions"] = Region.objects.exclude(name="Все регионы")
+		context["terms_pk"] = Terms.objects.all().first()
 		return context
 
 class MainPhoneSend(TemplateView):

@@ -24,12 +24,12 @@
                           </a>
                         </h5>
                         <small class="text-muted">{{ object.created }}</small>
+                        {% if not object.is_reed %}
+                          <span class="badge badge-pill badge-light-danger">Новое</span>
+                        {% endif %}
                       </div>
                     </div>
                     <div class="badge badge-pill badge-light-primary">{{ object.get_type_display }}</div>
-                    {% if not object.is_reed %}
-                      <div class="badge badge-pill badge-light-danger">Новое</div>
-                    {% endif %}
                   </div>
                   <p class="card-text mb-2">
                       {{ object.description }}

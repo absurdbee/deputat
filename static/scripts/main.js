@@ -17,7 +17,8 @@ on('body', 'click', '.why_publish', function() {
 on('body', 'click', '.how_to_publish', function() {
 	create_fullscreen("/terms/window_about/", "window_fullscreen");
 });
-on('body', 'click', '.create_support_message', function() {
+on('body', 'click', '.create_support_message', function(e) {
+	e.preventDefault();
 	create_fullscreen("/quan/create_support/", "window_fullscreen");
 });
 

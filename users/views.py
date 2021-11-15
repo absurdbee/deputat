@@ -32,7 +32,7 @@ class SignupView(TemplateView):
 
 		context=super(SignupView,self).get_context_data(**kwargs)
 		context["regions"] = Region.objects.exclude(name="Все регионы")
-		context["terms_pk"] = Terms.objects.all().first()
+		context["terms_pk"] = Terms.objects.all().first().pk
 		return context
 
 class MainPhoneSend(TemplateView):

@@ -41,18 +41,16 @@
             </div>
 
             <div class="row is_paginate no-gutters">
-                {% if object_list %}
-
-                {% if object_list %}
-                  {% for object in object_list %}
-                    {% if object.is_photo %}
-                      {% include 'main/list/anon_photo.html' %}
-                    {% elif object.is_video %}
-                      {% include 'main/list/anon_video.html' %}
-                    {% elif object.is_track %}
-                      {% include 'main/list/anon_track.html' %}
-                    {% elif object.is_doc %}
-                      {% include 'main/list/anon_doc.html' %}
+              {% if object_list %}
+                {% for object in object_list %}
+                  {% if object.is_photo %}
+                    {% include 'main/list/photo.html' %}
+                  {% elif object.is_video %}
+                    {% include 'main/list/video.html' %}
+                  {% elif object.is_track %}
+                    {% include 'main/list/track.html' %}
+                  {% elif object.is_doc %}
+                    {% include 'main/list/doc.html' %}
                   {% endif %}
                 {% endfor %}
                 {% if page_obj.has_next %}

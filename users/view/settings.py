@@ -226,7 +226,7 @@ class UserDeputatSend(TemplateView):
 		from users.forms import DeputatSendForm
 		from users.model.settings import DeputatSend
 
-		if DeputatSend.objects.filter(user=request.user, key__isnull=False).exists():
+		if DeputatSend.objects.filter(user=request.user).exists():
 			return HttpResponseBadRequest()
 		self.form = DeputatSendForm(request.POST)
 		if request.is_ajax() and self.form.is_valid():

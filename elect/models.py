@@ -52,7 +52,7 @@ class Elect(models.Model):
 
     def vk_links(self):
         import re
-        ids = re.findall(r'https://[\S]+', self.vk)
+        ids = re.findall(r'https?://[\S]+', self.vk)
         text = ""
         for i in ids:
             text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"
@@ -60,7 +60,7 @@ class Elect(models.Model):
 
     def fb_links(self):
         import re
-        ids = re.findall(r'https://[\S]+', self.fb)
+        ids = re.findall(r'https?://[\S]+', self.fb)
         text = ""
         for i in ids:
             text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"
@@ -68,7 +68,7 @@ class Elect(models.Model):
 
     def ig_links(self):
         import re
-        ids = re.findall(r'https://[\S]+', self.ig)
+        ids = re.findall(r'https?://[\S]+', self.ig)
         text = ""
         for i in ids:
             text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"
@@ -76,7 +76,7 @@ class Elect(models.Model):
 
     def tg_links(self):
         import re
-        ids = re.findall(r'https://[\S]+', self.tg)
+        ids = re.findall(r'https?://[\S]+', self.tg)
         text = ""
         for i in ids:
             text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"
@@ -84,7 +84,7 @@ class Elect(models.Model):
 
     def tw_links(self):
         import re
-        ids = re.findall(r'https://[\S]+', self.tw)
+        ids = re.findall(r'https?://[\S]+', self.tw)
         text = ""
         for i in ids:
             text += '<a target="_blank" href="' + i + '">' + i + "</a><br>"

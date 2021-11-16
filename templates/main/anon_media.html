@@ -14,10 +14,6 @@
                       <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-flag"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
                       <span class="d-none d-sm-block">Россия</span>
                     </a>
-                    <a class="btn btn-outline-primary ajax main_nav" href="/main_region/{{ request.user.area.region.slug }}/">
-                      <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                      <span class="d-none d-sm-block">Мой&nbsp;регион</span>
-                    </a>
                     <a tooltip="В разработке" flow="up" class="btn disabled btn-outline-primary ajax main_nav" href="/main_map/">
                       <svg style="margin-right: 3px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
                       <span class="d-none d-sm-block">Карта&nbsp;РФ</span>
@@ -47,8 +43,17 @@
             <div class="row is_paginate no-gutters">
                 {% if object_list %}
 
-                {% for doc in object_list %}
-                  {% include 'user_docs/anon_doc.html' %}
+                {% if object_list %}
+                  {% for object in object_list %}
+                    {% if object.is_photo %}
+                      {% include 'main/list/anon_photo.html' %}
+                    {% elif object.is_video %}
+                      {% include 'main/list/anon_video.html' %}
+                    {% elif object.is_track %}
+                      {% include 'main/list/anon_track.html' %}
+                    {% elif object.is_doc %}
+                      {% include 'main/list/anon_doc.html' %}
+                  {% endif %}
                 {% endfor %}
                 {% if page_obj.has_next %}
                   <div class="load centered m-1 next_page_list" data-link="/main_media/?uuid={{list.uuid}}&?page={{ page_obj.next_page_number }}">

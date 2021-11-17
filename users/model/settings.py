@@ -30,7 +30,7 @@ class UserPrivate(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_private', verbose_name="Пользователь")
     city = models.BooleanField(default=False, verbose_name="Город виден всем")
     networks = models.BooleanField(default=True, verbose_name="Соцсети открыты")
-    old = models.BooleanField(default=True, verbose_name="Возраст открыт")
+    old = models.BooleanField(default=False, verbose_name="Возраст открыт")
     subscribers = models.BooleanField(default=True, verbose_name="Подписки открыты")
     other = models.BooleanField(default=True, verbose_name="Образование/сфера занятости открыты")
 

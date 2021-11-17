@@ -417,7 +417,13 @@ on('body', 'click', '.phone_send', function() {
 	on('body', 'click', '#recover_code_send', function() {
 			_this = this;
 	    block = _this.parentElement.parentElement;
-	    var phone = block.previousElementSibling.querySelector('#id_first_number').value + block.previousElementSibling.querySelector('#phone').value;
+			user_phone = block.previousElementSibling.querySelector('#phone').value;
+			_user_phone = user_phone.replace(/[^0-9]/g, '');
+			if (_user_phone[0] == "7" || _user_phone[0] == "8") {
+			  _user_phone = _user_phone.slice(1)
+			};
+			phone = block.previousElementSibling.querySelector('#id_first_number').value + _user_phone;
+
 	    var code = block.querySelector('.block_verify').querySelector('#code').value;
 	    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 	    request.open('GET', "/users/progs/recovery_phone_verify/" + phone + "/" + code + "/", true);

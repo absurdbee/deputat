@@ -187,7 +187,12 @@ on('body', 'click', '#logg', function() {
     response.innerHTML = "Введите пароль!"; response.classList.add("error"); return}
 
     form.querySelector("#id_username").style.display = "none";
-    form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
+		new_phone = form.querySelector("#id_first_number").value + form.querySelector("#id_username").value;
+		new_phone = new_phone.replace(/[^+\d]/g, '');
+		if (new_phone[0] == "7" || new_phone[0] == "8") {
+			new_phone = new_phone.slice(1)
+		};
+    form.querySelector("#id_username").value = new_phone;
 
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

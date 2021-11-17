@@ -252,9 +252,14 @@ function phone_check() {
 
 on('body', 'click', '.phone_send', function() {
   form = this.parentElement.parentElement;
-  phone = form.querySelector('#id_first_number').value + form.querySelector('#phone').value;
+	user_phone = form.querySelector("#phone").value;
+	_user_phone = user_phone.replace(/[^0-9]/g, '');
+	if (_user_phone[0] == "7" || _user_phone[0] == "8") {
+		_user_phone = _user_phone.slice(1)
+	};
+
    var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-   request.open( 'GET', "/users/progs/phone_send/" + phone + "/", true );
+   request.open( 'GET', "/users/progs/phone_send/" + form.querySelector("#id_first_number").value + _user_phone + "/", true );
    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
    request.onreadystatechange = function () {
      if ( request.readyState == 4 && request.status == 200) {

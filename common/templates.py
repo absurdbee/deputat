@@ -159,7 +159,7 @@ def get_managers_template(template, request_user, user_agent):
         update_activity(request_user, user_agent)
         if request_user.type[0] == "_":
             template_name = get_fine_request_user(request_user)
-        elif request_user.is_manager():
+        elif request_user.is_manager() or request_user.is_supermanager():
             template_name = template
         else:
             raise PermissionDenied("Permission denied...")

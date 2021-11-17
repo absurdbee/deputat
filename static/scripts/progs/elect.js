@@ -50,7 +50,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid"
     toast_error("Выберите чиновника!");
     return
-  }}catch {toast_error("Выберите чиновника!"); }
+  }}catch {toast_error("Выберите чиновника!"); return}
   _this.disabled = true;
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

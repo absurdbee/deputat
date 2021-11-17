@@ -188,7 +188,7 @@ on('body', 'click', '#logg', function() {
 
     form.querySelector("#id_username").style.display = "none";
 		user_phone = form.querySelector("#id_username").value;
-		_user_phone = user_phone.replace(/[^+\d]/g, '');
+		_user_phone = user_phone.replace(/[^0-9]/g, '');
 		console.log(_user_phone);
 		if (_user_phone[0] == "7" || _user_phone[0] == "8") {
 			_user_phone = _user_phone.slice(1)

@@ -44,11 +44,14 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   } else if (!form.querySelector("#id_description").value){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
-  } else if (form.querySelector("#id_elect").value){
+  };
+  try{
+  if (!form.querySelector("#id_elect").value){
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid"
     toast_error("Выберите чиновника!");
     return
-  } else { _this.disabled = true };
+  }}catch {form.querySelector("#id_elect").style.border = "1px #FF0000 solid";toast_error("Выберите чиновника!"); }
+  _this.disabled = true;
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/blog/progs/suggest_elect_new/", true );

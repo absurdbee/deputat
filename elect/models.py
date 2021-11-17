@@ -111,11 +111,11 @@ class Elect(models.Model):
         return self.area.all()
 
     @classmethod
-    def create_elect(cls, creator, name, description, image, list, region, area, birthday, fraction, post_2, vk, tg, tw, ig, fb, mail, phone, address, site):
+    def create_elect(cls, creator, name, description, image, list, region, area, birthday, fraction, post_2, vk, tg, tw, ig, fb, mail, phone, i_address, address, site):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
-        elect = cls.objects.create(name=name_2,description=description,post_2=post_2,image=image,birthday=birthday,fraction=fraction,vk=vk, tg=tg, tw=tw, ig=ig, fb=fb, mail=mail, phone=phone, address=address, site=site)
+        elect = cls.objects.create(name=name_2,description=description,post_2=post_2,image=image,birthday=birthday,fraction=fraction,vk=vk, tg=tg, tw=tw, ig=ig, fb=fb, mail=mail, phone=phone, i_address=i_address, address=address, site=site)
         if region:
             from region.models import Region
             for region_id in region:
@@ -145,7 +145,7 @@ class Elect(models.Model):
         else:
             return []
 
-    def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post_2, vk, tg, tw, ig, fb, mail, phone, address, site):
+    def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post_2, vk, tg, tw, ig, fb, mail, phone, address, i_address, site):
         from logs.model.manage_elect_new import ElectManageLog
 
         name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
@@ -164,6 +164,7 @@ class Elect(models.Model):
         self.mail = mail
         self.phone = phone
         self.address = address
+        self.i_address = i_address
         self.site = site
         self.save()
 

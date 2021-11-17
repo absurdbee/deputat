@@ -58,7 +58,7 @@ class RegisterSerializer(serializers.Serializer):
         users_count = User.objects.only("pk").count()
 
         self.cleaned_data = self.get_cleaned_data()
-        user.phone = users_count + 15600
+        user.phone = users_count + 156000
         city_pk = self.validated_data.get('city', '')
         if city_pk:
             user.city = City.objects.get(pk=city_pk)

@@ -19,9 +19,7 @@
         </span>
             |
         <span class="elect_lists">
-        {% for list in object.list.all %}
-          {% if object.get_first_list.category %}{{ object.get_first_list.category.name }} {% endif %}{{ object.name }}
-        {% endfor %}
+        {% if object.get_first_list.category %}{{ object.get_first_list.category.name }} {% endif %}{{ list.name }}
         </span>
         </span>
     </div>

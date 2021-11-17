@@ -16,10 +16,6 @@ from django.utils.formats import localize
 from datetime import date
 
 
-for log in ElectNewManageLog.objects.all():
-    if log.action_type == 'CCLO':
-        log.action_type == 'IPUB'
-        log.save(update_fields=["action_type"])
 
 user = User.objects.get(pk=1)
 today = date.today()

@@ -515,7 +515,7 @@ class User(AbstractUser):
         try:
             user, today = UserProfile.objects.get(user_id=self.pk), date.today()
             age = today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))
-            return str(localize(self.birthday)) + " (" + str(age) + ")"
+            return self.birthday
         except:
             return 'Не указано'
 

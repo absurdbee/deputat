@@ -204,7 +204,14 @@ on('body', 'click', '.create_survey_list_claim_btn', function() {
 
 on('body', 'click', '#change_code_send', function() {
     block = this.parentElement.parentElement.parentElement;
-    var phone = block.querySelector('#id_first_number').value + block.querySelector('#phone').value;
+
+    user_phone = block.querySelector("#phone").value;
+    _user_phone = user_phone.replace(/[^0-9]/g, '');
+    if (_user_phone[0] == "7" || _user_phone[0] == "8") {
+      _user_phone = _user_phone.slice(1)
+    };
+    phone = block.querySelector("#id_first_number").value + _user_phone;
+
     var code = document.body.querySelector('.block_verify').querySelector('#code').value;
     var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     request.open('GET', "/users/progs/change_phone_verify/" + phone + "/" + code + "/", true);
@@ -220,7 +227,12 @@ on('body', 'click', '#change_code_send', function() {
 
 on('body', 'click', '.change_phone_send', function() {
   block = this.parentElement.parentElement;
-  phone = block.querySelector('#id_first_number').value + block.querySelector('#phone').value;
+  user_phone = block.querySelector("#phone").value;
+  _user_phone = user_phone.replace(/[^0-9]/g, '');
+  if (_user_phone[0] == "7" || _user_phone[0] == "8") {
+    _user_phone = _user_phone.slice(1)
+  };
+  phone = block.querySelector("#id_first_number").value + _user_phone;
  var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
  request.open( 'GET', "/users/progs/change_phone_send/" + phone + "/", true );
  request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -244,7 +256,7 @@ on('body', 'click', '#u_deputat_send_btn', function() {
     form_data = new FormData(form);
     if (!form.querySelector("#id_text").value){
       form.querySelector("#id_text").style.border = "1px #FF0000 solid";
-      toast_error("Поле не может быть пустым!");
+      toast_error("Поле не может быть пустым!"); return
     } else { this.disabled = true };
     var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     request.open('POST', "/users/settings/deputat_send/", true);

@@ -140,6 +140,7 @@ on('body', 'click', '#u_create_video_btn', function() {
       form.querySelector("#id_list").style.border = "1px #FF0000 solid";
       toast_error("Выберите список!"); return
     } else { _this.disabled = true }
+  };
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link_.open( 'POST', "/video/user_progs/create_video/", true );

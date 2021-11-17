@@ -274,7 +274,7 @@ on('body', 'click', '#u_secret_key_btn', function() {
     form_data = new FormData(form);
     if (!form.querySelector("#id_key").value){
       form.querySelector("#id_key").style.border = "1px #FF0000 solid";
-      toast_error("Поле не может быть пустым!");
+      toast_error("Поле не может быть пустым!"); return
     } else { this.disabled = true };
     var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     request.open('POST', "/users/settings/create_secret_key/", true);

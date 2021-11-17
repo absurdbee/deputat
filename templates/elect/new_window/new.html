@@ -47,7 +47,7 @@
     </div>
     <div class="blog-detail-wrapper">
         <div class="card">
-            <div class="card-body" data-pk="{{ object.pk }}">
+            <div class="card-body" data-pk="{{ object.pk }}" style="overflow-x: auto;">
                 <h1 class="card-title" style="margin-bottom:7px">{{ object.title }}</h1>
                 <div class="media">
                     {% if object.elect %}
@@ -84,7 +84,7 @@
                 {{ object|get_attach:request.user|safe }}
                 {% endif %}
                 <hr class="my-2">
-                <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center justify-content-between" style="width: max-content;list-style: none;">
                     <div class="d-flex align-items-center">
                         {% if object.votes_on %}
                         <div class="d-flex align-items-center mr-1">

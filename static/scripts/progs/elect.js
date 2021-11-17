@@ -34,18 +34,8 @@ on('body', 'click', '.elect_inert', function() {
 });
 
 on('body', 'click', '#u_create_suggested_new_btn', function() {
-  _this = this, elect = false, elect_value = null;
+  _this = this;
   form = _this.parentElement.parentElement.parentElement;
-  if (form.querySelector("#id_elect")) {
-    elect_value = form.querySelector("#id_elect").value;
-    xxx = form.querySelector("#data-list");
-    elect_list = xxx.querySelectorAll("option");
-    for (var i = 0; i < elect_list.length; i++){
-      if (elect_value == elect_list[i].value) {
-        elect = true;
-      }
-    }
-  }
   form_data = new FormData(form);
 
   if (!form.querySelector("#id_title").value){
@@ -54,14 +44,10 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   } else if (!form.querySelector("#id_description").value){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
-  } else if (!elect_value){
-    try {
+  } else if (form.querySelector("#id_elect").value){
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid"
-  } catch { form.querySelector(".radio_gender_custom").style.border = "1px #FF0000 solid" };
-    toast_error("Выберите чиновника!"); return
-  } else if (!elect){
-    form.querySelector("#id_elect").style.border = "1px #FF0000 solid";
-    toast_error("Выберите чиновника из списка!"); return
+    toast_error("Выберите чиновника!");
+    return
   } else { _this.disabled = true };
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

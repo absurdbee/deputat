@@ -2,6 +2,9 @@
   float: left;
   margin-right: 10px
 }
+.border-danger {
+    border: 1px solid #EA5455 !important;
+}
 
 #id_tags {
   height: 170px

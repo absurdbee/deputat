@@ -189,7 +189,6 @@ on('body', 'click', '#logg', function() {
     form.querySelector("#id_username").style.display = "none";
 		user_phone = form.querySelector("#id_username").value;
 		_user_phone = user_phone.replace(/[^0-9]/g, '');
-		console.log(_user_phone);
 		if (_user_phone[0] == "7" || _user_phone[0] == "8") {
 			_user_phone = _user_phone.slice(1)
 		};
@@ -374,7 +373,13 @@ on('body', 'click', '.phone_send', function() {
 
 	on('body', 'click', '.recovery_phone_send', function() {
 	  block = this.parentElement.parentElement;
-	  phone = block.querySelector('#id_first_number').value + block.querySelector('#phone').value;
+
+		user_phone = form.querySelector("#phone").value;
+		_user_phone = user_phone.replace(/[^0-9]/g, ''); 
+		if (_user_phone[0] == "7" || _user_phone[0] == "8") {
+		  _user_phone = _user_phone.slice(1)
+		};
+		form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + _user_phone;
 	 var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
 	 request.open( 'GET', "/users/progs/recovery_phone_send/" + phone + "/", true );
 	 request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

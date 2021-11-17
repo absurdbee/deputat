@@ -513,8 +513,6 @@ class User(AbstractUser):
         from django.utils.formats import localize
 
         try:
-            user, today = UserProfile.objects.get(user_id=self.pk), date.today()
-            age = today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))
             return self.birthday
         except:
             return 'Не указано'

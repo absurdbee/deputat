@@ -49,7 +49,7 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
   if (!form.querySelector("#id_elect").value){
     form.querySelector("#id_elect").style.border = "1px #FF0000 solid"
     toast_error("Выберите чиновника!");
-    return
+    return 
   }}catch {
     toast_error("Нужно выбрать чиновника!");
     form.querySelector(".search_elect_field").style.border = "1px #FF0000 solid"

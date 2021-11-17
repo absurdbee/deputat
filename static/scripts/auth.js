@@ -379,7 +379,7 @@ on('body', 'click', '.phone_send', function() {
 		if (_user_phone[0] == "7" || _user_phone[0] == "8") {
 		  _user_phone = _user_phone.slice(1)
 		};
-		form.querySelector("#id_username").value = block.querySelector("#id_first_number").value + _user_phone;
+		phone = block.querySelector("#id_first_number").value + _user_phone;
 	 var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
 	 request.open( 'GET', "/users/progs/recovery_phone_send/" + phone + "/", true );
 	 request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

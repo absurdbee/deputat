@@ -19,5 +19,5 @@ from datetime import date
 
 user = User.objects.get(pk=1)
 today = date.today()
-age = today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))
-print ( str(localize(self.birthday)) + " (" + str(age) + ")")
+age = today.year - user.birthday.year - ((today.month, today.day) < (user.birthday.month, user.birthday.day))
+print ( str(localize(user.birthday)) + " (" + str(age) + ")")

@@ -188,12 +188,12 @@ on('body', 'click', '#logg', function() {
 
     form.querySelector("#id_username").style.display = "none";
 		user_phone = form.querySelector("#id_username").value;
-		user_phone = user_phone.replace(/[^+\d]/g, '');
-		console.log(user_phone);
-		if (user_phone[0] == "7" || user_phone[0] == "8") {
-			user_phone = user_phone.slice(1)
+		_user_phone = user_phone.replace(/[^+\d]/g, '');
+		console.log(_user_phone);
+		if (_user_phone[0] == "7" || _user_phone[0] == "8") {
+			_user_phone = _user_phone.slice(1)
 		};
-    form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + user_phone;
+    form.querySelector("#id_username").value = form.querySelector("#id_first_number").value + _user_phone;
 
   form_data = new FormData(form);
   link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

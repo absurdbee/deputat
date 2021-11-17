@@ -158,10 +158,10 @@ class UserLoadDocList(ListView):
 
 class ChangeTheme(View):
 	def get(self,request,*args,**kwargs):
-		from users.model.profile import UserProfile
-		theme = request.GET.get('theme')
-
-		profile = UserProfile.objects.get(user=request.user)
-		profile.theme = theme
-		profile.save(update_fields=["theme"])
+		if request.user.is_authenticated:
+			from users.model.profile import UserProfile
+			theme = request.GET.get('theme')
+			profile = UserProfile.objects.get(user=request.user)
+			profile.theme = theme
+			profile.save(update_fields=["theme"])
 		return HttpResponse()

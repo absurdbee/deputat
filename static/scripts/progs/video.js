@@ -123,7 +123,7 @@ on('body', 'click', '#u_create_video_btn', function() {
       _this.disabled = false; return
     }
   }
-  else if (!form.querySelector("#id_image")){
+  if (!form.querySelector("#id_image")){
     form.querySelector("#id_image").style.border = "1px #FF0000 solid";
     toast_error("Загрузите обложку к видео!"); return
   }

@@ -348,7 +348,7 @@ class ElectNewAddRepostCountVk(View):
             new.save(update_fields=["repost"])
             return response
         else:
-            pass
+            return HttpResponse()
 class ElectNewAddRepostCountFb(View):
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
@@ -363,7 +363,7 @@ class ElectNewAddRepostCountFb(View):
             new.save(update_fields=["repost"])
             return response
         else:
-            pass
+            return HttpResponse()
 class ElectNewAddRepostCountTg(View):
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
@@ -378,7 +378,7 @@ class ElectNewAddRepostCountTg(View):
             new.save(update_fields=["repost"])
             return response
         else:
-            pass
+            return HttpResponse()
 class ElectNewAddRepostCountTw(View):
     def get(self,request,*args,**kwargs):
         from blog.models import ElectNew
@@ -393,4 +393,4 @@ class ElectNewAddRepostCountTw(View):
             new.save(update_fields=["repost"])
             return response
         else:
-            pass
+            return HttpResponse()

@@ -122,7 +122,8 @@ on('body', 'click', '#u_create_track_btn', function() {
     get_preview(response, "track");
     toast_info("Аудиозапись создана!");
     init_music(document.body);
-    close_fullscreen()
+    close_fullscreen();
+    close_fullscreen();
   } else { _this.disabled = true }};
   link_.send(form_data);
 });

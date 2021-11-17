@@ -119,7 +119,8 @@ on('body', 'click', '#u_create_doc_btn', function() {
     response.innerHTML = elem;
     get_preview(response, "doc");
     toast_info("Документ создан!")
-    close_fullscreen()
+    close_fullscreen();
+    close_fullscreen();
   }};
 
   link_.send(form_data);

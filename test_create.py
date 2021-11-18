@@ -14,10 +14,8 @@ from logs.model.manage_elect_new import ElectNewManageLog
 from users.models import User
 from django.utils.formats import localize
 from datetime import date
+from notify.models import Wall
 
-
-
-user = User.objects.get(pk=1)
-today = date.today()
-age = today.year - user.birthday.year - ((today.month, today.day) < (user.birthday.month, user.birthday.day))
-print ( str(localize(user.birthday)) + " (" + str(age) + ")")
+for i in Wall.objects.all():
+    if i.type == Wall.ELECT_NEW and i.verb == Wall.ITEM:
+        print (i.title)

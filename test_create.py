@@ -18,4 +18,5 @@ from notify.models import Wall
 
 for i in Wall.objects.all():
     if i.type == 'ELN' and i.verb == "ITE":
-        print (i.title)
+        blog = ElectNew.objects.get(pk=i.object_id)
+        print (blog.title)

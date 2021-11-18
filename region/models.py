@@ -14,6 +14,7 @@ class Region(models.Model):
 	point = models.PositiveIntegerField(default=0, verbose_name="Общее количество кармы")
 	total_costs = models.PositiveIntegerField(default=0, verbose_name="Общие доходы граждан")
 	total_revenue = models.PositiveIntegerField(default=0, verbose_name="Общие расходы граждан")
+	is_deleted = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.name

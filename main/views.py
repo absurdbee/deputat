@@ -53,7 +53,7 @@ class MainMapView(TemplateView, CategoryListMixin):
 		from region.models import Region
 
 		context = super(MainMapView,self).get_context_data(**kwargs)
-		context["regions"] = Region.objects.only("pk")
+		context["regions"] = Region.objects.filter(is_deleted=False)
 		return context
 
 class MainStatView(TemplateView, CategoryListMixin):

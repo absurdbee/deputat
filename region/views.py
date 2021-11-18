@@ -43,7 +43,7 @@ class LoadSettingsCitiesView(TemplateView):
 	def get_context_data(self,**kwargs):
 		context = super(LoadSettingsCitiesView,self).get_context_data(**kwargs)
 		context["citys"] = self.citys
-		return context 
+		return context
 
 class LoadLeftMenuRegions(TemplateView):
 	template_name = "region/load_left_menu_regions.html"
@@ -51,7 +51,7 @@ class LoadLeftMenuRegions(TemplateView):
 	def get(self,request,*args,**kwargs):
 		from region.models import Region
 
-		self.regions = Region.objects.only("pk")
+		self.regions = Region.objects.filter(is_deleted=False)
 		return super(LoadLeftMenuRegions,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -65,7 +65,7 @@ class LoadLeftMenuRegionsSelect(TemplateView):
 	def get(self,request,*args,**kwargs):
 		from region.models import Region
 
-		self.regions = Region.objects.only("pk")
+		self.regions = Region.objects.filter(is_deleted=False)
 		return super(LoadLeftMenuRegionsSelect,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -108,7 +108,7 @@ class LoadRegionForSelectRegionalElects(TemplateView):
 	def get(self,request,*args,**kwargs):
 		from region.models import Region
 
-		self.regions = Region.objects.only("pk")
+		self.regions = Region.objects.filter(is_deleted=False)
 		return super(LoadRegionForSelectRegionalElects,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

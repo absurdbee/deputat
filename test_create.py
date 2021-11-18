@@ -17,4 +17,6 @@ from datetime import date
 from notify.models import Wall
 from region.models import Region
 
-Region.objects.get(name="Республика Северная Осетия — Алания").delete()
+reg = Region.objects.get(name="Республика Северная Осетия — Алания")
+reg.is_deleted = True
+reg.save()

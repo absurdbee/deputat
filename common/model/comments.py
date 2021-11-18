@@ -98,13 +98,13 @@ class BlogComment(models.Model):
                 user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP", None)
             else:
                 user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP", comment.parent.commenter.pk)
-            user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
+            #user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "REP")
         else:
             if comment.blog.creator.pk == comment.commenter.pk:
                 user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM", None)
             else:
                 user_comment_notify(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM", comment.blog.creator.pk)
-            user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
+            #user_comment_wall(comment.commenter, comment.pk, "BLOC", "u_blog_comment_notify", "COM")
         return comment
 
     def edit_comment(self, attach, text):
@@ -176,8 +176,8 @@ class BlogComment(models.Model):
             self.blog.save(update_fields=["comment"])
             if Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").update(status="C")
-        if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="C")
+        #if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="C")
     def restore_comment(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
@@ -195,8 +195,8 @@ class BlogComment(models.Model):
             self.blog.save(update_fields=["comment"])
             if Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").update(status="R")
-        if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="R")
+        #if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="R")
 
     def close_item(self):
         from notify.models import Notify, Wall
@@ -215,8 +215,8 @@ class BlogComment(models.Model):
             self.blog.save(update_fields=["comment"])
             if Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").update(status="C")
-        if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="C")
+        #if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -234,8 +234,8 @@ class BlogComment(models.Model):
             self.blog.save(update_fields=["comment"])
             if Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="BLOC", object_id=self.pk, verb__contains="COM").update(status="R")
-        if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="R")
+        #if Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="BLOC", object_id=self.pk, verb="COM").update(status="R")
 
     def send_like(self, user, community):
         import json
@@ -261,26 +261,26 @@ class BlogComment(models.Model):
                 if community:
                     from common.notify.notify import community_notify, community_wall
                     community_notify(user, community, None, self.pk, "BLOC", "c_blog_comment_notify", "LRE")
-                    community_wall(user, community, None, self.pk, "BLOC", "c_blog_comment_notify", "LCO")
+                    #community_wall(user, community, None, self.pk, "BLOC", "c_blog_comment_notify", "LCO")
                 else:
                     from common.notify.notify import user_notify, user_wall
                     if user.pk == self.commenter.pk:
                         user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LRE", None)
                     else:
                         user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LRE", self.commenter.pk)
-                    user_wall(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
+                    #user_wall(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
             else:
                 if community:
                     from common.notify.notify import community_notify, community_wall
                     community_notify(user, community, None, self.pk, "BLOC", "c_blog_comment_notify", "LCO")
-                    community_wall(user, community, None, self.pk, "BLOC", "c_blog_comment_notify", "LCO")
+                    #community_wall(user, community, None, self.pk, "BLOC", "c_blog_comment_notify", "LCO")
                 else:
                     from common.notify.notify import user_notify, user_wall
                     if user.pk == self.commenter.pk:
                         user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO", None)
                     else:
                         user_notify(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO", self.commenter.pk)
-                    user_wall(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
+                    #user_wall(user, None, self.pk, "BLOC", "u_blog_comment_notify", "LCO")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count())}),content_type="application/json")
 
     def is_closed(self):
@@ -422,13 +422,13 @@ class ElectNewComment(models.Model):
                 user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP", None)
             else:
                 user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP", comment.parent.commenter.pk)
-            user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
+            #user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "REP")
         else:
             if comment.new.creator.pk == comment.commenter.pk:
                 user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM", None)
             else:
                 user_comment_notify(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM", comment.new.creator.pk)
-            user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
+            #user_comment_wall(comment.commenter, comment.pk, "ELNC", "u_elect_new_comment_notify", "COM")
         get_elect_new_comment_processing(comment)
         return comment
 
@@ -497,8 +497,8 @@ class ElectNewComment(models.Model):
             self.new.save(update_fields=["comment"])
             if Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").update(status="C")
-        if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="C")
+        #if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="C")
     def restore_comment(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
@@ -516,8 +516,8 @@ class ElectNewComment(models.Model):
             self.new.save(update_fields=["comment"])
             if Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").update(status="R")
-        if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="R")
+        #if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="R")
 
     def close_item(self):
         from notify.models import Notify, Wall
@@ -536,8 +536,8 @@ class ElectNewComment(models.Model):
             self.new.save(update_fields=["comment"])
             if Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").update(status="C")
-        if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="C")
+        #if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -555,8 +555,8 @@ class ElectNewComment(models.Model):
             self.new.save(update_fields=["comment"])
             if Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="ELNC", object_id=self.pk, verb__contains="COM").update(status="R")
-        if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="R")
+        #if Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="ELNC", object_id=self.pk, verb="COM").update(status="R")
 
     def send_like(self, user, community):
         import json
@@ -576,26 +576,26 @@ class ElectNewComment(models.Model):
                 if community:
                     from common.notify.notify import community_notify, community_wall
                     community_notify(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LRE")
-                    community_wall(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LRE")
+                    #community_wall(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LRE")
                 else:
                     from common.notify.notify import user_notify, user_wall
                     if user.pk == self.commenter.pk:
                         user_notify(user, None, self.pk, "ELNC", "u_blog_comment_notify", "LRE", None)
                     else:
                         user_notify(user, None, self.pk, "ELNC", "u_blog_comment_notify", "LRE", self.commenter.pk)
-                    user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LRE")
+                    #user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LRE")
             else:
                 if community:
                     from common.notify.notify import community_notify, community_wall
                     community_notify(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LCO")
-                    community_wall(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LCO")
+                    #community_wall(user, community, None, self.pk, "ELNC", "c_elect_new_comment_notify", "LCO")
                 else:
                     from common.notify.notify import user_notify, user_wall
                     if user.pk == self.commenter.pk:
                         user_notify(user, None, self.pk, "ELNC", "u_blog_comment_notify", "LCO", None)
                     else:
                         user_notify(user, None, self.pk, "ELNC", "u_blog_comment_notify", "LCO", self.commenter.pk)
-                    user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO")
+                    #user_wall(user, None, self.pk, "ELNC", "u_elect_new_comment_notify", "LCO")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count())}),content_type="application/json")
 
     def is_closed(self):
@@ -693,13 +693,13 @@ class OrganizationComment(models.Model):
                 user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP", None)
             else:
                 user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP", comment.parent.commenter.pk)
-            user_comment_wall(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP")
+            #user_comment_wall(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "REP")
         else:
             if comment.new.creator.pk == comment.commenter.pk:
                 user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "COM", None)
             else:
                 user_comment_notify(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "COM", comment.new.creator.pk)
-            user_comment_wall(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "COM")
+            #user_comment_wall(comment.commenter, comment.pk, "ORGC", "u_org_comment_notify", "COM")
         get_organization_comment_processing(comment)
         return comment
 
@@ -768,8 +768,8 @@ class OrganizationComment(models.Model):
             self.organization.save(update_fields=["comment"])
             if Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").update(status="C")
-        if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="C")
+        #if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="C")
     def restore_comment(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
@@ -787,8 +787,8 @@ class OrganizationComment(models.Model):
             self.organization.save(update_fields=["comment"])
             if Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").update(status="R")
-        if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="R")
+        #if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="R")
 
     def close_item(self):
         from notify.models import Notify, Wall
@@ -807,8 +807,8 @@ class OrganizationComment(models.Model):
             self.organization.save(update_fields=["comment"])
             if Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").update(status="C")
-        if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="C")
+        #if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -826,8 +826,8 @@ class OrganizationComment(models.Model):
             self.new.save(update_fields=["comment"])
             if Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").exists():
                 Notify.objects.filter(type="ORGC", object_id=self.pk, verb__contains="COM").update(status="R")
-        if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
-            Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="R")
+        #if Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").exists():
+        #    Wall.objects.filter(type="ORGC", object_id=self.pk, verb="COM").update(status="R")
 
     def send_like(self, user, community):
         import json
@@ -847,20 +847,20 @@ class OrganizationComment(models.Model):
                 if community:
                     from common.notify.notify import community_notify, community_wall
                     community_notify(user, community, None, self.pk, "ORGC", "u_organization_comment_notify", "LRE")
-                    community_wall(user, community, None, self.pk, "ORGC", "u_organization_comment_notify", "LCO")
+                    #community_wall(user, community, None, self.pk, "ORGC", "u_organization_comment_notify", "LCO")
                 else:
                     from common.notify.notify import user_notify, user_wall
                     user_notify(user, None, self.pk, "ORGC", "u_organization_comment_notify", "LRE", self.commenter.pk)
-                    user_wall(user, None, self.pk, "ORGC", "u_organization_comment_notify", "LCO")
+                    #user_wall(user, None, self.pk, "ORGC", "u_organization_comment_notify", "LCO")
             else:
                 if community:
                     from common.notify.notify import community_notify, community_wall
                     community_notify(user, community, None, self.pk, "PHOC", "u_organization_comment_notify", "LCO")
-                    community_wall(user, community, None, self.pk, "PHOC", "u_organization_comment_notify", "LCO")
+                    #community_wall(user, community, None, self.pk, "PHOC", "u_organization_comment_notify", "LCO")
                 else:
                     from common.notify.notify import user_notify, user_wall
                     user_notify(user, None, self.pk, "ORGC", "u_organization_comment_notify", "LCO", self.commenter.pk)
-                    user_wall(user, None, self.pk, "ORGC", "u_organization_comment_notify", "LCO")
+                    #user_wall(user, None, self.pk, "ORGC", "u_organization_comment_notify", "LCO")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count())}),content_type="application/json")
 
     def is_closed(self):

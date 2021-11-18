@@ -618,7 +618,10 @@ class ElectNew(models.Model):
         return ElectNewVotes2.objects.filter(new_id=self.pk, vote="INE")
 
     def count_views(self):
-        return self.view
+        if self.view:
+            return self.view
+        else:
+            return ''
 
     def is_have_likes(self):
         return self.like > 0

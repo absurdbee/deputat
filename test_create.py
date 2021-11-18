@@ -15,13 +15,6 @@ from users.models import User
 from django.utils.formats import localize
 from datetime import date
 from notify.models import Wall
+from region.models import Region
 
-for i in Wall.objects.all():
-    if i.type == 'ELN' and i.verb == "ITE":
-        try:
-            new = ElectNew.objects.get(pk=i.object_id)
-            print (new.title)
-        except:
-            i.delete()
-    else:
-        i.delete()
+Region.objects.get(name="Республика Северная Осетия — Алания").delete()

@@ -387,6 +387,9 @@ html .pace .pace-progress {
   #profile-info{
     margin-top: 15px;
   }
+  .small_elect_img {
+    margin-top: 7px;
+  }
 }
 
 @media (max-width: 575.98px) {

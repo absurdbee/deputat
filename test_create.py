@@ -23,3 +23,5 @@ for i in Wall.objects.all():
             print (new.title)
         except:
             i.delete()
+    else:
+        i.delete()

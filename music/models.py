@@ -123,16 +123,16 @@ class SoundList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.type = SoundList.LIST
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
     def delete_list(self):
         from notify.models import Notify, Wall
@@ -145,8 +145,8 @@ class SoundList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
@@ -158,8 +158,8 @@ class SoundList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
     def close_item(self, community):
         from notify.models import Notify, Wall
@@ -174,8 +174,8 @@ class SoundList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -189,8 +189,8 @@ class SoundList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
     def get_user_staff_lists(cls, user_pk):
@@ -247,8 +247,8 @@ class SoundList(models.Model):
             list = cls.objects.create(creator=creator,name=name,description=description, order=order, community=community)
             if is_public:
                 from common.notify.progs import community_send_notify, community_send_wall
-                Wall.objects.create(creator_id=creator.pk, community_id=community.pk, type="MUL", object_id=list.pk, verb="ITE")
-                community_send_wall(list.pk, creator.pk, community.pk, None, "create_c_music_list_wall")
+                #Wall.objects.create(creator_id=creator.pk, community_id=community.pk, type="MUL", object_id=list.pk, verb="ITE")
+                #community_send_wall(list.pk, creator.pk, community.pk, None, "create_c_music_list_wall")
                 for user_id in community.get_member_for_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="MUL", object_id=list.pk, verb="ITE")
                     community_send_notify(list.pk, creator.pk, user_id, community.pk, None, "create_c_music_list_notify")
@@ -256,8 +256,8 @@ class SoundList(models.Model):
             list = cls.objects.create(creator=creator,name=name,description=description, order=order)
             if is_public:
                 from common.notify.progs import user_send_notify, user_send_wall
-                Wall.objects.create(creator_id=creator.pk, type="MUL", object_id=list.pk, verb="ITE")
-                user_send_wall(list.pk, None, "create_u_music_list_wall")
+                #Wall.objects.create(creator_id=creator.pk, type="MUL", object_id=list.pk, verb="ITE")
+                #user_send_wall(list.pk, None, "create_u_music_list_wall")
                 for user_id in creator.get_user_news_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUL", object_id=list.pk, verb="ITE")
                     user_send_notify(list.pk, creator.pk, user_id, None, "create_u_music_list_notify")
@@ -385,16 +385,16 @@ class Music(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.type = Music.PUBLISHED
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
     def is_private(self):
         return self.type == self.PRIVATE
@@ -423,8 +423,8 @@ class Music(models.Model):
                 from common.notify.progs import community_send_notify, community_send_wall
                 from notify.models import Notify, Wall
 
-                Wall.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="MUS", object_id=track.pk, verb="ITE")
-                community_send_wall(track.pk, creator.pk, community.pk, None, "create_c_track_wall")
+                #Wall.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="MUS", object_id=track.pk, verb="ITE")
+                #community_send_wall(track.pk, creator.pk, community.pk, None, "create_c_track_wall")
                 for user_id in community.get_member_for_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="MUS", object_id=track.pk, verb="ITE")
                     community_send_notify(track.pk, creator.pk, user_id, community.pk, None, "create_c_track_notify")
@@ -432,8 +432,8 @@ class Music(models.Model):
                 from common.notify.progs import user_send_notify, user_send_wall
                 from notify.models import Notify, Wall
 
-                Wall.objects.create(creator_id=creator.pk, type="MUS", object_id=track.pk, verb="ITE")
-                user_send_wall(track.pk, None, "create_u_track_wall")
+                #Wall.objects.create(creator_id=creator.pk, type="MUS", object_id=track.pk, verb="ITE")
+                #user_send_wall(track.pk, None, "create_u_track_wall")
                 for user_id in creator.get_user_news_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="MUS", object_id=track.pk, verb="ITE")
                     user_send_notify(track.pk, creator.pk, user_id, None, "create_u_track_notify")
@@ -505,8 +505,8 @@ class Music(models.Model):
             self.creator.minus_tracks(1)
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_track(self, community):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
@@ -522,8 +522,8 @@ class Music(models.Model):
             self.creator.plus_tracks(1)
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
     def close_item(self, community):
         from notify.models import Notify, Wall
@@ -540,8 +540,8 @@ class Music(models.Model):
             self.creator.minus_tracks(1)
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -557,8 +557,8 @@ class Music(models.Model):
             self.creator.plus_tracks(1)
         if Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="MUS", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_lists(self):
         return self.list.all()

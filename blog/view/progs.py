@@ -138,7 +138,7 @@ class EditElectNew(TemplateView):
         context["new"] = self.new
         context["elect_region_pk"] = self.elect_region.pk
         context["elect_lists"] = self.elect_lists
-        context["regions"] = Region.objects.only("pk")
+        context["regions"] = Region.objects.filter(is_deleted=False)
         return context
 
     def post(self,request,*args,**kwargs):
@@ -202,7 +202,7 @@ class EditManagerElectNew(TemplateView):
         context["new"] = self.new
         context["elect_region_pk"] = self.elect_region.pk
         context["elect_lists"] = self.elect_lists
-        context["regions"] = Region.objects.only("pk")
+        context["regions"] = Region.objects.filter(is_deleted=False)
         return context
 
     def post(self,request,*args,**kwargs):

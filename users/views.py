@@ -31,7 +31,7 @@ class SignupView(TemplateView):
 		from terms.models import Terms
 
 		context=super(SignupView,self).get_context_data(**kwargs)
-		context["regions"] = Region.objects.exclude(name="Все регионы")
+		context["regions"] = Region.objects.exclude(name="Все регионы", is_deleted=True)
 		context["terms_pk"] = Terms.objects.all().first().pk
 		return context
 

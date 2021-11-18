@@ -49,7 +49,7 @@ class OkrugElectDetailView(TemplateView, CategoryListMixin):
 		context=super(OkrugElectDetailView,self).get_context_data(**kwargs)
 		context["object"] = self.okrug
 		context["region"] = self.okrug.region
-		context["regions"] = Region.objects.only("pk")
+		context["regions"] = Region.objects.filter(is_deleted=False)
 		context["list"] = AuthorityList.objects.get(slug="candidate_duma")
 		context["okrug"] = Okrug.objects.filter(region=self.okrug.region)
 		return context

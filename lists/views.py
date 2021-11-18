@@ -23,7 +23,7 @@ class AuthorityListView(ListView, CategoryListMixin):
 		from region.models import Region
 		context = super(AuthorityListView,self).get_context_data(**kwargs)
 		context["list"] = self.list
-		context["regions"] = Region.objects.only("pk")
+		context["regions"] = Region.objects.filter(is_deleted=False)
 		return context
 
 
@@ -51,7 +51,7 @@ class RegionAuthorityListView(ListView, CategoryListMixin):
 		from region.models import Region
 		context = super(RegionAuthorityListView,self).get_context_data(**kwargs)
 		context["list"] = self.list
-		context["regions"] = Region.objects.only("pk")
+		context["regions"] = Region.objects.filter(is_deleted=False)
 		context["region"] = self.region
 		context["districts"] = self.districts
 		context["okrug"] = self.okrug

@@ -374,12 +374,18 @@ html .pace .pace-progress {
   html body.navbar-hidden .app-content {
     padding : calc(2rem - 0.8rem) calc(2rem - 0.8rem) 0 calc(2rem - 0.8rem) !important;
   }
+  .profile-header{
+    margin-top: 20px;
+  }
 
   .profile-header h1{
     font-size: 120%
   }
   .small_elect_img {
     height: 80px;
+  }
+  #profile-info{
+    margin-top: 15px;
   }
 }
 

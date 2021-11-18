@@ -19,7 +19,7 @@ from notify.models import Wall
 for i in Wall.objects.all():
     if i.type == 'ELN' and i.verb == "ITE":
         try:
-            blog = ElectNew.objects.get(pk=i.object_id)
-            print (blog.title)
+            new = ElectNew.objects.get(pk=i.object_id)
+            print (new.title)
         except:
-            print ("Ошибка")
+            i.delete()

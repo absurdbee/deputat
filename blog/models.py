@@ -256,14 +256,14 @@ class Blog(models.Model):
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "BLO", "c_blog_notify", "LIK")
-                community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "LIK")
+                #community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "LIK")
             else:
                 from common.notify.notify import user_notify, user_wall
                 if user.pk == self.creator.pk:
                     user_notify(user, None, self.pk, "BLO", "u_blog_notify", "LIK", None)
                 else:
                     user_notify(user, None, self.pk, "BLO", "u_blog_notify", "LIK", self.creator.pk)
-                user_wall(user, None, self.pk, "BLO", "u_blog_notify", "LIK")
+                #user_wall(user, None, self.pk, "BLO", "u_blog_notify", "LIK")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def send_dislike(self, user, community):
@@ -298,14 +298,14 @@ class Blog(models.Model):
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "BLO", "c_blog_notify", "DIS")
-                community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "DIS")
+                #community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "DIS")
             else:
                 from common.notify.notify import user_notify, user_wall
                 if user.pk == self.creator.pk:
                     user_notify(user, None, self.pk, "BLO", "u_blog_notify", "DIS", None)
                 else:
                     user_notify(user, None, self.pk, "BLO", "u_blog_notify", "DIS", self.creator.pk)
-                user_wall(user, None, self.pk, "BLO", "u_blog_notify", "DIS")
+                #user_wall(user, None, self.pk, "BLO", "u_blog_notify", "DIS")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def send_inert(self, user, community):
@@ -340,14 +340,14 @@ class Blog(models.Model):
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "BLO", "c_blog_notify", "INE")
-                community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "INE")
+                #community_wall(user, community, None, self.pk, "BLO", "c_blog_notify", "INE")
             else:
                 from common.notify.notify import user_notify, user_wall
                 if user.pk == self.creator.pk:
                     user_notify(user, None, self.pk, "BLO", "u_blog_notify", "INE", None)
                 else:
                     user_notify(user, None, self.pk, "BLO", "u_blog_notify", "INE", self.creator.pk)
-                user_wall(user, None, self.pk, "BLO", "u_blog_notify", "INE")
+                #user_wall(user, None, self.pk, "BLO", "u_blog_notify", "INE")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
 
@@ -746,7 +746,7 @@ class ElectNew(models.Model):
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
-                community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
+                #community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
             else:
                 from common.notify.notify import user_notify, user_wall
                 from notify.models import Notify
@@ -755,7 +755,7 @@ class ElectNew(models.Model):
                     user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK", None)
                 else:
                     user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK", self.creator.pk)
-                user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
+                #user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "LIK")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def send_dislike(self, user, community):
@@ -809,14 +809,14 @@ class ElectNew(models.Model):
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
-                community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
+                #community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
             else:
                 from common.notify.notify import user_notify, user_wall
                 if user.pk == self.creator.pk:
                     user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS", None)
                 else:
                     user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS", self.creator.pk)
-                user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
+                #user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "DIS")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def send_inert(self, user, community):
@@ -869,14 +869,14 @@ class ElectNew(models.Model):
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, self.pk, "ELN", "u_elect_new_notify", "INE")
-                community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "INE")
+                #community_wall(user, community, None, self.pk, "ELN", "u_elect_new_notify", "INE")
             else:
                 from common.notify.notify import user_notify, user_wall
                 if user.pk == self.creator.pk:
                     user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "INE", None)
                 else:
                     user_notify(user, None, self.pk, "ELN", "u_elect_new_notify", "INE", self.creator.pk)
-                user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
+                #user_wall(user, None, self.pk, "ELN", "u_elect_new_notify", "INE")
         return HttpResponse(json.dumps({"like_count": str(self.likes_count()),"dislike_count": str(self.dislikes_count()),"inert_count": str(self.inerts_count())}),content_type="application/json")
 
     def delete_item(self):

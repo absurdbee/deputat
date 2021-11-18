@@ -390,6 +390,10 @@ html .pace .pace-progress {
   .small_elect_img {
     margin-top: 7px;
   }
+  .elect_img {
+    height: 120px;
+    width: 140px;
+  }
 }
 
 @media (max-width: 575.98px) {

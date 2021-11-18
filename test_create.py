@@ -17,5 +17,5 @@ from datetime import date
 from notify.models import Wall
 
 for i in Wall.objects.all():
-    if i.type == Wall.ELECT_NEW and i.verb == Wall.ITEM:
+    if i.type == 'ELN' and i.verb == "ITE":
         print (i.title)

@@ -359,7 +359,7 @@ class ElectNew(models.Model):
         (DELETED_REJECTED, 'удалена отклоненная'),(DELETED_SUGGESTED, 'удалена предложенная'),(CLOSED_SUGGESTED, 'предложенная менеджерский'),(DELETED_MANAGER, 'удалена менеджерский'),(CLOSED_MANAGER, 'закрыта менеджерский'),(REJECTED, 'отклонена модератором')
     )
     title = models.CharField(max_length=255, verbose_name="Название")
-    created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Создан")
     description = models.TextField(max_length=5000, blank=True, verbose_name="Описание")
     elect = models.ForeignKey(Elect, null=True, on_delete=models.SET_NULL, related_name="new_elect", verbose_name="Чиновник")
     category = models.ForeignKey(ElectNewsCategory, on_delete=models.SET_NULL, related_name="elect_cat", blank=True, null=True, verbose_name="Категория активности")
@@ -556,6 +556,7 @@ class ElectNew(models.Model):
         self.category = category
         self.comments_enabled = comments_enabled
         self.votes_on = votes_on
+        self.created = timezone.now()
         self.save()
 
         get_elect_new_processing(self, ElectNew.PUBLISHED)

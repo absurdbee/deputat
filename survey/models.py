@@ -145,8 +145,8 @@ class SurveyList(models.Model):
             list = cls.objects.create(creator=creator,name=name,description=description, order=order, community=community)
             if is_public:
                 from common.notify.progs import community_send_notify, community_send_wall
-                Wall.objects.create(creator_id=creator.pk, community_id=community.pk, type="SUL", object_id=list.pk, verb="ITE")
-                community_send_wall(list.pk, creator.pk, community.pk, None, "create_c_survey_list_wall")
+                #Wall.objects.create(creator_id=creator.pk, community_id=community.pk, type="SUL", object_id=list.pk, verb="ITE")
+                #community_send_wall(list.pk, creator.pk, community.pk, None, "create_c_survey_list_wall")
                 for user_id in community.get_member_for_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="SUL", object_id=list.pk, verb="ITE")
                     community_send_notify(list.pk, creator.pk, user_id, community.pk, None, "create_c_survey_list_notify")
@@ -154,8 +154,8 @@ class SurveyList(models.Model):
             list = cls.objects.create(creator=creator,name=name,description=description, order=order)
             if is_public:
                 from common.notify.progs import user_send_notify, user_send_wall
-                Wall.objects.create(creator_id=creator.pk, type="SUL", object_id=list.pk, verb="ITE")
-                user_send_wall(list.pk, None, "create_u_survey_list_wall")
+                #Wall.objects.create(creator_id=creator.pk, type="SUL", object_id=list.pk, verb="ITE")
+                #user_send_wall(list.pk, None, "create_u_survey_list_wall")
                 for user_id in creator.get_user_news_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="SUL", object_id=list.pk, verb="ITE")
                     user_send_notify(list.pk, creator.pk, user_id, None, "create_u_survey_list_notify")
@@ -213,8 +213,8 @@ class SurveyList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="C")
     def restore_list(self):
         from notify.models import Notify, Wall
         if self.type == "TDEL":
@@ -224,8 +224,8 @@ class SurveyList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="R")
 
     def close_item(self, community):
         from notify.models import Notify, Wall
@@ -238,8 +238,8 @@ class SurveyList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -251,8 +251,8 @@ class SurveyList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="SUL", object_id=self.pk, verb="ITE").update(status="R")
 
 
 class Survey(models.Model):
@@ -332,8 +332,8 @@ class Survey(models.Model):
             from notify.models import Notify, Wall
 
             community.plus_surveys(1)
-            Wall.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="SUR", object_id=survey.pk, verb="ITE")
-            community_send_wall(doc.pk, creator.pk, community.pk, None, "create_c_survey_wall")
+            #Wall.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="SUR", object_id=survey.pk, verb="ITE")
+            #community_send_wall(doc.pk, creator.pk, community.pk, None, "create_c_survey_wall")
             for user_id in community.get_member_for_notify_ids():
                 Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="SUR", object_id=survey.pk, verb="ITE")
                 community_send_notify(doc.pk, creator.pk, user_id, community.pk, None, "create_c_survey_notify")
@@ -342,8 +342,8 @@ class Survey(models.Model):
             from notify.models import Notify, Wall
 
             creator.plus_surveys(1)
-            Wall.objects.create(creator_id=creator.pk, type="SUR", object_id=survey.pk, verb="ITE")
-            user_send_wall(survey.pk, None, "create_u_survey_wall")
+            #Wall.objects.create(creator_id=creator.pk, type="SUR", object_id=survey.pk, verb="ITE")
+            #user_send_wall(survey.pk, None, "create_u_survey_wall")
             for user_id in creator.get_user_news_notify_ids():
                 Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="SUR", object_id=survey.pk, verb="ITE")
                 user_send_notify(survey.pk, creator.pk, user_id, None, "create_u_survey_notify")
@@ -451,8 +451,8 @@ class Survey(models.Model):
             self.creator.minus_surveys(1)
         if Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
     def restore_survey(self, community):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
@@ -466,8 +466,8 @@ class Survey(models.Model):
             self.creator.plus_surveys(1)
         if Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
 
     def close_item(self, community):
         from notify.models import Notify, Wall
@@ -482,8 +482,8 @@ class Survey(models.Model):
             self.creator.minus_surveys(1)
         if Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -497,8 +497,8 @@ class Survey(models.Model):
             self.creator.plus_surveys(1)
         if Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="SUR", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_lists(self):
         return self.list.all()
@@ -569,11 +569,11 @@ class Answer(models.Model):
             if community:
                 from common.notify.notify import community_notify, community_wall
                 community_notify(user, community, None, survey.pk, "SUR", "c_survey_vote_notify", "SVO")
-                community_wall(user, community, None, survey.pk, "SUR", "c_survey_vote_wall", "SVO")
+                #community_wall(user, community, None, survey.pk, "SUR", "c_survey_vote_wall", "SVO")
             else:
                 from common.notify.notify import user_notify, user_wall
                 user_notify(user, None, survey.pk, "SUR", "u_survey_vote_notify", "SVO", self.creator.pk)
-                user_wall(user, None, survey.pk, "SUR", "u_survey_vote_wall", "SVO")
+                #user_wall(user, None, survey.pk, "SUR", "u_survey_vote_wall", "SVO")
         return HttpResponse(json.dumps({"votes": survey.get_votes_count()}), content_type="application/json")
 
 

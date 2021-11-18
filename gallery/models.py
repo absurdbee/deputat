@@ -136,8 +136,8 @@ class PhotoList(models.Model):
             list = cls.objects.create(creator=creator,name=name,description=description, order=order, community=community)
             if is_public:
                 from common.notify.progs import community_send_notify, community_send_wall
-                Wall.objects.create(creator_id=creator.pk, community_id=community.pk, type="PHL", object_id=list.pk, verb="ITE")
-                community_send_wall(list.pk, creator.pk, community.pk, None, "create_c_photo_list_wall")
+                #Wall.objects.create(creator_id=creator.pk, community_id=community.pk, type="PHL", object_id=list.pk, verb="ITE")
+                #community_send_wall(list.pk, creator.pk, community.pk, None, "create_c_photo_list_wall")
                 for user_id in community.get_member_for_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, community_id=community.pk, recipient_id=user_id, type="PHL", object_id=list.pk, verb="ITE")
                     community_send_notify(list.pk, creator.pk, user_id, community.pk, None, "create_c_photo_list_notify")
@@ -145,8 +145,8 @@ class PhotoList(models.Model):
             list = cls.objects.create(creator=creator,name=name,description=description, order=order)
             if is_public:
                 from common.notify.progs import user_send_notify, user_send_wall
-                Wall.objects.create(creator_id=creator.pk, type="PHL", object_id=list.pk, verb="ITE")
-                user_send_wall(list.pk, None, "create_u_photo_list_wall")
+                #Wall.objects.create(creator_id=creator.pk, type="PHL", object_id=list.pk, verb="ITE")
+                #user_send_wall(list.pk, None, "create_u_photo_list_wall")
                 for user_id in creator.get_user_news_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type="PHL", object_id=list.pk, verb="ITE")
                     user_send_notify(list.pk, creator.pk, user_id, None, "create_u_photo_list_notify")
@@ -202,16 +202,16 @@ class PhotoList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.type = PhotoList.LIST
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
 
     def delete_list(self):
         from notify.models import Notify, Wall
@@ -224,8 +224,8 @@ class PhotoList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_list(self):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
@@ -237,8 +237,8 @@ class PhotoList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="PHL", object_id=self.pk, verb="ITE").update(status="R")
 
     def close_item(self, community):
         from notify.models import Notify, Wall
@@ -253,8 +253,8 @@ class PhotoList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -268,8 +268,8 @@ class PhotoList(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="DOL", object_id=self.pk, verb="ITE").update(status="R")
 
     @classmethod
     def get_user_staff_lists(cls, user_pk):
@@ -387,16 +387,16 @@ class Photo(models.Model):
                 from common.notify.progs import community_send_notify, community_send_wall
                 from notify.models import Notify, Wall
                 community_id = community.pk
-                Wall.objects.create(creator_id=creator.pk, community_id=community_id, recipient_id=user_id, type='PHO', object_id=photo.pk, verb="ITE")
-                community_send_wall(photo.pk, creator.pk, community_id, None, "create_c_photo_wall")
+                #Wall.objects.create(creator_id=creator.pk, community_id=community_id, recipient_id=user_id, type='PHO', object_id=photo.pk, verb="ITE")
+                #community_send_wall(photo.pk, creator.pk, community_id, None, "create_c_photo_wall")
                 for user_id in list.community.get_member_for_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, community_id=community_id, recipient_id=user_id, type='PHO', object_id=photo.pk, verb="ITE")
                     community_send_notify(photo.pk, creator.pk, user_id, community_id, None, "create_c_photo_notify")
             else:
                 from common.notify.progs import user_send_notify, user_send_wall
                 from notify.models import Notify, Wall
-                Wall.objects.create(creator_id=creator.pk, type='PHO', object_id=photo.pk, verb="ITE")
-                user_send_wall(photo.pk, None, "create_u_photo_wall")
+                #Wall.objects.create(creator_id=creator.pk, type='PHO', object_id=photo.pk, verb="ITE")
+                #user_send_wall(photo.pk, None, "create_u_photo_wall")
                 for user_id in creator.get_user_news_notify_ids():
                     Notify.objects.create(creator_id=creator.pk, recipient_id=user_id, type='PHO', object_id=photo.pk, verb="ITE")
                     user_send_notify(photo.pk, creator.pk, user_id, None, "create_u_photo_notify")
@@ -432,16 +432,16 @@ class Photo(models.Model):
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
     def make_publish(self):
         from notify.models import Notify, Wall
         self.type = Photo.PUBLISHED
         self.save(update_fields=['type'])
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
 
     def delete_photo(self, community):
         from notify.models import Notify, Wall
@@ -458,8 +458,8 @@ class Photo(models.Model):
             self.creator.minus_photos(1)
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="C")
     def abort_delete_photo(self, community):
         from notify.models import Notify, Wall
         if self.type == "_DEL":
@@ -475,8 +475,8 @@ class Photo(models.Model):
             self.creator.plus_photos(1)
         if Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="PHO", object_id=self.pk, verb="ITE").update(status="R")
 
     def close_item(self, community):
         from notify.models import Notify, Wall
@@ -493,8 +493,8 @@ class Photo(models.Model):
             self.creator.minus_photos(1)
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
-        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
+        #if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="C")
     def abort_close_item(self, community):
         from notify.models import Notify, Wall
         if self.type == "_CLO":
@@ -510,8 +510,8 @@ class Photo(models.Model):
             self.creator.plus_photos(1)
         if Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
             Notify.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
-        if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
-            Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
+        #if Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").exists():
+        #    Wall.objects.filter(type="DOC", object_id=self.pk, verb="ITE").update(status="R")
 
     def get_type(self):
         return self.list.all()[0].type

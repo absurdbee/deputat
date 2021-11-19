@@ -5,6 +5,12 @@
 .border-danger {
     border: 1px solid #EA5455 !important;
 }
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    pointer-events: none;
+    display: block;
+    opacity: 0.6;
+}
 
 #id_tags {
   height: 170px

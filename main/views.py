@@ -15,7 +15,7 @@ class MainPageView(ListView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_full_template("main/", "mainpage.html", request.user, request.META['HTTP_USER_AGENT'])
 		if ElectNew.objects.filter(is_fixed=True).exists():
-			fix_object = ElectNew.objects.get(is_fixed=True)
+			self.fix_object = ElectNew.objects.filter(is_fixed=True).first()
 		return super(MainPageView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

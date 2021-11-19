@@ -40,6 +40,9 @@
             </div>
 
             <div class="content-body news_stream mt-1 is_paginate">
+              {% if object_fixed %}
+                
+              {% endif %}
               {% load notify %}
               {% for object in object_list %}
                 {{ object|get_notify:request.user|safe }}

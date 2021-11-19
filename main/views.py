@@ -8,6 +8,7 @@ import json, requests
 from common.templates import render_for_platform, get_full_template
 from blog.models import ElectNew
 
+
 class MainPageView(ListView, CategoryListMixin):
 	template_name, paginate_by, fix_object = None, 15, None
 

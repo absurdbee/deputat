@@ -43,7 +43,7 @@
               {% if fix_object %}
                 {% include 'main/list/fix_new.html' %}
               {% endif %}
-              
+
               {% load notify %}
               {% for object in object_list %}
                 {{ object|get_notify:request.user|safe }}

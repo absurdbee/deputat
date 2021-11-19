@@ -41,8 +41,9 @@
 
             <div class="content-body news_stream mt-1 is_paginate">
               {% if fix_object %}
-
+                {% include 'main/list/fix_new.html' %}
               {% endif %}
+              
               {% load notify %}
               {% for object in object_list %}
                 {{ object|get_notify:request.user|safe }}

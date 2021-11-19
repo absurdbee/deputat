@@ -16,6 +16,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 200px;
+    min-height: 35px;
 }
 
 #id_tags {

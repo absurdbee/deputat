@@ -393,7 +393,7 @@ class ElectNew(models.Model):
         import re
         _description = self.description[:180]
         TAG_RE = re.compile(r'<[^>]+>')
-        return TAG_RE.sub('', _fdescription)
+        return TAG_RE.sub('', _description)
 
     def fixed(self):
         if ElectNew.objects.filter(is_fixed=True).exists():

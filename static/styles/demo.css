@@ -11,6 +11,12 @@
     display: block;
     opacity: 0.6;
 }
+.smile_supported {
+    height: auto !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 200px;
+}
 
 #id_tags {
   height: 170px

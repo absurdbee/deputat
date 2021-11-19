@@ -68,16 +68,6 @@ class Blog(models.Model):
         from django.urls import reverse
         return reverse('blog_detail',kwargs={"slug":self.slug})
 
-    def fixed(self):
-        if ElectNew.objects.filter(is_fixed=True).exists():
-            ElectNew.objects.filter(is_fixed=True).update(is_fixed=False)
-        self.is_fixed = True
-        self.save(update_fields=["is_fixed"])
-
-    def unfixed(self):
-        self.is_fixed = False
-        self.save(update_fields=["is_fixed"])
-
     @classmethod
     def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on):
         from notify.models import Wall
@@ -398,6 +388,16 @@ class ElectNew(models.Model):
 
     def __str__(self):
         return self.title
+
+    def fixed(self):
+        if ElectNew.objects.filter(is_fixed=True).exists():
+            ElectNew.objects.filter(is_fixed=True).update(is_fixed=False)
+        self.is_fixed = True
+        self.save(update_fields=["is_fixed"])
+
+    def unfixed(self):
+        self.is_fixed = False
+        self.save(update_fields=["is_fixed"])
 
     def get_absolute_url(self):
         from django.urls import reverse

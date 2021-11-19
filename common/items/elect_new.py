@@ -51,7 +51,7 @@ def wall_elect_new(user, elect_new):
 
     return ''.join([block, '<div class="card mb-1 pag"><div class="event_card" data-pk="' + str(elect_new.pk) + '"><div class="event_img text-center"><span><span>\
     <img class="img-fluid pointer elect_new_window card-img-top elect_img" src="' + elect_new.get_image() + '" alt="img"></span></span></div><div class="card-body event_body">\
-    <h4 class="event_name"><div style="display: flex;"><span class="text-body elect_new_window pointer">' + elect_new.title + '</span>\
+    <h4 class="event_name"><div style="display: flex;"><span class="text-body elect_new_window pointer">' + elect_new.title + '<span class="fix_span"></span></span>\
     <div class="dropdown" style="margin-left: auto;"><a style="cursor:pointer" class="icon-circle icon-30 btn_default drop">\
     <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path>\
     <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z">\

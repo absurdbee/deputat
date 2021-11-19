@@ -1202,7 +1202,7 @@ on('body', 'click', '.get_read_support_message', function() {
 
 on('body', 'click', '.u_elect_new_fixed', function() {
   item_send_change(this, "/blog/progs/fixed/", "u_elect_new_unfixed", "Открепить")
-});
+}); 
 on('body', 'click', '.u_elect_new_unfixed', function() {
   item_send_change(this, "/blog/progs/unfixed/", "u_elect_new_fixed", "Закрепить")
 });

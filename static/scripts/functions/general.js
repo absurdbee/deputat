@@ -711,8 +711,13 @@ function mob_send_change(span, _link, new_class, html) {
 function item_send_change(span, _link, new_class, html) {
     parent = span.parentElement;
     item = span.parentElement.parentElement.parentElement.parentElement;
+    if (item.getAttribute("data-pk")) {
+      pk = item.getAttribute("data-pk")
+    } else {
+      pk = item.parentElement.parentElement.parentElement.getAttribute("data-pk")
+    };
     link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-    link.open('GET', _link + item.getAttribute("data-pk") + "/", true);
+    link.open('GET', _link + pk + "/", true);
     link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     link.onreadystatechange = function() {
         if (link.readyState == 4 && link.status == 200) {

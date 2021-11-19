@@ -30,11 +30,13 @@
             </div>
 
             <div class="content-body news_stream mt-1 is_paginate">
+              {% if fix_object %}
+                {% include 'main/list/anon_fix_new.html' %}
+              {% endif %}
+
               {% load notify %}
               {% for object in object_list %}
-                <div class="card mb-1 pag">
-                  {{ object|get_notify:request.user|safe }}
-                </div>
+                {{ object|get_notify:request.user|safe }}
               {% endfor %}
               {% if page_obj.has_next %}
               <div class="load centered m-1 next_page_list" data-link="{% url 'main' %}?page={{ page_obj.next_page_number }}">

@@ -1,3 +1,15 @@
+function format_text(text) {
+  text.innerHTML = text.innerHTML.replace(/<(?!img)(?!br)\/?[a-z][^>]*(>|$)/gi, "").replace(/\&nbsp;/g, ' ');
+  brs = text.querySelectorAll("br");
+  img = text.querySelectorAll("img")
+  for (var i = 0; i < brs.length; i++){
+    brs[i].removeAttribute("style")
+  };
+  for (var i = 0; i < img.length; i++){
+    img[i].removeAttribute("style")
+  }
+  return text
+};
 
 function show_hide_password(target){
 	var input = target.previousElementSibling;

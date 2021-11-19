@@ -67,8 +67,18 @@ on('body', 'click', '.manager_elect_restore', function() {
 
 
 function post_elect_new(_this, url, toast) {
+
   elect_id = false;
   form = _this.parentElement.parentElement.parentElement;
+
+  text_val = form.querySelector(".smile_supported");
+  _val = format_text(text_val);
+  $input = document.createElement("input");
+  $input.setAttribute("name", "description");
+  $input.setAttribute("type", "hidden");
+  $input.value = _val.innerHTML;
+  form.append($input);
+
   form_data = new FormData(form);
   try {
     if (form.querySelector("#id_elect").value){
@@ -78,7 +88,7 @@ function post_elect_new(_this, url, toast) {
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!"); return
-  } else if (!form.querySelector("#id_description").value){
+  } else if (!form.querySelector("#id_description").innerHTML){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
   } else if (!elect_id){

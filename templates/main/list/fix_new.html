@@ -40,8 +40,8 @@
        </h4>
        <div class="card-text event_description">
          <span>
-           <span class="elect_new_window pointer">{{ fix_object.description|truncatechars:180|safe }}</span>
-         </span>
+           <span class="elect_new_window pointer">{{ fix_object.get_description|safe }}</span>
+         </span> 
          <br><br>
          <a class="mt-1 ajax" style="text-decoration:underline" href="/elect/{{ fix_object.elect.pk }}">
            {{ fix_object.elect.name }}

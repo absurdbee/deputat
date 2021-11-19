@@ -389,6 +389,12 @@ class ElectNew(models.Model):
     def __str__(self):
         return self.title
 
+    def get_description(self):
+        import re
+        _description = self.description[:180]
+        TAG_RE = re.compile(r'<[^>]+>')
+        return TAG_RE.sub('', _fdescription)
+
     def fixed(self):
         if ElectNew.objects.filter(is_fixed=True).exists():
             ElectNew.objects.filter(is_fixed=True).update(is_fixed=False)

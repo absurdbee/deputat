@@ -23,4 +23,7 @@ urlpatterns = [
     url(r'^add_repost_count_elect_new_fb/(?P<pk>\d+)/$', ElectNewAddRepostCountFb.as_view()),
     url(r'^add_repost_count_elect_new_tg/(?P<pk>\d+)/$', ElectNewAddRepostCountTg.as_view()),
     url(r'^add_repost_count_elect_new_tw/(?P<pk>\d+)/$', ElectNewAddRepostCountTw.as_view()),
+
+    url(r'^fixed/(?P<pk>\d+)/$', ElectNewFixed.as_view()),
+    url(r'^unfixed/(?P<pk>\d+)/$', ElectNewUnFixed.as_view()),
 ]

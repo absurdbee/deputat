@@ -394,3 +394,26 @@ class ElectNewAddRepostCountTw(View):
             return response
         else:
             return HttpResponse()
+
+
+class ElectNewFixed(View):
+	def get(self,request,*args,**kwargs):
+		from blog.models import ElectNew
+
+		new = ElectNew.objects.get(pk=self.kwargs["pk"])
+		if request.is_ajax() and request.user.is_manager():
+			new.fixed()
+			return HttpResponse()
+		else:
+			raise Http404
+
+class ElectNewUnFixed(View):
+    def get(self,request,*args,**kwargs):
+        from blog.models import ElectNew
+
+        new = ElectNew.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax() and request.user.is_manager():
+            new.unfixed()
+            return HttpResponse()
+        else:
+            raise Http404

@@ -49,7 +49,7 @@ loadScripts('/static/scripts/functions/general.js');
 loadScripts('/static/scripts/functions/comment_attach.js');
 loadScripts('/static/scripts/functions/elect_new_attach.js');
 loadScripts('/static/scripts/functions/preview.js');
-loadScripts('/static/scripts/main.js?ver2');
+loadScripts('/static/scripts/main.js?ver3');
 loadScripts('/static/scripts/progs/blog.js');
 loadScripts('/static/scripts/progs/elect.js?ver2');
 loadScripts('/static/scripts/progs/user.js');

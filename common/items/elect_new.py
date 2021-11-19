@@ -66,7 +66,7 @@ def wall_elect_new(user, elect_new):
 
 def get_wall_elect_new(user, notify):
     new = ElectNew.objects.get(pk=notify.object_id)
-    if "_" in new.type:
+    if "_" in new.type or new.is_fixed:
         return ''
     elif notify.type == "ELN":
         return wall_elect_new(user, new)

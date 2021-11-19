@@ -18,6 +18,12 @@
     max-height: 200px;
     min-height: 35px;
 }
+.dark-layout .smile_supported {
+  border-color: #404656;
+  background-color: #283046;
+  color: #B4B7BD;
+}
+}
 
 #id_tags {
   height: 170px

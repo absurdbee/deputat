@@ -6,17 +6,20 @@ from django.views import View
 from django.http import Http404
 import json, requests
 from common.templates import render_for_platform, get_full_template
-
+from blog.models import ElectNew
 
 class MainPageView(ListView, CategoryListMixin):
-	template_name, paginate_by = None, 15
+	template_name, paginate_by, fix_object = None, 15, None
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_full_template("main/", "mainpage.html", request.user, request.META['HTTP_USER_AGENT'])
+		if ElectNew.objects.filter(is_fixed=True).exists():
+			fix_object = ElectNew.objects.filter(is_fixed=True).first()
 		return super(MainPageView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(MainPageView,self).get_context_data(**kwargs)
+		context["fix_object"] = self.fix_object
 		return context
 
 	def get_queryset(self):

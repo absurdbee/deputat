@@ -36,12 +36,20 @@ on('body', 'click', '.elect_inert', function() {
 on('body', 'click', '#u_create_suggested_new_btn', function() {
   _this = this;
   form = _this.parentElement.parentElement.parentElement;
+  text_val = form.querySelector(".smile_supported");
+  _val = format_text(text_val);
+  $input = document.createElement("input");
+  $input.setAttribute("name", "description");
+  $input.setAttribute("type", "hidden");
+  $input.value = _val.innerHTML;
+  form.append($input);
+
   form_data = new FormData(form);
 
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!"); return
-  } else if (!form.querySelector("#id_description").value){
+  } else if (!form.querySelector("#id_description").innerHTML){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
   };
@@ -62,8 +70,6 @@ on('body', 'click', '#u_create_suggested_new_btn', function() {
 
   link_.onreadystatechange = function () {
   if ( this.readyState == 4 && this.status == 200 ) {
-    toast_info("Новость предложена!")
-
     form.parentElement.innerHTML = '<div class="card card-congratulations mt-4"><div class="card-body text-center"><img src="/static/images/left.png" class="congratulations-img-left" alt="card-img-left"><img src="/static/images/right.png" class="congratulations-img-right" alt="card-img-right"><div class="avatar avatar-xl bg-primary shadow"><div class="avatar-content"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award font-large-1"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div></div><div class="text-center"><h2 class="mb-1 text-white">Благодарим, новость создана!</h2><p class="card-text m-auto w-75">Новость будет опубликована после проверки модераторами.</p><h4 class="card-text m-auto w-75 this_mob_fullscreen_hide underline text-white pt-2 pointer">Понятно</h4></div></div></div>';
   }};
 

@@ -59,12 +59,9 @@ on('body', 'click', '.load_media_list', function(el) {
 		}
 });
 
-on('body', 'keydown', '.form-control', function(e) {
+on('body', 'keydown', '.search-control', function(e) {
   if (e.keyCode == 13) {
-		if (this.classList.contains("custom_supported")){
-			this.setAttribute("rows", this.getAttribute("rows")*1 + 1);
-		}
-		else if (this.classList.contains("elect_search_input")){
+		if (this.classList.contains("elect_search_input")){
 			// нажатие на enter формы поиска на левой панели
 			if (this.value.length < 3) {
 				toast_info("Поиск работает от 3х букв"); return

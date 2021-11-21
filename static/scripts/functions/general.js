@@ -1157,6 +1157,7 @@ function send_comment(form, block, link, prepend) {
             new_post.innerHTML = elem;
             prepend == "prepend" ? block.insertAdjacentHTML('afterBegin', new_post.innerHTML) : block.append(new_post);
             toast_success(" Комментарий опубликован");
+            form.querySelector(".smile_supported").innerHTML = "";
             form.querySelector(".comment_attach_block").innerHTML = "";
             form.querySelector(".type_hidden").remove();
             try {

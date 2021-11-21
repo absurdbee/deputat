@@ -277,16 +277,27 @@ on('body', 'click', '.blogEditComment', function() {
 function edit_comment_post(form, url) {
   span_form = form.parentElement;
   block = span_form.parentElement.parentElement.parentElement;
-  form_comment = new FormData(form);
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  link_.open('POST', url, true);
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  if (!form.querySelector(".text-comment").value && !form.querySelector(".comment_attach_block").firstChild){
+
+  text_val = form.querySelector(".smile_supported");
+  _val = format_text(text_val);
+  _text = _val.innerHTML;
+  if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && !form.querySelector(".comment_attach_block").innerHTML) {
     toast_error("Напишите или прикрепите что-нибудь");
     form.querySelector(".text-comment").style.border = "1px #FF0000 solid";
     form.querySelector(".dropdown").style.border = "1px #FF0000 solid";
     return
   };
+  $input = document.createElement("input");
+  $input.setAttribute("name", "text");
+  $input.setAttribute("type", "hidden");
+  $input.classList.add("type_hidden");
+  $input.value = _text;
+  form.append($input);
+
+  form_comment = new FormData(form);
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+  link_.open('POST', url, true);
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   link_.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           elem = link_.responseText;

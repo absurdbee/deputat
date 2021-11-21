@@ -1130,6 +1130,20 @@ window.addEventListener('popstate', function (e) {
 });
 
 function send_comment(form, block, link, prepend) {
+    text_val = form.querySelector(".smile_supported");
+    _val = format_text(text_val);
+    _text = _val.innerHTML;
+    if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && !form.querySelector(".img_block").innerHTML) {
+      toast_error("Напишите или прикрепите что-нибудь");
+      return
+    };
+    $input = document.createElement("input");
+    $input.setAttribute("name", "text");
+    $input.setAttribute("type", "hidden");
+    $input.classList.add("type_hidden");
+    $input.value = _text;
+    form.append($input);
+
     form_comment = new FormData(form);
     link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     link_.open('POST', link, true);
@@ -1149,6 +1163,7 @@ function send_comment(form, block, link, prepend) {
             prepend == "prepend" ? block.insertAdjacentHTML('afterBegin', new_post.innerHTML) : block.append(new_post);
             toast_success(" Комментарий опубликован");
             form.querySelector(".comment_attach_block").innerHTML = "";
+            form.querySelector(".type_hidden").remove();
             try {
                 form_dropdown = form.querySelector(".current_file_dropdown");
                 form_dropdown.classList.remove("current_file_dropdown");

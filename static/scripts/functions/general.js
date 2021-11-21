@@ -1149,12 +1149,6 @@ function send_comment(form, block, link, prepend) {
     link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     link_.open('POST', link, true);
     link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    if (!form.querySelector(".text-comment").value && !form.querySelector(".comment_attach_block").firstChild){
-      toast_error("Напишите или прикрепите что-нибудь");
-      form.querySelector(".text-comment").style.border = "1px #FF0000 solid";
-      form.querySelector(".dropdown").style.border = "1px #FF0000 solid";
-      return
-    };
     link_.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             form.querySelector(".text-comment").value = "";

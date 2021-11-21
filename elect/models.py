@@ -8,6 +8,11 @@ from django.db.models import Q
 
 
 class Elect(models.Model):
+    SUGGESTED, PUBLISHED, DELETED_SUGGESTED, DELETED_PUBLISHED = 'SUG','PUB','DES','DEP'
+    TYPE = (
+        (SUGGESTED, 'на рассмотрении'), (PUBLISHED, 'опубликован'),(DELETED_SUGGESTED, 'удален предложенный'),(DELETED_PUBLISHED, 'удален опубликованый'),
+    )
+
     name = models.CharField(max_length=255, verbose_name="ФИО")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 100}, upload_to="elect/%Y/%m/%d/", processors=[Transpose(), ResizeToFit(width=500, upscale=False)], verbose_name="Аватар")
     description = models.CharField(max_length=700, blank=True, verbose_name="Образование")
@@ -42,6 +47,7 @@ class Elect(models.Model):
 
     old = models.BooleanField(default=False, verbose_name="Старый депутат")
     is_deleted = models.BooleanField(default=False, verbose_name="Удаленный депутат")
+    type = models.CharField(choices=TYPE, default=PUBLISHED, max_length=5, verbose_name="Статус депутата")
 
     class Meta:
         verbose_name = "Чиновник"

@@ -7,7 +7,7 @@
                   <div class="row comment_attach_block no-gutters"></div>
                   <span style="display:flex">
                       {% include 'blog/dropdown.html' %}
-                      <textarea rows="2" name="text" placeholder="Напишите комментарий" class="form-control text-comment custom_supported" style="margin-bottom:5px"></textarea>
+                      <div contenteditable="true" class="form-control text smile_supported text-comment" placeholder="Напишите комментарий"></div>
                   </span>
                     <input type="hidden" name="elect_new" value="{{ object.pk }}">
                     <div class="col-12">

@@ -4,7 +4,7 @@
             <form class="form">
                 {% csrf_token %}
                 <div class="row comment_attach_block no-gutters"></div>
-                <span style="display:flex">
+                <span style="display: -webkit-box;">
                     {% include 'blog/dropdown.html' %}
                     <div style="display: inline-block;" contenteditable="true" class="form-control text smile_supported text-comment" placeholder="Напишите комментарий"></div>
                 </span>

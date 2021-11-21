@@ -17,7 +17,7 @@ class ElectDetailView(TemplateView, CategoryListMixin):
         from django.http import Http404
 
         self.elect = Elect.objects.get(pk=self.kwargs["pk"])
-        if self.elect.is_deleted:
+        if self.elect.type != 'PUB':
             raise Http404
         self.template_name = get_full_template("elect/elect/" , "elect.html", request.user, request.META['HTTP_USER_AGENT'])
         if request.user.is_authenticated:

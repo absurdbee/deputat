@@ -22,7 +22,7 @@ class ElectAdmin(ImportExportModelAdmin):
         LinkElectInline,
         EducationElectInline,
     ]
-    list_display = ['name', ]
+    list_display = ['name', 'type']
     list_filter = ['list',]
     search_fields = ['name',]
     resource_class = ElectResource

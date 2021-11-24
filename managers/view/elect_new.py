@@ -449,20 +449,20 @@ class DeleteManagerElect(View):
     def get(self,request,*args,**kwargs):
         from elect.models import Elect
 
-        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        elect = Elect.objects.get(pk=self.kwargs["pk"])
 
         if request.is_ajax() and request.user.is_supermanager():
-            self.elect.type == 'DEP'
-            self.elect.save(update_fields=["type"])
+            elect.type == 'DEP'
+            elect.save(update_fields=["type"])
         return HttpResponse()
 
 class RestoreManagerElect(View):
     def get(self,request,*args,**kwargs):
         from elect.models import Elect
 
-        self.elect = Elect.objects.get(pk=self.kwargs["pk"])
+        elect = Elect.objects.get(pk=self.kwargs["pk"])
 
         if request.is_ajax() and request.user.is_supermanager():
-            self.elect.type == 'PUB'
-            self.elect.save(update_fields=["type"])
+            elect.type == 'PUB'
+            elect.save(update_fields=["type"])
         return HttpResponse()

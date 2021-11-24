@@ -454,7 +454,9 @@ class DeleteManagerElect(View):
         if request.is_ajax() and request.user.is_supermanager():
             elect.type == 'DEP'
             elect.save(update_fields=["type"])
-        return HttpResponse()
+            return HttpResponse()
+        else:
+            return HttpResponseBadRequest()
 
 class RestoreManagerElect(View):
     def get(self,request,*args,**kwargs):

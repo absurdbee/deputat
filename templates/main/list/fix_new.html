@@ -54,7 +54,7 @@
          <a class="mt-1 ajax" style="text-decoration:underline" href="/elect/{{ fix_object.elect.pk }}">
            {{ fix_object.elect.name }}
          </a>
-         <div style="padding: 5px;position: absolute;bottom: 3px;width: 100%;">
+         <div class="block_meta_saver">
            <span class="like {% if fix_object.likes|user_in:request.user %}btn_success{% else %}btn_default{% endif %} elect_new_like pointer" title="Нравится">
              <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
                <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"></path>

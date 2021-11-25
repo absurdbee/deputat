@@ -5,6 +5,12 @@
 .prev_item, .next_item {
   font-weight: bold
 }
+.block_meta_saver {
+  padding: 5px;
+  position: absolute;
+  bottom: 3px;
+  width: 100%;
+}
 
 .border-danger {
     border: 1px solid #EA5455 !important;
@@ -757,6 +763,9 @@ line-height: 1;
 }
 .event_blog_description {
   display: unset !important;
+}
+.block_meta_saver {
+  position: relative;
 }
 }
 

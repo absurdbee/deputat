@@ -760,7 +760,7 @@ line-height: 1;
 }
 .event_description{
   display: unset !important;
-  padding-bottom: 0;
+  padding-bottom: 0 !important;
 }
 .event_blog_description {
   display: unset !important;

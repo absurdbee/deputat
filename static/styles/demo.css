@@ -760,13 +760,13 @@ line-height: 1;
 }
 .event_description{
   display: unset !important;
+  padding-bottom: 0;
 }
 .event_blog_description {
   display: unset !important;
 }
 .block_meta_saver {
   position: relative;
-  padding-bottom: 0;
 }
 }
 

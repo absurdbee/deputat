@@ -766,6 +766,7 @@ line-height: 1;
 }
 .block_meta_saver {
   position: relative;
+  padding-bottom: 0;
 }
 }
 

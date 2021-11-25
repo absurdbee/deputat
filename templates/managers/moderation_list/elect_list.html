@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Предлагаемые чиновники{% endblock %}
+{% block content %}
+
+<div class="content-body manager">
+    <section class="app-user-edit">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8 col-md-7">
+                      <h1 class="mb-0 mb-3">Предлагаемые чиновники</h1>
+                        <div class="card user-card is_paginate">
+
+                          {% for object in object_list %}
+                              {% include 'elect/elect_index_card.html' %}
+                          {% empty %}
+                          <div class="card centered mt-5">
+                            <div class="card-body">
+                              <h6> Жалоб пока нет...</h6>
+                            </div>
+                          </div>
+                          {% endfor %}
+                          {% if page_obj.has_next %}
+                          <div class="load centered m-1 next_page_list" data-link="/managers/moderation_list/elect_new/?page={{ page_obj.next_page_number }}">
+                              <img src="/static/images/loading.gif">
+                          </div>
+                          {% endif %}
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-5">
+                  Сайдбарчик
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+</div>
+{% endblock %}

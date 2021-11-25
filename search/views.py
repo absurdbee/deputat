@@ -5,7 +5,7 @@ from django.views.generic import ListView
 from django.db.models import Q
 
 
-class SearchView(ListView):
+class SearchView(ListView, CategoryListMixin):
     template_name, paginate_by = None, 20
 
     def get(self,request,*args,**kwargs):
@@ -39,7 +39,7 @@ class SearchView(ListView):
             return Elect.objects.filter(name__icontains=self.elect)
 
 
-class AllElectSearch(ListView):
+class AllElectSearch(ListView, CategoryListMixin):
     template_name, paginate_by = None, 20
 
     def get(self,request,*args,**kwargs):
@@ -73,7 +73,7 @@ class ElectAddElectNewSearch(TemplateView):
         return context
 
 
-class TagsSearch(ListView):
+class TagsSearch(ListView, CategoryListMixin):
     template_name, paginate_by = None, 20
 
     def get(self,request,*args,**kwargs):

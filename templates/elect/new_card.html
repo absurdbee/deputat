@@ -18,7 +18,7 @@
     </div>
   </div>
   <span><span><span>
-    <p class="card-text mb-50 pointer elect_new_window">{{ object.description|truncatechars:300 }}</p>
+    <p class="card-text mb-50 pointer elect_new_window">{{ object.description|truncatechars:300|safe }}</p>
   </span></span></span>
   <span><span>
   <div style="padding: 5px;bottom: 3px;width: 100%;">

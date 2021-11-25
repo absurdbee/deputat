@@ -31,10 +31,10 @@
 }
 #fullscreen_loader {
   position: absolute;
-  left: 15px;
-  right: 15px;
-  top: 10px;
-  bottom: 50px;
+  left: 12px;
+  right: 12px;
+  top: 0px;
+  bottom: 20px;
 }
 
 .has-sub .menu-content {

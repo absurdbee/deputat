@@ -64,6 +64,21 @@ class ModerationElectNew(ListView, CategoryListMixin):
     def get_queryset(self):
         return Moderated.get_moderation_elect_news()
 
+class ModerationElect(ListView, CategoryListMixin):
+    template_name, paginate_by = None, 15
+
+    def get(self,request,*args,**kwargs):
+        if request.user.is_elect_new_manager():
+            self.template_name = get_detect_platform_template("managers/moderation_list/elect_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(ModerationElect,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        from elect.models import Elect
+        return Elect.objects.filter(type="SUG")
+
+
 class ModerationBlog(ListView, CategoryListMixin):
     template_name, paginate_by = None, 15
 

@@ -1,0 +1,109 @@
+<form class="pt-4">
+  {% csrf_token %}
+  <div class="row no-gutters">
+    <div style="flex: 0 0 100%;max-width:100%;padding:5px;">
+      <a class="btn btn-sm border this_mob_fullscreen_hide" style="width: -webkit-fill-available;">
+        <svg fill="currentColor" class="svg_default" style="width: 17px;" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+      </a>
+    </div>
+  </div>
+    <div class="card mb-3">
+        <div class="card-header border-bottom">
+            <h5 class="content-color-primary mb-0">Создание чиновника</h5>
+            <p>Поля, помеченные звездочкой (*) обязательны к заполнению.</p>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+              <label>ФИО *</label>
+              <input type="text" name="name" class="form-control" id="id_name">
+            </div>
+            <div class="form-group">
+              <label>Образование</label>
+              <textarea style="height: 100px;" type="text" rows="2" name="description" class="form-control custom_supported" id="id_description"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Аватар</label>
+              <p>Формат: png, jpg, jpeg, webp </p>
+              <span>
+                <input style="display: none;" id="id_image" type="file" name="image" accept="image/*">
+              </span>
+              <div id="holder_image" style="border: 2px dashed blue;padding: 10px;text-align: center;margin: 10px;cursor:pointer">
+                <img class="img-fluid rounded" src="/static/images/list.jpg" alt="Img default" style="height: 100px;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Орган власти *</label>
+              <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
+              <select name="list" id="id_list" multiple="">
+                {% for list in lists %}
+                  <option value="{{ list.pk }}">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Должность</label>
+              <input type="text" name="post_2" class="form-control" id="id_post">
+            </div>
+            <div class="form-group">
+              <label>Регионы *</label>
+              <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
+              {{ form.region }}
+            </div>
+
+            <div class="form-group"></div>
+            <div class="form-group">
+              <label>Дата рождения</label><br>
+              <input class="form-control" type="date" id="id_birthday" name="birthday">
+            </div>
+            <div class="form-group">
+              <label>Фракция (если есть)</label>
+              {{ form.fraction }}
+            </div>
+
+            <div class="form-group">
+              <label>Ссылка на VK</label>
+              <input type="text" name="vk" class="form-control" id="id_vk">
+            </div>
+            <div class="form-group">
+              <label>Ссылка на Facebook</label>
+              <input type="text" name="fb" class="form-control" id="id_fb">
+            </div>
+            <div class="form-group">
+              <label>Ссылка на Instagram</label>
+              <input type="text" name="ig" class="form-control" id="id_ig">
+            </div>
+            <div class="form-group">
+              <label>Ссылка на Telegram</label>
+              <input type="text" name="tg" class="form-control" id="id_tg">
+            </div>
+            <div class="form-group">
+              <label>Ссылка на Twitter</label>
+              <input type="text" name="tw" class="form-control" id="id_tw">
+            </div>
+            <div class="form-group">
+              <label>Электронная почта</label>
+              <input type="text" name="mail" class="form-control" id="id_mail">
+            </div>
+            <div class="form-group">
+              <label>Телефон</label>
+              <input type="text" name="phone" class="form-control" id="id_phone">
+            </div>
+            <div class="form-group">
+              <label>Адрес (приёмная)</label>
+              <input type="text" name="address" class="form-control" id="id_address">
+            </div>
+            <div class="form-group">
+              <label>Интернет-приёмная</label>
+              <input type="text" name="i_address" class="form-control" id="id_i_address">
+            </div>
+            <div class="form-group">
+              <label>Сайт</label>
+              <input type="text" name="site" class="form-control" id="id_site">
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn custom_color border this_fullscreen_hide" style="position: absolute;">Отмена</button>
+            <button id="suggest_elect_btn" type="button" class="btn btn-success float-right">Отправить</button>
+        </div>
+    </div>
+</form>

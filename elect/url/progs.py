@@ -5,4 +5,5 @@ from elect.view.progs import *
 urlpatterns = [
     url(r'^subscribe/(?P<pk>\d+)/$', ElectSubscribe.as_view()),
     url(r'^unsubscribe/(?P<pk>\d+)/$', ElectUnSubscribe.as_view()),
+    url(r'^suggest_elect/$', CreateSuggestElect.as_view()),
 ]

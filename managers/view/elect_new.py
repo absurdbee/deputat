@@ -284,9 +284,11 @@ class RejectElectNew(View):
             post = self.form_post.save(commit=False)
             obj = post.get_or_create_moderated_object("ELE", self.elect_new.pk)
             obj.description = post.description
-            obj.save(update_fields=["description"])
+            obj.status = "SR"
+            obj.save(update_fields=["description", "status"])
             self.elect_new.type = "_REJ"
             self.elect_new.save(update_fields=["type"])
+            ElectNewManageLog.objects.create(item=post.pk, manager=request.user.pk, action_type=ElectNewManageLog.SUGGEST_ITEM_REJECT)
             return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest

@@ -1,4 +1,4 @@
-ITEM, SUGGEST_ITEM, ELECT_NEW_CONFIRMED, COMMUNITY_CONFIRMED, ORGANIZATION_CONFIRMED = "ITE", "SIT", "ELNC", "COMC", "ORGC"
+ITEM, SUGGEST_ITEM, ELECT_NEW_CONFIRMED, COMMUNITY_CONFIRMED, ORGANIZATION_CONFIRMED, ELECT_CONFIRMED = "ITE", "SIT", "ELNC", "COMC", "ORGC", "ELEC"
 COMMENT, WOMEN_COMMENT, GROUP_COMMENT = 'COM', 'WCOM', 'GCOM'
 REPLY, WOMEN_REPLY, GROUP_REPLY = 'REP', 'WREP', 'GREP'
 
@@ -19,7 +19,7 @@ REGISTER, WOMEN_REGISTER, GROUP_REGISTER = 'REG', 'WREG', 'GREG'
 UNREAD, READ, DELETED, CLOSED = 'U', 'R', 'D', 'C'
 
 VERB = (
-    (ITEM, ' разместил'), (ELECT_NEW_CONFIRMED, 'Ваша новость одобрена'), (COMMUNITY_CONFIRMED, 'Ваше сообщество одобрено'), (ORGANIZATION_CONFIRMED, 'Ваша организация одобрено'),
+    (ITEM, ' разместил'), (ELECT_NEW_CONFIRMED, 'Ваша новость одобрена'), (COMMUNITY_CONFIRMED, 'Ваше сообщество одобрено'), (ORGANIZATION_CONFIRMED, 'Ваша организация одобрено'), (ELECT_CONFIRMED, 'Чиновник одобрен'),
     (COMMENT, ' написал'), (WOMEN_COMMENT, ' написала'), (GROUP_COMMENT, ' написали'),
     (REPLY, ' ответил на'), (WOMEN_REPLY, ' ответила на'), (GROUP_REPLY, ' ответили на'),
 

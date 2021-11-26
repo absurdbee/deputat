@@ -3,7 +3,7 @@
 {% load manager_tags %}
 {% block content %}
 
-<div class="content-body manager">
+<div class="content-body manager main-container">
     <section class="app-user-edit">
         <div class="card">
             <div class="card-body">
@@ -13,7 +13,7 @@
                         <div class="card user-card is_paginate">
 
                           {% for object in object_list %}
-                              {{ object|get_blog_items:request.user|safe }} 
+                              {{ object|get_blog_items:request.user|safe }}
                           {% empty %}
                           <div class="card centered mt-5">
                             <div class="card-body">

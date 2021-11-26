@@ -2,7 +2,7 @@
 {% block title %}Фракция Госдумы | {% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}{% endblock %}
 {% block content %}
 
-<section class="container pt-sm-5 pb-4">
+<section class="container pt-sm-5 pb-4 main-container">
       <h2 class="h3 text-sm-left m-0">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</h2>
       <div class="row pt-0 is_paginate">
         {% for object in object_list %}

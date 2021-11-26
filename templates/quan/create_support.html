@@ -14,7 +14,13 @@
         <div class="card-body">
             <div class="form-group">
               <label>Выберите тему</label>
-              {{ form.type }}
+              <select class="form-control" name="type" id="id_type">
+                <option value="CH">Для правообладателей</option>
+                <option value="TP">Обращение в техподдержку</option>
+                <option value="QU" selected="">Вопрос / предложение</option>
+                <option value="CO">Сотрудничество</option>
+                <option value="PA">Помощь проекту</option>
+              </select>
             </div>
             <div class="form-group">
               <label>Ваше сообщение</label>

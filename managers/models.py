@@ -339,13 +339,14 @@ TYPE = (
 
 class Moderated(models.Model):
     # рассмотрение жалобы на объект, получаемфй по attach. Применение санкций или отвергание жалобы. При применении удаление жалоб-репортов
-    PENDING, SUSPEND, CLOSE, BANNER_GET, REJECTED = 'P', 'S', 'C', 'BG', 'R'
+    PENDING, SUSPEND, CLOSE, BANNER_GET, REJECTED, SUGGEST_REJECTED = 'P', 'S', 'C', 'BG', 'R', 'SR'
     STATUS = (
         (PENDING, 'На рассмотрении'),
         (SUSPEND, 'Объект заморожен'),
         (CLOSE, 'Объект закрыт'),
         (BANNER_GET, 'Объекту присвоен баннер'),
-        (REJECTED, 'Отвергнутый'),
+        (REJECTED, 'Жалобы удалены'),
+        (SUGGEST_REJECTED, 'Предложенный элемент не прошел проверку'),
     )
     description = models.TextField(max_length=300, blank=True, verbose_name="Описание")
     verified = models.BooleanField(default=False, verbose_name="Проверено")

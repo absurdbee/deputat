@@ -2,7 +2,7 @@
 {% block title %}{{ list.name }} | Мои опросы{% endblock %}
 {% block content %}
 
-<div class="container mt-3 pk_saver" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
+<div class="container mt-3 pk_saver main-container" data-pk="{{ user.pk }}" data-uuid="{{ list.uuid }}">
   <div class="breadcrumb-wrapper">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a class="ajax" href="{% url 'user' pk=list.creator.pk %}">{{ list.creator }}</a></li>
@@ -34,7 +34,7 @@
             <img src="/static/images/loading.gif">
         </div>
         {% endif %}
-        
+
         {% else %}
         <div class="card centered item_empty">
           <div class="card-body">

@@ -2,7 +2,7 @@
 {% block title %}Движения Вашей кармы{% endblock %}
 {% block content %}
 
-<div class="row" id="table-contextual">
+<div class="row main-container" id="table-contextual">
     <div class="col-12">
         <div class="card">
           {% include 'profile/settings/nav.html' %}
@@ -38,7 +38,7 @@
                             <td>{{ object.total }}</td>
                         </tr>
                       {% endfor %}
-                      
+
                     </tbody>
                 </table>
             </div>

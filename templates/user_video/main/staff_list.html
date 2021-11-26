@@ -3,7 +3,7 @@
 {% load filters %}
 {% block content %}
 
-<div class="content-body pk_saver" data-pk="{{ user.pk }}">
+<div class="content-body pk_saver main-container" data-pk="{{ user.pk }}">
     <section class="app-user-edit">
         <div class="card">
             <div class="card-body">
@@ -96,7 +96,7 @@
             <img src="/static/images/loading.gif">
           </div>
         {% endif %}
-        
+
         {% else %}
         <div class="card centered item_empty">
           <div class="card-body">

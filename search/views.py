@@ -36,7 +36,7 @@ class SearchView(ListView, CategoryListMixin):
         elif self.tag:
             return ElectNew.objects.filter(tags__name=self.tag)
         elif self.elect:
-            return Elect.objects.filter(name__icontains=self.elect)
+            return Elect.objects.filter(name__icontains=self.elect, type='PUB')
 
 
 class AllElectSearch(ListView, CategoryListMixin):

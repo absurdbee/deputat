@@ -32,7 +32,7 @@ class SearchView(ListView, CategoryListMixin):
 
         if self._all:
             query = Q(title__icontains=self._all)|Q(description__icontains=self._all)
-            return list(chain(ElectNew.objects.filter(query), Elect.objects.filter(name__icontains=self._all)))
+            return list(chain(ElectNew.objects.filter(query), Elect.objects.filter(name__icontains=self._all, type='PUB')))
         elif self.tag:
             return ElectNew.objects.filter(tags__name=self.tag)
         elif self.elect:
@@ -49,7 +49,7 @@ class AllElectSearch(ListView, CategoryListMixin):
 
     def get_queryset(self):
         from elect.models import Elect
-        return Elect.objects.filter(name__icontains=self.query)
+        return Elect.objects.filter(name__icontains=self.query, type='PUB')
 
     def get_context_data(self,**kwargs):
         context=super(AllElectSearch,self).get_context_data(**kwargs)
@@ -69,7 +69,7 @@ class ElectAddElectNewSearch(TemplateView):
         from elect.models import Elect
         context=super(ElectAddElectNewSearch,self).get_context_data(**kwargs)
         context["query"] = self.query
-        context["list"] = Elect.objects.filter(name__icontains=self.query).exclude(list__slug="candidate_municipal")
+        context["list"] = Elect.objects.filter(name__icontains=self.query, type='PUB').exclude(list__slug="candidate_municipal")
         return context
 
 

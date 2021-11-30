@@ -61,8 +61,8 @@
                         <div class="custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" id="register_" checked onchange="document.getElementById('register_ajax').disabled = !this.checked;" tabindex="4">
                             <label class="custom-control-label" for="register_">
-                                Я принимаю <a href="{% url 'terms' pk=terms_pk %}" class="ajax underline">Правила сайта</a>,
-                                а также даю согласие на обработку моих персональных данных
+                                Я принимаю <a href="{% url 'terms' pk=1 %}" class="ajax underline">Правила сайта</a>,
+                                а также даю согласие на <a href="{% url 'policy' pk=1 %}" class="ajax underline">обработку моих персональных данных</a>
                             </label>
                         </div>
                     </div>

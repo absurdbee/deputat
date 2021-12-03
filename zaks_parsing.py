@@ -55,7 +55,6 @@ def main():
 
     soup = BeautifulSoup(html, 'lxml')
     container = soup.find('div', class_='authors list-materials')
-    print (container)
     blocks = container.find_all('div', class_='material')
 
     for item in blocks:

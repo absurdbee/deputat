@@ -36,8 +36,10 @@ def get_page_data(html):
 
     name = soup.find('h2').text
 
-
-    image_src = block.find('img')['src']
+    try:
+        image_src = block.find('img')['src']
+    except:
+        image_src = None
     _blocks = block.find_all('p')
     try:
         birthday_block = _blocks[0].text

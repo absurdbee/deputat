@@ -32,10 +32,11 @@ def get_links(url):
 
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
-
-    name = soup.find('h2', class_='senators_title')
-
     block = soup.find('div', class_="tab-content col-xs-8 col-md-9")
+
+    name = block.find('h2')
+
+
     image_src = block.find('img')['src']
     birthday_block = block.find('p').text
     _birthday_block = birthday_block.replace("  ", " ")

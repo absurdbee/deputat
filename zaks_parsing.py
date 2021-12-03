@@ -38,13 +38,17 @@ def get_page_data(html):
 
 
     image_src = block.find('img')['src']
-    birthday_block = block.find('p').text
-    if " " in birthday_block:
+    _blocks = block.find_all('p')
+    try:
+        birthday_block = _blocks[0].text
         _birthday_block = birthday_block.replace("  ", " ")
-    else:
-        _birthday_block = birthday_block
-    __birthday_block = _birthday_block.split(" ")
-    birthday = __birthday_block[1] + " " + __birthday_block[2] + " " + __birthday_block[3]
+        __birthday_block = _birthday_block.split(" ")
+        birthday = __birthday_block[1] + " " + __birthday_block[2] + " " + __birthday_block[3]
+    except:
+        birthday_block = _blocks[1].text
+        _birthday_block = birthday_block.replace("  ", " ")
+        __birthday_block = _birthday_block.split(" ")
+        birthday = __birthday_block[1] + " " + __birthday_block[2] + " " + __birthday_block[3]
 
     data = {'name': name,
             'image': image_src,

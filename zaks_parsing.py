@@ -58,7 +58,7 @@ def main():
     blocks = container.find_all('div', class_='material')
 
     for item in blocks:
-        html = get_html(item.find('a'))
+        html = get_html(item.find('a')['href'])
         data = get_page_data(html)
 
         aaa = item.find_all('a')

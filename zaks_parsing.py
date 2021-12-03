@@ -51,8 +51,9 @@ def get_page_data(html):
 
 def main():
     _list = AuthorityList.objects.get(slug="zaks_2021")
+    html = get_html("https://www.assembly.spb.ru/authors/show_convocation/7/")
 
-    soup = BeautifulSoup("https://www.assembly.spb.ru/authors/show_convocation/7/", 'lxml')
+    soup = BeautifulSoup(html, 'lxml')
     container = soup.find('div', class_='authors list-materials')
     print (container)
     blocks = container.find_all('div', class_='material')

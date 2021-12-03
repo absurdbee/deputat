@@ -34,7 +34,7 @@ def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     block = soup.find('div', class_="tab-content col-xs-8 col-md-9")
 
-    name = block.find('h2')
+    name = soup.find('h2').text
 
 
     image_src = block.find('img')['src']
@@ -43,7 +43,7 @@ def get_page_data(html):
     __birthday_block = _birthday_block.split(" ")
     birthday = __birthday_block[1] + " " + __birthday_block[2] + " " + __birthday_block[3]
 
-    data = {'name': name.text,
+    data = {'name': name,
             'image': image_src,
             'birthday': birthday.replace('Дата рождения: ', ''),
             }

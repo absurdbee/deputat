@@ -37,7 +37,7 @@ def get_page_data(html):
     name = soup.find('h2').text
 
     try:
-        image_src = block.find('img')['src']
+        image_src = "https://www.assembly.spb.ru/" + block.find('img')['src']
     except:
         image_src = None
     _blocks = block.find_all('p')
@@ -89,21 +89,15 @@ def main():
         if Elect.objects.filter(list=_list, name=data["name"]).exists():
             print("чиновник уже есть - ", data["name"])
         else:
-            #new_elect = Elect.objects.create(name=data["name"],birthday=data["birthday"],fraction=fraction)
-            #region = Region.objects.get(name="Санкт-Петербург")
-            #region.elect_region.add(new_elect)
-            #if data["image"]:
-            #    new_elect.get_remote_image(data["image"])
+            new_elect = Elect.objects.create(name=data["name"],birthday=data["birthday"],fraction=fraction)
+            region = Region.objects.get(name="Санкт-Петербург")
+            region.elect_region.add(new_elect)
+            if data["image"]:
+                new_elect.get_remote_image(data["image"])
 
-            #list = AuthorityList.objects.get(slug="senat")
-            #list.elect_list.add(new_elect)
-
-            #print("новый закс - ", data["name"])
-            print("name - ", data["name"])
-            print("image - ", data["image"])
-            print("birthday - ", data["birthday"])
-            print("fraction - ", fraction)
-            print("================")
+            list = AuthorityList.objects.get(slug="senat")
+            list.elect_list.add(new_elect)
+            print("новый закс - ", data["name"])
         time.sleep(3)
 
 if __name__ == '__main__':

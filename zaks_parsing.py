@@ -54,6 +54,7 @@ def main():
 
     soup = BeautifulSoup("https://www.assembly.spb.ru/authors/show_convocation/7/", 'lxml')
     container = soup.find('div', class_='authors list-materials')
+    print (container)
     blocks = container.find_all('div', class_='material')
 
     for item in blocks:

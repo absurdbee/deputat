@@ -61,6 +61,8 @@ def get_page_data(html):
 
 def main():
     _list = AuthorityList.objects.get(slug="zaks_2021")
+    list = AuthorityList.objects.get(slug="senat")
+
     html = get_html("https://www.assembly.spb.ru/authors/show_convocation/7/")
 
     soup = BeautifulSoup(html, 'lxml')
@@ -71,34 +73,12 @@ def main():
         html = get_html(item.find('a')['href'])
         data = get_page_data(html)
 
-        aaa = item.find_all('a')
-        _fraction = aaa[1].text
-        if _fraction == 'Фракция "ЕДИНАЯ РОССИЯ"':
-            fraction = Fraction.objects.get(slug="edinaya_russia")
-        elif _fraction == 'Фракция СПРАВЕДЛИВАЯ РОССИЯ – ПАТРИОТЫ – ЗА ПРАВДУ':
-            fraction = Fraction.objects.get(slug="spravedlivaya_russia")
-        elif _fraction == 'Фракция КПРФ':
-            fraction = Fraction.objects.get(slug="kprf")
-        elif _fraction == 'Фракция "ЯБЛОКО"':
-            fraction = Fraction.objects.get(slug="yabloko")
-        elif _fraction == 'Фракция "Новые люди"':
-            fraction = Fraction.objects.get(slug="new_people")
-        elif _fraction == 'Фракция ЛДПР':
-            fraction = Fraction.objects.get(slug="ldpr")
-
-        if Elect.objects.filter(list=_list, name=data["name"]).exists():
-            print("чиновник уже есть - ", data["name"])
-        else:
-            new_elect = Elect.objects.create(name=data["name"],birthday=data["birthday"],fraction=fraction)
-            region = Region.objects.get(name="Санкт-Петербург")
-            region.elect_region.add(new_elect)
-            if data["image"]:
-                new_elect.get_remote_image(data["image"])
-
-            list = AuthorityList.objects.get(slug="senat")
-            list.elect_list.add(new_elect)
-            print("новый закс - ", data["name"])
-        time.sleep(3)
+        if Elect.objects.filter(list=list, name=data["name"]).exists():
+            elect = Elect.objects.get(list=list, name=data["name"])
+            _list.elect_list.add(elect)
+            list.elect_list.remove(elect)
+            print("чиновник изменен - ", data["name"])
+        time.sleep(2)
 
 if __name__ == '__main__':
     main()

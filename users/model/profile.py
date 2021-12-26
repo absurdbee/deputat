@@ -209,7 +209,30 @@ class Follow(models.Model):
         verbose_name = 'Подписчик'
         verbose_name_plural = 'Подписчики'
 
-
     @classmethod
     def create_follow(cls, user_id, followed_user_id):
         return cls.objects.create(user_id=user_id, followed_user_id=followed_user_id,)
+
+
+class FollowPerm(models.Model):
+    """ связь с таблицей друзей target_user. Появляется после ее инициирования, когда друг записи Connect
+        добавит какое либо исключение или включение для какого-либо элемента.
+        1. NO_VALUE - неактивное значение.
+        2. YES_ITEM - может соверщать описанные действия
+        3. NO_ITEM - не может соверщать описанные действия
+    """
+    NO_VALUE, YES_ITEM, NO_ITEM = 0, 1, 2
+    ITEM = (
+        (NO_VALUE, 'Не активно'),
+        (YES_ITEM, 'Может иметь действия с элементом'),
+        (NO_ITEM, 'Не может иметь действия с элементом'),
+    )
+
+    user = models.OneToOneField(Follow, null=True, blank=True, on_delete=models.CASCADE, related_name='connect_ie_settings', verbose_name="Друг")
+    can_send_message = models.PositiveSmallIntegerField(choices=ITEM, default=0, verbose_name="Кто пишет сообщения")
+    can_add_in_chat = models.PositiveSmallIntegerField(choices=ITEM, default=0, verbose_name="Кто добавляет в беседы")
+
+    class Meta:
+        verbose_name = 'Исключения/Включения followers'
+        verbose_name_plural = 'Исключения/Включения followers'
+        index_together = [('id', 'user'),]

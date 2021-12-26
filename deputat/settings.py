@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'district',
     'okrug',
     'city',
+    'chat',
 ]
 
 CKEDITOR_UPLOAD_PATH = 'media/'

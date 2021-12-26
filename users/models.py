@@ -1170,3 +1170,128 @@ class User(AbstractUser):
     def get_moderated_description(self):
         from managers.models import Moderated
         return Moderated.objects.filter(object_id=self.pk, type="USE")[0].description
+
+    def get_or_create_manager_chat_pk(self):
+        from chat.models import Chat, ChatUsers
+        if Chat.objects.filter(creator_id=self.pk, type=Chat.MANAGER).exists():
+            return Chat.objects.filter(creator_id=self.pk, type=Chat.MANAGER).first().pk
+        else:
+            chat = Chat.objects.create(creator_id=self.pk, type=Chat.MANAGER, name="Рассылка служународу.рус",)
+            ChatUsers.objects.create(user=creator, chat=chat)
+            return chat.pk
+    def get_or_create_support_chat_pk(self):
+        from chat.models import Chat, ChatUsers
+        if Chat.objects.filter(creator_id=self.pk, type=Chat.SUPPORT).exists():
+            return Chat.objects.filter(creator_id=self.pk, type=Chat.SUPPORT).first().pk
+        else:
+            chat = Chat.objects.create(creator_id=self.pk, type=Chat.SUPPORT, name="Техподдержка",)
+            ChatUsers.objects.create(user=creator, chat=chat)
+            return chat.pk
+
+    def get_all_chats(self):
+        from chat.models import Chat
+        query = Q(chat_relation__user_id=self.pk, chat_relation__type="ACT")
+        query.add(~Q(type__contains="_"), Q.AND)
+        chats = Chat.objects.filter(query)
+        list = []
+        for chat in chats:
+            if chat.is_public() or chat.is_group():
+                list.append(chat)
+            elif chat.is_not_empty(self.pk):
+                list.append(chat)
+        return list
+
+    def get_chats_and_friends(self):
+        #from itertools import chain
+        #return list(chain(self.get_all_chats(), self.get_all_friends()))
+        return self.get_all_chats()
+
+    def is_administrator_of_chat(self, chat_pk):
+        return self.chat_users.filter(chat__pk=chat_pk, is_administrator=True, type="ACT").exists()
+    def is_member_of_chat(self, chat_pk):
+        return self.chat_users.filter(chat__pk=chat_pk, type="ACT").exists()
+
+    def get_unread_chats(self):
+        chats, count = self.get_all_chats(), 0
+        for chat in chats:
+            if chat.chat_message.filter(unread=True, type__contains="_").exclude(creator_id=self.pk).exists():
+                count += 1
+        if count > 0:
+            return count
+        else:
+            return ''
+
+    def is_user_can_add_in_chat(self, user_pk):
+        from users.model.settings import UserPrivate
+        try:
+            private = UserPrivate.objects.get(user=self)
+        except:
+            private = UserPrivate.objects.create(user=self)
+        if private.can_add_in_chat == 1:
+            return True
+        elif private.can_add_in_chat == 3:
+            return False
+        elif private.can_add_in_chat == 2 and user_pk in self.get_follows_ids():
+            return True
+        elif private.can_add_in_chat == 4:
+            return not user_pk in self.get_can_add_in_chat_exclude_users_ids()
+        elif private.can_add_in_chat == 5:
+            return user_pk in self.get_can_add_in_chat_include_users_ids()
+        return False
+
+    def is_user_can_send_message(self, user_pk):
+        from users.model.settings import UserPrivate
+        try:
+            private = UserPrivate.objects.get(user=self)
+        except:
+            private = UserPrivate.objects.create(user=self)
+        if private.can_send_message == 1:
+            return True
+        elif private.can_send_message == 3:
+            return False
+        elif private.can_send_message == 2 and user_pk in self.get_follows_ids():
+            return True
+        elif private.can_send_message == 4:
+            return not user_pk in self.get_can_add_in_chat_exclude_users_ids()
+        elif private.can_send_message == 5:
+            return user_pk in self.get_can_add_in_chat_include_users_ids()
+        return False
+
+    def get_followers_ids(self):
+        from users.model.profile import Follow
+
+        list = Follow.objects.filter(followed_user_id=self.pk).values("followed_user_id")
+        return [elect['followed_user_id'] for elect in list]
+
+    def get_followings_ids(self):
+        from users.model.profile import Follow
+
+        list = Follow.objects.filter(user_id=self.pk).values("user_id")
+        return [elect['user_id'] for elect in list]
+
+    def get_followers(self):
+        return User.objects.filter(id__in=self.get_followers_ids())
+    def get_followings(self):
+        return User.objects.filter(id__in=self.get_followings_ids())
+
+    def get_can_add_in_chat_exclude_users_ids(self):
+        list = self.connections.filter(connect_ie_settings__can_add_in_chat=2).values("target_user_id")
+        return [i['target_user_id'] for i in list]
+    def get_can_add_in_chat_include_users_ids(self):
+        list = self.connections.filter(connect_ie_settings__can_add_in_chat=1).values("target_user_id")
+        return [i['target_user_id'] for i in list]
+    def get_can_add_in_chat_exclude_users(self):
+        return User.objects.filter(id__in=self.get_can_add_in_chat_exclude_users_ids())
+    def get_can_add_in_chat_include_users(self):
+        return User.objects.filter(id__in=self.get_can_add_in_chat_include_users_ids())
+
+    def get_can_add_in_chat_exclude_users_ids(self):
+        list = self.followers.filter(connect_ie_settings__can_add_in_chat=2).values("followed_user_id")
+        return [i['followed_user_id'] for i in list]
+    def get_can_add_in_chat_include_users_ids(self):
+        list = self.followers.filter(connect_ie_settings__can_add_in_chat=1).values("followed_user_id")
+        return [i['followed_user_id'] for i in list]
+    def get_can_add_in_chat_exclude_users(self):
+        return User.objects.filter(id__in=self.get_can_add_in_chat_exclude_users_ids())
+    def get_can_add_in_chat_include_users(self):
+        return User.objects.filter(id__in=self.get_can_add_in_chat_include_users_ids())

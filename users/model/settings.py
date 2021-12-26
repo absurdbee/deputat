@@ -27,12 +27,23 @@ class UserNotifications(models.Model):
 
 
 class UserPrivate(models.Model):
+    ALL_CAN, FOLLOWS, NO, FOLLOWS_BUT, SOME_FOLLOWS = 1,2,3,4,5
+    PERM = (
+        (ALL_CAN, 'Все пользователи'),
+        (FOLLOWS, 'На кого я подписан'),
+        (NO, 'Никто'),
+        (FOLLOWS_BUT, 'На кого я подписан, кроме'),
+        (SOME_FOLLOWS, 'Некоторые из тех, на кого я подписан'),
+    )
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_private', verbose_name="Пользователь")
     city = models.BooleanField(default=False, verbose_name="Город виден всем")
     networks = models.BooleanField(default=True, verbose_name="Соцсети открыты")
     old = models.BooleanField(default=False, verbose_name="Возраст открыт")
     subscribers = models.BooleanField(default=True, verbose_name="Подписки открыты")
     other = models.BooleanField(default=True, verbose_name="Образование/сфера занятости открыты")
+    can_send_message = models.PositiveSmallIntegerField(choices=PERM, default=1, verbose_name="Кто пишет сообщения")
+    can_add_in_chat = models.PositiveSmallIntegerField(choices=PERM, default=1, verbose_name="Кто приглашает в беседы")
 
     def __str__(self):
         return self.user.last_name

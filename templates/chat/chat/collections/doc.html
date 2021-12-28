@@ -38,11 +38,7 @@
                   </h4>
                   </span>
                   <p class="lead">
-                    {% if object.community %}
-                      <a class="ajax underline" href="{{ object.community.get_link }}">{{ object.community.name }}</a>
-                    {% else %}
-                      <a class="ajax underline" href="{{ object.creator.get_link }}">{{ object.creator.get_full_name }}</a>
-                    {% endif %}
+                    <a class="ajax underline" href="{{ object.creator.get_link }}">{{ object.creator.get_full_name }}</a>
                   </p>
                   <hr class="my-3">
                   <span>
@@ -51,11 +47,7 @@
                 </div>
               </div>
           {% else %}
-            {% if object.community %}
-              {% include 'desctop/communities/docs/doc.html' %}
-            {% else %}
-              {% include 'desctop/users/docs/doc.html' %}
-            {% endif %}
+              {% include 'user_docs/doc.html' %}
           {% endif %}
         {% endfor %}
 
@@ -67,7 +59,12 @@
 
       </div>
       {% else %}
-        {% include 'desctop/users/docs/main_list/no_docs.html' %}
+      <div class="card centered item_empty">
+        <div class="card-body">
+        <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        </div>
+        <h6>Документов нет.</h6>
+      </div>
       {% endif %}
     </div>
   </span>

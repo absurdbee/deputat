@@ -38,11 +38,7 @@
                   </h4>
                   </span>
                   <p class="lead">
-                    {% if object.community %}
-                      <a class="ajax underline" href="{{ object.community.get_link }}">{{ object.community.name }}</a>
-                    {% else %}
-                      <a class="ajax underline" href="{{ object.creator.get_link }}">{{ object.creator.get_full_name }}</a>
-                    {% endif %}
+                    <a class="ajax underline" href="{{ object.creator.get_link }}">{{ object.creator.get_full_name }}</a>
                   </p>
                   <hr class="my-3">
                   <span>
@@ -51,11 +47,7 @@
                 </div>
               </div>
           {% else %}
-            {% if object.community %}
-              {% include 'desctop/communities/music/track.html' %}
-            {% else %}
-              {% include 'desctop/users/music/track.html' %}
-            {% endif %}
+            {% include 'user_music/track.html' %}
           {% endif %}
         {% endfor %}
 
@@ -67,7 +59,12 @@
 
       </div>
       {% else %}
-        {% include 'desctop/users/music/main_list/no_tracks.html' %}
+      <div class="card centered item_empty">
+        <div class="card-body">
+        <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'><path fill='none' d='M0 0h24v24H0z'/><path d='M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z'/></svg>
+        </div>
+        <h6>Аудиозаписей нет.</h6>
+      </div>
       {% endif %}
     </div>
   </span>

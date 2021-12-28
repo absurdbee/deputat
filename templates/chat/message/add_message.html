@@ -6,7 +6,39 @@
                 <h5 class="content-color-primary mb-0">Написать {{ member.get_full_name_datv }}</h5>
             </div>
             <div class="card-body">
-              {% include 'desctop/generic/repost/form.html' %}
+
+              <div class="card mb-3 border">
+                <input class="type_hidden" type="hidden" name="text" />
+                      <div class="card-body p-0">
+                        <div contenteditable="true" class="form-control text smile_supported page_message_text" style="height: 200px !important;" placeholder="Ваше сообщение"></div>
+                      </div>
+                      <div class="card-footer border-top btn_default">
+                        <span class="files_0 row"></span>
+                        <span>
+                          <div class="row">
+                              <div class="col attach_panel" style="display: flex;">
+                                <a flow="up" tooltip="Изображение" class="btn btn-link btn-sm text-secondary u_select_photo">
+                                  <svg class="svg_info svg_default" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                                </a>
+                                <a flow="up" tooltip="Видеозапись" class="btn btn-link btn-sm text-secondary u_select_video">
+                                  <svg class="svg_info svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                                </a>
+                                <a flow="up" tooltip="Аудиозапись" class="btn btn-link btn-sm text-secondary u_select_music">
+                                  <svg class="svg_info svg_default" fill="currentColor" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 5h-3v5.5c0 1.38-1.12 2.5-2.5 2.5S10 13.88 10 12.5s1.12-2.5 2.5-2.5c.57 0 1.08.19 1.5.51V5h4v2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/></svg>
+                                </a>
+                                <a flow="up" tooltip="Документ" class="btn btn-link btn-sm text-secondary u_select_doc">
+                                  <svg class="svg_info svg_default" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                                  </svg>
+                                </a>
+                                <svg viewBox="0 0 24 24" class="svg_info svg_default pointer smile_sticker_dropdown" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><circle cx="15.5" cy="9.5" r="1.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M12 16c-1.48 0-2.75-.81-3.45-2H6.88c.8 2.05 2.79 3.5 5.12 3.5s4.32-1.45 5.12-3.5h-1.67c-.7 1.19-1.97 2-3.45 2zm-.01-14C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                                <div class="hide_block_menu dropdown-menu" style="margin-top:-290px;display:none;"></div>
+                              </div>
+                          </div>
+                        </span>
+                    </div>
+              </div>
+
             </div>
             <div class="card-footer">
                 <button class="btn border this_mob_fullscreen_hide">Отмена</button>

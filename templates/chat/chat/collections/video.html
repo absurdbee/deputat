@@ -22,10 +22,10 @@
     </div>
     <div class="container-fluid pk_saver">
       {% if object_list %}
-      <div class="row is_block_paginate is_stat_list" chat-pk="{{ chat.pk }}" data-pk="{{ list.pk }}" owner-pk="{{ list.community.pk }}" data-type="chat_video_list" style="display: block;">
+      <div class="row is_block_paginate is_stat_list" chat-pk="{{ chat.pk }}" data-pk="{{ list.pk }}" data-type="chat_video_list" style="display: block;">
 
         {% for object in object_list %}
-          {% if object.is_music_list %}
+          {% if object.is_video_list %}
             <div class="custom_color row_item text-center has-background-img position-relative box-shadow" videolist-pk="{{ object.pk }}">
               <figure class="background-img">
                 <img src="{{ object.get_cover_photo }}"></figure>
@@ -38,11 +38,7 @@
                   </h4>
                   </span>
                   <p class="lead">
-                    {% if object.community %}
-                      <a class="ajax underline" href="{{ object.community.get_link }}">{{ object.community.name }}</a>
-                    {% else %}
-                      <a class="ajax underline" href="{{ object.creator.get_link }}">{{ object.creator.get_full_name }}</a>
-                    {% endif %}
+                    <a class="ajax underline" href="{{ object.creator.get_link }}">{{ object.creator.get_full_name }}</a>
                   </p>
                   <hr class="my-3">
                   <span>
@@ -51,11 +47,7 @@
                 </div>
               </div>
           {% else %}
-            {% if object.community %}
-              {% include 'desctop/users/main_list/video.html' %}
-            {% else %}
-              {% include 'desctop/users/main_list/video.html' %}
-            {% endif %}
+            {% include 'user_video/video.html' %}
           {% endif %}
         {% endfor %}
 
@@ -67,7 +59,14 @@
 
       </div>
       {% else %}
-        {% include 'desctop/users/video/main_list/no_videos.html' %}
+      <div class="card centered item_empty">
+        <div class="card-body">
+          <svg class='svg_default thumb_big' fill='currentColor' viewBox='0 0 24 24'>
+            <path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/><path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        </div>
+        <h6>Видеозаписей нет.</h6>
+      </div>
       {% endif %}
     </div>
   </span>

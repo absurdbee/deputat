@@ -32,16 +32,6 @@
         {{ message|get_attach:request.user|safe }}
       {% endif %}
 
-      {% if message.repost %}
-        <span style="margin-left: 5%;" data-uuid="{{ message.parent.uuid }}">
-          {% if message.repost.community %}
-            {% include message.get_c_repost_items_desctop %}
-          {% else %}
-            {% include message.get_u_repost_items_desctop %}
-          {% endif %}
-        </span>
-      {% endif %}
-
       {% endif %}
     </div>
 </div>

@@ -6,7 +6,7 @@
     </figure>
     <div class="media-body">
       <h5 class="time-title mb-0">
-        <a href="{{ object.creator.get_link }}" class="ajax creator_link"><span class="creator_name">{{ object.creator.get_full_name }}</span></a>
+        <a href="{{ object.creator.get_link }}" class="ajax creator_link"><span class="creator_name">{{ object.creator.get_full_name_2 }}</span></a>
         <span class="favourite_icon">
           {% if object|is_favourite:request.user.pk %}
           <span class="delete_favourite_message pointer" flow="up" tooltip="Убрать из избранного">

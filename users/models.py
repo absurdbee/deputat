@@ -207,6 +207,9 @@ class User(AbstractUser):
         else:
             return self.first_name + " " + self.last_name
 
+    def get_full_name_2(self):
+        return self.first_name + " " + self.last_name
+
     def get_name(self):
         return self.first_name + " " + self.last_name
 

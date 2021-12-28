@@ -17,14 +17,10 @@ class CreateUserChat(TemplateView):
 		if self.user != request.user:
 			self.member = self.user
 
-		if self.user == request.user and not request.user.get_6_friends():
+		if not request.user.is_have_follows_followings():
 			self.template_name = get_my_template("chat/chat/create_chat_empty.html", request.user, request.META['HTTP_USER_AGENT'])
-		elif self.user == request.user and request.user.get_6_friends():
+		elif request.user.is_have_follows_followings():
 			self.template_name = get_my_template("chat/chat/create_chat_with_members.html", request.user, request.META['HTTP_USER_AGENT'])
-		elif self.user != request.user and not request.user.get_6_friends():
-			self.template_name = get_my_template("chat/chat/create_chat_send_message.html", request.user, request.META['HTTP_USER_AGENT'])
-		elif self.user != request.user and request.user.get_6_friends():
-			self.template_name = get_my_template("chat/chat/create_chat_send_message_with_members.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(CreateUserChat,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -36,7 +32,6 @@ class CreateUserChat(TemplateView):
 
 	def post(self,request,*args,**kwargs):
 		from common.templates import render_for_platform
-		from users.models import User
 		from chat.models import ChatUsers
 		from chat.forms import ChatForm
 

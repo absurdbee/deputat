@@ -5,7 +5,7 @@
 
 <div class="container main-container pk_saver chat_container" data-pk="{{ chat.pk }}" chat-pk="{{ chat.pk }}" user-pk="{{ request.user.pk }}" data-type="page_chat">
 <div class="row">
-    <div class="col-md-8 mt-1 main_chat_block">
+    <div class="col-md-8 main_chat_block">
       <div class="custom_color fixed_header_chat" style="position: fixed;z-index: 10;width:97%;height: 37px;">
           <div class="chat_header ml-1 media w-100">
             {{ get_header_chat|safe }}
@@ -18,7 +18,7 @@
           </div>
       </div>
         <div class="px-0 card no-shadow chatview" chat-pk="{{ chat.pk }}">
-          <ul class="mt-2 chatlist app is_paginate">
+          <ul class="chatlist is_paginate" style="padding-left: 0;">
             {% if page_obj.has_next %}
               <div class="load centered m-1 next_page_list" data-link="{% url 'chat_detail' pk=chat.pk %}?page={{ page_obj.next_page_number }}">
                 <img src="/static/images/loading.gif">

@@ -1285,11 +1285,11 @@ class User(AbstractUser):
         return User.objects.filter(id__in=self.get_followers_followings_ids())
 
     def get_can_add_in_chat_exclude_users_ids(self):
-        list = self.connections.filter(connect_ie_settings__can_add_in_chat=2).values("target_user_id")
-        return [i['target_user_id'] for i in list]
+        list = self.followers.filter(connect_ie_settings__can_add_in_chat=2).values("followed_user_id")
+        return [i['followed_user_id'] for i in list]
     def get_can_add_in_chat_include_users_ids(self):
-        list = self.connections.filter(connect_ie_settings__can_add_in_chat=1).values("target_user_id")
-        return [i['target_user_id'] for i in list]
+        list = self.followers.filter(connect_ie_settings__can_add_in_chat=1).values("followed_user_id")
+        return [i['followed_user_id'] for i in list]
     def get_can_add_in_chat_exclude_users(self):
         return User.objects.filter(id__in=self.get_can_add_in_chat_exclude_users_ids())
     def get_can_add_in_chat_include_users(self):

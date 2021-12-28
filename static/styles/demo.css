@@ -6,6 +6,17 @@
     opacity:1;
   }
 }
+.icon-circle {
+  border-radius: 50%;
+}
+.icon-30 {
+  height: 30px;
+  width: 30px;
+  line-height: 28px;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+}
 .svg_default_25 { width: 25px; height: 25px;border-radius: 50%; padding: 3px; }
 .svg_default_30 { width: 30px; height: 30px;border-radius: 50%; padding: 3px; }
 .svg_default_40 { width: 40px; height: 40px;border-radius: 50%; padding: 4px; }

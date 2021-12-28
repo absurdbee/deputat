@@ -1,8 +1,9 @@
 """ ListView """
 from django.views.generic import ListView
+from generic.mixins import CategoryListMixin
 
 
-class ChatsListView(ListView):
+class ChatsListView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
@@ -21,7 +22,7 @@ class ChatsListView(ListView):
 		return self.user.get_all_chats()
 
 
-class ChatDetailView(ListView):
+class ChatDetailView(ListView, CategoryListMixin):
 	template_name, paginate_by, can_add_members_in_chat, favourite_messages, favourite_messages_count = None, 15, None, None, None
 
 	def get(self,request,*args,**kwargs):

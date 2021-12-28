@@ -1295,3 +1295,7 @@ class User(AbstractUser):
         return User.objects.filter(id__in=self.get_can_add_in_chat_exclude_users_ids())
     def get_can_add_in_chat_include_users(self):
         return User.objects.filter(id__in=self.get_can_add_in_chat_include_users_ids())
+
+    def favourite_messages_count(self):
+        from chat.models import MessageOptions
+        return MessageOptions.objects.filter(user_id=self.pk, is_favourite=True).values("pk").count()

@@ -92,7 +92,7 @@ class UserSendPageMessage(TemplateView):
 					connections += [self.user.pk,]
 					_message = Message.create_chat_append_members_and_send_message(creator=request.user, users_ids=connections, text=message.text, voice=request.POST.get('voice'), attach=request.POST.getlist('attach_items'), sticker=request.POST.get('sticker'))
 				else:
-					_message = Message.get_or_create_chat_and_send_message(creator=request.user, repost=None, user=self.user, text=message.text, voice=request.POST.get('voice'), attach=request.POST.getlist('attach_items'), sticker=request.POST.get('sticker'))
+					_message = Message.get_or_create_chat_and_send_message(creator=request.user, user=self.user, text=message.text, voice=request.POST.get('voice'), attach=request.POST.getlist('attach_items'), sticker=request.POST.get('sticker'))
 				return HttpResponse()
 			else:
 				from django.http import HttpResponseBadRequest
@@ -154,7 +154,6 @@ class UserSendMessage(View):
 			new_message = Message.send_message(
 											chat=chat,
 											creator=request.user,
-											repost=None,
 											text=message.text,
 											voice=request.POST.get('voice'),
 											sticker=request.POST.get('sticker'),

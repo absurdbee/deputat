@@ -150,3 +150,22 @@ class ModerationVideo(ListView, CategoryListMixin):
 
     def get_queryset(self):
         return Moderated.get_moderation_videos()
+
+class ModerationChat(ListView, CategoryListMixin):
+    template_name, paginate_by = None, 15
+
+    def get(self,request,*args,**kwargs):
+        self.user = request.user
+        if self.user.is_manager():
+            self.template_name = get_detect_platform_template("managers/moderation_list/chat_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        else:
+            raise Http404
+        return super(ModerationChat,self).get(request,*args,**kwargs)
+
+    def get_queryset(self):
+        from chat.models import Chat
+        query = []
+        for chat in Chat.objects.filter(type='SUP'):
+            if chat.members == 1:
+                query.append(chat)
+        return query

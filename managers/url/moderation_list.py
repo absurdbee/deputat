@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^video/$', ModerationVideo.as_view()),
     url(r'^survey/$', ModerationSurvey.as_view()),
     url(r'^doc/$', ModerationDoc.as_view()),
+    url(r'^chat/$', ModerationChat.as_view()),
 ]

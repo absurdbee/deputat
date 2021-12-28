@@ -15,6 +15,23 @@ function setEndOfContenteditable(contentEditableElement) {
         range.select();
     }
 };
+function chat_send_change(span, _link, new_class, html) {
+    parent = span.parentElement;
+    item = parent.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    link.open('GET', _link + item.getAttribute("chat-pk") + "/", true);
+    link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    link.onreadystatechange = function() {
+        if (link.readyState == 4 && link.status == 200) {
+            new_span = document.createElement("span");
+            new_span.classList.add(new_class, "dropdown-item");
+            new_span.innerHTML = html;
+            parent.innerHTML = "";
+            parent.append(new_span)
+        }
+    };
+    link.send(null)
+};
 function get_toggle_messages() {
   list = document.body.querySelectorAll(".target_message");
   query = [];

@@ -1269,10 +1269,20 @@ class User(AbstractUser):
         list = Follow.objects.filter(user_id=self.pk).values("user_id")
         return [elect['user_id'] for elect in list]
 
+    def get_followers_followings_ids(self):
+        ids = self.get_followers_ids() + self.get_followings_ids()
+        return ids.distinct()
+    def is_have_follows_followings(self):
+        from users.model.profile import Follow
+        query = Q(user_id=self.pk) | Q(target_user_id=self.pk)
+        return Follow.objects.filter(query).exists()
+
     def get_followers(self):
         return User.objects.filter(id__in=self.get_followers_ids())
     def get_followings(self):
         return User.objects.filter(id__in=self.get_followings_ids())
+    def get_followers_followings(self):
+        return User.objects.filter(id__in=self.get_followers_followings_ids())
 
     def get_can_add_in_chat_exclude_users_ids(self):
         list = self.connections.filter(connect_ie_settings__can_add_in_chat=2).values("target_user_id")

@@ -49,7 +49,7 @@ class Chat(models.Model):
         ordering = ["-created"]
 
     def __str__(self):
-        return self.creator.get_full_name()
+        return self.creator.get_full_name_2()
 
     def post_include_users(self, users, type):
         if type == "can_add_members":
@@ -454,7 +454,7 @@ class Chat(models.Model):
             if first_message.parent:
                 creator = first_message.creator
                 message = first_message.parent
-                preview_text = creator.get_full_name() + first_message.text + '<span class="underline">' + message.get_text_60() + '</span>'
+                preview_text = creator.get_full_name_2() + first_message.text + '<span class="underline">' + message.get_text_60() + '</span>'
             else:
                 preview_text = first_message.get_text_60()
         else:
@@ -493,7 +493,7 @@ class Chat(models.Model):
             if self.name:
                  chat_name = self.name
             else:
-                chat_name = member.get_full_name()
+                chat_name = member.get_full_name_2()
             if member.get_online():
                 status = ' <span class="status bg-success"></span>'
             else:
@@ -522,7 +522,7 @@ class Chat(models.Model):
             dop_drops += '<a class="dropdown-item user_exit_in_user_chat pointer">Выйти из чата</a>'
         elif self.is_private():
             member = chat_user.user
-            chat_name, dop_drops, target_display = '<a href="' + member.get_link() + '" target="_blank">' + member.get_full_name() + '</a>', '<a class="dropdown-item add_member_in_chat pointer">Добавить в чат</a>', '<span class="type_display small" style="position:absolute;top: 21px;">' + member.get_online_status() + '</span>'
+            chat_name, dop_drops, target_display = '<a href="' + member.get_link() + '" target="_blank">' + member.get_full_name_2() + '</a>', '<a class="dropdown-item add_member_in_chat pointer">Добавить в чат</a>', '<span class="type_display small" style="position:absolute;top: 21px;">' + member.get_online_status() + '</span>'
         elif self.is_manager():
             chat_name, dop_drops, target_display = "Служебный чат", '', '<span class="type_display small" style="position:absolute;top: 21px;">Категория такая-то</span>'
         elif self.is_support():
@@ -594,7 +594,7 @@ class Chat(models.Model):
         else:
             var = "исключил"
         ChatUsers.delete_member(user=user, chat=self)
-        text = '<a target="_blank" href="' + creator.get_link() + '">' + creator.get_full_name() + '</a>&nbsp;' + var + '&nbsp;<a target="_blank" href="' + user.get_link() + '">' + user.get_full_name_genitive() + '</a>'
+        text = '<a target="_blank" href="' + creator.get_link() + '">' + creator.get_full_name_2() + '</a>&nbsp;' + var + '&nbsp;<a target="_blank" href="' + user.get_link() + '">' + user.get_full_name_genitive() + '</a>'
         info_message = Message.objects.create(chat_id=self.id,creator_id=creator.id,type=Message.MANAGER,text=text)
         for recipient in self.get_recipients_2(creator.pk):
             info_message.create_socket(recipient.user.pk, recipient.beep())
@@ -611,7 +611,7 @@ class Chat(models.Model):
         else:
             var = "вышел из чата"
         ChatUsers.exit_member(user=user, chat=self)
-        text = '<a target="_blank" href="' + user.get_link() + '">' + user.get_full_name() + '</a>&nbsp;' + var
+        text = '<a target="_blank" href="' + user.get_link() + '">' + user.get_full_name_2() + '</a>&nbsp;' + var
         info_message = Message.objects.create(chat_id=self.id,creator_id=user.id,type=Message.MANAGER,text=text)
         for recipient in self.get_recipients_2(user.pk):
             info_message.create_socket(recipient.user.pk, recipient.beep())
@@ -634,7 +634,7 @@ class Chat(models.Model):
             if not ChatUsers.objects.filter(user=user, chat=self).exclude(type="DEL").exists():
                 member = ChatUsers.create_membership(user=user, chat=self)
                 if member:
-                    text = '<a target="_blank" href="' + creator.get_link() + '">' + creator.get_full_name() + '</a>&nbsp;' + var + '&nbsp;<a target="_blank" href="' + user.get_link() + '">' + user.get_full_name_genitive() + '</a>'
+                    text = '<a target="_blank" href="' + creator.get_link() + '">' + creator.get_full_name_2() + '</a>&nbsp;' + var + '&nbsp;<a target="_blank" href="' + user.get_link() + '">' + user.get_full_name_genitive() + '</a>'
                     info_message = Message.objects.create(chat_id=self.id,creator_id=creator.id,type=Message.MANAGER,text=text)
                     info_messages.append(info_message)
                     for recipient in self.get_recipients_2(creator.pk):
@@ -747,7 +747,7 @@ class ChatUsers(models.Model):
     type = models.CharField(max_length=3, choices=TYPE, default=ACTIVE, verbose_name="Тип участника")
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.user.get_full_name_2()
 
     class Meta:
         unique_together = (('user', 'chat'),)
@@ -933,7 +933,7 @@ class Message(models.Model):
             preview = parent.text[:80]
         user = parent.creator
 
-        return '<div class="media p-1" data-uuid="' + str(parent.uuid) + '" style="border-left: 1px solid rgba(0, 0, 0, 0.7)"><span style="padding-top: 6px;"><a href="' + user.get_link() + '" class="ajax">' + user.get_s_avatar() + '</a></span><div class="media-body" style="line-height: 1em;padding-left: 3px;"><p class="time-title mb-0"><a href="' + user.get_link()  + '" class="ajax">' + user.get_full_name() + '</a></p><small class="text-muted">' + parent.get_created() + '</small><p class="text">' + preview + '</p></div></div>'
+        return '<div class="media p-1" data-uuid="' + str(parent.uuid) + '" style="border-left: 1px solid rgba(0, 0, 0, 0.7)"><span style="padding-top: 6px;"><a href="' + user.get_link() + '" class="ajax">' + user.get_s_avatar() + '</a></span><div class="media-body" style="line-height: 1em;padding-left: 3px;"><p class="time-title mb-0"><a href="' + user.get_link()  + '" class="ajax">' + user.get_full_name_2() + '</a></p><small class="text-muted">' + parent.get_created() + '</small><p class="text">' + preview + '</p></div></div>'
 
     def get_creator(self):
         return self.creator.user
@@ -1258,7 +1258,7 @@ class Message(models.Model):
         elif self.parent:
             if self.is_manager():
                 creator, message = self.creator, self.parent
-                return "<b class='i_link'>" + creator.get_full_name() + self.text + '<span class="underline">' + message.get_text_60() + '</span></b>'
+                return "<b class='i_link'>" + creator.get_full_name_2() + self.text + '<span class="underline">' + message.get_text_60() + '</span></b>'
             else:
                 return "<b class='i_link'>Ответ на сообщение</b>"
         elif self.sticker:
@@ -1278,7 +1278,7 @@ class Message(models.Model):
         if self.is_manager():
             creator = self.creator
             message = self.parent
-            return creator.get_full_name() + self.text + '<span class="underline">' + message.get_text_60() + '</span>'
+            return creator.get_full_name_2() + self.text + '<span class="underline">' + message.get_text_60() + '</span>'
         else:
             return self.get_type_text()
 
@@ -1286,7 +1286,7 @@ class Message(models.Model):
         if self.parent:
             message = self.parent
             text = message.get_type_text()
-            return '<i><a target="_blank" href="' + self.creator.get_link() + '">' + self.creator.get_full_name() + '</a><span>' + self.text + '</span><a class="pointer show_selected_fix_message underline">' + text + '</a>' + '</i>'
+            return '<i><a target="_blank" href="' + self.creator.get_link() + '">' + self.creator.get_full_name_2() + '</a><span>' + self.text + '</span><a class="pointer show_selected_fix_message underline">' + text + '</a>' + '</i>'
         else:
             return self.text
 

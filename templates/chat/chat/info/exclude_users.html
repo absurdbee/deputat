@@ -8,7 +8,7 @@
           {% for object in users %}
             <span data-pk="{{ object.pk }}" class="btn btn-sm custom_color" style="margin: 2px;">
               <a href="{{ object.get_link }}" target="_blank">
-                {{ object.get_full_name }}
+                {{ object.get_full_name_2 }}
               </a>
              <span class="remove_user_input pointer">x<span></span></span>
              <input class="user_pk" type="hidden" name="users" value="{{ object.pk }}">
@@ -31,7 +31,7 @@
             </figure>
             <div class="media-body">
               <h6 class="mb-0" style="padding-top: 10px;">
-                {{ object.get_full_name }}
+                {{ object.get_full_name_2 }}
               </h6>
             </div>
             <span class="custom_color border item_attach_circle friends_chat_load_several {% if object in users %}active_svg{% endif %}" tooltip="Выбрать друга" flow="up">

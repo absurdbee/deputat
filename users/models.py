@@ -48,6 +48,12 @@ class User(AbstractUser):
     def __str__(self):
         return self.first_name + " " +  self.last_name
 
+    def get_40_avatar(self):
+        if self.s_avatar:
+            return '<img style="border-radius:40px;width:40px;" alt="image" src="' + self.s_avatar.url + '" alt="image" />'
+        else:
+            return '<svg fill="currentColor" class="svg_default svg_default_40" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'
+
     def get_media_lists(self):
         from lists.models import MediaList
         return MediaList.objects.filter(type=MediaList.LIST, owner=None)

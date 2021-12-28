@@ -48,6 +48,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.first_name + " " +  self.last_name
 
+    def get_link(self):
+        return '/users/' + str(self.pk) + "/"
+
     def get_40_avatar(self):
         if self.s_avatar:
             return '<img style="border-radius:40px;width:40px;" alt="image" src="' + self.s_avatar.url + '" alt="image" />'

@@ -880,7 +880,12 @@ function elementInViewport(el){var bounds = el.getBoundingClientRect();return ((
 function create_pagination(block) {
   if (block.querySelector('.is_paginate')) {
     scrolled(block.querySelector('.is_paginate'));
-    console.log("Работает пагинация для списка не постов")
+    console.log("Работает пагинация для списка не постов");
+    if (block.querySelector(".chat_container")) {
+      width = block.querySelector(".main_chat_block").offsetWidth - 14;
+      block.querySelector(".fixed_header_chat").style.width = width + "px";
+      window.scrollTo( 0, 3000 );
+    }
   }
   else if (block.querySelector('.is_load_paginate')) {
     scrolled(block.querySelector('.is_load_paginate'));

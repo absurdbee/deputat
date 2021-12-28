@@ -970,7 +970,7 @@ class Message(models.Model):
         else:
             return ""
 
-    def get_or_create_chat_and_send_message(creator, user, repost, text, attach, voice, sticker):
+    def get_or_create_chat_and_send_message(creator, user, text, attach, voice, sticker):
         from datetime import datetime
 
         chat_list, current_chat = creator.get_all_chats(), None
@@ -987,13 +987,13 @@ class Message(models.Model):
             ChatUsers.objects.create(user=user, chat=current_chat)
 
         if voice:
-            message = Message.objects.create(chat=current_chat, creator=creator, repost=repost, voice=voice)
+            message = Message.objects.create(chat=current_chat, creator=creator, voice=voice)
         elif sticker:
-            message = Message.objects.create(chat=current_chat, creator=creator, repost=repost, sticker_id=sticker)
+            message = Message.objects.create(chat=current_chat, creator=creator, sticker_id=sticker)
             from common.model.other import UserPopulateStickers
             UserPopulateStickers.get_plus_or_create(user_pk=creator.pk, sticker_pk=sticker)
         else:
-            message = Message.objects.create(chat=current_chat, creator=creator, repost=repost, text=_text, attach=Message.get_format_attach(attach))
+            message = Message.objects.create(chat=current_chat, creator=creator, text=_text, attach=Message.get_format_attach(attach))
         current_chat.created = datetime.now()
         if attach:
             if current_chat.attach:
@@ -1006,7 +1006,7 @@ class Message(models.Model):
         for recipient in current_chat.get_recipients_2(creator.pk):
             message.create_socket(recipient.user.pk, recipient.beep())
 
-    def get_or_create_support_chat_and_send_message(creator, user, repost, text, attach, voice, sticker):
+    def get_or_create_support_chat_and_send_message(creator, user, text, attach, voice, sticker):
         from datetime import datetime
 
         _text = Message.get_format_text(text)
@@ -1015,7 +1015,7 @@ class Message(models.Model):
         if voice:
             message = Message.objects.create(chat=chat, creator=creator, voice=voice)
         else:
-            message = Message.objects.create(chat=chat, creator=creator, repost=repost, text=_text, attach=Message.get_format_attach(attach))
+            message = Message.objects.create(chat=chat, creator=creator, text=_text, attach=Message.get_format_attach(attach))
         chat.created = datetime.now()
         if attach:
             if chat.attach:
@@ -1058,13 +1058,13 @@ class Message(models.Model):
         _text = Message.get_format_text(text)
 
         if voice:
-            message = Message.objects.create(chat=chat, creator=creator, repost=repost, voice=voice)
+            message = Message.objects.create(chat=chat, creator=creator, voice=voice)
         elif sticker:
-            message = Message.objects.create(chat=chat, creator=creator, repost=repost, sticker_id=sticker)
+            message = Message.objects.create(chat=chat, creator=creator, sticker_id=sticker)
             from common.model.other import UserPopulateStickers
             UserPopulateStickers.get_plus_or_create(user_pk=creator.pk, sticker_pk=sticker)
         else:
-            message = Message.objects.create(chat=chat, creator=creator, repost=repost, text=_text, attach=Message.get_format_attach(attach))
+            message = Message.objects.create(chat=chat, creator=creator, text=_text, attach=Message.get_format_attach(attach))
 
         for recipient in chat.get_recipients_2(creator.pk):
             message.create_socket(recipient.user.pk, recipient.beep())
@@ -1072,7 +1072,7 @@ class Message(models.Model):
             current_chat.attach = attach
             current_chat.save(update_fields=["attach"])
 
-    def send_message(chat, creator, repost, parent, text, attach, voice, sticker, transfer):
+    def send_message(chat, creator, parent, text, attach, voice, sticker, transfer):
         # программа для отсылки сообщения в чате
         from datetime import datetime
 
@@ -1083,9 +1083,9 @@ class Message(models.Model):
         else:
             parent_id = None
         if voice:
-            message = Message.objects.create(chat=chat, creator=creator, repost=repost, voice=voice, parent_id=parent_id)
+            message = Message.objects.create(chat=chat, creator=creator, voice=voice, parent_id=parent_id)
         elif sticker:
-            message = Message.objects.create(chat=chat, creator=creator, repost=repost, sticker_id=sticker, parent_id=parent_id)
+            message = Message.objects.create(chat=chat, creator=creator, sticker_id=sticker, parent_id=parent_id)
             from common.model.other import UserPopulateStickers
             UserPopulateStickers.get_plus_or_create(user_pk=creator.pk, sticker_pk=sticker)
         else:
@@ -1096,7 +1096,7 @@ class Message(models.Model):
                     from common.model.other import UserPopulateSmiles
                     for id in ids:
                         UserPopulateSmiles.get_plus_or_create(user_pk=creator.pk, smile_pk=id)
-            message = Message.objects.create(chat=chat, creator=creator, repost=repost, text=_text, attach=Message.get_format_attach(attach), parent_id=parent_id)
+            message = Message.objects.create(chat=chat, creator=creator, text=_text, attach=Message.get_format_attach(attach), parent_id=parent_id)
             if transfer:
                 for i in transfer:
                     MessageTransfers.objects.create(message_id=message.uuid, transfer_id=i)

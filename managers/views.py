@@ -16,7 +16,7 @@ class ManagersView(TemplateView, CategoryListMixin):
         if request.user.is_manager() or request.user.is_superuser:
             self.template_name = get_managers_template("managers/managers.html", request.user, request.META['HTTP_USER_AGENT'])
         for chat in Chat.objects.filter(type='SUP'):
-            if chat.get_members_ids() == 1:
+            if chat.members == 1:
                 self.count_chats += 1
         return super(ManagersView,self).get(request,*args,**kwargs)
 

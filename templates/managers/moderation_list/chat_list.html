@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Чаты с техподдержкой{% endblock %}
+{% load manager_tags %}
+{% block content %}
+
+<div class="content-body manager main-container">
+    <section class="app-user-edit">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8 col-md-7">
+                      <h1 class="mb-0 mb-3">Чаты с техподдержкой</h1>
+                        <div class="card user-card is_paginate">
+
+                          {% for object in object_list %}
+                          <div class="pag mt-2" obj-pk="{{ object.pk }}" data-pk="{{ object.object_id }}" style="position: relative;">
+                              {{ object|get_music_items|safe }}
+                          </div>
+                          {% empty %}
+                          <div class="card centered mt-5">
+                            <h6 style="text-align: center;"> Чатов пока нет...</h6>
+                          </div>
+                          {% endfor %}
+                          {% if page_obj.has_next %}
+                          <div class="load centered m-1 next_page_list" data-link="/managers/moderation_list/chat/?page={{ page_obj.next_page_number }}">
+                              <img src="/static/images/loading.gif">
+                          </div>
+                          {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5">
+                      Сайдбарчик
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

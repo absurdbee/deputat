@@ -53,7 +53,7 @@
 
         {% if page_obj.has_next %}
           <div class="load centered m-1 next_page_list" data-link="/chat/{{ chat.pk }}/collections/?type=photo&page={{ page_obj.next_page_number }}">
-              <img src="/static/images/preloader.gif">
+              <img src="/static/images/loading.gif">
           </div>
         {% endif %}
 

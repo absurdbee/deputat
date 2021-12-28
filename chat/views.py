@@ -6,9 +6,9 @@ class ChatsListView(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_settings_template
+		from common.templates import get_my_template
 
-		self.template_name, self.user = get_settings_template("chat/chat/list.html", request.user, request.META['HTTP_USER_AGENT']), request.user
+		self.template_name, self.user = get_my_template("chat/chat/list.html", request.user, request.META['HTTP_USER_AGENT']), request.user
 		self.favourite_messages_count = request.user.favourite_messages_count()
 		return super(ChatsListView,self).get(request,*args,**kwargs)
 
@@ -26,14 +26,14 @@ class ChatDetailView(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from chat.models import Chat
-		from common.templates import get_settings_template
+		from common.templates import get_my_template
 		from asgiref.sync import async_to_sync
 		from channels.layers import get_channel_layer
 
 		self.chat = Chat.objects.get(pk=self.kwargs["pk"])
 		self.pk = request.user.pk
 		if self.pk in self.chat.get_members_ids():
-			self.template_name = get_settings_template("chat/chat/detail/chat.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_my_template("chat/chat/detail/chat.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
 			from django.http import Http404
 			raise Http404
@@ -76,10 +76,10 @@ class ChatFixedMessagesView(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_settings_template
+		from common.templates import get_my_template
 		from chat.models import Chat
 
-		self.template_name, self.chat = get_settings_template("chat/chat/fixed_list.html", request.user, request.META['HTTP_USER_AGENT']), Chat.objects.get(pk=self.kwargs["pk"])
+		self.template_name, self.chat = get_my_template("chat/chat/fixed_list.html", request.user, request.META['HTTP_USER_AGENT']), Chat.objects.get(pk=self.kwargs["pk"])
 		return super(ChatFixedMessagesView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
@@ -124,7 +124,7 @@ class ChatCollections(ListView):
 	template_name, paginate_by = None, 20
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_settings_template
+		from common.templates import get_my_template
 		from chat.models import Chat
 
 		self.chat = Chat.objects.get(pk=self.kwargs["pk"])
@@ -145,7 +145,7 @@ class ChatCollections(ListView):
 			self.list = self.chat.get_attach_posts()
 
 		if request.user.pk in self.chat.get_members_ids():
-			self.template_name = get_settings_template("chat/chat/collections/" + type + ".html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_my_template("chat/chat/collections/" + type + ".html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
 			from django.http import Http404
 			raise Http404
@@ -164,9 +164,9 @@ class ChatFavouritesMessagesView(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_settings_template
+		from common.templates import get_my_template
 
-		self.template_name = get_settings_template("chat/chat/favourites_list.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("chat/chat/favourites_list.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(ChatFavouritesMessagesView,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):
@@ -178,7 +178,7 @@ class ChatSearchView(ListView):
 	def get(self,request,*args,**kwargs):
 		from chat.models import Chat, Message
 		from django.http import Http404
-		from common.templates import get_detect_platform_template
+		from common.templates import get_my_template
 		from django.db.models import Q
 
 		self.chat = Chat.objects.get(pk=self.kwargs["pk"])
@@ -198,7 +198,7 @@ class ChatSearchView(ListView):
 		else:
 			self.q = ""
 			self.list = []
-		self.template_name = get_detect_platform_template("chat/chat/detail/search.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("chat/chat/detail/search.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(ChatSearchView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):

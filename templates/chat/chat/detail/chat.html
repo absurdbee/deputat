@@ -10,10 +10,10 @@
           <div class="chat_header ml-1 media w-100">
             {{ get_header_chat|safe }}
           </div>
-          {% include 'desctop/chat/chat/search.html' %}
+          {% include 'chat/chat/search.html' %}
           <div class="fixed_messages">
             {% if fix_message %}
-              {% include 'desctop/chat/chat/fixed_message.html' %}
+              {% include 'chat/chat/fixed_message.html' %}
             {% endif %}
           </div>
       </div>
@@ -27,7 +27,7 @@
 
             {% if object_list %}
               {% for object in object_list reversed %}
-                {% include 'desctop/chat/message/message.html' %}
+                {% include 'chat/message/message.html' %}
               {% endfor %}
             {% else %}
               <div class="items_empty mb-3">
@@ -39,9 +39,9 @@
               {% endif %}
             </ul>
         </div>
-        {% include 'desctop/chat/chat/form.html' %}
+        {% include 'chat/chat/form.html' %}
   </div>
-{% include 'desctop/chat/chat/detail/right_panel.html' %}
+{% include 'chat/chat/detail/right_panel.html' %}
 
 </div>
 </div>

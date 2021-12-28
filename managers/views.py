@@ -11,8 +11,14 @@ class ManagersView(TemplateView, CategoryListMixin):
     template_name = None
 
     def get(self,request,*args,**kwargs):
+        from chat.models import Chat
+
         if request.user.is_manager() or request.user.is_superuser:
             self.template_name = get_managers_template("managers/managers.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.count_chats = 0
+        for chat in Chat.objects.filter(type='SUP'):
+            if chat.get_members_ids() == 1:
+                self.count_chats += 1
         return super(ManagersView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -30,6 +36,7 @@ class ManagersView(TemplateView, CategoryListMixin):
         context["count_moderated_video"] = Moderated.count_moderated_video()
         context["count_moderated_survey"] = Moderated.count_moderated_survey()
         context["count_support_message"] = Support.objects.filter(is_read=False).values("pk").count()
+        context["count_support_chats"] = self.count_chats
         return context
 
 class SuperManagersView(TemplateView, CategoryListMixin):

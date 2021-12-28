@@ -8,14 +8,13 @@ from django.views import View
 
 
 class ManagersView(TemplateView, CategoryListMixin):
-    template_name = None
+    template_name, count_chats = None, 0
 
     def get(self,request,*args,**kwargs):
         from chat.models import Chat
 
         if request.user.is_manager() or request.user.is_superuser:
             self.template_name = get_managers_template("managers/managers.html", request.user, request.META['HTTP_USER_AGENT'])
-        self.count_chats = 0
         for chat in Chat.objects.filter(type='SUP'):
             if chat.get_members_ids() == 1:
                 self.count_chats += 1

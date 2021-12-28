@@ -18,6 +18,8 @@ class ManagersView(TemplateView, CategoryListMixin):
         for chat in Chat.objects.filter(type='SUP'):
             if chat.members == 1:
                 self.count_chats += 1
+        if self.count_chats == 0:
+            self.count_chats = ''
         return super(ManagersView,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

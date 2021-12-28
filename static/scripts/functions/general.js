@@ -8,6 +8,10 @@ on('body', 'click', '.body_overlay', function() {
   if (!container.innerHTML) {get_document_opacity_1(document.body);}
 });
 
+function clear_message_attach_block(){
+  document.body.querySelector(".message_attach_block") ? (a_b = document.body.querySelector(".message_attach_block"), a_b.innerHTML = "", a_b.classList = "", a_b.classList.add("files_0"), a_b.classList.remove("message_attach_block")) : null;
+};
+
 function check_message_form_btn() {
   input = document.body.querySelector(".message_text");
   btn_block = input.nextElementSibling.nextElementSibling;

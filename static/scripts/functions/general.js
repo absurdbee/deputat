@@ -8,6 +8,32 @@ on('body', 'click', '.body_overlay', function() {
   if (!container.innerHTML) {get_document_opacity_1(document.body);}
 });
 
+function check_message_form_btn() {
+  input = document.body.querySelector(".message_text");
+  btn_block = input.nextElementSibling.nextElementSibling;
+  if (input.innerHTML.replace(/<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g,'').trim() == "" && document.body.querySelector(".files_0")){
+     btn_block.querySelector("#voice_start_btn").style.display = "block";
+     btn_block.querySelector("#message_post_btn").style.display = "none";
+  } else {
+    btn_block.querySelector("#voice_start_btn").style.display = "none";
+    btn_block.querySelector("#message_post_btn").style.display = "block";
+  }
+};
+function show_message_form_send_btn() {
+  document.body.querySelector("#voice_start_btn").style.display = "none";
+  document.body.querySelector("#message_post_btn").style.display = "block";
+};
+function show_message_form_voice_btn() {
+  document.body.querySelector("#voice_start_btn").style.display = "block";
+  document.body.querySelector("#message_post_btn").style.display = "none";
+};
+
+function remove_class_timeout(el) {
+  setTimeout(function(){
+    el.classList.remove("draft_created");
+}, 3000)
+};
+
 function create_fullscreen(url, type_class) {
   container = document.body.querySelector("#fullscreens_container");
   try {count_items = container.querySelectorAll(".card").length} catch {count_items = 0};

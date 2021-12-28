@@ -6,6 +6,23 @@
     opacity:1;
   }
 }
+.chatview {
+  min-height: 85vh;
+  padding-top: 4em;
+  padding-bottom: 1em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.user_typed_box {
+    position: absolute;
+    bottom: 30px;
+}
+.custom_color {
+  background: #D6DAE1 !important; color: rgba(0, 0, 0, 0.8) !important;
+}
+.dark-layout .custom_color {
+  background: #065FB7 !important; color: rgba(255, 255, 255, 0.8) !important;
+}
 .main-container {
   animation: show  0.15s ease-in-out;
 }

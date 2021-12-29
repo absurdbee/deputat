@@ -14,6 +14,6 @@ urlpatterns = [
 
     url(r'^block/(?P<pk>\d+)/$', UserBlockCreate.as_view()),
     url(r'^unblock/(?P<pk>\d+)/$', UserUnblockCreate.as_view()),
-    url(r'^add_follow/(?P<pk>\d+)/$', UserFollowCreate.as_view()),
-    url(r'^delete_follow/(?P<pk>\d+)/$', UserFollowDelete.as_view()),
+    url(r'^follow/(?P<pk>\d+)/$', UserFollowCreate.as_view()),
+    url(r'^unfollow/(?P<pk>\d+)/$', UserFollowDelete.as_view()),
 ]

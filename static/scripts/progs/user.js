@@ -110,7 +110,7 @@ on('body', 'click', '.add_elect_subscribe', function() {
     }
 };
 link.send( null );
-})
+});
 
 on('body', 'click', '.claim_user', function() {
   create_fullscreen("/managers/progs_user/create_claim/" + this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk') + "/", "worker_fullscreen")
@@ -286,4 +286,42 @@ on('body', 'click', '#u_secret_key_btn', function() {
         }
     };
     request.send(form_data)
+});
+
+on('body', 'click', '.follow_user', function() {
+  _this = this;
+  pk = _this.parentElement.getAttribute("data-pk");
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/users/progs/follow/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          _this.classList.add("unfollow_user");
+          _this.classList.remove("follow_user");
+          _this.innerHTML = 'Отписаться'
+        }
+    }
+};
+link.send( null );
+});
+
+on('body', 'click', '.unfollow_user', function() {
+  _this = this;
+  pk = _this.parentElement.getAttribute("data-pk");
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/users/progs/unfollow/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          _this.classList.add("follow_user");
+          _this.classList.remove("unfollow_user");
+          _this.innerHTML = 'Подписаться'
+        }
+    }
+};
+link.send( null );
 });

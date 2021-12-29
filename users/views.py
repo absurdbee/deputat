@@ -186,7 +186,7 @@ class MediaListView(ListView, CategoryListMixin):
 	def get_queryset(self):
 		return self.list.get_items()
 
-class BlackListUsers(ListView):
+class BlackListUsers(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
@@ -198,7 +198,7 @@ class BlackListUsers(ListView):
 	def get_queryset(self):
 		return self.request.user.get_blocked_users()
 
-class AllUsers(ListView):
+class AllUsers(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 30
 
 	def get(self,request,*args,**kwargs):
@@ -211,7 +211,7 @@ class AllUsers(ListView):
 		return User.objects.exclude(type__contains="_")
 
 
-class FollowsView(ListView):
+class FollowsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
@@ -232,7 +232,7 @@ class FollowsView(ListView):
 	def get_queryset(self):
 		return self.user.get_followers()
 
-class FollowingsView(ListView):
+class FollowingsView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):

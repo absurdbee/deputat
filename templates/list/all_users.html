@@ -1,13 +1,44 @@
 {% extends "base.html" %}
 {% block title %}Пользователи портала{% endblock %}
+{% load filters %}
 {% block content %}
 
 <section class="container pt-sm-5 pb-4 main-container">
       <h2 class="h3 text-sm-left m-0">Пользователи портала</h2>
       <div class="row pt-0 is_paginate">
+
         {% for object in object_list %}
-          {% include 'profile/user_card.html' %}
+        <div class="col-sm-12 col-md-6 card pag" style="margin-bottom: .5rem;">
+            <div class="card-body" style="padding: .5rem .5rem;">
+                <div class="media">
+                    <div class="avatar mr-75">
+                        <a href="{% url 'user' pk=object.pk %}" class="ajax">
+                          {{ object.get_40_avatar|safe }}
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h6 class="font-weight-bolder mb-25">
+                            <a href="{% url 'user' pk=object.pk %}" class="ajax">
+                              {{ object.get_full_name_2 }}
+                            </a>
+                        </h6>
+                        <span class="text-muted small" data-pk="{{ object.pk }}">
+                          {% if request.user|is_follower_user:object.pk %}
+                            <span>Ваш подписчик</span>
+                              &nbsp;&nbsp;
+                          {% endif %}
+                          {% if request.user|is_following_user:object.pk %}
+                            <a class="pointer unfollow_user">Отписаться</a>
+                          {% else %}
+                            <a class="pointer follow_user">Подписаться</a>
+                          {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endfor %}
+
         {% if page_obj.has_next %}
         <div class="load centered m-1 next_page_list" data-link="/users/all-users/?page={{ page_obj.next_page_number }}">
             <img src="/static/images/loading.gif">

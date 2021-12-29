@@ -3,6 +3,7 @@ from users.model.settings import *
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from common.templates import get_my_template
 from generic.mixins import CategoryListMixin
+from django.views.generic import ListView
 
 
 class UserProfileSettings(TemplateView, CategoryListMixin):

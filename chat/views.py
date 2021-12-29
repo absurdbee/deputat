@@ -19,7 +19,7 @@ class ChatsListView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		return self.user.get_all_chats()
+		return self.user.get_followers_followings()
 
 
 class ChatDetailView(ListView, CategoryListMixin):

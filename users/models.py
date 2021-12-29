@@ -1255,6 +1255,75 @@ class User(AbstractUser):
             return user_pk in self.get_can_add_in_chat_include_users_ids()
         return False
 
+    def post_exclude_users(self, users, type):
+        from users.model.profile import UserPrivate
+
+        private = self.profile_private
+        if type == "can_send_message":
+            list = self.followers.filter(connect_ie_settings__can_send_message=2)
+            for i in list:
+                i.connect_ie_settings.can_send_message = 0
+                i.connect_ie_settings.save(update_fields=["can_send_message"])
+            for user_id in users:
+                friend = self.followers.filter(target_user_id=user_id).first()
+                try:
+                    perm = FollowPerm.objects.get(user_id=friend.pk)
+                except:
+                    perm = FollowPerm.objects.create(user_id=friend.pk)
+                perm.can_send_message = 2
+                perm.save(update_fields=["can_send_message"])
+            private.can_send_message = 17
+            private.save(update_fields=["can_send_message"])
+        elif type == "can_add_in_chat":
+            list = self.followers.filter(connect_ie_settings__can_add_in_chat=2)
+            for i in list:
+                i.connect_ie_settings.can_add_in_chat = 0
+                i.connect_ie_settings.save(update_fields=["can_add_in_chat"])
+            for user_id in users:
+                friend = self.followers.filter(target_user_id=user_id).first()
+                try:
+                    perm = FollowPerm.objects.get(user_id=friend.pk)
+                except:
+                    perm = FollowPerm.objects.create(user_id=friend.pk)
+                perm.can_add_in_chat = 2
+                perm.save(update_fields=["can_add_in_chat"])
+            private.can_add_in_chat = 17
+            private.save(update_fields=["can_add_in_chat"])
+    def post_include_users(self, users, type):
+        from users.model.profile import UserPrivate
+
+        private = self.profile_private
+        if type == "can_send_message":
+            list = self.followers.filter(connect_ie_settings__can_send_message=1)
+            for i in list:
+                i.connect_ie_settings.can_send_message = 0
+                i.connect_ie_settings.save(update_fields=["can_send_message"])
+            for user_id in users:
+                friend = self.followers.filter(target_user_id=user_id).first()
+                try:
+                    perm = FollowPerm.objects.get(user_id=friend.pk)
+                except:
+                    perm = FollowPerm.objects.create(user_id=friend.pk)
+                perm.can_send_message = 1
+                perm.save(update_fields=["can_send_message"])
+            private.can_send_message = 4
+            private.save(update_fields=["can_send_message"])
+        elif type == "can_add_in_chat":
+            list = self.followers.filter(connect_ie_settings__can_add_in_chat=1)
+            for i in list:
+                i.connect_ie_settings.can_add_in_chat = 0
+                i.connect_ie_settings.save(update_fields=["can_add_in_chat"])
+            for user_id in users:
+                friend = self.followers.filter(target_user_id=user_id).first()
+                try:
+                    perm = FollowPerm.objects.get(user_id=friend.pk)
+                except:
+                    perm = FollowPerm.objects.create(user_id=friend.pk)
+                perm.can_add_in_chat = 1
+                perm.save(update_fields=["can_add_in_chat"])
+            private.can_add_in_chat = 5
+            private.save(update_fields=["can_add_in_chat"])
+
     def get_followers_ids(self):
         from users.model.profile import Follow
 
@@ -1280,7 +1349,7 @@ class User(AbstractUser):
     def get_followings(self):
         return User.objects.filter(id__in=self.get_followings_ids())
     def get_followers_followings(self):
-        return User.objects.filter(id__in=self.get_followers_followings_ids())
+        return User.objects.filter(id__in=self.get_followers_followings_ids()).distinct()
 
     def get_can_add_in_chat_exclude_users_ids(self):
         list = self.followers.filter(connect_ie_settings__can_add_in_chat=2).values("followed_user_id")

@@ -14,7 +14,7 @@ urlpatterns = [
 
     url(r'^follows/(?P<pk>\d+)/$', FollowsView.as_view(), name='follows'),
     url(r'^followings/$', FollowingsView.as_view(), name='followings'),
-
+    url(r'^all-users/$', AllUsers.as_view(), name='all_users'),
 
     url(r'^progs/', include('users.url.progs')),
     url(r'^settings/', include('users.url.settings')),

@@ -10,4 +10,7 @@ urlpatterns = [
 
     url(r'^recovery_phone_send/(?P<phone>\d+)/$', RecoveryPhoneSend.as_view()),
     url(r'^secret_key_verify/(?P<pk>\d+)/$', SecretKeyVerify.as_view()),
-    url(r'^recovery_phone_verify/(?P<phone>\d+)/(?P<code>\d+)/$', RecoveryPhoneVerify.as_view()),]
+    url(r'^recovery_phone_verify/(?P<phone>\d+)/(?P<code>\d+)/$', RecoveryPhoneVerify.as_view()),
+    url(r'^block/(?P<pk>\d+)/$', UserBlockCreate.as_view()),
+    url(r'^unblock/(?P<pk>\d+)/$', UserUnblockCreate.as_view()),
+]

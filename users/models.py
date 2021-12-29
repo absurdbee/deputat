@@ -678,8 +678,6 @@ class User(AbstractUser):
         from common.check.user import check_can_block_user
         check_can_block_user(user=self, user_id=user_id)
 
-        if self.is_connected_with_user_with_id(user_id=user_id):
-            self.disconnect_from_user_with_id(user_id=user_id)
         if self.is_following_user_with_id(user_id=user_id):
             self.unfollow_user_with_id(user_id=user_id)
 

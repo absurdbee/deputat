@@ -15,6 +15,6 @@ urlpatterns = [
 
     url(r'^u_music_load/$', UserLoadMusic.as_view(), name="u_music_load"),
     url(r'^u_playlist_load/(?P<uuid>[0-9a-f-]+)/$', UserLoadMusicList.as_view(), name="u_music_list_load"),
-    
+
     url(r'^change_theme/$', ChangeTheme.as_view()),
 ]

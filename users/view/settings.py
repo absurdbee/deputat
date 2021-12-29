@@ -307,3 +307,68 @@ class GetPasswordRecoveryPhone(TemplateView):
 			DeputatSend.create_item(user=request.user, text=_item.text)
 			return HttpResponse()
 		return super(GetPasswordRecoveryPhone,self).post(request,*args,**kwargs)
+
+
+class UserPrivateExcludeUsers(ListView):
+	template_name, users = None, []
+
+	def get(self,request,*args,**kwargs):
+		self.type = request.GET.get("action")
+		if self.type == "can_send_message":
+			self.users = request.user.get_can_send_message_exclude_users()
+			self.text = "писать сообщения"
+		elif self.type == "can_add_in_chat":
+			self.users = request.user.get_can_add_in_chat_exclude_users()
+			self.text = "добавлять в беседы"
+		self.template_name = get_my_template("users/settings/perm/exclude_users.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserPrivateExcludeUsers,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserPrivateExcludeUsers,self).get_context_data(**kwargs)
+		context["users"] = self.users
+		context["text"] = self.text
+		context["type"] = self.type
+		return context
+
+	def get_queryset(self):
+		return self.request.user.get_followers_followings()
+
+	def post(self,request,*args,**kwargs):
+		from django.http import HttpResponse
+
+		if request.is_ajax():
+			request.user.post_exclude_users(request.POST.getlist("users"), request.POST.get("type"))
+			return HttpResponse('ok')
+		return HttpResponse('not ok')
+
+class UserPrivateIncludeUsers(ListView):
+	template_name, users = None, []
+
+	def get(self,request,*args,**kwargs):
+		self.type = request.GET.get("action")
+		if self.type == "can_send_message":
+			self.users = request.user.get_can_send_message_include_users()
+			self.text = "писать сообщения"
+		elif self.type == "can_add_in_chat":
+			self.users = request.user.get_can_add_in_chat_include_users()
+			self.text = "добавлять в беседы"
+		self.template_name = get_my_template("users/settings/perm/include_users.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(UserPrivateIncludeUsers,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(UserPrivateIncludeUsers,self).get_context_data(**kwargs)
+		context["users"] = self.users
+		context["text"] = self.text
+		context["type"] = self.type
+		return context
+
+	def get_queryset(self):
+		return self.request.user.get_followers_followings()
+
+	def post(self,request,*args,**kwargs):
+		from django.http import HttpResponse
+
+		if request.is_ajax():
+			request.user.post_include_users(request.POST.getlist("users"), request.POST.get("type"))
+			return HttpResponse('ok')
+		return HttpResponse('not ok')

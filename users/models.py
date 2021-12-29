@@ -686,9 +686,6 @@ class User(AbstractUser):
             user_to_block.unfollow_user_with_id(self.pk)
 
         UserBlock.create_user_block(blocker_id=self.pk, blocked_user_id=user_id)
-        self.remove_possible_friend(user_id)
-        self.delete_news_subscriber(user_id)
-        self.delete_profile_subscriber(user_id)
         return user_to_block
 
     def disconnect_from_user_with_id(self, user_id):

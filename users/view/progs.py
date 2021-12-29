@@ -5,6 +5,21 @@ from django.http import Http404
 from django.shortcuts import render
 
 
+class UserBlockCreate(View):
+    def get(self,request,*args,**kwargs):
+        self.user = User.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax():
+            request.user.block_user_with_pk(self.user.pk)
+            return HttpResponse()
+
+class UserUnblockCreate(View):
+    def get(self,request,*args,**kwargs):
+        self.user = User.objects.get(pk=self.kwargs["pk"])
+        if request.is_ajax():
+            request.user.unblock_user_with_pk(self.user.pk)
+            return HttpResponse()
+        else:
+            raise Http404
 
 class PhoneSend(View):
     def get(self,request,*args,**kwargs):

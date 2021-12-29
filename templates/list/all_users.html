@@ -22,7 +22,7 @@
                               {{ object.get_full_name_2 }}
                             </a>
                         </h6>
-                        <span class="text-muted small" data-pk="{{ object.pk }}">
+                        <span class="small" data-pk="{{ object.pk }}">
                           {% if request.user|is_follower_user:object.pk %}
                             <span>Ваш подписчик</span>
                               &nbsp;&nbsp;

@@ -84,14 +84,14 @@
                                                     </div>
                                                     <div class="">
                                                       {% if request.user|is_following_user:user.pk %}
-                                                        <a class="pointer unfollow_user" style="font-weight: bold;">Отписаться</a>
+                                                        <a class="pointer unfollow_user" style="font-weight: bold;">Отписаться</a><br>
                                                       {% else %}
-                                                        <a class="pointer follow_user" style="font-weight: bold;">Подписаться</a>
+                                                        <a class="pointer follow_user" style="font-weight: bold;">Подписаться</a><br>
                                                       {% endif %}
                                                       {% if user|is_blocked_user:request.user.pk %}
-                                                        <a class="pointer unblock_user" style="font-weight: bold;">Разблокировать</a>
+                                                        <a class="pointer unblock_user" style="font-weight: bold;">Разблокировать</a><br>
                                                       {% else %}
-                                                        <a class="pointer block_user" style="font-weight: bold;">Заблокировать</a>
+                                                        <a class="pointer block_user" style="font-weight: bold;">Заблокировать</a><br>
                                                       {% endif %}
                                                       <a class="pointer claim_user" style="font-weight: bold;">Пожаловаться</a><br>
                                                       <a class="pointer copy_link" data-link="{% url 'user' pk=user.pk %}" style="font-weight: bold;">Копировать ссылку</a>

@@ -43,7 +43,7 @@ class UserCoberturaMonth(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_settings_template("users/user_stat/cobertura_month.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("users/user_stat/cobertura_month.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.months = UserNumbers.objects.dates('created', 'month')[0:10]
 		self.views, self.sities = [], []
 		for i in self.months:
@@ -76,7 +76,7 @@ class UserCoberturaWeek(TemplateView):
 	def get(self,request,*args,**kwargs):
 		import datetime
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_settings_template("users/user_stat/cobertura_week.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("users/user_stat/cobertura_week.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.weeks = UserNumbers.objects.dates('created', 'week')[0:10]
 		self.range, self.views, self.sities = [], [], []
 		for i in self.weeks:
@@ -111,7 +111,7 @@ class UserCoberturaDay(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		self.user = User.objects.get(pk=self.kwargs["pk"])
-		self.template_name = get_settings_template("users/user_stat/cobertura_day.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("users/user_stat/cobertura_day.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.days = UserNumbers.objects.dates('created', 'day')[0:10]
 		self.views, self.sities = [], []
 		for i in self.days:

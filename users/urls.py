@@ -12,6 +12,10 @@ urlpatterns = [
     url(r'^phone_verify/$', MainPhoneSend.as_view(), name="phone_send"),
     url(r'^transactions/$', UserTransactionsView.as_view(), name='user_transactions'),
 
+    url(r'^follows/(?P<pk>\d+)/$', FollowsView.as_view(), name='follows'),
+    url(r'^followings/$', FollowingsView.as_view(), name='followings'),
+
+
     url(r'^progs/', include('users.url.progs')),
     url(r'^settings/', include('users.url.settings')),
     url(r'^stat/', include('users.url.stat')),

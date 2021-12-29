@@ -14,7 +14,7 @@ function private_users_send(form_post, url) {
   link_.send(form);
 }
 
-on('#ajax', 'click', '.select_perm_dropdown', function() {
+on('body', 'click', '.select_perm_dropdown', function() {
   val = this.getAttribute("data-value"), _this = this, is_new_value = true;
   action = this.parentElement.getAttribute("data-action");
   _this.parentElement.classList.remove("show");
@@ -72,6 +72,7 @@ on('body', 'click', '.body_overlay', function() {
   };
   if (!container.innerHTML) {get_document_opacity_1(document.body);}
 });
+
 on('body', 'click', '.menu_drop_2', function() {
   block = this.nextElementSibling.nextElementSibling;
   if (block.classList.contains("show")) {
@@ -79,10 +80,10 @@ on('body', 'click', '.menu_drop_2', function() {
   }
   else {
     console.log("no show");
-    all_drop = document.body.querySelectorAll(".dropdown-menu");
-    for(i=0; i<all_drop.length; i++) {
-      all_drop[i].classList.remove("show")
-    };
+    //all_drop = document.body.querySelectorAll(".dropdown-menu");
+    //for(i=0; i<all_drop.length; i++) {
+    //  all_drop[i].classList.remove("show")
+    //};
     block.classList.add("show")
   }
 });

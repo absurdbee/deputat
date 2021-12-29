@@ -1264,8 +1264,8 @@ class User(AbstractUser):
     def get_followings_ids(self):
         from users.model.profile import Follow
 
-        list = Follow.objects.filter(user_id=self.pk).values("user_id")
-        return [elect['user_id'] for elect in list]
+        list = Follow.objects.filter(user_id=self.pk).values("followed_user_id")
+        return [elect['followed_user_id'] for elect in list]
 
     def get_followers_followings_ids(self):
         ids = self.get_followers_ids() + self.get_followings_ids()

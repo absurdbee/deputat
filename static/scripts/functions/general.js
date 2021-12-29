@@ -7,7 +7,15 @@ on('body', 'click', '.body_overlay', function() {
   };
   if (!container.innerHTML) {get_document_opacity_1(document.body);}
 });
-
+on('body', 'click', '.menu_drop_2', function() {
+  block = this.nextElementSibling.nextElementSibling;
+  if (block.classList.contains("show")) { block.classList.remove("show") }
+  else {
+  all_drop = document.body.querySelectorAll(".dropdown-menu");
+  for(i=0; i<all_drop.length; i++) {
+    all_drop[i].classList.remove("show")
+  } block.classList.add("show")}
+});
 function clear_message_attach_block(){
   document.body.querySelector(".message_attach_block") ? (a_b = document.body.querySelector(".message_attach_block"), a_b.innerHTML = "", a_b.classList = "", a_b.classList.add("files_0"), a_b.classList.remove("message_attach_block")) : null;
 };

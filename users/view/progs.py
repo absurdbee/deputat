@@ -10,7 +10,7 @@ class UserBlockCreate(View):
         self.user = User.objects.get(pk=self.kwargs["pk"])
         if request.is_ajax():
             request.user.block_user_with_pk(self.user.pk)
-            return HttpResponse()
+        return HttpResponse()
 
 class UserUnblockCreate(View):
     def get(self,request,*args,**kwargs):

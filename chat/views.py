@@ -97,12 +97,12 @@ class ChatInfo(ListView):
 	template_name, paginate_by = None, 20
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_template_user_chat
+		from common.templates import get_my_template
 		from chat.models import Chat
 
 		self.chat = Chat.objects.get(pk=self.kwargs["pk"])
 		request_user_pk = request.user.pk
-		self.template_name = get_template_user_chat(self.chat, "chat/chat/info/", "info.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("chat/chat/info/info.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.is_can_see_settings = self.chat.is_user_can_see_settings(request_user_pk)
 		self.is_can_add_admin = self.chat.is_user_can_add_admin(request_user_pk)
 		self.is_user_can_add_members = self.chat.is_user_can_add_members(request_user_pk)

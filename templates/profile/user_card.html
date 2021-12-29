@@ -1,0 +1,25 @@
+{% load filters %}
+
+<div class="card pag" style="margin-bottom: .5rem;">
+    <div class="card-body" style="padding: .5rem .5rem;">
+        <div class="media">
+            <div class="avatar mr-75">
+                <a href="{% url 'user' pk=object.pk %}" class="ajax">
+                  {{ object.get_40_avatar|safe }}
+                </a>
+            </div>
+            <div class="media-body">
+                <h6 class="font-weight-bolder mb-25">
+                    <a href="{% url 'user' pk=object.pk %}" class="ajax">
+                      {{ object.get_full_name_2 }}
+                    </a>
+                </h6>
+                <span class="text-muted small">что-то</span><br>
+            </div>
+        </div>
+
+        <div class="comment_footer" data-pk="{{ comment.pk }}">
+            <span class="card-text">{{ comment.text|safe }}</span>
+        </div>
+    </div>
+</div>

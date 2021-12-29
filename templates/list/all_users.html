@@ -3,16 +3,13 @@
 {% block content %}
 
 <section class="container pt-sm-5 pb-4 main-container">
-      <h2 class="h3 text-sm-left m-0">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</h2>
+      <h2 class="h3 text-sm-left m-0">Пользователи портала</h2>
       <div class="row pt-0 is_paginate">
         {% for object in object_list %}
-          {% include 'elect/elect_index_card.html' %}
-
-        {% empty %}
-          В списке почему-то никого нет.
+          {% include 'profile/user_card.html' %}
         {% endfor %}
         {% if page_obj.has_next %}
-        <div class="load centered m-1 next_page_list" data-link="{% url 'fraction_index' slug=list.slug %}?page={{ page_obj.next_page_number }}">
+        <div class="load centered m-1 next_page_list" data-link="/users/all-users/?page={{ page_obj.next_page_number }}">
             <img src="/static/images/loading.gif">
         </div>
         {% endif %}

@@ -165,3 +165,63 @@ class ChangeTheme(View):
 			profile.theme = theme
 			profile.save(update_fields=["theme"])
 		return HttpResponse()
+
+
+class SmilesStickersLoad(ListView):
+	template_name, populate_smiles, populate_stickers = None, None, None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_my_template("users/load/smiles_stickers.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.is_have_populate_smiles = request.user.is_have_populate_smiles()
+		if self.is_have_populate_smiles:
+			self.populate_smiles = request.user.get_populate_smiles()
+		self.is_have_populate_stickers = request.user.is_have_populate_stickers()
+		if self.is_have_populate_stickers:
+			self.populate_stickers = request.user.get_populate_stickers()
+		return super(SmilesStickersLoad,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from common.model.other import SmileCategory, StickerCategory
+		context = super(SmilesStickersLoad,self).get_context_data(**kwargs)
+		context["smiles_category"] = SmileCategory.objects.only("pk")
+		context["stickers_category"] = StickerCategory.objects.only("pk")
+		context["populate_smiles"] = self.populate_smiles
+		context["populate_stickers"] = self.populate_stickers
+		context["is_have_populate_smiles"] = self.is_have_populate_smiles
+		context["is_have_populate_stickers"] = self.is_have_populate_stickers
+		return context
+
+	def get_queryset(self):
+		return []
+
+class SmilesLoad(ListView):
+	template_name, populate_smiles = None, None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_my_template("users/load/smiles.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.is_have_populate_smiles = request.user.is_have_populate_smiles()
+		if self.is_have_populate_smiles:
+			self.populate_smiles = request.user.get_populate_smiles()
+		return super(SmilesLoad,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		from common.model.other import SmileCategory, StickerCategory
+		context = super(SmilesLoad,self).get_context_data(**kwargs)
+		context["smiles_category"] = SmileCategory.objects.only("pk")
+		context["populate_smiles"] = self.populate_smiles
+		context["is_have_populate_smiles"] = self.is_have_populate_smiles
+		return context
+
+	def get_queryset(self):
+		return []
+
+class ChatsLoad(ListView):
+	template_name, paginate_by = None, 20
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_my_template("users/load/chats.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.list = request.user.get_all_chats()
+		return super(ChatsLoad,self).get(request,*args,**kwargs)
+
+	def get_queryset(self):
+		return self.list

@@ -58,12 +58,12 @@ class UserSendPageMessage(TemplateView):
 
 	def get(self,request,*args,**kwargs):
 		from users.models import User
-		from common.templates import get_settings_template
+		from common.templates import get_my_template
 
 		if request.user.get_6_friends():
-			self.template_name = get_settings_template("chat/message/add_friend_message.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_my_template("chat/message/add_friend_message.html", request.user, request.META['HTTP_USER_AGENT'])
 		else:
-			self.template_name = get_settings_template("chat/message/add_message.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_my_template("chat/message/add_message.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		return super(UserSendPageMessage,self).get(request,*args,**kwargs)
 
@@ -388,9 +388,9 @@ class InviteMembersInUserChat(ListView):
 
 	def get(self,request,*args,**kwargs):
 		from chat.models import Chat
-		from common.templates import get_settings_template
+		from common.templates import get_my_template
 
-		self.template_name = get_settings_template("chat/chat/append_friends.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("chat/chat/append_friends.html", request.user, request.META['HTTP_USER_AGENT'])
 		if request.GET.get("chat_pk") != "null":
 			self.chat = Chat.objects.get(pk=request.GET.get("chat_pk"))
 		return super(InviteMembersInUserChat,self).get(request,*args,**kwargs)

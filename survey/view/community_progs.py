@@ -148,7 +148,7 @@ class CommunitySurveyListCreate(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.template_name = get_settings_template("survey/community/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.template_name = get_my_template("survey/community/create_list.html", request.user, request.META['HTTP_USER_AGENT'])
         return super(CommunitySurveyListCreate,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
@@ -171,7 +171,7 @@ class CommunitySurveyListEdit(TemplateView):
     template_name = None
 
     def get(self,request,*args,**kwargs):
-        self.list, self.template_name = get_settings_template("survey/community/edit_list.html", request.user, request.META['HTTP_USER_AGENT']), SurveyList.objects.get(uuid=self.kwargs["uuid"])
+        self.list, self.template_name = get_my_template("survey/community/edit_list.html", request.user, request.META['HTTP_USER_AGENT']), SurveyList.objects.get(uuid=self.kwargs["uuid"])
         return super(CommunitySurveyListEdit,self).get(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):

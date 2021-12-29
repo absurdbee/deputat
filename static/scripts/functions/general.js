@@ -84,7 +84,7 @@ on('body', 'click', '.menu_drop_2', function() {
     //for(i=0; i<all_drop.length; i++) {
     //  all_drop[i].classList.remove("show")
     //};
-    block.classList.add("show")
+    block.classList.add("show");block.classList.add("show");
   }
 });
 function clear_message_attach_block(){

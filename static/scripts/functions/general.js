@@ -9,6 +9,7 @@ on('body', 'click', '.body_overlay', function() {
 });
 on('body', 'click', '.menu_drop_2', function() {
   block = this.nextElementSibling.nextElementSibling;
+  console.log(block);
   if (block.classList.contains("show")) { block.classList.remove("show") }
   else {
     all_drop = document.body.querySelectorAll(".dropdown-menu");

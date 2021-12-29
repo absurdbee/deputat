@@ -60,10 +60,7 @@ class UserSendPageMessage(TemplateView):
 		from users.models import User
 		from common.templates import get_my_template
 
-		if request.user.get_6_friends():
-			self.template_name = get_my_template("chat/message/add_friend_message.html", request.user, request.META['HTTP_USER_AGENT'])
-		else:
-			self.template_name = get_my_template("chat/message/add_message.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("chat/message/add_message.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		return super(UserSendPageMessage,self).get(request,*args,**kwargs)
 
@@ -88,11 +85,7 @@ class UserSendPageMessage(TemplateView):
 		if request.is_ajax() and self.form.is_valid():
 			message = self.form.save(commit=False)
 			if request.POST.get('text') or request.POST.get('attach_items') or request.POST.get('sticker'):
-				if connections:
-					connections += [self.user.pk,]
-					_message = Message.create_chat_append_members_and_send_message(creator=request.user, users_ids=connections, text=message.text, voice=request.POST.get('voice'), attach=request.POST.getlist('attach_items'), sticker=request.POST.get('sticker'))
-				else:
-					_message = Message.get_or_create_chat_and_send_message(creator=request.user, user=self.user, text=message.text, voice=request.POST.get('voice'), attach=request.POST.getlist('attach_items'), sticker=request.POST.get('sticker'))
+				_message = Message.get_or_create_chat_and_send_message(creator=request.user, user=self.user, text=message.text, voice=request.POST.get('voice'), attach=request.POST.getlist('attach_items'), sticker=request.POST.get('sticker'))
 				return HttpResponse()
 			else:
 				from django.http import HttpResponseBadRequest

@@ -202,9 +202,9 @@ class AllUsers(ListView):
 	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
-		from common.templates import get_my_template
+		from common.templates import get_full_template
 
-		self.template_name = get_my_template("list/", "all_users.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_full_template("list/", "all_users.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(AllUsers,self).get(request,*args,**kwargs)
 
 	def get_queryset(self):

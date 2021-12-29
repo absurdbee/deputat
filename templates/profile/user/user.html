@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ user.first_name }} {{ user.last_name }}{% endblock %}
+{% load filters %}
 {% block content %}
 
 <div class="content-body pk_saver main-container" data-pk="{{ user.pk }}">
@@ -82,8 +83,18 @@
                                                         <span class="card-text"></span>
                                                     </div>
                                                     <div class="">
-                                                          <a class="pointer claim_user" style="font-weight: bold;">Пожаловаться</a><br>
-                                                          <a class="pointer copy_link" data-link="{% url 'user' pk=user.pk %}" style="font-weight: bold;">Копировать ссылку</a>
+                                                      {% if request.user|is_following_user:user.pk %}
+                                                        <a class="pointer unfollow_user" style="font-weight: bold;">Отписаться</a>
+                                                      {% else %}
+                                                        <a class="pointer follow_user" style="font-weight: bold;">Подписаться</a>
+                                                      {% endif %}
+                                                      {% if user|is_blocked_user:request.user.pk %}
+                                                        <a class="pointer unblock_user" style="font-weight: bold;">Разблокировать</a>
+                                                      {% else %}
+                                                        <a class="pointer block_user" style="font-weight: bold;">Заблокировать</a>
+                                                      {% endif %}
+                                                      <a class="pointer claim_user" style="font-weight: bold;">Пожаловаться</a><br>
+                                                      <a class="pointer copy_link" data-link="{% url 'user' pk=user.pk %}" style="font-weight: bold;">Копировать ссылку</a>
                                                     </div>
                                                 </div>
                                             </div>

@@ -325,3 +325,41 @@ on('body', 'click', '.unfollow_user', function() {
 };
 link.send( null );
 });
+
+on('body', 'click', '.block_user', function() {
+  _this = this;
+  pk = _this.parentElement.getAttribute("data-pk");
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/users/progs/block/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          _this.classList.add("unblock_user");
+          _this.classList.remove("block_user");
+          _this.innerHTML = 'Разблокировать'
+        }
+    }
+};
+link.send( null );
+});
+
+on('body', 'click', '.unblock_user', function() {
+  _this = this;
+  pk = _this.parentElement.getAttribute("data-pk");
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', "/users/progs/unblock/" + pk + "/", true );
+  link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  link.onreadystatechange = function () {
+    if ( link.readyState == 4 ) {
+        if ( link.status == 200 ) {
+          _this.classList.add("block_user");
+          _this.classList.remove("unblock_user");
+          _this.innerHTML = 'Заблокировать'
+        }
+    }
+};
+link.send( null );
+});

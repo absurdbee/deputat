@@ -171,7 +171,7 @@ class SmilesStickersLoad(ListView):
 	template_name, populate_smiles, populate_stickers = None, None, None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_my_template("users/load/smiles_stickers.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("user_load/smiles_stickers.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.is_have_populate_smiles = request.user.is_have_populate_smiles()
 		if self.is_have_populate_smiles:
 			self.populate_smiles = request.user.get_populate_smiles()
@@ -198,7 +198,7 @@ class SmilesLoad(ListView):
 	template_name, populate_smiles = None, None
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_my_template("users/load/smiles.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("user_load/smiles.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.is_have_populate_smiles = request.user.is_have_populate_smiles()
 		if self.is_have_populate_smiles:
 			self.populate_smiles = request.user.get_populate_smiles()
@@ -219,7 +219,7 @@ class ChatsLoad(ListView):
 	template_name, paginate_by = None, 20
 
 	def get(self,request,*args,**kwargs):
-		self.template_name = get_my_template("users/load/chats.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.template_name = get_my_template("user_load/chats.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.list = request.user.get_all_chats()
 		return super(ChatsLoad,self).get(request,*args,**kwargs)
 

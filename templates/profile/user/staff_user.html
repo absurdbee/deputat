@@ -81,6 +81,7 @@
                                                         <span class="card-text"></span>
                                                     </div>
                                                     <div data-pk="{{ user.pk }}">
+                                                      <a class="pointer user_send_page_message" style="font-weight: bold;">Написать сообщение</a><br>
                                                       {% if request.user|is_following_user:user.pk %}
                                                         <a class="pointer unfollow_user" style="font-weight: bold;">Отписаться</a><br>
                                                       {% else %}

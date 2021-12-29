@@ -19,8 +19,11 @@
 
               <ul class="list-group is_paginate">
                 {% for object in object_list %}
-                {{ object }}
-                  
+                <li class="list-group-item" data-pk="{{ object.pk }}">
+                  <a class="chat_ajax" href="{% url 'chat_detail' pk=object.pk %}">
+                    {{ object|get_preview_message:request.user.pk|safe }}
+                  </a>
+                </li>
                 {% endfor %}
                 {% if page_obj.has_next %}
                 <div class="load centered m-1 next_page_list" data-link="{% url 'chats_list' %}?page={{ page_obj.next_page_number }}">

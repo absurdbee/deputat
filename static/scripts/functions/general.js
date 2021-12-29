@@ -1,5 +1,70 @@
 var $serf_history = [];
 
+function private_users_send(form_post, url) {
+  form = new FormData(form_post);
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', url, true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    form_post.querySelector(".collector_active").innerHTML = "";
+    toast_success("Настройки изменены")
+  }};
+  link_.send(form);
+}
+
+on('#ajax', 'click', '.select_perm_dropdown', function() {
+  val = this.getAttribute("data-value"), _this = this, is_new_value = true;
+  action = this.parentElement.getAttribute("data-action");
+  _this.parentElement.classList.remove("show");
+
+  form_post = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+  collectors = form_post.querySelectorAll(".collector");
+  for (var i = 0; i < collectors.length; i++){
+    collectors[i].classList.remove("collector_active")
+  };
+  parent_2 = this.parentElement.parentElement;
+  collector = parent_2.querySelector(".collector");
+  current_option = parent_2.querySelector(".menu_drop_2");
+  current_option.innerHTML = _this.innerHTML;
+  collector.classList.add("collector_active");
+
+  if (form_post.classList.contains("case_edit")) {
+    // если мы имеем дело с изменением приватности элемента, который
+    // уже есть, поэтому можем сразу сохранять приватность
+
+    if (form_post.classList.contains("chat_edit")) {
+      // работаем с приватностью пользовательского чата
+      if (val == '4') {
+        create_fullscreen("/chat/user_progs/load_exclude_users/" + form_post.getAttribute("data-pk") + "/?action=" + action, "worker_fullscreen");
+      }
+      else if (val == '5') {
+        create_fullscreen("/chat/user_progs/load_include_users/" + form_post.getAttribute("data-pk") + "/?action=" + action, "worker_fullscreen");
+      }
+      else {
+        if (is_new_value) {
+          private_users_send(form_post, "/chat/user_progs/private/" + form_post.getAttribute("data-pk") + "/?action=" + action + "&value=" + val)
+        }
+      }
+  }
+  else if (form_post.classList.contains("type_profile")) {
+    // работаем с приватностью профиля пользователя
+    if (val == '4') {
+      create_fullscreen("/users/settings/load_exclude_users/?action=" + action, "worker_fullscreen");
+    }
+    else if (val == '5') {
+      create_fullscreen("/users/settings/load_include_users/?action=" + action, "worker_fullscreen");
+    }
+    else {
+      if (is_new_value) {
+        private_users_send(form_post, "/users/settings/private/?action=" + action + "&value=" + val)
+      }
+    }
+  }
+}
+});
+
 on('body', 'click', '.body_overlay', function() {
   container = document.body.querySelector("#fullscreens_container");
   if (container.innerHTML) {
@@ -9,8 +74,9 @@ on('body', 'click', '.body_overlay', function() {
 });
 on('body', 'click', '.menu_drop_2', function() {
   block = this.nextElementSibling.nextElementSibling;
-  console.log(block);
-  if (block.classList.contains("show")) { block.classList.remove("show") }
+  if (block.classList.contains("show")) {
+    block.classList.remove("show")
+  }
   else {
     console.log("no show");
     all_drop = document.body.querySelectorAll(".dropdown-menu");

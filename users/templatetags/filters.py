@@ -66,3 +66,10 @@ def edit_attach(obj, request_user):
 @register.filter
 def is_user_can_add_list(list, user_id):
     return list.is_user_can_add_list(user_id)
+
+@register.filter
+def is_follower_user(request_user, user_id):
+    return request_user.is_followers_user_with_id(user_id)
+@register.filter
+def is_following_user(request_user, user_id):
+    return request_user.is_following_user_with_id(user_id)

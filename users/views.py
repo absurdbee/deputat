@@ -185,3 +185,61 @@ class MediaListView(ListView, CategoryListMixin):
 
 	def get_queryset(self):
 		return self.list.get_items()
+
+class BlackListUsers(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_my_template
+
+		self.template_name = get_my_template("profile/blacklist.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(BlackListUsers,self).get(request,*args,**kwargs)
+
+	def get_queryset(self):
+		return self.request.user.get_blocked_users()
+
+class AllUsers(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_my_template
+
+		self.template_name = get_my_template("list/", "all_users.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(AllUsers,self).get(request,*args,**kwargs)
+
+	def get_queryset(self):
+		return User.objects.exclude(type__contains="_")
+
+
+class FollowsView(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_template_user, get_template_anon_user
+
+		self.user = User.objects.get(pk=self.kwargs["pk"])
+		if request.user.is_authenticated:
+			self.template_name = get_template_user(self.user, "profile/follows/", "a.html", request.user, request.META['HTTP_USER_AGENT'])
+		else:
+			self.template_name = get_template_anon_user(self.user, "profile/follows/a.html", request.META['HTTP_USER_AGENT'])
+		return super(FollowsView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(FollowsView,self).get_context_data(**kwargs)
+		context['user'] = self.user
+		return context
+
+	def get_queryset(self):
+		return self.user.get_followers()
+
+class FollowingsView(ListView):
+	template_name, paginate_by = None, 15
+
+	def get(self,request,*args,**kwargs):
+		from common.templates import get_my_template
+
+		self.template_name = get_my_template("profile/followings.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(FollowingsView,self).get(request,*args,**kwargs)
+
+	def get_queryset(self):
+		return self.request.user.get_followings()

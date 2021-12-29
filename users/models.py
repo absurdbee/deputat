@@ -1338,7 +1338,7 @@ class User(AbstractUser):
 
     def get_followers_followings_ids(self):
         ids = self.get_followers_ids() + self.get_followings_ids()
-        return ids.distinct()
+        return list(set(ids))
     def is_have_follows_followings(self):
         from users.model.profile import Follow
         query = Q(user_id=self.pk) | Q(followed_user_id=self.pk)

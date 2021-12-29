@@ -73,3 +73,6 @@ def is_follower_user(request_user, user_id):
 @register.filter
 def is_following_user(request_user, user_id):
     return request_user.is_following_user_with_id(user_id)
+@register.filter
+def is_blocked_user(user, request_user_id):
+    return user.is_blocked_with_user_with_id(request_user_id)

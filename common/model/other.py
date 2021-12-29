@@ -37,7 +37,7 @@ class StickerCategory(models.Model):
 class Stickers(models.Model):
     name = models.CharField(max_length=32, unique=True, verbose_name="Название")
     category = models.ForeignKey(StickerCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Категория")
-    image = models.ImageField(upload_to="stickers/")
+    image = models.FileField(upload_to="stickers/")
 
     class Meta:
         verbose_name = 'Стикер'
@@ -65,7 +65,7 @@ class SmileCategory(models.Model):
 class Smiles(models.Model):
     name = models.CharField(max_length=32, unique=True, verbose_name="Название")
     category = models.ForeignKey(SmileCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Категория")
-    image = models.ImageField(upload_to="smiles/")
+    image = models.FileField(upload_to="smiles/")
 
     class Meta:
         verbose_name = 'Смайл'

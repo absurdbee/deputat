@@ -51,6 +51,27 @@ class User(AbstractUser):
     def get_link(self):
         return '/users/' + str(self.pk) + "/"
 
+    def get_populate_smiles(self):
+        from common.model.other import Smiles, UserPopulateSmiles
+        query = []
+        for smile in UserPopulateSmiles.objects.filter(user_id=self.pk)[:20]:
+            query.append(Smiles.objects.get(id=smile.pk))
+        return query
+    def is_have_populate_smiles(self):
+        from common.model.other import Smiles
+        return Smiles.objects.filter(smile__user_id=self.pk).exists()
+
+    def get_populate_stickers(self):
+        from common.model.other import UserPopulateStickers, Stickers
+        stickers = UserPopulateStickers.objects.filter(user_id=self.pk)[:20]
+        stickers_values = stickers.values("sticker_id")
+        stickers_ids = [i['sticker_id'] for i in stickers_values]
+        return Stickers.objects.filter(id__in=stickers_ids)
+    def is_have_populate_stickers(self):
+        from common.model.other import UserPopulateStickers
+        return UserPopulateStickers.objects.filter(user_id=self.pk).exists()
+
+
     def get_40_avatar(self):
         if self.s_avatar:
             return '<img style="width:40px;" alt="image" src="' + self.s_avatar.url + '" alt="image" />'

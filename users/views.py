@@ -199,7 +199,7 @@ class BlackListUsers(ListView):
 		return self.request.user.get_blocked_users()
 
 class AllUsers(ListView):
-	template_name, paginate_by = None, 15
+	template_name, paginate_by = None, 30
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_full_template

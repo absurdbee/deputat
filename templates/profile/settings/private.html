@@ -5,10 +5,61 @@
 <div class="row mt-2 main-container">
   {% include 'profile/settings/nav.html' %}
     <div class="col-md-9">
-        <div class="card">
+      <div class="card">
+          <div class="card-header">
+              <h4 class="card-title">Связь со мной</h4>
+          </div>
+          <div class="card-body">
+              <form class="form form-horizontal">
+                  {% csrf_token %}
+                  <div class="row mb-1 form_group_flex">
+                      <label class="col-md-6">Кто пишет сообщения</label>
+                      <span class="col-md-6">
+                        <a class="menu_drop_2 pointer">{{ private.get_can_send_message_display }}</a>
+                        <span class="collector">
+                          {% if private.can_send_message == 4 and request.user.get_can_send_message_exclude_users %}:
+                          {% for object in request.user.get_can_send_message_exclude_users %}
+                            <a href="{{ object.get_link }}" target="_blank">{{ object.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                          {% elif private.can_send_message == 5 and request.user.get_can_send_message_include_users %}:
+                          {% for object in request.user.get_can_send_message_include_users %}
+                            <a href="{{ object.get_link }}" target="_blank">{{ object.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                          {% endif %}
+                        </span>
+                        <div class="dropdown-menu border" data-action="can_send_message" style="top: 30px;">
+                          {% include 'users/settings/perm/user_perm_drop.html' %}
+                        </div>
+                      </span>
+                  </div>
 
+                  <div class="row mb-1 form_group_flex">
+                      <label class="col-md-6">Кто добавляет в беседы</label>
+                      <span class="col-md-6">
+                        <a class="menu_drop_2 pointer">{{ private.get_can_add_in_chat_display }}</a>
+                        <span class="collector">
+                          {% if private.can_add_in_chat == 4 and request.user.get_can_add_in_chat_exclude_users %}:
+                          {% for object in request.user.get_can_add_in_chat_exclude_users %}
+                            <a href="{{ object.get_link }}" target="_blank">{{ object.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                          {% elif private.can_add_in_chat == 5 and request.user.get_can_add_in_chat_include_users %}:
+                          {% for object in request.user.get_can_add_in_chat_include_users %}
+                            <a href="{{ object.get_link }}" target="_blank">{{ object.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
+                          {% endfor %}
+                          {% endif %}
+                        </span>
+                        <div class="dropdown-menu border" data-action="can_add_in_chat" style="top: 30px;">
+                          {% include 'users/settings/perm/user_perm_drop.html' %}
+                        </div>
+                      </span>
+                  </div>
+              </form>
+          </div>
+      </div>
+
+        <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Настройки приватности</h4>
+                <h4 class="card-title">Приватность профиля</h4>
             </div>
             <div class="card-body">
                 <form class="form form-horizontal">

@@ -372,9 +372,6 @@ class User(AbstractUser):
     def is_blocked_user_with_id(self, user_id):
         return self.blocked_by_users.filter(blocked_user_id=user_id).exists()
 
-    def is_connected_with_user_with_id(self, user_id):
-        return self.connections.filter(target_connection__user_id=user_id).exists()
-
     def is_following_user_with_id(self, user_id):
         return self.follows.filter(followed_user__id=user_id).exists()
     def is_followers_user_with_id(self, user_id):
@@ -697,12 +694,8 @@ class User(AbstractUser):
         return user_to_block
 
     def disconnect_from_user_with_id(self, user_id):
-        from common.check.user import check_is_connected
-        check_is_connected(user=self, user_id=user_id)
         if self.is_following_user_with_id(user_id):
             self.unfollow_user_with_id(user_id)
-        connection = self.connections.get(target_connection__user_id=user_id)
-        connection.delete()
 
     def unfollow_user(self, user):
         self.unfollow_user_with_id(user.pk)

@@ -6,7 +6,7 @@
     </a>
   </div>
 </div>
-<ul class="is_block_paginate" style="list-style-type:none">
+<ul class="is_block_paginate" style="list-style-type:none; padding-top:25px">
 {% for object in object_list %}
   <li class="pointer go_transfer_messages" data-pk="{{ object.pk }}">
     {{ object|get_preview_message:request.user.pk|safe }}

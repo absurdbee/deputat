@@ -251,7 +251,7 @@ on('#ajax', 'click', '.user_chat_settings_private', function() {
 });
 on('#ajax', 'click', '.show_attach_files', function() {
   pk = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute("chat-pk")
-  create_fullscreen("/chat/" + pk + "/collections/", "item_fullscreen");
+  create_fullscreen("/chat/" + pk + "/collections/", "window_fullscreen");
 });
 on('#ajax', 'click', '.select_chat_collections', function() {
   _this = this;
@@ -368,7 +368,7 @@ on('#ajax', 'input', '.smile_supported', function() {
 
 on('#ajax', 'click', '.show_chat_fixed_messages', function() {
   pk = this.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('chat-pk');
-  create_fullscreen("/chat/" + pk + "/fixed_messages/", "item_fullscreen");
+  create_fullscreen("/chat/" + pk + "/fixed_messages/", "window_fullscreen");
 });
 
 on('#ajax', 'click', '.classic_smile_item', function() {
@@ -498,10 +498,7 @@ function send_message_sticker(url, value) {
           behavior: "smooth"
         })
       };
-    } else {
-      document.querySelector(".item_fullscreen").style.display = "none";
-      document.getElementById("item_loader").innerHTML="";
-    }
+    } else {}
   }};
   link_.send(form_data);
 };
@@ -915,7 +912,7 @@ on('#ajax', 'click', '.edit_message_post_btn', function() {
 
 
 on('#ajax', 'click', '.u_message_transfer', function() {
-  create_fullscreen('/users/load/chats/', "item_fullscreen");
+  create_fullscreen('/users/load/chats/', "window_fullscreen");
   hide_chat_console();
 });
 

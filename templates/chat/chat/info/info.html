@@ -3,7 +3,7 @@
 <div>
 <div class="card" chat-pk="{{ chat.pk }}">
   <div class="card-header">
-      <div class="media">иииии
+      <div class="media">
         <figure>
           {% if chat.image %}
             <img src="{{ chat.image.url }}" style="border-radius:50px;width:50px;" alt="image">
@@ -22,22 +22,19 @@
                 Приватность
               </span>
           {% endif %}
-          {{ is_can_see_log }}
 
           {% if is_can_see_log %}
               <span class="mb-0 user_chat_logs pointer">
-              |  Журнал действий
+              |  Журнал
               </span>
           {% endif %}
-          |
-          <p class="mb-0">{{ chat.get_type_display }}</p>
         </div>
       </div>
   </div>
   <div class="card-body">
 
      {% if is_user_can_add_members %}
-    <div class="list-group-item border-top pointer u_add_members_in_chat mb-2" chat-pk="{{ chat.pk }}">
+    <div class="border-top pointer u_add_members_in_chat mb-2" chat-pk="{{ chat.pk }}">
       <div class="media">
           <figure>
             <svg fill="currentColor" class="svg_default svg_default_30" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
@@ -53,7 +50,7 @@
 
 <p class="mb-0">{{ chat.get_members_count_ru }}</p>
 {% for object in object_list %}
-<li class="list-group-item border-top pag" data-pk="{{ object.pk }}">
+<div class="border-top pag" data-pk="{{ object.pk }}">
   <div class="media">
       <a href="{{ object.get_link }}" target="_blank">
           <figure>
@@ -99,7 +96,7 @@
           </div>
       </div>
   </div>
-</li>
+</div>
 {% endfor %}
 {% if page_obj.has_next %}
 <div class="load centered m-1 next_page_list" data-link="/chat/{{ chat.pk }}/info/?page={{ page_obj.next_page_number }}">

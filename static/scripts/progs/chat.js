@@ -1439,10 +1439,15 @@ on('#ajax', 'click', '#voice_start_btn', function() {
 
   })
 on('#ajax', 'click', '.voice_stop_btn', function() {
-    stop();
-    document.body.querySelector('#audio').style.display = "block";
-    document.body.querySelector('.delete_voice_btn').style.display = "block";
-    document.body.querySelector('.mic_visual_canvas').style.display = "none";
-    document.body.querySelector('.voice_stop_btn').style.display = "none";
+  audio = document.createElement("audio");
+  audio.setAttribute("id", "audio");
+  audio.setAttribute("controls", "true");
+  document.body.querySelector('.input-group').append(audio);
+
+  document.body.querySelector('#audio').style.display = "block";
+  document.body.querySelector('.delete_voice_btn').style.display = "block";
+  document.body.querySelector('.mic_visual_canvas').style.display = "none";
+  document.body.querySelector('.voice_stop_btn').style.display = "none";
+  stop();
   })
 })()

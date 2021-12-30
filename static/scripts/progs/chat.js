@@ -964,7 +964,7 @@ on('#ajax', 'click', '.go_transfer_messages', function() {
     } else if(message.querySelector(".message_sticker")) {
         preview = "Наклейка"
     };
-    creator_p = '<p><a class="underline" target="_blank" href="' + message.querySelector(".creator_link").getAttribute("href") + '">' + message.querySelector(".creator_name").innerHTML + '</a></p>'
+    creator_p = '<span><a class="underline" target="_blank" href="' + message.querySelector(".creator_link").getAttribute("href") + '">' + message.querySelector(".creator_name").innerHTML + '</a></span>'
   };
   if (url == window.location.href) {
     block = rtr.querySelector(".parent_message_block");

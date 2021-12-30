@@ -2,7 +2,7 @@
     <form data-type="{{ type }}" class="">
       {% csrf_token %}
       <input type="hidden" name="type" value="{{ type }}">
-      <div class="card_header" style="min-height: 100px;">
+      <div class="card_header" style="min-height: 50px;padding:10px">
         {% if users %}
           <span class="header_title" style="display:none">Выберите тех, кто может {{ text }}</span>
           {% for object in users %}

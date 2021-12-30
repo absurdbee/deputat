@@ -6,7 +6,8 @@
     opacity:1;
   }
 }
-.customize_form .plyr {
+.customize_form .plyr,
+.customize_form audio {
   display: none;
 }
 .dark-layout .border-left {

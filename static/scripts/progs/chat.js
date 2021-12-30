@@ -1433,6 +1433,7 @@ on('#ajax', 'click', '#voice_start_btn', function() {
     show_message_form_send_btn();
     document.body.querySelector('.delete_voice_btn').style.display = "block";
     document.body.querySelector('.smile_supported').style.display = "none";
+    document.body.querySelector('.file_dropdown_2').style.display = "none";
     document.body.querySelector('.mic_visual_canvas').style.display = "block";
     document.body.querySelector('.voice_stop_btn').style.display = "block";
     start();

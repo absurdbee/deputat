@@ -1413,7 +1413,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
         x += sliceWidth;
       }
 
-      canvasCtx.lineTo(canvas.width, canvas.height/2);
+      canvasCtx.lineTo(canvas.width, canvas.height/6);
       canvasCtx.stroke();
     };
     draw();

@@ -1304,7 +1304,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
 
   function start() {
     recording = true;
-    document.querySelector('#msg').style.visibility = 'visible'
+    document.querySelector('#user_typed_box').style.visibility = 'visible'
     // reset the buffers for the new recording
     leftchannel.length = rightchannel.length = 0;
     recordingLength = 0;
@@ -1315,7 +1315,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
   function stop() {
     console.log('Stop')
     recording = false;
-    document.querySelector('#msg').style.visibility = 'hidden'
+    document.querySelector('#user_typed_box').style.visibility = 'hidden'
 
 
     // we flat the left and right channels down

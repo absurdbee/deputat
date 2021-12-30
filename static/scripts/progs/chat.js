@@ -1429,10 +1429,20 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     context.resume();
   }
 on('#ajax', 'click', '#voice_start_btn', function() {
-    console.log('Start recording')
+    console.log('Start recording');
+    show_message_form_send_btn();
+    document.body.querySelector('.delete_voice_btn').style.display = "block";
+    document.body.querySelector('.smile_supported').style.display = "none";
+    document.body.querySelector('.mic_visual_canvas').style.display = "block";
+    document.body.querySelector('.voice_stop_btn').style.display = "block";
     start();
+
   })
-on('#ajax', 'click', '#voice_stop_btn', function() {
+on('#ajax', 'click', '.voice_stop_btn', function() {
     stop();
+    document.body.querySelector('#audio').style.display = "block";
+    document.body.querySelector('.delete_voice_btn').style.display = "block";
+    document.body.querySelector('.mic_visual_canvas').style.display = "none";
+    document.body.querySelector('.voice_stop_btn').style.display = "none";
   })
 })()

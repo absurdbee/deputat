@@ -1128,9 +1128,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
             elem_ = document.createElement('span');
             elem_.innerHTML = ajax_link.responseText;
             message_load = document.body.querySelector(".chatlist");
-            message_load.append(elem_);
-            objDiv = document.querySelector("#chatcontent");
-            objDiv.scrollTop = objDiv.scrollHeight;
+            objDiv.scrollTop = message_load.scrollHeight;
             close_work_fullscreen();
             message_load.querySelector(".items_empty") ? message_load.querySelector(".items_empty").style.display = "none" : null;
         }

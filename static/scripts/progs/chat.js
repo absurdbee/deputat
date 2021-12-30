@@ -223,7 +223,7 @@ on('#ajax', 'click', '.smile_sticker_dropdown', function() {
     };
     ajax_link.send();
   };
-  block.classList.toggle("show");
+  block.style.display === 'block' ? block.style.display = 'none' : block.style.display = 'block'
 });
 
 

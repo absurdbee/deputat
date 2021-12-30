@@ -320,7 +320,7 @@ on('#ajax', 'click', '.add_member_chat_toggle', function() {
   if (this.querySelector(".active_svg")) {
     input_svg = this.querySelector(".active_svg");
     input_svg.classList.remove("active_svg");
-    input_svg.setAttribute("tooltip", "Выбрать друга")
+    input_svg.setAttribute("tooltip", "Выбрать")
     friend_input = header.querySelector('[data-pk=' + '"' + pk + '"' + ']');
     friend_input.remove();
     if (!header.querySelector(".remove_user_input")) {

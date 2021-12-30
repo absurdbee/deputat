@@ -1279,7 +1279,7 @@ class User(AbstractUser):
     def post_exclude_users(self, users, type):
         from users.model.profile import UserPrivate
 
-        private = self.profile_private
+        private = self.user_private
         if type == "can_send_message":
             list = self.followers.filter(connect_ie_settings__can_send_message=2)
             for i in list:
@@ -1313,7 +1313,7 @@ class User(AbstractUser):
     def post_include_users(self, users, type):
         from users.model.profile import UserPrivate
 
-        private = self.profile_private
+        private = self.user_private
         if type == "can_send_message":
             list = self.followers.filter(connect_ie_settings__can_send_message=1)
             for i in list:

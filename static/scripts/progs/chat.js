@@ -211,7 +211,17 @@ on('#ajax', 'click', '.message_dropdown', function() {this.nextElementSibling.cl
 on('#ajax', 'click', '.smile_sticker_dropdown', function() {
   block = this.nextElementSibling;
   if (!block.querySelector(".card")) {
-    list_load(block, "/users/load/smiles_stickers/")
+    ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+    ajax_link.open( 'GET', "/users/load/smiles_stickers/", true );
+  	ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    ajax_link.onreadystatechange = function () {
+      if ( this.readyState == 4 && this.status == 200 ) {
+        elem = document.createElement('span');
+        elem.innerHTML = ajax_link.responseText;
+        block.innerHTML = elem;
+      }
+    };
+    ajax_link.send();
   };
   block.classList.toggle("show");
 });

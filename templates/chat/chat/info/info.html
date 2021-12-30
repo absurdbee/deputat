@@ -44,14 +44,14 @@
     </div>
     {% endif %}
 
-<ul class="is_block_paginate">
+<div class="is_block_paginate">
 
-<p class="mb-0">{{ chat.get_members_count_ru }}</p>
+<p style="margin-bottom:7px">{{ chat.get_members_count_ru }}</p>
 {% for object in object_list %}
-<div class="border-top pag" data-pk="{{ object.pk }}">
+<div class="border" data-pk="{{ object.pk }}" style="padding:5px">
   <div class="media">
       <a href="{{ object.get_link }}" target="_blank">
-          <figure>
+          <div>
               {% if object.s_avatar %}
               <img src="{{ object.s_avatar.url }}" style="border-radius:50px;width:50px;" alt="image">
               {% else %}
@@ -59,7 +59,7 @@
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                   <path d="M0 0h24v24H0z" fill="none" /></svg>
               {% endif %}
-          </figure>
+          </div>
       </a>
       <div class="media-body" style="overflow:visible">
           <a href="{{ object.get_link }}" target="_blank">
@@ -101,7 +101,7 @@
     <img src="/static/images/loading.gif">
 </div>
 {% endif %}
-</ul>
+</div>
 </div>
 </div>
 </div>

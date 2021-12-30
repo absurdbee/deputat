@@ -1443,7 +1443,7 @@ on('#ajax', 'click', '.voice_stop_btn', function() {
   audio.setAttribute("id", "audio");
   audio.setAttribute("controls", "true");
   document.body.querySelector('.customize_form').append(audio);
-
+  document.body.querySelector('.plyr').style.display = "block";
   document.body.querySelector('.delete_voice_btn').style.display = "block";
   document.body.querySelector('.mic_visual_canvas').style.display = "none";
   document.body.querySelector('.voice_stop_btn').style.display = "none";

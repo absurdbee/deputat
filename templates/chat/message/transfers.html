@@ -2,7 +2,7 @@
 
 <div class="transfers_container border-left">
 {% for message in object.get_transfers %}
-<div class="media p-1">
+<div class="media" style="padding-top:5px">
     <figure>
       <a href="{{ message.creator.get_link }}" class="ajax">
         {{ message.creator.get_s_avatar|safe }}

@@ -6,6 +6,9 @@
     opacity:1;
   }
 }
+.parent_message_block {
+  line-height: 1;
+}
 .icon-circle {
   border-radius: 50%;
 }

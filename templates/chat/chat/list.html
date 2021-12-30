@@ -19,7 +19,7 @@
 
               <ul class="list-group is_paginate">
                 {% for object in object_list %}
-                <li class="list-group-item" data-pk="{{ object.pk }}">
+                <li data-pk="{{ object.pk }}" style="padding:5px">
                   <a class="chat_ajax" href="{% url 'chat_detail' pk=object.pk %}">
                     {{ object|get_preview_message:request.user.pk|safe }}
                   </a>

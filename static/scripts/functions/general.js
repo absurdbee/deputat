@@ -7,7 +7,7 @@ function remove_item_and_show_restore_block(item, url, _class, title) {
     ajax_link.onreadystatechange = function () {
       if ( this.readyState == 4 && this.status == 200 ) {
         p = document.createElement("div");
-        p.classList.add("media", "p-1");
+        p.classList.add("media");
         p.innerHTML = "<span style='width:100%' class='" + _class + " pointer border p-2' data-pk='" + item.getAttribute("data-pk") + "'>" + title + ". <span class='underline'>Восстановить</span></span>";
         item.parentElement.insertBefore(p, item), item.style.display = "none";
         item.classList.remove("custom_color");

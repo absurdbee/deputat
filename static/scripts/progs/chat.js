@@ -210,7 +210,7 @@ function hide_chat_console() {
 on('#ajax', 'click', '.message_dropdown', function() {this.nextElementSibling.classList.toggle("show")});
 on('#ajax', 'click', '.smile_sticker_dropdown', function() {
   block = this.nextElementSibling;
-  if (!block.querySelector(".card")) {
+  if (!block.querySelector("._card")) {
     ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
     ajax_link.open( 'GET', "/users/load/smiles_stickers/", true );
   	ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

@@ -471,9 +471,9 @@ class Chat(models.Model):
 
         if self.is_group() or self.is_public():
             if self.image:
-                figure = ''.join(['<figure><img src="', self.image.url, '" style="border-radius:50px;width:50px;" alt="image"></figure>'])
+                figure = ''.join(['<div><img src="', self.image.url, '" style="border-radius:50px;width:50px;" alt="image"></div>'])
             else:
-                figure = '<figure><img src="/static/images/group_chat.jpg" style="border-radius:50px;width:50px;" alt="image"></figure>'
+                figure = '<div><img src="/static/images/group_chat.jpg" style="border-radius:50px;width:50px;" alt="image"></div>'
             if self.name:
                  chat_name = self.name
             else:
@@ -485,11 +485,11 @@ class Chat(models.Model):
             chat_user = self.get_chat_user(user_id)
             member = chat_user.user
             if self.image:
-                figure = ''.join(['<figure><img src="', self.image.url, '" style="border-radius:50px;width:50px;" alt="image"></figure>'])
+                figure = ''.join(['<div><img src="', self.image.url, '" style="border-radius:50px;width:50px;" alt="image"></div>'])
             elif member.s_avatar:
-                figure = ''.join(['<figure><img src="', member.s_avatar.url, '" style="border-radius:50px;width:50px;" alt="image"></figure>'])
+                figure = ''.join(['<div><img src="', member.s_avatar.url, '" style="border-radius:50px;width:50px;" alt="image"></div>'])
             else:
-                figure = '<figure><svg fill="currentColor" class="svg_default svg_default_50" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg></figure>'
+                figure = '<div><svg fill="currentColor" class="svg_default svg_default_50" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg></div>'
             if self.name:
                  chat_name = self.name
             else:

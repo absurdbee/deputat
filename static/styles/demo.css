@@ -9,6 +9,12 @@
 .parent_message_block {
   line-height: 1;
 }
+.message_form_parent_block {
+  position: absolute;
+  right: 10px;
+  top: -12px;
+  font-size: 25px;
+}
 .icon-circle {
   border-radius: 50%;
 }

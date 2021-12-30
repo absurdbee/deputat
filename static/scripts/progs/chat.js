@@ -1176,7 +1176,6 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
   let canvas = document.querySelector('canvas');
   let canvasCtx = canvas.getContext("2d");
   let visualSelect = "";
-  let micSelect = document.querySelector('#micSelect');
   let stream = null;
   let tested = false;
 
@@ -1197,10 +1196,6 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
       let label = deviceInfo.label ||
         'Microphone ' + mics.length;
       console.log('Mic ', label + ' ' + deviceInfo.deviceId)
-      const option = document.createElement('option')
-      option.value = deviceInfo.deviceId;
-      option.text = label;
-      micSelect.appendChild(option);
     }
   }
 
@@ -1422,18 +1417,6 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
       canvasCtx.stroke();
     };
     draw();
-  }
-
-  micSelect.onchange = async e => {
-    console.log('now use device ', micSelect.value);
-    stream.getTracks().forEach(function(track) {
-      track.stop();
-    });
-    context.close();
-
-    stream = await getStream({ audio: {
-      deviceId: {exact: micSelect.value} }, video: false });
-    setUpRecording();
   }
 
   function pause() {

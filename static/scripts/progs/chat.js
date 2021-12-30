@@ -312,7 +312,7 @@ on('#ajax', 'click', '.remove_user_input', function() {
 on('#ajax', 'click', '.add_member_chat_toggle', function() {
   container = this.parentElement.parentElement.parentElement;
   btn = container.querySelector(".form_btn");
-  header = container.querySelector(".card-header");
+  header = container.querySelector(".card_header");
   header_title = header.querySelector(".header_title");
   pk = this.getAttribute("data-pk");
   link = this.getAttribute("data-link");
@@ -1140,7 +1140,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
       };
       ajax_link.send(form_data);
     } else {
-      users_block = form.querySelector(".card-header");
+      users_block = form.querySelector(".card_header");
       users_list = users_block.querySelectorAll(".custom_color");
       collector = document.body.querySelector(".collector");
       final_list = "Выбраны друзья: ";

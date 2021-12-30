@@ -512,15 +512,11 @@ a {
   border: 1px grey solid;
 }
 .item_attach_circle svg{
-  width: 12px;
   position: absolute;
-  color: grey;
   opacity:0
 }
 .active_svg svg{
   width: 12px;
-  position: absolute;
-  color: black;
   opacity:1
 }
 

@@ -6,6 +6,12 @@
     opacity:1;
   }
 }
+.dark-layout .border-left {
+  border-left: 1px solid rgba(255, 255, 255, 0.7) !important;
+}
+.border-left {
+  border-left: 1px solid rgba(127, 127, 127, 0.7) !important;
+}
 .parent_message_block {
   line-height: 1;
 }

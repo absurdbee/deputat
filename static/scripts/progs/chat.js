@@ -218,7 +218,7 @@ on('#ajax', 'click', '.smile_sticker_dropdown', function() {
       if ( this.readyState == 4 && this.status == 200 ) {
         elem = document.createElement('span');
         elem.innerHTML = ajax_link.responseText;
-        block.innerHTML = elem;
+        block.innerHTML = elem.innerHTML;
       }
     };
     ajax_link.send();

@@ -593,34 +593,27 @@ on('#ajax', 'click', '#send_page_message_btn', function() {
 });
 
 function send_message (form_post, url) {
-  text_val = form_post.querySelector(".smile_supported");
-  _val = format_text(text_val);
-  _text = _val.innerHTML;
   audio = form_post.querySelector("#audio");
   if (audio.getAttribute("src")) {
-    console.log(audio.getAttribute("src"));
-    $voice = document.createElement("input");
-    $voice.style.display = "none";
-    $voice.setAttribute("name", "voice");
-    $voice.setAttribute("type", "file");
-    $voice.classList.add("voice");
-    $voice.click();
-    $voice.onchange = function() {
-      $voice.value = audio.getAttribute("src")
+    form_data = new FormData(form_post);
+    formData.append("voice", audio.getAttribute("src"), "output.wav")
+  }
+  else {
+    text_val = form_post.querySelector(".smile_supported");
+    _val = format_text(text_val);
+    _text = _val.innerHTML;
+
+    if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
+      toast_error("Напишите или прикрепите что-нибудь");
+      form_post.querySelector(".message_text").classList.add("border_red");
+      form_post.querySelector(".message_dropdown").classList.add("border_red");
+      return
     };
-    //$voice.setAttribute("src", audio.getAttribute("src"));
-    form_post.append($voice);
-    console.log($voice);
-    }
-  else if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
-    toast_error("Напишите или прикрепите что-нибудь");
-    form_post.querySelector(".message_text").classList.add("border_red");
-    form_post.querySelector(".message_dropdown").classList.add("border_red");
-    return
+    text = form_post.querySelector(".type_hidden");
+    text.value = _text;
+    form_data = new FormData(form_post);
   };
-  text = form_post.querySelector(".type_hidden");
-  text.value = _text;
-  form_data = new FormData(form_post);
+
   message_load = form_post.parentElement.parentElement.parentElement.querySelector(".chatlist");
   pk = document.body.querySelector(".pk_saver").getAttribute("chat-pk");
 

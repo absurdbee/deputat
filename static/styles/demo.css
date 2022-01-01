@@ -16,6 +16,9 @@
   display: none;
   width: 90%;
 }
+.customize_form .plyr--audio .plyr__controls {
+  padding: 0
+}
 .dark-layout .border-left {
   border-left: 1px solid rgba(255, 255, 255, 0.7) !important;
 }

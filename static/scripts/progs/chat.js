@@ -1428,6 +1428,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     recording = true;
     context.resume();
   }
+})();
 on('#ajax', 'click', '#voice_start_btn', function() {
     console.log('Start recording');
     show_message_form_send_btn();
@@ -1439,12 +1440,19 @@ on('#ajax', 'click', '#voice_start_btn', function() {
     document.body.querySelector('.voice_stop_btn').style.display = "block";
     start();
 
-  })
+  });
 on('#ajax', 'click', '.voice_stop_btn', function() {
   document.body.querySelector('.plyr').style.display = "block";
   document.body.querySelector('.delete_voice_btn').style.display = "block";
   document.body.querySelector('.mic_visual_canvas').style.display = "none";
   document.body.querySelector('.voice_stop_btn').style.display = "none";
   stop();
-  })
-})()
+});
+on('#ajax', 'click', '.delete_voice_btn', function() {
+  document.body.querySelector('.plyr').style.display = "none";
+  document.body.querySelector('.delete_voice_btn').style.display = "none";
+  document.body.querySelector('.mic_visual_canvas').style.display = "none";
+  document.body.querySelector('.smile_supported').style.display = "block";
+  document.body.querySelector('.file_dropdown_2').style.display = "block";
+  document.body.querySelector('.form_smilies').style.display = "block";
+});

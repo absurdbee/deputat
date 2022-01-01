@@ -1315,7 +1315,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
   function stop() {
     console.log('Stop')
     recording = false;
-    document.querySelector('.user_typed_box').style.visibility = 'hidden'
+    document.body.querySelector('.user_typed_box').style.visibility = 'hidden'
 
 
     // we flat the left and right channels down
@@ -1454,6 +1454,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     document.body.querySelector('.smile_supported').style.display = "block";
     document.body.querySelector('.file_dropdown_2').style.display = "block";
     document.body.querySelector('.form_smilies').style.display = "block";
+    document.body.querySelector('.voice_stop_btn').style.display = "none";
     show_message_form_voice_btn();
   });
 })();

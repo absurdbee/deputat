@@ -600,6 +600,7 @@ function send_message (form_post, url) {
   if (audio.getAttribute("src")) {
     console.log(audio.getAttribute("src"));
     $voice = document.createElement("input");
+    $voice.style.display = "none";
     $voice.setAttribute("name", "voice");
     $voice.setAttribute("type", "file");
     $voice.classList.add("voice");

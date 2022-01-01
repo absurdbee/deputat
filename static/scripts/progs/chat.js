@@ -1,6 +1,6 @@
 CURRENT_BLOB = null;
 
-async function get_record_stream() => {
+async function get_record_stream() {
   let leftchannel = [];
   let rightchannel = [];
   let recorder = null;

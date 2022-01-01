@@ -155,8 +155,8 @@ class UserSendMessage(View):
 											attach=request.POST.getlist('attach_items'))
 			return render_for_platform(request, 'chat/message/message.html', {'object': new_message})
 		else:
-			from django.http import HttpResponseBadRequest
-			return HttpResponseBadRequest()
+			from django.http import HttpResponse, HttpResponseBadRequest
+			return HttpResponse(form_post)
 
 class UserSaveDraftMessage(View):
 	def post(self,request,*args,**kwargs):

@@ -596,6 +596,10 @@ function send_message (form_post, url) {
   text_val = form_post.querySelector(".smile_supported");
   _val = format_text(text_val);
   _text = _val.innerHTML;
+  audio = form_post.querySelector("#audio");
+  if (audio.value) {
+    console.log(audio.value)
+  };
 
   if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
     toast_error("Напишите или прикрепите что-нибудь");

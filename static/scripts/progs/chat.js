@@ -598,10 +598,15 @@ function send_message (form_post, url) {
   _text = _val.innerHTML;
   audio = form_post.querySelector("#audio");
   if (audio.getAttribute("src")) {
-    console.log(audio.getAttribute("src"))
-  };
-
-  if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
+    console.log(audio.getAttribute("src"));
+    $voice = document.createElement("input");
+    $voice.setAttribute("name", "voice");
+    $voice.setAttribute("type", "file");
+    $voice.classList.add("voice");
+    $voice.value = audio.getAttribute("src");
+    form_post.append($voice);
+    }
+  else if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
     toast_error("Напишите или прикрепите что-нибудь");
     form_post.querySelector(".message_text").classList.add("border_red");
     form_post.querySelector(".message_dropdown").classList.add("border_red");
@@ -632,6 +637,7 @@ function send_message (form_post, url) {
     form_post.querySelector(".message_dropdown").classList.remove("border_red");
     try{form_post.querySelector(".parent_message_block").remove()}catch{null};
     form_post.querySelector(".type_hidden").value = '';
+    form_post.querySelector(".voice").remove();
     show_message_form_voice_btn();
     if (document.querySelector(".chat_container")) {
       window.scrollTo({

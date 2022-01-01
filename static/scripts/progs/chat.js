@@ -603,7 +603,7 @@ function send_message (form_post, url) {
     $voice.setAttribute("name", "voice");
     $voice.setAttribute("type", "file");
     $voice.classList.add("voice");
-    $voice.value = audio.getAttribute("src");
+    $voice.src = audio.getAttribute("src");
     form_post.append($voice);
     }
   else if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){

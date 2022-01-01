@@ -80,7 +80,7 @@
               <a class="dropdown-item m_select_doc">Добавить документ</a>
           </div>
       </div>
-      <div class="delete_voice_btn" style="display:none" class="input-group-text input-group-prepend" style="padding: 2px;">
+      <div class="delete_voice_btn" style="display:none;padding: 2px;" class="input-group-text input-group-prepend">
           <svg viewBox="0 0 24 24" style="width: 25px;" class="svg_default pointer" fill="currentColor">
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
@@ -88,8 +88,8 @@
       </div>
       <audio id="audio" controls></audio>
       <div contenteditable="true" placeholder="Напишите сообщение" class="form-control text smile_supported message_text chat_message_text">{{ get_message_draft.text|safe }}</div>
-      <canvas class="mic_visual_canvas" style="display:none"></canvas>
-      <div class="voice_stop_btn" style="display:none" class="input-group-text input-group-prepend" style="padding: 2px;">
+      <canvas class="mic_visual_canvas"></canvas>
+      <div class="input-group-text voice_stop_btn" style="display:none;padding: 2px;" class="input-group-text input-group-prepend">
           <svg viewBox="0 0 24 24" style="width: 25px;" class="svg_default pointer" fill="currentColor">
             <circle cx="12" cy="12" r="10"></circle>
             <rect x="9" y="9" width="6" height="6"></rect>

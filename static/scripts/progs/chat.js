@@ -293,72 +293,73 @@ async function get_record_stream() {
     remove_voice_console(this.parentElement.parentElement);
   });
 
-  function send_message (form_post, url) {
-    is_voice = false;
-    if (form_post.querySelector("#my_audio").getAttribute("src")) {
-      if (!CURRENT_BLOB) {
-        stop()
-      };
-      form_data = new FormData(form_post);
-      form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
-      form_data.append("text", " ");
-      is_voice = true;
-    }
-    else {
-      text_val = form_post.querySelector(".smile_supported");
-      _val = format_text(text_val);
-      _text = _val.innerHTML;
-      if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
-        toast_error("Напишите или прикрепите что-нибудь");
-        form_post.querySelector(".message_text").classList.add("border_red");
-        form_post.querySelector(".message_dropdown").classList.add("border_red");
-        return
-      };
-      text = form_post.querySelector(".type_hidden");
-      text.value = _text;
-      form_data = new FormData(form_post);
-    };
-
-    message_load = form_post.parentElement.parentElement.parentElement.querySelector(".chatlist");
-    pk = document.body.querySelector(".pk_saver").getAttribute("chat-pk");
-
-    link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-    link_.open( 'POST', url, true );
-    link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-    link_.onreadystatechange = function () {
-    if ( this.readyState == 4 && this.status == 200 ) {
-      clear_message_attach_block();
-
-      elem = link_.responseText;
-      new_post = document.createElement("span");
-      new_post.innerHTML = elem;
-      message_load.append(new_post);
-      message_load.querySelector(".items_empty") ? message_load.querySelector(".items_empty").style.display = "none" : null;
-      form_post.querySelector(".message_text").classList.remove("border_red");
-      form_post.querySelector(".hide_block_menu").classList.remove("show");
-      form_post.querySelector(".message_text").innerHTML = ""
-      form_post.querySelector(".message_dropdown").classList.remove("border_red");
-      try{form_post.querySelector(".parent_message_block").remove()}catch{null};
-      form_post.querySelector(".type_hidden").value = '';
-      if (is_voice) {
-        CURRENT_BLOB = null;
-        init_music(new_post);
-        remove_voice_console(form_post)
-      };
-      show_message_form_voice_btn();
-      if (document.querySelector(".chat_container")) {
-        window.scrollTo({
-          top: 12000,
-          behavior: "smooth"
-        })
-      };
-    }};
-    link_.send(form_data);
-  };
 };
 
 get_record_stream();
+
+function send_message (form_post, url) {
+  is_voice = false;
+  if (form_post.querySelector("#my_audio").getAttribute("src")) {
+    if (!CURRENT_BLOB) {
+      stop();
+    };
+    form_data = new FormData(form_post);
+    form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
+    form_data.append("text", " ");
+    is_voice = true;
+  }
+  else {
+    text_val = form_post.querySelector(".smile_supported");
+    _val = format_text(text_val);
+    _text = _val.innerHTML;
+    if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
+      toast_error("Напишите или прикрепите что-нибудь");
+      form_post.querySelector(".message_text").classList.add("border_red");
+      form_post.querySelector(".message_dropdown").classList.add("border_red");
+      return
+    };
+    text = form_post.querySelector(".type_hidden");
+    text.value = _text;
+    form_data = new FormData(form_post);
+  };
+
+  message_load = form_post.parentElement.parentElement.parentElement.querySelector(".chatlist");
+  pk = document.body.querySelector(".pk_saver").getAttribute("chat-pk");
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', url, true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    clear_message_attach_block();
+
+    elem = link_.responseText;
+    new_post = document.createElement("span");
+    new_post.innerHTML = elem;
+    message_load.append(new_post);
+    message_load.querySelector(".items_empty") ? message_load.querySelector(".items_empty").style.display = "none" : null;
+    form_post.querySelector(".message_text").classList.remove("border_red");
+    form_post.querySelector(".hide_block_menu").classList.remove("show");
+    form_post.querySelector(".message_text").innerHTML = ""
+    form_post.querySelector(".message_dropdown").classList.remove("border_red");
+    try{form_post.querySelector(".parent_message_block").remove()}catch{null};
+    form_post.querySelector(".type_hidden").value = '';
+    if (is_voice) {
+      CURRENT_BLOB = null;
+      init_music(new_post);
+      remove_voice_console(form_post)
+    };
+    show_message_form_voice_btn();
+    if (document.querySelector(".chat_container")) {
+      window.scrollTo({
+        top: 12000,
+        behavior: "smooth"
+      })
+    };
+  }};
+  link_.send(form_data);
+};
 
 function setEndOfContenteditable(contentEditableElement) {
     var range,selection;

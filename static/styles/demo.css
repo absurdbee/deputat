@@ -16,7 +16,8 @@
   display: none;
   width: 90%;
 }
-.customize_form .plyr--audio .plyr__controls {
+.customize_form .plyr--audio .plyr__controls,
+.message .plyr--audio .plyr__controls {
   padding: 0
 }
 .dark-layout .border-left {

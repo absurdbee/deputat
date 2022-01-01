@@ -148,7 +148,7 @@ class UserSendMessage(View):
 											chat=chat,
 											creator=request.user,
 											text=message.text,
-											voice=request.POST.get('voice'),
+											voice=message.voice,
 											sticker=request.POST.get('sticker'),
 											parent=request.POST.get('parent'),
 											transfer=request.POST.getlist('transfer'),

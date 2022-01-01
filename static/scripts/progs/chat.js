@@ -1161,7 +1161,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
 });
 
 
-(async () => {
+//(async () => {
   let leftchannel = [];
   let rightchannel = [];
   let recorder = null;
@@ -1428,7 +1428,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     recording = true;
     context.resume();
   }
-})();
+//})();
 on('#ajax', 'click', '#voice_start_btn', function() {
     console.log('Start recording');
     show_message_form_send_btn();

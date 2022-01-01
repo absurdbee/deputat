@@ -641,7 +641,7 @@ function send_message (form_post, url) {
     form_post.querySelector(".type_hidden").value = '';
     if (is_voice) {
       CURRENT_BLOB = null;
-      init_music();
+      init_music(new_post);
     };
     show_message_form_voice_btn();
     if (document.querySelector(".chat_container")) {

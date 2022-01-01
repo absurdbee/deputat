@@ -1370,10 +1370,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     const audioUrl = URL.createObjectURL(blob);
     console.log('BLOB ', blob);
     console.log('URL ', audioUrl);
-    document.querySelector('#audio').setAttribute('src', audioUrl);
-    const link = document.querySelector('#download');
-    link.setAttribute('href', audioUrl);
-    link.download = 'output.wav';
+    document.querySelector('#my_audio').setAttribute('src', audioUrl);
     CURRENT_BLOB = blob
   }
 

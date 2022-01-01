@@ -110,7 +110,6 @@ function clear_message_attach_block(){
 function check_message_form_btn() {
   btn_block = document.body.querySelector(".input_group_message");
   input = btn_block.querySelector(".smile_supported");
-  btn_block = input.nextElementSibling.nextElementSibling;
   if (input.innerHTML.replace(/<[^>]*(>|$)|&nbsp;|&zwnj;|&raquo;|&laquo;|&gt;/g,'').trim() == "" && document.body.querySelector(".files_0")){
      btn_block.querySelector("#voice_start_btn").style.display = "block";
      btn_block.querySelector("#message_post_btn").style.display = "none";

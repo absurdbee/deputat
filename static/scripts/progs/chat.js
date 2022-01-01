@@ -20,9 +20,9 @@ async function get_record_stream() {
 
   try {
     window.stream = stream = await getStream();
-    console.log('Got stream');
+    console.log('Есть поток');
   } catch(err) {
-    console.log('Issue getting mic', err);
+    console.log('Проблема с микрофоном', err);
   }
 
   const deviceInfos = await navigator.mediaDevices.enumerateDevices();
@@ -33,7 +33,7 @@ async function get_record_stream() {
     if (deviceInfo.kind === 'audioinput') {
       mics.push(deviceInfo);
       let label = deviceInfo.label ||
-        'Microphone ' + mics.length;
+        'микрофон ' + mics.length;
       console.log('Mic ', label + ' ' + deviceInfo.deviceId)
     }
   }
@@ -45,51 +45,50 @@ async function get_record_stream() {
     return navigator.mediaDevices.getUserMedia(constraints);
   }
 
-
   setUpRecording();
 
   function setUpRecording() {
     context = new AudioContext();
     sampleRate = context.sampleRate;
 
-    // creates a gain node
+    // создаём узел
     volume = context.createGain();
 
-    // creates an audio node from teh microphone incoming stream
+    // создает аудиоузел из входящего потока микрофона
     audioInput = context.createMediaStreamSource(stream);
 
-    // Create analyser
+    // Создаём анализатор
     analyser = context.createAnalyser();
 
-    // connect audio input to the analyser
+    // подключаем аудиовход к анализатору
     audioInput.connect(analyser);
 
-    // connect analyser to the volume control
+    // подключаем анализатор к регулятору громкости
     // analyser.connect(volume);
 
     let bufferSize = 2048;
     let recorder = context.createScriptProcessor(bufferSize, 2, 2);
 
-    // we connect the volume control to the processor
+    // подключаем регулятор громкости к процессору
     // volume.connect(recorder);
 
     analyser.connect(recorder);
 
-    // finally connect the processor to the output
+    // наконец подключаем процессор к выходу
     recorder.connect(context.destination);
 
     recorder.onaudioprocess = function(e) {
-      // Check
+      // Проверяем
       if (!recording) return;
-      // Do something with the data, i.e Convert this to WAV
-      console.log('recording');
+      // преобразуем данные в WAV
+      console.log('Запись!');
       let left = e.inputBuffer.getChannelData(0);
       let right = e.inputBuffer.getChannelData(1);
       if (!tested) {
         tested = true;
-        // if this reduces to 0 we are not getting any sound
+        // если это значение уменьшится до 0, мы не получим никакого звука
         if ( !left.reduce((a, b) => a + b) ) {
-          alert("There seems to be an issue with your Mic");
+          console.log("There seems to be an issue with your Mic");
           // clean up;
           stop();
           stream.getTracks().forEach(function(track) {
@@ -98,7 +97,7 @@ async function get_record_stream() {
           context.close();
         }
       }
-      // we clone the samples
+      // клонируем образцы
       leftchannel.push(new Float32Array(left));
       rightchannel.push(new Float32Array(right));
       recordingLength += bufferSize;
@@ -144,7 +143,7 @@ async function get_record_stream() {
   function start() {
     recording = true;
     document.querySelector('.user_typed_box').style.visibility = 'visible'
-    // reset the buffers for the new recording
+    // сбросим буфер для новой записи
     leftchannel.length = rightchannel.length = 0;
     recordingLength = 0;
     console.log('context: ', !!context);
@@ -157,17 +156,17 @@ async function get_record_stream() {
     document.body.querySelector('.user_typed_box').style.visibility = 'hidden'
 
 
-    // we flat the left and right channels down
+    // мы выравниваем левый и правый каналы
     let leftBuffer = mergeBuffers ( leftchannel, recordingLength );
     let rightBuffer = mergeBuffers ( rightchannel, recordingLength );
-    // we interleave both channels together
+    // мы чередуем оба канала вместе
     let interleaved = interleave ( leftBuffer, rightBuffer );
 
-    // we create our wav file
+    // мы создаем наш wav-файл
     let buffer = new ArrayBuffer(44 + interleaved.length * 2);
     let view = new DataView(buffer);
 
-    // RIFF chunk descriptor
+    // Дескриптор фрагмента RIFF
     writeUTFBytes(view, 0, 'RIFF');
     view.setUint32(4, 44 + interleaved.length * 2, true);
     writeUTFBytes(view, 8, 'WAVE');
@@ -268,7 +267,6 @@ async function get_record_stream() {
 
   on('#ajax', 'click', '#voice_start_btn', function() {
       console.log('Start recording');
-      show_message_form_send_btn();
       form = this.parentElement.parentElement.parentElement;
       form.querySelector('.delete_voice_btn').style.display = "block";
       form.querySelector('.smile_supported').style.display = "none";
@@ -277,6 +275,9 @@ async function get_record_stream() {
       form.querySelector('.mic_visual_canvas').style.display = "block";
       form.querySelector('.voice_stop_btn').style.display = "block";
       form.querySelector('.voice_pause_btn').style.display = "block";
+
+      form.querySelector('#voice_start_btn').style.display = "none";
+      form.querySelector('#voice_post_btn').style.display = "block";
       start();
     });
   on('#ajax', 'click', '.voice_stop_btn', function() {
@@ -290,7 +291,51 @@ async function get_record_stream() {
   });
 
   on('#ajax', 'click', '.delete_voice_btn', function() {
-    remove_voice_console(this.parentElement.parentElement);
+    form = this.parentElement.parentElement;
+    remove_voice_console(form);
+    form.querySelector('#voice_start_btn').style.display = "block";
+    form.querySelector('#voice_post_btn').style.display = "none";
+  });
+
+  on('#ajax', 'click', '#voice_post_btn', function() {
+    stop();
+    form_post = this.parentElement.parentElement.parentElement;
+    form_data = new FormData(form_post);
+    form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
+    form_data.append("text", " ");
+
+    message_load = form_post.parentElement.parentElement.parentElement.querySelector(".chatlist");
+    pk = document.body.querySelector(".pk_saver").getAttribute("chat-pk");
+
+    link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+    link_.open( 'POST', "/chat/user_progs/send_message/" + pk + "/", true );
+    link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+    link_.onreadystatechange = function () {
+    if ( this.readyState == 4 && this.status == 200 ) {
+
+      form.querySelector('#voice_start_btn').style.display = "block";
+      form.querySelector('#voice_post_btn').style.display = "none";
+      elem = link_.responseText;
+      new_post = document.createElement("span");
+      new_post.innerHTML = elem;
+      message_load.append(new_post);
+      message_load.querySelector(".items_empty") ? message_load.querySelector(".items_empty").style.display = "none" : null;
+      form_post.querySelector(".message_text").classList.remove("border_red");
+      form_post.querySelector(".hide_block_menu").classList.remove("show");
+      form_post.querySelector(".message_dropdown").classList.remove("border_red");
+      try{form_post.querySelector(".parent_message_block").remove()}catch{null};
+      CURRENT_BLOB = null;
+      init_music(new_post);
+      remove_voice_console(form_post)
+      if (document.querySelector(".chat_container")) {
+        window.scrollTo({
+          top: 12000,
+          behavior: "smooth"
+        })
+      };
+    }};
+    link_.send(form_data);
   });
 
 };
@@ -299,10 +344,7 @@ get_record_stream();
 
 function send_message (form_post, url) {
   is_voice = false;
-  if (form_post.querySelector("#my_audio").getAttribute("src")) {
-    if (!CURRENT_BLOB) {
-      stop();
-    };
+  if (CURRENT_BLOB) {
     form_data = new FormData(form_post);
     form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
     form_data.append("text", " ");

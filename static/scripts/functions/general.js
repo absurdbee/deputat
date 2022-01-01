@@ -1032,15 +1032,12 @@ function paginate(block) {
             if (this.readyState == 4 && this.status == 200) {
                 var elem = document.createElement('span');
                 elem.innerHTML = link_3.responseText;
-                if (elem.querySelector(".is_paginate")){
+                if (document.body.querySelector(".chat_container")){
+                  block.parentElement.insertAdjacentHTML('afterbegin', elem.querySelector(".is_paginate").innerHTML)
+                }
+                else if (!document.body.querySelector(".chat_container")){
                   block.parentElement.insertAdjacentHTML('beforeend', elem.querySelector(".is_paginate").innerHTML)
-                } else if (document.body.querySelector(".is_load_paginate")){
-                  block_paginate = document.body.querySelector(".is_load_paginate");
-                  if (elem.querySelector(".is_load_paginate")){
-                      block.parentElement.insertAdjacentHTML('beforeend', elem.querySelector(".is_load_paginate").innerHTML)
-                  } else {
-                    block.parentElement.insertAdjacentHTML('beforeend', elem.innerHTML)
-                  }};
+                };
                 block.remove()
             }
         }

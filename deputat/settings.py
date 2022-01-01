@@ -2,9 +2,9 @@ import os
 
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'ur_4&s!%8awdfa!z+_60jrbfbfbg!%i7m14z%drhg*v*!=1rpou5ebfb%$8ji3ngthbghbghj'
+SECRET_KEY = 'ur_4&s1!%8awdfa!z+_60jrbfbfbg!%i7m14z%drhg*v*!=1rpou5ebfb%$8ji3ngthbghbghj'
 
-DEBUG = True
+DEBUG = False
 
 #SECURE_SSL_REDIRECT = True
 

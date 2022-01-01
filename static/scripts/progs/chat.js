@@ -608,10 +608,12 @@ CURRENT_BLOB = null;
 function send_message (form_post, url) {
   is_voice = false;
   if (form_post.querySelector("#my_audio") && CURRENT_BLOB) {
+    stop();
     form_data = new FormData(form_post);
     form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
     form_data.append("text", " ");
     is_voice = true;
+
   }
   else {
     text_val = form_post.querySelector(".smile_supported");

@@ -592,17 +592,17 @@ on('#ajax', 'click', '#send_page_message_btn', function() {
       ajax_link.send(form_data);
 });
 
+CURRENT_BLOB = null;
+
 function send_message (form_post, url) {
-  audio = form_post.querySelector("#audio");
-  if (audio.getAttribute("src")) {
+  if (form_post.querySelector("#audio") && CURRENT_BLOB) {
     form_data = new FormData(form_post);
-    form_data.append("voice", audio.getAttribute("src"), "output.wav")
+    form_data.append("voice", CURRENT_BLOB, 'fileName.wav')
   }
   else {
     text_val = form_post.querySelector(".smile_supported");
     _val = format_text(text_val);
     _text = _val.innerHTML;
-
     if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
       toast_error("Напишите или прикрепите что-нибудь");
       form_post.querySelector(".message_text").classList.add("border_red");
@@ -636,6 +636,7 @@ function send_message (form_post, url) {
     form_post.querySelector(".message_dropdown").classList.remove("border_red");
     try{form_post.querySelector(".parent_message_block").remove()}catch{null};
     form_post.querySelector(".type_hidden").value = '';
+    CURRENT_BLOB = null;
     show_message_form_voice_btn();
     if (document.querySelector(".chat_container")) {
       window.scrollTo({
@@ -1168,7 +1169,6 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     }
 });
 
-
 (async () => {
   let leftchannel = [];
   let rightchannel = [];
@@ -1373,6 +1373,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     const link = document.querySelector('#download');
     link.setAttribute('href', audioUrl);
     link.download = 'output.wav';
+    CURRENT_BLOB = blob
   }
 
   // Visualizer function from

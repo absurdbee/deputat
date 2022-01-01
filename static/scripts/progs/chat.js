@@ -1455,7 +1455,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
       start();
     });
   on('#ajax', 'click', '.voice_stop_btn', function() {
-    form = this.parentElement.parentElement.parentElement;
+    form = this.parentElement.parentElement;
     form.querySelector('.plyr').style.display = "block";
     form.querySelector('.delete_voice_btn').style.display = "block";
     form.querySelector('.mic_visual_canvas').style.display = "none";
@@ -1464,7 +1464,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     stop();
   });
   on('#ajax', 'click', '.delete_voice_btn', function() {
-    form = this.parentElement.parentElement.parentElement;
+    form = this.parentElement.parentElement;
     form.querySelector('.plyr').style.display = "none";
     form.querySelector('.delete_voice_btn').style.display = "none";
     form.querySelector('.mic_visual_canvas').style.display = "none";

@@ -1161,7 +1161,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
 });
 
 
-//(async () => {
+(async () => {
   let leftchannel = [];
   let rightchannel = [];
   let recorder = null;
@@ -1183,7 +1183,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     window.stream = stream = await getStream();
     console.log('Got stream');
   } catch(err) {
-    alert('Issue getting mic', err);
+    console.log('Issue getting mic', err);
   }
 
   const deviceInfos = await navigator.mediaDevices.enumerateDevices();
@@ -1428,7 +1428,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     recording = true;
     context.resume();
   }
-//})();
+})();
 on('#ajax', 'click', '#voice_start_btn', function() {
     console.log('Start recording');
     show_message_form_send_btn();
@@ -1439,7 +1439,6 @@ on('#ajax', 'click', '#voice_start_btn', function() {
     document.body.querySelector('.mic_visual_canvas').style.display = "block";
     document.body.querySelector('.voice_stop_btn').style.display = "block";
     start();
-
   });
 on('#ajax', 'click', '.voice_stop_btn', function() {
   document.body.querySelector('.plyr').style.display = "block";

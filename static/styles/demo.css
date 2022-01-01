@@ -9,11 +9,12 @@
 .mic_visual_canvas {
   display:none;
   height: 35px;
-  width: 87%;
+  width: 80%;
 }
 .customize_form .plyr,
 .customize_form audio {
   display: none;
+  width: 90%;
 }
 .dark-layout .border-left {
   border-left: 1px solid rgba(255, 255, 255, 0.7) !important;

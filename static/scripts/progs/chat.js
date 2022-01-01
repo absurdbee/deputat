@@ -604,8 +604,7 @@ function send_message (form_post, url) {
     $voice.setAttribute("name", "voice");
     $voice.setAttribute("type", "file");
     $voice.classList.add("voice");
-    $voice.src = audio.getAttribute("src");
-    $voice.value = audio.getAttribute("src");
+    $voice.setAttribute("src", audio.getAttribute("src"));
     form_post.append($voice);
     console.log($voice);
     }

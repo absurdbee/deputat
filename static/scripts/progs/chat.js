@@ -15,6 +15,17 @@ function setEndOfContenteditable(contentEditableElement) {
         range.select();
     }
 };
+function remove_voice_console(form) {
+  form.querySelector('.plyr').style.display = "none";
+  form.querySelector('.delete_voice_btn').style.display = "none";
+  form.querySelector('.mic_visual_canvas').style.display = "none";
+  form.querySelector('.smile_supported').style.display = "block";
+  form.querySelector('.file_dropdown_2').style.display = "block";
+  form.querySelector('.form_smilies').style.display = "block";
+  form.querySelector('.voice_stop_btn').style.display = "none";
+  form.querySelector('.voice_pause_btn').style.display = "none";
+  show_message_form_voice_btn();
+};
 function chat_send_change(span, _link, new_class, html) {
     parent = span.parentElement;
     item = parent.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
@@ -642,6 +653,7 @@ function send_message (form_post, url) {
     if (is_voice) {
       CURRENT_BLOB = null;
       init_music(new_post);
+      remove_voice_console(form_post)
     };
     show_message_form_voice_btn();
     if (document.querySelector(".chat_container")) {
@@ -1463,16 +1475,8 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
     form.querySelector('.voice_pause_btn').style.display = "none";
     stop();
   });
+
   on('#ajax', 'click', '.delete_voice_btn', function() {
-    form = this.parentElement.parentElement;
-    form.querySelector('.plyr').style.display = "none";
-    form.querySelector('.delete_voice_btn').style.display = "none";
-    form.querySelector('.mic_visual_canvas').style.display = "none";
-    form.querySelector('.smile_supported').style.display = "block";
-    form.querySelector('.file_dropdown_2').style.display = "block";
-    form.querySelector('.form_smilies').style.display = "block";
-    form.querySelector('.voice_stop_btn').style.display = "none";
-    form.querySelector('.voice_pause_btn').style.display = "none";
-    show_message_form_voice_btn();
+    remove_voice_console(this.parentElement.parentElement);
   });
 })();

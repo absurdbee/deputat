@@ -595,10 +595,12 @@ on('#ajax', 'click', '#send_page_message_btn', function() {
 CURRENT_BLOB = null;
 
 function send_message (form_post, url) {
+  is_voice = false;
   if (form_post.querySelector("#my_audio") && CURRENT_BLOB) {
     form_data = new FormData(form_post);
     form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
     form_data.append("text", " ");
+    is_voice = true;
   }
   else {
     text_val = form_post.querySelector(".smile_supported");
@@ -637,7 +639,10 @@ function send_message (form_post, url) {
     form_post.querySelector(".message_dropdown").classList.remove("border_red");
     try{form_post.querySelector(".parent_message_block").remove()}catch{null};
     form_post.querySelector(".type_hidden").value = '';
-    CURRENT_BLOB = null;
+    if (is_voice) {
+      CURRENT_BLOB = null;
+      init_music(new_post);
+    };
     show_message_form_voice_btn();
     if (document.querySelector(".chat_container")) {
       window.scrollTo({

@@ -267,7 +267,7 @@ async function get_record_stream() {
 
   on('#ajax', 'click', '#voice_start_btn', function() {
       console.log('Start recording');
-      form = this.parentElement.parentElement.parentElement;
+      form = this.parentElement.parentElement;
       form.querySelector('.delete_voice_btn').style.display = "block";
       form.querySelector('.smile_supported').style.display = "none";
       form.querySelector('.file_dropdown_2').style.display = "none";

@@ -597,7 +597,9 @@ CURRENT_BLOB = null;
 function send_message (form_post, url) {
   if (form_post.querySelector("#audio") && CURRENT_BLOB) {
     form_data = new FormData(form_post);
-    form_data.append("voice", CURRENT_BLOB, 'fileName.wav')
+    form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
+    formData.append("text", " ");
+    console.log(CURRENT_BLOB);
   }
   else {
     text_val = form_post.querySelector(".smile_supported");

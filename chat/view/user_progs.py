@@ -141,7 +141,7 @@ class UserSendMessage(View):
 		from chat.models import Message, Chat
 		from chat.forms import MessageForm
 
-		chat, form_post = Chat.objects.get(pk=self.kwargs["pk"]), MessageForm(request.POST)
+		chat, form_post = Chat.objects.get(pk=self.kwargs["pk"]), MessageForm(request.POST, request.FILES)
 		if request.POST.get('text') or request.POST.get('attach_items') or request.POST.get('sticker') or request.POST.get('transfer') or request.POST.get('voice'):
 			message = form_post.save(commit=False)
 			new_message = Message.send_message(

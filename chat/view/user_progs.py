@@ -156,7 +156,7 @@ class UserSendMessage(View):
 			return render_for_platform(request, 'chat/message/message.html', {'object': new_message})
 		else:
 			from django.http import HttpResponse, HttpResponseBadRequest
-			return HttpResponse(form_post)
+			return HttpResponse(request.POST.get('voice'))
 
 class UserSaveDraftMessage(View):
 	def post(self,request,*args,**kwargs):

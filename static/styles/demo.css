@@ -6,6 +6,11 @@
     opacity:1;
   }
 }
+.mic_visual_canvas {
+  display:none;
+  height: 35px;
+  width: 87%;
+}
 .customize_form .plyr,
 .customize_form audio {
   display: none;

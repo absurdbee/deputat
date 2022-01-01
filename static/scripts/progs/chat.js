@@ -595,7 +595,7 @@ on('#ajax', 'click', '#send_page_message_btn', function() {
 CURRENT_BLOB = null;
 
 function send_message (form_post, url) {
-  if (form_post.querySelector("#audio") && CURRENT_BLOB) {
+  if (form_post.querySelector("#my_audio") && CURRENT_BLOB) {
     form_data = new FormData(form_post);
     form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
     form_data.append("text", " ");

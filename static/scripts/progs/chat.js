@@ -606,6 +606,7 @@ function send_message (form_post, url) {
     $voice.classList.add("voice");
     $voice.src = audio.getAttribute("src");
     form_post.append($voice);
+    console.log($voice);
     }
   else if (_text.replace(/<(?!br)(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "" && form_post.querySelector(".files_0") && !form_post.querySelector(".transfer")){
     toast_error("Напишите или прикрепите что-нибудь");

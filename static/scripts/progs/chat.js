@@ -1143,10 +1143,8 @@ function send_draft_message (form_post, url) {
   link_.open( 'POST', url, true );
   link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    form_post.querySelector("#my_audio").setAttribute("src", null);
-  }};
+  //link_.onreadystatechange = function () {
+  //if ( this.readyState == 4 && this.status == 200 ) {}};
   link_.send(form_data);
 };
 

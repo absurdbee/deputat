@@ -1,6 +1,4 @@
 CURRENT_BLOB = null;
-TIMER_ON = false;
-TIMER_VALUE = "3 мин. 00 сек.";
 
 async function get_record_stream() {
   if (!document.body.querySelector(".mic_visual_canvas")) {
@@ -22,6 +20,8 @@ async function get_record_stream() {
   let visualSelect = "";
   let stream = null;
   let tested = false;
+  let timer_block = document.body.querySelector(".smile_supported");
+  let TIMER_VALUE = 0;
 
   try {
     window.stream = stream = await getStream();
@@ -29,6 +29,22 @@ async function get_record_stream() {
   } catch(err) {
     console.log('Проблема с микрофоном', err);
   }
+
+  voice_timer = setInterval(function () {
+    if (TIMER_VALUE) == 0 {
+      return
+    };
+    seconds = TIMER_VALUE%60 // Получаем секунды
+    minutes = TIMER_VALUE/60%60 // Получаем минуты
+    if (TIMER_VALUE <= 0) {
+        clearInterval(voice_timer);
+        stop();
+    } else {
+        let strTimer = "<span style='color:red'>Запись!</span> Осталось: " minutes + " мин." + seconds + " сек." ;
+        timer_block.innerHTML = strTimer;
+    }
+    --timeMinut;
+  }, 1000);
 
   const deviceInfos = await navigator.mediaDevices.enumerateDevices();
 
@@ -153,13 +169,14 @@ async function get_record_stream() {
     recordingLength = 0;
     console.log('context: ', !!context);
     if (!context) setUpRecording();
+    TIMER_VALUE = 3;
   }
 
   function stop() {
     console.log('Stop')
     recording = false;
     document.body.querySelector('.user_typed_box').style.visibility = 'hidden'
-
+    TIMER_VALUE = 0;
 
     // мы выравниваем левый и правый каналы
     let leftBuffer = mergeBuffers ( leftchannel, recordingLength );

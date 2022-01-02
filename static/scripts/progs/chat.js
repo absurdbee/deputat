@@ -1,6 +1,10 @@
 CURRENT_BLOB = null;
+TIMER_ON = false;
 
 async function get_record_stream() {
+  if (!document.body.querySelector(".mic_visual_canvas")) {
+    return
+  };
   let leftchannel = [];
   let rightchannel = [];
   let recorder = null;
@@ -12,7 +16,7 @@ async function get_record_stream() {
   let AudioContext = window.AudioContext || window.webkitAudioContext;
   let context = null;
   let analyser = null;
-  let canvas = document.querySelector('canvas');
+  let canvas = document.body.querySelector('.mic_visual_canvas');
   let canvasCtx = canvas.getContext("2d");
   let visualSelect = "";
   let stream = null;

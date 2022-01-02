@@ -1,8 +1,9 @@
 {% load message %}
 
 {% if get_message_draft %}
-<span class="user_typed_box small"></span>
+
 <form class="custom_color customize_form" enctype="multipart/form-data" style="position: sticky;bottom: 0;">
+<span class="user_typed_box small"></span>
 <span class="user_typed_box small"></span>
     {% csrf_token %}
     <input class="type_hidden" type="hidden" name="text" />
@@ -77,6 +78,7 @@
 
 <form class="customize_form custom_color" style="position: sticky;bottom: 0;">
   <span class="user_typed_box small"></span>
+  <canvas class="mic_visual_canvas"></canvas>
     {% csrf_token %}
     <input class="type_hidden" type="hidden" name="text" />
     <div class="custom_color parent_message_block"></div>
@@ -101,7 +103,7 @@
       </div>
       <audio id="my_audio" class="audio_player" controls></audio>
       <div contenteditable="true" placeholder="Напишите сообщение" class="form-control text smile_supported message_text chat_message_text"></div>
-      <canvas class="mic_visual_canvas"></canvas>
+
       <div class="input-group-text voice_stop_btn" tooltip="Закончить запись" flow="up" style="display:none;padding: 2px;" class="input-group-text input-group-prepend">
           <svg viewBox="0 0 24 24" style="width: 25px;" class="svg_default pointer" fill="currentColor">
             <path d="M0 0h24v24H0V0z" fill="none"/><path d="M16 8v8H8V8h8m2-2H6v12h12V6z"/>

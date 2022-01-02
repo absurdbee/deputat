@@ -304,7 +304,6 @@ async function get_record_stream() {
       console.log('Start recording');
       form = this.parentElement.parentElement;
       form.querySelector('.delete_voice_btn').style.display = "block";
-      form.querySelector('.smile_supported').innerHTML = "<span>Запись!</span> Осталось: " + TIMER_VALUE;
       form.querySelector('.file_dropdown_2').style.display = "none";
       form.querySelector('.form_smilies').style.display = "none";
       form.parentElement.querySelector('.mic_visual_canvas').style.display = "block";

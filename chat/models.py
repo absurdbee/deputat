@@ -51,6 +51,9 @@ class Chat(models.Model):
     def __str__(self):
         return self.creator.get_full_name_2()
 
+    def is_voice(self):
+        return self.voice and self.text == " "
+
     def post_include_users(self, users, type):
         if type == "can_add_members":
             ChatPerm.objects.filter(user__chat_id=self.pk, can_add_in_chat=1).update(can_add_in_chat=0)

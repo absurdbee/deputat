@@ -276,7 +276,7 @@ async function get_record_stream() {
       form.querySelector('.smile_supported').style.display = "none";
       form.querySelector('.file_dropdown_2').style.display = "none";
       form.querySelector('.form_smilies').style.display = "none";
-      form.querySelector('.mic_visual_canvas').style.display = "block";
+      form.parentElement.querySelector('.mic_visual_canvas').style.display = "block";
       form.querySelector('.voice_stop_btn').style.display = "block";
       form.querySelector('.voice_pause_btn').style.display = "block";
 
@@ -288,7 +288,7 @@ async function get_record_stream() {
     form = this.parentElement.parentElement;
     form.querySelector('.plyr').style.display = "block";
     form.querySelector('.delete_voice_btn').style.display = "block";
-    form.querySelector('.mic_visual_canvas').style.display = "none";
+    form.parentElement.querySelector('.mic_visual_canvas').style.display = "none";
     form.querySelector('.voice_stop_btn').style.display = "none";
     form.querySelector('.voice_pause_btn').style.display = "none";
     stop();

@@ -153,7 +153,7 @@ async function get_record_stream() {
     recordingLength = 0;
     console.log('context: ', !!context);
     if (!context) setUpRecording();
-    TIMER_VALUE = 179;
+    TIMER_VALUE = 182;
   }
 
   function stop() {
@@ -207,17 +207,6 @@ async function get_record_stream() {
     console.log('URL ', audioUrl);
     document.querySelector('#my_audio').setAttribute('src', audioUrl);
     CURRENT_BLOB = blob;
-
-    form = document.querySelector(".customize_form");
-    smile_supported = form.querySelector('.smile_supported');
-    smile_supported.innerHTML = "";
-    smile_supported.style.display = "none";
-    smile_supported.setAttribute("contenteditable", "true");
-    form.querySelector('.plyr').style.display = "block";
-    form.querySelector('.delete_voice_btn').style.display = "block";
-    form.querySelector('.mic_visual_canvas').style.display = "none";
-    form.querySelector('.voice_stop_btn').style.display = "none";
-    form.querySelector('.voice_pause_btn').style.display = "none";
   }
 
   // Visualizer function from
@@ -283,12 +272,22 @@ async function get_record_stream() {
   }
 
   voice_timer = setInterval(function () {
-    if (TIMER_VALUE >= 0) {
+    if (TIMER_VALUE >= 1) {
       console.log(TIMER_VALUE);
-      if (TIMER_VALUE == 0) {
+      if (TIMER_VALUE == 1) {
         console.log("TIMER_VALUE == 0");
         clearInterval(voice_timer);
         stop();
+        form = document.querySelector(".customize_form");
+        smile_supported = form.querySelector('.smile_supported');
+        smile_supported.innerHTML = "";
+        smile_supported.style.display = "none";
+        smile_supported.setAttribute("contenteditable", "true");
+        form.querySelector('.plyr').style.display = "block";
+        form.querySelector('.delete_voice_btn').style.display = "block";
+        form.querySelector('.mic_visual_canvas').style.display = "none";
+        form.querySelector('.voice_stop_btn').style.display = "none";
+        form.querySelector('.voice_pause_btn').style.display = "none";
       };
       seconds = TIMER_VALUE%60;
       minutes = TIMER_VALUE/60%60;
@@ -316,6 +315,16 @@ async function get_record_stream() {
       start();
     });
   on('#ajax', 'click', '.voice_stop_btn', function() {
+    form = document.querySelector(".customize_form");
+    smile_supported = form.querySelector('.smile_supported');
+    smile_supported.innerHTML = "";
+    smile_supported.style.display = "none";
+    smile_supported.setAttribute("contenteditable", "true");
+    form.querySelector('.plyr').style.display = "block";
+    form.querySelector('.delete_voice_btn').style.display = "block";
+    form.querySelector('.mic_visual_canvas').style.display = "none";
+    form.querySelector('.voice_stop_btn').style.display = "none";
+    form.querySelector('.voice_pause_btn').style.display = "none";
     stop();
   });
 

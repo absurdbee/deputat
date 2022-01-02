@@ -34,16 +34,18 @@ async function get_record_stream() {
     if (TIMER_VALUE == 0) {
       return
     };
-    seconds = TIMER_VALUE%60 // Получаем секунды
-    minutes = TIMER_VALUE/60%60 // Получаем минуты
+    seconds = TIMER_VALUE%60;
+    minutes = TIMER_VALUE/60%60;
+    timer_block.setAttribute("contenteditable", "false")
     if (TIMER_VALUE <= 0) {
         clearInterval(voice_timer);
         stop();
+        timer_block.setAttribute("contenteditable", "true")
     } else {
       console.log("Чик!");
         let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин." + seconds + " сек." ;
         timer_block.innerHTML = strTimer;
-    }
+    };
     --TIMER_VALUE;
   }, 1000);
 
@@ -170,7 +172,7 @@ async function get_record_stream() {
     recordingLength = 0;
     console.log('context: ', !!context);
     if (!context) setUpRecording();
-    TIMER_VALUE = 180;
+    TIMER_VALUE = 179;
   }
 
   function stop() {

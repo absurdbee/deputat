@@ -41,9 +41,10 @@ async function get_record_stream() {
         clearInterval(voice_timer);
         stop();
     } else {
-      console.log("Чик!");
-        let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
-        timer_block.innerHTML = strTimer;
+      let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
+      if (TIMER_VALUE != 0) {
+        timer_block.innerHTML = strTimer
+      }
     };
     --TIMER_VALUE;
   }, 1000);

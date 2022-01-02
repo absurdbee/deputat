@@ -39,7 +39,7 @@
         {{ object.get_parent_message|safe }}
       {% endif %}
 
-      {% if object.voice %}
+      {% if object.voice and object.text == " " %}
         <audio class="audio audio_player" src="{{ object.voice.url }}"></audio>
       {% elif object.sticker %}
       <div class="message_sticker mt-1 t_f">

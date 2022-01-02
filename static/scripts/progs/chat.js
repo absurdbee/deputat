@@ -153,7 +153,7 @@ async function get_record_stream() {
     recordingLength = 0;
     console.log('context: ', !!context);
     if (!context) setUpRecording();
-    TIMER_VALUE = 183;
+    TIMER_VALUE = 184;
   }
 
   function stop() {
@@ -272,9 +272,8 @@ async function get_record_stream() {
   }
 
   voice_timer = setInterval(function () {
-    fake_value = TIMER_VALUE - 3;
+    fake_value = TIMER_VALUE - 4;
     if (TIMER_VALUE >= 1) {
-      console.log(TIMER_VALUE);
       if (TIMER_VALUE == 1) {
         console.log("TIMER_VALUE == 0");
         clearInterval(voice_timer);

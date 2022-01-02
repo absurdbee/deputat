@@ -1,5 +1,6 @@
 CURRENT_BLOB = null;
 TIMER_ON = false;
+TIMER_VALUE = "3 мин. 00 сек.";
 
 async function get_record_stream() {
   if (!document.body.querySelector(".mic_visual_canvas")) {
@@ -273,7 +274,7 @@ async function get_record_stream() {
       console.log('Start recording');
       form = this.parentElement.parentElement;
       form.querySelector('.delete_voice_btn').style.display = "block";
-      form.querySelector('.smile_supported').style.display = "none";
+      form.querySelector('.smile_supported').innerHTML = "<span>Запись!</span> Осталось: " + TIMER_VALUE;
       form.querySelector('.file_dropdown_2').style.display = "none";
       form.querySelector('.form_smilies').style.display = "none";
       form.parentElement.querySelector('.mic_visual_canvas').style.display = "block";
@@ -286,6 +287,8 @@ async function get_record_stream() {
     });
   on('#ajax', 'click', '.voice_stop_btn', function() {
     form = this.parentElement.parentElement;
+    form.querySelector('.smile_supported').innerHTML = "";
+    form.querySelector('.smile_supported').style.display = "none";
     form.querySelector('.plyr').style.display = "block";
     form.querySelector('.delete_voice_btn').style.display = "block";
     form.parentElement.querySelector('.mic_visual_canvas').style.display = "none";
@@ -296,6 +299,7 @@ async function get_record_stream() {
 
   on('#ajax', 'click', '.delete_voice_btn', function() {
     form = this.parentElement.parentElement;
+    form.querySelector('.smile_supported').innerHTML = "";
     remove_voice_console(form);
     form.querySelector('#voice_start_btn').style.display = "block";
     form.querySelector('#voice_post_btn').style.display = "none";

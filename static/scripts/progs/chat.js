@@ -30,25 +30,6 @@ async function get_record_stream() {
     console.log('Проблема с микрофоном', err);
   }
 
-  voice_timer = setInterval(function () {
-    if (TIMER_VALUE == 0) {
-      return
-    };
-    seconds = TIMER_VALUE%60;
-    minutes = TIMER_VALUE/60%60;
-    timer_block.setAttribute("contenteditable", "false")
-    if (TIMER_VALUE <= 0) {
-        clearInterval(voice_timer);
-        stop();
-    } else {
-      let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
-      if (TIMER_VALUE != 0) {
-        timer_block.innerHTML = strTimer
-      }
-    };
-    --TIMER_VALUE;
-  }, 1000);
-
   const deviceInfos = await navigator.mediaDevices.enumerateDevices();
 
   var mics = [];
@@ -289,6 +270,25 @@ async function get_record_stream() {
     recording = true;
     context.resume();
   }
+
+  voice_timer = setInterval(function () {
+    if (TIMER_VALUE == 0) {
+      return
+    };
+    seconds = TIMER_VALUE%60;
+    minutes = TIMER_VALUE/60%60;
+    timer_block.setAttribute("contenteditable", "false")
+    if (TIMER_VALUE <= 0) {
+        clearInterval(voice_timer);
+        stop();
+    } else {
+      let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
+      if (TIMER_VALUE != 0) {
+        timer_block.innerHTML = strTimer
+      }
+    };
+    --TIMER_VALUE;
+  }, 1000);
 
   on('#ajax', 'click', '#voice_start_btn', function() {
       console.log('Start recording');

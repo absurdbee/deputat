@@ -44,7 +44,7 @@ async function get_record_stream() {
         let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + minutes + " мин." + seconds + " сек." ;
         timer_block.innerHTML = strTimer;
     }
-    --timeMinut;
+    --TIMER_VALUE;
   }, 1000);
 
   const deviceInfos = await navigator.mediaDevices.enumerateDevices();
@@ -170,7 +170,7 @@ async function get_record_stream() {
     recordingLength = 0;
     console.log('context: ', !!context);
     if (!context) setUpRecording();
-    TIMER_VALUE = 3;
+    TIMER_VALUE = 180;
   }
 
   function stop() {

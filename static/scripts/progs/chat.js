@@ -272,15 +272,16 @@ async function get_record_stream() {
   }
 
   voice_timer = setInterval(function () {
-    if (TIMER_VALUE == 0) {
+    if (TIMER_VALUE > 0) {
+      seconds = TIMER_VALUE%60;
+      minutes = TIMER_VALUE/60%60;
+      timer_block.setAttribute("contenteditable", "false")
+      let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
+      timer_block.innerHTML = strTimer;
+    } else{
       clearInterval(voice_timer);
       stop();
     };
-    seconds = TIMER_VALUE%60;
-    minutes = TIMER_VALUE/60%60;
-    timer_block.setAttribute("contenteditable", "false")
-    let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
-    timer_block.innerHTML = strTimer;
     --TIMER_VALUE;
   }, 1000);
 

@@ -43,7 +43,7 @@ async function get_record_stream() {
         timer_block.setAttribute("contenteditable", "true")
     } else {
       console.log("Чик!");
-        let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин." + seconds + " сек." ;
+        let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
         timer_block.innerHTML = strTimer;
     };
     --TIMER_VALUE;

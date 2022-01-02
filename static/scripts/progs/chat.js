@@ -31,7 +31,7 @@ async function get_record_stream() {
   }
 
   voice_timer = setInterval(function () {
-    if (TIMER_VALUE) == 0 {
+    if (TIMER_VALUE == 0) {
       return
     };
     seconds = TIMER_VALUE%60 // Получаем секунды

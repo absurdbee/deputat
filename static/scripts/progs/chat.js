@@ -40,7 +40,6 @@ async function get_record_stream() {
     if (TIMER_VALUE <= 0) {
         clearInterval(voice_timer);
         stop();
-        timer_block.setAttribute("contenteditable", "true")
     } else {
       console.log("Чик!");
         let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
@@ -307,8 +306,10 @@ async function get_record_stream() {
     });
   on('#ajax', 'click', '.voice_stop_btn', function() {
     form = this.parentElement.parentElement;
-    form.querySelector('.smile_supported').innerHTML = "";
-    form.querySelector('.smile_supported').style.display = "none";
+    smile_supported = form.querySelector('.smile_supported');
+    smile_supported.innerHTML = "";
+    smile_supported.style.display = "none";
+    smile_supported.setAttribute("contenteditable", "true");
     form.querySelector('.plyr').style.display = "block";
     form.querySelector('.delete_voice_btn').style.display = "block";
     form.parentElement.querySelector('.mic_visual_canvas').style.display = "none";
@@ -321,6 +322,7 @@ async function get_record_stream() {
     stop();
     form = this.parentElement.parentElement;
     form.querySelector('.smile_supported').innerHTML = "";
+    form.querySelector('.smile_supported').setAttribute("contenteditable", "true");
     remove_voice_console(form);
     form.querySelector('#voice_start_btn').style.display = "block";
     form.querySelector('#voice_post_btn').style.display = "none";

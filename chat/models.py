@@ -989,7 +989,7 @@ class Message(models.Model):
             ChatUsers.objects.create(user=creator, chat=current_chat)
             ChatUsers.objects.create(user=user, chat=current_chat)
 
-        if voice and text == " ":
+        if voice:
             message = Message.objects.create(chat=current_chat, creator=creator, voice=voice)
         elif sticker:
             message = Message.objects.create(chat=current_chat, creator=creator, sticker_id=sticker)
@@ -1015,7 +1015,7 @@ class Message(models.Model):
         _text = Message.get_format_text(text)
         chat = creator.get_or_create_support_chat_pk()
 
-        if voice and text == " ":
+        if voice:
             message = Message.objects.create(chat=chat, creator=creator, voice=voice)
         else:
             message = Message.objects.create(chat=chat, creator=creator, text=_text, attach=Message.get_format_attach(attach))
@@ -1060,7 +1060,7 @@ class Message(models.Model):
         chat = Chat.objects.create(creator=creator, type=Chat.GROUP)
         _text = Message.get_format_text(text)
 
-        if voice and text == " ":
+        if voice:
             message = Message.objects.create(chat=chat, creator=creator, voice=voice)
         elif sticker:
             message = Message.objects.create(chat=chat, creator=creator, sticker_id=sticker)
@@ -1085,7 +1085,7 @@ class Message(models.Model):
             parent_id = parent
         else:
             parent_id = None
-        if voice and text == " ":
+        if voice:
             message = Message.objects.create(chat=chat, creator=creator, voice=voice, parent_id=parent_id)
         elif sticker:
             message = Message.objects.create(chat=chat, creator=creator, sticker_id=sticker, parent_id=parent_id)

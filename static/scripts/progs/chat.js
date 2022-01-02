@@ -311,6 +311,7 @@ async function get_record_stream() {
 
       form.querySelector('#voice_start_btn').style.display = "none";
       form.querySelector('#voice_post_btn').style.display = "block";
+      form.querySelector("#my_audio").setAttribute("name", "voice");
       start();
     });
   on('#ajax', 'click', '.voice_stop_btn', function() {
@@ -335,6 +336,7 @@ async function get_record_stream() {
     remove_voice_console(form);
     form.querySelector('#voice_start_btn').style.display = "block";
     form.querySelector('#voice_post_btn').style.display = "none";
+    form.querySelector("#my_audio").setAttribute("name", "no_voice");
   });
 
   on('#ajax', 'click', '#voice_post_btn', function() {
@@ -342,7 +344,7 @@ async function get_record_stream() {
     form_post = this.parentElement.parentElement.parentElement;
     form_data = new FormData(form_post);
     form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
-    form_data.append("text", " ");
+    form_data.append("text", "voice");
 
     message_load = form_post.parentElement.parentElement.parentElement.querySelector(".chatlist");
     pk = document.body.querySelector(".pk_saver").getAttribute("chat-pk");
@@ -367,7 +369,7 @@ async function get_record_stream() {
       message_text.classList.remove("border_red");
       message_text.setAttribute("contenteditable", "true");
       message_text.innerHTML = "";
-      form_post.querySelector("#my_audio").setAttribute("src", null);
+      form_post.querySelector("#my_audio").setAttribute("name", "no_voice");
 
       form_post.querySelector(".hide_block_menu").classList.remove("show");
       form_post.querySelector(".message_dropdown").classList.remove("border_red");
@@ -391,14 +393,6 @@ async function get_record_stream() {
 get_record_stream();
 
 function send_message (form_post, url) {
-  is_voice = false;
-  if (CURRENT_BLOB) {
-    form_data = new FormData(form_post);
-    form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
-    form_data.append("text", " ");
-    is_voice = true;
-  }
-  else {
     text_val = form_post.querySelector(".smile_supported");
     _val = format_text(text_val);
     _text = _val.innerHTML;
@@ -411,7 +405,6 @@ function send_message (form_post, url) {
     text = form_post.querySelector(".type_hidden");
     text.value = _text;
     form_data = new FormData(form_post);
-  };
 
   message_load = form_post.parentElement.parentElement.parentElement.querySelector(".chatlist");
   pk = document.body.querySelector(".pk_saver").getAttribute("chat-pk");
@@ -435,11 +428,6 @@ function send_message (form_post, url) {
     form_post.querySelector(".message_dropdown").classList.remove("border_red");
     try{form_post.querySelector(".parent_message_block").remove()}catch{null};
     form_post.querySelector(".type_hidden").value = '';
-    if (is_voice) {
-      CURRENT_BLOB = null;
-      init_music(new_post);
-      remove_voice_console(form_post)
-    };
     show_message_form_voice_btn();
     if (document.querySelector(".chat_container")) {
       window.scrollTo({

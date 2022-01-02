@@ -289,8 +289,8 @@ async function get_record_stream() {
         form.querySelector('.voice_stop_btn').style.display = "none";
         form.querySelector('.voice_pause_btn').style.display = "none";
       };
-      seconds = fake_value%60;
-      minutes = fake_value/60%60;
+      seconds = TIMER_VALUE%60;
+      minutes = TIMER_VALUE/60%60;
       timer_block.setAttribute("contenteditable", "false");
       let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
       timer_block.innerHTML = strTimer;

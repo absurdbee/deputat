@@ -360,17 +360,25 @@ async function get_record_stream() {
       new_post = document.createElement("span");
       new_post.innerHTML = elem;
       message_load.append(new_post);
+
       message_load.querySelector(".items_empty") ? message_load.querySelector(".items_empty").style.display = "none" : null;
-      form_post.querySelector(".message_text").classList.remove("border_red");
+
+      message_text = form_post.querySelector(".message_text");
+      message_text.classList.remove("border_red");
+      message_text.setAttribute("contenteditable", "true");
+      message_text.innerHTML = "";
+      form_post.querySelector("#my_audio").setAttribute("src", null);
+
       form_post.querySelector(".hide_block_menu").classList.remove("show");
       form_post.querySelector(".message_dropdown").classList.remove("border_red");
       try{form_post.querySelector(".parent_message_block").remove()}catch{null};
+
       CURRENT_BLOB = null;
       init_music(new_post);
       remove_voice_console(form_post)
       if (document.querySelector(".chat_container")) {
         window.scrollTo({
-          top: 12000,
+          top: 2000,
           behavior: "smooth"
         })
       };

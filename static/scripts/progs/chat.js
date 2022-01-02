@@ -316,8 +316,8 @@ async function get_record_stream() {
   });
 
   on('#ajax', 'click', '.delete_voice_btn', function() {
+    stop();
     form = this.parentElement.parentElement;
-    TIMER_VALUE = 0;
     form.querySelector('.smile_supported').innerHTML = "";
     remove_voice_console(form);
     form.querySelector('#voice_start_btn').style.display = "block";

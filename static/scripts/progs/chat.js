@@ -278,9 +278,10 @@ async function get_record_stream() {
     seconds = TIMER_VALUE%60;
     minutes = TIMER_VALUE/60%60;
     timer_block.setAttribute("contenteditable", "false")
-    if (TIMER_VALUE <= 1) {
-        clearInterval(voice_timer);
-        stop();
+    if (TIMER_VALUE <= 2) {
+      console.log("stop!")
+      clearInterval(voice_timer);
+      stop();
     } else {
       let strTimer = "<span style='color:red'>Запись!</span> Осталось: " + Math.trunc(minutes) + " мин. " + seconds + " сек." ;
       if (TIMER_VALUE != 0) {

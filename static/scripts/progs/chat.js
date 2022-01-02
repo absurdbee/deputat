@@ -272,7 +272,7 @@ async function get_record_stream() {
   }
 
   voice_timer = setInterval(function () {
-    fake_value = TIMER_VALUE - 2;
+    fake_value = TIMER_VALUE - 3;
     if (TIMER_VALUE >= 1) {
       if (TIMER_VALUE == 1) {
         console.log("TIMER_VALUE == 0");

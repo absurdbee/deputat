@@ -1158,7 +1158,8 @@ on('#ajax', 'click', '.chat_ajax', function(e) {
         window.history.pushState(null, "vfgffgfgf", url);
 
         chats = document.body.querySelector(".new_unread_chats");
-        if (chats.querySelector(".tab_badge") && _this.querySelector(".tab_badge")) {
+
+        if (chats.querySelector(".badge").innerHTML && _this.querySelector(".tab_badge")) {
           all_count = chats.innerHTML.replace(/\s+/g, '');
           all_count = all_count * 1;
           result = all_count - 1;
@@ -1168,6 +1169,7 @@ on('#ajax', 'click', '.chat_ajax', function(e) {
         if (document.body.querySelector(".left_panel_menu")) {
           setEndOfContenteditable(document.body.querySelector(".message_text"));
         };
+        get_record_stream();
         }
       }
     ajax_link.send();

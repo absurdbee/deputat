@@ -17,7 +17,7 @@
             <div class="card-body px-0 py-0">
               {% if object_list %}
 
-              <ul class="list-group is_paginate">
+              <ul class="list-group is_paginate" style="list-style-type:none">
                 {% for object in object_list %}
                 <li data-pk="{{ object.pk }}" style="padding:5px">
                   <a class="chat_ajax" href="{% url 'chat_detail' pk=object.pk %}">

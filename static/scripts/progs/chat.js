@@ -31,15 +31,12 @@ async function get_record_stream() {
   }
 
   const deviceInfos = await navigator.mediaDevices.enumerateDevices();
-
   var mics = [];
   for (let i = 0; i !== deviceInfos.length; ++i) {
     let deviceInfo = deviceInfos[i];
     if (deviceInfo.kind === 'audioinput') {
       mics.push(deviceInfo);
-      let label = deviceInfo.label ||
-        'микрофон ' + mics.length;
-      console.log('Mic ', label + ' ' + deviceInfo.deviceId)
+      let label = deviceInfo.label || 'микрофон ' + mics.length;
     }
   }
 
@@ -55,46 +52,23 @@ async function get_record_stream() {
   function setUpRecording() {
     context = new AudioContext();
     sampleRate = context.sampleRate;
-
-    // создаём узел
     volume = context.createGain();
-
-    // создает аудиоузел из входящего потока микрофона
     audioInput = context.createMediaStreamSource(stream);
-
-    // Создаём анализатор
     analyser = context.createAnalyser();
-
-    // подключаем аудиовход к анализатору
     audioInput.connect(analyser);
-
-    // подключаем анализатор к регулятору громкости
-    // analyser.connect(volume);
-
     let bufferSize = 2048;
     let recorder = context.createScriptProcessor(bufferSize, 2, 2);
-
-    // подключаем регулятор громкости к процессору
-    // volume.connect(recorder);
-
     analyser.connect(recorder);
-
-    // наконец подключаем процессор к выходу
     recorder.connect(context.destination);
-
     recorder.onaudioprocess = function(e) {
-      // Проверяем
       if (!recording) return;
-      // преобразуем данные в WAV
       console.log('Запись!');
       let left = e.inputBuffer.getChannelData(0);
       let right = e.inputBuffer.getChannelData(1);
       if (!tested) {
         tested = true;
-        // если это значение уменьшится до 0, мы не получим никакого звука
         if ( !left.reduce((a, b) => a + b) ) {
           console.log("There seems to be an issue with your Mic");
-          // clean up;
           stop();
           stream.getTracks().forEach(function(track) {
             track.stop();
@@ -102,15 +76,12 @@ async function get_record_stream() {
           context.close();
         }
       }
-      // клонируем образцы
       leftchannel.push(new Float32Array(left));
       rightchannel.push(new Float32Array(right));
       recordingLength += bufferSize;
     };
     visualize();
   };
-
-
 
   function mergeBuffers(channelBuffer, recordingLength) {
     let result = new Float32Array(recordingLength);
@@ -127,9 +98,7 @@ async function get_record_stream() {
   function interleave(leftChannel, rightChannel){
     let length = leftChannel.length + rightChannel.length;
     let result = new Float32Array(length);
-
     let inputIndex = 0;
-
     for (let index = 0; index < length; ){
       result[index++] = leftChannel[inputIndex];
       result[index++] = rightChannel[inputIndex];
@@ -148,7 +117,6 @@ async function get_record_stream() {
   function start() {
     recording = true;
     document.querySelector('.user_typed_box').style.visibility = 'visible'
-    // сбросим буфер для новой записи
     leftchannel.length = rightchannel.length = 0;
     recordingLength = 0;
     console.log('context: ', !!context);
@@ -161,36 +129,24 @@ async function get_record_stream() {
     recording = false;
     document.body.querySelector('.user_typed_box').style.visibility = 'hidden';
     TIMER_VALUE = 0;
-
-    // мы выравниваем левый и правый каналы
     let leftBuffer = mergeBuffers ( leftchannel, recordingLength );
     let rightBuffer = mergeBuffers ( rightchannel, recordingLength );
-    // мы чередуем оба канала вместе
     let interleaved = interleave ( leftBuffer, rightBuffer );
-
-    // мы создаем наш wav-файл
     let buffer = new ArrayBuffer(44 + interleaved.length * 2);
     let view = new DataView(buffer);
-
-    // Дескриптор фрагмента RIFF
     writeUTFBytes(view, 0, 'RIFF');
     view.setUint32(4, 44 + interleaved.length * 2, true);
     writeUTFBytes(view, 8, 'WAVE');
-    // FMT sub-chunk
     writeUTFBytes(view, 12, 'fmt ');
     view.setUint32(16, 16, true);
     view.setUint16(20, 1, true);
-    // stereo (2 channels)
     view.setUint16(22, 2, true);
     view.setUint32(24, sampleRate, true);
     view.setUint32(28, sampleRate * 4, true);
     view.setUint16(32, 4, true);
     view.setUint16(34, 16, true);
-    // data sub-chunk
     writeUTFBytes(view, 36, 'data');
     view.setUint32(40, interleaved.length * 2, true);
-
-    // write the PCM samples
     let lng = interleaved.length;
     let index = 44;
     let volume = 1;
@@ -198,10 +154,7 @@ async function get_record_stream() {
         view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
         index += 2;
     }
-
-    // our final binary blob
     const blob = new Blob ( [ view ], { type : 'audio/wav' } );
-
     const audioUrl = URL.createObjectURL(blob);
     console.log('BLOB ', blob);
     console.log('URL ', audioUrl);
@@ -209,52 +162,36 @@ async function get_record_stream() {
     CURRENT_BLOB = blob;
   }
 
-  // Visualizer function from
-  // https://webaudiodemos.appspot.com/AudioRecorder/index.html
-  //
   function visualize() {
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
     CENTERX = canvas.width / 2;
     CENTERY = canvas.height / 2;
-
     analyser.fftSize = 2048;
     var bufferLength = analyser.fftSize;
     console.log(bufferLength);
     var dataArray = new Uint8Array(bufferLength);
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-
     var draw = function() {
-
       drawVisual = requestAnimationFrame(draw);
-
       analyser.getByteTimeDomainData(dataArray);
-
       canvasCtx.fillStyle = 'rgb(200, 200, 200)';
       canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
-
       canvasCtx.lineWidth = 2;
       canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
-
       canvasCtx.beginPath();
-
       var sliceWidth = WIDTH * 1.0 / bufferLength;
       var x = 0;
-
       for(var i = 0; i < bufferLength; i++) {
-
         var v = dataArray[i] / 128.0;
         var y = v * HEIGHT/2;
-
         if(i === 0) {
           canvasCtx.moveTo(x, y);
         } else {
           canvasCtx.lineTo(x, y);
         }
-
         x += sliceWidth;
       }
-
       canvasCtx.lineTo(canvas.width, canvas.height/6);
       canvasCtx.stroke();
     };

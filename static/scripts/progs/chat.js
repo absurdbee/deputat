@@ -315,9 +315,10 @@ async function get_record_stream() {
       CURRENT_BLOB = null;
       init_music(new_post);
       remove_voice_console(form_post)
-      if (document.querySelector(".chat_container")) {
+      if (document.body.querySelector(".chat_container")) {
+        console.log(document.body.querySelector(".chat_container").scrollHeight);
         window.scrollTo({
-          top: 2000,
+          top: document.body.querySelector(".chat_container").scrollHeight,
           behavior: "smooth"
         })
       };

@@ -131,13 +131,15 @@ class DislikeNewsView(ListView, CategoryListMixin):
 
 
 class UserView(TemplateView, CategoryListMixin):
-	template_name = "profile/user.html"
+	template_name, is_message_open = None, None
 
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_template_user, get_template_anon_user
 		self.user = User.objects.get(pk=self.kwargs["pk"])
 		if request.user.is_authenticated:
 			self.template_name = get_template_user(self.user, "profile/user/", "user.html", request.user, request.META['HTTP_USER_AGENT'])
+			if self.user.pk != request.user.pk:
+				self.is_message_open = self.user.is_user_can_send_message(request.user.pk)
 		else:
 			self.template_name = get_template_anon_user(self.user, "profile/user/", "user.html", request.META['HTTP_USER_AGENT'])
 		return super(UserView,self).get(request,*args,**kwargs)
@@ -145,6 +147,7 @@ class UserView(TemplateView, CategoryListMixin):
 	def get_context_data(self,**kwargs):
 		context=super(UserView,self).get_context_data(**kwargs)
 		context["user"] = self.user
+		context["is_message_open"] = self.is_message_open
 		return context
 
 

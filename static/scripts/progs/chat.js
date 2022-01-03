@@ -224,7 +224,6 @@ async function get_record_stream() {
         form.querySelector('.delete_voice_btn').style.display = "block";
         form.querySelector('.mic_visual_canvas').style.display = "none";
         form.querySelector('.voice_stop_btn').style.display = "none";
-        form.querySelector('.voice_pause_btn').style.display = "none";
       };
       seconds = fake_value%60;
       minutes = fake_value/60%60;
@@ -244,7 +243,6 @@ async function get_record_stream() {
       form.querySelector('.form_smilies').style.display = "none";
       form.parentElement.querySelector('.mic_visual_canvas').style.display = "block";
       form.querySelector('.voice_stop_btn').style.display = "block";
-      form.querySelector('.voice_pause_btn').style.display = "block";
 
       form.querySelector('#voice_start_btn').style.display = "none";
       form.querySelector('#voice_post_btn').style.display = "block";
@@ -261,7 +259,6 @@ async function get_record_stream() {
     form.querySelector('.delete_voice_btn').style.display = "block";
     form.querySelector('.mic_visual_canvas').style.display = "none";
     form.querySelector('.voice_stop_btn').style.display = "none";
-    form.querySelector('.voice_pause_btn').style.display = "none";
     stop();
   });
 
@@ -316,7 +313,6 @@ async function get_record_stream() {
       init_music(new_post);
       remove_voice_console(form_post)
       if (document.body.querySelector(".chat_container")) {
-        console.log(document.body.querySelector(".chat_container").scrollHeight);
         window.scrollTo({
           top: document.body.querySelector(".chat_container").scrollHeight,
           behavior: "smooth"
@@ -369,7 +365,7 @@ function send_message (form_post, url) {
     show_message_form_voice_btn();
     if (document.querySelector(".chat_container")) {
       window.scrollTo({
-        top: 12000,
+        top: document.body.querySelector(".chat_container").scrollHeight,
         behavior: "smooth"
       })
     };
@@ -402,7 +398,6 @@ function remove_voice_console(form) {
   form.querySelector('.file_dropdown_2').style.display = "block";
   form.querySelector('.form_smilies').style.display = "block";
   form.querySelector('.voice_stop_btn').style.display = "none";
-  form.querySelector('.voice_pause_btn').style.display = "none";
   show_message_form_voice_btn();
 };
 function chat_send_change(span, _link, new_class, html) {

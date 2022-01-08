@@ -29,3 +29,6 @@ admin.site.register(BlogVotes)
 admin.site.register(ElectNewVotes2)
 admin.site.register(ElectNewCommentVotes)
 admin.site.register(BlogCommentVotes)
+
+
+admin.site.register(SmileCategory)

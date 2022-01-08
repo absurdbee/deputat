@@ -56,8 +56,7 @@ async function get_record_stream() {
     audioInput = context.createMediaStreamSource(stream);
     analyser = context.createAnalyser();
     audioInput.connect(analyser);
-    //let bufferSize = 2048;
-    let bufferSize = 1024;
+    let bufferSize = 2048;
     let recorder = context.createScriptProcessor(bufferSize, 2, 2);
     analyser.connect(recorder);
     recorder.connect(context.destination);

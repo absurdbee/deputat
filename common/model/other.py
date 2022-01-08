@@ -38,6 +38,7 @@ class Stickers(models.Model):
     name = models.CharField(max_length=32, unique=True, verbose_name="Название")
     category = models.ForeignKey(StickerCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Категория")
     image = models.FileField(upload_to="stickers/")
+    order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 
     class Meta:
         verbose_name = 'Стикер'
@@ -46,6 +47,17 @@ class Stickers(models.Model):
     def __str__(self):
         return self.name
 
+    def get_remote_image(self, image_url):
+        import os
+        from django.core.files import File
+        from urllib import request
+
+        result = request.urlretrieve(image_url)
+        self.image.save(
+            os.path.basename(image_url),
+            File(open(result[0], 'rb'))
+        )
+        self.save()
 
 class SmileCategory(models.Model):
     name = models.CharField(max_length=32, unique=True, verbose_name="Название")
@@ -66,6 +78,7 @@ class Smiles(models.Model):
     name = models.CharField(max_length=32, unique=True, verbose_name="Название")
     category = models.ForeignKey(SmileCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Категория")
     image = models.FileField(upload_to="smiles/")
+    order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
 
     class Meta:
         verbose_name = 'Смайл'
@@ -73,6 +86,18 @@ class Smiles(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_remote_image(self, image_url):
+        import os
+        from django.core.files import File
+        from urllib import request
+
+        result = request.urlretrieve(image_url)
+        self.image.save(
+            os.path.basename(image_url),
+            File(open(result[0], 'rb'))
+        )
+        self.save()
 
 class UserPopulateSmiles(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='+', verbose_name="Пользователь")

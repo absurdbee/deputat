@@ -22,15 +22,18 @@ def get_html(url):
 
 def main():
     html = get_html("https://vemoji.com/#all")
+    print("Открываем ссылку")
 
     soup = BeautifulSoup(html, 'lxml')
     con = soup.find("div", {"id": "tabcontent"})
     blocks = con.find_all('div', class_='cat-wrapper')
     order = 0
+    print("Блоки", blocks)
 
     for block in blocks:
         order += 1
         cat_name = block.find('h1').text
+        print("Название", cat_name)
         if SmileCategory.objects.filter(name=cat_name).exists():
             category = SmileCategory.objects.get(name=cat_name)
         else:
@@ -38,8 +41,9 @@ def main():
         items = block.find_all('span')
         tr_count = 0
         for item in items:
+            print("item")
+            tr_count += 1
             if tr_count > 0:
-                tr_count += 1
                 name = item.find('a')['title']
                 try:
                     image_src = item.find('img')['src']

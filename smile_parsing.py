@@ -25,7 +25,7 @@ def main():
     print("Открываем ссылку")
 
     soup = BeautifulSoup(html, 'lxml')
-    con = soup.find("div", {"id": "tabcontent"})
+    con = soup.find("div", class_='main')
     blocks = con.find_all('div', class_='cat-wrapper')
     order = 0
     print("Блоки", blocks)

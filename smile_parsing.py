@@ -21,28 +21,28 @@ def get_html(url):
     return r.text
 
 def main():
-    html = get_html("https://kody-smajlov-vkontakte.ru/")
+    html = get_html("https://vemoji.com/#all")
 
     soup = BeautifulSoup(html, 'lxml')
-    con = soup.find('div', class_='container')
-    blocks = con.find_all('table', class_='smile_table')
+    con = soup.find("div", {"id": "tabcontent"})
+    blocks = con.find_all('div', class_='cat-wrapper')
     order = 0
 
     for block in blocks:
         order += 1
-        cat_name = block.find('div', class_='head_str').text
+        cat_name = block.find('h1').text
         if SmileCategory.objects.filter(name=cat_name).exists():
             category = SmileCategory.objects.get(name=cat_name)
         else:
             category = SmileCategory.objects.create(name=cat_name, order=order)
-        items = block.find_all('tr')
+        items = block.find_all('span')
         tr_count = 0
         for item in items:
             if tr_count > 0:
                 tr_count += 1
-                name = item.find('td', class_='description').text
+                name = item.find('a')['title']
                 try:
-                    image_src = "https://kody-smajlov-vkontakte.ru/" + item.find('img')['src']
+                    image_src = item.find('img')['src']
                 except:
                     image_src = None
 

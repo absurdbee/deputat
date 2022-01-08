@@ -21,7 +21,7 @@ def get_html(url):
     return r.text
 
 def main():
-    html = get_html("https://kody-smajlov-vkontakte.ru/#gestures")
+    html = get_html("https://kody-smajlov-vkontakte.ru/")
 
     soup = BeautifulSoup(html, 'lxml')
     con = soup.find('div', class_='container')

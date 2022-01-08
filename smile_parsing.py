@@ -24,12 +24,12 @@ def main():
     html = get_html("https://kody-smajlov-vkontakte.ru/#gestures")
 
     soup = BeautifulSoup(html, 'lxml')
-    blocks = soup.find_all('table', class_='smile_table')
+    con = soup.find('div', class_='container')
+    blocks = con.find_all('table', class_='smile_table')
     order = 0
 
     for block in blocks:
         order += 1
-
         cat_name = block.find('div', class_='head_str').text
         if SmileCategory.objects.filter(name=cat_name).exists():
             category = SmileCategory.objects.get(name=cat_name)

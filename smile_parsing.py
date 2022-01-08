@@ -26,6 +26,7 @@ def main():
 
     soup = BeautifulSoup(html, 'lxml')
     con = soup.find("div", class_='main')
+    print("con", con)
     blocks = con.find_all('div', class_='cat-wrapper')
     order = 0
     print("Блоки", blocks)

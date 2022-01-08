@@ -24,8 +24,7 @@ def main():
     html = get_html("https://kody-smajlov-vkontakte.ru/#gestures")
 
     soup = BeautifulSoup(html, 'lxml')
-    container = soup.find('div', class_='content')
-    blocks = container.find_all('table', class_='smile_table')
+    blocks = soup.find_all('table', class_='smile_table')
     order = 0
 
     for block in blocks:

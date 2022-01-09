@@ -664,6 +664,26 @@ on('#ajax', 'click', '.select_chat_collections', function() {
   ajax_link.send();
 });
 
+on('#ajax', 'click', '.select_bottom_bar_icons', function() {
+  _this = this;
+  ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  ajax_link.open( 'GET', "/users/load/smiles_stickers/?type" + this.getAttribute("data-type"), true );
+	ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  ajax_link.onreadystatechange = function () {
+    if ( this.readyState == 4 && this.status == 200 ) {
+      elem = document.createElement('span');
+      elem.innerHTML = ajax_link.responseText;
+      _this.parentElement.parentElement.previousElementSibling.innerHTML = elem.querySelector(".tab-content").innerHTML;
+      navs = _this.parentElement.querySelectorAll(".nav-item");
+      for (var i = 0; i < navs.length; i++) {
+        navs[i].classList.add("select_bottom_bar_icons", "pointer")
+      };
+      _this.classList.remove("select_bottom_bar_icons", "pointer");
+    }
+  };
+  ajax_link.send();
+});
+
 function create_user_input_card(name, pk, link) {
   $span = document.createElement("span");
   $span.setAttribute("data-pk", pk);

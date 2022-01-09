@@ -5,18 +5,20 @@
             <div class="mb-0 f-sm">
               {% if is_have_populate_smiles %}
                 <h6>Часто используемые</h6>
-
-                {% for smile in request.user.get_populate_smiles %}
-                  <img class="pointer classic_smile_item" data-pk="{{ smile.pk }}" style="width: auto;" src="{{ smile.image.url }}" alt="smile">
-                {% endfor %}
+                <div style="display: flex;flex-wrap: wrap;">
+                  {% for smile in request.user.get_populate_smiles %}
+                    <img class="pointer classic_smile_item" data-pk="{{ smile.pk }}" style="width: auto;" src="{{ smile.image.url }}" alt="smile">
+                  {% endfor %}
+                </div>
               {% endif %}
 
               {% for smiles in smiles_category %}
                 <h6>{{ smiles.name }}</h6>
-
-                {% for smile in smiles.get_smiles %}
-                  <img class="pointer classic_smile_item" data-pk="{{ smile.pk }}" style="width: auto;" src="{{ smile.image.url }}" alt="smile">
-                {% endfor %}
+                <div style="display: flex;flex-wrap: wrap;">
+                  {% for smile in smiles.get_smiles %}
+                    <img class="pointer classic_smile_item" data-pk="{{ smile.pk }}" style="width: auto;" src="{{ smile.image.url }}" alt="smile">
+                  {% endfor %}
+                </div>
               {% endfor %}
             </div>
           </div>

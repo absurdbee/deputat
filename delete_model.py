@@ -19,6 +19,6 @@ from common.model.other import *
 
 
 for i in Smiles.objects.all():
-    name = i.name.replace("Смайлики ВК ", "")
+    name = i.name.replace("Смайлик ВК ", "")
     i.name = name
     i.save(update_fields=["name"])

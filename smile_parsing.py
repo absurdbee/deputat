@@ -83,7 +83,7 @@ def main():
             if Smiles.objects.filter(name=name).exists():
                 pass
             else:
-                smile = Smiles.objects.create(name=name, order=tr_count)
+                smile = Smiles.objects.create(name=name, order=tr_count, category=category)
                 smile.get_remote_image(image_src)
         time.sleep(2)
 

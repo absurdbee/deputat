@@ -768,7 +768,7 @@ on('#ajax', 'click', '.show_chat_fixed_messages', function() {
 });
 
 on('#ajax', 'click', '.classic_smile_item', function() {
-  input = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".smile_supported");
+  input = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".smile_supported");
   $img = document.createElement("img");
   $img.src = this.getAttribute("src");
   input.append($img);

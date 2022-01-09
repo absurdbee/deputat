@@ -168,23 +168,40 @@ class ChangeTheme(View):
 
 
 class SmilesStickersLoad(ListView):
-	template_name, populate_smiles, populate_stickers = None, None, None
+	template_name, populate_smiles, populate_stickers, type, is_have_populate_smiles, is_have_populate_stickers = None, None, None, None, None, None
 
 	def get(self,request,*args,**kwargs):
+		from common.model.other import StickerCategory, SmileCategory
+		type = request.GET.get("type")
+
+		if not type or type == "standart_smile":
+			self.categories = SmileCategory.objects.filter(classic=True)
+			self.is_have_populate_smiles = request.user.is_have_populate_smiles()
+			if self.is_have_populate_smiles:
+				self.populate_smiles = request.user.get_populate_smiles()
+
+		elif type == "gif_smile":
+			self.categories = SmileCategory.objects.filter(gif=True)
+			self.is_have_populate_smiles = request.user.is_have_populate_smiles()
+			if self.is_have_populate_smiles:
+				self.populate_smiles = request.user.get_populate_smiles()
+
+		else:
+			if StickerCategory.objects.filter(pk=type).exists():
+				self.categories = [StickerCategory.objects.get(pk=type)]
+			else:
+				self.categories = []
+			self.is_have_populate_stickers = request.user.is_have_populate_stickers()
+			if self.is_have_populate_stickers:
+				self.populate_stickers = request.user.get_populate_stickers()
+
 		self.template_name = get_my_template("user_load/smiles_stickers.html", request.user, request.META['HTTP_USER_AGENT'])
-		self.is_have_populate_smiles = request.user.is_have_populate_smiles()
-		if self.is_have_populate_smiles:
-			self.populate_smiles = request.user.get_populate_smiles()
-		self.is_have_populate_stickers = request.user.is_have_populate_stickers()
-		if self.is_have_populate_stickers:
-			self.populate_stickers = request.user.get_populate_stickers()
+
 		return super(SmilesStickersLoad,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
-		from common.model.other import SmileCategory, StickerCategory
 		context = super(SmilesStickersLoad,self).get_context_data(**kwargs)
-		context["smiles_category"] = SmileCategory.objects.only("pk")
-		context["stickers_category"] = StickerCategory.objects.only("pk")
+		context["categories"] = self.categories
 		context["populate_smiles"] = self.populate_smiles
 		context["populate_stickers"] = self.populate_stickers
 		context["is_have_populate_smiles"] = self.is_have_populate_smiles

@@ -79,7 +79,7 @@ def main():
             tr_count += 1
             name = item.find('a')['title']
             image_src = item.find('img')['data-image']
-            src = image_src.replace("//", "")
+            src = image_src.replace("//", "https://")
 
             if Smiles.objects.filter(name=name).exists():
                 pass

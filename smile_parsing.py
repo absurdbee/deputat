@@ -79,15 +79,13 @@ def main():
             tr_count += 1
             name = item.find('a')['title']
             image_src = item.find('img')['data-image']
-            print(name)
-            print(image_src)
 
-            #if Smile.objects.filter(name=name).exists():
-            #    pass
-            #else:
-            #    smile = Smile.objects.create(name=name, order=tr_count)
-            #    smile.get_remote_image(image_src)
-            time.sleep(2)
+            if Smile.objects.filter(name=name).exists():
+                pass
+            else:
+                smile = Smile.objects.create(name=name, order=tr_count)
+                smile.get_remote_image(image_src)
+        time.sleep(2)
 
 if __name__ == '__main__':
     main()

@@ -13,19 +13,15 @@ django.setup()
 
 from common.model.other import *
 
-test_id = ['http://council.gov.ru/structure/persons/1317/', ]
-sity_names = ['г.Москва', 'г.Санкт-Петербург', 'г.Севастополь', ]
-
 def get_html(url):
     r = requests.get(url)
     return r.text
 
 def main():
-    html = get_html("https://vemoji.com/#all")
-    print("Открываем ссылку")
+    html = get_html("https://www.dmosk.ru/skachka.php?smiles=all")
 
     soup = BeautifulSoup(html, 'lxml')
-    con = soup.find("div", class_='main')
+    con = soup.find("table", class_='main')
     print("con", con)
     blocks = con.find_all('div', class_='cat-wrapper')
     order = 0

@@ -62,6 +62,8 @@ class Stickers(models.Model):
 class SmileCategory(models.Model):
     name = models.CharField(max_length=32, unique=True, verbose_name="Название")
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
+    classic = models.BooleanField(default=True, verbose_name="Классические")
+    gif = models.BooleanField(default=False, verbose_name="Анимированные")
 
     class Meta:
         verbose_name = 'Категория смайликов'

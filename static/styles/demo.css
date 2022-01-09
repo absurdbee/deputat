@@ -8,12 +8,12 @@
 }
 .text_support img,
 .customize_form img {
-  height: 23px
+  height: 20px
 }
 .classic_smile_item {
-  max-height: 25px;
-  margin-right: 5px;
-  margin-bottom: 6px;
+  max-height: 23px;
+  margin-right: 7px;
+  margin-bottom: 7px;
 }
 .icon_bottom_bar .active img{
   border-top: 1px solid grey;

@@ -667,7 +667,7 @@ on('#ajax', 'click', '.select_chat_collections', function() {
 on('#ajax', 'click', '.select_bottom_bar_icons', function() {
   _this = this;
   ajax_link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  ajax_link.open( 'GET', "/users/load/smiles_stickers/?type" + this.getAttribute("data-type"), true );
+  ajax_link.open( 'GET', "/users/load/smiles_stickers/?type=" + this.getAttribute("data-type"), true );
 	ajax_link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   ajax_link.onreadystatechange = function () {
     if ( this.readyState == 4 && this.status == 200 ) {

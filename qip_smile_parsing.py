@@ -31,15 +31,9 @@ def main():
     items = con.find_all('img')
     for item in items:
         name = "Без названия"
-        try:
-            image_src = item['src']
-        except:
-            image_src = None
+        image_src = "https://www.dmosk.ru/" + item['src']
         smile = Smiles.objects.create(category=category, name=name)
-        try:
-            smile.get_remote_image(image_src)
-        except:
-            pass
+        smile.get_remote_image(image_src)
 
 if __name__ == '__main__':
     main()

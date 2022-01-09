@@ -19,7 +19,7 @@ class RecoveryPhoneCodes(models.Model):
 
 
 class StickerCategory(models.Model):
-    name = models.CharField(max_length=32, unique=True, verbose_name="Название")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Название")
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE, related_name='+', verbose_name="Пользователь")
     description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
@@ -35,7 +35,7 @@ class StickerCategory(models.Model):
         return Stickers.objects.filter(category_id=self.pk)
 
 class Stickers(models.Model):
-    name = models.CharField(max_length=32, unique=True, verbose_name="Название")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Название")
     category = models.ForeignKey(StickerCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Категория")
     image = models.FileField(upload_to="stickers/")
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
@@ -60,7 +60,7 @@ class Stickers(models.Model):
         self.save()
 
 class SmileCategory(models.Model):
-    name = models.CharField(max_length=32, unique=True, verbose_name="Название")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Название")
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
     classic = models.BooleanField(default=True, verbose_name="Классические")
     gif = models.BooleanField(default=False, verbose_name="Анимированные")
@@ -77,7 +77,7 @@ class SmileCategory(models.Model):
 
 
 class Smiles(models.Model):
-    name = models.CharField(max_length=32, verbose_name="Название")
+    name = models.CharField(max_length=100, verbose_name="Название")
     category = models.ForeignKey(SmileCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Категория")
     image = models.FileField(upload_to="smiles/")
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")

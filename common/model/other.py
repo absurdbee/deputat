@@ -31,7 +31,7 @@ class StickerCategory(models.Model):
     def __str__(self):
         return self.name
 
-    def get_stickers(self):
+    def get_items(self):
         return Stickers.objects.filter(category_id=self.pk)
 
 class Stickers(models.Model):
@@ -72,7 +72,7 @@ class SmileCategory(models.Model):
     def __str__(self):
         return self.name
 
-    def get_smiles(self):
+    def get_items(self):
         return Smiles.objects.filter(category_id=self.pk)
 
 

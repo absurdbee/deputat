@@ -168,7 +168,7 @@ class ChangeTheme(View):
 
 
 class SmilesStickersLoad(ListView):
-	template_name, populate_smiles, populate_stickers, type, is_have_populate_smiles, is_have_populate_stickers = None, None, None, None, None, None
+	template_name, populate_smiles, populate_stickers, type, is_have_populate_smiles, is_have_populate_stickers, is_smile = None, None, None, None, None, None, None
 
 	def get(self,request,*args,**kwargs):
 		from common.model.other import StickerCategory, SmileCategory
@@ -179,12 +179,14 @@ class SmilesStickersLoad(ListView):
 			self.is_have_populate_smiles = request.user.is_have_populate_smiles()
 			if self.is_have_populate_smiles:
 				self.populate_smiles = request.user.get_populate_smiles()
+			self.is_smile = True
 
 		elif type == "gif_smile":
 			self.categories = SmileCategory.objects.filter(gif=True)
 			self.is_have_populate_smiles = request.user.is_have_populate_smiles()
 			if self.is_have_populate_smiles:
 				self.populate_smiles = request.user.get_populate_smiles()
+			self.is_smile = True
 
 		else:
 			if StickerCategory.objects.filter(pk=type).exists():
@@ -206,6 +208,7 @@ class SmilesStickersLoad(ListView):
 		context["populate_stickers"] = self.populate_stickers
 		context["is_have_populate_smiles"] = self.is_have_populate_smiles
 		context["is_have_populate_stickers"] = self.is_have_populate_stickers
+		context["is_smile"] = self.is_smile
 		return context
 
 	def get_queryset(self):

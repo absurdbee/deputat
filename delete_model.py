@@ -15,7 +15,10 @@ from elect.models import Elect
 from blog.models import ElectNew
 from managers.models import Moderated
 from django.db.models import Q
+from common.model.other import *
 
 
-for i in Moderated.objects.filter(type='ELE'):
-    i.delete()
+for i in SmileCategory.objects.all():
+    name = i.name.replace("Смайлики ВК ", "")
+    i.name = name
+    i.save(update_fields=["name"])

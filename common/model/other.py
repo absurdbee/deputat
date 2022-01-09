@@ -77,7 +77,7 @@ class SmileCategory(models.Model):
 
 
 class Smiles(models.Model):
-    name = models.CharField(max_length=32, unique=True, verbose_name="Название")
+    name = models.CharField(max_length=32, verbose_name="Название")
     category = models.ForeignKey(SmileCategory, on_delete=models.CASCADE, related_name='+', verbose_name="Категория")
     image = models.FileField(upload_to="smiles/")
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")

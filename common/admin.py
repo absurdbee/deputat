@@ -32,3 +32,4 @@ admin.site.register(BlogCommentVotes)
 
 
 admin.site.register(SmileCategory)
+admin.site.register(Smiles)

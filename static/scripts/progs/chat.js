@@ -676,9 +676,11 @@ on('#ajax', 'click', '.select_bottom_bar_icons', function() {
       _this.parentElement.parentElement.previousElementSibling.innerHTML = elem.querySelector(".tab-content").innerHTML;
       navs = _this.parentElement.querySelectorAll(".nav-item");
       for (var i = 0; i < navs.length; i++) {
-        navs[i].classList.add("select_bottom_bar_icons", "pointer")
+        navs[i].classList.add("select_bottom_bar_icons", "pointer");
+        navs[i].classList.remove("active");
       };
       _this.classList.remove("select_bottom_bar_icons", "pointer");
+      _this.classList.add("active");
     }
   };
   ajax_link.send();

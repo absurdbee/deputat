@@ -1,7 +1,7 @@
 <div class="_card" style="padding:5px">
   <div class="">
         <div class="tab-content">
-          <div class="tab-pane smiles_panel" style="height: 250px;width: 250px;overflow: auto;">
+          <div class="tab-pane fade active show smiles_panel" style="height: 250px;width: 250px;overflow: auto;">
             <div class="mb-0 f-sm">
               {% if is_have_populate_smiles %}
                 <h6>Часто используемые</h6>
@@ -16,7 +16,7 @@
                 <h6>{{ item.name }}</h6>
                 <div style="display: flex;flex-wrap: wrap;">
                   {% for object in item.get_items %}
-                    <img class="pointer classic_smile_item" data-pk="{{ object.pk }}" style="width: auto;" src="{{ object.image.url }}" alt="smile">
+                    <img class="pointer classic_{% if is_smile %}smile{% else %}sticker{% endif %}_item" data-pk="{{ object.pk }}" style="width: auto;" src="{{ object.image.url }}" alt="smile">
                   {% endfor %}
                 </div>
               {% endfor %}

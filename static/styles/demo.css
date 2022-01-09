@@ -11,6 +11,9 @@
   margin-right: 5px;
   margin-bottom: 6px;
 }
+.icon_bottom_bar .active img{
+  border-top: 1px solid grey;
+}
 .mic_visual_canvas {
   display:none;
   height: 35px;

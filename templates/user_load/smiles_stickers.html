@@ -12,11 +12,11 @@
                 </div>
               {% endif %}
 
-              {% for smiles in smiles_category %}
-                <h6>{{ smiles.name }}</h6>
+              {% for item in category %}
+                <h6>{{ item.name }}</h6>
                 <div style="display: flex;flex-wrap: wrap;">
-                  {% for smile in smiles.get_smiles %}
-                    <img class="pointer classic_smile_item" data-pk="{{ smile.pk }}" style="width: auto;" src="{{ smile.image.url }}" alt="smile">
+                  {% for object in item.get_items %}
+                    <img class="pointer classic_smile_item" data-pk="{{ object.pk }}" style="width: auto;" src="{{ object.image.url }}" alt="smile">
                   {% endfor %}
                 </div>
               {% endfor %}
@@ -25,10 +25,10 @@
     </div>
     <div class="border-top tabs-footer">
         <ul class="nav icon_bottom_bar">
-            <li class="nav-item active" style="margin-right:5px" data-type="standart" data-cat="smile">
+            <li class="nav-item active" style="margin-right:5px" data-type="standart_smile">
                 <img src="/static/images/smile.png" alt="smile" style="height: 25px;margin-top: 5px;padding-top: 1px;">
             </li>
-            <li class="nav-item load_bottom_bar_icons pointer" style="margin-right:5px" data-type="gif" data-cat="smile">
+            <li class="nav-item load_bottom_bar_icons pointer" style="margin-right:5px" data-type="gif_smile">
                 <img src="/static/images/smile.gif" alt="smile" style="height: 30px;">
             </li>
         </ul>

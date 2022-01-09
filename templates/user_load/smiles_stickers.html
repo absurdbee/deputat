@@ -12,7 +12,7 @@
                 </div>
               {% endif %}
 
-              {% for item in category %}
+              {% for item in categories %} 
                 <h6>{{ item.name }}</h6>
                 <div style="display: flex;flex-wrap: wrap;">
                   {% for object in item.get_items %}

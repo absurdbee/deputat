@@ -7,7 +7,9 @@
   }
 }
 .classic_smile_item {
-  max-height: 25px
+  max-height: 25px;
+  margin-right: 3px;
+  margin-bottom: 5px;
 }
 .mic_visual_canvas {
   display:none;

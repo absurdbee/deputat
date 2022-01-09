@@ -6,6 +6,10 @@
     opacity:1;
   }
 }
+.text_support img,
+.customize_form img {
+  height: 23px
+}
 .classic_smile_item {
   max-height: 25px;
   margin-right: 5px;

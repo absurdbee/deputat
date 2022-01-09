@@ -18,6 +18,7 @@ def get_html(url):
     return r.text
 
 def main():
+    return
     html = get_html("https://www.dmosk.ru/skachka.php?smiles=all")
     print("Открываем ссылку")
 

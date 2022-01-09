@@ -35,7 +35,7 @@ def main():
             image_src = item['src']
         except:
             image_src = None
-        smile = Smile.objects.create(category=category, name=name)
+        smile = Smiles.objects.create(category=category, name=name)
         try:
             smile.get_remote_image(image_src)
         except:

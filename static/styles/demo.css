@@ -818,11 +818,10 @@ select {
 
 .dropdown:hover .dropdown-menu {
   transform: scale(1);
+  display: block;
+  visibility: visible;
 }
-.dropdown:hover .dropdown-menu{
-display: block;
 
-}
 .event_card .dropdown-menu{
 transform: scale(1)!important;
 font-size: 85%;

@@ -3,8 +3,11 @@ CURRENT_BLOB = null;
 on('body', 'mouseover', '.dropdown', function() {
   this.querySelector(".dropdown-menu").classList.add("show")
 });
-on('body', 'mouseleave', '.dropdown-menu', function() {
+on('body', 'mouseout', '.dropdown-menu', function() {
   this.classList.remove("show")
+});
+on('body', 'mouseenter', '.dropdown-menu', function() {
+  this.classList.add("show")
 });
 
 on('#ajax', 'click', '.m_select_photo', function() {

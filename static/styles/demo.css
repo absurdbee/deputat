@@ -8,7 +8,8 @@
 }
 .text_support img,
 .customize_form img {
-  height: 20px
+  height: 20px;
+  padding-bottom: 2px;
 }
 .classic_smile_item {
   max-height: 23px;

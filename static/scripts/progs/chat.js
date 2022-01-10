@@ -7,6 +7,7 @@ on('#ajax', 'click', '.drop', function() {
   } else {
     dropdown.classList.add("show")
   }
+  dropdown.classList.add("show")
 });
 
 on('#ajax', 'click', '.m_select_photo', function() {

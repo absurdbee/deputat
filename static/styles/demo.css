@@ -820,10 +820,9 @@ select {
   transform: scale(1);
   display: block;
 }
-.dropdown-item:hover .dropdown-menu { 
-  display: block !important;
-  transform: inherit !important;
-  border: 1px solid #000;
+.dropdown-item:hover .dropdown-menu {
+  transform: scale(1);
+  display: block;
 }
 
 .event_card .dropdown-menu{

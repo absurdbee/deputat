@@ -6,7 +6,8 @@ function format_text(text) {
     brs[i].removeAttribute("style")
   };
   for (var i = 0; i < img.length; i++){
-    img[i].removeAttribute("style")
+    img[i].removeAttribute("style");
+    console.log(img[i])
   }
   return text
 };

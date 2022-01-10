@@ -6,6 +6,10 @@
     opacity:1;
   }
 }
+.header-navbar {
+  position: sticky;
+  top: 0;
+}
 .text_support img,
 .customize_form img {
   height: 20px;

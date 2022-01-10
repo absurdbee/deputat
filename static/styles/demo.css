@@ -663,10 +663,10 @@ a {
 
 
 .progressive {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    outline: none
+  display: block;
+  overflow: hidden;
+  outline: none;
+  position: relative;
 }
 
 .progressive img {

@@ -91,16 +91,11 @@ on('body', 'click', '.body_overlay', function() {
 
 on('body', 'click', '.menu_drop_2', function() {
   block = this.nextElementSibling.nextElementSibling;
-  if (block.classList.contains("show")) {
-    block.classList.remove("show")
+  if (block.style.display == "block") {
+    block.style.display == "none")
   }
   else {
-    console.log("no show");
-    //all_drop = document.body.querySelectorAll(".dropdown-menu");
-    //for(i=0; i<all_drop.length; i++) {
-    //  all_drop[i].classList.remove("show")
-    //};
-    block.classList.add("show");block.classList.add("show");
+    block.style.display == "block";
   }
 });
 function clear_message_attach_block(){

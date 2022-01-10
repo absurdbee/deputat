@@ -34,8 +34,8 @@ on('body', 'click', '.select_perm_dropdown', function() {
   val = this.getAttribute("data-value"), _this = this, is_new_value = true;
   action = this.parentElement.getAttribute("data-action");
   parent = _this.parentElement;
-  block.style.display = "none";
-  block.style.transform = "scale(0,1)";
+  parent.style.display = "none";
+  parent.style.transform = "scale(0,1)";
 
   form_post = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   collectors = form_post.querySelectorAll(".collector");

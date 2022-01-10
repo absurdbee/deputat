@@ -820,7 +820,11 @@ select {
   transform: scale(1);
   display: block;
 }
-.dropdown-menu:hover {
+.dropdown-menu:hover,
+.dropdown-menu:focus,
+.dropdown-menu:active,
+.dropdown-menu:target,
+.dropdown-menu:visited {
   display: block !important;
   transform: inherit !important;
   border: 1px solid #000;

@@ -1,5 +1,30 @@
 CURRENT_BLOB = null;
 
+on('#ajax', 'click', '.m_select_photo', function() {
+  this.parentElement.classList.remove("show");
+  this.parentElement.parentElement.parentElement.parentElement.previousElementSibling.classList.add("message_attach_block");
+  clear_comment_dropdown();
+  create_fullscreen('/users/load/u_img_message_load/', "item_fullscreen");
+});
+on('#ajax', 'click', '.m_select_video', function() {
+  this.parentElement.classList.remove("show");
+  this.parentElement.parentElement.parentElement.parentElement.previousElementSibling.classList.add("message_attach_block");
+  clear_comment_dropdown();
+  create_fullscreen('/users/load/u_video_load/', "item_fullscreen");
+});
+on('#ajax', 'click', '.m_select_music', function() {
+  this.parentElement.classList.remove("show");
+  this.parentElement.parentElement.parentElement.parentElement.previousElementSibling.classList.add("message_attach_block");
+  clear_comment_dropdown();
+  create_fullscreen('/users/load/u_music_load/', "item_fullscreen");
+});
+on('#ajax', 'click', '.m_select_doc', function() {
+  this.parentElement.classList.remove("show");
+  this.parentElement.parentElement.parentElement.parentElement.previousElementSibling.classList.add("message_attach_block");
+  clear_comment_dropdown();
+  create_fullscreen('/users/load/u_doc_load/', "item_fullscreen");
+});
+
 async function get_record_stream() {
   if (!document.body.querySelector(".mic_visual_canvas")) {
     return

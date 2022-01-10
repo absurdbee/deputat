@@ -344,6 +344,7 @@ on('body', 'click', '.photo_load_one', function() {
   } else if (document.body.querySelector(".attach_block")){
     check_photo_in_block(document.body.querySelector(".attach_block"), _this, photo_pk) ? null : (photo_post_attach(document.body.querySelector(".attach_block"), photo_pk, uuid, src), close_fullscreen())
   } else if (document.body.querySelector(".message_attach_block")){
+    console.log("pppp")
     check_photo_in_block(document.body.querySelector(".message_attach_block"), _this, photo_pk) ? null : (photo_message_attach(document.body.querySelector(".message_attach_block"), photo_pk, uuid, src), close_fullscreen())
   }
 });

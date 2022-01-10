@@ -33,7 +33,9 @@ function private_users_send(form_post, url) {
 on('body', 'click', '.select_perm_dropdown', function() {
   val = this.getAttribute("data-value"), _this = this, is_new_value = true;
   action = this.parentElement.getAttribute("data-action");
-  _this.parentElement.classList.remove("show");
+  parent = _this.parentElement;
+  block.style.display = "none";
+  block.style.transform = "scale(0,1)";
 
   form_post = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
   collectors = form_post.querySelectorAll(".collector");

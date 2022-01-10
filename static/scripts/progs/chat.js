@@ -3,9 +3,11 @@ CURRENT_BLOB = null;
 on('#ajax', 'click', '.drop', function() {
   dropdown = this.nextElementSibling;
   if (dropdown.style.display == "block") {
-    dropdown.style.display = "none"
+    dropdown.style.display = "none";
+    dropdown.style.transform = "scale(1,0)";
   } else {
-    dropdown.style.display = "block"
+    dropdown.style.display = "block";
+    dropdown.style.transform = "scale(1)";
   }
 });
 

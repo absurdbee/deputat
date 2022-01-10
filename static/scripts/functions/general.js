@@ -91,7 +91,7 @@ on('body', 'click', '.body_overlay', function() {
 
 on('body', 'click', '.menu_drop_2', function() {
   block = this.nextElementSibling.nextElementSibling;
-  if (block.style.display == "block") {
+  if (block.style.display && block.style.display == "block") {
     block.style.display == "none"
   }
   else {

@@ -11,7 +11,8 @@
   top: 0;
 }
 .text_support img,
-.customize_form img {
+.customize_form img,
+.chat_ajax p img{
   height: 20px;
   padding-bottom: 2px;
 }

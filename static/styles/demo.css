@@ -818,6 +818,7 @@ select {
 
 .dropdown:hover .dropdown-menu {
   display: block;
+  transform: scale(1)!important;
 }
 
 .event_card .dropdown-menu{

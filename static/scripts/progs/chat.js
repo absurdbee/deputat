@@ -799,6 +799,8 @@ on('#ajax', 'click', '.classic_smile_item', function() {
   show_message_form_send_btn()
   };
   setEndOfContenteditable(input);
+  form = input.parentElement.parentElement;
+  send_draft_message (form, "/chat/user_progs/save_draft_message/" + form.parentElement.parentElement.parentElement.getAttribute("chat-pk") + "/");
 });
 
 function send_comment_sticker(form_post,value) {

@@ -131,6 +131,21 @@ function create_preview_photo(img_src, photo_pk, uuid){
   $div.append($img);
   return $div
 }
+function create_preview_message_photo(img_src, photo_pk, user_pk){
+  $div = document.createElement("div");
+  $div.classList.add("col-md-4", "photo");
+  $input = document.createElement("span");
+  $input.innerHTML = '<input type="hidden" name="attach_items" value="pho' + photo_pk + '">';
+  $img = document.createElement("img");
+  $img.classList.add("u_photo_priview", "image_fit", "pointer");
+  $img.setAttribute("src", img_src);
+  $img.setAttribute('photo-pk', photo_pk);
+  $img.setAttribute('data-pk', user_pk);
+  $div.append(photo_preview_delete());
+  $div.append($input);
+  $div.append($img);
+  return $div
+};
 function create_preview_photo_list(src, title, pk, count){
   $div = document.createElement("div");
   $div.classList.add("col-sm-6", "col-md-4", "bg-dark", "position-relative", "text-center", "big_mobile_element", "col-md-6");

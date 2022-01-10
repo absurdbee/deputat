@@ -7,46 +7,8 @@
   <div class="container-fluid pk_saver">
     <div class="list-group border-top border-bottom list-group-flush is_block_paginate">
       {% if object_list %}
-      {% for object in object_list %}
-      <div class="message media p-1" data-uuid="{{ object.uuid }}" data-pk="{{ object.pk }}">
-          <figure>
-            <a href="{{ object.creator.get_link }}" class="ajax no_select">
-              {{ object.creator.get_40_avatar|safe }}
-            </a>
-          </figure>
-          <div class="media-body" style="overflow: visible;">
-            <h5 class="time-title mb-0">
-              <a href="{{ object.creator.get_link }}" class="ajax creator_link">
-                <span class="creator_name">{{ object.creator.get_full_name_2 }}</span>
-              </a>
-              <small class="float-right small text-muted get_created t_f">{{ object.get_created }}</small>
-            </h5>
-
-            {% if object.parent %}
-              {{ object.get_parent_message|safe }}
-            {% endif %}
-
-            {% if object.voice %}
-              <audio class="audio" src="{{ object.voice.url }}"></audio>
-            {% elif object.sticker %}
-            <div class="message_sticker mt-1 t_f">
-              <img src="{{ object.sticker.image.url }}" style="width: 128px;" tooltip="{{ object.sticker.category.name }}" flow="up">
-            </div>
-            {% else %}
-
-            <span class="text text_support t_f">{{ object.text|safe }}</span>
-
-            {% if object.attach %}
-              {{ object|get_attach:request.user|safe }}
-            {% endif %}
-
-            {% if object.is_have_transfer %}
-              {% include 'chat/message/transfers.html' %}
-            {% endif %}
-
-            {% endif %}
-          </div>
-      </div>
+      {% for object in object_list reversed %}
+        {% include 'chat/message/message.html' %}
       {% endfor %}
         {% if page_obj.has_next %}
         <div class="load centered m-1 next_page_list" data-link="/chat/{{ chat }}/search/?page={{ page_obj.next_page_number }}">

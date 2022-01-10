@@ -23,7 +23,7 @@ class ChatsListView(ListView, CategoryListMixin):
 
 
 class ChatDetailView(ListView, CategoryListMixin):
-	template_name, paginate_by, can_add_members_in_chat, favourite_messages, favourite_messages_count = None, 15, None, None, None
+	template_name, paginate_by, can_add_members_in_chat, favourite_messages, favourite_messages_count = None, 45, None, None, None
 
 	def get(self,request,*args,**kwargs):
 		from chat.models import Chat

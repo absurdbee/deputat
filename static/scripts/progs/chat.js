@@ -2,12 +2,11 @@ CURRENT_BLOB = null;
 
 on('#ajax', 'click', '.drop', function() {
   dropdown = this.nextElementSibling;
-  if (dropdown.classList.contains("show")) {
-    dropdown.classList.remove("show")
+  if (dropdown.style.display == "block") {
+    dropdown.style.display = "none"
   } else {
-    dropdown.classList.add("show")
+    dropdown.style.display = "block"
   }
-  dropdown.classList.add("show")
 });
 
 on('#ajax', 'click', '.m_select_photo', function() {

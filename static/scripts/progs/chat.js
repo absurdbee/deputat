@@ -1082,6 +1082,8 @@ function send_draft_message (form_post, url) {
   text_val = form_post.querySelector(".smile_supported");
   _val = format_text(text_val);
   _text = _val.innerHTML;
+  console.log(_val);
+  onsole.log(_val.innerHTML);
 
   if (!_text == "" && _text.replace(/<(?!img)\/?[a-z][^>]*(>|$)/gi, "").trim() == "") {
     console.log("Не не!");

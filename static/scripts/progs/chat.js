@@ -971,7 +971,7 @@ on('#ajax', 'click', '.user_send_page_message', function() {
   create_fullscreen("/chat/user_progs/send_page_message/" + this.parentElement.getAttribute("data-pk") + "/", "worker_fullscreen");
 });
 
-on('#ajax', 'click', '.u_chat_photo', function() {
+on('#ajax', 'click', '.chat_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   pk = document.body.querySelector(".pk_saver").getAttribute('chat-pk')
   create_fullscreen("/gallery/user/chat_photo/" + pk + "/" + photo_pk + "/", "photo_fullscreen");

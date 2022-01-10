@@ -189,7 +189,7 @@ def get_message_attach(message, user):
                 block = ''.join([block, '<div style="flex-basis: 100%;" class="card"><div class="card-body" owner-pk="', str(creator.pk), '" videolist-pk="', str(list.pk), '" style="padding: 8px;padding-bottom: 0;"><div style="display:flex"><figure><a class="load_video_list pointer">', image, '</a></figure><div class="media-body" style="margin-left: 10px;"><h6 class="my-0 mt-1 load_video_list pointer">', list.name, '</h6><p>Список видеозаписей <a style="vertical-align: baseline;" class="ajax underline" href="', creator.get_link(), '">', name, '</a><br>Видеозаписей: ', str(list.count_items()), '</p></div><span class="playlist_share">', add_svg, repost_svg, '</span></div></div></div>'])
             except:
                 pass
-    return ''.join(["<div class='attach_container'>", block, "</div>"])
+    return ''.join(["<div class='attach_container row'>", block, "</div>"])
 
 
 def get_message_edit(message, user):

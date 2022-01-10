@@ -1,4 +1,11 @@
 CURRENT_BLOB = null;
+file_dropdown_2
+on('#ajax', 'mouseenter', '.file_dropdown_2', function() {
+  this.nextElementSibling.classList.add("show")
+});
+on('#ajax', 'mouseleave', '.file_dropdown_2', function() {
+  this.nextElementSibling.classList.remove("show")
+});
 
 on('#ajax', 'click', '.m_select_photo', function() {
   this.parentElement.classList.remove("show");

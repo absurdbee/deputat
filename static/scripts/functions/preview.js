@@ -384,7 +384,7 @@ on('body', 'click', '.track_load_several', function() {
   } else if (document.body.querySelector(".attach_block")){
     check_track_in_block(document.body.querySelector(".attach_block"), _this, pk) ? null : (track_post_attach(document.body.querySelector(".attach_block"), _this), this.classList.add("active_svg"))
   } else if (document.body.querySelector(".message_attach_block")){
-    check_track_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (track_message_attach(document.body.querySelector(".message_attach_block"), _this), this.classList.add("active_svg"))
+    check_track_in_block(document.body.querySelector(".message_attach_block"), _this, pk) ? null : (audio_message_attach(document.body.querySelector(".message_attach_block"), _this), this.classList.add("active_svg"))
   }
 });
 on('body', 'click', '.doc_attach_list', function() {

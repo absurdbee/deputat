@@ -19,6 +19,7 @@ urlpatterns=[
 	url(r'^penalty_photo/(?P<pk>\d+)/$', GetUserPenaltyPhoto.as_view()),
 	url(r'^moderated_photo/(?P<pk>\d+)/$', GetUserModeratedPhoto.as_view()),
 	url(r'^media_photo/(?P<pk>\d+)/(?P<uuid>[0-9a-f-]+)/$', ProectMediaPhoto.as_view(), name="media_list_photo"),
+	url(r'^chat_photo/(?P<pk>\d+)/(?P<photo_pk>\d+)/$', MessagePhotoDetail.as_view(), name="chat_photo"),
 
 	url(r'^user_progs/', include('gallery.url.user_progs')),
 ]

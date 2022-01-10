@@ -23,6 +23,7 @@ class StickerCategory(models.Model):
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE, related_name='+', verbose_name="Пользователь")
     description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
+    preview = models.FileField(upload_to="stickers/")
 
     class Meta:
         verbose_name = 'Категория стикеров'

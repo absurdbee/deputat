@@ -1,4 +1,4 @@
-<div class="_card" style="padding:5px">
+<div class="_card" style="padding: 0 5px;">
   <div class="">
         <div class="tab-content">
           <div class="tab-pane fade active show smiles_panel" style="height: 250px;width: 250px;overflow: auto;">
@@ -12,7 +12,7 @@
                 </div>
               {% endif %}
 
-              {% for item in categories %} 
+              {% for item in categories %}
                 <h6>{{ item.name }}</h6>
                 <div style="display: flex;flex-wrap: wrap;">
                   {% for object in item.get_items %}

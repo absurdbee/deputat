@@ -974,12 +974,7 @@ on('#ajax', 'click', '.user_send_page_message', function() {
 on('#ajax', 'click', '.chat_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
   pk = document.body.querySelector(".pk_saver").getAttribute('chat-pk')
-  create_fullscreen("/gallery/user/chat_photo/" + pk + "/" + photo_pk + "/", "photo_fullscreen");
-});
-on('#ajax', 'click', '.c_chat_photo', function() {
-  photo_pk = this.getAttribute('photo-pk');
-  pk = document.body.querySelector(".pk_saver").getAttribute('chat-pk')
-  create_fullscreen("/gallery/community/chat_photo/" + pk + "/" + photo_pk + "/", "photo_fullscreen");
+  create_fullscreen("/gallery/chat_photo/" + pk + "/" + photo_pk + "/", "photo_fullscreen");
 });
 
 on('#ajax', 'click', '.user_add_members', function() {

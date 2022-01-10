@@ -9,7 +9,7 @@
        <div class="row mb-1 form_group_flex">
            <label class="col-md-6">Кто приглашает участников</label>
            <span class="col-md-6">
-             <a class="menu_drop_2 pointer" style="display:none">{{ chat.get_can_add_members_display }}</a>
+             <a class="menu_drop_2 pointer">{{ chat.get_can_add_members_display }}</a>
              <span class="collector">
                {% if chat.can_add_members == 4 and chat.get_can_add_members_exclude_users %}:
                {% for object in chat.get_can_add_members_exclude_users %}
@@ -21,7 +21,7 @@
                {% endfor %}
                {% endif %}
              </span>
-             <div class="dropdown-menu border" data-action="can_add_members" style="top: 30px;">
+             <div class="dropdown-menu border" data-action="can_add_members" style="top: 30px;display:none">
                {% include 'chat/chat/info/perm_dropdown.html' %}
              </div>
            </span>
@@ -30,7 +30,7 @@
        <div class="row mb-1 form_group_flex">
            <label class="col-md-6">Кто закрепляет сообщения</label>
            <span class="col-md-6">
-             <a class="menu_drop_2 pointer" style="display:none">{{ chat.get_can_fix_item_display }}</a>
+             <a class="menu_drop_2 pointer">{{ chat.get_can_fix_item_display }}</a>
              <span class="collector">
                {% if chat.can_fix_item == 4 and chat.get_can_fix_item_exclude_users %}:
                {% for object in chat.get_can_fix_item_exclude_users %}
@@ -42,7 +42,7 @@
                {% endfor %}
                {% endif %}
              </span>
-             <div class="dropdown-menu border" data-action="can_fix_item" style="top: 30px;">
+             <div class="dropdown-menu border" data-action="can_fix_item" style="top: 30px;display:none">
                {% include 'chat/chat/info/perm_dropdown.html' %}
              </div>
            </span>
@@ -51,7 +51,7 @@
        <div class="row mb-1 form_group_flex">
            <label class="col-md-6">Кто назначает админов</label>
            <span class="col-md-6">
-             <a class="menu_drop_2 pointer" style="display:none">{{ chat.get_can_add_admin_display }}</a>
+             <a class="menu_drop_2 pointer">{{ chat.get_can_add_admin_display }}</a>
              <span class="collector">
                {% if chat.can_add_admin == 4 and chat.get_can_add_admin_exclude_users %}:
                {% for object in chat.get_can_add_admin_exclude_users %}
@@ -63,7 +63,7 @@
                {% endfor %}
                {% endif %}
              </span>
-             <div class="dropdown-menu border" data-action="can_add_admin" style="top: 30px;">
+             <div class="dropdown-menu border" data-action="can_add_admin" style="top: 30px;display:none">
                {% include 'chat/chat/info/admin_perm_dropdown.html' %}
              </div>
            </span>
@@ -72,7 +72,7 @@
        <div class="row mb-1 form_group_flex">
            <label class="col-md-6">Кто упоминает о чате</label>
            <span class="col-md-6">
-             <a class="menu_drop_2 pointer" style="display:none">{{ chat.get_can_mention_display }}</a>
+             <a class="menu_drop_2 pointer">{{ chat.get_can_mention_display }}</a>
              <span class="collector">
                {% if chat.can_mention == 4 and chat.get_can_mention_exclude_users %}:
                {% for object in chat.get_can_mention_exclude_users %}
@@ -84,7 +84,7 @@
                {% endfor %}
                {% endif %}
              </span>
-             <div class="dropdown-menu border" data-action="can_mention" style="top: 30px;">
+             <div class="dropdown-menu border" data-action="can_mention" style="top: 30px;display:none">
                {% include 'chat/chat/info/perm_dropdown.html' %}
              </div>
            </span>
@@ -93,7 +93,7 @@
        <div class="row mb-1 form_group_flex">
            <label class="col-md-6">Кто меняет дизайн</label>
            <span class="col-md-6">
-             <a class="menu_drop_2 pointer" style="display:none">{{ chat.get_can_add_design_display }}</a>
+             <a class="menu_drop_2 pointer">{{ chat.get_can_add_design_display }}</a>
              <span class="collector">
                {% if chat.can_add_design == 4 and chat.get_can_add_design_exclude_users %}:
                {% for object in chat.get_can_add_design_exclude_users %}
@@ -105,7 +105,7 @@
                {% endfor %}
                {% endif %}
              </span>
-             <div class="dropdown-menu border" data-action="can_add_design" style="top: 30px;">
+             <div class="dropdown-menu border" data-action="can_add_design" style="top: 30px;display:none">
                {% include 'chat/chat/info/perm_dropdown.html' %}
              </div>
            </span>
@@ -114,7 +114,7 @@
        <div class="row mb-1 form_group_flex">
            <label class="col-md-6">Кто видит настройки</label>
            <span class="col-md-6">
-             <a class="menu_drop_2 pointer" style="display:none">{{ chat.get_can_see_settings_display }}</a>
+             <a class="menu_drop_2 pointer">{{ chat.get_can_see_settings_display }}</a>
              <span class="collector">
                {% if chat.can_see_settings == 4 and chat.get_can_see_settings_exclude_users %}:
                {% for object in chat.get_can_see_settings_exclude_users %}
@@ -126,7 +126,7 @@
                {% endfor %}
                {% endif %}
              </span>
-             <div class="dropdown-menu border" data-action="can_see_settings" style="top: 30px;">
+             <div class="dropdown-menu border" data-action="can_see_settings" style="top: 30px;display:none">
                {% include 'chat/chat/info/admin_perm_dropdown.html' %}
              </div>
            </span>
@@ -135,7 +135,7 @@
        <div class="row mb-1 form_group_flex">
            <label class="col-md-6">Кто видит журнал действий</label>
            <span class="col-md-6">
-             <a class="menu_drop_2 pointer" style="display:none">{{ chat.get_can_see_log_display }}</a>
+             <a class="menu_drop_2 pointer">{{ chat.get_can_see_log_display }}</a>
              <span class="collector">
                {% if chat.can_see_log == 4 and chat.get_can_see_log_exclude_users %}:
                {% for object in chat.get_can_see_log_exclude_users %}
@@ -147,7 +147,7 @@
                {% endfor %}
                {% endif %}
              </span>
-             <div class="dropdown-menu border" data-action="can_see_log" style="top: 30px;">
+             <div class="dropdown-menu border" data-action="can_see_log" style="top: 30px;display:none">
                {% include 'chat/chat/info/admin_perm_dropdown.html' %}
              </div>
            </span>

@@ -1,5 +1,5 @@
 CURRENT_BLOB = null;
-file_dropdown_2
+
 on('#ajax', 'mouseenter', '.file_dropdown_2', function() {
   this.nextElementSibling.classList.add("show")
 });

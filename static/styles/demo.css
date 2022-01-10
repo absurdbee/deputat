@@ -665,7 +665,8 @@ a {
 .progressive {
   display: block;
   overflow: hidden;
-  outline: none
+  outline: none;
+  position: relative;
 }
 
 .progressive img {

@@ -447,7 +447,7 @@ class Chat(models.Model):
     def get_preview_message(self, user_id):
         first_message, preview_text, is_read, creator_figure, created = self.get_first_message(user_id), '', '', '', ''
 
-        if self.is_have_draft_message(user_id):
+        if self.is_have_draft_message_content(user_id):
             message = self.get_draft_message(user_id)
             preview_text = 'Черновик: ' + message.get_type_text()
         elif not first_message:
@@ -559,12 +559,14 @@ class Chat(models.Model):
     def get_draft_message(self, user_id):
         return self.chat_message.filter(chat_id=self.pk, creator_id=user_id, type=Message.DRAFT).first()
 
-    def is_have_draft_message(self, user_id):
+    def is_have_draft_message_content(self, user_id):
         if self.chat_message.filter(chat_id=self.pk, creator_id=user_id, type=Message.DRAFT).exists():
             message = self.chat_message.filter(chat_id=self.pk, creator_id=user_id, type=Message.DRAFT).first()
             if message.text or message.attach or message.is_have_transfer():
                 return True
         return False
+    def is_have_draft_message(self, user_id):
+        return self.chat_message.filter(chat_id=self.pk, creator_id=user_id, type=Message.DRAFT).exists()
     def get_first_fix_message(self):
         if Message.objects.filter(chat_id=self.id, type__contains="FIX").exists():
             return self.chat_message.filter(chat_id=self.id, type__contains="FIX").first()
@@ -1103,7 +1105,7 @@ class Message(models.Model):
             if transfer:
                 for i in transfer:
                     MessageTransfers.objects.create(message_id=message.uuid, transfer_id=i)
-            if chat.is_have_draft_message(creator.pk):
+            if chat.is_have_draft_message_content(creator.pk):
                 _message = chat.get_draft_message(creator.pk)
                 _message.text = ""
                 _message.attach = ""

@@ -817,11 +817,6 @@ select {
 .btn_inert svg, .btn_inert span{ color:orange}
 
 .dropdown:hover .dropdown-menu {
-  transform: scale(1);
-  display: block;
-}
-.dropdown-item:hover .dropdown-menu {
-  transform: scale(1);
   display: block;
 }
 

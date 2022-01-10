@@ -23,7 +23,7 @@ class StickerCategory(models.Model):
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE, related_name='+', verbose_name="Пользователь")
     description = models.CharField(max_length=200, blank=True, verbose_name="Описание")
-    preview = models.FileField(upload_to="stickers/")
+    preview = models.FileField(blank=True, upload_to="stickers_preview/")
 
     class Meta:
         verbose_name = 'Категория стикеров'
@@ -65,6 +65,7 @@ class SmileCategory(models.Model):
     order = models.PositiveSmallIntegerField(default=0, verbose_name="Порядковый номер")
     classic = models.BooleanField(default=True, verbose_name="Классические")
     gif = models.BooleanField(default=False, verbose_name="Анимированные")
+    preview = models.FileField(blank=True, upload_to="smiles_preview/")
 
     class Meta:
         verbose_name = 'Категория смайликов'

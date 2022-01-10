@@ -1,11 +1,5 @@
 CURRENT_BLOB = null;
 
-on('body', 'mouseover', '.dropdown', function() {
-  this.querySelector(".dropdown-menu").classList.add("show")
-});
-on('body', 'mouseout', '.dropdown', function() {
-  this.querySelector(".dropdown-menu").classList.remove("show")
-});
 
 on('#ajax', 'click', '.m_select_photo', function() {
   this.parentElement.classList.remove("show");

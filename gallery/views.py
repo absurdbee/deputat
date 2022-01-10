@@ -367,7 +367,7 @@ class MessagePhotoDetail(TemplateView):
 
 		self.photos_ids = self.chat.get_attach_photos_ids()
 		if request.user.is_authenticated:
-			self.template_name = get_template_user_window(self.photo, "chat/attach/photo/u/", "photo.html", request.user, request.META['HTTP_USER_AGENT'])
+			self.template_name = get_template_user_window(self.photo, "chat/attach/photo/u/", "photo.html", request.user, request.META['HTTP_USER_AGENT'], request.user.is_photo_manager())
 		else:
 			self.template_name = get_template_anon_user_window(self.photo, "chat/attach/photo/u/anon_photo.html", request.user, request.META['HTTP_USER_AGENT'])
 		return super(MessagePhotoDetail,self).get(request,*args,**kwargs)

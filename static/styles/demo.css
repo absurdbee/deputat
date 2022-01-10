@@ -819,7 +819,12 @@ select {
 .dropdown:hover .dropdown-menu {
   transform: scale(1);
   display: block;
-  visibility: visible;
+  transform: inherit;
+}
+.dropdown-menu:hover {
+  transform: scale(1);
+  display: block;
+  transform: inherit;
 }
 
 .event_card .dropdown-menu{

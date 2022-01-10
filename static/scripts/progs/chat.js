@@ -3,7 +3,7 @@ CURRENT_BLOB = null;
 on('body', 'mouseover', '.dropdown', function() {
   this.querySelector(".dropdown-menu").classList.add("show")
 });
-on('body', 'mouseout', '.customize_form', function() {
+on('body', 'mouseout', '.dropdown-menu', function() {
   this.querySelector(".dropdown-menu").classList.remove("show")
 });
 

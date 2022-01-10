@@ -1,10 +1,10 @@
 CURRENT_BLOB = null;
 
 on('body', 'mouseover', '.dropdown', function() {
-  this.nextElementSibling.classList.add("show")
+  this.querySelector(".dropdown-menu").classList.add("show")
 });
 on('body', 'mouseleave', '.dropdown', function() {
-  this.nextElementSibling.classList.remove("show")
+  this.querySelector(".dropdown-menu").classList.remove("show")
 });
 
 on('#ajax', 'click', '.m_select_photo', function() {

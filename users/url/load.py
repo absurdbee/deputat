@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^u_photo_load/$', UserLoadPhoto.as_view(), name="u_photo_load"),
     url(r'^u_photo_list_load/(?P<uuid>[0-9a-f-]+)/$', UserLoadPhotoList.as_view(), name="u_photo_list_load"),
     url(r'^u_photo_comment_load/$', UserLoadPhotoComment.as_view(), name="u_photo_comment_load"),
+    url(r'^u_img_message_load/$', UserLoadPhotoMessage.as_view(), name="u_photo_comment_load"),
 
     url(r'^u_video_load/$', UserLoadVideo.as_view(), name="u_video_load"),
     url(r'^u_video_list_load/(?P<uuid>[0-9a-f-]+)/$', UserLoadVideoList.as_view(), name="u_video_list_load"),

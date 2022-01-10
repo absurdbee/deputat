@@ -1,9 +1,9 @@
 CURRENT_BLOB = null;
 
-on('#ajax', 'mouseenter', '.file_dropdown_2', function() {
+on('body', 'mouseover', '.dropdown', function() {
   this.nextElementSibling.classList.add("show")
 });
-on('#ajax', 'mouseleave', '.file_dropdown_2', function() {
+on('body', 'mouseleave', '.dropdown', function() {
   this.nextElementSibling.classList.remove("show")
 });
 

@@ -1,5 +1,13 @@
 CURRENT_BLOB = null;
 
+on('#ajax', 'click', '.drop', function() {
+  dropdown = this.nextElementSibling;
+  if (dropdown.classList.contains("show")) {
+    dropdown.classList.remove("show")
+  } else {
+    dropdown.classList.add("show")
+  }
+});
 
 on('#ajax', 'click', '.m_select_photo', function() {
   this.parentElement.classList.remove("show");

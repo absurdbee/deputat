@@ -820,7 +820,7 @@ select {
   transform: scale(1);
   display: block;
 }
-.dropdown-menu:hover .dropdown-menu {
+.dropdown-item:hover .dropdown-menu { 
   display: block !important;
   transform: inherit !important;
   border: 1px solid #000;

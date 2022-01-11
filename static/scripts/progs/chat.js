@@ -1031,7 +1031,7 @@ on('#ajax', 'click', '#send_page_message_btn', function() {
       ajax_link.onreadystatechange = function () {
         if ( this.readyState == 4 && this.status == 200 ) {
             toast_success("Сообщение отправлено");
-            close_work_fullscreen();
+            close_fullscreen();
         } else {this.disabled = false}
       }
       ajax_link.send(form_data);
@@ -1284,7 +1284,7 @@ on('#ajax', 'change', '#u_photo_message_attach', function() {
       photo_list = response.querySelectorAll(".pag");
       photo_message_upload_attach(photo_list, document.body.querySelector(".message_attach_block"));
     };
-    close_work_fullscreen();
+    close_fullscreen();
     show_message_form_send_btn();
   }
   link_.send(form_data);
@@ -1497,7 +1497,7 @@ on('#ajax', 'click', '#u_chat_settings_btn', function() {
             elem_ = document.createElement('span');
             elem_.innerHTML = ajax_link.responseText;
             form.classList.remove("cool_private_form");
-            close_work_fullscreen();
+            close_fullscreen();
         }
       };
       ajax_link.send(form_data);
@@ -1541,7 +1541,7 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
             elem_.innerHTML = ajax_link.responseText;
             message_load = document.body.querySelector(".chatlist");
             message_load.scrollTop = message_load.scrollHeight;
-            close_work_fullscreen();
+            close_fullscreen();
             message_load.querySelector(".items_empty") ? message_load.querySelector(".items_empty").style.display = "none" : null;
         }
       };
@@ -1557,6 +1557,6 @@ on('#ajax', 'click', '#append_friends_to_chat_btn', function() {
         final_list += '<input type="hidden" name="users" value="' + users_list[i].getAttribute("data-pk") + '" />'
       };
       collector.innerHTML = final_list;
-      close_work_fullscreen();
+      close_fullscreen();
     }
 });

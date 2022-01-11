@@ -82,7 +82,7 @@
                                                         <h4 class="mb-0" style="font-weight: bold;">{{ user.get_full_name|safe }}</h4>
                                                         <span class="card-text"></span>
                                                     </div>
-                                                    <div class="">
+                                                    <div data-pk="{{ user.pk }}"> 
                                                       {% if is_message_open %}
                                                         <a class="pointer user_send_page_message" style="font-weight: bold;">Написать сообщение</a><br>
                                                       {% endif %}

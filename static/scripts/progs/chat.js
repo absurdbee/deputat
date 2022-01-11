@@ -1004,7 +1004,6 @@ on('#ajax', 'click', '#add_chat_btn', function() {
             pk = rtr.querySelector(".pk_saver").getAttribute("data-pk");
             window.scrollTo(0,0);
             document.title = elem_.querySelector('title').innerHTML;
-            if_list(rtr);
             window.history.pushState(null, "vfgffgfgf", "/chat/" + pk + "/");
             get_document_opacity_1();
         }

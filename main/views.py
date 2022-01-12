@@ -43,7 +43,6 @@ class MainNewsView(ListView, CategoryListMixin):
 		return Blog.objects.filter(type='PUB')
 
 
-
 class MainRegionView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 

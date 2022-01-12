@@ -113,7 +113,7 @@ on('body', 'input', '.real_time_search', function() {
       parent.nextElementSibling.innerHTML = "";
       return
     };
-		url = "/region/search_elects/" + parent.parentElement.getAttribute("data-pk");
+		url = "/region/search_elects/" + parent.parentElement.getAttribute("data-pk") + "/";
     is_region = true;
 	};
 

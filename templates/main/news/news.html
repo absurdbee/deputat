@@ -62,7 +62,7 @@
                         <a class="ajax" href="/search/?tag_name={{ name }}">name.name</a>
                       {% endfor %}
                       {% for elect in object.get_elects %}
-                        <a class="ajax" href="{% url 'elect' pk=elect.pk %}">
+                        <a class="ajax" href="{% url 'elect_detail' pk=elect.pk %}">
                           {{ elect.name }}
                         </a>
                       {% endfor %}

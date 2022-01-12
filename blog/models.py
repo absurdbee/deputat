@@ -184,14 +184,16 @@ class Blog(models.Model):
         return self.view
 
     def get_image(self):
-        if self.elect.image:
-            return self.elect.image.url
+        if self.image:
+            return self.image.url
         else:
             return '/static/images/elect_image.png'
 
     def get_manager_tags(self):
         from tags.models import ManagerTag
         return ManagerTag.objects.filter(blog=self)
+    def get_elects(self):
+        return self.elect.all()
 
     def count_views(self):
         return self.view

@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^load_region_for_select_regional_elects/$', LoadRegionForSelectRegionalElects.as_view()),
     url(r'^load_region_for_select_regional_elects/$', LoadRegionForSelectRegionalElects.as_view()),
     url(r'^(?P<slug>[\w\-]+)/$', RegionDetailView.as_view(), name='region_detail'),
+
+    url(r'^search_elects/(?P<pk>\d+)/$', SearchElectsRegion.as_view()),
 ]

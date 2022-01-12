@@ -4,7 +4,11 @@
 
 <section class="container pt-sm-5 pb-4 main-container" data-pk="{{ region.pk}}">
       <h1 class="h3 text-sm-left m-0">{{ region.name }}</h1>
-
+      <div class="input-group mb-1 mt-1">
+        <input type="text" value="" class="form-control real_time_search region_search" placeholder="Поиск по региону">
+      </div>
+      <div class="search_container"></div>
+      <div class="normal_list">
         {% if region.is_have_governors %}
           <div class="row pt-0">
             {% for object in region.get_governors %}
@@ -68,5 +72,6 @@
           {% endfor %}
         </div>
       {% endif %}
+    </div>
 </section>
 {% endblock %}

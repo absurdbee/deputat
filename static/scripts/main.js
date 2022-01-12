@@ -102,7 +102,40 @@ on('body', 'keydown', '.search-control', function(e) {
 		}
 		else {e.preventDefault()}
   }
-})
+});
+
+on('body', 'input', '.real_time_search', function() {
+  _this = this, is_region = false;
+  if (_this.classList.contains("region_search")) {
+    parent = _this.parentElement;
+    if (this.value.trim() == "") {
+      parent.nextElementSibling.nextElementSibling.style.display = "block";
+      parent.nextElementSibling.innerHTML = "";
+      return
+    };
+		url = "/region/search_elects/" + parent.parentElement.getAttribute("data-pk");
+    is_region = true;
+	};
+
+  var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link.open( 'GET', url + "?q=" + _this.value, true );
+	link.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+	link.onreadystatechange = function () {
+		if ( link.readyState == 4 ) {
+				if ( link.status == 200 ) {
+          elem_ = document.createElement("span")
+					elem_.innerHTML = link.responseText;
+
+          if (is_region) {
+            parent.nextElementSibling.nextElementSibling.style.display = "none";
+            parent.nextElementSibling.innerHTML = elem_.innerHTML
+          }
+				}
+		}
+  };
+  link.send( null );
+});
+
 on('body', 'click', '.nav_search_btn', function() {
 	if (this.classList.contains("active")) {
 		return

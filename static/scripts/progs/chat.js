@@ -808,7 +808,6 @@ on('#ajax', 'click', '.add_member_chat_toggle', function() {
 
 on('#ajax', 'input', '.smile_supported', function() {
   _this = this;
-  console.log("input!")
 
   if (_this.classList.contains("chat_message_text")){
     if (document.body.querySelector(".chatlist")) {

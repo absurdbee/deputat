@@ -180,7 +180,7 @@ class SearchElectsRegion(TemplateView, CategoryListMixin):
 		self.template_name = get_full_template("region/load/", "search_elects.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.q = request.GET.get('q')
 		if self.q:
-			self.list = Elect.objects.filter(region=self.region, name__icontains=self.q)
+			self.list = Elect.objects.filter(region=self.region, name__icontains=self.q, type='PUB')
 		else:
 			self.list = []
 		return super(SearchElectsRegion,self).get(request,*args,**kwargs)

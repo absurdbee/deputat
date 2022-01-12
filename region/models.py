@@ -94,10 +94,10 @@ class Region(models.Model):
 
 	def get_gos_duma(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__category_order=1)
+		return Elect.objects.filter(region=self)
 	def is_have_gos_duma(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__category_order=1).exists()
+		return Elect.objects.filter(region=self).exists()
 
 	def get_news(self):
 		from blog.models import ElectNew

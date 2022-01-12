@@ -176,7 +176,7 @@ class SearchElectsRegion(TemplateView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		from elect.models import Elect
 
-		self.region = Region.objects.get(slug=self.kwargs["slug"])
+		self.region = Region.objects.get(pk=self.kwargs["pk"])
 		self.template_name = get_full_template("region/load/", "search_elects.html", request.user, request.META['HTTP_USER_AGENT'])
 		self.q = request.GET.get('q')
 		if self.q:

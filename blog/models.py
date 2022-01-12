@@ -37,6 +37,7 @@ class Blog(models.Model):
 
     region = models.ManyToManyField("region.Region", blank=True, related_name='+', verbose_name="Регионы")
     elect = models.ManyToManyField("elect.Elect", blank=True, related_name='+', verbose_name="Депутаты")
+    tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='+', verbose_name="Теги")
 
     class Meta:
         verbose_name = "Новость проекта"
@@ -190,8 +191,7 @@ class Blog(models.Model):
             return '/static/images/elect_image.png'
 
     def get_manager_tags(self):
-        from tags.models import ManagerTag
-        return ManagerTag.objects.filter(blog=self)
+        return self.tags.all()
     def get_elects(self):
         return self.elect.all()
 

@@ -8,7 +8,7 @@
         {% if region.is_have_governors %}
           <div class="row pt-0">
             {% for object in region.get_governors %}
-              {% include 'elect/elect_index_card.html' %}
+              {% include 'elect/anon_elect_index_card.html' %}
             {% endfor %}
           </div>
         {% endif %}
@@ -16,7 +16,7 @@
         {% if region.is_have_senators %}
           <div class="row pt-0">
             {% for object in region.get_senators %}
-              {% include 'elect/elect_index_card.html' %}
+              {% include 'elect/anon_elect_index_card.html' %}
             {% endfor %}
           </div>
         {% endif %}
@@ -24,23 +24,23 @@
       <div class="row pt-0">
         {% if region.is_have_commissioner_child %}
           {% for object in region.get_commissioner_child %}
-            {% include 'elect/elect_index_card.html' %}
+            {% include 'elect/anon_elect_index_card.html' %}
           {% endfor %}
         {% endif %}
         {% if region.is_have_commissioner_human %}
           {% for object in region.get_commissioner_human %}
-            {% include 'elect/elect_index_card.html' %}
+            {% include 'elect/anon_elect_index_card.html' %}
           {% endfor %}
         {% endif %}
 
         {% if region.is_have_head_hinistry_health %}
           {% for object in region.get_head_hinistry_health %}
-            {% include 'elect/elect_index_card.html' %}
+            {% include 'elect/anon_elect_index_card.html' %}
           {% endfor %}
         {% endif %}
         {% if region.is_have_chapter_min_enlightenment %}
           {% for object in region.get_chapter_min_enlightenment %}
-            {% include 'elect/elect_index_card.html' %}
+            {% include 'elect/anon_elect_index_card.html' %}
           {% endfor %}
         {% endif %}
       </div>
@@ -48,7 +48,7 @@
       {% if region.is_have_head_societies_chambers %}
         <div class="row pt-0">
           {% for object in region.get_head_societies_chambers %}
-            {% include 'elect/elect_index_card.html' %}
+            {% include 'elect/anon_elect_index_card.html' %}
           {% endfor %}
         </div>
       {% endif %}
@@ -56,7 +56,7 @@
       {% if region.is_have_gos_duma %}
         <div class="row pt-0">
           {% for object in region.get_gos_duma %}
-            {% include 'elect/elect_index_card.html' %}
+            {% include 'elect/anon_elect_index_card.html' %}
           {% endfor %}
         </div>
       {% endif %}
@@ -64,7 +64,7 @@
       {% if region.is_have_legislative_assembly %}
         <div class="row pt-0">
           {% for object in region.get_legislative_assembly %}
-            {% include 'elect/elect_index_card.html' %}
+            {% include 'elect/anon_elect_index_card.html' %}
           {% endfor %}
         </div>
       {% endif %}

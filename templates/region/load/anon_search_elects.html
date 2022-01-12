@@ -5,9 +5,11 @@
         <div class="match-height search_container">
           {% if list %}
 
+          <div class="row">
             {% for object in list %}
-              {% include 'elect/anon_elect_index_card.html' %}
+              {% include 'elect/elect_index_card.html' %}
             {% endfor %}
+          </div>
 
           {% else %}
           <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">

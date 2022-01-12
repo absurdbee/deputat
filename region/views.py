@@ -168,3 +168,26 @@ class RegionOrganizationsDetailView(TemplateView, CategoryListMixin):
 		context=super(RegionOrganizationsDetailView,self).get_context_data(**kwargs)
 		context["region"] = self.region
 		return context
+
+
+class SearchElectsRegion(TemplateView, CategoryListMixin):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from elect.models import Elect
+
+		self.region = Region.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("region/load/", "search_elects.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.q = request.GET.get('q')
+		if self.q:
+			self.list = Elect.objects.filter(region=self.region, name=self.q)
+		else:
+			self.list = []
+		return super(SearchElectsRegion,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(SearchElectsRegion,self).get_context_data(**kwargs)
+		context["region"] = self.region
+		context["list"] = self.list
+		context["q"] = self.q
+		return context

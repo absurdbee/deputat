@@ -27,6 +27,21 @@ class MainPageView(ListView, CategoryListMixin):
 		from common.notify.progs import get_news
 		return get_news()
 
+class MainNewsView(ListView, CategoryListMixin):
+	template_name, paginate_by, fix_object = None, 15, None
+
+	def get(self,request,*args,**kwargs):
+		self.template_name = get_full_template("main/news/", "news.html", request.user, request.META['HTTP_USER_AGENT'])
+		return super(MainPageView,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(MainNewsView,self).get_context_data(**kwargs)
+		return context
+
+	def get_queryset(self):
+		return []
+
+
 class MainRegionView(ListView, CategoryListMixin):
 	template_name, paginate_by = None, 15
 

@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card-body">
+        <div class="match-height search_container">
+          {% if object_list %}
+
+            {% for object in object_list %}
+              {% include 'elect/new_card.html' %}
+            {% endfor %}
+
+          {% else %}
+          <div class="card border text-center col-md-12 mt-3" style="border-color: #4db6ac !important;">
+            <div class="card-body">
+              <h3 class="card-title">Чиновники не найдены.</h3>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>

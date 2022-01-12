@@ -94,7 +94,7 @@ class Region(models.Model):
 
 	def get_gos_duma(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self)
+		return Elect.objects.filter(region=self, list__category__order=1)
 	def is_have_gos_duma(self):
 		from elect.models import Elect
 		return Elect.objects.filter(region=self).exists()

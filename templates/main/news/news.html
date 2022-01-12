@@ -59,7 +59,7 @@
                       <span class="text-muted small">({{ object.get_created }})</span></h4>
                     <span class="small">
                       {% for name in object.get_manager_tags %}
-                        <a class="ajax" href="/search/?tag_name={{ name }}">name.name</a>
+                        <a class="ajax" href="/search/?tag_name={{ name }}">{{ name.name }}</a>
                       {% endfor %}
                       {% for elect in object.get_elects %}
                         <a class="ajax" href="{% url 'elect_detail' pk=elect.pk %}">

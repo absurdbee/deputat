@@ -39,7 +39,9 @@ class MainNewsView(ListView, CategoryListMixin):
 		return context
 
 	def get_queryset(self):
-		return []
+		from blog.models import Blog
+		return Blog.objects.filter(type='PUB')
+
 
 
 class MainRegionView(ListView, CategoryListMixin):

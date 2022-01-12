@@ -48,6 +48,12 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+    def get_description(self):
+        import re
+        _description = self.description[:180]
+        TAG_RE = re.compile(r'<[^>]+>')
+        return TAG_RE.sub('', _description)
+
     def delete_item(self):
         from notify.models import Notify, Wall
 

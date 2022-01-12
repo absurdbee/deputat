@@ -35,6 +35,9 @@ class Blog(models.Model):
     inert = models.PositiveIntegerField(default=0, verbose_name="Кол-во inert")
     repost = models.PositiveIntegerField(default=0, verbose_name="Кол-во репостов")
 
+    region = models.ManyToManyField("region.Region", blank=True, related_name='+', verbose_name="Регионы")
+    elect = models.ManyToManyField("elect.Elect", blank=True, related_name='+', verbose_name="Депутаты")
+
     class Meta:
         verbose_name = "Новость проекта"
         verbose_name_plural = "Новости проекта"

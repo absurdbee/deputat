@@ -28,11 +28,11 @@ class MainPageView(ListView, CategoryListMixin):
 		return get_news()
 
 class MainNewsView(ListView, CategoryListMixin):
-	template_name, paginate_by, fix_object = None, 15, None
+	template_name, paginate_by = None, 15
 
 	def get(self,request,*args,**kwargs):
 		self.template_name = get_full_template("main/news/", "news.html", request.user, request.META['HTTP_USER_AGENT'])
-		return super(MainPageView,self).get(request,*args,**kwargs)
+		return super(MainNewsView,self).get(request,*args,**kwargs)
 
 	def get_context_data(self,**kwargs):
 		context = super(MainNewsView,self).get_context_data(**kwargs)

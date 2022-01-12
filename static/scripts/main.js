@@ -404,8 +404,8 @@ on('body', 'click', '.search-input-close', function() {
   this.parentElement.classList.remove("open");
 })
 
-on('body', 'click', '.menu-toggle', function() {
-  _this = this;
+on('body', 'click', '.menu_toggle_wrapper', function() {
+  _this = this.querySelector(".menu-toggle");
   if (!_this.classList.contains("is-active")){
     _this.classList.add("is-active");
     $body.classList.add("menu-open");
@@ -413,7 +413,7 @@ on('body', 'click', '.menu-toggle', function() {
     $body.querySelector(".menu_close").style.display = "block";
     $body.querySelector(".main-menu").classList.add("left_18")
   }
-})
+});
 
 on('body', 'click', '.sidenav-overlay', function() {
   if (this.classList.contains("show")){

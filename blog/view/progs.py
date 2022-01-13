@@ -36,7 +36,7 @@ class BlogCreateView(TemplateView):
                     comments_enabled=post.comments_enabled,
                     votes_on=post.votes_on,
                     tags=request.POST.getlist("tags"),
-                    region=request.POST.getlist("region")
+                    region=request.POST.getlist("region"),
                     elect=request.POST.getlist("elect")
                 )
             return render_for_platform(request, 'blog/detail/blog.html',{'object': new_post})

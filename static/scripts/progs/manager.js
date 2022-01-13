@@ -415,9 +415,6 @@ on('body', 'click', '#edit_elect_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
 
-  text_val = form.querySelector(".smile_supported");
-  _val = format_text(text_val);
-
   form_data = new FormData(form);
 
   if (!form.querySelector("#id_name").value){
@@ -491,6 +488,9 @@ on('body', 'click', '#create_blog_btn', function() {
 on('body', 'click', '#edit_blog_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
+
+  text_val = form.querySelector(".smile_supported");
+  _val = format_text(text_val);
 
   try{form.querySelector(".description").remove()} catch { null };
   $input = document.createElement("input");

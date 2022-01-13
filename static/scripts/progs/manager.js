@@ -167,7 +167,7 @@ on('body', 'click', '.u_blog_remove', function() {
   post_send_change(this.parentElement, "/blog/progs/delete_blog/", "u_blog_restore", "Отмена");
 });
 on('body', 'click', '.u_blog_restore', function() {
-  post_send_change(this.parentElement, "/blog/progs/restore_blog/", "u_blog_restore", "Удалить");
+  post_send_change(this.parentElement, "/blog/progs/restore_blog/", "u_blog_remove", "Удалить");
 });
 
 

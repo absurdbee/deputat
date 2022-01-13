@@ -28,7 +28,17 @@ class BlogCreateView(TemplateView):
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_elect_new_manager():
             post = self.form_post.save(commit=False)
-            new_post = post.create_blog(creator=request.user, title=post.title, image=post.image, description=post.description, comments_enabled=post.comments_enabled, votes_on=post.votes_on, tags=request.POST.getlist("tags"))
+            new_post = post.create_blog(
+                    creator=request.user,
+                    title=post.title,
+                    image=post.image,
+                    description=post.description,
+                    comments_enabled=post.comments_enabled,
+                    votes_on=post.votes_on,
+                    tags=request.POST.getlist("tags"),
+                    region=request.POST.getlist("region")
+                    elect=request.POST.getlist("elect")
+                )
             return render_for_platform(request, 'blog/detail/blog.html',{'object': new_post})
         else:
             from django.http import HttpResponseBadRequest
@@ -67,7 +77,17 @@ class BlogEditView(TemplateView):
 
         if request.is_ajax() and self.form_post.is_valid() and request.user.is_supermanager():
             post = self.form_post.save(commit=False)
-            new_post = post.edit_blog(title=post.title, image=post.image, description=post.description, comments_enabled=post.comments_enabled, votes_on=post.votes_on, tags=request.POST.getlist("tags"), manager_id=request.user.pk)
+            new_post = post.edit_blog(
+                    title=post.title,
+                    image=post.image,
+                    description=post.description,
+                    comments_enabled=post.comments_enabled,
+                    votes_on=post.votes_on,
+                    tags=request.POST.getlist("tags"),
+                    manager_id=request.user.pk,
+                    region=request.POST.getlist("region"),
+                    elect=request.POST.getlist("elect")
+                )
             return render_for_platform(request, 'blog/detail/blog.html',{'object': new_post})
         else:
             from django.http import HttpResponseBadRequest

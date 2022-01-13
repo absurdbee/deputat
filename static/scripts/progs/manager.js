@@ -10,7 +10,7 @@ on('body', 'click', '.accept_elect_for_add_blog', function() {
   if (elects_block.querySelector('elect_id' + pk)) {
     return
   };
-  header.append(create_elect_input_card(name, pk, link))
+  elects_block.append(create_elect_input_card(name, pk, link))
 })
 
 on('body', 'click', '.select_manager_logs', function() {

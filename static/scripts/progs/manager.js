@@ -7,7 +7,7 @@ on('body', 'click', '.accept_elect_for_add_blog', function() {
   name = this.querySelector("h6").innerHTML;
   link = "/elect/" + pk + "/";
   elects_block = this.parentElement.parentElement.parentElement.querySelector(".elects");
-  if (elects_block.querySelector('elect_id' + pk)) {
+  if (elects_block.querySelector('.elect_id' + pk)) {
     return
   };
   elects_block.append(create_elect_input_card(name, pk, link))

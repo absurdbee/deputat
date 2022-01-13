@@ -248,30 +248,7 @@ on('body', 'click', '#u_edit_elect_new_btn', function() {
 });
 
 on('body', 'click', '.blogEditComment', function() {
-  form = this.parentElement.parentElement
-  span_form = form.parentElement;
-  block = span_form.parentElement.parentElement;
-  form_comment = new FormData(form);
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-  link_.open('POST', "/blog/edit_blog_comment/" + this.getAttribute("data-pk") + "/", true);
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  if (!form.querySelector(".text-comment").value && !form.querySelector(".comment_attach_block").firstChild){
-    toast_error("Напишите или прикрепите что-нибудь");
-    form.querySelector(".text-comment").style.border = "1px #FF0000 solid";
-    form.querySelector(".dropdown").style.border = "1px #FF0000 solid";
-    return
-  };
-  link_.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          elem = link_.responseText;
-          new_post = document.createElement("span");
-          new_post.innerHTML = elem;
-          block.innerHTML = new_post.querySelector(".card-body").innerHTML;
-          console.log(block);
-          toast_success(" Комментарий изменен");
-      }
-  };
-  link_.send(form_comment)
+  edit_comment_post(this.parentElement.parentElement, "/blog/edit_blog_comment/" + this.getAttribute("data-pk") + "/")
 });
 
 function edit_comment_post(form, url) {

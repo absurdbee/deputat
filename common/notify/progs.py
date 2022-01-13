@@ -85,7 +85,7 @@ def get_wall(user, notify):
     type = notify.type
     if type == "BLO":
         from common.items.blog import get_wall_blog
-        return get_wall_blog(user, notify)
+        return ""
     elif type == "ELN":
         from common.items.elect_new import get_wall_elect_new
         return get_wall_elect_new(user, notify)

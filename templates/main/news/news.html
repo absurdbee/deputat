@@ -59,7 +59,7 @@
                       <span class="text-muted small">({{ object.get_created }})</span></h4>
                     <span class="small">
                       {% for region in object.get_regions %}
-                        <a class="ajax" href="/region/{{ region.slug }}/">{{ region.name }}</a>
+                        <a target="_blank" href="/region/{{ region.slug }}/">{{ region.name }}</a>
                       {% endfor %}
                       {% for name in object.get_manager_tags %}
                         <a class="ajax" href="/search/?tag_name={{ name }}">{{ name.name }}</a>
@@ -70,7 +70,7 @@
                 <span><span><span>
                   <p class="card-text mb-50 pointer blog_window">{{ object.get_description }}</p>
                   {% for elect in object.get_elects %}
-                    <a class="ajax underline" href="{% url 'elect_detail' pk=elect.pk %}">
+                    <a target="_blank" class="underline" href="{% url 'elect_detail' pk=elect.pk %}">
                       {{ elect.name }}
                     </a>
                   {% endfor %}

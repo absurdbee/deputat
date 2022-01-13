@@ -386,10 +386,13 @@ on('body', 'click', '#create_blog_btn', function() {
 
   text_val = form.querySelector(".smile_supported");
   _val = format_text(text_val);
+
+  form.querySelector(".description").remove();
   $input = document.createElement("input");
   $input.setAttribute("name", "description");
   $input.setAttribute("type", "hidden");
   $input.value = _val.innerHTML;
+  $input.classList.add("description");
   form.append($input);
 
   form_data = new FormData(form);
@@ -397,7 +400,7 @@ on('body', 'click', '#create_blog_btn', function() {
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!"); return
-  } else if (!form.querySelector("#id_description").value){
+  } else if (!form.querySelector("#id_description").innerHTML){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
   }
@@ -453,13 +456,15 @@ on('body', 'click', '#create_elect_btn', function() {
 on('body', 'click', '#edit_elect_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
-  
+
   text_val = form.querySelector(".smile_supported");
   _val = format_text(text_val);
+  form.querySelector(".description").remove();
   $input = document.createElement("input");
   $input.setAttribute("name", "description");
   $input.setAttribute("type", "hidden");
   $input.value = _val.innerHTML;
+  $input.classList.add("description");
   form.append($input);
 
   form_data = new FormData(form);
@@ -497,7 +502,7 @@ on('body', 'click', '#edit_blog_btn', function() {
   if (!form.querySelector("#id_title").value){
     form.querySelector("#id_title").style.border = "1px #FF0000 solid";
     toast_error("Название - обязательное поле!"); return
-  } else if (!form.querySelector("#id_description").value){
+  } else if (!form.querySelector("#id_description").innerHTML){
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
   }

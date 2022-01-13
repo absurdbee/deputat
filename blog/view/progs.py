@@ -10,10 +10,14 @@ class BlogCreateView(TemplateView):
     def get_context_data(self,**kwargs):
         from blog.forms import BlogForm
         from tags.models import ManagerTag
+        from region.models import Region
+        from elect.models import Elect
 
         context=super(BlogCreateView,self).get_context_data(**kwargs)
         context["form"] = BlogForm()
         context["tags"] = ManagerTag.objects.only("pk")
+        context["regions"] = Region.objects.filter(is_deleted=False)
+        context["elects"] = Elect.objects.filter(type="PUB")
         return context
 
     def post(self,request,*args,**kwargs):
@@ -42,11 +46,15 @@ class BlogEditView(TemplateView):
     def get_context_data(self,**kwargs):
         from blog.forms import BlogForm
         from tags.models import ManagerTag
+        from region.models import Region
+        from elect.models import Elect
 
         context=super(BlogEditView,self).get_context_data(**kwargs)
         context["form"] = BlogForm(instance=self.blog)
         context["blog"] = self.blog
         context["tags"] = ManagerTag.objects.only("pk")
+        context["regions"] = Region.objects.filter(is_deleted=False)
+        context["elects"] = Elect.objects.filter(type="PUB")
         return context
 
     def post(self,request,*args,**kwargs):

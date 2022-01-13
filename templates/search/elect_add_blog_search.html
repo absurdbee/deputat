@@ -1,0 +1,33 @@
+{% for object in list %}
+
+<span>
+<div class="media border pointer accept_elect_for_add_blog" style="margin-bottom:5px" data-pk="{{ object.pk }}">
+    <img src="{{ object.get_image }}" style="width:35px;" alt="image">
+    <div class="media-body pl-1">
+        <h6 class="my-0">{{ object.name }}</h6>
+        <span style="font-size:90%">
+        <span class="elect_regions">
+        {% if object.get_regions %}
+          {% for reg in object.get_regions %}
+            {{ reg }}
+          {% endfor %}
+        {% elif object.get_districts %}
+          {% for area in object.get_districts %}
+            {{ area.region }}
+          {% endfor %}
+        {% elif object.okrug %}
+          {{ object.okrug.region }}
+        {% endif %}
+        </span>
+            |
+        <span class="elect_lists">
+        {% if object.get_first_list.category %}{{ object.get_first_list.category.name }} {% endif %}{{ object.get_first_list.name }}
+        </span>
+        </span>
+    </div>
+</div>
+</span>
+
+{% empty %}
+  Ничего не найдено.
+{% endfor %}

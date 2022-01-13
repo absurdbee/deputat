@@ -79,12 +79,11 @@ class Blog(models.Model):
         return reverse('blog_detail',kwargs={"slug":self.slug})
 
     @classmethod
-    def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on, region, elect):
+    def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on, region, elect ):
         from notify.models import Wall
         from common.notify.progs import user_send_wall
         from logs.model.manage_blog import BlogManageLog
         from common.processing import get_blog_processing
-
 
         blog = cls.objects.create(
                 creator=creator,

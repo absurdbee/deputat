@@ -481,6 +481,26 @@ on('body', 'click', '.phone_send', function() {
 	 } else {toast_info("Поиск работает от пяти символов")}
  	 });
 
+	 on('body', 'click', '.search_elect_for_add_blog', function() {
+ 		_this = this;
+ 	  field = _this.parentElement.previousElementSibling;
+		field.style.border = "border: 1px solid #D8D6DE;"
+		if (field.value.length > 4) {
+ 	   var request = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+ 	   request.open( 'GET', "/search/elect_add_blog_filter/?name=" + field.value, true );
+ 	   request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+ 	   request.onreadystatechange = function () {
+ 	     if ( request.readyState == 4 && request.status == 200) {
+ 	       response = request.responseText;
+ 	       block = _this.parentElement.parentElement.nextElementSibling;
+ 				 block.innerHTML = "";
+ 				 block.innerHTML = response;
+				 scrolled(block)
+ 	     }}
+ 	   request.send();
+	 } else {toast_info("Поиск работает от пяти символов")}
+ 	 });
+
 function clear_left_search() {
 	return
 }

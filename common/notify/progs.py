@@ -61,7 +61,7 @@ def get_news():
     # пока исключаем из выдачи группировку "оценил три поста" user_set__isnull=True
     query = Q(object_set__isnull=True)&Q(user_set__isnull=True)
     query = Q(type="BLO", verb="ITE")|Q(type="ELN", verb="ITE")
-    query.add(Q(Q(type="BLO", verb="ITE")|Q(type="ELN", verb="ITE")), Q.AND)
+    #query.add(Q(Q(type="BLO", verb="ITE")|Q(type="ELN", verb="ITE")), Q.AND)
     query.add(~Q(status="C"), Q.AND)
     return Wall.objects.filter(query)
 

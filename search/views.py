@@ -72,6 +72,20 @@ class ElectAddElectNewSearch(TemplateView):
         context["list"] = Elect.objects.filter(name__icontains=self.query, type='PUB').exclude(list__slug="candidate_municipal")
         return context
 
+class ElectAddBlogSearch(TemplateView):
+    template_name = None
+
+    def get(self,request,*args,**kwargs):
+        self.template_name = get_small_template("search/elect_add_blog_search.html", request.user, request.META['HTTP_USER_AGENT'])
+        self.query = request.GET.get('name')
+        return super(ElectAddBlogSearch,self).get(request,*args,**kwargs)
+
+    def get_context_data(self,**kwargs):
+        from elect.models import Elect
+        context=super(ElectAddBlogSearch,self).get_context_data(**kwargs)
+        context["query"] = self.query
+        context["list"] = Elect.objects.filter(name__icontains=self.query, type='PUB').exclude(list__slug="candidate_municipal")
+        return context
 
 class TagsSearch(ListView, CategoryListMixin):
     template_name, paginate_by = None, 20

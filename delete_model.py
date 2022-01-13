@@ -18,7 +18,7 @@ from django.db.models import Q
 from common.model.other import *
 
 
-for i in Smiles.objects.all():
-    name = i.name.replace("Смайлик ВК ", "")
-    i.name = name
-    i.save(update_fields=["name"])
+for elect in Elect.objects.all():
+    name = elect.name.replace("ё", "е").replace("Ё", "Е")
+    elect.name = name
+    elect.save(update_fields=["name"])

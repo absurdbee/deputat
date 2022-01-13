@@ -5,7 +5,7 @@ on('body', 'click', '.show_logs_elect_new', function() {
 on('body', 'click', '.accept_elect_for_add_blog', function() {
   pk = this.getAttribute("data-pk");
   name = this.querySelector("h6").innerHTML;
-  link = "/elect/" + pk = "/";
+  link = "/elect/" + pk + "/";
   elects_block = this.parentElement.parentElement.parentElement.querySelector(".elects");
   if (elects_block.querySelector('elect_id' + pk)) {
     return

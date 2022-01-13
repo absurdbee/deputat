@@ -741,6 +741,21 @@ function create_user_input_card(name, pk, link) {
   return $span
 };
 
+function create_elect_input_card(name, pk, link) {
+  $span = document.createElement("span");
+  $span.setAttribute("data-pk", pk);
+  $span.classList.add("btn","btn-sm","custom_color");
+  $span.innerHTML = "<a href='" + link + "' target='_blank' >" + name + "</a><span class='remove_user_input pointer'>x<span>";
+  $span.style.margin = "2px";
+  $input = document.createElement("input");
+  $input.classList.add('elect_id' + pk);
+  $input.setAttribute("type", "hidden");
+  $input.setAttribute("name", "elect");
+  $input.value = pk;
+  $span.append($input);
+  return $span
+};
+
 on('#ajax', 'click', '.remove_user_input', function() {
   parent = this.parentElement;
   header = parent.parentElement;

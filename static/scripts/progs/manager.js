@@ -2,6 +2,17 @@ on('body', 'click', '.show_logs_elect_new', function() {
   create_fullscreen("/managers/logs/elect_new/" + this.getAttribute("data-pk") + "/", "worker_fullscreen");
 });
 
+on('body', 'click', '.accept_elect_for_add_blog', function() {
+  pk = this.getAttribute("data-pk");
+  name = this.querySelector("h6").innerHTML;
+  link = "/elect/" + pk = "/";
+  elects_block = this.parentElement.parentElement.parentElement.querySelector(".elects");
+  if (elects_block.querySelector('elect_id' + pk)) {
+    return
+  };
+  header.append(create_elect_input_card(name, pk, link))
+})
+
 on('body', 'click', '.select_manager_logs', function() {
   _this = this;
   lists_block = _this.parentElement.parentElement;

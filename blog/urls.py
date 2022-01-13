@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^votes/', include('blog.url.votes')),
 
     url(r'^window/(?P<pk>\d+)/$', BlogWindowDetailView.as_view(), name="blog_detail_window"),
-    url(r'^(?P<slug>[\w\-]+)/$', BlogDetailView.as_view(), name="blog_detail"),
+    url(r'^(?P<pk>\d+)/$', BlogDetailView.as_view(), name="blog_detail"),
 ]

@@ -383,6 +383,15 @@ on('body', 'click', '.u_publish_elect_new', function() {
 on('body', 'click', '#create_blog_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
+
+  text_val = form.querySelector(".smile_supported");
+  _val = format_text(text_val);
+  $input = document.createElement("input");
+  $input.setAttribute("name", "description");
+  $input.setAttribute("type", "hidden");
+  $input.value = _val.innerHTML;
+  form.append($input);
+
   form_data = new FormData(form);
 
   if (!form.querySelector("#id_title").value){
@@ -444,6 +453,15 @@ on('body', 'click', '#create_elect_btn', function() {
 on('body', 'click', '#edit_elect_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
+  
+  text_val = form.querySelector(".smile_supported");
+  _val = format_text(text_val);
+  $input = document.createElement("input");
+  $input.setAttribute("name", "description");
+  $input.setAttribute("type", "hidden");
+  $input.value = _val.innerHTML;
+  form.append($input);
+
   form_data = new FormData(form);
 
   if (!form.querySelector("#id_name").value){

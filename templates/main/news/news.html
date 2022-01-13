@@ -70,7 +70,7 @@
                 <span><span><span>
                   <p class="card-text mb-50 pointer blog_window">{{ object.get_description }}</p>
                   {% for elect in object.get_elects %}
-                    <a class="ajax undelrline" href="{% url 'elect_detail' pk=elect.pk %}">
+                    <a class="ajax underline" href="{% url 'elect_detail' pk=elect.pk %}">
                       {{ elect.name }}
                     </a>
                   {% endfor %}

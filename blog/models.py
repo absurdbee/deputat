@@ -230,6 +230,8 @@ class Blog(models.Model):
         return self.tags.all()
     def get_elects(self):
         return self.elect.all()
+    def get_regions(self):
+        return self.region.all()
 
     def count_views(self):
         return self.view

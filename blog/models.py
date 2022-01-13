@@ -76,7 +76,7 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('blog_detail',kwargs={"slug":self.slug})
+        return reverse('blog_detail',kwargs={"pk":self.pk})
 
     @classmethod
     def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on, region, elect ):

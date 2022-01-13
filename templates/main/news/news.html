@@ -61,16 +61,19 @@
                       {% for name in object.get_manager_tags %}
                         <a class="ajax" href="/search/?tag_name={{ name }}">{{ name.name }}</a>
                       {% endfor %}
-                      {% for elect in object.get_elects %}
-                        <a class="ajax" href="{% url 'elect_detail' pk=elect.pk %}">
-                          {{ elect.name }}
-                        </a>
+                      {% for region in object.get_regions %}
+                        <a class="ajax" href="/region/{{ region.pk }}/">{{ region.name }}</a>
                       {% endfor %}
                     </span>
                   </div>
                 </div>
                 <span><span><span>
                   <p class="card-text mb-50 pointer blog_window">{{ object.get_description }}</p>
+                  {% for elect in object.get_elects %}
+                    <a class="ajax undelrline" href="{% url 'elect_detail' pk=elect.pk %}">
+                      {{ elect.name }}
+                    </a>
+                  {% endfor %}
                 </span></span></span>
                 <span><span>
                 <div style="padding: 5px;bottom: 3px;width: 100%;">

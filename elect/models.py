@@ -120,7 +120,7 @@ class Elect(models.Model):
     def create_elect(cls, creator, name, description, image, list, region, area, birthday, fraction, post_2, vk, tg, tw, ig, fb, mail, phone, i_address, address, site, type):
         from logs.model.manage_elect_new import ElectManageLog
 
-        name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
+        name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ").replace("ё", "е").replace("Ё", "Е")
         elect = cls.objects.create(name=name_2,description=description,post_2=post_2,image=image,birthday=birthday,fraction=fraction,vk=vk, tg=tg, tw=tw, ig=ig, fb=fb, mail=mail, phone=phone, i_address=i_address, address=address, site=site, type=type)
         if region:
             from region.models import Region
@@ -154,7 +154,7 @@ class Elect(models.Model):
     def edit_elect(self, name, description, image, list, region, area, birthday, fraction, manager_id, post_2, vk, tg, tw, ig, fb, mail, phone, address, i_address, site):
         from logs.model.manage_elect_new import ElectManageLog
 
-        name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ")
+        name_2 = name.replace("  ", " ").replace("   ", " ").replace("   ", " ").replace("    ", " ").replace("ё", "е").replace("Ё", "Е")
         self.name = name_2
         self.post_2 = post_2
         self.description = description

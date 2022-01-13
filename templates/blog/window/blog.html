@@ -19,7 +19,9 @@
           {% if request.user.is_blog_manager %}
           <span><span>
             <span class="dropdown-item u_edit_blog">Изменить</span>
+            <span>
             <span class="dropdown-item u_blog_remove">Удалить</span>
+            </span>
           </span></span>
           {% else %}
             <span class="dropdown-item claim_blog">Пожаловаться</span>

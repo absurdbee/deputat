@@ -483,10 +483,6 @@ on('body', 'click', '#edit_blog_btn', function() {
     form.querySelector("#id_description").style.border = "1px #FF0000 solid";
     toast_error("Опишите ситуацию!"); return
   }
-  else if (!form.querySelector("#id_image").value){
-    form.querySelector("#holder_image").style.border = "1px #FF0000 solid";
-    toast_error("Загрузите обложку!"); return
-  }
   else { _this.disabled = true };
 
   link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

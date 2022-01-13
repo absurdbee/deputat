@@ -72,7 +72,7 @@
                   {% for elect in object.get_elects %}
                     <a target="_blank" class="underline" href="{% url 'elect_detail' pk=elect.pk %}">
                       {{ elect.name }}
-                    </a>
+                    </a>&nbsp;
                   {% endfor %}
                 </span></span></span>
                 <span><span>

@@ -79,13 +79,20 @@ class Blog(models.Model):
         return reverse('blog_detail',kwargs={"slug":self.slug})
 
     @classmethod
-    def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on):
+    def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on, region, elect):
         from notify.models import Wall
         from common.notify.progs import user_send_wall
         from logs.model.manage_blog import BlogManageLog
         from common.processing import get_blog_processing
 
-        blog = cls.objects.create(creator=creator,title=title,description=description,image=image,comments_enabled=comments_enabled,votes_on=votes_on)
+
+        blog = cls.objects.create(
+                creator=creator,
+                title=title,
+                description=description,
+                image=image,
+                comments_enabled=comments_enabled,
+                votes_on=votes_on)
         get_blog_processing(blog)
 
         # создаем запись для стены и отсылаем сокет для отрисовки в реале
@@ -101,9 +108,19 @@ class Blog(models.Model):
             for tag_id in tags:
                 a = ManagerTag.objects.get(pk=tag_id)
                 blog.tags.add(a)
+        if region:
+            from region.models import Region
+            for region_id in region:
+                a = Region.objects.get(pk=region_id)
+                blog.region.add(a)
+        if elect:
+            from elect.models import Elect
+            for elect_id in elect:
+                a = Elect.objects.get(pk=elect_id)
+                blog.elect.add(a)
         return blog
 
-    def edit_blog(self, title, description, image, tags, comments_enabled, votes_on, manager_id):
+    def edit_blog(self, title, description, image, tags, comments_enabled, votes_on, manager_id, region, elect):
         from common.processing import get_blog_processing
         from logs.model.manage_blog import BlogManageLog
 
@@ -122,6 +139,20 @@ class Blog(models.Model):
             for tag_id in tags:
                 a = ManagerTag.objects.get(pk=tag_id)
                 self.tags.add(a)
+
+        self.region.clear()
+        self.elect.clear()
+        if region:
+            from region.models import Region
+            for region_id in region:
+                a = Region.objects.get(pk=region_id)
+                self.region.add(a)
+        if elect:
+            from elect.models import Elect
+            for elect_id in elect:
+                a = Elect.objects.get(pk=elect_id)
+                self.elect.add(a)
+
         BlogManageLog.objects.create(item=self.pk, manager=manager_id, action_type=BlogManageLog.ITEM_EDITED)
         return self
 

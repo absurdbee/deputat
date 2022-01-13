@@ -9,9 +9,9 @@ class SearchView(ListView, CategoryListMixin):
     template_name, paginate_by = None, 20
 
     def get(self,request,*args,**kwargs):
-        self.tag = request.GET.get('tag_name')
-        self.elect = request.GET.get('elect_name')
-        self._all = request.GET.get('all_name')
+        self.tag = request.GET.get('tag_name').replace("ё", "е").replace("Ё", "Е")
+        self.elect = request.GET.get('elect_name').replace("ё", "е").replace("Ё", "Е")
+        self._all = request.GET.get('all_name').replace("ё", "е").replace("Ё", "Е")
         if request.user.is_authenticated:
             self.template_name = "search/search.html"
         else:

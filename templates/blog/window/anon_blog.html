@@ -46,17 +46,22 @@
                       </div>
 
                         <div class="card-body" data-pk="{{ object.pk }}">
-                            <div class="my-1 py-25">
-                                {% for name in post.get_manager_tags %}
-                                <a href="{% url 'manager_tag' name=name %}">
-                                    <div class="badge badge-pill badge-light-danger mr-50">name</div>
-                                </a>
-                                {% endfor %}
-                            </div>
-                            <p class="card-text mb-2">
-                                {{ object.description|safe }}
-                            </p>
-                            <hr class="my-2">
+                          <div class="my-1 py-25">
+                            {% for region in object.get_regions %}
+                              <a target="_blank" href="/region/{{ region.slug }}/">{{ region.name }}</a>
+                            {% endfor %}
+                            {% for name in object.get_manager_tags %}
+                              <a class="ajax" href="/search/?tag_name={{ name }}">{{ name.name }}</a>
+                            {% endfor %}
+                          </div>
+                          <p class="card-text mb-2">
+                              {{ object.description|safe }}
+                          </p>
+                          {% for elect in object.get_elects %}
+                            <a target="_blank" class="underline" href="{% url 'elect_detail' pk=elect.pk %}">
+                              {{ elect.name }}
+                            </a>
+                          {% endfor %}
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center">
                                     {% if object.votes_on %}

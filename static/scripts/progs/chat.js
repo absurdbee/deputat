@@ -762,7 +762,7 @@ on('#ajax', 'click', '.remove_user_input', function() {
   parent.remove();
   container = header.parentElement;
   btn = container.querySelector(".form_btn");
-  if (!header.querySelector(".remove_user_input")) {
+  if (header && !header.querySelector(".remove_user_input")) {
     header.querySelector(".header_title").style.display = "block";
   };
 

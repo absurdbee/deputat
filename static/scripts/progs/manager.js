@@ -380,48 +380,6 @@ on('body', 'click', '.u_publish_elect_new', function() {
   create_fullscreen("/managers/elect_new/create_publish/" + this.parentElement.getAttribute("data-pk") + "/", "window_fullscreen");
 });
 
-on('body', 'click', '#create_blog_btn', function() {
-  _this = this, elect = false;
-  form = _this.parentElement.parentElement.parentElement;
-
-  text_val = form.querySelector(".smile_supported");
-  _val = format_text(text_val);
-
-  form.querySelector(".description").remove();
-  $input = document.createElement("input");
-  $input.setAttribute("name", "description");
-  $input.setAttribute("type", "hidden");
-  $input.value = _val.innerHTML;
-  $input.classList.add("description");
-  form.append($input);
-
-  form_data = new FormData(form);
-
-  if (!form.querySelector("#id_title").value){
-    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
-    toast_error("Название - обязательное поле!"); return
-  } else if (!form.querySelector("#id_description").innerHTML){
-    form.querySelector("#id_description").style.border = "1px #FF0000 solid";
-    toast_error("Опишите ситуацию!"); return
-  }
-  else if (!form.querySelector("#id_image").value){
-    form.querySelector("#holder_image").style.border = "1px #FF0000 solid";
-    toast_error("Загрузите обложку!"); return
-  }
-  else { _this.disabled = true };
-
-  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-  link_.open( 'POST', "/blog/progs/add_blog/", true );
-  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-  link_.onreadystatechange = function () {
-  if ( this.readyState == 4 && this.status == 200 ) {
-    toast_info("Новость создана!")
-    close_fullscreen()
-  } else { _this.disabled = false }};
-
-  link_.send(form_data);
-});
 
 on('body', 'click', '#create_elect_btn', function() {
   _this = this, elect = false;
@@ -459,13 +417,6 @@ on('body', 'click', '#edit_elect_btn', function() {
 
   text_val = form.querySelector(".smile_supported");
   _val = format_text(text_val);
-  form.querySelector(".description").remove();
-  $input = document.createElement("input");
-  $input.setAttribute("name", "description");
-  $input.setAttribute("type", "hidden");
-  $input.value = _val.innerHTML;
-  $input.classList.add("description");
-  form.append($input);
 
   form_data = new FormData(form);
 
@@ -494,9 +445,61 @@ on('body', 'click', '#edit_elect_btn', function() {
   link_.send(form_data);
 });
 
+on('body', 'click', '#create_blog_btn', function() {
+  _this = this, elect = false;
+  form = _this.parentElement.parentElement.parentElement;
+
+  text_val = form.querySelector(".smile_supported");
+  _val = format_text(text_val);
+
+  try{form.querySelector(".description").remove()} catch { null };
+  $input = document.createElement("input");
+  $input.setAttribute("name", "description");
+  $input.setAttribute("type", "hidden");
+  $input.value = _val.innerHTML;
+  $input.classList.add("description");
+  form.append($input);
+
+  form_data = new FormData(form);
+
+  if (!form.querySelector("#id_title").value){
+    form.querySelector("#id_title").style.border = "1px #FF0000 solid";
+    toast_error("Название - обязательное поле!"); return
+  } else if (!form.querySelector("#id_description").innerHTML){
+    form.querySelector("#id_description").style.border = "1px #FF0000 solid";
+    toast_error("Опишите ситуацию!"); return
+  }
+  else if (!form.querySelector("#id_image").value){
+    form.querySelector("#holder_image").style.border = "1px #FF0000 solid";
+    toast_error("Загрузите обложку!"); return
+  }
+  else { _this.disabled = true };
+
+  link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+  link_.open( 'POST', "/blog/progs/add_blog/", true );
+  link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  link_.onreadystatechange = function () {
+  if ( this.readyState == 4 && this.status == 200 ) {
+    toast_info("Новость создана!")
+    close_fullscreen()
+  } else { _this.disabled = false }};
+
+  link_.send(form_data);
+});
+
 on('body', 'click', '#edit_blog_btn', function() {
   _this = this, elect = false;
   form = _this.parentElement.parentElement.parentElement;
+
+  try{form.querySelector(".description").remove()} catch { null };
+  $input = document.createElement("input");
+  $input.setAttribute("name", "description");
+  $input.setAttribute("type", "hidden");
+  $input.value = _val.innerHTML;
+  $input.classList.add("description");
+  form.append($input);
+
   form_data = new FormData(form);
 
   if (!form.querySelector("#id_title").value){

@@ -45,13 +45,13 @@ function loadScripts( src ) {
 }
 
 loadScripts('/static/scripts/lib/progressive-image.js');
-loadScripts('/static/scripts/functions/general.js?ver2');
-loadScripts('/static/scripts/functions/comment_attach.js');
-loadScripts('/static/scripts/functions/message_attach.js');
-loadScripts('/static/scripts/functions/elect_new_attach.js');
-loadScripts('/static/scripts/functions/preview.js');
-loadScripts('/static/scripts/main.js?ver6');
-loadScripts('/static/scripts/progs/blog.js?ver1');
+loadScripts('/static/scripts/functions/general.js?ver3');
+loadScripts('/static/scripts/functions/comment_attach.js?ver4');
+loadScripts('/static/scripts/functions/message_attach.js?ver4');
+loadScripts('/static/scripts/functions/elect_new_attach.js?ver1');
+loadScripts('/static/scripts/functions/preview.js?ver4');
+loadScripts('/static/scripts/main.js?ver7');
+loadScripts('/static/scripts/progs/blog.js?ver2');
 loadScripts('/static/scripts/progs/elect.js?ver2');
 loadScripts('/static/scripts/progs/user.js');
 loadScripts('/static/scripts/progs/photo.js');

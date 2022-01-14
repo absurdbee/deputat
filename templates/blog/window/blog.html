@@ -57,12 +57,14 @@
                       </div>
 
                         <div class="card-body">
+                          <div class="border">
                               {% for region in object.get_regions %}
                                 <a target="_blank" href="/region/{{ region.slug }}/">{{ region.name }}</a>
                               {% endfor %}
                               {% for name in object.get_manager_tags %}
                                 <a class="ajax" href="/search/?tag_name={{ name }}">{{ name.name }}</a>
                               {% endfor %}
+                          </div>
                             <p class="card-text mb-2">
                                 {{ object.description|safe }}
                             </p>

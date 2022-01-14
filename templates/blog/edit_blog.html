@@ -68,6 +68,12 @@
               </div>
 
               <div class="form-group">
+                <label>Регионы</label>
+                <p class="small">Удерживайте “Control“ (или “Command“ на Mac), чтобы выбрать несколько значений.</p>
+                {{ form.region }}
+              </div>
+
+              <div class="form-group">
                 <div class="elects mb-2">
                   {% for elect in blog.elect.all %}
                     <span data-pk="{{ elect.pk }}" class="btn btn-sm custom_color" style="margin: 2px;">

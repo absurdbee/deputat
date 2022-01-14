@@ -59,6 +59,7 @@
                           </p>
                           {% if object.attach %}
                             {{ object|get_attach:request.user|safe }}
+                            <br><br>
                           {% endif %}
                           {% for elect in object.get_elects %}
                             <a target="_blank" class="underline" href="{% url 'elect_detail' pk=elect.pk %}">

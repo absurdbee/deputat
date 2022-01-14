@@ -38,6 +38,7 @@ class Blog(models.Model):
     region = models.ManyToManyField("region.Region", blank=True, related_name='+', verbose_name="Регионы")
     elect = models.ManyToManyField("elect.Elect", blank=True, related_name='+', verbose_name="Депутаты")
     tags = models.ManyToManyField('tags.ManagerTag', blank=True, related_name='+', verbose_name="Теги")
+    attach = models.CharField(blank=True, max_length=200, verbose_name="Прикрепленные элементы")
 
     class Meta:
         verbose_name = "Новость проекта"
@@ -79,17 +80,21 @@ class Blog(models.Model):
         return reverse('blog_detail',kwargs={"pk":self.pk})
 
     @classmethod
-    def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on, region, elect ):
+    def create_blog(cls, creator, title, description, image, tags, comments_enabled, votes_on, region, elect, attach ):
         from notify.models import Wall
         from common.notify.progs import user_send_wall
         from logs.model.manage_blog import BlogManageLog
         from common.processing import get_blog_processing
+
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
 
         blog = cls.objects.create(
                 creator=creator,
                 title=title,
                 description=description,
                 image=image,
+                attach=_attach,
                 comments_enabled=comments_enabled,
                 votes_on=votes_on)
         get_blog_processing(blog)
@@ -119,17 +124,21 @@ class Blog(models.Model):
                 blog.elect.add(a)
         return blog
 
-    def edit_blog(self, title, description, image, tags, comments_enabled, votes_on, manager_id, region, elect):
+    def edit_blog(self, title, description, image, tags, comments_enabled, votes_on, manager_id, region, elect, attach):
         from common.processing import get_blog_processing
         from logs.model.manage_blog import BlogManageLog
 
         get_blog_processing(self)
+
+        _attach = str(attach)
+        _attach = _attach.replace("'", "").replace("[", "").replace("]", "").replace(" ", "")
 
         self.title = title
         self.description = description
         self.image = image
         self.comments_enabled = comments_enabled
         self.votes_on = votes_on
+        self.attach = _attach
         self.save()
         # Добавляем теги с формы.
         if tags:
@@ -243,29 +252,12 @@ class Blog(models.Model):
     def is_closed(self):
         return self.type == self.CLOSED
 
-    def get_u_attach(self, user):
-        from common.attach.elect_new_attach import get_u_blog_attach
-        return get_u_blog_attach(self, user)
-
-    def get_attach_photos(self):
-        if "pho" in self.attach:
-            query = []
-            from gallery.models import Photo
-
-            for item in self.attach.split(","):
-                if item[:3] == "pho":
-                    query.append(item[3:])
-        return Photo.objects.filter(id__in=query)
-
-    def get_attach_videos(self):
-        if "vid" in self.attach:
-            query = []
-            from video.models import Video
-
-            for item in self.attach.split(","):
-                if item[:3] == "vid":
-                    query.append(item[3:])
-        return Video.objects.filter(id__in=query)
+    def get_count_attach(self):
+        if self.attach:
+            length = self.attach.split(",")
+            return "files_" + str(len(length))
+        else:
+            return "files_0"
 
     def send_like(self, user, community):
         import json
@@ -490,6 +482,30 @@ class ElectNew(models.Model):
             return "files_" + str(len(length))
         else:
             return "files_0"
+
+    def get_u_attach(self, user):
+        from common.attach.elect_new_attach import get_u_blog_attach
+        return get_u_blog_attach(self, user)
+
+    def get_attach_photos(self):
+        if "pho" in self.attach:
+            query = []
+            from gallery.models import Photo
+
+            for item in self.attach.split(","):
+                if item[:3] == "pho":
+                    query.append(item[3:])
+        return Photo.objects.filter(id__in=query)
+
+    def get_attach_videos(self):
+        if "vid" in self.attach:
+            query = []
+            from video.models import Video
+
+            for item in self.attach.split(","):
+                if item[:3] == "vid":
+                    query.append(item[3:])
+        return Video.objects.filter(id__in=query)
 
     @classmethod
     def create_suggested_new(cls, creator, title, description, elect, attach, category):

@@ -17,7 +17,7 @@ class BlogDetailView(ListView, CategoryListMixin):
 	def get(self,request,*args,**kwargs):
 		from common.templates import get_full_template
 
-		self.blog = Blog.objects.get(pk=self.kwargs["pk"]) 
+		self.blog = Blog.objects.get(pk=self.kwargs["pk"])
 		self.template_name = get_full_template("blog/detail/", "blog.html", request.user, request.META['HTTP_USER_AGENT'])
 		if request.user.is_authenticated:
 			if not BlogNumbers.objects.filter(user=request.user.pk, new=self.blog.pk).exists():
@@ -76,7 +76,7 @@ class BlogWindowDetailView(ListView, CategoryListMixin):
 			if not self.blog.slug in request.COOKIES:
 				from django.shortcuts import redirect
 
-				response = redirect('blog_detail', slug=self.blog.slug)
+				response = redirect('blog_detail', pk=self.blog.pk)
 				response.set_cookie(self.blog.slug, "blog_view")
 				if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
 					BlogNumbers.objects.create(user=0, new=self.blog.pk, platform=1)

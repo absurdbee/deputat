@@ -57,7 +57,7 @@
                       </div>
 
                         <div class="card-body">
-                          <div class="border">
+                          <div class="small border mb-2">
                               {% for region in object.get_regions %}
                                 <a target="_blank" href="/region/{{ region.slug }}/">{{ region.name }}</a>
                               {% endfor %}

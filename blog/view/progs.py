@@ -40,7 +40,7 @@ class BlogCreateView(TemplateView):
                     elect=request.POST.getlist("elect"),
                     attach=request.POST.getlist("attach_items")
                 )
-            return render_for_platform(request, 'blog/detail/blog.html',{'object': new_post})
+            return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()
@@ -90,7 +90,7 @@ class BlogEditView(TemplateView):
                     elect=request.POST.getlist("elect"),
                     attach=request.POST.getlist("attach_items")
                 )
-            return render_for_platform(request, 'blog/detail/blog.html',{'object': new_post})
+            return HttpResponse()
         else:
             from django.http import HttpResponseBadRequest
             return HttpResponseBadRequest()

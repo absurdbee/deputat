@@ -55,6 +55,9 @@
                                     <p class="card-text mb-2">
                                         {{ object.content|safe }}
                                     </p>
+                                    {% if object.attach %}
+                                      {{ object|get_attach:request.user|safe }}
+                                    {% endif %}
                                     <hr class="my-2">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="d-flex align-items-center">

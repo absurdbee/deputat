@@ -37,7 +37,8 @@ class BlogCreateView(TemplateView):
                     votes_on=post.votes_on,
                     tags=request.POST.getlist("tags"),
                     region=request.POST.getlist("region"),
-                    elect=request.POST.getlist("elect")
+                    elect=request.POST.getlist("elect"),
+                    attach=request.POST.getlist("attach_items")
                 )
             return render_for_platform(request, 'blog/detail/blog.html',{'object': new_post})
         else:
@@ -86,7 +87,8 @@ class BlogEditView(TemplateView):
                     tags=request.POST.getlist("tags"),
                     manager_id=request.user.pk,
                     region=request.POST.getlist("region"),
-                    elect=request.POST.getlist("elect")
+                    elect=request.POST.getlist("elect"),
+                    attach=request.POST.getlist("attach_items")
                 )
             return render_for_platform(request, 'blog/detail/blog.html',{'object': new_post})
         else:

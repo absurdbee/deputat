@@ -142,8 +142,8 @@ on('body', 'click', '.u_blog_photo', function() {
 });
 on('body', 'click', '.u_elect_new_photo', function() {
   photo_pk = this.getAttribute('photo-pk');
-  comment_pk = this.parentElement.parentElement.parentElement.getAttribute('data-pk');
-  create_fullscreen("/gallery/elect_new_photo/" + comment_pk + "/" + photo_pk + "/", "photo_fullscreen");
+  blog_pk = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute('data-pk');
+  create_fullscreen("/gallery/elect_new_photo/" + blog_pk + "/" + photo_pk + "/", "photo_fullscreen");
 });
 
 on('body', 'click', '.u_load_photo_list', function() {

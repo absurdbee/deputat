@@ -53,6 +53,10 @@ class Blog(models.Model):
         from common.attach.elect_new_attach import get_u_blog_attach
         return get_u_blog_attach(self, user)
 
+    def get_edit_attach(self, user):
+        from common.attach.elect_new_attach import get_elect_new_edit
+        return get_elect_new_edit(self, user)
+
     def get_description(self):
         import re
         _description = self.description[:180]

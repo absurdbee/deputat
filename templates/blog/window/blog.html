@@ -68,6 +68,9 @@
                             <p class="card-text mb-2">
                                 {{ object.description|safe }}
                             </p>
+                            {% if object.attach %}
+                              {{ object|get_attach:request.user|safe }}
+                            {% endif %}
                             {% for elect in object.get_elects %}
                               <a target="_blank" class="underline" href="{% url 'elect_detail' pk=elect.pk %}">
                                 {{ elect.name }}

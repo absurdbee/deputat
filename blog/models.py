@@ -57,6 +57,26 @@ class Blog(models.Model):
         from common.attach.elect_new_attach import get_elect_new_edit
         return get_elect_new_edit(self, user)
 
+    def get_attach_photos(self):
+        if "pho" in self.attach:
+            query = []
+            from gallery.models import Photo
+
+            for item in self.attach.split(","):
+                if item[:3] == "pho":
+                    query.append(item[3:])
+        return Photo.objects.filter(id__in=query)
+
+    def get_attach_videos(self):
+        if "vid" in self.attach:
+            query = []
+            from video.models import Video
+
+            for item in self.attach.split(","):
+                if item[:3] == "vid":
+                    query.append(item[3:])
+        return Video.objects.filter(id__in=query)
+
     def get_description(self):
         import re
         _description = self.description[:180]
@@ -490,26 +510,6 @@ class ElectNew(models.Model):
             return "files_" + str(len(length))
         else:
             return "files_0"
-
-    def get_attach_photos(self):
-        if "pho" in self.attach:
-            query = []
-            from gallery.models import Photo
-
-            for item in self.attach.split(","):
-                if item[:3] == "pho":
-                    query.append(item[3:])
-        return Photo.objects.filter(id__in=query)
-
-    def get_attach_videos(self):
-        if "vid" in self.attach:
-            query = []
-            from video.models import Video
-
-            for item in self.attach.split(","):
-                if item[:3] == "vid":
-                    query.append(item[3:])
-        return Video.objects.filter(id__in=query)
 
     @classmethod
     def create_suggested_new(cls, creator, title, description, elect, attach, category):

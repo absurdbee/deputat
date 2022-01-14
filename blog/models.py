@@ -49,6 +49,10 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+    def get_u_attach(self, user):
+        from common.attach.elect_new_attach import get_u_blog_attach
+        return get_u_blog_attach(self, user)
+
     def get_description(self):
         import re
         _description = self.description[:180]
@@ -482,10 +486,6 @@ class ElectNew(models.Model):
             return "files_" + str(len(length))
         else:
             return "files_0"
-
-    def get_u_attach(self, user):
-        from common.attach.elect_new_attach import get_u_blog_attach
-        return get_u_blog_attach(self, user)
 
     def get_attach_photos(self):
         if "pho" in self.attach:

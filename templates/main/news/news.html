@@ -7,6 +7,7 @@
 <meta property="og:description" content="Сайт «Служу Народу» – проект, призванный стать инструментом взаимодействия граждан и власти.Это проект сообщества, приверженного конкретным ценностям, без которых попросту невозможно нормальное общество." />
 <meta property="og:image" content="https://служународу.рус/static/images/elect_image.png" />
 {% endblock %}
+{% load filters %}
 {% block content %}
 
         <div class="content-wrapper row main-container">
@@ -47,7 +48,7 @@
             </div>
             <div class="content-body news_stream mt-1 is_paginate">
               {% for object in object_list %}
-              {% load filters %}{{ object.slug }}
+
               <div class="mb-1 p-1 card pag" data-pk="{{ object.pk }}">
                 <div class="d-flex justify-content-start align-items-center mb-1">
                   <div class="avatar mr-1">

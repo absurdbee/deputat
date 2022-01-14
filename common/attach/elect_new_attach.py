@@ -171,12 +171,12 @@ def get_u_elect_new_attach(comment, user):
             except:
                 pass
         elif item[:3] == "vid":
-            #try:
-            from video.models import Video
-            video = Video.objects.get(query, pk=item[3:])
-            block = ''.join([block, '<div class="row_item" style="position:relative" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
-            #except:
-            #    pass
+            try:
+                from video.models import Video
+                video = Video.objects.get(query, pk=item[3:])
+                block = ''.join([block, '<div class="row_item" style="position:relative" data-uuid="', str(video.get_list_uuid()), '"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_video_detail" video-pk="', str(video.pk), '"></div></div>'])
+            except:
+                pass
         elif item[:3] == "mus":
             try:
                 from music.models import Music

@@ -59,7 +59,7 @@
                       <span class="pointer elect_new_window">{{ object.title }}</span>
                       <span class="text-muted small">({{ object.get_created }})</span></h4>
                     <span class="small">
-                      {% for region in object.get_regions %}
+                      Ссылки: {% for region in object.get_regions %}
                         <a target="_blank" href="/region/{{ region.slug }}/">{{ region.name }}</a>
                       {% endfor %}
                       {% for name in object.get_manager_tags %}

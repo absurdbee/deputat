@@ -8,7 +8,7 @@ DEBUG = True
 
 #SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = ['xn--80aietlhndtbf.xn--p1acf', '176.99.3.37']
+ALLOWED_HOSTS = ['xn--80aietlhndtbf.xn--p1acf', '151.248.117.65']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

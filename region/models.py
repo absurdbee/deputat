@@ -38,59 +38,59 @@ class Region(models.Model):
 
 	def get_senators(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="senat")
+		return Elect.objects.filter(region=self, list__slug="senat", type='PUB')
 	def is_have_senators(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="senat").exists()
+		return Elect.objects.filter(region=self, list__slug="senat", type='PUB').exists()
 
 	def get_governors(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="governors")
+		return Elect.objects.filter(region=self, list__slug="governors", type='PUB')
 	def is_have_governors(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="governors").exists()
+		return Elect.objects.filter(region=self, list__slug="governors", type='PUB').exists()
 
 	def get_commissioner_child(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="commissioner_child")
+		return Elect.objects.filter(region=self, list__slug="commissioner_child", type='PUB')
 	def is_have_commissioner_child(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="commissioner_child").exists()
+		return Elect.objects.filter(region=self, list__slug="commissioner_child", type='PUB').exists()
 
 	def get_commissioner_human(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="commissioner_human")
+		return Elect.objects.filter(region=self, list__slug="commissioner_human", type='PUB')
 	def is_have_commissioner_human(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="commissioner_human").exists()
+		return Elect.objects.filter(region=self, list__slug="commissioner_human", type='PUB').exists()
 
 	def get_head_hinistry_health(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="head_hinistry_health")
+		return Elect.objects.filter(region=self, list__slug="head_hinistry_health", type='PUB')
 	def is_have_head_hinistry_health(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="head_hinistry_health").exists()
+		return Elect.objects.filter(region=self, list__slug="head_hinistry_health", type='PUB').exists()
 
 	def get_chapter_min_enlightenment(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="chapter_min_enlightenment")
+		return Elect.objects.filter(region=self, list__slug="chapter_min_enlightenment", type='PUB')
 	def is_have_chapter_min_enlightenment(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="chapter_min_enlightenment").exists()
+		return Elect.objects.filter(region=self, list__slug="chapter_min_enlightenment", type='PUB').exists()
 
 	def get_head_societies_chambers(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="head_societies_chambers")
+		return Elect.objects.filter(region=self, list__slug="head_societies_chambers", type='PUB')
 	def is_have_head_societies_chambers(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="head_societies_chambers").exists()
+		return Elect.objects.filter(region=self, list__slug="head_societies_chambers", type='PUB').exists()
 
 	def get_legislative_assembly(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="legislative_assembly")
+		return Elect.objects.filter(region=self, list__slug="legislative_assembly", type='PUB')
 	def is_have_legislative_assembly(self):
 		from elect.models import Elect
-		return Elect.objects.filter(region=self, list__slug="legislative_assembly").exists()
+		return Elect.objects.filter(region=self, list__slug="legislative_assembly", type='PUB').exists()
 
 	def get_gos_duma(self):
 		from elect.models import Elect

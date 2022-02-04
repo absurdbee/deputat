@@ -18,7 +18,7 @@
                 <h6>{{ item.name }}</h6>
                 <div style="display: flex;flex-wrap: wrap;">
                   {% for object in item.get_items %}
-                  <div class="progressive replace" data-href="{{ smile.image.url }}">
+                  <div class="progressive replace" data-href="{{ object.image.url }}">
                     <img class="preview pointer classic_{% if is_smile %}smile{% else %}sticker{% endif %}_item" data-pk="{{ object.pk }}" data-pk="/static/images/1px.png" style="width: auto;" src="{{ object.image.url }}" alt="smile">
                   </div>
                   {% endfor %}

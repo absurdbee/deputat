@@ -8,7 +8,7 @@ from users.views import AuthView, SignupView
 
 
 urlpatterns = [
-    #url(r'^admin__ok/', admin.site.urls),
+    url(r'^admin__ok/', admin.site.urls),
     url(r'^', include ('main.urls')),
 
     url(r'^blog_cat/', include('blog_cat.urls')),

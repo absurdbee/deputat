@@ -18,8 +18,9 @@
 }
 .classic_smile_item {
   max-height: 23px;
-  margin-right: 7px;
-  margin-bottom: 7px;
+  margin-right: 6px;
+  margin-bottom: 14px;
+  overflow: visible !important;
 }
 .icon_bottom_bar .active img{
   border-top: 1px solid grey;

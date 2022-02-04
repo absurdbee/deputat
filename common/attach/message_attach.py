@@ -8,7 +8,7 @@ def get_message_attach(message, user):
                 photo = Photo.objects.get(pk=item[3:])
                 if photo.type[0] == "_":
                     pass
-                block = ''.join([block, '<div class="photo col-md-4" chat-pk="', str(message.chat.pk), '"><div class="progressive replace chat_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
+                block = ''.join([block, '<div class="col-md-4" chat-pk="', str(message.chat.pk), '"><div class="progressive replace chat_photo pointer" data-href="', photo.file.url, '" photo-pk="', str(photo.pk), '"><img class="preview image_fit" width="20" height="15" loading="lazy" src="', photo.preview.url,'" alt="img"></div></div>'])
             except:
                 pass
         elif item[:3] == "vid":
@@ -18,9 +18,9 @@ def get_message_attach(message, user):
                 if video.type[0] == "_":
                     pass
                 if video.community:
-                    block = ''.join([block, '<div class="video col-md-4"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 c_message_video" video-pk="', str(video.pk), '" video-counter="0"></div></div>'])
+                    block = ''.join([block, '<div class="col-md-4"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 c_message_video" video-pk="', str(video.pk), '" video-counter="0"></div></div>'])
                 else:
-                    block = ''.join([block, '<div class="video col-md-4"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_message_video" video-pk="', str(video.pk), '" video-counter="0"></div></div>'])
+                    block = ''.join([block, '<div class="col-md-4"><img class="image_fit" src="', video.image.url, '" alt="img"><div class="video_icon_play_v2 u_message_video" video-pk="', str(video.pk), '" video-counter="0"></div></div>'])
             except:
                 pass
         elif item[:3] == "mus":

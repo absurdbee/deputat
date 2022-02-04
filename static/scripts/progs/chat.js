@@ -834,7 +834,7 @@ on('#ajax', 'input', '.smile_supported', function() {
         setTimeout(function(){
           form = _this.parentElement.parentElement;
           send_draft_message (form, "/chat/user_progs/save_draft_message/" + form.parentElement.parentElement.parentElement.getAttribute("chat-pk") + "/");
-      }, 1000)
+      }, 2000)
     }
   };
 });

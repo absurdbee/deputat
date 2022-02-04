@@ -847,7 +847,7 @@ on('#ajax', 'click', '.show_chat_fixed_messages', function() {
 on('#ajax', 'click', '.classic_smile_item', function() {
   input = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".smile_supported");
   $img = document.createElement("img");
-  $img.src = this.getAttribute("src");
+  $img.src = this.getAttribute("data-href");
   input.append($img);
   if (document.body.querySelector(".chatlist")) {
   show_message_form_send_btn()

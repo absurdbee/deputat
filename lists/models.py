@@ -45,7 +45,7 @@ class AuthorityList(models.Model):
 
 	def get_elects(self):
 		from elect.models import Elect
-		return Elect.objects.filter(list=self)
+		return Elect.objects.filter(list=self, type='PUB')
 
 	def get_elects_10(self):
 		from elect.models import Elect
@@ -103,7 +103,7 @@ class Fraction(models.Model):
 
 	def get_elects(self):
 		from elect.models import Elect
-		return Elect.objects.filter(fraction=self)
+		return Elect.objects.filter(fraction=self, type='PUB')
 
 
 class MediaList(models.Model):

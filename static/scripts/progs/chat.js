@@ -261,7 +261,7 @@ async function get_record_stream() {
        smile_supported.innerHTML = "";
        smile_supported.style.display = "none";
        smile_supported.setAttribute("contenteditable", "true");
-       form.querySelector('#my_audio').style.display = "block";
+       form.querySelector('.plyr').style.display = "block";
        form.querySelector('.delete_voice_btn').style.display = "block";
        form.querySelector('.mic_visual_canvas').style.display = "none";
        form.querySelector('.voice_stop_btn').style.display = "none";
@@ -282,7 +282,7 @@ async function get_record_stream() {
    smile_supported.innerHTML = "";
    smile_supported.style.display = "none";
    smile_supported.setAttribute("contenteditable", "true");
-   form.querySelector('#my_audio').style.display = "block";
+   form.querySelector('.plyr').style.display = "block";
    form.querySelector('.delete_voice_btn').style.display = "block";
    form.querySelector('.mic_visual_canvas').style.display = "none";
    form.querySelector('.voice_stop_btn').style.display = "none";

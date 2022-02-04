@@ -41,6 +41,7 @@ on('#ajax', 'click', '.m_select_doc', function() {
 });
 
 async function get_record_stream() {
+  console.log("get_record_stream!")
   if (!document.body.querySelector(".mic_visual_canvas")) {
     return
   };
@@ -1207,7 +1208,6 @@ on('#ajax', 'click', '.chat_ajax', function(e) {
         if (document.body.querySelector(".left_panel_menu")) {
           setEndOfContenteditable(document.body.querySelector(".message_text"));
         };
-        get_record_stream();
         init_music(rtr);
         }
       }

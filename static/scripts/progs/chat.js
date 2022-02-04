@@ -168,7 +168,6 @@ async function get_record_stream() {
     console.log('Stop');
     recording = false;
     document.body.querySelector('.user_typed_box').style.visibility = 'hidden';
-    TIMER_VALUE = 0;
     let leftBuffer = mergeBuffers ( leftchannel, recordingLength );
     let rightBuffer = mergeBuffers ( rightchannel, recordingLength );
     let interleaved = interleave ( leftBuffer, rightBuffer );
@@ -200,6 +199,7 @@ async function get_record_stream() {
     console.log('URL ', audioUrl);
     document.querySelector('#my_audio').setAttribute('src', audioUrl);
     CURRENT_BLOB = blob;
+    TIMER_VALUE = 0;
   }
 
   function visualize() {
@@ -277,6 +277,7 @@ async function get_record_stream() {
 
   on('#ajax', 'click', '#voice_start_btn', function() {
       console.log('Start recording');
+      get_record_stream();
       form = this.parentElement.parentElement;
       form.querySelector('.delete_voice_btn').style.display = "block";
       form.querySelector('.file_dropdown_2').style.display = "none";
@@ -363,8 +364,6 @@ async function get_record_stream() {
   });
 
 };
-
-get_record_stream();
 
 function send_message (form_post, url) {
     text_val = form_post.querySelector(".smile_supported");

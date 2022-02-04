@@ -301,83 +301,53 @@ async function get_record_stream() {
  });
 
  on('#ajax', 'click', '#voice_post_btn', function() {
-   stop();
-   clearInterval(voice_timer);
-   is_voise_sender_open = false;
-   form_post = this.parentElement.parentElement.parentElement;
-   form_post.querySelector('#voice_start_btn').style.display = "block";
-   form_post.querySelector('#voice_post_btn').style.display = "none";
+    stop();
+    form_post = this.parentElement.parentElement.parentElement;
+    form_data = new FormData(form_post);
+    form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
+    form_data.append("text", "voice");
 
-   remove_voice_console(form_post);
-   if (document.body.querySelector(".chat_container")) {
-     window.scrollTo({
-       top: document.body.querySelector(".chat_container").scrollHeight,
-       behavior: "smooth"
-     })
-   };
-   new_post = document.createElement("div");
-   new_post.classList.add("message", "new_message", "t_f", "pointer", "media", "p-1", "bg-light-secondary");
+    message_load = form_post.parentElement.parentElement.parentElement.querySelector(".chatlist");
+    pk = document.body.querySelector(".pk_saver").getAttribute("chat-pk");
 
-   user = document.body.querySelector(".userpic");
-   link = user.getAttribute("data-pk");
-   if (user.querySelector("img")) {
-     src = user.querySelector("img").getAttribute("src");
-     img = '<img style="border-radius:40px;width:40px;" src="' + src + '" />'
-   } else {
-     img = '<svg fill="currentColor" class="svg_default svg_default_30" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>'
-   };
+    link_ = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
+    link_.open( 'POST', "/chat/user_progs/send_message/" + pk + "/", true );
+    link_.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-   figure = document.createElement("figure");
-   figure.innerHTML = '<a href="' + link + '" class="ajax no_select">' + img + '</a>';
-   media_body = document.createElement("div");
-   media_body.classList.add("media-body", "t_f");
-   media_body.innerHTML = '<h5 class="time-title mb-0"><a href="' + link + '" class="ajax creator_link"><span class="creator_name">' + user.getAttribute("data-name") + '</span></a><span class="favourite_icon"><svg width="18" height="18" fill="currentColor" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span><small class="float-right small text-muted get_created t_f">Сейчас</small></h5><audio controls class="audio" src="' + URL.createObjectURL(CURRENT_BLOB) + '"></audio>';
-   new_post.append(figure);
-   new_post.append(media_body);
+    link_.onreadystatechange = function () {
+    if ( this.readyState == 4 && this.status == 200 ) {
 
-   message_load = form_post.parentElement.parentElement.parentElement.querySelector(".chatlist");
-   message_load.append(new_post);
-   message_load.querySelector(".items_empty") ? message_load.querySelector(".items_empty").style.display = "none" : null;
-   if (document.querySelector(".chat_container")) {
-     window.scrollTo({
-       top: 12000,
-       behavior: "smooth"
-     })
-   };
+      form.querySelector('#voice_start_btn').style.display = "block";
+      form.querySelector('#voice_post_btn').style.display = "none";
+      elem = link_.responseText;
+      new_post = document.createElement("span");
+      new_post.innerHTML = elem;
+      message_load.append(new_post);
 
-   message_text = form_post.querySelector(".message_text");
-   message_text.classList.remove("border_red");
-   message_text.setAttribute("contenteditable", "true");
-   message_text.innerHTML = "";
-   form_post.querySelector("#my_audio").setAttribute("name", "no_voice");
+      message_load.querySelector(".items_empty") ? message_load.querySelector(".items_empty").style.display = "none" : null;
 
-   form_post.querySelector(".hide_block_menu").classList.remove("show");
-   form_post.querySelector(".message_dropdown").classList.remove("border_red");
+      message_text = form_post.querySelector(".message_text");
+      message_text.classList.remove("border_red");
+      message_text.setAttribute("contenteditable", "true");
+      message_text.innerHTML = "";
+      form_post.querySelector("#my_audio").setAttribute("name", "no_voice");
 
-   form_data = new FormData(form_post);
-   form_data.append("voice", CURRENT_BLOB, 'fileName.wav');
-   form_data.append("time", new Date().toLocaleString());
+      form_post.querySelector(".hide_block_menu").classList.remove("show");
+      form_post.querySelector(".message_dropdown").classList.remove("border_red");
+      try{form_post.querySelector(".parent_message_block").remove()}catch{null};
 
-   pk = document.body.querySelector(".pk_saver").getAttribute("chat-pk");
-
-   link_2 = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
-   link_2.open( 'POST', "/chat/user_progs/send_voice_message/" + pk + "/", true );
-   link_2.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-   link_2.onreadystatechange = function () {
-   if ( this.readyState == 4 && this.status == 200 ) {
-     jsonResponse = JSON.parse(link_2.responseText);
-     uuid = jsonResponse.uuid;
-     message = message_load.querySelector(".new_message");
-     message.setAttribute("data-pk", uuid);
-     message.setAttribute("data-uuid", uuid);
-     message.classList.add("toggle_message", "is_have_edited");
-     message.classList.remove("new_message");
-     message.querySelector(".favourite_icon").innerHTML = "";
-     CURRENT_BLOB = null;
-   }};
-   link_2.send(form_data);
- });
+      CURRENT_BLOB = null;
+      init_music(new_post);
+      remove_voice_console(form_post)
+      if (document.body.querySelector(".chat_container")) {
+        window.scrollTo({
+          top: document.body.querySelector(".chat_container").scrollHeight,
+          behavior: "smooth"
+        })
+      };
+    }};
+    link_.send(form_data);
+  });
  start();
 };
 

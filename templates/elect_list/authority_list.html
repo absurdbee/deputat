@@ -26,7 +26,11 @@
       </div>
     </div>
   </div>
-      <div class="row pt-0 is_paginate">
+  <div class="input-group mb-1 mt-1">
+    <input type="text" value="" class="form-control real_time_search authority_search" placeholder="Поиск по списку">
+  </div>
+  <div class="search_container"></div>
+      <div class="row pt-0 is_paginate normal_list">
         {% for object in object_list %}
           {% include 'elect/elect_index_card.html' %}
 

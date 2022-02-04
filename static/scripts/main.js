@@ -115,7 +115,7 @@ on('body', 'input', '.real_time_search', function() {
   if (_this.classList.contains("region_search")) {
 	   url = "/region/search_elects/" + parent.parentElement.getAttribute("data-pk") + "/"
    } else if (_this.classList.contains("authority_search")) {
-	   url = "/lists/search_authority/" + parent.parentElement.getAttribute("data-pk") + "/"
+	   url = "/lists/search_authority/" + parent.parentElement.getAttribute("data-slug") + "/"
   };
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

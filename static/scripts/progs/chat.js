@@ -381,6 +381,21 @@ async function get_record_stream() {
  start();
 };
 
+on('#ajax', 'click', '#voice_start_btn', function() {
+    get_record_stream();
+    console.log('Start recording');
+    form = this.parentElement.parentElement;
+    form.querySelector('.delete_voice_btn').style.display = "block";
+    form.querySelector('.file_dropdown_2').style.display = "none";
+    form.querySelector('.form_smilies').style.display = "none";
+    form.parentElement.querySelector('.mic_visual_canvas').style.display = "block";
+    form.querySelector('.voice_stop_btn').style.display = "block";
+
+    form.querySelector('#voice_start_btn').style.display = "none";
+    form.querySelector('#voice_post_btn').style.display = "block";
+    form.querySelector("#my_audio").setAttribute("name", "voice");
+  });
+
 function send_message (form_post, url) {
     text_val = form_post.querySelector(".smile_supported");
     _val = format_text(text_val);

@@ -106,16 +106,17 @@ on('body', 'keydown', '.search-control', function(e) {
 
 on('body', 'input', '.real_time_search', function() {
   _this = this, is_region = false;
+  parent = _this.parentElement;
+  if (this.value.trim() == "") {
+    parent.nextElementSibling.nextElementSibling.style.display = "block";
+    parent.nextElementSibling.innerHTML = "";
+    return
+  };
   if (_this.classList.contains("region_search")) {
-    parent = _this.parentElement;
-    if (this.value.trim() == "") {
-      parent.nextElementSibling.nextElementSibling.style.display = "block";
-      parent.nextElementSibling.innerHTML = "";
-      return
-    };
-		url = "/region/search_elects/" + parent.parentElement.getAttribute("data-pk") + "/";
-    is_region = true;
-	};
+	   url = "/region/search_elects/" + parent.parentElement.getAttribute("data-pk") + "/"
+   } else if (_this.classList.contains("authority_search")) {
+	   url = "/lists/search_authority/" + parent.parentElement.getAttribute("data-pk") + "/"
+  };
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );
   link.open( 'GET', url + "?q=" + _this.value, true );
@@ -125,11 +126,8 @@ on('body', 'input', '.real_time_search', function() {
 				if ( link.status == 200 ) {
           elem_ = document.createElement("span")
 					elem_.innerHTML = link.responseText;
-
-          if (is_region) {
-            parent.nextElementSibling.nextElementSibling.style.display = "none";
-            parent.nextElementSibling.innerHTML = elem_.innerHTML
-          }
+          parent.nextElementSibling.nextElementSibling.style.display = "none";
+          parent.nextElementSibling.innerHTML = elem_.innerHTML
 				}
 		}
   };

@@ -11,7 +11,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['xn--80aietlhndtbf.xn--p1acf', '151.248.117.65']
 
 INSTALLED_APPS = [
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

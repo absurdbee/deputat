@@ -1198,10 +1198,11 @@ on('#ajax', 'click', '.chat_ajax', function(e) {
         chats = document.body.querySelector(".new_unread_chats");
 
         if (chats.querySelector(".badge").innerHTML && _this.querySelector(".tab_badge")) {
-          all_count = chats.querySelector(".badge").innerHTML.replace(/\s+/g, '');
+          badge = chats.querySelector(".badge");
+          all_count = badge.innerHTML.replace(/\s+/g, '');
           all_count = all_count * 1;
           result = all_count - 1;
-          result > 0 ? all_count.innerHTML = result : all_count.innerHTML = '';
+          result > 0 ? badge.innerHTML = result : badge.innerHTML = '';
           console.log("Вычитаем 1, так как в чате есть непрочитанные сообщения")
         };
         if (document.body.querySelector(".left_panel_menu")) {

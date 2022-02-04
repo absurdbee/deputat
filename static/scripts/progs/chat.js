@@ -275,7 +275,7 @@ async function get_record_stream() {
     --TIMER_VALUE;
   }, 1000);
 
-  on('#ajax', 'click', '#voice_start_btn', function() {
+  on('body', 'click', '#voice_start_btn', function() {
       console.log('Start recording');
       get_record_stream();
       form = this.parentElement.parentElement;

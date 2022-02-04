@@ -42,9 +42,6 @@ on('#ajax', 'click', '.m_select_doc', function() {
 
 async function get_record_stream() {
   console.log("get_record_stream!")
-  if (!document.body.querySelector(".mic_visual_canvas")) {
-    return
-  };
   let leftchannel = [];
   let rightchannel = [];
   let recorder = null;

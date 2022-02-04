@@ -27,6 +27,27 @@ class AuthorityListView(ListView, CategoryListMixin):
 		return context
 
 
+class SearchElectsAuthority(TemplateView):
+	template_name = None
+
+	def get(self,request,*args,**kwargs):
+		from elect.models import Elect
+
+		self.list = AuthorityList.objects.get(slug=self.kwargs["slug"])
+		self.template_name = get_full_template("region/load/", "search_elects.html", request.user, request.META['HTTP_USER_AGENT'])
+		self.q = request.GET.get('q')
+		if self.q:
+			self.list = Elect.objects.filter(list=self.list, name__icontains=self.q, type='PUB')
+		else:
+			self.list = []
+		return super(SearchElectsAuthority,self).get(request,*args,**kwargs)
+
+	def get_context_data(self,**kwargs):
+		context = super(SearchElectsAuthority,self).get_context_data(**kwargs)
+		context["list"] = self.list
+		context["q"] = self.q
+		return context
+
 class RegionAuthorityListView(ListView, CategoryListMixin):
 	template_name, paginate_by, districts, okrug = None, 20, None, None
 

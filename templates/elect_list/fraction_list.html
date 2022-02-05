@@ -2,7 +2,7 @@
 {% block title %}Фракция Госдумы | {% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}{% endblock %}
 {% block content %}
 
-<section class="container pt-sm-5 pb-4 main-container">
+<section class="container pt-sm-5 pb-4 main-container" data-slug="{{ list.slug }}">
       <h2 class="h3 text-sm-left m-0">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</h2>
       <div class="input-group mb-1 mt-1">
         <input type="text" value="" class="form-control real_time_search fraction_search" placeholder="Поиск по фракции">

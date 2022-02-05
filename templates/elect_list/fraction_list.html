@@ -4,7 +4,11 @@
 
 <section class="container pt-sm-5 pb-4 main-container">
       <h2 class="h3 text-sm-left m-0">{% if list.category %}{{ list.category.name }} {% endif %}{{ list.name }}</h2>
-      <div class="row pt-0 is_paginate">
+      <div class="input-group mb-1 mt-1">
+        <input type="text" value="" class="form-control real_time_search fraction_search" placeholder="Поиск по фракции">
+      </div>
+      <div class="search_container"></div>
+      <div class="row pt-0 is_paginate normal_list">
         {% for object in object_list %}
           {% include 'elect/elect_index_card.html' %}
 

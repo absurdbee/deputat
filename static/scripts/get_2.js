@@ -50,7 +50,7 @@ loadScripts('/static/scripts/functions/comment_attach.js?ver4');
 loadScripts('/static/scripts/functions/message_attach.js?ver4');
 loadScripts('/static/scripts/functions/elect_new_attach.js?ver1');
 loadScripts('/static/scripts/functions/preview.js?ver4');
-loadScripts('/static/scripts/main.js?ver8');
+loadScripts('/static/scripts/main.js?ver9');
 loadScripts('/static/scripts/progs/blog.js?ver2');
 loadScripts('/static/scripts/progs/elect.js?ver2');
 loadScripts('/static/scripts/progs/user.js');

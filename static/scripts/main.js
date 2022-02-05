@@ -116,6 +116,8 @@ on('body', 'input', '.real_time_search', function() {
 	   url = "/region/search_elects/" + parent.parentElement.getAttribute("data-pk") + "/"
    } else if (_this.classList.contains("authority_search")) {
 	   url = "/list/search_authority/" + parent.parentElement.getAttribute("data-slug") + "/"
+  } else if (_this.classList.contains("fraction_search")) {
+    url = "/list/search_fraction/" + parent.parentElement.getAttribute("data-slug") + "/"
   };
 
   var link = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject( 'Microsoft.XMLHTTP' );

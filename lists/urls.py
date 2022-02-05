@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^authority_region/(?P<slug>[\w\-]+)/(?P<pk>\d+)/$', RegionAuthorityListView.as_view()),
     url(r'^fraction/(?P<slug>[\w\-]+)/$', FractionList.as_view(), name='fraction_index'),
 
-    #url(r'^search_fraction/(?P<slug>[\w\-]+)/$', SearchElectsFraction.as_view()),
+    url(r'^search_fraction/(?P<slug>[\w\-]+)/$', SearchElectsFraction.as_view()),
     url(r'^search_authority/(?P<slug>[\w\-]+)/$', SearchElectsAuthority.as_view()),
 ]

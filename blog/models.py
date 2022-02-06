@@ -19,7 +19,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
     image = ProcessedImageField(format='JPEG', blank=True, options={'quality': 90}, upload_to="blog/%Y/%m/%d/", processors=[ResizeToFit(width=1600, upscale=False)], verbose_name="Главное изображение")
     created = models.DateTimeField(auto_now_add=True, auto_now=False, verbose_name="Создан")
-    description = models.CharField(max_length=500, blank=True, verbose_name="Описание")
+    description = models.CharField(max_length=6000, blank=True, verbose_name="Описание")
     content = RichTextUploadingField(config_name='default',)
     comments_enabled = models.BooleanField(default=True, verbose_name="Разрешить комментарии")
     votes_on = models.BooleanField(default=True, verbose_name="Реакции разрешены")

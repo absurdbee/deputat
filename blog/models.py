@@ -49,6 +49,28 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+    def get_format_description(self):
+        import re
+
+        http = re.findall(r'https?://[\S]+', self.description)
+        _text = self.description
+        t1, t2, t3, t4, t5, t6 ,t7 = _text, "", "", "", "", "", ""
+        _loop = [t1,t2,t3,t4,t5,t6,t7]
+
+        if http:
+            this = -1
+            next = 0
+            for p in http:
+                this += 1
+                next += 1
+                if "служународу.рус" in p:
+                    _loop[next] = _loop[this].replace(p, '<a class="ajax underline" href="' + p + '">' + p + '</a>')
+                else:
+                    _loop[next] = _loop[this].replace(p, '<a class="underline" target="_blank" href="' + p + '">' + p + '</a>')
+            return _loop[next]
+        else:
+            return _text
+
     def get_u_attach(self, user):
         from common.attach.elect_new_attach import get_u_blog_attach
         return get_u_blog_attach(self, user)
